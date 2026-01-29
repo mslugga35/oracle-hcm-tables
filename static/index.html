@@ -795,6 +795,92 @@
       color: var(--text-muted);
     }
 
+    /* Pay What You Want Box */
+    .pwyw-box {
+      margin: 1.5rem 0;
+    }
+
+    .pwyw-label {
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      text-align: left;
+    }
+
+    .pwyw-input-wrap {
+      display: flex;
+      align-items: center;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 0 1rem;
+      margin-bottom: 0.75rem;
+      transition: border-color 0.2s;
+    }
+
+    .pwyw-input-wrap:focus-within {
+      border-color: var(--text-muted);
+    }
+
+    .pwyw-currency {
+      color: var(--text-muted);
+      font-size: 1.1rem;
+      font-weight: 500;
+    }
+
+    .pwyw-input {
+      flex: 1;
+      padding: 1rem 0.75rem;
+      background: transparent;
+      border: none;
+      color: var(--text-primary);
+      font-size: 1.1rem;
+      font-family: var(--font-sans);
+      text-align: center;
+      -moz-appearance: textfield;
+    }
+
+    .pwyw-input::-webkit-outer-spin-button,
+    .pwyw-input::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+
+    .pwyw-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .pwyw-input:focus {
+      outline: none;
+    }
+
+    .pwyw-usd {
+      color: var(--text-muted);
+      font-size: 0.9rem;
+      font-weight: 500;
+    }
+
+    .pwyw-btn {
+      width: 100%;
+      padding: 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .pwyw-btn:hover {
+      background: var(--bg-primary);
+      border-color: var(--text-muted);
+    }
+
     /* Support Section */
     .support-section {
       padding: 4rem 1.5rem;
@@ -948,10 +1034,15 @@
       <h2>You've used your 3 free searches</h2>
       <p>Support this project to unlock unlimited access. Pay what you want - minimum $1.50.</p>
 
-      <a href="https://buy.stripe.com/PLACEHOLDER" target="_blank" class="paywall-btn">
-        Unlock Unlimited Access
-      </a>
-      <p class="paywall-subtext">Pay what you want • $1.50 minimum</p>
+      <div class="pwyw-box">
+        <div class="pwyw-label">MINIMUM $1.50</div>
+        <div class="pwyw-input-wrap">
+          <span class="pwyw-currency">$</span>
+          <input type="number" id="pwyw-amount" class="pwyw-input" placeholder="Enter amount" min="1.50" step="0.50" value="3.00" />
+          <span class="pwyw-usd">USD</span>
+        </div>
+        <button class="pwyw-btn" onclick="processPayment()">CONTINUE</button>
+      </div>
 
       <div class="paywall-divider">
         <span>Already paid?</span>
@@ -1065,7 +1156,7 @@
         <div class="support-icon">☕</div>
         <h2 class="support-title">Find this useful?</h2>
         <p class="support-desc">This tool is free forever. If it saved you time, consider buying me a coffee.</p>
-        <a href="https://buy.stripe.com/PLACEHOLDER" target="_blank" rel="noopener" class="support-btn" id="support-btn">
+        <a href="https://buy.stripe.com/3cI4gA05G3vidHa8XU3Ru00" target="_blank" rel="noopener" class="support-btn" id="support-btn">
           Support This Project
         </a>
         <p class="support-note">Pay what you want • $1.50 minimum</p>
@@ -1248,7 +1339,9 @@
     });
 
     // === PAYWALL LOGIC ===
-    const STRIPE_LINK = 'https://buy.stripe.com/PLACEHOLDER'; // Replace with your Stripe link
+    // Create this in Stripe: Payment Link with "Customer chooses price", min $1.50
+    // After payment redirect to: https://hcm-tables.com/?unlocked=ORACLE2024
+    const STRIPE_LINK = 'https://buy.stripe.com/3cI4gA05G3vidHa8XU3Ru00';
     const FREE_SEARCHES = 3;
 
     function getSearchCount() {
@@ -1336,8 +1429,31 @@
       _originalSearchTable(name);
     };
 
+    // Process payment - redirect to Stripe
+    function processPayment() {
+      const amount = parseFloat(document.getElementById('pwyw-amount').value);
+      if (isNaN(amount) || amount < 1.50) {
+        alert('Minimum amount is $1.50');
+        return;
+      }
+      window.open(STRIPE_LINK, '_blank');
+    }
+
+    // Auto-unlock from redirect URL
+    function checkUnlockParam() {
+      const params = new URLSearchParams(window.location.search);
+      const code = params.get('unlocked');
+      if (code === 'ORACLE2024' || code === 'HCMTABLES') {
+        localStorage.setItem('hcm_unlocked', 'true');
+        // Clean URL
+        window.history.replaceState({}, '', window.location.pathname);
+        alert('🎉 Access unlocked! Thank you for your support.');
+      }
+    }
+
     // Init counter on load
     setTimeout(updateSearchCounter, 100);
+    checkUnlockParam();
 
     init();
   </script>
