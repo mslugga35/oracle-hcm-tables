@@ -645,6 +645,156 @@
       font-size: 0.9rem;
     }
 
+    /* Paywall Modal */
+    .paywall-modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.85);
+      backdrop-filter: blur(8px);
+      z-index: 1000;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .paywall-modal.active {
+      display: flex;
+    }
+
+    .paywall-content {
+      position: relative;
+      max-width: 440px;
+      margin: 1rem;
+      padding: 2.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .paywall-close {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      width: 32px;
+      height: 32px;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 50%;
+      color: var(--text-muted);
+      font-size: 1.25rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .paywall-close:hover {
+      background: var(--bg-primary);
+      color: var(--text-primary);
+    }
+
+    .paywall-icon {
+      font-size: 3rem;
+      margin-bottom: 1rem;
+    }
+
+    .paywall-content h2 {
+      font-size: 1.4rem;
+      margin-bottom: 0.75rem;
+    }
+
+    .paywall-content > p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
+    }
+
+    .paywall-btn {
+      display: block;
+      width: 100%;
+      padding: 1rem;
+      background: linear-gradient(135deg, var(--accent) 0%, oklch(0.58 0.2 40) 100%);
+      color: white;
+      font-size: 1.1rem;
+      font-weight: 600;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .paywall-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+    }
+
+    .paywall-subtext {
+      margin-top: 0.75rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .paywall-divider {
+      display: flex;
+      align-items: center;
+      margin: 1.5rem 0;
+      color: var(--text-muted);
+      font-size: 0.85rem;
+    }
+
+    .paywall-divider::before,
+    .paywall-divider::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--border);
+    }
+
+    .paywall-divider span {
+      padding: 0 1rem;
+    }
+
+    .paywall-code-form {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    .paywall-code-form input {
+      flex: 1;
+      padding: 0.75rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+    }
+
+    .paywall-code-form input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .paywall-code-form button {
+      padding: 0.75rem 1.25rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-primary);
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .paywall-code-form button:hover {
+      background: var(--bg-primary);
+      border-color: var(--text-muted);
+    }
+
+    .paywall-note {
+      margin-top: 0.75rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
     /* Support Section */
     .support-section {
       padding: 4rem 1.5rem;
@@ -785,9 +935,35 @@
           </button>
         </div>
         <p class="search-hint">Try <code>PER_ALL_PEOPLE_F</code> or <code>PERSON_ID</code></p>
+        <p id="search-counter" style="margin-top:0.5rem;font-size:0.85rem"></p>
       </div>
     </div>
   </section>
+
+  <!-- Paywall Modal -->
+  <div id="paywall-modal" class="paywall-modal">
+    <div class="paywall-content">
+      <button class="paywall-close" onclick="closePaywall()">&times;</button>
+      <div class="paywall-icon">🔒</div>
+      <h2>You've used your 3 free searches</h2>
+      <p>Support this project to unlock unlimited access. Pay what you want - minimum $1.50.</p>
+
+      <a href="https://buy.stripe.com/PLACEHOLDER" target="_blank" class="paywall-btn">
+        Unlock Unlimited Access
+      </a>
+      <p class="paywall-subtext">Pay what you want • $1.50 minimum</p>
+
+      <div class="paywall-divider">
+        <span>Already paid?</span>
+      </div>
+
+      <div class="paywall-code-form">
+        <input type="text" id="unlock-code" placeholder="Enter unlock code" />
+        <button onclick="unlockAccess()">Unlock</button>
+      </div>
+      <p class="paywall-note">You'll receive an unlock code after payment</p>
+    </div>
+  </div>
 
   <!-- Stats -->
   <section class="stats-section">
@@ -1070,7 +1246,99 @@
     document.getElementById('search').addEventListener('keypress', e => {
       if (e.key === 'Enter') doSearch();
     });
-    
+
+    // === PAYWALL LOGIC ===
+    const STRIPE_LINK = 'https://buy.stripe.com/PLACEHOLDER'; // Replace with your Stripe link
+    const FREE_SEARCHES = 3;
+
+    function getSearchCount() {
+      return parseInt(localStorage.getItem('hcm_searches') || '0');
+    }
+
+    function incrementSearch() {
+      const count = getSearchCount() + 1;
+      localStorage.setItem('hcm_searches', count.toString());
+      updateSearchCounter();
+      return count;
+    }
+
+    function hasUnlockedAccess() {
+      return localStorage.getItem('hcm_unlocked') === 'true';
+    }
+
+    function updateSearchCounter() {
+      const counter = document.getElementById('search-counter');
+      if (hasUnlockedAccess()) {
+        counter.style.display = 'none';
+        return;
+      }
+      const remaining = Math.max(0, FREE_SEARCHES - getSearchCount());
+      if (remaining > 0) {
+        counter.innerHTML = `<span style="color:var(--text-muted)">${remaining} free search${remaining !== 1 ? 'es' : ''} remaining</span>`;
+      } else {
+        counter.innerHTML = `<span style="color:var(--accent)">Free searches used</span>`;
+      }
+    }
+
+    function showPaywall() {
+      document.getElementById('paywall-modal').classList.add('active');
+    }
+
+    function closePaywall() {
+      document.getElementById('paywall-modal').classList.remove('active');
+    }
+
+    function unlockAccess() {
+      const code = document.getElementById('unlock-code').value.trim().toUpperCase();
+      if (code === 'ORACLE2024' || code === 'HCMTABLES') { // Simple unlock codes
+        localStorage.setItem('hcm_unlocked', 'true');
+        closePaywall();
+        updateSearchCounter();
+        alert('Access unlocked! Enjoy unlimited searches.');
+      } else {
+        alert('Invalid code. Please complete payment to get your unlock code.');
+      }
+    }
+
+    // Wrap original doSearch
+    const _originalSearch = doSearch;
+    doSearch = function() {
+      if (hasUnlockedAccess()) {
+        _originalSearch();
+        return;
+      }
+
+      const count = getSearchCount();
+      if (count >= FREE_SEARCHES) {
+        showPaywall();
+        return;
+      }
+
+      incrementSearch();
+      _originalSearch();
+    };
+
+    // Wrap searchTable too
+    const _originalSearchTable = searchTable;
+    searchTable = function(name) {
+      if (hasUnlockedAccess()) {
+        _originalSearchTable(name);
+        return;
+      }
+
+      const count = getSearchCount();
+      if (count >= FREE_SEARCHES) {
+        showPaywall();
+        return;
+      }
+
+      incrementSearch();
+      _originalSearchTable(name);
+    };
+
+    // Init counter on load
+    setTimeout(updateSearchCounter, 100);
+
     init();
   </script>
 </body>
