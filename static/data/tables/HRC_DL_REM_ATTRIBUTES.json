@@ -1,0 +1,121 @@
+{
+  "id": 6897,
+  "name": "HRC_DL_REM_ATTRIBUTES",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ATTRIBUTE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Primary Key",
+      "column_order": 1
+    },
+    {
+      "name": "BUSINESS_OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "BUSINESS_OBJECT_ID",
+      "column_order": 2
+    },
+    {
+      "name": "ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "FK to HRC_DL_REM_ENTITIES",
+      "column_order": 3
+    },
+    {
+      "name": "ATTRIBUTE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Attribute Name from the HDL supported View Object",
+      "column_order": 4
+    },
+    {
+      "name": "ATTR_LOOKUPTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Allowed Attribute Types. \n\nUPDATE  - Only be UPDATED\nUPDATE_DELETE - Can be NULLIFIED (or) Updated with standard values.\n\nValues for few attributes can be UPDATED (or) REMOVED completely. \n\n\nHowever, few can only be UPDATED. For example, SalaryAmount in Salary Business Object. We cannot nullify the field. Hence, default value has to be provided always.\n\n\n\nFollowing can be configured by customer.\n\nUPDATE      - can be updated by the customer. Will have a DEFAULT Value\nDELETE       - #NULL\n\nNon-configurable by customer and hidden from the UI.\n\nCONSTANT -  Takes the fixed DEFAULT Value and populates the same in the dat file. Example : ACTION_CODE :  TERMINATION\n\nKEY -  Populates the field based on the value from the DB. Few BO's need some additional KEY Attributes for the object to load.\n\nDERIVED - Combination of string and derived dependent attribute value. For example, \"AssignmentNumber\" can be updated as  \"MASKED-{ AssignmentId}  Example :  MASKED-100, where 100 is AssignmentId",
+      "column_order": 5
+    },
+    {
+      "name": "CUSTOM_EDITABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "N- Will not be available for customers for modification.\nY- Available",
+      "column_order": 6
+    },
+    {
+      "name": "DEFAULT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "For Mandatory Attributes, Default value will be seeded",
+      "column_order": 7
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "ENTERPRISE_ID",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 14
+    }
+  ]
+}

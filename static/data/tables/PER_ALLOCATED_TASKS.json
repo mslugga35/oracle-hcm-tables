@@ -1,0 +1,1737 @@
+{
+  "id": 5288,
+  "name": "PER_ALLOCATED_TASKS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ALLOCATED_TASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System generated primary key column.",
+      "column_order": 1
+    },
+    {
+      "name": "SURVEY_RESPONSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "SURVEY_RESPONSE_ID",
+      "column_order": 2
+    },
+    {
+      "name": "REMINDER_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Alert template for reminder.",
+      "column_order": 3
+    },
+    {
+      "name": "STAGE_ALLOCATED_CHECKLIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "STAGE_ALLOCATED_CHECKLIST_ID",
+      "column_order": 4
+    },
+    {
+      "name": "PROCESSING_MODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies if the task need to be processed with SOA/ESS.",
+      "column_order": 5
+    },
+    {
+      "name": "NEXT_REMINDER_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifies the date on which the next reminder for this task need to be sent.",
+      "column_order": 6
+    },
+    {
+      "name": "REMINDER_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Number of reminders sent.",
+      "column_order": 7
+    },
+    {
+      "name": "ATTACHMENT_DOCUMENT_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores Document type for attachment",
+      "column_order": 8
+    },
+    {
+      "name": "ATT_DOCUMENTS_OF_RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores Document of record Id",
+      "column_order": 9
+    },
+    {
+      "name": "DOCUMENTS_OF_RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HR_DOCUMENTS_OF_RECORD.DOCUMENTS_OF_RECORD_ID. Stores the reference of the document of record",
+      "column_order": 10
+    },
+    {
+      "name": "SIGNER_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Stores the Internet Protocol Address of the signer",
+      "column_order": 11
+    },
+    {
+      "name": "TASK_IN_CHECKLIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Corresponding Checklist Template Task Id.",
+      "column_order": 12
+    },
+    {
+      "name": "RESP_PERFORMER_AVAILABILITY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates performer availability of selected performer type.",
+      "column_order": 13
+    },
+    {
+      "name": "DEFAULT_PERF_RESP_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the Performer type of the defaulted person.",
+      "column_order": 14
+    },
+    {
+      "name": "ALLOCATED_CHECKLIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the allocated checklist to which the task belongs",
+      "column_order": 15
+    },
+    {
+      "name": "TASK_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Name of the Allocated Task",
+      "column_order": 16
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Description of the Allocated Task",
+      "column_order": 17
+    },
+    {
+      "name": "MANDATORY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates whether the task is mandatory to be completed",
+      "column_order": 18
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "The status of the task. System Lookup: PER_CHECKLIST_TASK_STATUS\nValues -\nCOM - Completed\nINI - Initiated\nINP - In Progress\nOUT - Outstanding\nREJ - Rejected\nSUS - Suspended\nWIT - Withdrawn\nWAI - Deferred to date\nDEP - Dependent of other tasks to be completed.",
+      "column_order": 19
+    },
+    {
+      "name": "PERFORMER_ORIG_SYSTEM",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Username for the Performer of the task",
+      "column_order": 20
+    },
+    {
+      "name": "PERFORMER_ORIG_SYS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Person Id for the Performer of the task",
+      "column_order": 21
+    },
+    {
+      "name": "RESPONSIBILITY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Denotes the Responsibility Type this Task has to be performed by.",
+      "column_order": 22
+    },
+    {
+      "name": "RESPONSIBILITY_TYPE_GUID",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "The Global User Ids of the  Responsible Persons this Task has to be performed by.",
+      "column_order": 23
+    },
+    {
+      "name": "TASK_OWNER_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "PersonId for the Owner of the task",
+      "column_order": 24
+    },
+    {
+      "name": "TASK_OWNER_USERNAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "User name for the owner of the task",
+      "column_order": 25
+    },
+    {
+      "name": "TASK_PERFORMERS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores guid of all performers",
+      "column_order": 26
+    },
+    {
+      "name": "TASK_OWNERS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores guid of all owners",
+      "column_order": 27
+    },
+    {
+      "name": "TASK_SEQUENCE",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Obsolete.",
+      "column_order": 28
+    },
+    {
+      "name": "TASK_PERCENTAGE_COMPLETE",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Completion Percentage of the Allocated Task",
+      "column_order": 29
+    },
+    {
+      "name": "TARGET_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Target Start Date for the task",
+      "column_order": 30
+    },
+    {
+      "name": "TARGET_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Target End Date for the task",
+      "column_order": 31
+    },
+    {
+      "name": "ACTUAL_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual Start Date for the task",
+      "column_order": 32
+    },
+    {
+      "name": "ACTUAL_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual End Date for the task",
+      "column_order": 33
+    },
+    {
+      "name": "ACTION_URL",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "This is a drill down URL for this task",
+      "column_order": 34
+    },
+    {
+      "name": "TASK_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Comments by the Task Performer about this Task",
+      "column_order": 35
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of Enterprise, used for multi-tenancy partitioning. Foreign key to HR_ORGANIZATION_UNITS.",
+      "column_order": 36
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 37
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 38
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 41
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE21",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE22",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE23",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE24",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE25",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ATTRIBUTE26",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE27",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE28",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE29",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ATTRIBUTE30",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "ATTRIBUTE_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "ATTRIBUTE_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ATTRIBUTE_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "ATTRIBUTE_DATE11",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "ATTRIBUTE_DATE12",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "ATTRIBUTE_DATE13",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "ATTRIBUTE_DATE14",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "ATTRIBUTE_DATE15",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "INFORMATION_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield structure defining column",
+      "column_order": 109
+    },
+    {
+      "name": "INFORMATION1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 110
+    },
+    {
+      "name": "INFORMATION2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 111
+    },
+    {
+      "name": "INFORMATION3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 112
+    },
+    {
+      "name": "INFORMATION4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 113
+    },
+    {
+      "name": "INFORMATION5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 114
+    },
+    {
+      "name": "INFORMATION6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 115
+    },
+    {
+      "name": "INFORMATION7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 116
+    },
+    {
+      "name": "INFORMATION8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 117
+    },
+    {
+      "name": "INFORMATION9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 118
+    },
+    {
+      "name": "INFORMATION10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 119
+    },
+    {
+      "name": "INFORMATION11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 120
+    },
+    {
+      "name": "INFORMATION12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 121
+    },
+    {
+      "name": "INFORMATION13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 122
+    },
+    {
+      "name": "INFORMATION14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 123
+    },
+    {
+      "name": "INFORMATION15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 124
+    },
+    {
+      "name": "INFORMATION16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 125
+    },
+    {
+      "name": "INFORMATION17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 126
+    },
+    {
+      "name": "INFORMATION18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 127
+    },
+    {
+      "name": "INFORMATION19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 128
+    },
+    {
+      "name": "INFORMATION20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer-Descriptive Flexfield Segment",
+      "column_order": 129
+    },
+    {
+      "name": "INFORMATION21",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 130
+    },
+    {
+      "name": "INFORMATION22",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 131
+    },
+    {
+      "name": "INFORMATION23",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 132
+    },
+    {
+      "name": "INFORMATION24",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 133
+    },
+    {
+      "name": "INFORMATION25",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 134
+    },
+    {
+      "name": "INFORMATION26",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 135
+    },
+    {
+      "name": "INFORMATION27",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 136
+    },
+    {
+      "name": "INFORMATION28",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 137
+    },
+    {
+      "name": "INFORMATION29",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 138
+    },
+    {
+      "name": "INFORMATION30",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Developer Descriptive Flexfield: segment of the developer descriptive flexfield.",
+      "column_order": 139
+    },
+    {
+      "name": "ACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System Lookup: ORA_CHK_TASK_ACTION_TYPES\nValues: ORA_NONE - None\nORA_EXTERNAL_URL - External URL\nORA_APP_PROCESS - Application Task\nORA_DOC_RECORD - Document of Record\nORA_CUSTOM_FORM - Custom Form",
+      "column_order": 140
+    },
+    {
+      "name": "TASK_CONFIGURATION",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Task Configuration",
+      "column_order": 141
+    },
+    {
+      "name": "TASK_ACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_TASK_ACTIONS_B.TASK_ACTION_ID\nTask Definition to use when Action Type = Application Task",
+      "column_order": 142
+    },
+    {
+      "name": "DOCUMENT_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Document Type associated with this task when Action Type = Document of Record",
+      "column_order": 143
+    },
+    {
+      "name": "FLEX_CONTEXT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Flexfield Context Code when the Action Type = Custom Form",
+      "column_order": 144
+    },
+    {
+      "name": "DEF_ALLOCATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Deferred Allocation Date",
+      "column_order": 145
+    },
+    {
+      "name": "DEPENDENT_ON_TASKS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Comma seperated list of all ALLOCATED_TASK_IDs based on which the current task will be unblocked.",
+      "column_order": 146
+    },
+    {
+      "name": "ACTIVATION_ELIGY_PRFL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "ACTIVATION_ELIGY_PRFL_ID",
+      "column_order": 147
+    },
+    {
+      "name": "REMINDER_RECURRENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reminder recurrence (NEVER, EVERY, 1 .. 10). Default NEVER",
+      "column_order": 148
+    },
+    {
+      "name": "REMINDER_DURATION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reminder duration P<Num Days>D",
+      "column_order": 149
+    },
+    {
+      "name": "REMINDER_RELATIVE_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reminder relative to ASSIGNED or DUE",
+      "column_order": 150
+    },
+    {
+      "name": "GENERATE_ATOM_FEED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies if ATOM feed needs to be generated",
+      "column_order": 151
+    },
+    {
+      "name": "TARGET_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Task expiration duration",
+      "column_order": 152
+    },
+    {
+      "name": "TARGET_DURATION_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System Lookup: CHECKLIST_QUALIFYING_UNITS\nValues: D - Days\nW - Weeks\nM - Months\nTask expiration duration unit of measure.",
+      "column_order": 153
+    },
+    {
+      "name": "TASK_DELAY_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "TASK_DELAY_DURATION",
+      "column_order": 154
+    },
+    {
+      "name": "TASK_DELAY_DURATION_UOM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Task extension duration",
+      "column_order": 155
+    },
+    {
+      "name": "MEETING_OFFSET",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Meeting Offset from Action Date",
+      "column_order": 156
+    },
+    {
+      "name": "MEETING_TIME",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Meeting Time",
+      "column_order": 157
+    },
+    {
+      "name": "EXPIRY_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Expiry Days",
+      "column_order": 158
+    },
+    {
+      "name": "CONTACT_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "CONTACT_DETAILS",
+      "column_order": 159
+    },
+    {
+      "name": "DETAIL_CHECKLIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "DETAIL_CHECKLIST_ID",
+      "column_order": 160
+    },
+    {
+      "name": "DETAIL_ALLOC_CHECKLIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "DETAIL_ALLOC_CHECKLIST_ID",
+      "column_order": 161
+    },
+    {
+      "name": "OWNER_RESP_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "OWNER_RESP_TYPE",
+      "column_order": 162
+    },
+    {
+      "name": "OWNER_RESP_TYPE_USERS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "OWNER_RESP_TYPE_USERS",
+      "column_order": 163
+    },
+    {
+      "name": "ABS_ALLOCATED_CHECKLIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "ABS_ALLOCATED_CHECKLIST_ID",
+      "column_order": 164
+    },
+    {
+      "name": "TASK_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Contains the action code associated with the task.",
+      "column_order": 165
+    },
+    {
+      "name": "SIGN_TEMPLATE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the e-signature template details for action type = ORA_CHK_ESIGN",
+      "column_order": 166
+    },
+    {
+      "name": "SIGN_DOCUMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Stores the e-signature document details for action type = ORA_CHK_ESIGN",
+      "column_order": 167
+    },
+    {
+      "name": "COMPLETED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "User name of the user who completed the task",
+      "column_order": 168
+    },
+    {
+      "name": "COMPLETION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date on which the task is completed.",
+      "column_order": 169
+    },
+    {
+      "name": "ESIGN_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies Esignature Type",
+      "column_order": 170
+    },
+    {
+      "name": "SIGN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Specifies Sign Date",
+      "column_order": 171
+    },
+    {
+      "name": "SIGNER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Specifies Signer Name",
+      "column_order": 172
+    },
+    {
+      "name": "SIGNER_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Specifies Email Id of Signer",
+      "column_order": 173
+    },
+    {
+      "name": "DOCUMENT_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Specifies Document Entity Id",
+      "column_order": 174
+    },
+    {
+      "name": "REOPEN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Specifies Task Reopen Date",
+      "column_order": 175
+    },
+    {
+      "name": "REOPENED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Specifies Name of the Person Who reopened task",
+      "column_order": 176
+    },
+    {
+      "name": "REPORT_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "It contains the BI Publisher report folder path followed by the report name concatenated with a / symbol with optionally a list of parameters in the format of  parameter_name is equals to parameter value . The first parameter is prefixed with ? and & to denote each additional parameter",
+      "column_order": 177
+    },
+    {
+      "name": "QUESTIONNAIRE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the Questionnaire Identifier for the Questionnaire associated with this task",
+      "column_order": 178
+    },
+    {
+      "name": "ERROR_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Details of any integration errors",
+      "column_order": 179
+    },
+    {
+      "name": "LEARNING_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "LEARNING_ITEM_ID",
+      "column_order": 180
+    },
+    {
+      "name": "LEARN_CONTENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "LEARN_CONTENT_TYPE",
+      "column_order": 181
+    },
+    {
+      "name": "REPORT_PARAMETERS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "REPORT_PARAMETERS",
+      "column_order": 182
+    },
+    {
+      "name": "ANALYTICS_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Report path for analytics task type",
+      "column_order": 183
+    },
+    {
+      "name": "ENABLE_TASK_EXPIRY",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "ENABLE_TASK_EXPIRY",
+      "column_order": 184
+    },
+    {
+      "name": "EXPIRY_RELATIVE_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "EXPIRY_RELATIVE_TO",
+      "column_order": 185
+    },
+    {
+      "name": "EXPIRY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "EXPIRY_DATE",
+      "column_order": 186
+    },
+    {
+      "name": "TASK_FEATURE1",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 187
+    },
+    {
+      "name": "TASK_FEATURE2",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 188
+    },
+    {
+      "name": "TASK_FEATURE3",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 189
+    },
+    {
+      "name": "TASK_FEATURE4",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 190
+    },
+    {
+      "name": "TASK_FEATURE5",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 191
+    },
+    {
+      "name": "TASK_FEATURE_DETAILS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the Task feature details",
+      "column_order": 192
+    },
+    {
+      "name": "REASSIGNED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the Reassigned date",
+      "column_order": 193
+    },
+    {
+      "name": "REASSIGNED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Stores guid of Reassigned By",
+      "column_order": 194
+    },
+    {
+      "name": "TASK_INITIATOR",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Stores guid of Initiator",
+      "column_order": 195
+    },
+    {
+      "name": "TASK_INITIATOR_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Person Id for the Initiator of the task",
+      "column_order": 196
+    },
+    {
+      "name": "COMBINED_NOTIFICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the combined notification id",
+      "column_order": 197
+    },
+    {
+      "name": "SYNCH_HISTORY",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "SYNCH_HISTORY",
+      "column_order": 198
+    },
+    {
+      "name": "VIDEO_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "VIDEO_TYPE",
+      "column_order": 199
+    },
+    {
+      "name": "DISPLAY_OPTIONS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "DISPLAY_OPTIONS",
+      "column_order": 200
+    },
+    {
+      "name": "VIDEO_URL",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "VIDEO_URL",
+      "column_order": 201
+    },
+    {
+      "name": "LEARN_ENROLLMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier to the learn enrollment",
+      "column_order": 202
+    },
+    {
+      "name": "LEARN_COMMUNITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier to the learn community",
+      "column_order": 203
+    },
+    {
+      "name": "LEARN_ENROLLMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "LEARN_ENROLLMENT_TYPE",
+      "column_order": 204
+    },
+    {
+      "name": "ATOM_FEED_CONFIGURATION",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "ATOM_FEED_CONFIGURATION",
+      "column_order": 205
+    },
+    {
+      "name": "EMBED_TASK_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "EMBED_TASK_ACTION_CODE",
+      "column_order": 206
+    },
+    {
+      "name": "ESIGN_SIGNATURE",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "ESIGN_SIGNATURE",
+      "column_order": 207
+    },
+    {
+      "name": "CONTENT_PROVIDER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "CONTENT_PROVIDER_CODE",
+      "column_order": 208
+    },
+    {
+      "name": "EMBED_APP_TASK_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "EMBED_APP_TASK_TYPE_ID",
+      "column_order": 209
+    },
+    {
+      "name": "OBJECT_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "OBJECT_GROUP_CODE",
+      "column_order": 210
+    },
+    {
+      "name": "ANALYTICS_SUB_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "ANALYTICS_SUB_TYPE",
+      "column_order": 211
+    },
+    {
+      "name": "REMINDER_CONTENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "REMINDER_CONTENT_TYPE",
+      "column_order": 212
+    },
+    {
+      "name": "REMINDER_CONTENT_DEFN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "REMINDER_CONTENT_DEFN_ID",
+      "column_order": 213
+    },
+    {
+      "name": "GUIDED_JOURNEY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "GUIDED_JOURNEY_CODE",
+      "column_order": 214
+    },
+    {
+      "name": "GUIDED_JOURNEY_TASK_CODES",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "GUIDED_JOURNEY_TASK_CODES",
+      "column_order": 215
+    },
+    {
+      "name": "ALLOCATION_TIMEZONE",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "ALLOCATION_TIMEZONE",
+      "column_order": 216
+    }
+  ]
+}

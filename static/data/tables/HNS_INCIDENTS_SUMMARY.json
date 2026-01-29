@@ -1,0 +1,881 @@
+{
+  "id": 8724,
+  "name": "HNS_INCIDENTS_SUMMARY",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INCIDENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Incidents Summary table primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Location ID :  Foreign key for Location table.",
+      "column_order": 2
+    },
+    {
+      "name": "INCIDENT_NO",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "N",
+      "description": "User defined unique Incidents Identifier.",
+      "column_order": 3
+    },
+    {
+      "name": "EMERGENCY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Is Emergency Flag.This column signifies whether the incident has an emergency.",
+      "column_order": 4
+    },
+    {
+      "name": "CONFIDENTIAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Is Confidential flag. This column signifies whether the incident is checked confidential.",
+      "column_order": 5
+    },
+    {
+      "name": "DELETED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Deleted flag.This column signifies whether the incident is checked for deletion.",
+      "column_order": 6
+    },
+    {
+      "name": "REPORTER_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "EMP/NON EMP lookup. To check whether the witness is an employee or not.",
+      "column_order": 7
+    },
+    {
+      "name": "REPTR_NONEMP_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup column for non employee type code. FND_Lookup HNS_NON_EMPLOYEE_TYPE",
+      "column_order": 8
+    },
+    {
+      "name": "EMPLOYEE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Employee ID. From HCM. This column saves the employee id if the reporter is an employee.",
+      "column_order": 9
+    },
+    {
+      "name": "REPTR_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "The full name of the person reported the incident.",
+      "column_order": 10
+    },
+    {
+      "name": "REPTR_AREA_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "REPTR_AREA_CODE column : Reporter phone area code.",
+      "column_order": 11
+    },
+    {
+      "name": "REPTR_COUNTRY_CODE_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "REPTR_COUNTRY_CODE_NUM column: Reporter phone country code number.",
+      "column_order": 12
+    },
+    {
+      "name": "REPTR_PHONE_NO",
+      "data_type": "VARCHAR2",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "REPTR_PHONE_NO column : Incident Reporter phone number.",
+      "column_order": 13
+    },
+    {
+      "name": "REPTR_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 250,
+      "nullable": "Y",
+      "description": "The email id of the person who reported the incident.",
+      "column_order": 14
+    },
+    {
+      "name": "INCIDENT_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The date the incident occured. This column is an user entered column.",
+      "column_order": 15
+    },
+    {
+      "name": "INCIDENT_CREATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date incident was created in the system.",
+      "column_order": 16
+    },
+    {
+      "name": "INCIDENT_REPORTED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the date that the incident reporter informed a person in authority eg a supervisor",
+      "column_order": 17
+    },
+    {
+      "name": "LOCATION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Incident location type (Onsite/Offsite).",
+      "column_order": 18
+    },
+    {
+      "name": "OFFSITE_LOC_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Offsite Location Type Identifier.",
+      "column_order": 19
+    },
+    {
+      "name": "REPTR_SPECIFIC_LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "N",
+      "description": "Incident specific location reported by the reporter.",
+      "column_order": 20
+    },
+    {
+      "name": "REPTR_ADDR_LINE1",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "REPTR_ADDR_LINE1 column : Incident  Address Line 1 reported by the reporter.",
+      "column_order": 21
+    },
+    {
+      "name": "REPTR_ADDR_LINE2",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "REPTR_ADDR_LINE2 column : Incident  Address Line 2 reported by the reporter.",
+      "column_order": 22
+    },
+    {
+      "name": "REPTR_CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "REPTR_CITY column : Incident  location city reported by the reporter.",
+      "column_order": 23
+    },
+    {
+      "name": "REPTR_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "REPTR_STATE column : Incident state reported by the reporter.",
+      "column_order": 24
+    },
+    {
+      "name": "REPTR_ZIP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "REPTR_ZIP_CODE column : Incident zipcode reported by the reporter.",
+      "column_order": 25
+    },
+    {
+      "name": "REPTR_COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "REPTR_COUNTRY column : Incident  location country reported by the reporter.",
+      "column_order": 26
+    },
+    {
+      "name": "INCIDENT_SUMMARY",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "N",
+      "description": "The Summary information entered by the reporter for the incident.",
+      "column_order": 27
+    },
+    {
+      "name": "INCIDENT_DESCRIPTION",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "INCIDENT_DESCRIPTION column : Description entered by the user for the incident.",
+      "column_order": 28
+    },
+    {
+      "name": "INCIDENT_IMME_ACT_DESCR",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Description of the immediate action taken if any.",
+      "column_order": 29
+    },
+    {
+      "name": "SEVERITY_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Severity level for the incident. This column is a drop down selected by the incident reporter.",
+      "column_order": 30
+    },
+    {
+      "name": "INCIDENT_OWNER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "INCIDENT_OWNER_ID column : Unique identifier for ther person/employee who owns the incident.",
+      "column_order": 31
+    },
+    {
+      "name": "INCIDENT_OWNER_ASSIGN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "INCIDENT_OWNER_ASSIGN_ID column : Assignment Id for ther person/employee who owns the incident.",
+      "column_order": 32
+    },
+    {
+      "name": "TARGET_COMPLETION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Target completion date set for the incident.",
+      "column_order": 33
+    },
+    {
+      "name": "COMPLETED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "COMPLETED flag.This signifies if the incident is completed or not.",
+      "column_order": 34
+    },
+    {
+      "name": "ACTUAL_COMPLETION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual completion date for the incident.",
+      "column_order": 35
+    },
+    {
+      "name": "INCIDENT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "INCIDENT_STATUS_CODE column: Current Incident Status. Lookup to FND_LOOKUP STATUS.",
+      "column_order": 36
+    },
+    {
+      "name": "INCIDENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "INCIDENT_TYPE_CODE column : Current Incident Type. Lookup to FND_LOOKUP ORA_HNS_INCIDENT_TYPE.",
+      "column_order": 37
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 38
+    },
+    {
+      "name": "INCIDENT_APPROVER_EMAIL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "The flag  to send email notification to incident approver .",
+      "column_order": 39
+    },
+    {
+      "name": "INCIDENT_REVIEWER_EMAIL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "The flag  to send email notification to incident reviewer .",
+      "column_order": 40
+    },
+    {
+      "name": "BIZ_CONT_PLAN_ACTIVATED_AT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "At what time the business continuity plan is activated.",
+      "column_order": 41
+    },
+    {
+      "name": "BIZ_CONT_PLAN_ACTIVATED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Business continuity plan activated flag. Lookup from FND_LOOKUP.YES_NO.",
+      "column_order": 42
+    },
+    {
+      "name": "BIZ_CONT_PLAN_ACT_BY_EMPID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Employee Id of the person who activated the business continuity plan.",
+      "column_order": 43
+    },
+    {
+      "name": "EMERG_ACTION_PLAN_ACTIVATED_AT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "At what time the Emergency Action Plan is Activated.",
+      "column_order": 44
+    },
+    {
+      "name": "EMERG_ACTION_PLAN_ACT_BY_EMPID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Employee Id of the person who activated the emergency action plan.",
+      "column_order": 45
+    },
+    {
+      "name": "EMERG_ACTION_PLAN_ACT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Emergency Action Plan Activated. Lookup from FND_LOOKUP.YES_NO.",
+      "column_order": 46
+    },
+    {
+      "name": "EVACUATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Evacuation Flag. Lookup from FND_LOOKUP.YES_NO.",
+      "column_order": 47
+    },
+    {
+      "name": "EVACUATION_LENGTH_OF_TIME",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Length of Time(Hrs) the evacuation is happened for.",
+      "column_order": 48
+    },
+    {
+      "name": "EVACUATION_ORDERED_AT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "At what time the evacuation is ordered.",
+      "column_order": 49
+    },
+    {
+      "name": "EVACUATION_ORDERED_BY_EMP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Employee Id of the person who ordered the evacuation.",
+      "column_order": 50
+    },
+    {
+      "name": "EVACUATION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Evacuation Type. Lookup from FND_LOOKUP.ORA_HNS_EVACUATION_TYPE.",
+      "column_order": 51
+    },
+    {
+      "name": "FACILITY_CLOSED_AT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "At what time the facility is closed.",
+      "column_order": 52
+    },
+    {
+      "name": "FACILITY_CLOSED_BY_EMP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Employee Id of the person who closed the facility.",
+      "column_order": 53
+    },
+    {
+      "name": "FACILITY_CLOSED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Facility Closed or Operations Ceased. Lookup from FND_LOOKUP.YES_NO.",
+      "column_order": 54
+    },
+    {
+      "name": "FACILITY_CLOSED_LENGTH_OF_TIME",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Length of Time(Hrs) the facility is closed.",
+      "column_order": 55
+    },
+    {
+      "name": "RADIUS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Distance in terms of radiating circles from the facility where the fire or explosion occurred.",
+      "column_order": 56
+    },
+    {
+      "name": "RADIUS_UNIT_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unit of measure for distance. Lookup from FND_LOOKUP.ORA_HNS_RADIUS_UNIT_CD.",
+      "column_order": 57
+    },
+    {
+      "name": "LESSONS_LEARNED",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Lessons Learned.",
+      "column_order": 58
+    },
+    {
+      "name": "INCIDENT_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "INCIDENT_SOURCE_CODE column: Source for Incident creation. Lookup to FND_LOOKUP ORA_HNS_INCIDENT_SOURCE.",
+      "column_order": 59
+    },
+    {
+      "name": "NOTIFIED_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Employee ID of the person who was notified about the incident. Non-Mandatory field.",
+      "column_order": 60
+    },
+    {
+      "name": "NOTIFIED_PER_ASSIGN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Assignment ID of the person who was notified about the incident. Non-Mandatory field.",
+      "column_order": 61
+    },
+    {
+      "name": "REPORTER_ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Assignment ID of the reporter (employee) at the time when Incident happened. Non-Mandatory field.",
+      "column_order": 62
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 63
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 64
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 65
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 66
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP1",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP2",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP3",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP4",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP5",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP6",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP7",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP8",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP9",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP10",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "ACTION_REQUIRED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Action Required Flag Column : Check box to confirm whether an action is required.",
+      "column_order": 109
+    }
+  ]
+}

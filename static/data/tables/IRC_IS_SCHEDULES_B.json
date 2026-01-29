@@ -1,0 +1,417 @@
+{
+  "id": 7969,
+  "name": "IRC_IS_SCHEDULES_B",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The primary key for this table.",
+      "column_order": 1
+    },
+    {
+      "name": "DEFAULT_TEMPLATE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Identifies the default template for schedule creation. Possible values Y/N/null",
+      "column_order": 2
+    },
+    {
+      "name": "SCHEDULE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "Code associated with the schedule.",
+      "column_order": 3
+    },
+    {
+      "name": "REQUISITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated requisition(IRC_REQUISITIONS_B) for this schedule.",
+      "column_order": 4
+    },
+    {
+      "name": "SCHEDULE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "N",
+      "description": "Lookup defined by ORA_IRC_IS_SCHEDULE_TYPE which can be a template or a normal schedule.",
+      "column_order": 5
+    },
+    {
+      "name": "INTERVIEW_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Lookup defined by ORA_IRC_IS_INTERVIEW_TYPE which can be a Candidate or Hiring team manage.",
+      "column_order": 6
+    },
+    {
+      "name": "SCHEDULE_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the schedule template(IRC_IS_SCHEDULES_B) that was used to create this schedule.",
+      "column_order": 7
+    },
+    {
+      "name": "SCHEDULE_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the schedule location. (IRC_IS_LOCATIONS)",
+      "column_order": 8
+    },
+    {
+      "name": "SCHEDULE_LAST_MODIFIED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of the last modified schedule.",
+      "column_order": 9
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "N",
+      "description": "The status of the current schedule.\n\nLookup defined by ORA_IRC_SCHEDULE_STATUS_TYPE which can be a DRAFT, PUBLISHED, UNPUBLISHED.",
+      "column_order": 10
+    },
+    {
+      "name": "INCLUDE_ICS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Include the Interviewer Documents for the ICS.",
+      "column_order": 11
+    },
+    {
+      "name": "INCLUDE_JOB_POSTING_LINK",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Include the Interviewer Documents for the Job Posting Link.",
+      "column_order": 12
+    },
+    {
+      "name": "INCLUDE_RESUME",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Include the Interviewer Documents for the Candidate Resume.",
+      "column_order": 13
+    },
+    {
+      "name": "INTR_INVITED_MSG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated content library (IRC_DESCRIPTIONS_B) Ad Hoc Email message for the candidate to schedule an interview.",
+      "column_order": 14
+    },
+    {
+      "name": "INTR_SCHEDULED_MSG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated content library (IRC_DESCRIPTIONS_B) Ad Hoc Email message for the candidate that an interview has been scheduled.",
+      "column_order": 15
+    },
+    {
+      "name": "INTR_CANCELLED_MSG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated content library (IRC_DESCRIPTIONS_B) Ad Hoc Email message for the candidate that an interview has been cancelled.",
+      "column_order": 16
+    },
+    {
+      "name": "INTR_UPDATED_MSG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated content library (IRC_DESCRIPTIONS_B) Ad Hoc Email message for the candidate that an interview has been updated or rescheduled.",
+      "column_order": 17
+    },
+    {
+      "name": "INTR_REMINDED_MSG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated content library (IRC_DESCRIPTIONS_B) Ad Hoc Email message for the candidate for the interview reminder.",
+      "column_order": 18
+    },
+    {
+      "name": "INTR_RESCHEDULED_MSG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated content library (IRC_DESCRIPTIONS_B) Ad Hoc Email message for the candidate that reschedule interview has been requested.",
+      "column_order": 19
+    },
+    {
+      "name": "IS_CANCELLABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N that is set to Y when the candidate can cancel the interview (Default value 'N')",
+      "column_order": 20
+    },
+    {
+      "name": "IS_RESCHEDULABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N that is set to Y when the candidate can reschedule the interview (Default value 'N')",
+      "column_order": 21
+    },
+    {
+      "name": "ALLOW_SAME_DAY_SCHDLNG_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N that is set to Y when candidate can schedule/reschedule on the same day. It can be, nowp lus 1 hour or 2 hours later. (Default value 'N')",
+      "column_order": 22
+    },
+    {
+      "name": "HAS_VISIBILITY_RANGE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N that is set to Y when a visibility on the interviews range should be applied. (Default value 'N')",
+      "column_order": 23
+    },
+    {
+      "name": "INTERVWS_VISIBILITY_RANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Values from lookup ORA_IRC_IS_INTERVWS_VISIBILITY",
+      "column_order": 24
+    },
+    {
+      "name": "HAS_RESCHDLE_LIMIT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N that is set to Y when a reschedule limit should be applied. (Default value 'N')",
+      "column_order": 25
+    },
+    {
+      "name": "INTERVW_RESCHDLE_LIMIT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Values from lookup ORA_IRC_IS_RESCHDLE_LIMIT",
+      "column_order": 26
+    },
+    {
+      "name": "HAS_CHANGE_LOCK_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N that is set to Y when reschedule/cancel should be controlled (Default value 'N')",
+      "column_order": 27
+    },
+    {
+      "name": "INTERVW_CHANGE_LOCK_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Values from lookup ORA_IRC_IS_INTRVW_CHANG_LOCK",
+      "column_order": 28
+    },
+    {
+      "name": "SCHEDULE_ALMOST_FULL_NOTIF",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Lookup defined by ORA_IRC_IS_SCH_ALMOST_FULL which can be no reminder or when number of openings are less than the given value",
+      "column_order": 29
+    },
+    {
+      "name": "SCHEDULE_ALMOST_FULL_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Value of the number of openings at which the schedule almost full reminder must be sent",
+      "column_order": 30
+    },
+    {
+      "name": "SCHEDULE_FULL_NOTIF",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Lookup defined by ORA_IRC_IS_SCH_FULL which can be no reminder or when schedule is full",
+      "column_order": 31
+    },
+    {
+      "name": "SCHEDULE_REMINDER_SENT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the value of whether the schedule almost full or schedule full notifications has been sent since the last time openings were added to slot",
+      "column_order": 32
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 33
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 34
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 37
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 38
+    },
+    {
+      "name": "AUTO_O365_CALENDAR_SLOT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Determine if the O365 automatic slots creation is enabled for this shedule.Y or N or null value",
+      "column_order": 39
+    },
+    {
+      "name": "AUTO_SLOT_INTERVIEW_DURATION",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Determine the interview meeting slot duration.Lookup to use ORA_IRC_IS_MEETING_DURATION",
+      "column_order": 40
+    },
+    {
+      "name": "AUTO_COLLAB_RESP_TYPE_LIST",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "The collaborator's type associated with this schedule will be used to determine the O365 available slots for the associated interviewers.",
+      "column_order": 41
+    },
+    {
+      "name": "AUTO_MEETING_PROVIDER",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Stores the value of the meeting provider for the interview.Value from Lookup type ORA_IRC_IS_ONLINE_MEETG_PROVIDER,ORA_IS_TEAMS",
+      "column_order": 42
+    },
+    {
+      "name": "AUTO_MEETING_HOST",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the value of meeting host for the interview. Selected named person or team member type as meeting host. Lookup to use ORA_HIRINGMANAGER or ORA_HIRING_TEAM_COLLABORATOR or ORA_RECRUITER or ORA_HOST",
+      "column_order": 43
+    },
+    {
+      "name": "SCHEDULE_OWNER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Person Id of the user who created the interview schedule",
+      "column_order": 44
+    },
+    {
+      "name": "SEND_AVAILABILITY_REQUEST_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Setting to request availability for defined users when the interview schedule is saved.Y or N or null value",
+      "column_order": 45
+    },
+    {
+      "name": "IS_FEEDBK_INFO_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Include the feedback information in interview schedule.Y or N",
+      "column_order": 46
+    },
+    {
+      "name": "INCLUDE_INTERVIEWER_ICS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Include .isc file for interviewer",
+      "column_order": 47
+    },
+    {
+      "name": "NB_DAYS_BEFORE_SCHDLNG",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Number of days before candidate can schedule",
+      "column_order": 48
+    },
+    {
+      "name": "INCLUDE_COVER_LETTER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Include the Interviewer Documents for the Candidate Cover Letter",
+      "column_order": 49
+    },
+    {
+      "name": "INCLUDE_MISC_ATTACHMENTS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Include the Interviewer Documents for the Candidate Miscellaneous Attachments",
+      "column_order": 50
+    },
+    {
+      "name": "INCLUDE_INTERNAL_DOCS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Include the Interviewer Documents for the Candidate Internal Documents",
+      "column_order": 51
+    }
+  ]
+}

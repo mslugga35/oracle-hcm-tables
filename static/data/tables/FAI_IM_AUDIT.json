@@ -1,0 +1,145 @@
+{
+  "id": 4048,
+  "name": "FAI_IM_AUDIT",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Auto generated primary key for this table Incremented by 1 for every new row.",
+      "column_order": 1
+    },
+    {
+      "name": "FILE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "N",
+      "description": "Name of the file (For eg, 1617962340770.json)",
+      "column_order": 2
+    },
+    {
+      "name": "APP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "N",
+      "description": "Name of the app (orc or talent)",
+      "column_order": 3
+    },
+    {
+      "name": "ENTITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "N",
+      "description": "Name of the Entity for the file (Among person and model)",
+      "column_order": 4
+    },
+    {
+      "name": "STEP",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "N",
+      "description": "The search engine for which the file ingestion status\nis depicted. (can be vectorStore)\nAlso, it can be stage if the file location is currently in stage folder",
+      "column_order": 5
+    },
+    {
+      "name": "STATUS",
+      "data_type": "NUMBER",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "It depicts the success/failure status for the file for the given step\n1000 - file is in stage\n1111 -  File has successfully reached OSCS\n1112 - File has failed to reach/index to OSCS",
+      "column_order": 6
+    },
+    {
+      "name": "STATUS_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "If the file is failed in indexing/ parsing - the error is tracked here.\nIf status is 1112 → Error represents the number of retries done (1 to 5 and \nReprocess OSCS File exceeded 5times)",
+      "column_order": 7
+    },
+    {
+      "name": "RECORD_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 22,
+      "nullable": "Y",
+      "description": "It represents the number of records in the file",
+      "column_order": 8
+    },
+    {
+      "name": "STAGE_TIMESTAMP",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "It depicts the date and time of the file ingestion in stage folder",
+      "column_order": 9
+    },
+    {
+      "name": "INDEXED_TIMESTAMP",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "It depicts the date and time of the file ingestion to OSCS",
+      "column_order": 10
+    },
+    {
+      "name": "VECTOR_VERSION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "It depicts the level of vector generation of the file.\nIf \"null\", V2 vectors are generated.\nIf \"V1V2\", both V1 and V2 vectors are generated.\nIf \"V1V2DAS\", V2 vectors are generated and V1 embeddings are ready for generation\nIf \"V2V2Complete\", V2 vectors and V1 embedding are generated and waiting to reach OSCS\nIf \"V1V2_DAS_ERROR\", V2 vectors are generated and file failed to move to DAS.\nIf \"V1V2_COMPLETE_ERROR\", V2 vectors and V1 embeddings are generated and file failed to move to complete folder\nIf \"V1V2_INDEX_ERROR\", V2 vectors and V1 embeddings are generated and file failed to reach OSCS",
+      "column_order": 11
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    }
+  ]
+}

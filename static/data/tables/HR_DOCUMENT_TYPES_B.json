@@ -1,0 +1,993 @@
+{
+  "id": 5219,
+  "name": "HR_DOCUMENT_TYPES_B",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DOCUMENT_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key. Uniquely identifies a Document Type",
+      "column_order": 1
+    },
+    {
+      "name": "CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Define document category for a document type.",
+      "column_order": 2
+    },
+    {
+      "name": "SUB_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Define document sub category for a document type.",
+      "column_order": 3
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of Enterprise, used for multi-tenancy partitioning. Foreign key to HR_ORGANIZATION_UNITS.",
+      "column_order": 4
+    },
+    {
+      "name": "LEGISLATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Legislation code derived from the Legal Entity.",
+      "column_order": 5
+    },
+    {
+      "name": "DOCUMENT_TYPE_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Document type to be applicable to person or assignment.",
+      "column_order": 6
+    },
+    {
+      "name": "WARNING_PERIOD",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Warning Period (number of days in advance) to send a notification? in case a particular document is going to expire.",
+      "column_order": 7
+    },
+    {
+      "name": "ACTIVE_INACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Activate or deactivate a document type In case it is not suitable for deletion.",
+      "column_order": 8
+    },
+    {
+      "name": "MULTIPLE_OCCURENCES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Determine if a particular document type can have multiple instances for the same person, for example Visa.",
+      "column_order": 9
+    },
+    {
+      "name": "AUTHORIZATION_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Determine if an operation like create, update, delete for particular type of document needs approval or not .",
+      "column_order": 10
+    },
+    {
+      "name": "DOCUMENT_NAME_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type will support attribute document name or not. This can take YES/NO value.",
+      "column_order": 11
+    },
+    {
+      "name": "DOCUMENT_NUMBER_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type will support the attribute document number or not. This can take YES/NO value.",
+      "column_order": 12
+    },
+    {
+      "name": "DATE_FROM_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type will support attribute DateFrom or not.",
+      "column_order": 13
+    },
+    {
+      "name": "DATE_TO_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type will support attribute DateTo or not.",
+      "column_order": 14
+    },
+    {
+      "name": "ISSUING_AUTHORITY_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type will support attribute Issuing Authority or not.",
+      "column_order": 15
+    },
+    {
+      "name": "ISSUED_DATE_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type will have issue date as mandatory attribute or not.",
+      "column_order": 16
+    },
+    {
+      "name": "ISSUING_COUNTRY_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type have issuing country as mandatory attribute or not.",
+      "column_order": 17
+    },
+    {
+      "name": "ISSUING_LOCATION_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type require attribute issuing location or not.",
+      "column_order": 18
+    },
+    {
+      "name": "COMMENTS_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if the documents of this type will support attribute Comments or not.",
+      "column_order": 19
+    },
+    {
+      "name": "PUBLISH_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This will decide if documents of this type will require publishing or not.",
+      "column_order": 20
+    },
+    {
+      "name": "SYSTEM_DOCUMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "N",
+      "description": "Name of the document type.",
+      "column_order": 21
+    },
+    {
+      "name": "HIERARCHY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Can be GENERIC - For choosing Legal Employer based Hierarchy or PAYROLL - For choosing Payroll based Hiearchy",
+      "column_order": 22
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 23
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 24
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 27
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 28
+    },
+    {
+      "name": "MODULE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Seed Data Framework: indicates the module that owns the row. A module is an entry in Application Taxonomy such as a Logical Business Area. When the MODULE_ID column exists and the owner of the row is not specified, then the Seed Data Framework will not extract the row as seed data.",
+      "column_order": 29
+    },
+    {
+      "name": "SGUID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "The seed global unique identifier. Oracle internal use only.",
+      "column_order": 30
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 31
+    },
+    {
+      "name": "BI_REPORT_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "BI Report Path",
+      "column_order": 32
+    },
+    {
+      "name": "LOCK_CREATE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Creation allowed or not",
+      "column_order": 33
+    },
+    {
+      "name": "LOCK_UPDATE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Updated allowed or not",
+      "column_order": 34
+    },
+    {
+      "name": "LOCK_DELETE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Deletion allowed or not",
+      "column_order": 35
+    },
+    {
+      "name": "MIN_ATTACHMENTS_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Minimum Attachments Required .",
+      "column_order": 36
+    },
+    {
+      "name": "RESTRICT_CREATE_ATTACH",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "obsoleted - not in use.",
+      "column_order": 37
+    },
+    {
+      "name": "RESTRICT_UPDATE_ATTACH",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "obsoleted - not in use.",
+      "column_order": 38
+    },
+    {
+      "name": "RESTRICT_DELETE_ATTACH",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "obsoleted - not in use.",
+      "column_order": 39
+    },
+    {
+      "name": "DT_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "DT_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "DT_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "DT_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "DT_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "DT_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "DT_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "DT_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "DT_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "DT_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "DT_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "DT_ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "DT_ATTRIBUTE_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "DT_ATTRIBUTE_TIMESTAMP1",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "DT_ATTRIBUTE_TIMESTAMP2",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "DT_ATTRIBUTE_TIMESTAMP3",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "DT_ATTRIBUTE_TIMESTAMP4",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "DT_ATTRIBUTE_TIMESTAMP5",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "DT_INFORMATION_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "DT_INFORMATION1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "DT_INFORMATION2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "DT_INFORMATION3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "DT_INFORMATION4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "DT_INFORMATION5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "DT_INFORMATION6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "DT_INFORMATION7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "DT_INFORMATION8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "DT_INFORMATION9",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "DT_INFORMATION10",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "DT_INFORMATION_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "DT_INFORMATION_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "DT_INFORMATION_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "DT_INFORMATION_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "DT_INFORMATION_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "DT_INFORMATION_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "DT_INFORMATION_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "DT_INFORMATION_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "DT_INFORMATION_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "DT_INFORMATION_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "DT_INFORMATION_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "DT_INFORMATION_TIMESTAMP1",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "DT_INFORMATION_TIMESTAMP2",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "DT_INFORMATION_TIMESTAMP3",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "DT_INFORMATION_TIMESTAMP4",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "DT_INFORMATION_TIMESTAMP5",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the descriptive flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "ARCHIVE_CRITERIA_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Archive documents of records of current document type after criteria days.",
+      "column_order": 112
+    },
+    {
+      "name": "ARCHIVE_CRITERIA_BASIS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Archive criteria bases i.e Creation Date , To Date , Issued Date etc .",
+      "column_order": 113
+    },
+    {
+      "name": "PURGE_ARCHIVE_CRITERIA_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Purge archived documents of records of current document type after criteria days.",
+      "column_order": 114
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 115
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 116
+    },
+    {
+      "name": "LOCK_CREATE_ROLE_LIST",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Creation allowed for these roles.",
+      "column_order": 117
+    },
+    {
+      "name": "LOCK_UPDATE_ROLE_LIST",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Updation allowed for these roles.",
+      "column_order": 118
+    },
+    {
+      "name": "LOCK_DELETE_ROLE_LIST",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Deletion allowed for these roles.",
+      "column_order": 119
+    },
+    {
+      "name": "DFF_GLB_SEG_DISPLAY_PREF",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global segment display preferences.",
+      "column_order": 120
+    },
+    {
+      "name": "DFF_CTX_SEG_DISPLAY_PREF",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Context segment display preferences.",
+      "column_order": 121
+    },
+    {
+      "name": "DFF_CTX_SEG_DEFAULT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Context segment default value.",
+      "column_order": 122
+    },
+    {
+      "name": "TAG_LIST",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Tags used to identify document type for classification and grouping",
+      "column_order": 123
+    }
+  ]
+}

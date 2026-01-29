@@ -1,0 +1,289 @@
+{
+  "id": 7961,
+  "name": "IRC_IS_INTERVIEWS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SCHEDULE_INTERVIEW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The primary key for this table.",
+      "column_order": 1
+    },
+    {
+      "name": "MEETING_HOST_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the value of meeting host for the interview. Selected named person or team member type as meeting host. Lookup to use ORA_HIRINGMANAGER or ORA_HIRING_TEAM_COLLABORATOR or ORA_RECRUITER or ORA_IS_HOST",
+      "column_order": 2
+    },
+    {
+      "name": "INTERVIEW_MEETING_PROVIDER",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Stores the value of the meeting provider for the interview",
+      "column_order": 3
+    },
+    {
+      "name": "SUBMISSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated submission(IRC_SUBMISSIONS) for this schedule.",
+      "column_order": 4
+    },
+    {
+      "name": "SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the associated schedule(IRC_IS_SCHEDULES_B) for this schedule.",
+      "column_order": 5
+    },
+    {
+      "name": "INTERVIEW_NOTES",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Interview notes for the candidate",
+      "column_order": 6
+    },
+    {
+      "name": "INTERVIEW_GUIDELINES",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Provides the interview guidelines",
+      "column_order": 7
+    },
+    {
+      "name": "IS_SCHEDULED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N that is set to Y when the time proposal is used by a candidate.",
+      "column_order": 8
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The start date for the planned interview.",
+      "column_order": 9
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The end date for the planned interview.",
+      "column_order": 10
+    },
+    {
+      "name": "SCHEDULE_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the schedule location. (IRC_IS_LOCATIONS)",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_REMINDER_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last time that the interview reminder message was sent through ESS job.",
+      "column_order": 12
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "OFFICE365_USER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "The Microsoft Active Directory user id that was used to create the calendar event. This user is also the organizer for this event.",
+      "column_order": 19
+    },
+    {
+      "name": "OFFICE365_CALENDAR_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "The calendar id that was used to create the calendar event for the scheduled interview.",
+      "column_order": 20
+    },
+    {
+      "name": "OFFICE365_CALENDAR_EVENT_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "The calendar event of the calendar event that was created for the interview.",
+      "column_order": 21
+    },
+    {
+      "name": "OFFICE365_CAL_EV_IMMUTABLE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "The calendar event immutable id of the calendar event that was created for the interview",
+      "column_order": 22
+    },
+    {
+      "name": "OFFICE365_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of the last update in Office 365",
+      "column_order": 23
+    },
+    {
+      "name": "OFFICE365_LAST_SYNC_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of the last synchronization with Office 365",
+      "column_order": 24
+    },
+    {
+      "name": "ESS_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "ESS job request Id that retrieved the latest information from Office 365",
+      "column_order": 25
+    },
+    {
+      "name": "TOTAL_SEATS_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "The number of seats available for the candidates to schedule an interview for this interview slot.",
+      "column_order": 26
+    },
+    {
+      "name": "IS_COMPLETED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N that is set to Y once the interview is completed.",
+      "column_order": 27
+    },
+    {
+      "name": "MEETING_LINK_URL",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "Stores the meeting join link URL.",
+      "column_order": 28
+    },
+    {
+      "name": "MEETING_HTTP_CONTENT",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores HTTP content for the online meeting event",
+      "column_order": 29
+    },
+    {
+      "name": "ZOOM_MEETING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The meeting ID of the Zoom meeting",
+      "column_order": 30
+    },
+    {
+      "name": "GOOGLE_USER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "Google user that was used to create the calendar event. This user is also the organizer for this event.",
+      "column_order": 31
+    },
+    {
+      "name": "GOOGLE_CALENDAR_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "The Google calendar id that was used to create the calendar event for the scheduled interview.",
+      "column_order": 32
+    },
+    {
+      "name": "GOOGLE_CALENDAR_EVENT_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "The Google calendar event of the calendar event that was created for the interview.",
+      "column_order": 33
+    },
+    {
+      "name": "GOOGLE_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of the last update in Google.",
+      "column_order": 34
+    },
+    {
+      "name": "GOOGLE_LAST_SYNC_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of the last synchronization with Google.",
+      "column_order": 35
+    }
+  ]
+}

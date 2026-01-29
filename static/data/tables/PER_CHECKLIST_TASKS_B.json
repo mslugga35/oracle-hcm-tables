@@ -1,0 +1,649 @@
+{
+  "id": 5360,
+  "name": "PER_CHECKLIST_TASKS_B",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CHECKLIST_TASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key",
+      "column_order": 1
+    },
+    {
+      "name": "REMINDER_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Alert template for reminder.",
+      "column_order": 2
+    },
+    {
+      "name": "TASK_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "TASK_LEVEL_CODE",
+      "column_order": 3
+    },
+    {
+      "name": "TASK_LEVEL_VALUE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "TASK_LEVEL_VALUE",
+      "column_order": 4
+    },
+    {
+      "name": "ATTACHMENT_DOCUMENT_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores document type for attachment",
+      "column_order": 5
+    },
+    {
+      "name": "CHECKLIST_TASK_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "Unique Checklist Task Code",
+      "column_order": 6
+    },
+    {
+      "name": "TASK_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Task Category.\nExtensible Lookup: ORA_CHK_TASK_CATEGORY",
+      "column_order": 7
+    },
+    {
+      "name": "ELIGIBILITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to BEN_ELIGY_PRFL.ELIGY_PRFL_ID (Eligibility Profile for Checklist)",
+      "column_order": 8
+    },
+    {
+      "name": "MANDATORY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System Lookup: YES_NO\nValues: Y - Yes\nN - No\nIdentifies if the task is a mandatory task.",
+      "column_order": 9
+    },
+    {
+      "name": "TARGET_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Task expiration duration",
+      "column_order": 10
+    },
+    {
+      "name": "TARGET_DURATION_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System Lookup: CHECKLIST_QUALIFYING_UNITS\nValues: D - Days\nW - Weeks\nM - Months\nTask expiration duration unit of measure.",
+      "column_order": 11
+    },
+    {
+      "name": "RESPONSIBILITY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "User Defined Lookup: PER_RESPONSIBILITY_TYPES\nArea of Responsibility Performer Type\nSystem Lookup: ORA_PER_CHECKLIST_PERFORMERS\nValues: ORA_INITIATOR - Initiator\nORA_LN_MGR - Line Manager\nORA_WORKER - Worker\nORA_ADHOC_USER - Adhoc User",
+      "column_order": 12
+    },
+    {
+      "name": "ACTIVE_INACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System Lookup: ORA_CHK_CHECKLIST_TASK_STATUS\nValues: ORA_ACTIVE - Active\nORA_INACTIVE - In active",
+      "column_order": 13
+    },
+    {
+      "name": "TASK_DELAY_DURATION_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System Lookup: CHECKLIST_QUALIFYING_UNITS\nValues: D - Days\nW - Weeks\nM - Months\nTask extension duration unit of measure.",
+      "column_order": 14
+    },
+    {
+      "name": "TASK_DELAY_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Task extension duration",
+      "column_order": 15
+    },
+    {
+      "name": "ACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System Lookup: ORA_CHK_TASK_ACTION_TYPES\nValues: ORA_NONE - None\nORA_EXTERNAL_URL - External URL (Default)\nORA_APP_TASK - Application Task\nORA_DOC_RECORD - Document of Record\nORA_CUSTOM_FORM - Custom Form\nORA_EVENT - Meeting / Event\nORA_CHECKLIST - Checklist",
+      "column_order": 16
+    },
+    {
+      "name": "ADHOC_USER_GUID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Specific User - Foreign Key to PER_USERS.USER_GUID",
+      "column_order": 17
+    },
+    {
+      "name": "TASK_ACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_TASK_ACTIONS_B.TASK_ACTION_ID\nTask Definition to use when Action Type = Application Task",
+      "column_order": 18
+    },
+    {
+      "name": "FLEX_CONTEXT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Flexfield Context Code when the Action Type = Custom Form",
+      "column_order": 19
+    },
+    {
+      "name": "DOCUMENT_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Document Type associated with this task when Action Type = Document of Record",
+      "column_order": 20
+    },
+    {
+      "name": "TASK_CONFIGURATION",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Task Configuration",
+      "column_order": 21
+    },
+    {
+      "name": "ACTIVATION_ELIGY_PRFL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "ACTIVATION_ELIGY_PRFL_ID",
+      "column_order": 22
+    },
+    {
+      "name": "REMINDER_RECURRENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "When reminder needs to be sent for the task\nSystem Lookup: ORA_CHK_REM_RECURRENCE\nValues: ORA_NEVER - Never\nORA_EVERY - Every\nORA_1 - Once\nORA_2 - Twice\nORA_3 - Thrice\nORA_4 - Four times\nORA_5 - Five times\nORA_6 - Six times\nORA_7 - Seven times\nORA_8 - Eight times\nORA_9 - Nine times\nORA_10 - Ten times",
+      "column_order": 23
+    },
+    {
+      "name": "REMINDER_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Reminder Duration (in days)",
+      "column_order": 24
+    },
+    {
+      "name": "REMINDER_RELATIVE_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reminders need to be sent relative to\nSystem Lookup: ORA_CHK_REM_RELATIVE_TO\nValue: ORA_ASSIGNED - After Assigned Date\nORA_DUE - Before Due Date",
+      "column_order": 25
+    },
+    {
+      "name": "GENERATE_ATOM_FEED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies if ATOM feed needs to be generated",
+      "column_order": 26
+    },
+    {
+      "name": "OWNER_RESP_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "User Defined Lookup: PER_RESPONSIBILITY_TYPES\nArea of Responsibility Performer Type\nSystem Lookup: ORA_PER_CHECKLIST_PERFORMERS\nValues: ORA_INITIATOR - Initiator\nORA_LN_MGR - Line Manager\nORA_WORKER - Worker\nORA_ADHOC_USER - Adhoc User",
+      "column_order": 27
+    },
+    {
+      "name": "OWNER_USER_GUID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Specific Owner User - Foreign Key to PER_USERS.USER_GUID",
+      "column_order": 28
+    },
+    {
+      "name": "MEETING_OFFSET",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Meeting Offset from Action Date",
+      "column_order": 29
+    },
+    {
+      "name": "MEETING_TIME",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Meeting Time",
+      "column_order": 30
+    },
+    {
+      "name": "ENABLE_TASK_EXPIRY",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Whether task expiry is supported or not.\nSystem Lookup: YES_NO\nY - Yes\nN - No",
+      "column_order": 31
+    },
+    {
+      "name": "EXPIRY_AFTER_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Expiry Days",
+      "column_order": 32
+    },
+    {
+      "name": "BUSINESS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Enterprise",
+      "column_order": 33
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 38
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 39
+    },
+    {
+      "name": "MODULE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Seed Data Framework: indicates the module that owns the row. A module is an entry in Application Taxonomy such as a Logical Business Area. When the MODULE_ID column exists and the owner of the row is not specified, then the Seed Data Framework will not extract the row as seed data.",
+      "column_order": 40
+    },
+    {
+      "name": "SGUID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "SDF: Unique Seed Data GUID",
+      "column_order": 41
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 42
+    },
+    {
+      "name": "LEGISLATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Foreign Key to FND_TERRITORIES.TERRITORY_CODE",
+      "column_order": 43
+    },
+    {
+      "name": "LEGAL_EMPLOYER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to HR_ALL_ORGANIZATION_UNITS.ORGANIZATION_ID",
+      "column_order": 44
+    },
+    {
+      "name": "BUSINESS_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to HR_ALL_ORGANIZATION_UNITS.ORGANIZATION_ID",
+      "column_order": 45
+    },
+    {
+      "name": "TASK_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Contains the action code associated with the task.",
+      "column_order": 46
+    },
+    {
+      "name": "SIGN_TEMPLATE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the e-signature template for action type = ORA_CHK_ESIGN",
+      "column_order": 47
+    },
+    {
+      "name": "ESIGN_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies ESignature Type",
+      "column_order": 48
+    },
+    {
+      "name": "REPORT_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "It contains the BI Publisher report folder path followed by the report name concatenated with a / symbol with optionally a list of parameters in the format of  parameter_name is equals to parameter value . The first parameter is prefixed with ? and & to denote each additional parameter",
+      "column_order": 49
+    },
+    {
+      "name": "QUESTIONNAIRE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the Questionnaire Identifier for the Questionnaire associated with this task",
+      "column_order": 50
+    },
+    {
+      "name": "LEARNING_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "LEARNING_ITEM_ID",
+      "column_order": 51
+    },
+    {
+      "name": "LEARN_CONTENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "LEARN_CONTENT_TYPE",
+      "column_order": 52
+    },
+    {
+      "name": "REPORT_PARAMETERS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "REPORT_PARAMETERS",
+      "column_order": 53
+    },
+    {
+      "name": "ANALYTICS_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Report path for analytics task type",
+      "column_order": 54
+    },
+    {
+      "name": "EXPIRY_RELATIVE_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "EXPIRY_RELATIVE_TO",
+      "column_order": 55
+    },
+    {
+      "name": "TASK_FEATURE1",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 56
+    },
+    {
+      "name": "TASK_FEATURE2",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 57
+    },
+    {
+      "name": "TASK_FEATURE3",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 58
+    },
+    {
+      "name": "TASK_FEATURE4",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 59
+    },
+    {
+      "name": "TASK_FEATURE5",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Stores the Task feature",
+      "column_order": 60
+    },
+    {
+      "name": "TASK_FEATURE_DETAILS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the Task feature details",
+      "column_order": 61
+    },
+    {
+      "name": "VIDEO_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "VIDEO_TYPE",
+      "column_order": 62
+    },
+    {
+      "name": "DISPLAY_OPTIONS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "DISPLAY_OPTIONS",
+      "column_order": 63
+    },
+    {
+      "name": "VIDEO_URL",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "VIDEO_URL",
+      "column_order": 64
+    },
+    {
+      "name": "LEARN_ENROLLMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier to the learn enrollment",
+      "column_order": 65
+    },
+    {
+      "name": "LEARN_COMMUNITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier to the learn community",
+      "column_order": 66
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 67
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 68
+    },
+    {
+      "name": "LEARN_ENROLLMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "LEARN_ENROLLMENT_TYPE",
+      "column_order": 69
+    },
+    {
+      "name": "ATOM_FEED_CONFIGURATION",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "ATOM_FEED_CONFIGURATION",
+      "column_order": 70
+    },
+    {
+      "name": "EMBED_TASK_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "EMBED_TASK_ACTION_CODE",
+      "column_order": 71
+    },
+    {
+      "name": "CONTENT_PROVIDER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "CONTENT_PROVIDER_CODE",
+      "column_order": 72
+    },
+    {
+      "name": "EMBED_APP_TASK_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "EMBED_APP_TASK_TYPE_ID",
+      "column_order": 73
+    },
+    {
+      "name": "CHECKLIST_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "CHECKLIST_CATEGORY",
+      "column_order": 74
+    },
+    {
+      "name": "CHECKLIST_SUB_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "CHECKLIST_SUB_CATEGORY",
+      "column_order": 75
+    },
+    {
+      "name": "ANALYTICS_SUB_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "ANALYTICS_SUB_TYPE",
+      "column_order": 76
+    },
+    {
+      "name": "REMINDER_CONTENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "REMINDER_CONTENT_TYPE",
+      "column_order": 77
+    },
+    {
+      "name": "REMINDER_CONTENT_DEFN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "REMINDER_CONTENT_DEFN_ID",
+      "column_order": 78
+    },
+    {
+      "name": "GUIDED_JOURNEY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "GUIDED_JOURNEY_CODE",
+      "column_order": 79
+    },
+    {
+      "name": "GUIDED_JOURNEY_TASK_CODES",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "GUIDED_JOURNEY_TASK_CODES",
+      "column_order": 80
+    }
+  ]
+}

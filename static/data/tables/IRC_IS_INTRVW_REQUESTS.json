@@ -1,0 +1,241 @@
+{
+  "id": 7964,
+  "name": "IRC_IS_INTRVW_REQUESTS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INTRVW_REQUESTS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The primary key for this table.",
+      "column_order": 1
+    },
+    {
+      "name": "SUBMISSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to the submissions (IRC_SUBMISSIONS) to which we are linking the interview request",
+      "column_order": 2
+    },
+    {
+      "name": "SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to the schedules (IRC_IS_SCHEDULES_B) to which we are linking the interview request",
+      "column_order": 3
+    },
+    {
+      "name": "INTERVIEW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the interviews (IRC_IS_INTERVIEWS) to which we are linking the interview request",
+      "column_order": 4
+    },
+    {
+      "name": "IS_RSCHLD_RQSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag used when reschedule is requested to the candidate, count will not be incremented. (Default value 'N')",
+      "column_order": 5
+    },
+    {
+      "name": "INTRVW_RSCHLD_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Holds the count for the reschedules because it can exceed setting value, default is 0",
+      "column_order": 6
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "AUTO_O365_IS_OVERRIDDEN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag used when the interviewers are overridden.",
+      "column_order": 13
+    },
+    {
+      "name": "AUTO_O365_OVERRIDDEN_DURATION",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Determine the overridden interview meeting slot duration. Lookup to use ORA_IRC_IS_MEETING_DURATION.",
+      "column_order": 14
+    },
+    {
+      "name": "IS_RESCHEDULED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Determine if the Interview Request has been rescheduled.",
+      "column_order": 15
+    },
+    {
+      "name": "EARLIEST_AVAILABLE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Manual and proposed slots will be shown starting from this timestamp.",
+      "column_order": 16
+    },
+    {
+      "name": "FEEDBACK_REQUEST_CONFIG",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Contains feedback request configuration to be created.",
+      "column_order": 17
+    },
+    {
+      "name": "OVERRIDDEN_LOCATION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.LOCATION_TYPE.",
+      "column_order": 18
+    },
+    {
+      "name": "OVERRIDDEN_MEETING_PROVIDER",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_INTERVIEWS.INTERVIEW_MEETING_PROVIDER.",
+      "column_order": 19
+    },
+    {
+      "name": "OVERRIDDEN_VISBLTY_RANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_SCHEDULES_B.INTERVWS_VISIBILITY_RANGE_CODE.",
+      "column_order": 20
+    },
+    {
+      "name": "OVERRIDDEN_CONFERENCE_LINK",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.WEB_CONFERENCE_LINK.",
+      "column_order": 21
+    },
+    {
+      "name": "OVERRIDDEN_PHONE_PASSCODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.PHONE_NUMBER_PASSCODE.",
+      "column_order": 22
+    },
+    {
+      "name": "OVERRIDDEN_PH_COUNTRY_CODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to a phone country code. (HZ_PHONE_COUNTRY_CODES)",
+      "column_order": 23
+    },
+    {
+      "name": "OVERRIDDEN_PHONE_COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.PHONE_COUNTRY_CODE_NUMBER.",
+      "column_order": 24
+    },
+    {
+      "name": "OVERRIDDEN_PHONE_AREA",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.PHONE_AREA_CODE.",
+      "column_order": 25
+    },
+    {
+      "name": "OVERRIDDEN_PHONE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.PHONE_NUMBER.",
+      "column_order": 26
+    },
+    {
+      "name": "OVERRIDDEN_PHONE_EXTENSION",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.PHONE_EXT.",
+      "column_order": 27
+    },
+    {
+      "name": "OVERRIDDEN_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.LOCATION_ID.",
+      "column_order": 28
+    },
+    {
+      "name": "OVERRIDDEN_LOCATION_DETAILS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Overrides IRC_IS_LOCATIONS.LOCATION_DETAILS.",
+      "column_order": 29
+    }
+  ]
+}

@@ -1,0 +1,345 @@
+{
+  "id": 8121,
+  "name": "IRC_SUBMISSIONS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SUBMISSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key for this table. System generated.",
+      "column_order": 1
+    },
+    {
+      "name": "CONFIRMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This flag is used to determine whether submission is confirmed or not.",
+      "column_order": 2
+    },
+    {
+      "name": "CONFIRMED_BY_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_PERSONS table.",
+      "column_order": 3
+    },
+    {
+      "name": "SUBMISSION_CONFIRMED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "To track when the submission changed from Unconfirmed to Confirmed.",
+      "column_order": 4
+    },
+    {
+      "name": "INTERNAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "For reporting, to know if submission was internal application, at the time it was made.",
+      "column_order": 5
+    },
+    {
+      "name": "DISQUALIFIED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "To track if submission overall was disqualified (aggregate snapshot of DQ answers).",
+      "column_order": 6
+    },
+    {
+      "name": "MERGED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "To track if the submission has been delinked/merged.",
+      "column_order": 7
+    },
+    {
+      "name": "QSTNR_SCORE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The total questionnaire score for this submission.",
+      "column_order": 8
+    },
+    {
+      "name": "AF_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to IRC_AF_VERSIONS.AF_VERSION_ID.",
+      "column_order": 9
+    },
+    {
+      "name": "LEGAL_DESC_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "To track the legal disclaimer accepted by the applicant. Foreign key to IRC_DESC_VERSIONS_B.DESC_VERSION_ID.",
+      "column_order": 10
+    },
+    {
+      "name": "ESIGN_DESC_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "To track the Signature statement accepted by the applicant. Foreign key to IRC_DESC_VERSIONS_B.DESC_VERSION_ID.",
+      "column_order": 11
+    },
+    {
+      "name": "OBJECT_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the status of the object.",
+      "column_order": 12
+    },
+    {
+      "name": "REQUISITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to IRC_REQUISITIONS_B table.",
+      "column_order": 13
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to IRC_CANDIDATES table.",
+      "column_order": 14
+    },
+    {
+      "name": "SYSTEM_PERSON_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Person type of the job applicant when they applied for the job",
+      "column_order": 15
+    },
+    {
+      "name": "PIPELINE_SUBMISSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the SUBMISSION_ID of the pipeline requisition's submission,  if this submission is created based on a pipeline requisition's submission.",
+      "column_order": 16
+    },
+    {
+      "name": "IS_COMPLETED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Stores whether this submission is completed or not i.e whether the candidate completed filling this submission.",
+      "column_order": 17
+    },
+    {
+      "name": "CURRENT_PHASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to IRC_PHASES_B table.",
+      "column_order": 18
+    },
+    {
+      "name": "CURRENT_STATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to IRC_STATES_B table.",
+      "column_order": 19
+    },
+    {
+      "name": "PUBLIC_STATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to IRC_STATES_B table. This refers to public job application status that can be shared with candidate.",
+      "column_order": 20
+    },
+    {
+      "name": "IS_RESTRICTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the job application is restricted to access based on the user privilage.",
+      "column_order": 21
+    },
+    {
+      "name": "ACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the Submission is active or not.",
+      "column_order": 22
+    },
+    {
+      "name": "DISCARDED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the applicant has reapplied for the job and the current job is discarded.",
+      "column_order": 23
+    },
+    {
+      "name": "SUBMISSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the date when this submission was submitted.",
+      "column_order": 24
+    },
+    {
+      "name": "SUBM_LAST_MODIFIED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the last modified date for the Submission. This is updated even when the child entitiies of the Submission table are updated. This can be used by customers to export submissions which were updated after a certain date.",
+      "column_order": 25
+    },
+    {
+      "name": "SUBMISSION_LANGUAGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Stores the language code for the submission",
+      "column_order": 26
+    },
+    {
+      "name": "PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to profiles table HRT_PROIFLES_B.",
+      "column_order": 27
+    },
+    {
+      "name": "PROCESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to process table IRC_PROCESS_B.",
+      "column_order": 28
+    },
+    {
+      "name": "SITE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Foreign Key to sites table IRC_CX_SITES_B.SITE_NUMBER.",
+      "column_order": 29
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 30
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 32
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 35
+    },
+    {
+      "name": "CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Flexfield Category Code",
+      "column_order": 36
+    },
+    {
+      "name": "ADDED_BY_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Person who has submitted the job application.",
+      "column_order": 37
+    },
+    {
+      "name": "ADDED_BY_CONTEXT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source of the context through which this JA was submitted.",
+      "column_order": 38
+    },
+    {
+      "name": "SUB_ID_CHAR",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "This column is used to convert Long Submission Id to Char Submission Id. One of the main reason for this column to exists is to join with HRQ_QSTNR_PARTICIPANTS Table where  the SUBJECT_ID is of type varchar.",
+      "column_order": 39
+    },
+    {
+      "name": "CANDIDATE_WORK_SUMMARY",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the work summary of job application generated by AI based on candidate input information",
+      "column_order": 40
+    },
+    {
+      "name": "CURRENT_RANK",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Current rank number of current job application",
+      "column_order": 41
+    },
+    {
+      "name": "RANKED_BY_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Person id of person who ranked this job application",
+      "column_order": 42
+    }
+  ]
+}

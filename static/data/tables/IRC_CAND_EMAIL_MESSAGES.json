@@ -1,0 +1,201 @@
+{
+  "id": 7786,
+  "name": "IRC_CAND_EMAIL_MESSAGES",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CAND_EMAIL_MESSAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key for the IRC_CAND_EMAIL_MESSAGES table.",
+      "column_order": 1
+    },
+    {
+      "name": "AGENT_REVIEWED_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Status of the email following the review by the AI Agent.",
+      "column_order": 2
+    },
+    {
+      "name": "INTERACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key into the IRC_INTERACTIONS table. Each message is associated to an interaction in this manner. There can be multiple messages associated to an interaction. All the messages in the interaction in turn represents the conversation.",
+      "column_order": 3
+    },
+    {
+      "name": "SENDER_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key into PER_PERSONS. PersonId for the candidate or recruiter/ hiring manager who is sending this message.",
+      "column_order": 4
+    },
+    {
+      "name": "SUBJECT",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Subject content of message that will be sent.",
+      "column_order": 5
+    },
+    {
+      "name": "BODY_SNIPPET",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Message body snippet for preview on the email summary UI.",
+      "column_order": 6
+    },
+    {
+      "name": "MESSAGE_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "N",
+      "description": "Denotes a unique Id that is sent along with the message. This is the SMTP Message-Id header for the message sent/received.",
+      "column_order": 7
+    },
+    {
+      "name": "IN_REPLY_TO_HEADER",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "The In-Reply-To column denotes the unique message Id that the message in reference is a response to.",
+      "column_order": 8
+    },
+    {
+      "name": "MESSAGE_DIRECTION",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "To distinguish which way the messages are going-- to or from the candidate-- without having to derive the information from SENDER_PERSON_ID and IRC_CAN_MESSAGE_RECIPIENTS. Possible values for this column are ORA_INBOUND or ORA_OUTBOUND.",
+      "column_order": 9
+    },
+    {
+      "name": "SEND_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The time when a message is sent.",
+      "column_order": 10
+    },
+    {
+      "name": "ESS_JOB_READ_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The time taken for the ESS job to be read",
+      "column_order": 11
+    },
+    {
+      "name": "DELIVERY_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Delivery status of a message that has been sent or received. Different statuses include ORA_UNKOWN, ORA_DELIVERED, ORA_NOT_DELIVERED (at the least these few).",
+      "column_order": 12
+    },
+    {
+      "name": "READ_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Whether the email has been read by the candidate.",
+      "column_order": 13
+    },
+    {
+      "name": "BODY_PLAIN_TEXT",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the Message body in plain text.",
+      "column_order": 14
+    },
+    {
+      "name": "MASKED_BODY_TEXT",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Store the body text without PII data",
+      "column_order": 15
+    },
+    {
+      "name": "BODY_HTML",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the message body in HTML.",
+      "column_order": 16
+    },
+    {
+      "name": "REFERENCES_HEADER",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The References is a store of all the message_ids that are part of the conversation thread for the message sent/received. This is empty for the first message that is sent but should have a value for every subsequent message/interaction in the conversation.  This is important for maintaining the Email Message Headers when replying to  messages from the Messaging UI (this is important for us mimic the behavior of a mail client in order to display a conversation thread in external mailboxes).",
+      "column_order": 17
+    },
+    {
+      "name": "DELIVERY_ERROR_MESSAGE",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Error message if the delivery of the message fails.",
+      "column_order": 18
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 19
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 20
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 21
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 24
+    }
+  ]
+}

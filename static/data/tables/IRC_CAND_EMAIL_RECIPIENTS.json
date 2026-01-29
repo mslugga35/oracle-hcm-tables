@@ -1,0 +1,113 @@
+{
+  "id": 7788,
+  "name": "IRC_CAND_EMAIL_RECIPIENTS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CAND_EMAIL_RECIPIENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key for IRC_CAND_EMAIL_RECIPIENTS table.",
+      "column_order": 1
+    },
+    {
+      "name": "CAND_EMAIL_MESSAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key into IRC_CAND_EMAIL_MESSAGES.",
+      "column_order": 2
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key into PER_PERSONS. PersonId for the candidate or recruiter/ hiring manager that is the recipient of this message as part of the interaction.",
+      "column_order": 3
+    },
+    {
+      "name": "RECIPIENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "N",
+      "description": "Indicates whether the recipient is in the TO, CC, or BCC list. Possible values are TO, CC, BCC.",
+      "column_order": 4
+    },
+    {
+      "name": "RELAYED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicate whether this recipient was relayed the message, instead of being part of the recipients list on the original message. Important to display to whom the message was forwarded/relayed to when the conversation participant was not part of the senders/ recipients list.",
+      "column_order": 5
+    },
+    {
+      "name": "RELAYED_MESSAGE_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "The RelayedMessageIdentifier denotes a unique Id that is sent along with the relayed message. This is populated for every relayed email message with the SMTP MessageId.",
+      "column_order": 6
+    },
+    {
+      "name": "RELAYED_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicate the time that the message was relayed.",
+      "column_order": 7
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 13
+    }
+  ]
+}

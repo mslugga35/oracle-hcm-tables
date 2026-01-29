@@ -1,0 +1,177 @@
+{
+  "id": 5556,
+  "name": "PER_LDAP_REQUESTS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LDAP_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Mandatory Primary Key Updatable While New Key Generation",
+      "column_order": 1
+    },
+    {
+      "name": "ACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Flag to identify if the request is active and therefore either due to be processed or in progress within the SOA composite",
+      "column_order": 2
+    },
+    {
+      "name": "REQUESTING_PRODUCT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The product performing the LDAP requesting (HCM or TCA)",
+      "column_order": 3
+    },
+    {
+      "name": "REQUESTING_REFERENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The Person Id of the requesting product is HCM. The Party Id if the requesting product is TCA",
+      "column_order": 4
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 5
+    },
+    {
+      "name": "REQUESTOR_USER_GUID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "The user Guid of the user who is making the LDAP request (if available)",
+      "column_order": 6
+    },
+    {
+      "name": "REQUEST_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The current status of the request: REQUEST, IN PROGRESS, COMPLETE, PART-COMPLETE",
+      "column_order": 7
+    },
+    {
+      "name": "ACTION_OCCURRENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_ACTION_OCCURRENCES.",
+      "column_order": 8
+    },
+    {
+      "name": "REQUEST_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date that the request should be or was processed.",
+      "column_order": 9
+    },
+    {
+      "name": "LDAP_POLICY_FILE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "The name of the policy file that should be used to process this request",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "BUSINESS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of Enterprise, used for multi-tenancy partitioning. Foreign key to HR_ORGANIZATION_UNITS.",
+      "column_order": 17
+    },
+    {
+      "name": "ERROR_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Displayed error that comes back from OIM",
+      "column_order": 18
+    },
+    {
+      "name": "ERROR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 230,
+      "nullable": "Y",
+      "description": "Error code that corresponds to MESSAGE_NAME attribute from the FND_MESSAGES table",
+      "column_order": 19
+    },
+    {
+      "name": "SOD_ERROR_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Segregation of duties error description",
+      "column_order": 20
+    },
+    {
+      "name": "REQUESTING_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "REQUESTING_SOURCE- INTERNAL or EXTERNAL",
+      "column_order": 21
+    }
+  ]
+}

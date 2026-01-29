@@ -1,0 +1,329 @@
+{
+  "id": 7029,
+  "name": "HRC_TXN_CONDITIONS_LOVMETADATA",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LOV_METADATA_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key and unique identifier required by Seed data framework.",
+      "column_order": 1
+    },
+    {
+      "name": "SOURCE_VIEW_OBJECT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 300,
+      "nullable": "N",
+      "description": "This column contains the fully qualified package path name of the View Object which is the source of the LOV query. This View Object is loaded and query form it is extracted to present the LOV in the Condition Builder UI.",
+      "column_order": 2
+    },
+    {
+      "name": "LOV_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This is the column name that is extracted from the VO query and is displayed in the UI. This column would act as a primary identifier to assist the user in uniquely identifying an item in the LOV. So it is adviced to the product teams to enter a cloumn name which has Unique property set.",
+      "column_order": 3
+    },
+    {
+      "name": "LOV_MEANING",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This is the column name that is extracted from the VO query and is displayed in the UI along with the LOV_CODE column. When user selects a particular item in the UI, the value from this column would go into the condition expression. So when you refer the metadata from this table to a CONDITION_OPERAND column in the HRC_TXN_CONDITIONS_LOVUSAGE table it implies that value from this column would go into the expression whose other operand is CONDITION_OPERAND.",
+      "column_order": 4
+    },
+    {
+      "name": "VIEW_OBJECT_CRITERIA_NAME_1",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Name of the view criteria that has to be applied to the view object identified by SOURCE_VIEW_OBJECT_NAME before extracting the LOV query from it. By default the different view criterias are joined by AND. Product teams have a provision of entering up to five view  criterias. If there is a requirement for more, it is adviced to create new view criterias to club some of the available view criterias.",
+      "column_order": 5
+    },
+    {
+      "name": "VIEW_OBJECT_CRITERIA_NAME_2",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Name of the view criteria that has to be applied to the view object identified by SOURCE_VIEW_OBJECT_NAME before extracting the LOV query from it.",
+      "column_order": 6
+    },
+    {
+      "name": "VIEW_OBJECT_CRITERIA_NAME_3",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Name of the view criteria that has to be applied to the view object identified by SOURCE_VIEW_OBJECT_NAME before extracting the LOV query from it.",
+      "column_order": 7
+    },
+    {
+      "name": "VIEW_OBJECT_CRITERIA_NAME_4",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Name of the view criteria that has to be applied to the view object identified by SOURCE_VIEW_OBJECT_NAME before extracting the LOV query from it.",
+      "column_order": 8
+    },
+    {
+      "name": "VIEW_OBJECT_CRITERIA_NAME_5",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Name of the view criteria that has to be applied to the view object identified by SOURCE_VIEW_OBJECT_NAME before extracting the LOV query from it.",
+      "column_order": 9
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_1",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query. So if the query contains any bind variables, the details of the variable name and value are to be populated in the VIEW_OBJECT_BIND_VAR_NAME_X and VIEW_OBJECT_BIND_VAR_VAL_X columns respectively. There is a provision to enter up to 10 such pairs. As the LOV query generation is purely based on design time attributes from the metadata table the query for a particular metadata cannot be modified dynamically at runtime. So we expect a corresponding static value in the BIND_VAR_VAL_X columns. In future this can be enhanced to have a dynamic value.",
+      "column_order": 10
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_1",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query. So if the query contains any bind variables, the details of the variable name and value are to be populated in the VIEW_OBJECT_BIND_VAR_NAME_X and VIEW_OBJECT_BIND_VAR_VAL_X columns respectively. There is a provision to enter up to 10 such pairs. As the LOV query generation is purely based on design time attributes from the metadata table the query for a particular metadata cannot be modified dynamically at runtime. So we expect a corresponding static value in the BIND_VAR_VAL_X columns. In future this can be enhanced to have a dynamic value.",
+      "column_order": 11
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_2",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 12
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_2",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 13
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_3",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 14
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_3",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 15
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_4",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 16
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_4",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 17
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_5",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 18
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_5",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 19
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_6",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 20
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_6",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 21
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_7",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 22
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_7",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 23
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_8",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 24
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_8",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 25
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_9",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 26
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_9",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 27
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_NAME_0",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column contains the name of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 28
+    },
+    {
+      "name": "VIEW_OBJECT_BIND_VAR_VAL_0",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "This column contains the value  of the bind variable that would be present in the View Object's extracted query.",
+      "column_order": 29
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identify the ENTERPRISE  to which the composite belongs.Foreign key to PER_ENTERPRISES.",
+      "column_order": 30
+    },
+    {
+      "name": "MODULE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Seed Data Framework: indicates the module that owns the row. A module is an entry in Application Taxonomy such as a Logical Business Area. When the MODULE_ID column exists and the owner of the row is not specified, then the Seed Data Framework will not extract the row as seed data.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 32
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "SGUID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "The seed global unique identifier. Oracle internal use only.",
+      "column_order": 37
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 38
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 39
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 40
+    }
+  ]
+}

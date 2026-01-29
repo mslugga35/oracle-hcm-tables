@@ -1,0 +1,257 @@
+{
+  "id": 5273,
+  "name": "PER_ACTION_OCCURRENCES_",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ACTION_OCCURRENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key. Uniquely identifies a document of record.",
+      "column_order": 1
+    },
+    {
+      "name": "ACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_ACTIONS_B table.",
+      "column_order": 2
+    },
+    {
+      "name": "ACTION_REASON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_ACTION_REASONS_B table.",
+      "column_order": 3
+    },
+    {
+      "name": "ACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date of occurance of action.",
+      "column_order": 4
+    },
+    {
+      "name": "SUBMITTED_BY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the user who submitted the action.",
+      "column_order": 5
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "FREEZE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Represents the Deferred data freeze start date (defaulted to End of time).",
+      "column_order": 12
+    },
+    {
+      "name": "FREEZE_UNTIL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Represents the Deferred data freeze until date (defaulted to Start of Time).",
+      "column_order": 13
+    },
+    {
+      "name": "ENTITY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Entity Type stores the parent object of a transactional entity.",
+      "column_order": 14
+    },
+    {
+      "name": "ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores Surrogate key of the entity type",
+      "column_order": 15
+    },
+    {
+      "name": "PARENT_ENTITY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Entity Type stores the parent object of a transactional entity.",
+      "column_order": 16
+    },
+    {
+      "name": "PARENT_ENTITY_KEY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores Surrogate key of the entity type",
+      "column_order": 17
+    },
+    {
+      "name": "BUSINESS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of Enterprise, used for multi-tenancy partitioning. Foreign key to HR_ORGANIZATION_UNITS.",
+      "column_order": 18
+    },
+    {
+      "name": "ACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Denormalized information. Stores the Action Type used in creation of this row",
+      "column_order": 19
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Actione Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 20
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1's and 0s for each row. 1 will be stored if the value has changed and 0 will be stored if the value hasn't.",
+      "column_order": 21
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the impersonator who last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "PROPOSED_ACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "PROPOSED_ACTION_ID",
+      "column_order": 23
+    },
+    {
+      "name": "PROPOSED_REASON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "PROPOSED_REASON_ID",
+      "column_order": 24
+    },
+    {
+      "name": "PROPOSED_ACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "PROPOSED_ACTION_TYPE",
+      "column_order": 25
+    },
+    {
+      "name": "PROPOSED_WORKER_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "PROPOSED_WORKER_TYPE",
+      "column_order": 26
+    },
+    {
+      "name": "PROPOSED_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "PROPOSED_START_DATE",
+      "column_order": 27
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "LEGAL_ENTITY_ID",
+      "column_order": 28
+    },
+    {
+      "name": "POSITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Position ID for Combined Employment and Position Change action",
+      "column_order": 29
+    },
+    {
+      "name": "BUSINESS_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Business Unit ID for Combined Employment and Position Change action",
+      "column_order": 30
+    },
+    {
+      "name": "HOW_TO_PROCESS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Choice of position action for Combined Employment and Position Change action",
+      "column_order": 31
+    }
+  ]
+}

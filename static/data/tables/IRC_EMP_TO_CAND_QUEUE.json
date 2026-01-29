@@ -1,0 +1,97 @@
+{
+  "id": 7902,
+  "name": "IRC_EMP_TO_CAND_QUEUE",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "QUEUE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key of the table.",
+      "column_order": 1
+    },
+    {
+      "name": "EFFECTIVE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the date at the beginning of the date range within which the row is effective.",
+      "column_order": 2
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "PersonId of the worker. Foreign key to Per_Persons",
+      "column_order": 3
+    },
+    {
+      "name": "PERSON_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "N",
+      "description": "Specifies the Person Type i.e. internal or external, honoring the CWK profile option.\n\nIntroducing this column as a performance optimization. This column prevents an extra join to get the system person type once batch processing starts.",
+      "column_order": 4
+    },
+    {
+      "name": "REFERENCE_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to specify processing status for a batch. 1 : Being Processed ; 2 : No Processing",
+      "column_order": 5
+    },
+    {
+      "name": "PROCESSOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Sequence generated unique Id. Used for multi threaded processing",
+      "column_order": 6
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 11
+    }
+  ]
+}

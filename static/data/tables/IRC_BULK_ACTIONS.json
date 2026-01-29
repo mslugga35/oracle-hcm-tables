@@ -1,0 +1,265 @@
+{
+  "id": 7724,
+  "name": "IRC_BULK_ACTIONS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "BULK_ACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key for this table. System generated.",
+      "column_order": 1
+    },
+    {
+      "name": "CONTEXT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Business Object Type - It can be SUBMISSION_LIST or PROSPECT_LIST or POOL_MEMBER_LIST or CANDIDATE_SEARCH_LIST or RECOMMENDATION_LIST",
+      "column_order": 2
+    },
+    {
+      "name": "CONTEXT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the Id releated to the Context Type Ex: REQUISITION_ID , POOL_ID etc",
+      "column_order": 3
+    },
+    {
+      "name": "ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Stores what type of action need to be performed for Bulk actions like MOVE_CANDIDATE or SEND_EMAIL or DELETE_SUBMISSION",
+      "column_order": 4
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Stores the status of the Bulk Action. Lookup type - ORA_IRC_BULK_ACTION_STATUS",
+      "column_order": 5
+    },
+    {
+      "name": "SUBMITTED_BY_USER",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "stores the username who created the row.",
+      "column_order": 6
+    },
+    {
+      "name": "SUBMITTED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "stores the date and time of the creation of the row.",
+      "column_order": 7
+    },
+    {
+      "name": "QUERY",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the query",
+      "column_order": 8
+    },
+    {
+      "name": "QUERY_PARAMS",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores query params list in hash map",
+      "column_order": 9
+    },
+    {
+      "name": "SELECTED_FILTERS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores filtered label and values for display purpose (notification email and on action page)",
+      "column_order": 10
+    },
+    {
+      "name": "QUERY_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Stores what type of Query it need to be like FILTER_BASED (or) MANUAL_SELECTION",
+      "column_order": 11
+    },
+    {
+      "name": "UNSELECTED_IDS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores Comma separated unselected Object Ids list",
+      "column_order": 12
+    },
+    {
+      "name": "ESS_JOB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Store ESS Job Id",
+      "column_order": 13
+    },
+    {
+      "name": "ACTION_DATA",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores HashMap object which contains action data like new phase/state, email template etc..",
+      "column_order": 14
+    },
+    {
+      "name": "CONSUMER_IMPL_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores Implementation class patch which need to be executed\n\nEx: \"oracle.apps.hcm.recruiting.thirdParty.backgroundCheck.publicModelService.bulkActions.SubmissionBulkAction\"",
+      "column_order": 15
+    },
+    {
+      "name": "CONSUMER_AM_DEF",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores Consumer Application Module Definition in which action need to be performed\n\nEx: \"oracle.apps.hcm.recruiting.hiring.submissions.core.protectedModel.applicationModule.SubmissionAM\"",
+      "column_order": 16
+    },
+    {
+      "name": "CONSUMER_AM_CONFIG_DEF",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Stores Consumer Application Module Configuration Definition in which action need to be performed\n\nEx: \"SubmissionAMLocal\"",
+      "column_order": 17
+    },
+    {
+      "name": "NOTIFICATION_TOKENS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores notification tokens for which bulk action is processed",
+      "column_order": 18
+    },
+    {
+      "name": "TOTAL_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores total number of rows for which bulk action is processed",
+      "column_order": 19
+    },
+    {
+      "name": "FAILED_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores failed rows count for which bulk action is processed",
+      "column_order": 20
+    },
+    {
+      "name": "SKIPPED_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores skipped rows count for which bulk action is processed",
+      "column_order": 21
+    },
+    {
+      "name": "CANCELLED_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores cancelled rows count for which bulk action is processed",
+      "column_order": 22
+    },
+    {
+      "name": "FAILED_IDS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores Comma separated failed row Ids",
+      "column_order": 23
+    },
+    {
+      "name": "SKIPPED_IDS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores Comma separated skipped row Ids",
+      "column_order": 24
+    },
+    {
+      "name": "CANCELLED_IDS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Comma separated cancelled row Ids",
+      "column_order": 25
+    },
+    {
+      "name": "DEBUG_QUERY_PARAMS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores query params in CLOB format. This is used for debugging purpose",
+      "column_order": 26
+    },
+    {
+      "name": "DEBUG_ACTION_DATA",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores action data in CLOB format. This is used for debugging purpose",
+      "column_order": 27
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 28
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 29
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 32
+    }
+  ]
+}

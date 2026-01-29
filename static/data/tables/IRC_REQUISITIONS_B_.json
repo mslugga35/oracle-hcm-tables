@@ -1,0 +1,1377 @@
+{
+  "id": 8083,
+  "name": "IRC_REQUISITIONS_B_",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "REQUISITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key of the table. System generated.",
+      "column_order": 1
+    },
+    {
+      "name": "APPROVED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Approved date of the requisition",
+      "column_order": 2
+    },
+    {
+      "name": "INT_FIRST_POSTED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "First Internal Posted Date of Requisition",
+      "column_order": 3
+    },
+    {
+      "name": "FILLED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the date at which Job Requisition is Filled",
+      "column_order": 4
+    },
+    {
+      "name": "SUSPENDED_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Suspended duration of the requisition in seconds",
+      "column_order": 5
+    },
+    {
+      "name": "EXT_FIRST_POSTED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "First External Posted Date of Requisition",
+      "column_order": 6
+    },
+    {
+      "name": "REQ_SOURCE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the source type of the Requisition.",
+      "column_order": 7
+    },
+    {
+      "name": "OBJECT_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the status of the Object as a lookup code. The corresponding lookup type is ORA_IRC_OBJECT_STATUS.",
+      "column_order": 8
+    },
+    {
+      "name": "REQUISITION_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Unique readable number for the Requistion.",
+      "column_order": 9
+    },
+    {
+      "name": "REQ_USAGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Whether this instance is an actual Requisition or a Requisition Template. Stores the Requisition usage type as a lookup code. The corresponding lookup type is ORA_IRC_REQUISITION_USAGE.",
+      "column_order": 10
+    },
+    {
+      "name": "RECRUITING_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the type of Recruiting as a lookup code. The corresponding lookup type is ORA_IRC_RECRUITING_TYPE. This colums accept NULL values.",
+      "column_order": 11
+    },
+    {
+      "name": "CURRENT_PHASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to IRC_PHASES_B table.",
+      "column_order": 12
+    },
+    {
+      "name": "CURRENT_STATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to IRC_STATES_B table.",
+      "column_order": 13
+    },
+    {
+      "name": "PROCESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to process table IRC_PROCESS_B : store the PROCESS_ID use to track the lifecycle of this Requisition.",
+      "column_order": 14
+    },
+    {
+      "name": "PROCESS_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to process table IRC_PROCESS_B : store the initial PROCESS_ID from which the proper PROCESS_ID of this requisition is an instance.",
+      "column_order": 15
+    },
+    {
+      "name": "HIRING_MANAGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the PERSON_ID of the hiring manager for this Requisition. Foreign key to PER_PERSONS table.",
+      "column_order": 16
+    },
+    {
+      "name": "MANAGER_ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ASSIGNMENT_ID of the hiring manager's assignment for this Requisition. Foreign key to PER_ALL_ASSIGNMENTS_M table.",
+      "column_order": 17
+    },
+    {
+      "name": "RECRUITER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_PERSONS table.",
+      "column_order": 18
+    },
+    {
+      "name": "RECRUITER_ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ASSIGNMENT_ID of the recruiter's assignment for this Requisition. Foreign key to PER_ALL_ASSIGNMENTS_M table.",
+      "column_order": 19
+    },
+    {
+      "name": "REQUISITION_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the template associated to the requisition. Foreign key to IRC_REQUISITIONS_B table.",
+      "column_order": 20
+    },
+    {
+      "name": "MANAGER_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the manager level as a lookup code. The corresponding lookup type is MANAGER_LEVEL.",
+      "column_order": 21
+    },
+    {
+      "name": "FULL_PART_TIME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores whether the opening is for a full or part time job, as a lookup code. The corresponding lookup type is FULL_PART_TIME.",
+      "column_order": 22
+    },
+    {
+      "name": "WORKER_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the worker type as a lookup code. The corresponding lookup type is PER_PERIOD_TYPE.",
+      "column_order": 23
+    },
+    {
+      "name": "WORK_START_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Work start date of the job.",
+      "column_order": 24
+    },
+    {
+      "name": "WORK_END_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Work end date of the job.",
+      "column_order": 25
+    },
+    {
+      "name": "JOB_SHIFT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the job shift for this Requisition as a lookup code. The corresponding lookup type is ORA_IRC_JOB_SHIFT.",
+      "column_order": 26
+    },
+    {
+      "name": "JOB_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the job type for this Requisition as a lookup code. The corresponding lookup type is ORA_IRC_JOB_TYPE.",
+      "column_order": 27
+    },
+    {
+      "name": "STUDY_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the study level for this Requisition as a lookup code. The corresponding lookup type is HRT_EDUCATION_LEVEL.",
+      "column_order": 28
+    },
+    {
+      "name": "INT_EMPLOYER_DESC_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the internal employer description of the Requisition. Foreign key to IRC_DESCRIPTIONS_B table.",
+      "column_order": 29
+    },
+    {
+      "name": "EXT_EMPLOYER_DESC_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the external employer description of the Requisition. Foreign key to IRC_DESCRIPTIONS_B table.",
+      "column_order": 30
+    },
+    {
+      "name": "INT_ORGANIZATION_DESC_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the internal organization description of the Requisition. Foreign key to IRC_DESCRIPTIONS_B table.",
+      "column_order": 31
+    },
+    {
+      "name": "EXT_ORGANIZATION_DESC_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the external organization description of the Requisition. Foreign key to IRC_DESCRIPTIONS_B table.",
+      "column_order": 32
+    },
+    {
+      "name": "JOB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_JOBS_F table.",
+      "column_order": 33
+    },
+    {
+      "name": "BUSINESS_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HR_ALL_ORGANIZATION_UNITS_F table.",
+      "column_order": 34
+    },
+    {
+      "name": "JOB_FAMILY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_JOB_FAMILY_F",
+      "column_order": 35
+    },
+    {
+      "name": "JOB_FUNCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the job function code for this Requisition as a lookup code. The corresponding lookup type is JOB_FUNCTION_CODE.",
+      "column_order": 36
+    },
+    {
+      "name": "GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HZ_GEOGRAPHIES table.",
+      "column_order": 37
+    },
+    {
+      "name": "GEOGRAPHY_NODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to IRC_GEO_HIER_NODES table.",
+      "column_order": 38
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the primary work location of the requisition. Foreign key to PER_LOCATIONS.",
+      "column_order": 39
+    },
+    {
+      "name": "ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HR_ALL_ORGANIZATION_UNITS_F table.",
+      "column_order": 40
+    },
+    {
+      "name": "LEGAL_EMPLOYER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HR_ALL_ORGANIZATION_UNITS_F table.",
+      "column_order": 41
+    },
+    {
+      "name": "GRADE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_GRADES_F table.",
+      "column_order": 42
+    },
+    {
+      "name": "DEPARTMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HR_ALL_ORGANIZATION_UNITS_F table.",
+      "column_order": 43
+    },
+    {
+      "name": "JUSTIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the Justification for this Requisition as a lookup code. The corresponding lookup type is ORA_IRC_REQ_JUSTIFICATION.",
+      "column_order": 44
+    },
+    {
+      "name": "REGULAR_TEMPORARY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores whether the opening is for a regular or temporary job, as a lookup code. The corresponding lookup type is REGULAR_TEMPORARY.",
+      "column_order": 45
+    },
+    {
+      "name": "NUMBER_TO_HIRE",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Stores the number of people to hire for this Requisition.",
+      "column_order": 46
+    },
+    {
+      "name": "UNLIMITED_HIRE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Stores whether this Requisition can hire unlimited number of people.",
+      "column_order": 47
+    },
+    {
+      "name": "HOT_JOB_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Stores whether this Requisition should be considerate as a Hot Job or not",
+      "column_order": 48
+    },
+    {
+      "name": "WORKPLACE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the Workplace type value for this Requisition, as a lookup code.The corresponding lookup type is ORA_IRC_WORKPLACE_TYPE.",
+      "column_order": 49
+    },
+    {
+      "name": "EXT_CONTACT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the External Contact name",
+      "column_order": 50
+    },
+    {
+      "name": "EXT_CONTACT_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the External Contact email",
+      "column_order": 51
+    },
+    {
+      "name": "INT_CONTACT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the Internal contact name",
+      "column_order": 52
+    },
+    {
+      "name": "INT_CONTACT_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the Internal contact email",
+      "column_order": 53
+    },
+    {
+      "name": "INT_PUBLISH_JOB_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the Internal published job status",
+      "column_order": 54
+    },
+    {
+      "name": "INT_PUBLISH_JOB_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Internal published job start date.",
+      "column_order": 55
+    },
+    {
+      "name": "INT_PUBLISH_JOB_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Internal published job end date.",
+      "column_order": 56
+    },
+    {
+      "name": "EXT_PUBLISH_JOB_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the external published job status",
+      "column_order": 57
+    },
+    {
+      "name": "EXT_PUBLISH_JOB_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "External published job start date",
+      "column_order": 58
+    },
+    {
+      "name": "EXT_PUBLISH_JOB_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "External published job end date",
+      "column_order": 59
+    },
+    {
+      "name": "BUDGET_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the currency code for the budget for this Requisition. Foreign key to FND_CURRENCIES table.",
+      "column_order": 60
+    },
+    {
+      "name": "SOURCING_BUDGET",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the sourcing budget for this Requisition.",
+      "column_order": 61
+    },
+    {
+      "name": "TRAVEL_BUDGET",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the travel budget for this Requisition.",
+      "column_order": 62
+    },
+    {
+      "name": "RELOCATION_BUDGET",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the relocation budget allocated for this Requisition.",
+      "column_order": 63
+    },
+    {
+      "name": "EMPLOYEE_REFERRAL_BONUS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the amount for employee referral bonus.",
+      "column_order": 64
+    },
+    {
+      "name": "MIN_SALARY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the minimum salary for this Requisition.",
+      "column_order": 65
+    },
+    {
+      "name": "MAX_SALARY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the maximum salary for this Requisition.",
+      "column_order": 66
+    },
+    {
+      "name": "SALARY_FREQUENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the salary frequency as a lookup code. The corresponding lookup type is CMP_SALARY_BASIS.",
+      "column_order": 67
+    },
+    {
+      "name": "SALARY_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the salary currency information. Foreign key to FND_CURRENCIES table.",
+      "column_order": 68
+    },
+    {
+      "name": "SALARY_PERIOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the salary period as a lookup code. The corresponding lookup type is ORA_IRC_SALARY_PERIOD. This colums accept NULL values.",
+      "column_order": 69
+    },
+    {
+      "name": "PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the corresponding job profile ID. Foreign key to HRT_PROFILES_B table.",
+      "column_order": 70
+    },
+    {
+      "name": "DISPLAY_IN_ORG_CHART_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Stores whether the requisition should appear in the Org Chart or not.",
+      "column_order": 71
+    },
+    {
+      "name": "SYNC_JOB_VALUES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Store the boolean to indicate if, for a particular template, the values from \"Job\" object should always be synched with template",
+      "column_order": 72
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores comments about this requisition.",
+      "column_order": 73
+    },
+    {
+      "name": "REQ_LAST_MODIFIED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the last modified date of the Requisition. It should be considered the equivalent of last update.",
+      "column_order": 74
+    },
+    {
+      "name": "HIRED_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Stores the number of candidates hired on this Requisition.",
+      "column_order": 75
+    },
+    {
+      "name": "SUBS_PROCESS_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the process template that submissions on this requisition will follow.",
+      "column_order": 76
+    },
+    {
+      "name": "EXTERNAL_APPLY_FLOW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Apply Flow used for external candidates applying on this requisition. Foreign key to IRC_APPLY_FLOWS_B table.",
+      "column_order": 77
+    },
+    {
+      "name": "PIPELINE_REQUISITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the pipeline requisition the hiring requisition was created from Foreign key to IRC_REQUISITIONS_B",
+      "column_order": 78
+    },
+    {
+      "name": "PIPELINE_REQUISITION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Stores whether the requisition is a pipeline requisition",
+      "column_order": 79
+    },
+    {
+      "name": "APPLY_WHEN_NOT_POSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Stores whether the candidate can apply on a requisition when not posted.",
+      "column_order": 80
+    },
+    {
+      "name": "POSITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the corresponding position ID. Foreign key to HR_ALL_POSITIONS_F table.",
+      "column_order": 81
+    },
+    {
+      "name": "AUTOMATIC_FILL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Stores whether the requisition can be auto-filled.",
+      "column_order": 82
+    },
+    {
+      "name": "EXTERNAL_DESCRIPTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the external description of the Requisition. Foreign key to IRC_DESCRIPTIONS_B table.",
+      "column_order": 83
+    },
+    {
+      "name": "INTERNAL_DESCRIPTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the internal description of the Requisition. Foreign key to IRC_DESCRIPTIONS_B table.",
+      "column_order": 84
+    },
+    {
+      "name": "REQ_USAGE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Whether this instance is an actual Stand Alone, Job Based or Position Based requisition template. Stores the Requisition usage type as a lookup code. The corresponding lookup type is ORA_IRC_REQUISITION_USAGE_TYPE.",
+      "column_order": 85
+    },
+    {
+      "name": "OPEN_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the date at which the job requisition was changed to Open phase.",
+      "column_order": 86
+    },
+    {
+      "name": "AUTO_OPEN_REQUISITION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores whether the requisition can be auto posted.",
+      "column_order": 87
+    },
+    {
+      "name": "AUTO_UNPOST_REQUISITION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores whether the requisition can be auto unposted.  The corresponding lookup type is ORA_IRC_REQ_AUTO_UNPOST.",
+      "column_order": 88
+    },
+    {
+      "name": "POSTING_EXPIRE_IN_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the number of days after which the postings must expire.",
+      "column_order": 89
+    },
+    {
+      "name": "UNPOST_FORMULA_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "References the formula used to unpost the requisition.",
+      "column_order": 90
+    },
+    {
+      "name": "TN_AGENCY_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the Talent Network Agency Status code. The corresponding lookup type is ORA_IRC_AGENCY_REQUISITION_STATUS. This column accepts NULL values.",
+      "column_order": 91
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 92
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 93
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 94
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 95
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 96
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP1",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP2",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP3",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP4",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP5",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP6",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP7",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP8",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP9",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "ATTRIBUTE_TIMESTAMP10",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 112
+    },
+    {
+      "name": "ATTRIBUTE_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 113
+    },
+    {
+      "name": "ATTRIBUTE_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 114
+    },
+    {
+      "name": "ATTRIBUTE_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 115
+    },
+    {
+      "name": "ATTRIBUTE_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 116
+    },
+    {
+      "name": "ATTRIBUTE_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 117
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 118
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 119
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 120
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 121
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 122
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 123
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 124
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 125
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 126
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 127
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 128
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 129
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 130
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 131
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 132
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 133
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 134
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 135
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 136
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 137
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 138
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 139
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 140
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 141
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 142
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 143
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 144
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 145
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 146
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 147
+    },
+    {
+      "name": "ATTRIBUTE_CHAR11",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 148
+    },
+    {
+      "name": "ATTRIBUTE_CHAR12",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 149
+    },
+    {
+      "name": "ATTRIBUTE_CHAR13",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 150
+    },
+    {
+      "name": "ATTRIBUTE_CHAR14",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 151
+    },
+    {
+      "name": "ATTRIBUTE_CHAR15",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 152
+    },
+    {
+      "name": "ATTRIBUTE_CHAR16",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 153
+    },
+    {
+      "name": "ATTRIBUTE_CHAR17",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 154
+    },
+    {
+      "name": "ATTRIBUTE_CHAR18",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 155
+    },
+    {
+      "name": "ATTRIBUTE_CHAR19",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 156
+    },
+    {
+      "name": "ATTRIBUTE_CHAR20",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 157
+    },
+    {
+      "name": "ATTRIBUTE_CHAR21",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 158
+    },
+    {
+      "name": "ATTRIBUTE_CHAR22",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 159
+    },
+    {
+      "name": "ATTRIBUTE_CHAR23",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 160
+    },
+    {
+      "name": "ATTRIBUTE_CHAR24",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 161
+    },
+    {
+      "name": "ATTRIBUTE_CHAR25",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 162
+    },
+    {
+      "name": "ATTRIBUTE_CHAR26",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 163
+    },
+    {
+      "name": "ATTRIBUTE_CHAR27",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 164
+    },
+    {
+      "name": "ATTRIBUTE_CHAR28",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 165
+    },
+    {
+      "name": "ATTRIBUTE_CHAR29",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 166
+    },
+    {
+      "name": "ATTRIBUTE_CHAR30",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 167
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 168
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 169
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 170
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 171
+    }
+  ]
+}

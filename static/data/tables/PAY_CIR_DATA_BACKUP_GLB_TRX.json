@@ -1,0 +1,225 @@
+{
+  "id": 6092,
+  "name": "PAY_CIR_DATA_BACKUP_GLB_TRX",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CIR_DATA_BACKUP_GLB_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Table surrogate key id CIR_DATA_BACKUP_GLB_TRX_ID",
+      "column_order": 1
+    },
+    {
+      "name": "MASS_ACTION_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for the mass global transfer batch. To be populated during copy future phase.",
+      "column_order": 2
+    },
+    {
+      "name": "MASS_ACTION_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for the mass global transfer line (person level). To be populated during copy future phase.",
+      "column_order": 3
+    },
+    {
+      "name": "SOURCE_PAYROLL_RELATIONSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payroll Relationship Id of the source",
+      "column_order": 4
+    },
+    {
+      "name": "ENTITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This would be the table name e.g. PAY_DIR_CARDS_F, PAY_DIR_CARD_COMPONENTS_F etc",
+      "column_order": 5
+    },
+    {
+      "name": "SOURCE_SURROGATE_KEY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "This is the surrogate key ID i.e. dir_card_id, dir_card_comp_id etc of the source (from where we are copying the data)",
+      "column_order": 6
+    },
+    {
+      "name": "EFFECTIVE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the date at the beginning of the date range within which the row is effective.",
+      "column_order": 7
+    },
+    {
+      "name": "EFFECTIVE_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the date at the end of the date range within which the row is effective.",
+      "column_order": 8
+    },
+    {
+      "name": "ACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Possible values are:  CREATE, UPDATE (i.e. date effective update)",
+      "column_order": 9
+    },
+    {
+      "name": "ATTRIBUTE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the attribute that is being stored e.g. DIR_CARD_COMP_DEF_ID.  If new physical record but no change in any attribute from previous record then store \"DUMMY\" here.",
+      "column_order": 10
+    },
+    {
+      "name": "OLD_VALUE_CHAR",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "If attribute is char, then store the old value of the attribute here in case of both INSERT and INSERT_UPDATE (i.e. date effective update)",
+      "column_order": 11
+    },
+    {
+      "name": "NEW_VALUE_CHAR",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "If attribute is char, then store the new value of the attribute here in case of INSERT_UPDATE",
+      "column_order": 12
+    },
+    {
+      "name": "OLD_VALUE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "If attribute is number, then store the old value of the attribute here in case of both INSERT and INSERT_UPDATE (i.e. date effective update)",
+      "column_order": 13
+    },
+    {
+      "name": "NEW_VALUE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "If attribute is number, then store the new value of the attribute here in case of INSERT_UPDATE",
+      "column_order": 14
+    },
+    {
+      "name": "OLD_VALUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "If attribute is date, then store the old value of the attribute here in case of both INSERT and INSERT_UPDATE (i.e. date effective update)",
+      "column_order": 15
+    },
+    {
+      "name": "NEW_VALUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "If attribute is date, then store the new value of the attribute here in case of INSERT_UPDATE",
+      "column_order": 16
+    },
+    {
+      "name": "DEST_PAYROLL_RELATIONSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Target Payroll Relationship Id. To be populated during copy future phase.",
+      "column_order": 17
+    },
+    {
+      "name": "DESTINATION_SURROGATE_KEY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is the surrogate key ID i.e. dir_card_id, dir_card_comp_id etc of the target (where we are copying the data to).  If the card, component is being re-used it could be the same id as the source.  To be populated during copy future phase.",
+      "column_order": 18
+    },
+    {
+      "name": "COPY_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This represents the status of future copy to destination (i.e. during copyFutureCIRChangesForGLBTransfer). Possible values are SUCCESS, FAILURE. To be populated during copy future phase.",
+      "column_order": 19
+    },
+    {
+      "name": "COPY_INFORMATION",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Log messages that give more information about the copy status. To be populated during copy future phase.",
+      "column_order": 20
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "ENTERPRISE_ID. Flag used to mark obsolete data when upgrading the seed data in customer pod",
+      "column_order": 21
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 22
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 25
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 27
+    }
+  ]
+}

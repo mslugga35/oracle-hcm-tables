@@ -1,0 +1,201 @@
+{
+  "id": 7955,
+  "name": "IRC_INTERACTIONS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INTERACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key of the table. System generated.",
+      "column_order": 1
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores ID of the person for whom the Interaction note is added",
+      "column_order": 2
+    },
+    {
+      "name": "ADDED_BY_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Stores ID of the person creating the interaction",
+      "column_order": 3
+    },
+    {
+      "name": "CONTEXT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Stores the context. Submission, Pool, General Profile etc. Lookup type is ORA_IRC_INTERACTION_CTXT_TYPE",
+      "column_order": 4
+    },
+    {
+      "name": "CONTEXT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Stores the ID of the context object ??? Reference to SUBMISSION_ID or POOL_ID or PERSON_ID(In case of General Profile) etc",
+      "column_order": 5
+    },
+    {
+      "name": "SUB_CONTEXT_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "added for tracking LinkedIn InMail session.  Every session will have the same SubContextId so they could be displayed together as interactions.",
+      "column_order": 6
+    },
+    {
+      "name": "INTERACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the interaction type. Email, Phone, In Person etc. This is a lookup. Lookup type ORA_IRC_INTERACTION_TYPE",
+      "column_order": 7
+    },
+    {
+      "name": "INTERACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Stores the date when the interaction happened.",
+      "column_order": 8
+    },
+    {
+      "name": "TEXT",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the text for this interaction.",
+      "column_order": 9
+    },
+    {
+      "name": "MASKED_BODY_TEXT",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Store the body text without PII data",
+      "column_order": 10
+    },
+    {
+      "name": "HIRING_TEAM_INTR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate whether the current interaction entry was sent to hiring team",
+      "column_order": 11
+    },
+    {
+      "name": "SUBJECT",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Stores the subject for this interaction.",
+      "column_order": 12
+    },
+    {
+      "name": "MESSAGE_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Contains the message identifier for both email and SMS. For email stores the UMS SMTP message id and for SMS stores the id sent by the provider.",
+      "column_order": 13
+    },
+    {
+      "name": "MESSAGE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Stores the status of the message",
+      "column_order": 14
+    },
+    {
+      "name": "CONTENT_LIBRARY_ITEM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The Recruiting Content Library's DESCRIPTION_CODE that points to the table IRC_DESCRIPTIONS_B.",
+      "column_order": 15
+    },
+    {
+      "name": "RESEND_ALLOWED_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Status controls the resend ability of the interaction",
+      "column_order": 16
+    },
+    {
+      "name": "CONTENT_LIBRARY_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Contains the content library item identifier associated to the interaction. Foreign key to the table irc_descriptions_b",
+      "column_order": 17
+    },
+    {
+      "name": "CHANNEL_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Contains the channel specific template identifier associated to the interaction",
+      "column_order": 18
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 19
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 20
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 21
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 24
+    }
+  ]
+}

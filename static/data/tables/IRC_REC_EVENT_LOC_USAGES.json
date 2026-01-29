@@ -1,0 +1,217 @@
+{
+  "id": 8074,
+  "name": "IRC_REC_EVENT_LOC_USAGES",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LOCATION_USAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key for this table. This is an auto-generated field.",
+      "column_order": 1
+    },
+    {
+      "name": "EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to IRC_REC_EVENTS_B table",
+      "column_order": 2
+    },
+    {
+      "name": "EVENT_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates if the event is in-person or virtual as a look up code, ORA_IRC_REC_EVT_FORMAT",
+      "column_order": 3
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Location where event is occurring in case of office location. Foreign key to PER_LOCATIONS table.",
+      "column_order": 4
+    },
+    {
+      "name": "ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Address of event location in case of in-person event. Foreign key to PER_ADDRESSES_F table",
+      "column_order": 5
+    },
+    {
+      "name": "LOCATION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether office location or not. Uses look up type ORA_IRC_REC_EVT_LOC_TYPE.",
+      "column_order": 6
+    },
+    {
+      "name": "MAX_CAPACITY",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Max capacity of the event in a location",
+      "column_order": 7
+    },
+    {
+      "name": "WEB_CONF_LINK",
+      "data_type": "VARCHAR2",
+      "data_length": 300,
+      "nullable": "Y",
+      "description": "Web conference link for virtual event",
+      "column_order": 8
+    },
+    {
+      "name": "ACCESS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "This column stores the access code for virtual event",
+      "column_order": 9
+    },
+    {
+      "name": "PHONE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Phone number in case of virtual event",
+      "column_order": 10
+    },
+    {
+      "name": "PHONE_AREA_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Phone area code in case of virtual event",
+      "column_order": 11
+    },
+    {
+      "name": "PHONE_COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Phone country code in case of virtual event",
+      "column_order": 12
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 18
+    },
+    {
+      "name": "LOCATION_FQN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Denormalized location id used for event search indexation",
+      "column_order": 19
+    },
+    {
+      "name": "CITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Denormalized hz_geographies city id used for event search indexation",
+      "column_order": 20
+    },
+    {
+      "name": "STATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Denormalized hz_geographies state id used for event search indexation",
+      "column_order": 21
+    },
+    {
+      "name": "COUNTRY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Denormalized hz_geographies country id used for event search indexation",
+      "column_order": 22
+    },
+    {
+      "name": "LATITUDE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Denormalized irc_geo_coordinates Latitude information used for event search indexation",
+      "column_order": 23
+    },
+    {
+      "name": "LONGITUDE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Denormalized irc_geo_coordinates Longitude information used for event search indexation",
+      "column_order": 24
+    },
+    {
+      "name": "MEETING_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Used to store meeting id of virtual events",
+      "column_order": 25
+    },
+    {
+      "name": "PHONE_LEGISLATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Used to store legislation code for the event phone number",
+      "column_order": 26
+    }
+  ]
+}

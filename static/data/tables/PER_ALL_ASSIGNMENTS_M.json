@@ -1,0 +1,2417 @@
+{
+  "id": 5300,
+  "name": "PER_ALL_ASSIGNMENTS_M",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "This is a system generated primary key. Surrogate key.",
+      "column_order": 1
+    },
+    {
+      "name": "EFFECTIVE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the date at the beginning of the date range within which the row is effective.",
+      "column_order": 2
+    },
+    {
+      "name": "EFFECTIVE_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the date at the end of the date range within which the row is effective.",
+      "column_order": 3
+    },
+    {
+      "name": "BUSINESS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of Enterprise, used for multi-tenancy partitioning. Foreign key to HR_ORGANIZATION_UNITS.",
+      "column_order": 4
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies person holding an assignment or a set of Employment/Placement Terms. Foreign key to PER_PERSONS.",
+      "column_order": 5
+    },
+    {
+      "name": "PERIOD_OF_SERVICE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the Employment Level. Foreign key to PER_PERIODS_OF_SERVICE.",
+      "column_order": 6
+    },
+    {
+      "name": "ASSIGNMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Identifies the type of record: either assignment (employee, CWK, applicant, non-workers) or a set of Terms.",
+      "column_order": 7
+    },
+    {
+      "name": "ASSIGNMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Uniquely identifies the assignment or terms. Valid for Workers and non-workers. Assignment Level:By default [Person Number ] - [sequence] Work Term Level:[sequence]",
+      "column_order": 8
+    },
+    {
+      "name": "ASSIGNMENT_SEQUENCE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Used when defaulting assignment number.",
+      "column_order": 9
+    },
+    {
+      "name": "ASSIGNMENT_STATUS_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Denormalized status of the assignment. This is derived using the Assignment Status Type ID.",
+      "column_order": 10
+    },
+    {
+      "name": "PRIMARY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Primary flag. Accepts value of ?Y? or ?N? based on ?YES_NO? lookup type. If set to ?Yes?, record represents the primary assignment associated to the primary Work Relationship and primary set of Employment/Placement Terms.",
+      "column_order": 11
+    },
+    {
+      "name": "ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Department Identifier, it is optional.",
+      "column_order": 12
+    },
+    {
+      "name": "JOB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_JOBS_F.",
+      "column_order": 13
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HR_LOCATIONS_ALL_F.",
+      "column_order": 14
+    },
+    {
+      "name": "POSITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_ALL_POSITIONS_F.",
+      "column_order": 15
+    },
+    {
+      "name": "GRADE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_GRADES_F.",
+      "column_order": 16
+    },
+    {
+      "name": "GRADE_LADDER_PGM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Link assignment to grade ladder for Benefits.",
+      "column_order": 17
+    },
+    {
+      "name": "PEOPLE_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_PEOPLE_GROUPS.",
+      "column_order": 18
+    },
+    {
+      "name": "COLLECTIVE_AGREEMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_COLLECTIVE_AGREEMENTS.",
+      "column_order": 19
+    },
+    {
+      "name": "BARGAINING_UNIT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bargaining unit code.",
+      "column_order": 20
+    },
+    {
+      "name": "LABOUR_UNION_MEMBER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Labour union member flag. Accepts values of ?Y? or ?N?.",
+      "column_order": 21
+    },
+    {
+      "name": "CAGR_GRADE_DEF_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_CAGR_GRADES_DEF.",
+      "column_order": 22
+    },
+    {
+      "name": "CAGR_ID_FLEX_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Key flex Structure Identifier for Collectively Agreed Grade.",
+      "column_order": 23
+    },
+    {
+      "name": "CONTRACT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_CONTRACTS_F.",
+      "column_order": 24
+    },
+    {
+      "name": "MANAGER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether the employee in this assignment is designated a manager. Based on ?YES_NO? lookup type.",
+      "column_order": 25
+    },
+    {
+      "name": "DATE_PROBATION_END",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End date of probation period.",
+      "column_order": 26
+    },
+    {
+      "name": "PROBATION_PERIOD",
+      "data_type": "NUMBER",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Duration of probation period.",
+      "column_order": 27
+    },
+    {
+      "name": "PROBATION_UNIT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Units of probation period duration. Based on QUALIFYING_UNITS lookup type.",
+      "column_order": 28
+    },
+    {
+      "name": "NORMAL_HOURS",
+      "data_type": "NUMBER",
+      "data_length": 22,
+      "nullable": "Y",
+      "description": "Normal working hours.",
+      "column_order": 29
+    },
+    {
+      "name": "FREQUENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Frequency of normal working hours, - week, month, year. Sourced from ?Frequency? lookup type.",
+      "column_order": 30
+    },
+    {
+      "name": "WORK_AT_HOME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Work at home flag.",
+      "column_order": 31
+    },
+    {
+      "name": "TIME_NORMAL_FINISH",
+      "data_type": "VARCHAR2",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Work day normal end time.",
+      "column_order": 32
+    },
+    {
+      "name": "TIME_NORMAL_START",
+      "data_type": "VARCHAR2",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Work day normal start time.",
+      "column_order": 33
+    },
+    {
+      "name": "NOTICE_PERIOD",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Notice period for the assignment.",
+      "column_order": 34
+    },
+    {
+      "name": "NOTICE_PERIOD_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Notice period unit of measure.",
+      "column_order": 35
+    },
+    {
+      "name": "DEFAULT_CODE_COMB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to GL_CODE_COMBINATIONS.",
+      "column_order": 36
+    },
+    {
+      "name": "EMPLOYEE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Based on Lookup Type = ?EMPLOYEE_CATG?: Blue collar, Civil Servant, etc.",
+      "column_order": 37
+    },
+    {
+      "name": "EMPLOYMENT_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "User defined category. For example Full-Time Permanent or Part-Time Permanent. Lookup Type = ?EMP_CAT?.",
+      "column_order": 38
+    },
+    {
+      "name": "ESTABLISHMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HR_ORGANIZATION_UNITS_F.",
+      "column_order": 39
+    },
+    {
+      "name": "HOURLY_SALARIED_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies if the assignment is paid by the hour or by a salary. Either maintained at the assignment level or ?Employment/Placement Terms? but not both.",
+      "column_order": 40
+    },
+    {
+      "name": "SAL_REVIEW_PERIOD",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Length of time between salary reviews. Either maintained at the assignment level or ?Employment/Placement Terms? but not both.",
+      "column_order": 41
+    },
+    {
+      "name": "SAL_REVIEW_PERIOD_FREQUENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used with SAL REVIEW PERIOD to define time between salary reviews. Based on ?QUALIFYING_UNITS? lookup type.",
+      "column_order": 42
+    },
+    {
+      "name": "JOB_POST_SOURCE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Job post source name.",
+      "column_order": 43
+    },
+    {
+      "name": "PROJECT_TITLE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Obsolete",
+      "column_order": 44
+    },
+    {
+      "name": "PERSON_REFERRED_BY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies person who referred applicant. Foreign key to PER_PERSONS.",
+      "column_order": 45
+    },
+    {
+      "name": "PO_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to po_headers_all.",
+      "column_order": 46
+    },
+    {
+      "name": "PO_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to po_lines_all.",
+      "column_order": 47
+    },
+    {
+      "name": "RECRUITER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies recruiter. Foreign Key to PER_PERSONS.",
+      "column_order": 48
+    },
+    {
+      "name": "RECRUITMENT_ACTIVITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies activity associated with the recruitment process. Foreign key to PER_RECRUITMENT_ACTIVITIES.",
+      "column_order": 49
+    },
+    {
+      "name": "VACANCY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_ALL_VACANCIES.",
+      "column_order": 50
+    },
+    {
+      "name": "APPLICANT_RANK",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rank assigned to an applicant based on suitability and other criteria",
+      "column_order": 51
+    },
+    {
+      "name": "POSTING_CONTENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The posting to which the applicant has applied.",
+      "column_order": 52
+    },
+    {
+      "name": "SOURCE_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Valid for 'Offer' and 'Applicant' Assignments only. Captured as part of the ?Application Source? details. For instance, Agency or Marketing.",
+      "column_order": 53
+    },
+    {
+      "name": "SOURCE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Recruitment activity source for applicant assignment, for example, Advertisement.",
+      "column_order": 54
+    },
+    {
+      "name": "PROJECTED_ASSIGNMENT_END",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date the assignment is expected to end.",
+      "column_order": 55
+    },
+    {
+      "name": "SET_OF_BOOKS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is called Ledger in Fusion. Defaulted from Business Unit.",
+      "column_order": 56
+    },
+    {
+      "name": "SOFT_CODING_KEYFLEX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Obsolete",
+      "column_order": 57
+    },
+    {
+      "name": "SPECIAL_CEILING_STEP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_GRADE_STEPS_F.",
+      "column_order": 58
+    },
+    {
+      "name": "VENDOR_ASSIGNMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Assignment number of non-payrolled worker assignment with vending organization.",
+      "column_order": 59
+    },
+    {
+      "name": "VENDOR_EMPLOYEE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Employee number of worker with vending organization.",
+      "column_order": 60
+    },
+    {
+      "name": "VENDOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to po_vendors.",
+      "column_order": 61
+    },
+    {
+      "name": "VENDOR_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to po_vendor_sites_all.",
+      "column_order": 62
+    },
+    {
+      "name": "ASS_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ASS_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ASS_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ASS_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ASS_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ASS_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ASS_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ASS_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ASS_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ASS_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ASS_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ASS_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ASS_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ASS_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ASS_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ASS_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ASS_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ASS_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "ASS_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "ASS_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ASS_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ASS_ATTRIBUTE21",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ASS_ATTRIBUTE22",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ASS_ATTRIBUTE23",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ASS_ATTRIBUTE24",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ASS_ATTRIBUTE25",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ASS_ATTRIBUTE26",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ASS_ATTRIBUTE27",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ASS_ATTRIBUTE28",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ASS_ATTRIBUTE29",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ASS_ATTRIBUTE30",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 94
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 95
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 96
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 97
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 98
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 99
+    },
+    {
+      "name": "WORK_TERMS_ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_ALL_ASSIGNMENTS_M for a work term.",
+      "column_order": 100
+    },
+    {
+      "name": "ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies the action performed on the particular record. For example: HIRE, ADD PENDING WORKER, MANAGER CHANGE, etc.",
+      "column_order": 101
+    },
+    {
+      "name": "ASSIGNMENT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Describes the type of assignment or set of Terms. Users can configure how to derive this (at setup time). This is optional, by default (out-of-the-box) this is derived as follows: [job name] - [department name].",
+      "column_order": 102
+    },
+    {
+      "name": "ASSIGNMENT_STATUS_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Denormalized status of the assignment. This is derived using the Assignment Status Type ID.",
+      "column_order": 103
+    },
+    {
+      "name": "AUTO_END_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Used for temporary assignments. Determines whether to end the temporary job automatically.",
+      "column_order": 104
+    },
+    {
+      "name": "DUTIES_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Duties type. Apply for temporary assignments. Derived from a lookup code.  Enterprise stores types in a specific table rather than a lookup.",
+      "column_order": 105
+    },
+    {
+      "name": "EFFECTIVE_SEQUENCE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the order of different changes made during a day. The lowest value represents the earliest change in the day.",
+      "column_order": 106
+    },
+    {
+      "name": "EXPENSE_CHECK_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Determines whether check is sent to the Home or Office address. Based on ?HOME_OFFICE? lookup.",
+      "column_order": 107
+    },
+    {
+      "name": "INTERNAL_BUILDING",
+      "data_type": "VARCHAR2",
+      "data_length": 45,
+      "nullable": "Y",
+      "description": "Building information associated with Work location.",
+      "column_order": 108
+    },
+    {
+      "name": "INTERNAL_FLOOR",
+      "data_type": "VARCHAR2",
+      "data_length": 45,
+      "nullable": "Y",
+      "description": "Floor information.",
+      "column_order": 109
+    },
+    {
+      "name": "INTERNAL_LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Additional location details.",
+      "column_order": 110
+    },
+    {
+      "name": "INTERNAL_MAILSTOP",
+      "data_type": "VARCHAR2",
+      "data_length": 45,
+      "nullable": "Y",
+      "description": "Internal mail location.",
+      "column_order": 111
+    },
+    {
+      "name": "INTERNAL_OFFICE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 45,
+      "nullable": "Y",
+      "description": "Office Number.",
+      "column_order": 112
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Represents Legal Entity. Might be null for Applicants.",
+      "column_order": 113
+    },
+    {
+      "name": "LEGISLATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Legislation code derived from the Legal Entity. Might be null for Applicants.",
+      "column_order": 114
+    },
+    {
+      "name": "LINKAGE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Determines the type of processing and rules associated with the linking of two assignments.",
+      "column_order": 115
+    },
+    {
+      "name": "PARENT_ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Allows two assignments to be linked. Used when creating temporary assignments. Also, potentially required when converting the Applicant onto a Worker (i.e. this stores the applicant assignment ID for the worker?s assignment).",
+      "column_order": 116
+    },
+    {
+      "name": "PERSON_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Defines the worker class. Examples: Assignee, Consultant, Expatriate, Agency/Temp, Intern, Apprentice, Contractor, Trainee. This defaults from the person/org relationship. It is defined at either level (Assignment or Employment/Placement Terms).",
+      "column_order": 117
+    },
+    {
+      "name": "PRIMARY_WORK_TERMS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Accepts value of ?Y? or ?N? based on ?YES_NO? lookup type. If set to ?Yes?, then the current row represents a Assignment attached to the primary set of Employment/Placement.",
+      "column_order": 118
+    },
+    {
+      "name": "PRIMARY_ASSIGNMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Accepts value of ?Y? or ?N? based on ?YES_NO? lookup type. If set to ?Yes?, then the current row represents the primary deployment.",
+      "column_order": 119
+    },
+    {
+      "name": "PRIMARY_WORK_RELATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Accepts value of ?Y? or ?N? based on ?YES_NO? lookup type. If set to ?Yes?, then the current row represents an Assignment or Employment/Placement attached to the primary Work Relationship.",
+      "column_order": 120
+    },
+    {
+      "name": "PROJECTED_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tentative start date (applicants).",
+      "column_order": 121
+    },
+    {
+      "name": "REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies the reason for the action performed on the record.",
+      "column_order": 122
+    },
+    {
+      "name": "SYSTEM_PERSON_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Derived from the person type id. It is included in this table to aid in performance.",
+      "column_order": 123
+    },
+    {
+      "name": "BUSINESS_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Determinant for ?Set Enabled? tables and those using BU as a partitioning key.",
+      "column_order": 124
+    },
+    {
+      "name": "BILLING_TITLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Billing Title for assignment.",
+      "column_order": 125
+    },
+    {
+      "name": "STEP_ENTRY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "obsolete",
+      "column_order": 126
+    },
+    {
+      "name": "TAX_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_ADDRESSES. This represents the address that is used for taxation purposes. This can be different from a ?mailing address?.",
+      "column_order": 127
+    },
+    {
+      "name": "ASS_ATTRIBUTE31",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 128
+    },
+    {
+      "name": "ASS_ATTRIBUTE32",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 129
+    },
+    {
+      "name": "ASS_ATTRIBUTE33",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 130
+    },
+    {
+      "name": "ASS_ATTRIBUTE34",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 131
+    },
+    {
+      "name": "ASS_ATTRIBUTE35",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 132
+    },
+    {
+      "name": "ASS_ATTRIBUTE36",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 133
+    },
+    {
+      "name": "ASS_ATTRIBUTE37",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 134
+    },
+    {
+      "name": "ASS_ATTRIBUTE38",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 135
+    },
+    {
+      "name": "ASS_ATTRIBUTE39",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 136
+    },
+    {
+      "name": "ASS_ATTRIBUTE40",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 137
+    },
+    {
+      "name": "ASS_ATTRIBUTE41",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 138
+    },
+    {
+      "name": "ASS_ATTRIBUTE42",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 139
+    },
+    {
+      "name": "ASS_ATTRIBUTE43",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 140
+    },
+    {
+      "name": "ASS_ATTRIBUTE44",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 141
+    },
+    {
+      "name": "ASS_ATTRIBUTE45",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 142
+    },
+    {
+      "name": "ASS_ATTRIBUTE46",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 143
+    },
+    {
+      "name": "ASS_ATTRIBUTE47",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 144
+    },
+    {
+      "name": "ASS_ATTRIBUTE48",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 145
+    },
+    {
+      "name": "ASS_ATTRIBUTE49",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 146
+    },
+    {
+      "name": "ASS_ATTRIBUTE50",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 147
+    },
+    {
+      "name": "RECORD_CREATOR",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Record created By Module",
+      "column_order": 148
+    },
+    {
+      "name": "ACTION_OCCURRENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_ACTION_OCCURRENCES.",
+      "column_order": 149
+    },
+    {
+      "name": "PROPOSED_WORKER_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Determines whether applicant will be hired/placed as an Employee or Contingent Worker. This represents a SYSTEM PERSON TYPE: EMP or CWK. This is also applicable for Pending Hires (workers).",
+      "column_order": 150
+    },
+    {
+      "name": "RETIREMENT_AGE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Represents the age, worker is retiring at.",
+      "column_order": 151
+    },
+    {
+      "name": "RETIREMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Represents the planned retirement date.",
+      "column_order": 152
+    },
+    {
+      "name": "POSITION_OVERRIDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Override Position related data. Accepts values of ?Y? and ?N?.",
+      "column_order": 153
+    },
+    {
+      "name": "EFFECTIVE_LATEST_CHANGE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Date Effective Entity: 'Y' indicates that this row represents the latest change in the day.",
+      "column_order": 154
+    },
+    {
+      "name": "ALLOW_ASG_OVERRIDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Override Work Term related data. Accepts values of ?Y? and ?N?.  This is set for the Work Term. Default is set to ?N? for rows representing Assignments and it does not change. If row represents a Work Term, then this is user-enterable.",
+      "column_order": 155
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 156
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 157
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 158
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 159
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 160
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 161
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 162
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 163
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 164
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 165
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 166
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 167
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 168
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 169
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 170
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 171
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 172
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 173
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 174
+    },
+    {
+      "name": "ASS_ATTRIBUTE_NUMBER20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column",
+      "column_order": 175
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 176
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 177
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 178
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 179
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 180
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 181
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 182
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 183
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 184
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 185
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE11",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 186
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE12",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 187
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE13",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 188
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE14",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 189
+    },
+    {
+      "name": "ASS_ATTRIBUTE_DATE15",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column",
+      "column_order": 190
+    },
+    {
+      "name": "ASG_INFORMATION_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Developer Descriptive flexfield structure defining column",
+      "column_order": 191
+    },
+    {
+      "name": "ASG_INFORMATION1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 192
+    },
+    {
+      "name": "ASG_INFORMATION2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 193
+    },
+    {
+      "name": "ASG_INFORMATION3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 194
+    },
+    {
+      "name": "ASG_INFORMATION4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 195
+    },
+    {
+      "name": "ASG_INFORMATION5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 196
+    },
+    {
+      "name": "ASG_INFORMATION6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 197
+    },
+    {
+      "name": "ASG_INFORMATION7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 198
+    },
+    {
+      "name": "ASG_INFORMATION8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 199
+    },
+    {
+      "name": "ASG_INFORMATION9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 200
+    },
+    {
+      "name": "ASG_INFORMATION10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 201
+    },
+    {
+      "name": "ASG_INFORMATION11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 202
+    },
+    {
+      "name": "ASG_INFORMATION12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 203
+    },
+    {
+      "name": "ASG_INFORMATION13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 204
+    },
+    {
+      "name": "ASG_INFORMATION14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 205
+    },
+    {
+      "name": "ASG_INFORMATION15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 206
+    },
+    {
+      "name": "ASG_INFORMATION16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 207
+    },
+    {
+      "name": "ASG_INFORMATION17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 208
+    },
+    {
+      "name": "ASG_INFORMATION18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 209
+    },
+    {
+      "name": "ASG_INFORMATION19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 210
+    },
+    {
+      "name": "ASG_INFORMATION20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 211
+    },
+    {
+      "name": "ASG_INFORMATION21",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 212
+    },
+    {
+      "name": "ASG_INFORMATION22",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 213
+    },
+    {
+      "name": "ASG_INFORMATION23",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 214
+    },
+    {
+      "name": "ASG_INFORMATION24",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 215
+    },
+    {
+      "name": "ASG_INFORMATION25",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 216
+    },
+    {
+      "name": "ASG_INFORMATION26",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 217
+    },
+    {
+      "name": "ASG_INFORMATION27",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 218
+    },
+    {
+      "name": "ASG_INFORMATION28",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 219
+    },
+    {
+      "name": "ASG_INFORMATION29",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 220
+    },
+    {
+      "name": "ASG_INFORMATION30",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 221
+    },
+    {
+      "name": "ASG_INFORMATION31",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 222
+    },
+    {
+      "name": "ASG_INFORMATION32",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 223
+    },
+    {
+      "name": "ASG_INFORMATION33",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 224
+    },
+    {
+      "name": "ASG_INFORMATION34",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 225
+    },
+    {
+      "name": "ASG_INFORMATION35",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 226
+    },
+    {
+      "name": "ASG_INFORMATION36",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 227
+    },
+    {
+      "name": "ASG_INFORMATION37",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 228
+    },
+    {
+      "name": "ASG_INFORMATION38",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 229
+    },
+    {
+      "name": "ASG_INFORMATION39",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 230
+    },
+    {
+      "name": "ASG_INFORMATION40",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 231
+    },
+    {
+      "name": "ASG_INFORMATION41",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 232
+    },
+    {
+      "name": "ASG_INFORMATION42",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 233
+    },
+    {
+      "name": "ASG_INFORMATION43",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 234
+    },
+    {
+      "name": "ASG_INFORMATION44",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 235
+    },
+    {
+      "name": "ASG_INFORMATION45",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 236
+    },
+    {
+      "name": "ASG_INFORMATION46",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 237
+    },
+    {
+      "name": "ASG_INFORMATION47",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 238
+    },
+    {
+      "name": "ASG_INFORMATION48",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 239
+    },
+    {
+      "name": "ASG_INFORMATION49",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 240
+    },
+    {
+      "name": "ASG_INFORMATION50",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive flex field column. Store Legislation specific information",
+      "column_order": 241
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 242
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 243
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 244
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 245
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 246
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 247
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 248
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 249
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 250
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 251
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 252
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 253
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 254
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 255
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 256
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 257
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 258
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 259
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 260
+    },
+    {
+      "name": "ASG_INFORMATION_NUMBER20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field numeric column.",
+      "column_order": 261
+    },
+    {
+      "name": "ASG_INFORMATION_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 262
+    },
+    {
+      "name": "ASG_INFORMATION_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 263
+    },
+    {
+      "name": "ASG_INFORMATION_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 264
+    },
+    {
+      "name": "ASG_INFORMATION_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 265
+    },
+    {
+      "name": "ASG_INFORMATION_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 266
+    },
+    {
+      "name": "ASG_INFORMATION_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 267
+    },
+    {
+      "name": "ASG_INFORMATION_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 268
+    },
+    {
+      "name": "ASG_INFORMATION_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 269
+    },
+    {
+      "name": "ASG_INFORMATION_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 270
+    },
+    {
+      "name": "ASG_INFORMATION_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 271
+    },
+    {
+      "name": "ASG_INFORMATION_DATE11",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 272
+    },
+    {
+      "name": "ASG_INFORMATION_DATE12",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 273
+    },
+    {
+      "name": "ASG_INFORMATION_DATE13",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 274
+    },
+    {
+      "name": "ASG_INFORMATION_DATE14",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 275
+    },
+    {
+      "name": "ASG_INFORMATION_DATE15",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive flex field date column.",
+      "column_order": 276
+    },
+    {
+      "name": "FREEZE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Represents the Deferred data freeze start date (defaulted to End of time).",
+      "column_order": 277
+    },
+    {
+      "name": "FREEZE_UNTIL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Represents the Deferred data freeze until date (defaulted to Start of Time).",
+      "column_order": 278
+    },
+    {
+      "name": "ID_FLEX_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Represents ID Flex num for PeopleGroup KFF implementation.",
+      "column_order": 279
+    },
+    {
+      "name": "CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Extensible Flexfield Category Code",
+      "column_order": 280
+    },
+    {
+      "name": "FULL_PART_TIME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "FULL_PART_TIME",
+      "column_order": 281
+    },
+    {
+      "name": "PERMANENT_TEMPORARY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "PERMANENT_TEMPORARY_FLAG",
+      "column_order": 282
+    },
+    {
+      "name": "GSP_ELIGIBILITY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies if person is included in grade step progression.",
+      "column_order": 283
+    },
+    {
+      "name": "UNION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Union to which a person belongs",
+      "column_order": 284
+    },
+    {
+      "name": "SENIORITY_BASIS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Seniority",
+      "column_order": 285
+    },
+    {
+      "name": "OVERTIME_PERIOD",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Overtime Period",
+      "column_order": 286
+    },
+    {
+      "name": "SOURCE_ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier (ID) of the source assignment that was used to create the assignment.",
+      "column_order": 287
+    },
+    {
+      "name": "LAST_WORKING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last Date Worked (for terminated workers).",
+      "column_order": 288
+    },
+    {
+      "name": "REVIEW_USER_ACCESS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This stores user's option of review user access on Termination. Values accepted are 'I' for Immediately or 'A' for After termination",
+      "column_order": 289
+    },
+    {
+      "name": "REHIRE_RECOMMENDATION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Accepts Yes or No values. If Yes, person is recommended for re-hiring.",
+      "column_order": 290
+    },
+    {
+      "name": "REHIRE_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "If rehire recommendation is 'yes', then reason from recommending person is tracked via this field.",
+      "column_order": 291
+    },
+    {
+      "name": "REHIRE_AUTHORIZER_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_PERSONS. Represents the person who recommends the worker for rehire.",
+      "column_order": 292
+    },
+    {
+      "name": "TERMINATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual termination date of  an assignment.",
+      "column_order": 293
+    },
+    {
+      "name": "NOTIFICATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the termination of employment was notified.",
+      "column_order": 294
+    },
+    {
+      "name": "STANDARD_HOURS",
+      "data_type": "NUMBER",
+      "data_length": 22,
+      "nullable": "Y",
+      "description": "The standard working hours for the assignment.",
+      "column_order": 295
+    },
+    {
+      "name": "STANDARD_FREQUENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Frequency of standard working hours, - week, month, year. Sourced from Frequency lookup type.",
+      "column_order": 296
+    },
+    {
+      "name": "STD_ANNUAL_WORKING_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "The standard annual working duration for the enterprise, legal employer, department, location, job, position, or assignment.",
+      "column_order": 297
+    },
+    {
+      "name": "ANNUAL_WORKING_DURATION_UNITS",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "The unit of measure in hours, days, weeks, and months for the annual working and standard annual working durations.",
+      "column_order": 298
+    },
+    {
+      "name": "ANNUAL_WORKING_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "The annual working duration for the position and assignment.",
+      "column_order": 299
+    },
+    {
+      "name": "ANNUAL_WORKING_RATIO",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "The ratio of annual working hours and standard annual working hours for the assignment.",
+      "column_order": 300
+    },
+    {
+      "name": "ADJUSTED_FTE",
+      "data_type": "NUMBER",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The Adjusted Full Time Equivalent value calculated by multiplying the FTE and the Annual Working Ratio for the assignment.",
+      "column_order": 301
+    }
+  ]
+}

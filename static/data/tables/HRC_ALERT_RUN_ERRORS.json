@@ -1,0 +1,209 @@
+{
+  "id": 6776,
+  "name": "HRC_ALERT_RUN_ERRORS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ERROR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System generated primary key column.",
+      "column_order": 1
+    },
+    {
+      "name": "ERROR_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Error Type, possible values are ORA_E (Error),ORA_W (Warning),ORA_I(Info) and ORA_S (System Error)",
+      "column_order": 2
+    },
+    {
+      "name": "PARENT_RUN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Run Identifier of Parent. Foreign Key to HRC_ALERTS_RUNS.RUN_ID",
+      "column_order": 3
+    },
+    {
+      "name": "RUN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Run Identifier. Foreign Key to HRC_ALERT_RUNS.RUN_ID",
+      "column_order": 4
+    },
+    {
+      "name": "ERROR_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies the source of the error. Valid values are: R=Run,M=Message,R=Recipient",
+      "column_order": 5
+    },
+    {
+      "name": "ERROR_SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Specifies the source identifier and is dependent on the contents of the ERROR_SOURCE. If R (Run) then HRC_ALERT_RUNS.RUN_ID. If M (Message) then HRC_ALERT_RUN_MESSAGES.RUN_MESSAGE_ID. If R (Recipient) then HRC_ALERT_RUN_RECIPIENTS.RECIPIENT_ID.",
+      "column_order": 6
+    },
+    {
+      "name": "ERROR_MSG_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Details of the error message. As we are using CLOB column, its taking time, instead going forward we can use this column which will have just the details.",
+      "column_order": 7
+    },
+    {
+      "name": "ERROR_TEXT",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The error text of the Alert Run Error record.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 14
+    },
+    {
+      "name": "SURROGATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "SurrogateId of the record of the rest resource related table that is configured in the Alert.",
+      "column_order": 15
+    },
+    {
+      "name": "PROP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Property Name of the Alert Run Error record.",
+      "column_order": 16
+    },
+    {
+      "name": "PROP_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Property Value of the Alert Run Error record.",
+      "column_order": 17
+    },
+    {
+      "name": "FUNC_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Function Name of the Alert Run Error record.",
+      "column_order": 18
+    },
+    {
+      "name": "FUNC_ARG_NAME1",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Function First Argument Name of the record.",
+      "column_order": 19
+    },
+    {
+      "name": "FUNC_ARG_VAL1",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Function First Argument Value of the record.",
+      "column_order": 20
+    },
+    {
+      "name": "FUNC_ARG_NAME2",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Function Second Argument Name of the record.",
+      "column_order": 21
+    },
+    {
+      "name": "FUNC_ARG_VAL2",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Function Second Argument Value of the record.",
+      "column_order": 22
+    },
+    {
+      "name": "FUNC_ARG_NAME3",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Function Third Argument Name of the record.",
+      "column_order": 23
+    },
+    {
+      "name": "FUNC_ARG_VAL3",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Function Third Argument Value of the record.",
+      "column_order": 24
+    },
+    {
+      "name": "ERROR_SUBTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Error Subtype of the Alert Run Error record.",
+      "column_order": 25
+    }
+  ]
+}

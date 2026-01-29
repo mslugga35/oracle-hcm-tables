@@ -1,0 +1,153 @@
+{
+  "id": 7782,
+  "name": "IRC_CAND_DUP_CHECK_SUMMARY",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DUP_CHK_LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key for this table. System generated.",
+      "column_order": 1
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Reference PersonId . This is the candidate on whom dup check is being run. Foreign key to irc_candidates.",
+      "column_order": 2
+    },
+    {
+      "name": "DUP_STRENGTH",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Indicates the highest category on which a match has been found for the Reference Person Id. This column will be exposed as a DBI in FF This will store one of the values from the LookupCode from the existing LOV \"ORA_IRC_CAND_MATCHSCORE\":\nORA_HIGHEST - NID match\nORA_HIGHER - 5 columns match\nORA_HIGH - All H categories\nORA_MEDIUM - All M categories\nORA_LOWEST - All L categories.",
+      "column_order": 3
+    },
+    {
+      "name": "DUP_STRENGTH_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Number of candidates found in the highest match category.",
+      "column_order": 4
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Status of dup check run:\nORA_SUCCESS : if run is successful\nORA_FAILED : if there are any failures during the run.",
+      "column_order": 5
+    },
+    {
+      "name": "EXCEPTION",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Error message in case of failure.",
+      "column_order": 6
+    },
+    {
+      "name": "ES_ENABLED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates the Engine used when the results were stored in this table:\nY : if Elastic Search is used to run the Dup Check\nN : if Sem search is used to run the Dup Check.",
+      "column_order": 7
+    },
+    {
+      "name": "SUBMISSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key association with IRC_SUBMISSIONS table. \nOne of the three columns required to derive during which CSP, Phase and State a particular Dup Check run was auto-triggered.",
+      "column_order": 8
+    },
+    {
+      "name": "STATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key association with IRC_STATES_B.\nOne of the three columns required to derive during which CSP, Phase and State a particular Dup Check run was auto-triggered.",
+      "column_order": 9
+    },
+    {
+      "name": "PHASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key association with IRC_PHASES_B.\nOne of the three columns required to derive during which CSP, Phase and State a particular Dup Check run was auto-triggered.",
+      "column_order": 10
+    },
+    {
+      "name": "REQUESTED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Indicates the user who initiated the Dup Check Run.",
+      "column_order": 11
+    },
+    {
+      "name": "REQUESTED_ON",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Indicates the date and time when the Dup Check Run was initiated.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 18
+    }
+  ]
+}

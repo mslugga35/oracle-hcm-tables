@@ -1,0 +1,289 @@
+{
+  "id": 7658,
+  "name": "IRC_ACCESS_TOKENS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ACCESS_TOKEN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the token or access code. System generated value.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "CONFIRMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "The flag field that identifies if the access code is for a confirmed candidate.",
+      "column_order": 3
+    },
+    {
+      "name": "ACCESS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Access code to validate that candidate owns e-mail address.",
+      "column_order": 4
+    },
+    {
+      "name": "ACCESS_CODE_EXP_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expiration date and time for the access code",
+      "column_order": 5
+    },
+    {
+      "name": "TOKEN",
+      "data_type": "VARCHAR2",
+      "data_length": 1024,
+      "nullable": "Y",
+      "description": "Encrypted verification token, stored to log that it has been used.",
+      "column_order": 6
+    },
+    {
+      "name": "TOKEN_EXP_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expiration date extracted from the token",
+      "column_order": 7
+    },
+    {
+      "name": "EMAIL_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Candidate's email address for whom the access code was generated.",
+      "column_order": 8
+    },
+    {
+      "name": "PHONE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Candidate's phone number for whom the Access Code was generated.",
+      "column_order": 9
+    },
+    {
+      "name": "PROPOSED_CAND_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Proposed number to be used for the new candidate.",
+      "column_order": 10
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the candidate to whom Access Code refers.",
+      "column_order": 11
+    },
+    {
+      "name": "SUBMISSION_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Counts the number of submissions made with the access code.",
+      "column_order": 12
+    },
+    {
+      "name": "SOURCE_TRACKING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the source tracking information related to the Access Code.",
+      "column_order": 13
+    },
+    {
+      "name": "URL_SHORT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Short representation of the URL fragment found in TARGET column.",
+      "column_order": 14
+    },
+    {
+      "name": "URL_START_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start date and time of validity for the URL.",
+      "column_order": 15
+    },
+    {
+      "name": "SIGNIN_START_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start date and time of validity for the login attempt.",
+      "column_order": 16
+    },
+    {
+      "name": "URL_EXP_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End date and time of validity for the URL.",
+      "column_order": 17
+    },
+    {
+      "name": "TARGET",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Full URL fragment represented by the URL_SHORT_CODE.",
+      "column_order": 18
+    },
+    {
+      "name": "CONSUMER_ATTRIBUTES",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Name and value pairs needed by the consumer of the Short URL.",
+      "column_order": 19
+    },
+    {
+      "name": "CHALLENGE_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates what kind of challenge will be required for visitor to the URL.",
+      "column_order": 20
+    },
+    {
+      "name": "CONSUMER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates which Consumer feature is using this URL.",
+      "column_order": 21
+    },
+    {
+      "name": "SHORT_CODE",
+      "data_type": "NUMBER",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "The Short Code sent to the candidate for further verification.",
+      "column_order": 22
+    },
+    {
+      "name": "SHORT_CODE_EXP_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expiration date and time for the Short Code.",
+      "column_order": 23
+    },
+    {
+      "name": "FAILED_VALIDATION_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Counts the number of failed attempts at verifying the Short Code",
+      "column_order": 24
+    },
+    {
+      "name": "FAILED_SIGNIN_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Counts the number of failed attempts to login.",
+      "column_order": 25
+    },
+    {
+      "name": "DEVICE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "An identifier for the browser associated to the row.",
+      "column_order": 26
+    },
+    {
+      "name": "PERSISTENT_ACCESS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the row can be used to provide recurring access.",
+      "column_order": 27
+    },
+    {
+      "name": "LAST_ACCESS_REAUTH_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The last date the user authenticated to the system for persisted access.",
+      "column_order": 28
+    },
+    {
+      "name": "LAST_ACCESS_REFRESH_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The last date the user renewed their access to the system for persisted access.",
+      "column_order": 29
+    },
+    {
+      "name": "PHONE_CHANNEL_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates if the phone login uses WhatsApp or another communication channel",
+      "column_order": 30
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 32
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 35
+    }
+  ]
+}

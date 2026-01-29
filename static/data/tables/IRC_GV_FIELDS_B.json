@@ -1,0 +1,193 @@
+{
+  "id": 7931,
+  "name": "IRC_GV_FIELDS_B",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "FIELD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key of table. System Generated.",
+      "column_order": 1
+    },
+    {
+      "name": "FIELD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Stores the code for the field. Field Code can be defined like this ORA_*CONTEXT*_FIELD. For example - Candidate Name Field for Job Application Context , the field code can be ORA_JA_CAND_NAME",
+      "column_order": 2
+    },
+    {
+      "name": "CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Stores the information regarding which category the field points to. CATEGORIES can be ORA_EDUCATION , ORA_EXPERIENCE etc.",
+      "column_order": 3
+    },
+    {
+      "name": "GV_CONTEXT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Stores the information about the context for which the fields are being stored. For eg- For Job Applications Feature , this column value will be ORA_SUBMISSION and for Candidates  it will be ORA_CANDIDATE_SEARCH",
+      "column_order": 4
+    },
+    {
+      "name": "FIELD_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Stores the information about what type of field is being defined. For eg :- ORA_GENERAL , ORA_COMPOUND , ORA_EFF_GENERAL , ORA_EFF_COMPOUND",
+      "column_order": 5
+    },
+    {
+      "name": "VO_ATTRIBUTE_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "The full path of the View Object Attribute. Starting from the parent until the attribute. Each level denotes with a dot. For eg , to define degreeName :- SubmissionListVO.SubmissionEducationVO.degreeName",
+      "column_order": 6
+    },
+    {
+      "name": "OSCS_ATTRIBUTE_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "OSCS Index Path for the given field from the Index. Individual fields can be denoted with the index attribute name itself. For eg , if DegreeName needs to be used then this field will have \"DegreeName\" as a value.\nIf it is a Compound Field , then the parent node which has these fields would need to be provided. For eg :- if Education Compound Field needs to be denoted then :- JobApplicationEducation",
+      "column_order": 7
+    },
+    {
+      "name": "DATA_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Stores the data type of the field. The field data type can be - text , number and date",
+      "column_order": 8
+    },
+    {
+      "name": "TRANSLATABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This column denotes whether the field is translatable in the OSCS Index or DB. If Y , then the field will be used as a translatable field and the corresponding translated values will be fetched from the destined source. If N , then the field will be considered as non-translatable.",
+      "column_order": 9
+    },
+    {
+      "name": "MULTI_ROW_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This column denotes whether the field is a multi row field or a single row  field. For eg :- Candidate Name is a single row field then the value of this column will be 'N'. But Degree Name is a multi row field , then the value of this column will be 'Y'.",
+      "column_order": 10
+    },
+    {
+      "name": "DISPLAY_ROWS",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "This column denotes how many rows does user expect to see for this field. For eg :- If 3 is put in , then 3 rows will be shown to the user on the UI related to the given field.",
+      "column_order": 11
+    },
+    {
+      "name": "HIDDEN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This column denotes whether the field needs to be hidden on the configuration screen or not.",
+      "column_order": 12
+    },
+    {
+      "name": "CUSTOM_PROPERTIES",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column will be used to store the custom properties of a field. For eg :- Storing Sort field etc.",
+      "column_order": 13
+    },
+    {
+      "name": "MODULE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Seed Data Framework: indicates the module that owns the row. A module is an entry in Application Taxonomy such as a Logical Business Area. When the MODULE_ID column exists and the owner of the row is not specified, then the Seed Data Framework will not extract the row as seed data.",
+      "column_order": 14
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 16
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 19
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 20
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 21
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 22
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 23
+    }
+  ]
+}

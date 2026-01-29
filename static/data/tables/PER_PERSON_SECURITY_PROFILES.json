@@ -1,0 +1,465 @@
+{
+  "id": 5653,
+  "name": "PER_PERSON_SECURITY_PROFILES",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PERSON_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System generated primary key column.",
+      "column_order": 1
+    },
+    {
+      "name": "MODULE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Seed Data Framework: indicates the module that owns the row. A module is an entry in Application Taxonomy such as a Logical Business Area. When the MODULE_ID column exists and the owner of the row is not specified, then the Seed Data Framework will not extract the row as seed data.",
+      "column_order": 2
+    },
+    {
+      "name": "VIEW_ALL",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option provides unrestricted security access to the specific person security profile.",
+      "column_order": 3
+    },
+    {
+      "name": "NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "Name for the Person Security Profiles.",
+      "column_order": 4
+    },
+    {
+      "name": "BUSINESS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of Enterprise, used for multi-tenancy partitioning. Foreign key to HR_ORGANIZATION_UNITS.",
+      "column_order": 5
+    },
+    {
+      "name": "ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This field represents whether a person security profile is enabled or disabled. When it is enabled, it can be associated with a role.",
+      "column_order": 6
+    },
+    {
+      "name": "SECURE_BY_PERSON_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to select  different person types and select the security restrictions options, such as view all or restricted.",
+      "column_order": 7
+    },
+    {
+      "name": "SECURE_BY_MGR_HIERARCHY",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to restrict person security profiles based on the manager hierarchy.",
+      "column_order": 8
+    },
+    {
+      "name": "PRIMARY_ASSIGNMENT_ONLY",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "The sub-ordinates of a manager hierarchy within a person security profile can be secured based on either Person or assignment. This options allows for primary assignment level restriction.",
+      "column_order": 9
+    },
+    {
+      "name": "PERSON_OR_ASSIGNMENT_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "The sub-ordinates of a manager hierarchy within a person security profile can be secured based on either Person or assignment. This options allows either person level or assignment level restriction.",
+      "column_order": 10
+    },
+    {
+      "name": "MANAGER_TYPES",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "When securing by manager hierarchy, this is the manager type option securing the person security profile.",
+      "column_order": 11
+    },
+    {
+      "name": "MAX_LEVELS_IN_HIERARCHY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "A positive integer indicating the level below the manager hierarchy up to which the sub-ordinates are secured.",
+      "column_order": 12
+    },
+    {
+      "name": "SECURE_BY_DEPARTMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to restrict the person security profile based on a set of departments defined by an organization security profile.",
+      "column_order": 13
+    },
+    {
+      "name": "DEPT_ORG_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique organization security profile used to identify the list of departments secured by the person security profile.",
+      "column_order": 14
+    },
+    {
+      "name": "SECURE_BY_BUSINESS_UNIT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to restrict person security profile access based on a list of business units from a selected organization security profile.",
+      "column_order": 15
+    },
+    {
+      "name": "BU_ORG_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique organization security profile used to identify the list of business units secured by the person security profile.",
+      "column_order": 16
+    },
+    {
+      "name": "SECURE_BY_LEGAL_EMPLOYER",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to restrict person security profile access based on a list of legal employers from a selected organization security profile.",
+      "column_order": 17
+    },
+    {
+      "name": "SECURE_BY_POSITION",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to restrict person security profile access based on a list of positions from a selected position security profile.",
+      "column_order": 18
+    },
+    {
+      "name": "POSITION_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_POSITION_SECURITY_PROFILES table.",
+      "column_order": 19
+    },
+    {
+      "name": "SECURE_BY_PAYROLL",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows user to restrict person types based on different payrolls in a payroll security profile",
+      "column_order": 20
+    },
+    {
+      "name": "PAY_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PAY_PAY_SECURITY_PROFILES table.",
+      "column_order": 21
+    },
+    {
+      "name": "SECURE_BY_JOB",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option is not available.  Leave blank.",
+      "column_order": 22
+    },
+    {
+      "name": "JOB_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_JOB_SECURITY_PROFILES table.",
+      "column_order": 23
+    },
+    {
+      "name": "SECURE_BY_LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option is not available.  Leave blank.",
+      "column_order": 24
+    },
+    {
+      "name": "LOCATION_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_LOCATION_SECURITY_PROFILES table.",
+      "column_order": 25
+    },
+    {
+      "name": "SECURE_BY_LDG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to restrict person types based on legislative data groups in a Legislative data group security profile.",
+      "column_order": 26
+    },
+    {
+      "name": "LDG_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_LDG_SECURITY_PROFILES table.",
+      "column_order": 27
+    },
+    {
+      "name": "SECURE_BY_GRADE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option is not available.  Leave blank.",
+      "column_order": 28
+    },
+    {
+      "name": "GRADE_SECURITY_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to PER_GRADE_SECURITY_PROFILES table.",
+      "column_order": 29
+    },
+    {
+      "name": "SECURE_BY_GLOBAL_NAME_RANGE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "You can restrict access to person records based on a person?s global list name. For example, the security profile could enable users to access persons whose global list names are in the range A through E. This field represents an option to secure based on global list names of employees.",
+      "column_order": 30
+    },
+    {
+      "name": "GLOBAL_NAME_RANGE_START",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "When restricting access based on a person's global list name, this field represents the starting point from which a user wants to restrict security based on names.",
+      "column_order": 31
+    },
+    {
+      "name": "GLOBAL_NAME_RANGE_END",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "When restricting access based on a person's global list name, this field represents the ending point from which a user wants to restrict security based on names.",
+      "column_order": 32
+    },
+    {
+      "name": "SECURE_INDV_ASSIGNMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option is not available.  Leave blank.",
+      "column_order": 33
+    },
+    {
+      "name": "SECURE_BY_CUSTOM_RESTRICTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to restrict person security profiles by their own specified criteria.",
+      "column_order": 34
+    },
+    {
+      "name": "CUSTOM_RESTRICTION_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "When securing by custom criteria, specify the SQL statement in this field.",
+      "column_order": 35
+    },
+    {
+      "name": "ACCESS_TO_OWN_RECORD",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users access to their own records, those records belong to the instance set defined by the profile, regardless of whether they satisfy the other criteria in the profile. If users are denied access to their own records, then users are unable to access them even if they would otherwise belong to the instance set defined by the profile.",
+      "column_order": 36
+    },
+    {
+      "name": "INCLUDE_RELATED_CONTACTS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows this person security profile the access to include person records belonging to the contacts of the people identified in the Person Security Profile.  If 'Include Related Contacts' is set to 'N' then profile will include people identified by other criteria defined in the profile.  If 'Include Related Contacts' is set to 'Y' then profile will include people identified by other criteria defined in the profile and the related contacts who are not workers.",
+      "column_order": 37
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description for the person security profile.",
+      "column_order": 38
+    },
+    {
+      "name": "SECURE_BY_AOR",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to restrict person security profiles based on areas of responsibility.",
+      "column_order": 39
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 40
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 41
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 42
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 43
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 44
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 45
+    },
+    {
+      "name": "LEG_EMP_ORG_SEC_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "When securing by legal employer, this field contains the unique identifier for the selected organization security profile.",
+      "column_order": 46
+    },
+    {
+      "name": "EVAL_MGR_HIERARCHY_FOR",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "EVAL_MGR_HIERARCHY_FOR",
+      "column_order": 47
+    },
+    {
+      "name": "INCLUDE_SHARED_PEOPLE_INFO",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows the user to access shared people information.",
+      "column_order": 48
+    },
+    {
+      "name": "INCLUDE_FUTURE_PERSONS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This option allows users to configure future dated person access.",
+      "column_order": 49
+    },
+    {
+      "name": "PURPOSE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "PURPOSE column for candidate security profile",
+      "column_order": 50
+    },
+    {
+      "name": "SGUID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "The seed global unique identifier. Oracle internal use only.",
+      "column_order": 51
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 52
+    },
+    {
+      "name": "ASGS_TO_EVALUATE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This option allows users to provide choice of\nassignments to be considered while deriving secured access.",
+      "column_order": 53
+    },
+    {
+      "name": "ACCESS_TO_CAND_WITH_OFFER",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This option allows users access to candidates for whom offer has been generated. This access is derived based on other criteria selected in the profile.",
+      "column_order": 54
+    },
+    {
+      "name": "ENABLE_EXCLUSION",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Column to designate if exclusion configuration enabled on person security profile or not.",
+      "column_order": 55
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 56
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 57
+    }
+  ]
+}

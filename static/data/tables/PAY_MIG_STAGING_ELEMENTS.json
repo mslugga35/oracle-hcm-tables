@@ -1,0 +1,329 @@
+{
+  "id": 6241,
+  "name": "PAY_MIG_STAGING_ELEMENTS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "STAGING_ELEMENTS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "TRANSFERRED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates whether the associated definition has been either transferred via template or created manually by customer. We cannot re-run for any that have been transferred already.",
+      "column_order": 2
+    },
+    {
+      "name": "MIGRATE_DEFINITION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates that the user wishes to transfer the earning.",
+      "column_order": 3
+    },
+    {
+      "name": "DEFINITION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates if this is an earnings or deduction definition.",
+      "column_order": 4
+    },
+    {
+      "name": "SOURCE_ELEMENT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Populated with whatever is considered the unique name of the earnings definition.",
+      "column_order": 5
+    },
+    {
+      "name": "SOURCE_ELEMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Will be populated with the identifier of the PeopleSoft source definition record.",
+      "column_order": 6
+    },
+    {
+      "name": "SOURCE_SHORT_DESC",
+      "data_type": "VARCHAR2",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Value from PeopleSoft database. Not relevant for GPUK.",
+      "column_order": 7
+    },
+    {
+      "name": "SOURCE_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Value from PeopleSoft database.",
+      "column_order": 8
+    },
+    {
+      "name": "ELEMENT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Name of element to create on fusion.\n(PAY_ELEMENT_TYPES_F.BASE_ELEMENT_NAME).",
+      "column_order": 9
+    },
+    {
+      "name": "ELEMENT_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Primary key ID of element created (PAY_ELEMENT_TYPES_F.ELEMENT_TYPE_ID). This will be populated when the element is actually created on the Fusion system. It is intended to make it easy to map between the PeopleSoft and Fusion definitions.",
+      "column_order": 10
+    },
+    {
+      "name": "REPORTING_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "The reporting name of the created element.",
+      "column_order": 11
+    },
+    {
+      "name": "LEGISLATIVE_DATA_GROUP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Legislative data group name that element will belong to.",
+      "column_order": 12
+    },
+    {
+      "name": "LEGISLATIVE_DATA_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PER_LEGISLATIVE_DATA_GROUPS.",
+      "column_order": 13
+    },
+    {
+      "name": "PRIMARY_CLASSIFICATION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Primary classification name that element will belong to.",
+      "column_order": 14
+    },
+    {
+      "name": "PRIMARY_CLASSIFICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PAY_ELE_CLASSIFICATIONS.CLASSIFICATION_ID (for a primary classification, i.e. where PAY_ELE_CLASSIFICATIONS.PARENT_CLASSIFICATION_ID is NULL).",
+      "column_order": 15
+    },
+    {
+      "name": "SECONDARY_CLASSIFICATION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "Secondary classification name that element will belong to.",
+      "column_order": 16
+    },
+    {
+      "name": "SECONDARY_CLASSIFICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to PAY_ELE_CLASSIFICATIONS.CLASSIFICATION_ID.",
+      "column_order": 17
+    },
+    {
+      "name": "EFFECTIVE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the date at the beginning of the date range within which the row is effective.",
+      "column_order": 18
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description of element to create on fusion.",
+      "column_order": 19
+    },
+    {
+      "name": "INPUT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Input currency for the element.",
+      "column_order": 20
+    },
+    {
+      "name": "OUTPUT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Output currency for the element.",
+      "column_order": 21
+    },
+    {
+      "name": "STANDARD_LINK_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This sets the PAY_ELEMENT_TYPES_F.STANDARD_LINK_FLAG (which would also default PAY_ELEMENT_LINKS_F.STANDARD_LINK_FLAG).",
+      "column_order": 22
+    },
+    {
+      "name": "STARTING_TIME_DEF_SHORT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Starting time definition short code value. Equivalent to PAY_TIME_DEFINITIONS.SHORT_NAME.",
+      "column_order": 23
+    },
+    {
+      "name": "STARTING_TIME_DEF_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to PAY_TIME_DEFINITIONS.TIME_DEFINITION_ID.",
+      "column_order": 24
+    },
+    {
+      "name": "ENDING_TIME_DEF_SHORT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Ending time definition short code value. Equivalent to PAY_TIME_DEFINITIONS.SHORT_NAME.",
+      "column_order": 25
+    },
+    {
+      "name": "ENDING_TIME_DEF_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to PAY_TIME_DEFINITIONS.TIME_DEFINITION_ID.",
+      "column_order": 26
+    },
+    {
+      "name": "EMPLOYMENT_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Which level in three tier model will entries for this definition be attached.",
+      "column_order": 27
+    },
+    {
+      "name": "PROCESSING_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Recurring (R) or non-recurring (N) definition.",
+      "column_order": 28
+    },
+    {
+      "name": "ONCE_EACH_PERIOD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Processed only once per period?",
+      "column_order": 29
+    },
+    {
+      "name": "MULTIPLE_ENTRIES_ALLOWED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Whether or not more than one entry for this definition can exist over same span of time.",
+      "column_order": 30
+    },
+    {
+      "name": "INVOL_DEDUCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The PeopleSoft involuntary deduction code. If set, indicates the definition is to be used for voluntary deduction mapping for a particular deduction type.",
+      "column_order": 31
+    },
+    {
+      "name": "PLAN_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Required for PNA migration.",
+      "column_order": 32
+    },
+    {
+      "name": "DED_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Required for PNA migration.",
+      "column_order": 33
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 34
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 35
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 37
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 38
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 39
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to PER_ENTERPRISES.",
+      "column_order": 40
+    }
+  ]
+}

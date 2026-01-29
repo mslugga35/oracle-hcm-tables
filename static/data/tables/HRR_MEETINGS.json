@@ -1,0 +1,785 @@
+{
+  "id": 8317,
+  "name": "HRR_MEETINGS",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "MEETING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique primary key that identifies each distinct meeting record in this table.",
+      "column_order": 1
+    },
+    {
+      "name": "USE_POT_ASSESS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether Potential Assessment will be used or not.",
+      "column_order": 2
+    },
+    {
+      "name": "QUESTIONNAIRE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the questionnaire that should be used in the potential assessment in the meeting.",
+      "column_order": 3
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 4
+    },
+    {
+      "name": "BUSINESS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to HR_ALL_ORGANIZATION_UNITS.",
+      "column_order": 5
+    },
+    {
+      "name": "DASHBOARD_TMPL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to HRR_DASHBOARD_TMPLS_B.",
+      "column_order": 6
+    },
+    {
+      "name": "MEETING_PURPOSE",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "A larger text area to capture the facilitators instructions and comments for the meeting participants.",
+      "column_order": 7
+    },
+    {
+      "name": "MEETING_TITLE",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "N",
+      "description": "A brief description of the talent review meeting to help distinguish it from other meeting instances.",
+      "column_order": 8
+    },
+    {
+      "name": "MEETING_INSTRUCTIONS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "An instructions text for the talent review meeting.",
+      "column_order": 9
+    },
+    {
+      "name": "MEETING_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date to indicate when the actual meeting will take place.",
+      "column_order": 10
+    },
+    {
+      "name": "MEETING_LEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The individual at the top of the organization under review.",
+      "column_order": 11
+    },
+    {
+      "name": "MEETING_FACILITATOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The person responsible for scheduling, managing and conducting the talent review meeting.  This could be the Business Unit Leader or an individual from the HR department assigned to assist the Business Unit Leader.  The facilitator will be the only person who can create, update, view, and launch the talent review dashboard.",
+      "column_order": 12
+    },
+    {
+      "name": "MEETING_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates the status of the meeting",
+      "column_order": 13
+    },
+    {
+      "name": "MEETING_SUBMIT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores the meeting configuration status of a talent review meeting.",
+      "column_order": 14
+    },
+    {
+      "name": "MEETING_FACILITATOR_NOTES",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Indicates if notes can be captured for this talent review meeting.",
+      "column_order": 15
+    },
+    {
+      "name": "MEETING_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Organization for the review meeting",
+      "column_order": 16
+    },
+    {
+      "name": "DATA_SUBMIT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The deadline for data used during the talent review meeting to be entered in the various source systems by the meeting participants.",
+      "column_order": 17
+    },
+    {
+      "name": "MEETING_SUBMISSION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The timestamp when the meeting was actually submitted.",
+      "column_order": 18
+    },
+    {
+      "name": "PREF_REVIEW_QUALIFIER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to HRT_QUALIFIERS_B.",
+      "column_order": 19
+    },
+    {
+      "name": "DATA_VALIDITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The data validity guideline is intended to help the participants determine if the data already captured in the system is still valid for the talent review meeting.",
+      "column_order": 20
+    },
+    {
+      "name": "INCLUDE_MATRIX_MGMT",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Indicates whether matrix managers should be included as reviewers for the meeting.",
+      "column_order": 21
+    },
+    {
+      "name": "ENABLE_CALENDAR_INVITE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Flag to indicate meeting invite need to be created.",
+      "column_order": 22
+    },
+    {
+      "name": "MEETING_END_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The timestamp when the meeting ends.",
+      "column_order": 23
+    },
+    {
+      "name": "MEETING_LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 800,
+      "nullable": "Y",
+      "description": "URL or physical location of the meeting.",
+      "column_order": 24
+    },
+    {
+      "name": "CALENDAR_INVITATION_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Additional info for meeting invite.",
+      "column_order": 25
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 26
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 28
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 29
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 30
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 31
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE21",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE22",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE23",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE24",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE25",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE26",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE27",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE28",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE29",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE30",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "ATTRIBUTE_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE_DATE11",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE_DATE12",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE_DATE13",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_DATE14",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE_DATE15",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 92
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 93
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 94
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 95
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 96
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 97
+    }
+  ]
+}

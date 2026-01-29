@@ -1,0 +1,169 @@
+{
+  "id": 8027,
+  "name": "IRC_MESSAGE_TRACKING",
+  "type": "TABLE",
+  "module": "Human Capital Management",
+  "category": "General",
+  "columns": [
+    {
+      "name": "MESSAGE_TRACKING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key of the table. System generated.",
+      "column_order": 1
+    },
+    {
+      "name": "ADMIN_ALERT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to the table IRC_ADMIN_ALERT_HISTORY.",
+      "column_order": 2
+    },
+    {
+      "name": "CONTACT_INFORMATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "The communication contact information such as email, phone number, etc., as per channel type code.",
+      "column_order": 3
+    },
+    {
+      "name": "CHANNEL_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "The code for the channel such as SMS, email etc., that is used to send the message to the person. Lookup codes of type 'ORA_IRC_INTERACTION_TYPE'.",
+      "column_order": 4
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The ID of the person who is receiving the message. Foreign key to PER_PERSONS table.",
+      "column_order": 5
+    },
+    {
+      "name": "PRODUCT_CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The product such as HCM_COMMUNICATE, HCM_RECRUITING etc., for which the message belongs to.",
+      "column_order": 6
+    },
+    {
+      "name": "PRODUCT_SUB_CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The product's sub context such as  ORA_SUBMISSION, ORA_PROSPECT, ORA_EVENT, etc., in which this message was sent for a product.",
+      "column_order": 7
+    },
+    {
+      "name": "PRODUCT_SUB_CONTEXT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Provides the link to the product's sub context through  SUBMISSION_ID, PROSPECT_ID, EVENT_ID, etc. of tables IRC_SUBMISSIONS, IRC_PROSPECTS, IRC_REC_EVENTS_B etc.",
+      "column_order": 8
+    },
+    {
+      "name": "CONTENT_LIBRARY_ITEM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The Recruiting Content Library's DESCRIPTION_CODE that points to the table IRC_DESCRIPTIONS_B.",
+      "column_order": 9
+    },
+    {
+      "name": "MESSAGE_API_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Message API availability at the instance of sending a message depending on throttling rules imposed by the admin and if available API's call status.",
+      "column_order": 10
+    },
+    {
+      "name": "MESSAGE_API_RESPONSE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Message API status based on the unique API response code given by the message provider.",
+      "column_order": 11
+    },
+    {
+      "name": "MESSAGE_DIRECTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether the message is inbound  or outbound based on the flow of communication",
+      "column_order": 12
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "PHONE_COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Country prefix for international phone numbers including area code, such as 33 for France",
+      "column_order": 19
+    },
+    {
+      "name": "REQUEST_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Identifies the functional area or system component from which the API call to send a message is initiated",
+      "column_order": 20
+    }
+  ]
+}
