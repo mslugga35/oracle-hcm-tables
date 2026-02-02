@@ -1283,7 +1283,24 @@
       
       try {
         const res = await fetch(`data/tables/${name}.json`);
+        if (!res.ok) throw new Error('Not found');
         const table = await res.json();
+        
+        // Update URL for deep linking (without reload)
+        if (window.location.pathname !== `/table/${name}`) {
+          window.history.pushState({ table: name }, '', `/table/${name}`);
+        }
+        
+        // Update page metadata for SEO
+        document.title = `${table.name} - Oracle ${table.type} | HCM Tables`;
+        const metaDesc = document.querySelector('meta[name="description"]');
+        if (metaDesc) {
+          metaDesc.content = `${table.name} Oracle Fusion Cloud ${table.type.toLowerCase()} schema. ${(table.columns || []).length} columns. Module: ${table.module || 'HCM'}.`;
+        }
+        const canonical = document.querySelector('link[rel="canonical"]');
+        if (canonical) {
+          canonical.href = `https://hcm-tables.com/table/${table.name}`;
+        }
         
         content.innerHTML = `
           <div class="detail-header">
@@ -1322,8 +1339,17 @@
         `;
         lucide.createIcons();
       } catch (e) {
+        // Table not found - show error and update to 404-like state
+        document.title = 'Table Not Found | HCM Tables';
         content.innerHTML = `
-          <p style="color:var(--text-muted)">Table not found or data unavailable.</p>
+          <div style="text-align:center;padding:3rem">
+            <div style="font-size:3rem;margin-bottom:1rem">🔍</div>
+            <h2 style="color:var(--text-primary);margin-bottom:0.5rem">Table Not Found</h2>
+            <p style="color:var(--text-muted);margin-bottom:1.5rem">The table "${name}" doesn't exist in our database.</p>
+            <button onclick="window.location.href='/'" style="padding:0.75rem 1.5rem;background:var(--accent);color:white;border:none;border-radius:var(--radius-sm);cursor:pointer;font-weight:600">
+              Search Tables
+            </button>
+          </div>
         `;
       }
     }
@@ -1332,7 +1358,22 @@
       document.getElementById('table-detail').classList.remove('active');
       document.getElementById('results').classList.add('active');
       document.getElementById('results').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      
+      // Reset URL to home or search
+      window.history.pushState({}, '', '/');
+      document.title = 'Oracle HCM Tables Search - 5,500+ Oracle Fusion Cloud Tables';
     }
+    
+    // Handle browser back/forward buttons
+    window.addEventListener('popstate', (e) => {
+      if (e.state?.table) {
+        showTable(e.state.table);
+      } else if (window.location.pathname === '/' || window.location.pathname === '') {
+        document.getElementById('table-detail').classList.remove('active');
+        document.getElementById('results').classList.remove('active');
+        document.querySelector('.hero').scrollIntoView({ behavior: 'smooth' });
+      }
+    });
     
     document.getElementById('search').addEventListener('keypress', e => {
       if (e.key === 'Enter') doSearch();
@@ -1455,7 +1496,43 @@
     setTimeout(updateSearchCounter, 100);
     checkUnlockParam();
 
-    init();
+    // === DEEP LINK ROUTING ===
+    // Handle direct URLs like /table/TABLE_NAME and /search?q=QUERY
+    async function handleRoute() {
+      const path = window.location.pathname;
+      const params = new URLSearchParams(window.location.search);
+      
+      // Handle /table/TABLE_NAME
+      if (path.startsWith('/table/')) {
+        const tableName = decodeURIComponent(path.replace('/table/', ''));
+        if (tableName) {
+          // Wait for data to load, then show table
+          await init();
+          // Small delay to ensure data is ready
+          setTimeout(() => {
+            showTable(tableName);
+          }, 100);
+          return;
+        }
+      }
+      
+      // Handle /search?q=QUERY or ?q=QUERY
+      const query = params.get('q');
+      if (query) {
+        await init();
+        document.getElementById('search').value = query;
+        setTimeout(() => {
+          // Bypass paywall for initial route-based searches (allow crawlers to index)
+          _originalSearch();
+        }, 100);
+        return;
+      }
+      
+      // Default: just init normally
+      init();
+    }
+
+    handleRoute();
   </script>
 </body>
 </html>
