@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle Fusion HCM Lookup Codes — Complete Reference Guide | HCM Tables</title>
+  <meta name="title" content="Oracle Fusion HCM Lookup Codes — Complete Reference Guide | HCM Tables">
+  <meta name="description" content="Complete reference of Oracle Fusion HCM lookup codes: ACTION_TYPE, ASSIGNMENT_STATUS, WORKER_TYPE, PERSON_TYPE, PHONE_TYPE, MARITAL_STATUS, and 15+ more lookup types with all valid values.">
+  <meta name="keywords" content="Oracle HCM lookup codes, Oracle Fusion lookups, ACTION_TYPE lookup, WORKER_TYPE codes, FND_LOOKUP_VALUES, Manage Common Lookups, HCM extensible lookups, Oracle Cloud lookup reference">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/lookup-codes-reference">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/lookup-codes-reference">
+  <meta property="og:title" content="Oracle Fusion HCM Lookup Codes — Complete Reference Guide">
+  <meta property="og:description" content="Every Oracle HCM lookup code you need: actions, statuses, worker types, person types, phone types, and more with SQL queries to retrieve them.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/lookup-codes-reference">
+  <meta property="twitter:title" content="Oracle Fusion HCM Lookup Codes — Complete Reference">
+  <meta property="twitter:description" content="The definitive lookup code reference for Oracle HCM Cloud developers, report writers, and integration specialists.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle Fusion HCM Lookup Codes — Complete Reference Guide",
+    "description": "Complete reference of Oracle Fusion HCM lookup codes including ACTION_TYPE, ASSIGNMENT_STATUS, WORKER_TYPE, and 15+ more lookup types with all valid values.",
+    "url": "https://hcm-tables.com/blog/lookup-codes-reference",
+    "datePublished": "2026-02-06",
+    "dateModified": "2026-02-06",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/lookup-codes-reference"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    /* Code blocks */
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      font-family: var(--font-mono);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      white-space: pre;
+      tab-size: 2;
+    }
+
+    .code-block-wrapper pre .keyword { color: var(--accent); font-weight: 600; }
+    .code-block-wrapper pre .comment { color: var(--text-muted); }
+    .code-block-wrapper pre .string { color: var(--green); }
+    .code-block-wrapper pre .table-ref { color: var(--blue); }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.15s;
+      z-index: 2;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    /* Table of Contents */
+    .toc {
+      padding: 1.5rem 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .toc h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .toc li { margin-bottom: 0.35rem; }
+    .toc a { font-size: 0.95rem; color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); }
+
+    /* Module Badge */
+    .module-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .module-badge.standard { background: oklch(0.65 0.15 250 / 0.15); color: var(--blue); }
+    .module-badge.extensible { background: oklch(0.65 0.18 300 / 0.15); color: var(--purple); }
+    .module-badge.system { background: oklch(0.80 0.15 85 / 0.15); color: var(--yellow); }
+
+    /* Tables */
+    .table-list-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .table-list {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .table-list th {
+      text-align: left;
+      padding: 1rem;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .table-list td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .table-list tr:last-child td { border-bottom: none; }
+    .table-list tr:hover td { background: var(--bg-secondary); }
+
+    .table-list .mono {
+      font-family: var(--font-mono);
+      color: var(--blue);
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .table-list .mono a { color: var(--blue); }
+    .table-list .mono a:hover { color: var(--accent); }
+
+    .callout {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+    }
+    .callout p { margin-bottom: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--text-primary); }
+
+    .callout.info { border-left-color: var(--blue); }
+    .callout.warning { border-left-color: var(--yellow); }
+    .callout.success { border-left-color: var(--green); }
+
+    .cta-box {
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+    .cta-box h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--text-secondary); margin-bottom: 1.25rem; }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, oklch(0.58 0.2 40) 100%);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); text-decoration: none; color: white; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .table-list { font-size: 0.8rem; }
+      .table-list th, .table-list td { padding: 0.6rem 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Lookup Codes Reference
+    </div>
+
+    <header class="article-header">
+      <span class="article-tag">Reference</span>
+      <h1>Oracle Fusion HCM Lookup Codes &mdash; Complete Reference Guide</h1>
+      <div class="article-meta">Feb 6, 2026 &middot; 15 min read</div>
+    </header>
+
+    <div class="article-content">
+      <p>Lookup codes are the backbone of Oracle Fusion HCM's coded values. Every time you see a dropdown in the UI &mdash; action types, worker types, phone types, marital status &mdash; those values come from lookups stored in <a href="/table/FND_LOOKUP_VALUES">FND_LOOKUP_VALUES</a>. If you write OTBI reports, build HDL files, or develop integrations, you need to know these codes. This is the reference you will bookmark.</p>
+
+      <!-- Table of Contents -->
+      <div class="toc">
+        <h3>On This Page</h3>
+        <ul>
+          <li><a href="#what-are-lookups">What Are Lookups</a></li>
+          <li><a href="#finding-lookups">Finding Lookups in the UI</a></li>
+          <li><a href="#action-type">ACTION_TYPE</a></li>
+          <li><a href="#action-reason">ACTION_REASON</a></li>
+          <li><a href="#assignment-status">ASSIGNMENT_STATUS_TYPE</a></li>
+          <li><a href="#assignment-category">ASSIGNMENT_CATEGORY</a></li>
+          <li><a href="#worker-type">WORKER_TYPE</a></li>
+          <li><a href="#person-type">SYSTEM_PERSON_TYPE</a></li>
+          <li><a href="#address-type">ADDRESS_TYPE</a></li>
+          <li><a href="#phone-type">PHONE_TYPE</a></li>
+          <li><a href="#email-type">EMAIL_TYPE</a></li>
+          <li><a href="#marital-status">MARITAL_STATUS</a></li>
+          <li><a href="#sex-gender">SEX (Gender)</a></li>
+          <li><a href="#name-type">NAME_TYPE</a></li>
+          <li><a href="#absence-types">ABSENCE_TYPE & ABSENCE_REASON</a></li>
+          <li><a href="#fnd-languages">FND_LANGUAGES</a></li>
+          <li><a href="#sql-queries">SQL Queries for Lookups</a></li>
+          <li><a href="#custom-lookups">Creating Custom Lookups</a></li>
+          <li><a href="#tips">Tips & Gotchas</a></li>
+        </ul>
+      </div>
+
+      <!-- Section 1: What Are Lookups -->
+      <h2 id="what-are-lookups">What Are Lookups</h2>
+
+      <p>A lookup is a code-to-meaning mapping. The <strong>code</strong> is what gets stored in database columns (e.g., <code>E</code>), and the <strong>meaning</strong> is what users see in the UI (e.g., "Employee"). Lookups live in <a href="/table/FND_LOOKUP_VALUES">FND_LOOKUP_VALUES</a> and related tables.</p>
+
+      <h3>Lookup Types</h3>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Type</th>
+              <th>Who Can Modify</th>
+              <th>Examples</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><span class="module-badge standard">Standard</span></td>
+              <td>Oracle only (seeded, read-only to customers)</td>
+              <td>WORKER_TYPE, SYSTEM_PERSON_TYPE, ASSIGNMENT_STATUS_TYPE</td>
+            </tr>
+            <tr>
+              <td><span class="module-badge extensible">Extensible</span></td>
+              <td>Customer can add new codes (not modify seeded ones)</td>
+              <td>ACTION_TYPE, ACTION_REASON, PHONE_TYPE</td>
+            </tr>
+            <tr>
+              <td><span class="module-badge system">User / Custom</span></td>
+              <td>Customer creates and manages entirely</td>
+              <td>Custom DFF lookups, organization classifications</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout info">
+        <p><strong>Key distinction:</strong> Standard lookups are locked &mdash; you cannot add, remove, or rename values. Extensible lookups let you add your own codes alongside Oracle's seeded ones. Custom lookups are yours to create and manage.</p>
+      </div>
+
+      <!-- Section 2: Finding Lookups -->
+      <h2 id="finding-lookups">Finding Lookups in the UI</h2>
+
+      <ol>
+        <li>Navigate to <strong>Setup and Maintenance</strong></li>
+        <li>Search for the task: <strong>Manage Common Lookups</strong></li>
+        <li>In the Lookup Type field, enter the lookup name (e.g., <code>PER_ASSIGNMENT_CATEGORY</code>)</li>
+        <li>Click <strong>Search</strong> to see all codes, meanings, descriptions, and enabled flags</li>
+      </ol>
+
+      <p>For HCM-specific extensible lookups, use <strong>Manage Extensible Lookups</strong> instead. The navigation is similar but shows extensible lookup types.</p>
+
+      <!-- Section 3: ACTION_TYPE -->
+      <h2 id="action-type">ACTION_TYPE</h2>
+      <p>Action types define what happened to a worker: hire, termination, promotion, etc. Used in <a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a> and <a href="/table/PER_PERIODS_OF_SERVICE">PER_PERIODS_OF_SERVICE</a>. <span class="module-badge extensible">Extensible</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">HIRE</td><td>Hire</td><td>Initial hire of a new employee</td></tr>
+            <tr><td class="mono">REHIRE</td><td>Rehire</td><td>Rehiring a previously terminated employee</td></tr>
+            <tr><td class="mono">ADD_CWK</td><td>Add Contingent Worker</td><td>Adding a contingent worker (contractor)</td></tr>
+            <tr><td class="mono">TERMINATION</td><td>Termination</td><td>End of employment</td></tr>
+            <tr><td class="mono">END_CONTINGENT_WORKER</td><td>End Contingent Worker</td><td>End CWK placement</td></tr>
+            <tr><td class="mono">PROMOTION</td><td>Promotion</td><td>Grade/job promotion</td></tr>
+            <tr><td class="mono">TRANSFER</td><td>Transfer</td><td>Department, location, or BU transfer</td></tr>
+            <tr><td class="mono">MANAGER_CHANGE</td><td>Manager Change</td><td>Change in reporting manager</td></tr>
+            <tr><td class="mono">DATA_CHANGE</td><td>Data Change</td><td>General data correction or update</td></tr>
+            <tr><td class="mono">EMPL_STATUS_CHANGE</td><td>Employment Status Change</td><td>Active to suspended, etc.</td></tr>
+            <tr><td class="mono">LOCATION_CHANGE</td><td>Location Change</td><td>Work location change only</td></tr>
+            <tr><td class="mono">JOB_CHANGE</td><td>Job Change</td><td>Job change without promotion</td></tr>
+            <tr><td class="mono">POSITION_CHANGE</td><td>Position Change</td><td>Position reassignment</td></tr>
+            <tr><td class="mono">PROBATION_COMPLETION</td><td>Probation Completion</td><td>End of probation period</td></tr>
+            <tr><td class="mono">DEMOTION</td><td>Demotion</td><td>Grade/job demotion</td></tr>
+            <tr><td class="mono">GLOBAL_TRANSFER</td><td>Global Transfer</td><td>Transfer across legal entities</td></tr>
+            <tr><td class="mono">ADD_ASSIGN</td><td>Add Assignment</td><td>Adding a secondary assignment</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 4: ACTION_REASON -->
+      <h2 id="action-reason">ACTION_REASON</h2>
+      <p>Action reasons provide the "why" behind an action. Paired with ACTION_TYPE. <span class="module-badge extensible">Extensible</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Typical Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">RESIGNATION</td><td>Resignation</td><td>TERMINATION</td></tr>
+            <tr><td class="mono">RETIREMENT</td><td>Retirement</td><td>TERMINATION</td></tr>
+            <tr><td class="mono">REDUNDANCY</td><td>Redundancy / Layoff</td><td>TERMINATION</td></tr>
+            <tr><td class="mono">DEATH</td><td>Death</td><td>TERMINATION</td></tr>
+            <tr><td class="mono">MISCONDUCT</td><td>Misconduct</td><td>TERMINATION</td></tr>
+            <tr><td class="mono">END_OF_CONTRACT</td><td>End of Contract</td><td>TERMINATION / END_CWK</td></tr>
+            <tr><td class="mono">POOR_PERFORMANCE</td><td>Poor Performance</td><td>TERMINATION / DEMOTION</td></tr>
+            <tr><td class="mono">BUSINESS_NEED</td><td>Business Need</td><td>TRANSFER / LOCATION_CHANGE</td></tr>
+            <tr><td class="mono">CAREER_DEVELOPMENT</td><td>Career Development</td><td>PROMOTION / TRANSFER</td></tr>
+            <tr><td class="mono">REORGANIZATION</td><td>Reorganization</td><td>TRANSFER / POSITION_CHANGE</td></tr>
+            <tr><td class="mono">PERSONAL_REASONS</td><td>Personal Reasons</td><td>RESIGNATION</td></tr>
+            <tr><td class="mono">RELOCATION</td><td>Relocation</td><td>LOCATION_CHANGE / TRANSFER</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 5: ASSIGNMENT_STATUS_TYPE -->
+      <h2 id="assignment-status">ASSIGNMENT_STATUS_TYPE</h2>
+      <p>Controls the current state of an assignment. Stored in <a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a>.ASSIGNMENT_STATUS_TYPE_ID. <span class="module-badge standard">Standard</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">ACTIVE_PROCESS</td><td>Active - Payroll Eligible</td><td>Normal active assignment, processed by payroll</td></tr>
+            <tr><td class="mono">ACTIVE_NO_PROCESS</td><td>Active - No Payroll</td><td>Active but excluded from payroll runs</td></tr>
+            <tr><td class="mono">INACTIVE</td><td>Inactive</td><td>Assignment is not active (post-termination)</td></tr>
+            <tr><td class="mono">SUSPEND_PROCESS</td><td>Suspended - Payroll Eligible</td><td>Suspended with payroll (e.g., leave with pay)</td></tr>
+            <tr><td class="mono">SUSPEND_NO_PROCESS</td><td>Suspended - No Payroll</td><td>Suspended without payroll (e.g., unpaid leave)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 6: ASSIGNMENT_CATEGORY -->
+      <h2 id="assignment-category">ASSIGNMENT_CATEGORY</h2>
+      <p>Employment category for the assignment. <span class="module-badge extensible">Extensible</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">FR</td><td>Full-Time Regular</td><td>Standard full-time employment</td></tr>
+            <tr><td class="mono">FT</td><td>Full-Time Temporary</td><td>Full-time with end date</td></tr>
+            <tr><td class="mono">PR</td><td>Part-Time Regular</td><td>Ongoing part-time employment</td></tr>
+            <tr><td class="mono">PT</td><td>Part-Time Temporary</td><td>Part-time with end date</td></tr>
+            <tr><td class="mono">SE</td><td>Seasonal</td><td>Seasonal employment</td></tr>
+            <tr><td class="mono">FC</td><td>Full-Time Contractor</td><td>Contingent worker, full-time</td></tr>
+            <tr><td class="mono">PC</td><td>Part-Time Contractor</td><td>Contingent worker, part-time</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 7: WORKER_TYPE -->
+      <h2 id="worker-type">WORKER_TYPE</h2>
+      <p>Defines the type of worker for a work relationship. Stored in <a href="/table/PER_PERIODS_OF_SERVICE">PER_PERIODS_OF_SERVICE</a>. Used in <a href="/blog/hdl-data-loader-guide">HDL WorkRelationship</a> files. <span class="module-badge standard">Standard</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">E</td><td>Employee</td><td>Standard employee with an employment relationship</td></tr>
+            <tr><td class="mono">C</td><td>Contingent Worker</td><td>Contractor, consultant, temporary worker</td></tr>
+            <tr><td class="mono">N</td><td>Nonworker</td><td>Person with no work relationship (e.g., board member, volunteer)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 8: SYSTEM_PERSON_TYPE -->
+      <h2 id="person-type">SYSTEM_PERSON_TYPE</h2>
+      <p>System-level person type classification. Stored in <a href="/table/PER_PERSON_TYPE_USAGES_F">PER_PERSON_TYPE_USAGES_F</a>. <span class="module-badge standard">Standard</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">EMP</td><td>Employee</td><td>Active employee</td></tr>
+            <tr><td class="mono">CWK</td><td>Contingent Worker</td><td>Active contingent worker</td></tr>
+            <tr><td class="mono">EX_EMP</td><td>Ex-Employee</td><td>Previously terminated employee</td></tr>
+            <tr><td class="mono">EX_CWK</td><td>Ex-Contingent Worker</td><td>Previously ended contingent worker</td></tr>
+            <tr><td class="mono">PENDING_WORKER</td><td>Pending Worker</td><td>Person with future-dated hire (pre-hire)</td></tr>
+            <tr><td class="mono">APL</td><td>Applicant</td><td>Job applicant (recruiting)</td></tr>
+            <tr><td class="mono">CONTACT</td><td>Contact</td><td>Emergency contact, dependent, beneficiary</td></tr>
+            <tr><td class="mono">OTHER</td><td>Other</td><td>Non-categorized person type</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 9: ADDRESS_TYPE -->
+      <h2 id="address-type">ADDRESS_TYPE</h2>
+      <p>Address type for person addresses in <a href="/table/PER_ADDRESSES_F">PER_ADDRESSES_F</a>. <span class="module-badge extensible">Extensible</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">HOME</td><td>Home Address</td><td>Primary residential address</td></tr>
+            <tr><td class="mono">MAIL</td><td>Mailing Address</td><td>Mailing/correspondence address (may differ from home)</td></tr>
+            <tr><td class="mono">WORK</td><td>Work Address</td><td>Work location address (typically from HR_LOCATIONS_ALL)</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 10: PHONE_TYPE -->
+      <h2 id="phone-type">PHONE_TYPE</h2>
+      <p>Phone type codes stored in <a href="/table/PER_PHONES">PER_PHONES</a>.PHONE_TYPE. <span class="module-badge extensible">Extensible</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">H1</td><td>Home Phone</td><td>Primary home phone number</td></tr>
+            <tr><td class="mono">W1</td><td>Work Phone</td><td>Primary work phone number</td></tr>
+            <tr><td class="mono">M</td><td>Mobile</td><td>Mobile / cell phone number</td></tr>
+            <tr><td class="mono">F</td><td>Fax</td><td>Fax number</td></tr>
+            <tr><td class="mono">WF</td><td>Work Fax</td><td>Work fax number</td></tr>
+            <tr><td class="mono">H2</td><td>Home Phone 2</td><td>Secondary home phone</td></tr>
+            <tr><td class="mono">W2</td><td>Work Phone 2</td><td>Secondary work phone</td></tr>
+            <tr><td class="mono">HF</td><td>Home Fax</td><td>Home fax number</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 11: EMAIL_TYPE -->
+      <h2 id="email-type">EMAIL_TYPE</h2>
+      <p>Email type codes stored in <a href="/table/PER_EMAIL_ADDRESSES">PER_EMAIL_ADDRESSES</a>.EMAIL_TYPE. <span class="module-badge extensible">Extensible</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">W1</td><td>Work Email</td><td>Primary work email address</td></tr>
+            <tr><td class="mono">H1</td><td>Home Email</td><td>Primary personal/home email address</td></tr>
+            <tr><td class="mono">W2</td><td>Work Email 2</td><td>Secondary work email</td></tr>
+            <tr><td class="mono">H2</td><td>Home Email 2</td><td>Secondary personal email</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 12: MARITAL_STATUS -->
+      <h2 id="marital-status">MARITAL_STATUS</h2>
+      <p>Marital status codes stored in <a href="/table/PER_PERSON_LEGISLATIVE_F">PER_PERSON_LEGISLATIVE_F</a>.MARITAL_STATUS. Legislation-specific &mdash; some codes vary by country. <span class="module-badge extensible">Extensible</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">S</td><td>Single</td></tr>
+            <tr><td class="mono">M</td><td>Married</td></tr>
+            <tr><td class="mono">D</td><td>Divorced</td></tr>
+            <tr><td class="mono">W</td><td>Widowed</td></tr>
+            <tr><td class="mono">L</td><td>Legally Separated</td></tr>
+            <tr><td class="mono">DP</td><td>Domestic Partner</td></tr>
+            <tr><td class="mono">ND</td><td>Not Disclosed</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 13: SEX/GENDER -->
+      <h2 id="sex-gender">SEX (Gender)</h2>
+      <p>Gender codes stored in <a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a>.SEX and <a href="/table/PER_PERSON_LEGISLATIVE_F">PER_PERSON_LEGISLATIVE_F</a>.SEX. <span class="module-badge standard">Standard</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">M</td><td>Male</td></tr>
+            <tr><td class="mono">F</td><td>Female</td></tr>
+            <tr><td class="mono">NS</td><td>Not Specified / Prefer Not to Say</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p><strong>Note:</strong> Some legislations (e.g., Australia, Germany) support additional gender codes like <code>X</code> (Indeterminate/Intersex/Unspecified). These are configured per legislation code.</p>
+      </div>
+
+      <!-- Section 14: NAME_TYPE -->
+      <h2 id="name-type">NAME_TYPE</h2>
+      <p>Name type codes in <a href="/table/PER_PERSON_NAMES_F">PER_PERSON_NAMES_F</a>.NAME_TYPE. <span class="module-badge standard">Standard</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">GLOBAL</td><td>Global Name</td><td>Standard name format (First, Middle, Last). Required for all persons.</td></tr>
+            <tr><td class="mono">LOCAL</td><td>Local Name</td><td>Country-specific name format (e.g., Japanese kanji, Chinese characters)</td></tr>
+            <tr><td class="mono">DISPLAY</td><td>Display Name</td><td>Name as displayed in the UI (often auto-derived)</td></tr>
+            <tr><td class="mono">LIST</td><td>List Name</td><td>Name format for list views (typically "Last, First")</td></tr>
+            <tr><td class="mono">FULL</td><td>Full Name</td><td>Full concatenated name</td></tr>
+            <tr><td class="mono">ORDER</td><td>Order Name</td><td>Name used for sorting/ordering</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 15: ABSENCE_TYPE & REASON -->
+      <h2 id="absence-types">ABSENCE_TYPE & ABSENCE_REASON</h2>
+      <p>Absence types and reasons control leave management. These are highly configurable and vary by implementation, but Oracle seeds common types. <span class="module-badge extensible">Extensible</span></p>
+
+      <h3>Common Absence Types</h3>
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+              <th>Typical Category</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">VACATION</td><td>Vacation / Annual Leave</td><td>Paid Time Off</td></tr>
+            <tr><td class="mono">SICK</td><td>Sick Leave</td><td>Paid Time Off</td></tr>
+            <tr><td class="mono">PERSONAL</td><td>Personal Leave</td><td>Paid Time Off</td></tr>
+            <tr><td class="mono">BEREAVEMENT</td><td>Bereavement Leave</td><td>Paid Time Off</td></tr>
+            <tr><td class="mono">JURY_DUTY</td><td>Jury Duty</td><td>Paid Time Off</td></tr>
+            <tr><td class="mono">MATERNITY</td><td>Maternity Leave</td><td>Statutory Leave</td></tr>
+            <tr><td class="mono">PATERNITY</td><td>Paternity Leave</td><td>Statutory Leave</td></tr>
+            <tr><td class="mono">FMLA</td><td>Family Medical Leave (US)</td><td>Statutory Leave</td></tr>
+            <tr><td class="mono">UNPAID</td><td>Unpaid Leave</td><td>Unpaid</td></tr>
+            <tr><td class="mono">MILITARY</td><td>Military Leave</td><td>Statutory Leave</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout warning">
+        <p><strong>Important:</strong> Absence types are NOT stored in <a href="/table/FND_LOOKUP_VALUES">FND_LOOKUP_VALUES</a> like other lookups. They are configured as absence type definitions in the Absence Management work area and stored in their own tables. The codes above are common naming conventions, but your implementation may differ.</p>
+      </div>
+
+      <!-- Section 16: FND_LANGUAGES -->
+      <h2 id="fnd-languages">FND_LANGUAGES</h2>
+      <p>Language codes used throughout Oracle Fusion for translations. Common codes found in <code>_TL</code> (translation) tables. <span class="module-badge standard">Standard</span></p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Code</th>
+              <th>Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr><td class="mono">US</td><td>American English</td></tr>
+            <tr><td class="mono">GB</td><td>British English</td></tr>
+            <tr><td class="mono">FR</td><td>French</td></tr>
+            <tr><td class="mono">D</td><td>German</td></tr>
+            <tr><td class="mono">E</td><td>Spanish</td></tr>
+            <tr><td class="mono">JA</td><td>Japanese</td></tr>
+            <tr><td class="mono">ZHS</td><td>Simplified Chinese</td></tr>
+            <tr><td class="mono">ZHT</td><td>Traditional Chinese</td></tr>
+            <tr><td class="mono">KO</td><td>Korean</td></tr>
+            <tr><td class="mono">PT</td><td>Portuguese</td></tr>
+            <tr><td class="mono">PTB</td><td>Brazilian Portuguese</td></tr>
+            <tr><td class="mono">AR</td><td>Arabic</td></tr>
+            <tr><td class="mono">NL</td><td>Dutch</td></tr>
+            <tr><td class="mono">I</td><td>Italian</td></tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 17: SQL Queries -->
+      <h2 id="sql-queries">SQL Queries for Lookups</h2>
+
+      <p>Use these queries in OTBI, BI Publisher, or SQL Developer to look up valid codes programmatically.</p>
+
+      <h3>Query All Values for a Lookup Type</h3>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="keyword">SELECT</span> lookup_code,
+       meaning,
+       description,
+       enabled_flag,
+       start_date_active,
+       end_date_active
+<span class="keyword">FROM</span>   <span class="table-ref">fnd_lookup_values</span>
+<span class="keyword">WHERE</span>  lookup_type = <span class="string">'ACTION_TYPE'</span>
+<span class="keyword">AND</span>    language    = <span class="string">'US'</span>
+<span class="keyword">AND</span>    enabled_flag = <span class="string">'Y'</span>
+<span class="keyword">AND</span>    NVL(end_date_active, SYSDATE + 1) > SYSDATE
+<span class="keyword">ORDER BY</span> lookup_code;</pre>
+      </div>
+
+      <h3>Query HCM-Specific Lookups (PER Lookup Types)</h3>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="keyword">SELECT</span> flv.lookup_type,
+       flv.lookup_code,
+       flv.meaning,
+       flv.description
+<span class="keyword">FROM</span>   <span class="table-ref">fnd_lookup_values</span> flv
+<span class="keyword">WHERE</span>  flv.lookup_type <span class="keyword">LIKE</span> <span class="string">'PER%'</span>
+<span class="keyword">AND</span>    flv.language = <span class="string">'US'</span>
+<span class="keyword">AND</span>    flv.enabled_flag = <span class="string">'Y'</span>
+<span class="keyword">ORDER BY</span> flv.lookup_type, flv.lookup_code;</pre>
+      </div>
+
+      <h3>Find Which Lookup Type a Code Belongs To</h3>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="comment">-- "What lookup type contains the code 'ACTIVE_PROCESS'?"</span>
+<span class="keyword">SELECT</span> lookup_type,
+       lookup_code,
+       meaning
+<span class="keyword">FROM</span>   <span class="table-ref">fnd_lookup_values</span>
+<span class="keyword">WHERE</span>  lookup_code = <span class="string">'ACTIVE_PROCESS'</span>
+<span class="keyword">AND</span>    language    = <span class="string">'US'</span>;</pre>
+      </div>
+
+      <h3>Count All Lookup Codes by Type</h3>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="keyword">SELECT</span> lookup_type,
+       <span class="keyword">COUNT</span>(*) <span class="keyword">AS</span> code_count
+<span class="keyword">FROM</span>   <span class="table-ref">fnd_lookup_values</span>
+<span class="keyword">WHERE</span>  language     = <span class="string">'US'</span>
+<span class="keyword">AND</span>    enabled_flag = <span class="string">'Y'</span>
+<span class="keyword">AND</span>    lookup_type <span class="keyword">LIKE</span> <span class="string">'PER%'</span>
+<span class="keyword">GROUP BY</span> lookup_type
+<span class="keyword">ORDER BY</span> code_count <span class="keyword">DESC</span>;</pre>
+      </div>
+
+      <!-- Section 18: Creating Custom Lookups -->
+      <h2 id="custom-lookups">Creating Custom Lookups</h2>
+
+      <p>You can create your own lookup types for custom DFFs, extensible flexfields, or integrations.</p>
+
+      <h3>Steps to Create a Custom Lookup</h3>
+      <ol>
+        <li>Navigate to <strong>Setup and Maintenance</strong></li>
+        <li>Search for <strong>Manage Common Lookups</strong></li>
+        <li>Click the <strong>+</strong> (Create) button</li>
+        <li>Enter a <strong>Lookup Type</strong> name (e.g., <code>XX_CUSTOM_STATUS</code>). Prefix with <code>XX_</code> or your company code to avoid conflicts with Oracle-seeded types.</li>
+        <li>Set the <strong>Module</strong> to the appropriate application</li>
+        <li>Add <strong>Lookup Codes</strong> with meanings and descriptions</li>
+        <li>Save and close</li>
+      </ol>
+
+      <div class="callout success">
+        <p><strong>Best practice:</strong> Always prefix custom lookup types with a company-specific code (e.g., <code>XX_ACME_</code>) to clearly distinguish them from Oracle-seeded lookups and avoid upgrade conflicts.</p>
+      </div>
+
+      <h3>Adding Codes to Extensible Lookups</h3>
+      <ol>
+        <li>Navigate to <strong>Setup and Maintenance</strong></li>
+        <li>Search for <strong>Manage Extensible Lookups</strong></li>
+        <li>Search for the lookup type (e.g., <code>ACTION_REASON</code>)</li>
+        <li>Click the <strong>+</strong> button in the Lookup Codes section</li>
+        <li>Enter your new code, meaning, and description</li>
+        <li>Set <strong>Enabled</strong> to Yes and optionally set start/end dates</li>
+        <li>Save</li>
+      </ol>
+
+      <!-- Section 19: Tips -->
+      <h2 id="tips">Tips & Gotchas</h2>
+
+      <h3>Case Sensitivity</h3>
+      <ul>
+        <li>Lookup codes are <strong>case-sensitive</strong>. <code>HIRE</code> is not the same as <code>hire</code> or <code>Hire</code>.</li>
+        <li>Always use the exact case shown in the lookup definition</li>
+        <li>In <a href="/blog/hdl-data-loader-guide">HDL files</a>, mismatched case is one of the most common causes of "invalid lookup" errors</li>
+      </ul>
+
+      <h3>Lookup Code vs. Meaning</h3>
+      <ul>
+        <li>The <strong>code</strong> (e.g., <code>E</code>) is what is stored in the database column</li>
+        <li>The <strong>meaning</strong> (e.g., "Employee") is what users see in the UI</li>
+        <li>When building integrations or HDL files, always use the <strong>code</strong>, not the meaning</li>
+        <li>OTBI reports may show the meaning &mdash; use the code column if you need to filter or join</li>
+      </ul>
+
+      <h3>Extensible vs. Standard</h3>
+      <ul>
+        <li>Standard lookups are read-only. If you need a value that doesn't exist, talk to Oracle Support &mdash; there is no workaround.</li>
+        <li>Extensible lookups let you add codes. Do not modify or disable Oracle-seeded codes &mdash; other features may depend on them.</li>
+        <li>Custom lookups are entirely yours. Use them for DFFs and custom integrations.</li>
+      </ul>
+
+      <h3>Date-Effective Lookups</h3>
+      <ul>
+        <li>Lookup codes can have <code>START_DATE_ACTIVE</code> and <code>END_DATE_ACTIVE</code></li>
+        <li>Always filter by date when querying to avoid using disabled or future-dated codes</li>
+        <li>End-dating a code does not remove it from historical records &mdash; it just hides it from dropdowns going forward</li>
+      </ul>
+
+      <h3>Legislation-Specific Lookups</h3>
+      <ul>
+        <li>Many lookup types (marital status, gender, ethnicity) have legislation-specific variants</li>
+        <li>A code valid in one country may not exist in another</li>
+        <li>Check the <code>LEGISLATION_CODE</code> column when querying to get country-appropriate values</li>
+      </ul>
+
+      <div class="cta-box">
+        <h3>Explore the Lookup Tables Directly</h3>
+        <p>View the full schema for FND_LOOKUP_VALUES and every HCM table that references lookup codes.</p>
+        <a href="/table/FND_LOOKUP_VALUES" class="cta-btn">View FND_LOOKUP_VALUES Schema</a>
+      </div>
+
+      <h2>Related Articles</h2>
+      <ul>
+        <li><a href="/blog/hdl-data-loader-guide">HCM Data Loader (HDL) Complete Guide &mdash; .dat File Format, Templates & Troubleshooting</a></li>
+        <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Most Used Oracle Fusion HCM Tables</a></li>
+        <li><a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)</a></li>
+        <li><a href="/blog/per-all-people-f-complete-guide">Complete Guide to PER_ALL_PEOPLE_F</a></li>
+      </ul>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p><a href="/">Search 35,000+ Oracle Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector('pre');
+      const text = pre.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

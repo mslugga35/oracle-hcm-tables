@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle HCM SQL Query Library — 7 Production-Ready Queries | HCM Tables</title>
+  <meta name="title" content="Oracle HCM SQL Query Library — 7 Production-Ready Queries | HCM Tables">
+  <meta name="description" content="Copy-paste SQL queries for Oracle Fusion HCM: active employees, headcount, turnover, new hires, contact directory, salary report, absence balances. Production-tested with proper date-effective joins.">
+  <meta name="keywords" content="Oracle HCM SQL queries, Oracle Fusion SQL, PER_ALL_PEOPLE_F query, HCM headcount report, Oracle HR turnover query, Oracle HCM salary report, Oracle absence balance SQL, OTBI SQL">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/sql-query-library">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/sql-query-library">
+  <meta property="og:title" content="Oracle HCM SQL Query Library — 7 Production-Ready Queries">
+  <meta property="og:description" content="Copy-paste SQL queries for Oracle Fusion HCM. Active employees, headcount, turnover, new hires, salary, absence balances, and contact directory.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/sql-query-library">
+  <meta property="twitter:title" content="Oracle HCM SQL Query Library — 7 Production-Ready Queries">
+  <meta property="twitter:description" content="Copy-paste Oracle Fusion HCM SQL queries with proper date-effective joins and table aliases.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "Oracle HCM SQL Query Library — 7 Production-Ready Queries",
+    "description": "Copy-paste SQL queries for Oracle Fusion HCM Cloud with proper date-effective joins and best practices.",
+    "url": "https://hcm-tables.com/blog/sql-query-library",
+    "datePublished": "2026-02-06",
+    "dateModified": "2026-02-06",
+    "author": { "@type": "Organization", "name": "HCM Tables" },
+    "publisher": { "@type": "Organization", "name": "HCM Tables", "url": "https://hcm-tables.com" },
+    "proficiencyLevel": "Expert",
+    "dependencies": "Oracle Fusion Cloud HCM"
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .container { max-width: 850px; margin: 0 auto; padding: 0 1.5rem; }
+
+    article { padding: 3rem 0 4rem; }
+
+    article h1 {
+      font-size: clamp(1.75rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+    }
+
+    .article-meta {
+      display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.9rem;
+      margin-bottom: 2rem; padding-bottom: 1.5rem; border-bottom: 1px solid var(--border);
+    }
+
+    article h2 {
+      font-size: 1.5rem; font-weight: 700; margin: 2.5rem 0 1rem;
+      padding-top: 1rem; border-top: 1px solid var(--border);
+    }
+
+    article h2:first-of-type { border-top: none; padding-top: 0; }
+
+    article h3 { font-size: 1.15rem; font-weight: 600; margin: 1.5rem 0 0.75rem; color: var(--blue); }
+
+    article p { color: var(--text-secondary); margin-bottom: 1rem; line-height: 1.7; }
+
+    article ul, article ol { color: var(--text-secondary); margin: 0 0 1.5rem 1.5rem; line-height: 1.7; }
+    article li { margin-bottom: 0.5rem; }
+
+    article code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.85rem;
+      color: var(--green);
+    }
+
+    .code-block {
+      position: relative;
+      margin: 1rem 0 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow-x: auto;
+    }
+
+    .code-block pre {
+      padding: 1.25rem;
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+      white-space: pre;
+      overflow-x: auto;
+    }
+
+    .code-block .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .code-block .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+
+    .query-card {
+      margin: 1.5rem 0;
+      padding: 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .query-card h3 { margin-top: 0; }
+
+    .query-meta {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-bottom: 1rem;
+    }
+
+    .query-tag {
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+    }
+
+    .tip-box {
+      margin: 1rem 0 1.5rem;
+      padding: 1rem 1.25rem;
+      background: var(--bg-tertiary);
+      border-left: 3px solid var(--yellow);
+      border-radius: 0 var(--radius-sm) var(--radius-sm) 0;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    .tip-box strong { color: var(--yellow); }
+
+    .toc {
+      margin: 2rem 0;
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+    }
+
+    .toc h3 { margin: 0 0 0.75rem; font-size: 1rem; color: var(--text-primary); }
+    .toc ol { margin: 0; padding-left: 1.25rem; }
+    .toc li { margin-bottom: 0.35rem; font-size: 0.9rem; }
+
+    .cta-box {
+      margin: 2rem 0;
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+    }
+
+    .cta-box h3 { color: var(--text-primary); margin-bottom: 0.5rem; font-size: 1.2rem; }
+    .cta-box p { color: var(--text-secondary); margin-bottom: 1rem; }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, oklch(0.58 0.2 40) 100%);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 4px 20px var(--accent-glow); text-decoration: none; color: white; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* SQL syntax highlighting */
+    .kw { color: var(--purple); font-weight: 500; }
+    .fn { color: var(--yellow); }
+    .str { color: var(--accent); }
+    .cm { color: var(--text-muted); font-style: italic; }
+    .tbl { color: var(--blue); }
+    .al { color: var(--green); }
+
+    @media (max-width: 640px) {
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .code-block pre { font-size: 0.75rem; padding: 1rem; }
+      .query-meta { gap: 0.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article>
+    <div class="container">
+      <h1>Oracle HCM SQL Query Library</h1>
+      <div class="article-meta">
+        <span>Feb 6, 2026</span>
+        <span>25 min read</span>
+        <span>7 queries</span>
+      </div>
+
+      <p>Production-ready SQL queries for Oracle Fusion Cloud HCM. Every query uses proper date-effective joins, correct table aliases, and handles the common gotchas that trip up Oracle developers.</p>
+
+      <div class="tip-box">
+        <strong>Before you start:</strong> All queries use <code>PER_ALL_ASSIGNMENTS_M</code> (the materialized table). If you're on an older release, swap <code>_M</code> for <code>_F</code> and add <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> to the date-effective filters.
+      </div>
+
+      <div class="toc">
+        <h3>Queries in This Library</h3>
+        <ol>
+          <li><a href="#active-roster">Active Employee Roster</a></li>
+          <li><a href="#headcount">Headcount by Department</a></li>
+          <li><a href="#turnover">Turnover Report (Last 12 Months)</a></li>
+          <li><a href="#new-hires">New Hires Report</a></li>
+          <li><a href="#contact-directory">Employee Contact Directory</a></li>
+          <li><a href="#salary">Compensation / Salary Report</a></li>
+          <li><a href="#absence">Absence Balances</a></li>
+        </ol>
+      </div>
+
+      <!-- Query 1: Active Employee Roster -->
+      <h2 id="active-roster">1. Active Employee Roster</h2>
+
+      <div class="query-meta">
+        <span class="query-tag">Core HR</span>
+        <span class="query-tag">Most Used</span>
+      </div>
+
+      <p>The foundation query. Returns all active employees with their department, location, job, position, grade, and hire date. This is the query you'll modify for 80% of your reports.</p>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="kw">SELECT</span>
+    <span class="al">papf</span>.PERSON_NUMBER,
+    <span class="al">ppnf</span>.FIRST_NAME,
+    <span class="al">ppnf</span>.LAST_NAME,
+    <span class="al">paam</span>.ASSIGNMENT_NUMBER,
+    <span class="al">paam</span>.ASSIGNMENT_STATUS_TYPE,
+    <span class="al">haou</span>.NAME <span class="kw">AS</span> DEPARTMENT,
+    <span class="al">hla</span>.LOCATION_NAME,
+    <span class="al">pjfv</span>.NAME <span class="kw">AS</span> JOB_NAME,
+    <span class="al">hapf</span>.NAME <span class="kw">AS</span> POSITION_NAME,
+    <span class="al">pgf</span>.NAME <span class="kw">AS</span> GRADE_NAME,
+    <span class="al">paam</span>.NORMAL_HOURS,
+    <span class="al">paam</span>.FREQUENCY,
+    <span class="al">ppos</span>.DATE_START <span class="kw">AS</span> HIRE_DATE,
+    <span class="al">paam</span>.EFFECTIVE_START_DATE
+<span class="kw">FROM</span> <span class="tbl">PER_ALL_PEOPLE_F</span> <span class="al">papf</span>
+<span class="kw">JOIN</span> <span class="tbl">PER_PERSON_NAMES_F</span> <span class="al">ppnf</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">ppnf</span>.PERSON_ID
+    <span class="kw">AND</span> <span class="al">ppnf</span>.NAME_TYPE = <span class="str">'GLOBAL'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">ppnf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">ppnf</span>.EFFECTIVE_END_DATE
+<span class="kw">JOIN</span> <span class="tbl">PER_ALL_ASSIGNMENTS_M</span> <span class="al">paam</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">paam</span>.PERSON_ID
+    <span class="kw">AND</span> <span class="al">paam</span>.ASSIGNMENT_STATUS_TYPE = <span class="str">'ACTIVE'</span>
+    <span class="kw">AND</span> <span class="al">paam</span>.EFFECTIVE_LATEST_CHANGE = <span class="str">'Y'</span>
+    <span class="kw">AND</span> <span class="al">paam</span>.PRIMARY_FLAG = <span class="str">'Y'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">paam</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">paam</span>.EFFECTIVE_END_DATE
+<span class="kw">JOIN</span> <span class="tbl">PER_PERIODS_OF_SERVICE</span> <span class="al">ppos</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.PERIOD_OF_SERVICE_ID = <span class="al">ppos</span>.PERIOD_OF_SERVICE_ID
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_ALL_ORGANIZATION_UNITS</span> <span class="al">haou</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.ORGANIZATION_ID = <span class="al">haou</span>.ORGANIZATION_ID
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_LOCATIONS_ALL</span> <span class="al">hla</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.LOCATION_ID = <span class="al">hla</span>.LOCATION_ID
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_JOBS_F_VL</span> <span class="al">pjfv</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.JOB_ID = <span class="al">pjfv</span>.JOB_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">pjfv</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">pjfv</span>.EFFECTIVE_END_DATE
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_ALL_POSITIONS_F_VL</span> <span class="al">hapf</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.POSITION_ID = <span class="al">hapf</span>.POSITION_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">hapf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">hapf</span>.EFFECTIVE_END_DATE
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_GRADES_F_VL</span> <span class="al">pgf</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.GRADE_ID = <span class="al">pgf</span>.GRADE_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">pgf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">pgf</span>.EFFECTIVE_END_DATE
+<span class="kw">WHERE</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">papf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">papf</span>.EFFECTIVE_END_DATE
+<span class="kw">ORDER BY</span> <span class="al">ppnf</span>.LAST_NAME, <span class="al">ppnf</span>.FIRST_NAME</pre>
+      </div>
+
+      <div class="tip-box">
+        <strong>Why PRIMARY_FLAG = 'Y'?</strong> Employees can have multiple assignments (e.g., a primary job + a secondary assignment). Without this filter, you get duplicate rows.
+      </div>
+
+      <p><strong>Key tables:</strong> <a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a>, <a href="/table/PER_PERSON_NAMES_F">PER_PERSON_NAMES_F</a>, <a href="/table/PER_ALL_ASSIGNMENTS_M">PER_ALL_ASSIGNMENTS_M</a></p>
+
+      <!-- Query 2: Headcount -->
+      <h2 id="headcount">2. Headcount by Department</h2>
+
+      <div class="query-meta">
+        <span class="query-tag">Core HR</span>
+        <span class="query-tag">Analytics</span>
+      </div>
+
+      <p>Department-level headcount with FTE totals and full-time vs. part-time breakdown. Essential for workforce planning.</p>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="kw">SELECT</span>
+    <span class="al">haou</span>.NAME <span class="kw">AS</span> DEPARTMENT,
+    <span class="al">hla</span>.LOCATION_NAME,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> <span class="al">papf</span>.PERSON_ID) <span class="kw">AS</span> HEADCOUNT,
+    <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> <span class="al">paam</span>.ASSIGNMENT_CATEGORY = <span class="str">'FR'</span> <span class="kw">THEN</span> 1 <span class="kw">ELSE</span> 0 <span class="kw">END</span>) <span class="kw">AS</span> FULL_TIME,
+    <span class="fn">SUM</span>(<span class="kw">CASE WHEN</span> <span class="al">paam</span>.ASSIGNMENT_CATEGORY = <span class="str">'PT'</span> <span class="kw">THEN</span> 1 <span class="kw">ELSE</span> 0 <span class="kw">END</span>) <span class="kw">AS</span> PART_TIME,
+    <span class="fn">SUM</span>(<span class="al">pawm</span>.FTE) <span class="kw">AS</span> TOTAL_FTE
+<span class="kw">FROM</span> <span class="tbl">PER_ALL_PEOPLE_F</span> <span class="al">papf</span>
+<span class="kw">JOIN</span> <span class="tbl">PER_ALL_ASSIGNMENTS_M</span> <span class="al">paam</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">paam</span>.PERSON_ID
+    <span class="kw">AND</span> <span class="al">paam</span>.ASSIGNMENT_STATUS_TYPE = <span class="str">'ACTIVE'</span>
+    <span class="kw">AND</span> <span class="al">paam</span>.PRIMARY_FLAG = <span class="str">'Y'</span>
+    <span class="kw">AND</span> <span class="al">paam</span>.EFFECTIVE_LATEST_CHANGE = <span class="str">'Y'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">paam</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">paam</span>.EFFECTIVE_END_DATE
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_ASSIGN_WORK_MEASURES_F</span> <span class="al">pawm</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.ASSIGNMENT_ID = <span class="al">pawm</span>.ASSIGNMENT_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">pawm</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">pawm</span>.EFFECTIVE_END_DATE
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_ALL_ORGANIZATION_UNITS</span> <span class="al">haou</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.ORGANIZATION_ID = <span class="al">haou</span>.ORGANIZATION_ID
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_LOCATIONS_ALL</span> <span class="al">hla</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.LOCATION_ID = <span class="al">hla</span>.LOCATION_ID
+<span class="kw">WHERE</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">papf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">papf</span>.EFFECTIVE_END_DATE
+<span class="kw">GROUP BY</span> <span class="al">haou</span>.NAME, <span class="al">hla</span>.LOCATION_NAME
+<span class="kw">ORDER BY</span> <span class="al">haou</span>.NAME</pre>
+      </div>
+
+      <p><strong>Key tables:</strong> <a href="/table/PER_ASSIGN_WORK_MEASURES_F">PER_ASSIGN_WORK_MEASURES_F</a> for FTE, <a href="/table/HR_ALL_ORGANIZATION_UNITS">HR_ALL_ORGANIZATION_UNITS</a> for department names</p>
+
+      <!-- Query 3: Turnover -->
+      <h2 id="turnover">3. Turnover Report (Last 12 Months)</h2>
+
+      <div class="query-meta">
+        <span class="query-tag">Core HR</span>
+        <span class="query-tag">Analytics</span>
+      </div>
+
+      <p>Monthly termination counts with voluntary vs. involuntary breakdown. The query most executives ask for.</p>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="kw">SELECT</span>
+    <span class="fn">TO_CHAR</span>(<span class="al">ppos</span>.ACTUAL_TERMINATION_DATE, <span class="str">'YYYY-MM'</span>) <span class="kw">AS</span> TERM_MONTH,
+    <span class="al">haou</span>.NAME <span class="kw">AS</span> DEPARTMENT,
+    <span class="fn">COUNT</span>(*) <span class="kw">AS</span> TERMINATIONS,
+    <span class="fn">COUNT</span>(<span class="kw">CASE WHEN</span> <span class="al">ppos</span>.LEAVING_REASON = <span class="str">'RESIGNATION'</span> <span class="kw">THEN</span> 1 <span class="kw">END</span>) <span class="kw">AS</span> VOLUNTARY,
+    <span class="fn">COUNT</span>(<span class="kw">CASE WHEN</span> <span class="al">ppos</span>.LEAVING_REASON != <span class="str">'RESIGNATION'</span> <span class="kw">THEN</span> 1 <span class="kw">END</span>) <span class="kw">AS</span> INVOLUNTARY
+<span class="kw">FROM</span> <span class="tbl">PER_PERIODS_OF_SERVICE</span> <span class="al">ppos</span>
+<span class="kw">JOIN</span> <span class="tbl">PER_ALL_ASSIGNMENTS_M</span> <span class="al">paam</span>
+    <span class="kw">ON</span> <span class="al">ppos</span>.PERSON_ID = <span class="al">paam</span>.PERSON_ID
+    <span class="kw">AND</span> <span class="al">ppos</span>.PERIOD_OF_SERVICE_ID = <span class="al">paam</span>.PERIOD_OF_SERVICE_ID
+    <span class="kw">AND</span> <span class="al">paam</span>.PRIMARY_FLAG = <span class="str">'Y'</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_ALL_ORGANIZATION_UNITS</span> <span class="al">haou</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.ORGANIZATION_ID = <span class="al">haou</span>.ORGANIZATION_ID
+<span class="kw">WHERE</span> <span class="al">ppos</span>.ACTUAL_TERMINATION_DATE >= <span class="fn">ADD_MONTHS</span>(<span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>), -12)
+    <span class="kw">AND</span> <span class="al">ppos</span>.ACTUAL_TERMINATION_DATE <span class="kw">IS NOT NULL</span>
+<span class="kw">GROUP BY</span> <span class="fn">TO_CHAR</span>(<span class="al">ppos</span>.ACTUAL_TERMINATION_DATE, <span class="str">'YYYY-MM'</span>), <span class="al">haou</span>.NAME
+<span class="kw">ORDER BY</span> TERM_MONTH <span class="kw">DESC</span>, DEPARTMENT</pre>
+      </div>
+
+      <div class="tip-box">
+        <strong>Watch out:</strong> LEAVING_REASON values vary by implementation. Check your <a href="/blog/lookup-codes-reference">lookup codes</a> under <code>LEAVING_REASON</code> for your org's specific values.
+      </div>
+
+      <p><strong>Key tables:</strong> <a href="/table/PER_PERIODS_OF_SERVICE">PER_PERIODS_OF_SERVICE</a> — the only table with <code>ACTUAL_TERMINATION_DATE</code></p>
+
+      <!-- Query 4: New Hires -->
+      <h2 id="new-hires">4. New Hires Report</h2>
+
+      <div class="query-meta">
+        <span class="query-tag">Core HR</span>
+        <span class="query-tag">Onboarding</span>
+      </div>
+
+      <p>Employees hired in the last 30 days with their assignment details. Modify the <code>ADD_MONTHS</code> parameter for different time ranges.</p>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="kw">SELECT</span>
+    <span class="al">papf</span>.PERSON_NUMBER,
+    <span class="al">ppnf</span>.FULL_NAME,
+    <span class="al">ppos</span>.DATE_START <span class="kw">AS</span> HIRE_DATE,
+    <span class="al">haou</span>.NAME <span class="kw">AS</span> DEPARTMENT,
+    <span class="al">pjfv</span>.NAME <span class="kw">AS</span> JOB_NAME,
+    <span class="al">hapf</span>.NAME <span class="kw">AS</span> POSITION_NAME,
+    <span class="al">paam</span>.ASSIGNMENT_NUMBER
+<span class="kw">FROM</span> <span class="tbl">PER_ALL_PEOPLE_F</span> <span class="al">papf</span>
+<span class="kw">JOIN</span> <span class="tbl">PER_PERSON_NAMES_F</span> <span class="al">ppnf</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">ppnf</span>.PERSON_ID
+    <span class="kw">AND</span> <span class="al">ppnf</span>.NAME_TYPE = <span class="str">'GLOBAL'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">ppnf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">ppnf</span>.EFFECTIVE_END_DATE
+<span class="kw">JOIN</span> <span class="tbl">PER_PERIODS_OF_SERVICE</span> <span class="al">ppos</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">ppos</span>.PERSON_ID
+<span class="kw">JOIN</span> <span class="tbl">PER_ALL_ASSIGNMENTS_M</span> <span class="al">paam</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">paam</span>.PERSON_ID
+    <span class="kw">AND</span> <span class="al">paam</span>.PRIMARY_FLAG = <span class="str">'Y'</span>
+    <span class="kw">AND</span> <span class="al">paam</span>.EFFECTIVE_LATEST_CHANGE = <span class="str">'Y'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">paam</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">paam</span>.EFFECTIVE_END_DATE
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_ALL_ORGANIZATION_UNITS</span> <span class="al">haou</span> <span class="kw">ON</span> <span class="al">paam</span>.ORGANIZATION_ID = <span class="al">haou</span>.ORGANIZATION_ID
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_JOBS_F_VL</span> <span class="al">pjfv</span> <span class="kw">ON</span> <span class="al">paam</span>.JOB_ID = <span class="al">pjfv</span>.JOB_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">pjfv</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">pjfv</span>.EFFECTIVE_END_DATE
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_ALL_POSITIONS_F_VL</span> <span class="al">hapf</span> <span class="kw">ON</span> <span class="al">paam</span>.POSITION_ID = <span class="al">hapf</span>.POSITION_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">hapf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">hapf</span>.EFFECTIVE_END_DATE
+<span class="kw">WHERE</span> <span class="al">ppos</span>.DATE_START >= <span class="fn">ADD_MONTHS</span>(<span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>), -1)
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">papf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">papf</span>.EFFECTIVE_END_DATE
+<span class="kw">ORDER BY</span> <span class="al">ppos</span>.DATE_START <span class="kw">DESC</span></pre>
+      </div>
+
+      <!-- Query 5: Contact Directory -->
+      <h2 id="contact-directory">5. Employee Contact Directory</h2>
+
+      <div class="query-meta">
+        <span class="query-tag">Core HR</span>
+        <span class="query-tag">Contact Info</span>
+      </div>
+
+      <p>Work email, personal email, work phone, mobile, and home address for all employees. Uses LEFT JOINs since not every employee has all contact types.</p>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="kw">SELECT</span>
+    <span class="al">papf</span>.PERSON_NUMBER,
+    <span class="al">ppnf</span>.FIRST_NAME,
+    <span class="al">ppnf</span>.LAST_NAME,
+    <span class="al">pea_work</span>.EMAIL_ADDRESS <span class="kw">AS</span> WORK_EMAIL,
+    <span class="al">pea_home</span>.EMAIL_ADDRESS <span class="kw">AS</span> PERSONAL_EMAIL,
+    <span class="al">pp_work</span>.PHONE_NUMBER <span class="kw">AS</span> WORK_PHONE,
+    <span class="al">pp_mobile</span>.PHONE_NUMBER <span class="kw">AS</span> MOBILE_PHONE,
+    <span class="al">pa</span>.ADDRESS_LINE_1,
+    <span class="al">pa</span>.TOWN_OR_CITY,
+    <span class="al">pa</span>.REGION_2 <span class="kw">AS</span> STATE,
+    <span class="al">pa</span>.POSTAL_CODE
+<span class="kw">FROM</span> <span class="tbl">PER_ALL_PEOPLE_F</span> <span class="al">papf</span>
+<span class="kw">JOIN</span> <span class="tbl">PER_PERSON_NAMES_F</span> <span class="al">ppnf</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">ppnf</span>.PERSON_ID
+    <span class="kw">AND</span> <span class="al">ppnf</span>.NAME_TYPE = <span class="str">'GLOBAL'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">ppnf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">ppnf</span>.EFFECTIVE_END_DATE
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_EMAIL_ADDRESSES</span> <span class="al">pea_work</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">pea_work</span>.PERSON_ID <span class="kw">AND</span> <span class="al">pea_work</span>.EMAIL_TYPE = <span class="str">'W1'</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_EMAIL_ADDRESSES</span> <span class="al">pea_home</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">pea_home</span>.PERSON_ID <span class="kw">AND</span> <span class="al">pea_home</span>.EMAIL_TYPE = <span class="str">'H1'</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_PHONES</span> <span class="al">pp_work</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">pp_work</span>.PERSON_ID <span class="kw">AND</span> <span class="al">pp_work</span>.PHONE_TYPE = <span class="str">'W1'</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_PHONES</span> <span class="al">pp_mobile</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">pp_mobile</span>.PERSON_ID <span class="kw">AND</span> <span class="al">pp_mobile</span>.PHONE_TYPE = <span class="str">'M'</span>
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_ADDRESSES_F</span> <span class="al">pa</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">pa</span>.PERSON_ID <span class="kw">AND</span> <span class="al">pa</span>.ADDRESS_TYPE = <span class="str">'HOME'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">pa</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">pa</span>.EFFECTIVE_END_DATE
+<span class="kw">WHERE</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">papf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">papf</span>.EFFECTIVE_END_DATE</pre>
+      </div>
+
+      <div class="tip-box">
+        <strong>Email/Phone types:</strong> W1 = Work primary, H1 = Home primary, M = Mobile. These are standard Oracle lookup codes in <code>PHONE_TYPE</code> and <code>EMAIL_TYPE</code>.
+      </div>
+
+      <p><strong>Key tables:</strong> <a href="/table/PER_EMAIL_ADDRESSES">PER_EMAIL_ADDRESSES</a>, <a href="/table/PER_PHONES">PER_PHONES</a>, <a href="/table/PER_ADDRESSES_F">PER_ADDRESSES_F</a></p>
+
+      <!-- Query 6: Salary -->
+      <h2 id="salary">6. Compensation / Salary Report</h2>
+
+      <div class="query-meta">
+        <span class="query-tag">Compensation</span>
+        <span class="query-tag">Restricted</span>
+      </div>
+
+      <p>Current salary for each employee including annual salary, currency, and salary basis. Requires compensation data access.</p>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="kw">SELECT</span>
+    <span class="al">papf</span>.PERSON_NUMBER,
+    <span class="al">ppnf</span>.FULL_NAME,
+    <span class="al">haou</span>.NAME <span class="kw">AS</span> DEPARTMENT,
+    <span class="al">pjfv</span>.NAME <span class="kw">AS</span> JOB_NAME,
+    <span class="al">pgf</span>.NAME <span class="kw">AS</span> GRADE_NAME,
+    <span class="al">cs</span>.SALARY_AMOUNT,
+    <span class="al">cs</span>.ANNUAL_SALARY,
+    <span class="al">cs</span>.CURRENCY_CODE,
+    <span class="al">cs</span>.SALARY_BASIS_NAME,
+    <span class="al">cs</span>.DATE_FROM <span class="kw">AS</span> SALARY_START_DATE
+<span class="kw">FROM</span> <span class="tbl">PER_ALL_PEOPLE_F</span> <span class="al">papf</span>
+<span class="kw">JOIN</span> <span class="tbl">PER_PERSON_NAMES_F</span> <span class="al">ppnf</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">ppnf</span>.PERSON_ID <span class="kw">AND</span> <span class="al">ppnf</span>.NAME_TYPE = <span class="str">'GLOBAL'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">ppnf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">ppnf</span>.EFFECTIVE_END_DATE
+<span class="kw">JOIN</span> <span class="tbl">PER_ALL_ASSIGNMENTS_M</span> <span class="al">paam</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">paam</span>.PERSON_ID <span class="kw">AND</span> <span class="al">paam</span>.PRIMARY_FLAG = <span class="str">'Y'</span>
+    <span class="kw">AND</span> <span class="al">paam</span>.ASSIGNMENT_STATUS_TYPE = <span class="str">'ACTIVE'</span> <span class="kw">AND</span> <span class="al">paam</span>.EFFECTIVE_LATEST_CHANGE = <span class="str">'Y'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">paam</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">paam</span>.EFFECTIVE_END_DATE
+<span class="kw">JOIN</span> <span class="tbl">CMP_SALARY</span> <span class="al">cs</span>
+    <span class="kw">ON</span> <span class="al">paam</span>.ASSIGNMENT_ID = <span class="al">cs</span>.ASSIGNMENT_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">cs</span>.DATE_FROM <span class="kw">AND</span> <span class="fn">NVL</span>(<span class="al">cs</span>.DATE_TO, <span class="fn">TO_DATE</span>(<span class="str">'4712-12-31'</span>,<span class="str">'YYYY-MM-DD'</span>))
+<span class="kw">LEFT JOIN</span> <span class="tbl">HR_ALL_ORGANIZATION_UNITS</span> <span class="al">haou</span> <span class="kw">ON</span> <span class="al">paam</span>.ORGANIZATION_ID = <span class="al">haou</span>.ORGANIZATION_ID
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_JOBS_F_VL</span> <span class="al">pjfv</span> <span class="kw">ON</span> <span class="al">paam</span>.JOB_ID = <span class="al">pjfv</span>.JOB_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">pjfv</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">pjfv</span>.EFFECTIVE_END_DATE
+<span class="kw">LEFT JOIN</span> <span class="tbl">PER_GRADES_F_VL</span> <span class="al">pgf</span> <span class="kw">ON</span> <span class="al">paam</span>.GRADE_ID = <span class="al">pgf</span>.GRADE_ID
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">pgf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">pgf</span>.EFFECTIVE_END_DATE
+<span class="kw">WHERE</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">papf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">papf</span>.EFFECTIVE_END_DATE</pre>
+      </div>
+
+      <div class="tip-box">
+        <strong>CMP_SALARY date handling:</strong> This table uses <code>DATE_FROM</code> / <code>DATE_TO</code> instead of the usual <code>EFFECTIVE_START_DATE</code> / <code>EFFECTIVE_END_DATE</code>. The <code>NVL(DATE_TO, '4712-12-31')</code> handles open-ended current salaries.
+      </div>
+
+      <p><strong>Key tables:</strong> <a href="/table/CMP_SALARY">CMP_SALARY</a> — joins on <code>ASSIGNMENT_ID</code>, not <code>PERSON_ID</code></p>
+
+      <!-- Query 7: Absence -->
+      <h2 id="absence">7. Absence Balances</h2>
+
+      <div class="query-meta">
+        <span class="query-tag">Absence</span>
+      </div>
+
+      <p>Current absence balances (accrued, used, remaining) by absence type and plan. Essential for PTO reporting.</p>
+
+      <div class="code-block">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+<pre><span class="kw">SELECT</span>
+    <span class="al">papf</span>.PERSON_NUMBER,
+    <span class="al">ppnf</span>.FULL_NAME,
+    <span class="al">aatb</span>.NAME <span class="kw">AS</span> ABSENCE_TYPE,
+    <span class="al">apb</span>.ACCRUED_BALANCE,
+    <span class="al">apb</span>.USED_BALANCE,
+    (<span class="al">apb</span>.ACCRUED_BALANCE - <span class="al">apb</span>.USED_BALANCE) <span class="kw">AS</span> REMAINING_BALANCE,
+    <span class="al">apb</span>.PLAN_NAME
+<span class="kw">FROM</span> <span class="tbl">PER_ALL_PEOPLE_F</span> <span class="al">papf</span>
+<span class="kw">JOIN</span> <span class="tbl">PER_PERSON_NAMES_F</span> <span class="al">ppnf</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">ppnf</span>.PERSON_ID <span class="kw">AND</span> <span class="al">ppnf</span>.NAME_TYPE = <span class="str">'GLOBAL'</span>
+    <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">ppnf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">ppnf</span>.EFFECTIVE_END_DATE
+<span class="kw">JOIN</span> <span class="tbl">ANC_PER_ABS_PLAN_BAL</span> <span class="al">apb</span>
+    <span class="kw">ON</span> <span class="al">papf</span>.PERSON_ID = <span class="al">apb</span>.PERSON_ID
+<span class="kw">JOIN</span> <span class="tbl">ANC_ABSENCE_TYPES_B</span> <span class="al">aatb</span>
+    <span class="kw">ON</span> <span class="al">apb</span>.ABSENCE_TYPE_ID = <span class="al">aatb</span>.ABSENCE_TYPE_ID
+<span class="kw">WHERE</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> <span class="al">papf</span>.EFFECTIVE_START_DATE <span class="kw">AND</span> <span class="al">papf</span>.EFFECTIVE_END_DATE</pre>
+      </div>
+
+      <p><strong>Key tables:</strong> <a href="/table/ANC_PER_ABS_PLAN_BAL">ANC_PER_ABS_PLAN_BAL</a> for balances, <a href="/table/ANC_ABSENCE_TYPES_B">ANC_ABSENCE_TYPES_B</a> for type names</p>
+
+      <!-- Best Practices -->
+      <h2>SQL Best Practices for Oracle HCM</h2>
+
+      <ol>
+        <li><strong>Always use date-effective filters</strong> on <code>_F</code> tables — <code>TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE</code></li>
+        <li><strong>Use <code>PRIMARY_FLAG = 'Y'</code></strong> on assignments to avoid duplicates from secondary assignments</li>
+        <li><strong>Use <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code></strong> on <code>PER_ALL_ASSIGNMENTS_M</code> to get the latest version of each assignment</li>
+        <li><strong>Join names with <code>NAME_TYPE = 'GLOBAL'</code></strong> — otherwise you get separate rows for legal/display names</li>
+        <li><strong>Use <code>_VL</code> views</strong> (like <code>PER_JOBS_F_VL</code>) instead of joining <code>_F</code> + <code>_TL</code> manually</li>
+        <li><strong>Use <code>LEFT JOIN</code></strong> for optional lookups (grade, position, location) — not all assignments have all fields populated</li>
+        <li><strong>Prefer <code>PER_ALL_ASSIGNMENTS_M</code></strong> over <code>_F</code> — Oracle deprecated <code>_F</code> in 24B and <code>_M</code> is faster for reporting</li>
+      </ol>
+
+      <div class="cta-box">
+        <h3>Search All 35,000+ Tables</h3>
+        <p>Find columns, types, and schema for any Oracle Fusion Cloud table instantly.</p>
+        <a href="/" class="cta-btn">Search Tables</a>
+      </div>
+
+      <h2>Related Articles</h2>
+      <ul>
+        <li><a href="/blog/otbi-subject-area-guide">OTBI Subject Areas — Complete Guide with Decision Tree</a></li>
+        <li><a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL)</a></li>
+        <li><a href="/blog/per-all-people-f-complete-guide">Complete Guide to PER_ALL_PEOPLE_F</a></li>
+        <li><a href="/blog/fast-formula-examples">Fast Formula Examples — 10+ Working Formulas</a></li>
+        <li><a href="/blog/hdl-data-loader-guide">HDL Data Loader Guide</a></li>
+        <li><a href="/blog/lookup-codes-reference">Lookup Codes Reference</a></li>
+      </ul>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p><a href="/">Search 35,000+ Oracle Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector('pre');
+      const text = pre.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        setTimeout(() => btn.textContent = 'Copy', 2000);
+      });
+    }
+  </script>
+</body>
+</html>

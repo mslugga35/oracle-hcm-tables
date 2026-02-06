@@ -1,0 +1,1106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle Fusion HCM OTBI Subject Areas — Complete Guide with Decision Tree | HCM Tables</title>
+  <meta name="title" content="Oracle Fusion HCM OTBI Subject Areas — Complete Guide with Decision Tree | HCM Tables">
+  <meta name="description" content="Complete reference of Oracle Fusion HCM OTBI subject areas by module. Includes a decision tree for picking the right subject area, performance tips, and pitfall solutions.">
+  <meta name="keywords" content="OTBI subject areas, Oracle BI, Oracle Fusion OTBI, Worker Assignment Real Time, OTBI report, Oracle HCM reporting, OTBI performance, OTBI decision tree, Oracle Transactional BI">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/otbi-subject-area-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/otbi-subject-area-guide">
+  <meta property="og:title" content="Oracle Fusion HCM OTBI Subject Areas — Complete Guide with Decision Tree">
+  <meta property="og:description" content="Pick the right OTBI subject area every time. Complete reference of 40+ subject areas across all HCM modules with decision tree and performance tips.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/otbi-subject-area-guide">
+  <meta property="twitter:title" content="Oracle Fusion HCM OTBI Subject Areas — Complete Guide">
+  <meta property="twitter:description" content="Decision tree + complete reference of all Oracle Fusion HCM OTBI subject areas by module.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle Fusion HCM OTBI Subject Areas — Complete Guide with Decision Tree",
+    "description": "Complete reference of Oracle Fusion HCM OTBI subject areas by module. Includes a decision tree for picking the right subject area, performance tips, and pitfall solutions.",
+    "url": "https://hcm-tables.com/blog/otbi-subject-area-guide",
+    "datePublished": "2026-02-06",
+    "dateModified": "2026-02-06",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/otbi-subject-area-guide"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    /* Code block with copy button */
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    /* Table of Contents */
+    .toc {
+      padding: 1.5rem 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .toc h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .toc li {
+      margin-bottom: 0.35rem;
+    }
+
+    .toc a {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    .toc a:hover { color: var(--blue); }
+
+    /* Module Badge */
+    .module-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .module-badge.workforce { background: oklch(0.65 0.15 250 / 0.15); color: var(--blue); }
+    .module-badge.compensation { background: oklch(0.80 0.15 85 / 0.15); color: var(--yellow); }
+    .module-badge.recruiting { background: oklch(0.65 0.2 25 / 0.15); color: var(--accent); }
+    .module-badge.talent { background: oklch(0.80 0.15 85 / 0.15); color: var(--yellow); }
+    .module-badge.succession { background: oklch(0.65 0.18 300 / 0.15); color: var(--purple); }
+    .module-badge.learning { background: oklch(0.65 0.18 300 / 0.15); color: var(--purple); }
+    .module-badge.benefits { background: oklch(0.65 0.18 300 / 0.15); color: var(--purple); }
+    .module-badge.payroll { background: oklch(0.70 0.18 145 / 0.15); color: var(--green); }
+    .module-badge.time { background: oklch(0.70 0.18 145 / 0.15); color: var(--green); }
+    .module-badge.absence { background: oklch(0.65 0.15 250 / 0.15); color: var(--blue); }
+
+    /* Table List */
+    .table-list-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .table-list {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .table-list th {
+      text-align: left;
+      padding: 1rem;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .table-list td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .table-list tr:last-child td { border-bottom: none; }
+    .table-list tr:hover td { background: var(--bg-secondary); }
+
+    .table-list .mono {
+      font-family: var(--font-mono);
+      color: var(--blue);
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+
+    .table-list .mono a { color: var(--blue); }
+    .table-list .mono a:hover { color: var(--accent); }
+
+    /* Decision Tree */
+    .decision-tree {
+      padding: 1.5rem 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .decision-tree h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .dt-row {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      padding: 0.75rem 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .dt-row:last-child { border-bottom: none; }
+
+    .dt-need {
+      min-width: 200px;
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.95rem;
+    }
+
+    .dt-arrow {
+      color: var(--accent);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .dt-sa {
+      font-family: var(--font-mono);
+      color: var(--green);
+      font-size: 0.9rem;
+    }
+
+    .callout {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+    }
+    .callout p { margin-bottom: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--text-primary); }
+
+    .callout.warning { border-left-color: var(--yellow); }
+    .callout.tip { border-left-color: var(--green); }
+
+    .cta-box {
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+    .cta-box h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--text-secondary); margin-bottom: 1.25rem; }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, oklch(0.58 0.2 40) 100%);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); text-decoration: none; color: white; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .table-list { font-size: 0.8rem; }
+      .table-list th, .table-list td { padding: 0.6rem 0.5rem; }
+      .dt-row { flex-direction: column; gap: 0.25rem; }
+      .dt-need { min-width: unset; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; OTBI Subject Area Guide
+    </div>
+
+    <header class="article-header">
+      <span class="article-tag">OTBI Reporting</span>
+      <h1>Oracle Fusion HCM OTBI Subject Areas &mdash; Complete Guide with Decision Tree</h1>
+      <div class="article-meta">Feb 6, 2026 &middot; 18 min read</div>
+    </header>
+
+    <div class="article-content">
+
+      <p>Oracle Transactional Business Intelligence (OTBI) is the real-time reporting layer built into Oracle Fusion Cloud HCM. Unlike BI Publisher (which runs on extracted data), OTBI queries live transactional tables, giving you up-to-the-minute results. The catch: you must pick the correct <strong>subject area</strong> before you write a single column into your report.</p>
+
+      <p>Subject areas are pre-built, secured data models that expose Oracle Fusion tables as logical folders and columns. Choosing the wrong subject area is the number-one reason OTBI reports return wrong numbers, duplicate rows, or time out. This guide gives you a decision tree, a complete reference of every HCM subject area by module, and the performance tips that actually matter.</p>
+
+      <div class="callout">
+        <p><strong>Key concept:</strong> Each subject area has a <em>fact</em> (the grain of the data) and <em>dimensions</em> (the attributes you can filter/group by). You cannot join across subject areas in a single analysis. If you need data from two subject areas, use a Combined Analysis or build a BI Publisher report instead.</p>
+      </div>
+
+      <!-- Table of Contents -->
+      <div class="toc">
+        <h3>In This Guide</h3>
+        <ul>
+          <li><a href="#decision-tree">Decision Tree: Which Subject Area Do I Use?</a></li>
+          <li><a href="#workforce">Workforce Management Subject Areas</a></li>
+          <li><a href="#compensation">Compensation Subject Areas</a></li>
+          <li><a href="#recruiting">Recruiting Subject Areas</a></li>
+          <li><a href="#talent">Talent Management Subject Areas</a></li>
+          <li><a href="#succession">Succession Subject Areas</a></li>
+          <li><a href="#learning">Learning Subject Areas</a></li>
+          <li><a href="#benefits">Benefits Subject Areas</a></li>
+          <li><a href="#payroll">Payroll Subject Areas</a></li>
+          <li><a href="#time">Time and Labor Subject Areas</a></li>
+          <li><a href="#tips">OTBI Performance Tips</a></li>
+          <li><a href="#pitfalls">Common Pitfalls and Solutions</a></li>
+        </ul>
+      </div>
+
+      <!-- Decision Tree -->
+      <h2 id="decision-tree">Decision Tree: Which Subject Area Do I Use?</h2>
+
+      <p>Start here. Identify what you need, and the decision tree points you to the right subject area.</p>
+
+      <div class="decision-tree">
+        <h3>"I need a report on..." &rarr; Use this subject area</h3>
+        <div class="dt-row">
+          <span class="dt-need">Current headcount / roster</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Worker Assignment Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Turnover trends over time</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Workforce Trend - Worker Trend Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Individual HR events (hire, transfer, promotion, termination)</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Worker Assignment Event Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Absence balances / leave taken</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Absence Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Absence plan entitlements / accrual rules</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Worker Absence Plan Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Salary / base pay details</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Salary Details Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Requisitions and candidates</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Recruiting Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Performance review ratings</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Performance Rating Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Comp plan worksheets / budgets</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Compensation Worksheet Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Benefits elections / enrollment</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Benefits Enrollment Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Payroll run results</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Payroll Run Results Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Payroll balances (YTD, QTD)</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Payroll Balance Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Time cards / reported time</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Time Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Learning enrollments / completions</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Learning Real Time</span>
+        </div>
+        <div class="dt-row">
+          <span class="dt-need">Succession plans / readiness</span>
+          <span class="dt-arrow">&rarr;</span>
+          <span class="dt-sa">Succession Real Time</span>
+        </div>
+      </div>
+
+      <div class="callout tip">
+        <p><strong>Tip:</strong> If you are unsure whether to use "Real Time" vs "Trend" subject areas &mdash; Real Time shows the <em>current snapshot</em> of data. Trend subject areas show data <em>across time periods</em> and are designed for period-over-period comparisons (headcount by month, turnover by quarter).</p>
+      </div>
+
+      <!-- Workforce Management -->
+      <h2 id="workforce">Workforce Management Subject Areas</h2>
+
+      <p>These are the most-used OTBI subject areas. They source from <a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a>, <a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a>, <a href="/table/PER_PERIODS_OF_SERVICE">PER_PERIODS_OF_SERVICE</a>, and related Core HR tables.</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Worker Assignment Real Time</td>
+              <td><span class="module-badge workforce">Workforce</span></td>
+              <td>Current worker assignments. Headcount, roster, org chart. One row per active assignment.</td>
+            </tr>
+            <tr>
+              <td class="mono">Worker Assignment Event Real Time</td>
+              <td><span class="module-badge workforce">Workforce</span></td>
+              <td>Individual assignment events (hire, transfer, promotion, termination). One row per event.</td>
+            </tr>
+            <tr>
+              <td class="mono">Worker Assignment History Real Time</td>
+              <td><span class="module-badge workforce">Workforce</span></td>
+              <td>Historical assignment changes over time. Multiple rows per assignment showing date-effective history.</td>
+            </tr>
+            <tr>
+              <td class="mono">Workforce Trend - Worker Trend Real Time</td>
+              <td><span class="module-badge workforce">Workforce</span></td>
+              <td>Period-over-period workforce metrics. Headcount trends, turnover rates, new hires by month/quarter.</td>
+            </tr>
+            <tr>
+              <td class="mono">Workforce Trend - Gain Loss Trend Real Time</td>
+              <td><span class="module-badge workforce">Workforce</span></td>
+              <td>Hires vs. terminations by period. Net gain/loss analysis.</td>
+            </tr>
+            <tr>
+              <td class="mono">Worker Document of Record Real Time</td>
+              <td><span class="module-badge workforce">Workforce</span></td>
+              <td>Documents of record (visas, certifications, I-9). Expiry tracking.</td>
+            </tr>
+            <tr>
+              <td class="mono">Absence Real Time</td>
+              <td><span class="module-badge absence">Absence</span></td>
+              <td>Absence entries, balances, duration. Sourced from <a href="/table/PER_ABSENCE_ENTRIES">PER_ABSENCE_ENTRIES</a>.</td>
+            </tr>
+            <tr>
+              <td class="mono">Worker Absence Plan Real Time</td>
+              <td><span class="module-badge absence">Absence</span></td>
+              <td>Absence plan details, accrual entitlements, plan enrollment.</td>
+            </tr>
+            <tr>
+              <td class="mono">Workforce Directory Real Time</td>
+              <td><span class="module-badge workforce">Workforce</span></td>
+              <td>Directory-style worker info: name, title, phone, email, manager, photo.</td>
+            </tr>
+            <tr>
+              <td class="mono">Worker Seniority Real Time</td>
+              <td><span class="module-badge workforce">Workforce</span></td>
+              <td>Seniority dates, length of service calculations, enterprise seniority.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Compensation -->
+      <h2 id="compensation">Compensation Subject Areas</h2>
+
+      <p>Compensation subject areas source from <a href="/table/CMP_SALARY_F">CMP_SALARY_F</a>, <a href="/table/CMP_SALARY_COMPONENTS_F">CMP_SALARY_COMPONENTS_F</a>, and compensation plan tables.</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Salary Details Real Time</td>
+              <td><span class="module-badge compensation">Compensation</span></td>
+              <td>Current and historical salary records. Base pay, components, frequency, currency.</td>
+            </tr>
+            <tr>
+              <td class="mono">Compensation Worksheet Real Time</td>
+              <td><span class="module-badge compensation">Compensation</span></td>
+              <td>Comp plan worksheets with budget, allocations, and manager recommendations.</td>
+            </tr>
+            <tr>
+              <td class="mono">Compensation History Real Time</td>
+              <td><span class="module-badge compensation">Compensation</span></td>
+              <td>Salary change history over time. Previous vs. new salary, change reason, change percentage.</td>
+            </tr>
+            <tr>
+              <td class="mono">Total Compensation Statement Real Time</td>
+              <td><span class="module-badge compensation">Compensation</span></td>
+              <td>Total comp statements including salary, benefits, equity, and other comp components.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Recruiting -->
+      <h2 id="recruiting">Recruiting Subject Areas</h2>
+
+      <p>Recruiting subject areas source from <a href="/table/IRC_REQUISITIONS_B">IRC_REQUISITIONS_B</a>, <a href="/table/IRC_SUBMISSIONS">IRC_SUBMISSIONS</a>, and <a href="/table/IRC_CANDIDATES">IRC_CANDIDATES</a>.</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Recruiting Real Time</td>
+              <td><span class="module-badge recruiting">Recruiting</span></td>
+              <td>Requisitions, candidates, applications, and hiring pipeline. Primary recruiting SA.</td>
+            </tr>
+            <tr>
+              <td class="mono">Recruiting - Candidate Real Time</td>
+              <td><span class="module-badge recruiting">Recruiting</span></td>
+              <td>Candidate-centric view. Application history, source tracking, candidate pool.</td>
+            </tr>
+            <tr>
+              <td class="mono">Recruiting - Requisition Real Time</td>
+              <td><span class="module-badge recruiting">Recruiting</span></td>
+              <td>Requisition-centric view. Open reqs, filled reqs, time-to-fill, req status by department.</td>
+            </tr>
+            <tr>
+              <td class="mono">Recruiting - Interview Real Time</td>
+              <td><span class="module-badge recruiting">Recruiting</span></td>
+              <td>Interview schedules, feedback, interviewer assignments.</td>
+            </tr>
+            <tr>
+              <td class="mono">Recruiting - Offer Real Time</td>
+              <td><span class="module-badge recruiting">Recruiting</span></td>
+              <td>Offer details, offer status, offer amounts, offer-to-acceptance conversion.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Talent Management -->
+      <h2 id="talent">Talent Management Subject Areas</h2>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Performance Rating Real Time</td>
+              <td><span class="module-badge talent">Talent</span></td>
+              <td>Performance review ratings. Manager rating, self rating, overall rating. Sources from <a href="/table/HRA_PERFORMANCE_DOCUMENTS">HRA_PERFORMANCE_DOCUMENTS</a>.</td>
+            </tr>
+            <tr>
+              <td class="mono">Goal Management Real Time</td>
+              <td><span class="module-badge talent">Talent</span></td>
+              <td>Employee goals, target dates, completion status. Sources from <a href="/table/HRA_GOALS_F">HRA_GOALS_F</a>.</td>
+            </tr>
+            <tr>
+              <td class="mono">Talent Profile Real Time</td>
+              <td><span class="module-badge talent">Talent</span></td>
+              <td>Competencies, skills, certifications, qualifications. Sources from <a href="/table/HRT_PROFILE_ITEMS_B">HRT_PROFILE_ITEMS_B</a>.</td>
+            </tr>
+            <tr>
+              <td class="mono">Talent Review Real Time</td>
+              <td><span class="module-badge talent">Talent</span></td>
+              <td>Talent review meetings, 9-box placement, potential vs. performance grid.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Succession -->
+      <h2 id="succession">Succession Subject Areas</h2>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Succession Real Time</td>
+              <td><span class="module-badge succession">Succession</span></td>
+              <td>Succession plans, candidates, readiness levels. Sources from <a href="/table/PER_SUCCESSION_PLAN_CANDS">PER_SUCCESSION_PLAN_CANDS</a>.</td>
+            </tr>
+            <tr>
+              <td class="mono">Succession - Incumbent Real Time</td>
+              <td><span class="module-badge succession">Succession</span></td>
+              <td>Incumbent-centric view of succession plans. Positions at risk, flight risk, retirement eligibility.</td>
+            </tr>
+            <tr>
+              <td class="mono">Succession - Candidate Pipeline Real Time</td>
+              <td><span class="module-badge succession">Succession</span></td>
+              <td>Candidate pipeline depth and readiness for critical roles.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Learning -->
+      <h2 id="learning">Learning Subject Areas</h2>
+
+      <p>Learning SAs source from <a href="/table/WLF_LEARNING_RECORDS">WLF_LEARNING_RECORDS</a> and <a href="/table/WLF_COURSES_B">WLF_COURSES_B</a>.</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Learning Real Time</td>
+              <td><span class="module-badge learning">Learning</span></td>
+              <td>Enrollments, completions, in-progress courses. One row per learner per offering.</td>
+            </tr>
+            <tr>
+              <td class="mono">Learning - Course Catalog Real Time</td>
+              <td><span class="module-badge learning">Learning</span></td>
+              <td>Course catalog with categories, duration, delivery mode, prerequisites.</td>
+            </tr>
+            <tr>
+              <td class="mono">Learning - Compliance Real Time</td>
+              <td><span class="module-badge learning">Learning</span></td>
+              <td>Compliance training completion rates, overdue assignments, certification expiry.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Benefits -->
+      <h2 id="benefits">Benefits Subject Areas</h2>
+
+      <p>Benefits SAs source from <a href="/table/BEN_PRTT_ENRT_RSLT_F">BEN_PRTT_ENRT_RSLT_F</a>, <a href="/table/BEN_PL_F">BEN_PL_F</a>, and <a href="/table/BEN_PER_IN_LER">BEN_PER_IN_LER</a>.</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Benefits Enrollment Real Time</td>
+              <td><span class="module-badge benefits">Benefits</span></td>
+              <td>Active benefit elections, plan enrollment, coverage levels, dependents on plan.</td>
+            </tr>
+            <tr>
+              <td class="mono">Benefits Life Event Real Time</td>
+              <td><span class="module-badge benefits">Benefits</span></td>
+              <td>Life events (new hire, marriage, birth, QLE), processing status, event dates.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Payroll -->
+      <h2 id="payroll">Payroll Subject Areas</h2>
+
+      <p>Payroll SAs source from <a href="/table/PAY_RUN_RESULTS_F">PAY_RUN_RESULTS_F</a>, <a href="/table/PAY_ELEMENT_ENTRIES_F">PAY_ELEMENT_ENTRIES_F</a>, <a href="/table/PAY_BALANCE_TYPES">PAY_BALANCE_TYPES</a>, and <a href="/table/PAY_PAYROLL_ACTIONS">PAY_PAYROLL_ACTIONS</a>.</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Payroll Run Results Real Time</td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>Run result details by element. Earnings, deductions, employer costs per pay period.</td>
+            </tr>
+            <tr>
+              <td class="mono">Payroll Balance Real Time</td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>Balance values (YTD, QTD, MTD, PTD) by balance type and dimension.</td>
+            </tr>
+            <tr>
+              <td class="mono">Payroll Element Entry Real Time</td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>Element entry details. Recurring and nonrecurring entries assigned to workers.</td>
+            </tr>
+            <tr>
+              <td class="mono">Payroll Costing Results Real Time</td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>GL costing allocations per payroll run. Cost center, account, and segment distribution.</td>
+            </tr>
+            <tr>
+              <td class="mono">Payroll Payment Real Time</td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>Payment details including payment method, bank, amount, and payment date.</td>
+            </tr>
+            <tr>
+              <td class="mono">Payroll Statutory Deduction Real Time</td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>Tax withholdings and statutory deductions by jurisdiction.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Time and Labor -->
+      <h2 id="time">Time and Labor Subject Areas</h2>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Subject Area</th>
+              <th>Module</th>
+              <th>Grain / Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Time Real Time</td>
+              <td><span class="module-badge time">Time</span></td>
+              <td>Reported time entries, time cards, approval status. Hours by project, task, type.</td>
+            </tr>
+            <tr>
+              <td class="mono">Time - Schedule Real Time</td>
+              <td><span class="module-badge time">Time</span></td>
+              <td>Work schedules, shift patterns, schedule assignments.</td>
+            </tr>
+            <tr>
+              <td class="mono">Time - Exception Real Time</td>
+              <td><span class="module-badge time">Time</span></td>
+              <td>Time exceptions (late arrival, early departure, missed punch). Compliance tracking.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Tips -->
+      <h2 id="tips">OTBI Performance Tips</h2>
+
+      <h3>1. Always Filter by Date-Effective Columns</h3>
+
+      <p>Subject areas that source from <code>_F</code> tables (<a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a>, <a href="/table/CMP_SALARY_F">CMP_SALARY_F</a>, etc.) are date-effective. If you don't filter, you get <em>every historical row</em> for every person. Use the subject area's built-in date filters:</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- In OTBI filter (Answers), set:
+"Assignment Details"."Effective Start Date" &lt;= CURRENT_DATE
+AND "Assignment Details"."Effective End Date" &gt;= CURRENT_DATE</code></pre>
+      </div>
+
+      <h3>2. Use PRIMARY_FLAG and EFFECTIVE_LATEST_CHANGE</h3>
+
+      <p>Workers can have multiple assignments. To avoid counting someone twice:</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- To get one row per worker:
+"Assignment Details"."Primary Flag" = 'Y'
+"Assignment Details"."Effective Latest Change" = 'Y'
+
+-- PRIMARY_FLAG = 'Y' filters to the primary assignment
+-- EFFECTIVE_LATEST_CHANGE = 'Y' filters to the latest date-effective row</code></pre>
+      </div>
+
+      <h3>3. Avoid SELECT * Mentality</h3>
+
+      <p>Only add columns you need. Every column you add is a join. OTBI analyses with 30+ columns will be slow. Start with 5&ndash;8 columns, validate the data, then add more.</p>
+
+      <h3>4. Understand Row Limits</h3>
+
+      <p>OTBI has a default row limit (usually 65,000 rows). If your result set exceeds this, OTBI silently truncates. For large data sets, use BI Publisher or HCM Extracts instead.</p>
+
+      <div class="callout warning">
+        <p><strong>Warning:</strong> The OTBI row limit applies <em>before</em> aggregation. If you have 100,000 assignment rows and you're doing a COUNT, OTBI may return the count of only the first 65,000 rows. Always check "Rows" in your analysis to confirm you're not hitting the limit.</p>
+      </div>
+
+      <h3>5. Cross-Subject-Area Limitations</h3>
+
+      <p>You <strong>cannot</strong> join two subject areas in a single analysis. If you need salary data alongside absence data, you have three options:</p>
+
+      <ul>
+        <li><strong>Combined Analysis:</strong> Build two separate analyses, then combine them on a shared key (Person Number)</li>
+        <li><strong>BI Publisher:</strong> Write a data model that queries multiple subject areas or directly uses SQL</li>
+        <li><strong>HCM Extract:</strong> Build an extract that pulls data from multiple tables and outputs to a file</li>
+      </ul>
+
+      <h3>6. Use "Indexed" Columns in Filters First</h3>
+
+      <p>OTBI performance improves dramatically when you filter on columns that are indexed in the underlying tables. Good first filters:</p>
+
+      <ul>
+        <li><code>Business Unit</code> &mdash; almost always indexed</li>
+        <li><code>Department</code> &mdash; indexed on most assignment tables</li>
+        <li><code>Legal Employer</code> &mdash; indexed on payroll and HR tables</li>
+        <li><code>Person Number</code> &mdash; indexed everywhere</li>
+      </ul>
+
+      <!-- Pitfalls -->
+      <h2 id="pitfalls">Common OTBI Pitfalls and Solutions</h2>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Pitfall</th>
+              <th>Symptom</th>
+              <th>Solution</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Duplicate rows</strong></td>
+              <td>Headcount shows 3x expected</td>
+              <td>Add <code>PRIMARY_FLAG = 'Y'</code> and <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> filters</td>
+            </tr>
+            <tr>
+              <td><strong>Missing terminated workers</strong></td>
+              <td>Turnover report shows zero terms</td>
+              <td>Use "Worker Assignment Event Real Time" instead of "Worker Assignment Real Time" (which only shows active workers)</td>
+            </tr>
+            <tr>
+              <td><strong>Slow performance</strong></td>
+              <td>Analysis times out</td>
+              <td>Reduce columns, add Business Unit filter, avoid using "contains" on text fields</td>
+            </tr>
+            <tr>
+              <td><strong>Row limit hit</strong></td>
+              <td>Data looks correct but totals are wrong</td>
+              <td>Check if result exceeds 65K rows. Use BI Publisher for large extracts</td>
+            </tr>
+            <tr>
+              <td><strong>Wrong headcount for a past date</strong></td>
+              <td>Historical headcount doesn't match</td>
+              <td>Use "Workforce Trend" SA with period dates, not "Worker Assignment" SA with manual date filter</td>
+            </tr>
+            <tr>
+              <td><strong>Nulls in department/location</strong></td>
+              <td>Some workers show blank department</td>
+              <td>Check if those workers have non-primary assignments. Filter <code>ASSIGNMENT_TYPE</code> to 'E' (Employee) or 'C' (CWK)</td>
+            </tr>
+            <tr>
+              <td><strong>Security filtering too much</strong></td>
+              <td>User sees fewer rows than expected</td>
+              <td>Check HCM data roles and security profiles. OTBI respects HCM data security on subject areas</td>
+            </tr>
+            <tr>
+              <td><strong>Currency mismatch</strong></td>
+              <td>Salary totals look wrong</td>
+              <td>Always include Currency Code in salary reports. Use the SA's built-in currency conversion columns if available</td>
+            </tr>
+            <tr>
+              <td><strong>Absence hours vs. days</strong></td>
+              <td>Absence durations don't match UI</td>
+              <td>Check UOM in the subject area. Some SAs report in hours, others in days. Verify against Absence Management configuration</td>
+            </tr>
+            <tr>
+              <td><strong>Can't find a column</strong></td>
+              <td>Expected attribute not in SA</td>
+              <td>Check if the column exists in a different SA folder, or if it's a DFF that needs to be exposed via a BI flex configuration</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="cta-box">
+        <h3>Search the Underlying Tables</h3>
+        <p>Every OTBI subject area maps to physical Oracle tables. Search them all here.</p>
+        <a href="/" class="cta-btn">Search 35,000+ Tables</a>
+      </div>
+
+      <h2>Related Articles</h2>
+      <ul>
+        <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Most Used Oracle Fusion HCM Tables</a></li>
+        <li><a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)</a></li>
+        <li><a href="/blog/per-all-people-f-complete-guide">Complete Guide to PER_ALL_PEOPLE_F</a></li>
+        <li><a href="/blog/fast-formula-examples">Fast Formula Examples &mdash; 10+ Working Formulas</a></li>
+      </ul>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p><a href="/">Search 35,000+ Oracle Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const code = btn.nextElementSibling.textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

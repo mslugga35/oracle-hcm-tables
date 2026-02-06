@@ -1,0 +1,981 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>HCM Data Loader (HDL) Complete Guide — .dat File Format, Templates & Troubleshooting | HCM Tables</title>
+  <meta name="title" content="HCM Data Loader (HDL) Complete Guide — .dat File Format, Templates & Troubleshooting | HCM Tables">
+  <meta name="description" content="Complete HCM Data Loader guide: .dat file format, METADATA lines, MERGE/DELETE operations, sample templates for new hire, termination, transfer, rehire, and mass updates. Troubleshooting common HDL errors.">
+  <meta name="keywords" content="HCM Data Loader, HDL, Oracle Fusion HDL, .dat file format, HDL template, HDL troubleshooting, Worker business object, HDL MERGE, HDL pipe delimiter, Oracle HCM bulk load, HSDL vs HDL">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/hdl-data-loader-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/hdl-data-loader-guide">
+  <meta property="og:title" content="HCM Data Loader (HDL) Complete Guide — .dat File Format, Templates & Troubleshooting">
+  <meta property="og:description" content="Everything you need to know about Oracle HCM Data Loader: .dat format, business objects, sample files, load order, and error resolution.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/hdl-data-loader-guide">
+  <meta property="twitter:title" content="HCM Data Loader (HDL) Complete Guide">
+  <meta property="twitter:description" content="Complete HDL reference: .dat file format, sample templates, load order, and troubleshooting guide.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "HCM Data Loader (HDL) Complete Guide — .dat File Format, Templates & Troubleshooting",
+    "description": "Complete HCM Data Loader guide covering .dat file format, METADATA lines, MERGE/DELETE operations, sample templates, load order, and error troubleshooting.",
+    "url": "https://hcm-tables.com/blog/hdl-data-loader-guide",
+    "datePublished": "2026-02-06",
+    "dateModified": "2026-02-06",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/hdl-data-loader-guide"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    /* Code blocks */
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      font-family: var(--font-mono);
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      white-space: pre;
+      tab-size: 2;
+    }
+
+    .code-block-wrapper pre .comment { color: var(--text-muted); }
+    .code-block-wrapper pre .keyword { color: var(--accent); font-weight: 600; }
+    .code-block-wrapper pre .string { color: var(--green); }
+    .code-block-wrapper pre .header-line { color: var(--blue); font-weight: 600; }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.35rem 0.75rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--text-muted);
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: all 0.15s;
+      z-index: 2;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    /* Table of Contents */
+    .toc {
+      padding: 1.5rem 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .toc h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .toc li { margin-bottom: 0.35rem; }
+    .toc a { font-size: 0.95rem; color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); }
+
+    /* Tables */
+    .table-list-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .table-list {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .table-list th {
+      text-align: left;
+      padding: 1rem;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .table-list td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .table-list tr:last-child td { border-bottom: none; }
+    .table-list tr:hover td { background: var(--bg-secondary); }
+
+    .table-list .mono {
+      font-family: var(--font-mono);
+      color: var(--blue);
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+    .table-list .mono a { color: var(--blue); }
+    .table-list .mono a:hover { color: var(--accent); }
+
+    .callout {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+    }
+    .callout p { margin-bottom: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--text-primary); }
+
+    .callout.info { border-left-color: var(--blue); }
+    .callout.warning { border-left-color: var(--yellow); }
+    .callout.success { border-left-color: var(--green); }
+
+    /* Load order diagram */
+    .load-order {
+      padding: 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+      text-align: center;
+    }
+
+    .load-order .flow {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .load-order .flow-item {
+      padding: 0.5rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      color: var(--blue);
+      font-weight: 500;
+    }
+
+    .load-order .flow-arrow {
+      color: var(--text-muted);
+      font-size: 1.2rem;
+    }
+
+    .cta-box {
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+    .cta-box h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--text-secondary); margin-bottom: 1.25rem; }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, oklch(0.58 0.2 40) 100%);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); text-decoration: none; color: white; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .table-list { font-size: 0.8rem; }
+      .table-list th, .table-list td { padding: 0.6rem 0.5rem; }
+      .load-order .flow { flex-direction: column; }
+      .load-order .flow-arrow { transform: rotate(90deg); }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; HCM Data Loader Guide
+    </div>
+
+    <header class="article-header">
+      <span class="article-tag">Integration Guide</span>
+      <h1>HCM Data Loader (HDL) Complete Guide</h1>
+      <div class="article-meta">Feb 6, 2026 &middot; 18 min read</div>
+    </header>
+
+    <div class="article-content">
+      <p>HCM Data Loader (HDL) is Oracle's primary tool for bulk-loading data into Fusion Cloud HCM. Whether you are migrating from a legacy system, loading new hires from a feed, or running mass updates, HDL is the mechanism that gets data into the application tables. This guide covers the .dat file format, every major business object, sample templates you can copy, the correct load order, and how to fix the errors you will inevitably hit.</p>
+
+      <!-- Table of Contents -->
+      <div class="toc">
+        <h3>On This Page</h3>
+        <ul>
+          <li><a href="#what-is-hdl">What Is HDL (and When to Use HSDL Instead)</a></li>
+          <li><a href="#dat-format">.dat File Format Explained</a></li>
+          <li><a href="#business-objects">Business Objects Reference</a></li>
+          <li><a href="#sample-files">Sample .dat Files (Copy-Paste Templates)</a></li>
+          <li><a href="#load-order">Load Order Diagram</a></li>
+          <li><a href="#troubleshooting">Error Troubleshooting</a></li>
+          <li><a href="#best-practices">Best Practices</a></li>
+          <li><a href="#ui-navigation">Finding HDL in the UI</a></li>
+        </ul>
+      </div>
+
+      <!-- Section 1: What is HDL -->
+      <h2 id="what-is-hdl">What Is HDL (and When to Use HSDL Instead)</h2>
+
+      <p>HCM Data Loader (HDL) is a file-based bulk loading utility that processes <code>.dat</code> files containing pipe-delimited records. It writes directly to the HCM application tables through the same business object layer the UI uses, which means all validations, approvals, and business rules apply.</p>
+
+      <h3>HDL vs. HSDL (HCM Spreadsheet Data Loader)</h3>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Feature</th>
+              <th>HDL (.dat files)</th>
+              <th>HSDL (Spreadsheets)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Volume</td>
+              <td>Thousands to millions of records</td>
+              <td>Small batches (under 500 rows)</td>
+            </tr>
+            <tr>
+              <td>Automation</td>
+              <td>Fully scriptable, integrates with BIP/UCM</td>
+              <td>Manual upload via browser</td>
+            </tr>
+            <tr>
+              <td>Format</td>
+              <td>Pipe-delimited .dat text files</td>
+              <td>Excel/CSV spreadsheet templates</td>
+            </tr>
+            <tr>
+              <td>Use case</td>
+              <td>Migration, integrations, scheduled feeds</td>
+              <td>HR admin corrections, small ad-hoc loads</td>
+            </tr>
+            <tr>
+              <td>Error handling</td>
+              <td>Log files with line-level errors</td>
+              <td>Inline spreadsheet error messages</td>
+            </tr>
+            <tr>
+              <td>Business objects</td>
+              <td>All HCM business objects</td>
+              <td>Subset (most common ones)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout info">
+        <p><strong>Rule of thumb:</strong> Use HDL for anything automated, repeatable, or over 100 records. Use HSDL when an HR admin needs to fix a handful of records manually and does not want to build a .dat file.</p>
+      </div>
+
+      <!-- Section 2: .dat Format -->
+      <h2 id="dat-format">.dat File Format Explained</h2>
+
+      <p>Every HDL file is a plain text file with a <code>.dat</code> extension. It contains three types of lines: METADATA, data rows, and optional comment lines.</p>
+
+      <h3>METADATA Line</h3>
+      <p>The first line of every component in a .dat file is the METADATA line. It declares which business object and component you are loading, and lists the columns in order.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>METADATA|Worker|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|PersonNumber|StartDate</pre>
+      </div>
+
+      <p>The format is: <code>METADATA|BusinessObject|Column1|Column2|Column3|...</code></p>
+
+      <ul>
+        <li>The first field is always the literal string <code>METADATA</code></li>
+        <li>The second field is the <strong>component name</strong> (e.g., Worker, WorkRelationship, PersonName)</li>
+        <li>Remaining fields are the <strong>attribute names</strong> in the order your data rows will provide them</li>
+        <li>You only include columns you are actually loading &mdash; omitted columns get default values</li>
+      </ul>
+
+      <h3>Operations: MERGE, DELETE, UPDATE</h3>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Operation</th>
+              <th>Behavior</th>
+              <th>When to Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">MERGE</td>
+              <td>Insert if not found, update if exists (upsert)</td>
+              <td>New hires, updates, most loads</td>
+            </tr>
+            <tr>
+              <td class="mono">DELETE</td>
+              <td>Remove the record</td>
+              <td>Correcting bad data, removing duplicates</td>
+            </tr>
+            <tr>
+              <td class="mono">UPDATE</td>
+              <td>Update only &mdash; fails if record doesn't exist</td>
+              <td>When you want strict validation that the record exists</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>The operation keyword goes in the data row (not the METADATA line). See the sample files below.</p>
+
+      <h3>Key Format Rules</h3>
+
+      <ul>
+        <li><strong>Delimiter:</strong> Pipe character <code>|</code> separates every field</li>
+        <li><strong>Date format:</strong> <code>YYYY/MM/DD</code> (e.g., <code>2026/01/15</code>)</li>
+        <li><strong>SourceSystemOwner:</strong> Identifies the source system (e.g., <code>HRC_SQLLOADER</code> for manual loads, or your integration name)</li>
+        <li><strong>SourceSystemId:</strong> Your unique key for the record in the source system. Must be unique per business object per SourceSystemOwner</li>
+        <li><strong>Encoding:</strong> UTF-8 without BOM</li>
+        <li><strong>Line endings:</strong> Unix (LF) preferred; Windows (CRLF) is tolerated</li>
+        <li><strong>Empty fields:</strong> Leave the space between pipes empty: <code>|value1||value3|</code></li>
+      </ul>
+
+      <div class="callout warning">
+        <p><strong>Common mistake:</strong> Using <code>MM/DD/YYYY</code> or <code>DD-MON-YYYY</code> date formats. HDL requires <code>YYYY/MM/DD</code> with forward slashes. Any other format causes silent data corruption or ORA errors.</p>
+      </div>
+
+      <!-- Section 3: Business Objects -->
+      <h2 id="business-objects">Business Objects Reference</h2>
+
+      <p>HDL organizes data into business objects, each containing one or more components. The Worker business object, for example, has sub-components for names, addresses, phones, and more. Here are the components you will use most often.</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Component</th>
+              <th>Business Object</th>
+              <th>Key Table</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">Worker</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a></td>
+              <td>Core person record. Creates the person and person number.</td>
+            </tr>
+            <tr>
+              <td class="mono">WorkRelationship</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_PERIODS_OF_SERVICE">PER_PERIODS_OF_SERVICE</a></td>
+              <td>Employment relationship (EMP, CWK). Defines period of service.</td>
+            </tr>
+            <tr>
+              <td class="mono">WorkTerms</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+              <td>Work terms (primary assignment terms). Links to legal employer.</td>
+            </tr>
+            <tr>
+              <td class="mono">Assignment</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+              <td>Assignment details: job, position, department, location, grade, manager.</td>
+            </tr>
+            <tr>
+              <td class="mono">PersonName</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_PERSON_NAMES_F">PER_PERSON_NAMES_F</a></td>
+              <td>Person names (GLOBAL, LOCAL types). First, last, middle, title.</td>
+            </tr>
+            <tr>
+              <td class="mono">PersonAddress</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_ADDRESSES_F">PER_ADDRESSES_F</a></td>
+              <td>Home, mailing, and other address types.</td>
+            </tr>
+            <tr>
+              <td class="mono">PersonPhone</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_PHONES">PER_PHONES</a></td>
+              <td>Phone numbers (work, home, mobile, fax).</td>
+            </tr>
+            <tr>
+              <td class="mono">PersonEmail</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_EMAIL_ADDRESSES">PER_EMAIL_ADDRESSES</a></td>
+              <td>Email addresses (work, personal).</td>
+            </tr>
+            <tr>
+              <td class="mono">PersonLegislativeData</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_PERSON_LEGISLATIVE_F">PER_PERSON_LEGISLATIVE_F</a></td>
+              <td>Legislation-specific data: marital status, gender, ethnicity.</td>
+            </tr>
+            <tr>
+              <td class="mono">PersonNationalIdentifier</td>
+              <td>Worker</td>
+              <td class="mono"><a href="/table/PER_NATIONAL_IDENTIFIERS">PER_NATIONAL_IDENTIFIERS</a></td>
+              <td>National IDs (SSN, SIN, NI Number) by legislation.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p><strong>Tip:</strong> All of these components belong to the same <code>Worker</code> business object and can be included in a single .dat file. HDL processes them in the correct dependency order automatically within the same file.</p>
+      </div>
+
+      <!-- Section 4: Sample .dat Files -->
+      <h2 id="sample-files">Sample .dat Files (Copy-Paste Templates)</h2>
+
+      <p>Below are complete, working .dat file samples for the most common scenarios. Copy them, replace the sample values, and upload.</p>
+
+      <h3 id="new-hire">1. New Hire (Full)</h3>
+      <p>Creates a new employee with name, work relationship, work terms, and assignment. This is the minimum viable new hire file.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="header-line">METADATA|Worker|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|PersonNumber|StartDate</span>
+MERGE|HRC_SQLLOADER|WRKR-10001|2026/03/01|4712/12/31||2026/03/01
+
+<span class="header-line">METADATA|PersonName|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|LegislationCode|NameType|FirstName|MiddleNames|LastName|Title</span>
+MERGE|HRC_SQLLOADER|NAME-10001|WRKR-10001|2026/03/01|4712/12/31|US|GLOBAL|Jane|M|Doe|Ms.
+
+<span class="header-line">METADATA|WorkRelationship|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|DateStart|WorkerType|LegalEmployerName|ActionCode</span>
+MERGE|HRC_SQLLOADER|WR-10001|WRKR-10001|2026/03/01|E|US Legal Entity|HIRE
+
+<span class="header-line">METADATA|WorkTerms|SourceSystemOwner|SourceSystemId|PeriodOfServiceId(SourceSystemId)|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|EffectiveSequence|EffectiveLatestChange|AssignmentType|AssignmentName|AssignmentStatusTypeCode|BusinessUnitShortCode|ActionCode</span>
+MERGE|HRC_SQLLOADER|WT-10001|WR-10001|WRKR-10001|2026/03/01|4712/12/31|1|Y|ET|ET10001|ACTIVE_PROCESS|US Business Unit|HIRE
+
+<span class="header-line">METADATA|Assignment|SourceSystemOwner|SourceSystemId|WorkTermsAssignmentId(SourceSystemId)|PeriodOfServiceId(SourceSystemId)|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|EffectiveSequence|EffectiveLatestChange|AssignmentType|AssignmentName|AssignmentStatusTypeCode|BusinessUnitShortCode|JobCode|DepartmentName|LocationCode|ActionCode</span>
+MERGE|HRC_SQLLOADER|ASG-10001|WT-10001|WR-10001|WRKR-10001|2026/03/01|4712/12/31|1|Y|E|E10001|ACTIVE_PROCESS|US Business Unit|SOFTWARE_ENG|Engineering|US-HQ|HIRE</pre>
+      </div>
+
+      <h3 id="termination">2. Termination</h3>
+      <p>Terminates an existing employee by updating the WorkRelationship with a termination action and date.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="header-line">METADATA|WorkRelationship|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|DateStart|ActualTerminationDate|ActionCode|ActionReasonCode|NotifiedTerminationDate|LastWorkingDate</span>
+MERGE|HRC_SQLLOADER|WR-10001|WRKR-10001|2026/03/01|2026/06/15|TERMINATION|RESIGNATION|2026/06/01|2026/06/15</pre>
+      </div>
+
+      <h3 id="transfer">3. Transfer (Department/Location Change)</h3>
+      <p>Changes an employee's department and location effective on a future date. Uses the existing assignment SourceSystemId.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="header-line">METADATA|Assignment|SourceSystemOwner|SourceSystemId|WorkTermsAssignmentId(SourceSystemId)|PeriodOfServiceId(SourceSystemId)|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|EffectiveSequence|EffectiveLatestChange|AssignmentType|AssignmentStatusTypeCode|DepartmentName|LocationCode|ActionCode|ActionReasonCode</span>
+MERGE|HRC_SQLLOADER|ASG-10001|WT-10001|WR-10001|WRKR-10001|2026/07/01|4712/12/31|1|Y|E|ACTIVE_PROCESS|Marketing|US-WEST|TRANSFER|BUSINESS_NEED</pre>
+      </div>
+
+      <h3 id="rehire">4. Rehire</h3>
+      <p>Rehires a previously terminated employee. Creates a new WorkRelationship with a REHIRE action, plus new WorkTerms and Assignment.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="header-line">METADATA|WorkRelationship|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|DateStart|WorkerType|LegalEmployerName|ActionCode</span>
+MERGE|HRC_SQLLOADER|WR-10001-R|WRKR-10001|2026/09/01|E|US Legal Entity|REHIRE
+
+<span class="header-line">METADATA|WorkTerms|SourceSystemOwner|SourceSystemId|PeriodOfServiceId(SourceSystemId)|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|EffectiveSequence|EffectiveLatestChange|AssignmentType|AssignmentName|AssignmentStatusTypeCode|BusinessUnitShortCode|ActionCode</span>
+MERGE|HRC_SQLLOADER|WT-10001-R|WR-10001-R|WRKR-10001|2026/09/01|4712/12/31|1|Y|ET|ET10001-R|ACTIVE_PROCESS|US Business Unit|REHIRE
+
+<span class="header-line">METADATA|Assignment|SourceSystemOwner|SourceSystemId|WorkTermsAssignmentId(SourceSystemId)|PeriodOfServiceId(SourceSystemId)|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|EffectiveSequence|EffectiveLatestChange|AssignmentType|AssignmentName|AssignmentStatusTypeCode|BusinessUnitShortCode|JobCode|DepartmentName|LocationCode|ActionCode</span>
+MERGE|HRC_SQLLOADER|ASG-10001-R|WT-10001-R|WR-10001-R|WRKR-10001|2026/09/01|4712/12/31|1|Y|E|E10001-R|ACTIVE_PROCESS|US Business Unit|SR_SOFTWARE_ENG|Engineering|US-HQ|REHIRE</pre>
+      </div>
+
+      <h3 id="mass-update">5. Mass Update (Email & Phone)</h3>
+      <p>Updates email addresses and phone numbers for multiple employees in a single file.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="header-line">METADATA|PersonEmail|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|DateFrom|DateTo|EmailType|EmailAddress</span>
+MERGE|HRC_SQLLOADER|EMAIL-10001|WRKR-10001|2026/01/01|4712/12/31|W1|jane.doe@company.com
+MERGE|HRC_SQLLOADER|EMAIL-10002|WRKR-10002|2026/01/01|4712/12/31|W1|john.smith@company.com
+MERGE|HRC_SQLLOADER|EMAIL-10003|WRKR-10003|2026/01/01|4712/12/31|W1|alex.jones@company.com
+
+<span class="header-line">METADATA|PersonPhone|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|DateFrom|DateTo|PhoneType|CountryCodeNumber|AreaCode|PhoneNumber</span>
+MERGE|HRC_SQLLOADER|PH-10001|WRKR-10001|2026/01/01|4712/12/31|W1|1|555|0100001
+MERGE|HRC_SQLLOADER|PH-10002|WRKR-10002|2026/01/01|4712/12/31|W1|1|555|0100002
+MERGE|HRC_SQLLOADER|PH-10003|WRKR-10003|2026/01/01|4712/12/31|W1|1|555|0100003</pre>
+      </div>
+
+      <h3 id="name-change">6. Person Name Change</h3>
+      <p>Updates a person's last name (e.g., after marriage). Creates a new date-effective row on <a href="/table/PER_PERSON_NAMES_F">PER_PERSON_NAMES_F</a>.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><span class="header-line">METADATA|PersonName|SourceSystemOwner|SourceSystemId|PersonId(SourceSystemId)|EffectiveStartDate|EffectiveEndDate|LegislationCode|NameType|FirstName|LastName</span>
+MERGE|HRC_SQLLOADER|NAME-10001|WRKR-10001|2026/04/15|4712/12/31|US|GLOBAL|Jane|Smith</pre>
+      </div>
+
+      <!-- Section 5: Load Order -->
+      <h2 id="load-order">Load Order Diagram</h2>
+
+      <p>When loading multiple business objects in separate files (not combined in a single Worker .dat), you must follow this dependency order. Objects on the right depend on objects to their left.</p>
+
+      <div class="load-order">
+        <div class="flow">
+          <span class="flow-item">Worker</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">WorkRelationship</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">WorkTerms</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">Assignment</span>
+        </div>
+        <br>
+        <div class="flow">
+          <span class="flow-item">Worker</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">PersonName</span>
+        </div>
+        <br>
+        <div class="flow">
+          <span class="flow-item">Worker</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">PersonAddress</span>
+        </div>
+        <br>
+        <div class="flow">
+          <span class="flow-item">Worker</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">PersonPhone</span>
+        </div>
+        <br>
+        <div class="flow">
+          <span class="flow-item">Worker</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">PersonEmail</span>
+        </div>
+        <br>
+        <div class="flow">
+          <span class="flow-item">Worker</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">PersonNationalIdentifier</span>
+        </div>
+        <br>
+        <div class="flow">
+          <span class="flow-item">Worker</span>
+          <span class="flow-arrow">&rarr;</span>
+          <span class="flow-item">PersonLegislativeData</span>
+        </div>
+      </div>
+
+      <div class="callout success">
+        <p><strong>Pro tip:</strong> If you include all components in a single .dat file under the Worker business object, HDL handles the dependency order automatically. Separate files are only needed when you split loads into multiple uploads.</p>
+      </div>
+
+      <!-- Section 6: Troubleshooting -->
+      <h2 id="troubleshooting">Error Troubleshooting</h2>
+
+      <p>These are the most common HDL errors. Check the <strong>HDLActivityStream.log</strong> and <strong>HDImportProcess.log</strong> files in your import results for details.</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Error</th>
+              <th>Cause</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>ORA-01861: literal does not match format string</code></td>
+              <td>Wrong date format in the .dat file</td>
+              <td>Use <code>YYYY/MM/DD</code> with forward slashes. No dashes, no <code>DD-MON-YYYY</code>.</td>
+            </tr>
+            <tr>
+              <td><code>SourceSystemId already exists</code></td>
+              <td>Duplicate SourceSystemId for the same SourceSystemOwner + business object</td>
+              <td>Make SourceSystemIds unique. Append sequence numbers or use GUIDs.</td>
+            </tr>
+            <tr>
+              <td><code>Invalid attribute value for LegalEmployerName</code></td>
+              <td>The legal employer name does not exactly match what is configured</td>
+              <td>Check <a href="/table/HR_ALL_ORGANIZATION_UNITS">HR_ALL_ORGANIZATION_UNITS</a> for the exact name string. Case-sensitive.</td>
+            </tr>
+            <tr>
+              <td><code>Referenced object not found: PersonId</code></td>
+              <td>The Worker record was not loaded before dependent components</td>
+              <td>Ensure Worker is loaded first, or include all components in one file.</td>
+            </tr>
+            <tr>
+              <td><code>No matching row found for ActionCode</code></td>
+              <td>Invalid action code for the context (e.g., using HIRE on a rehire)</td>
+              <td>Check <a href="/blog/lookup-codes-reference">lookup codes</a> for valid ACTION_TYPE values. Use REHIRE for rehires.</td>
+            </tr>
+            <tr>
+              <td><code>Column count mismatch</code></td>
+              <td>Number of pipe-delimited values does not match METADATA column count</td>
+              <td>Count the pipes in your METADATA line and data lines. They must match exactly.</td>
+            </tr>
+            <tr>
+              <td><code>Attribute BusinessUnitShortCode is invalid</code></td>
+              <td>Business unit short code does not match any configured BU</td>
+              <td>Query <a href="/table/HR_ALL_ORGANIZATION_UNITS">HR_ALL_ORGANIZATION_UNITS</a> with classification BUSINESS_UNIT.</td>
+            </tr>
+            <tr>
+              <td><code>Effective date range overlap</code></td>
+              <td>A new date-effective row overlaps with an existing one</td>
+              <td>Check EffectiveStartDate and EffectiveEndDate. End dates should be <code>4712/12/31</code> for current rows.</td>
+            </tr>
+            <tr>
+              <td><code>UTF-8 BOM detected</code></td>
+              <td>File was saved with UTF-8 BOM encoding</td>
+              <td>Save as UTF-8 without BOM. In Notepad++: Encoding &rarr; UTF-8.</td>
+            </tr>
+            <tr>
+              <td><code>Worker already has an active work relationship</code></td>
+              <td>Trying to HIRE someone who already has an active employment</td>
+              <td>Use REHIRE action if the person was previously terminated, or check if they already have an active record.</td>
+            </tr>
+            <tr>
+              <td><code>Invalid lookup code for WORKER_TYPE</code></td>
+              <td>WorkerType value is not E, C, or N</td>
+              <td>Use <code>E</code> (Employee), <code>C</code> (Contingent Worker), or <code>N</code> (Nonworker). See <a href="/blog/lookup-codes-reference">lookup codes reference</a>.</td>
+            </tr>
+            <tr>
+              <td><code>File encoding error / Garbage characters</code></td>
+              <td>File was saved in a non-UTF-8 encoding (e.g., Windows-1252)</td>
+              <td>Convert to UTF-8. Remove any special characters outside basic ASCII + Unicode.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Section 7: Best Practices -->
+      <h2 id="best-practices">Best Practices</h2>
+
+      <h3>Batch Size</h3>
+      <ul>
+        <li>Keep files under <strong>10,000 records per component</strong> for reliable processing</li>
+        <li>For migration, split into batches of 5,000 and load sequentially</li>
+        <li>Very large loads (&gt;50,000) should run overnight and use the <strong>async</strong> submission mode</li>
+      </ul>
+
+      <h3>Testing</h3>
+      <ul>
+        <li>Always test in a <strong>sandbox or test environment</strong> first</li>
+        <li>Start with 5-10 records to validate the format before loading thousands</li>
+        <li>Use the <strong>VALIDATE</strong> import mode (available in some releases) to dry-run without committing</li>
+        <li>Review the log files after every load, even if the status shows success</li>
+      </ul>
+
+      <h3>Date Formats</h3>
+      <ul>
+        <li>Always <code>YYYY/MM/DD</code> with forward slashes</li>
+        <li><code>4712/12/31</code> is the "end of time" date for open-ended effective records</li>
+        <li>Do not use timestamps &mdash; HDL only accepts dates</li>
+      </ul>
+
+      <h3>File Encoding</h3>
+      <ul>
+        <li>UTF-8 without BOM</li>
+        <li>Unix line endings (LF) preferred</li>
+        <li>No trailing spaces after the last pipe on each line</li>
+        <li>No blank lines between records (blank lines between components are OK)</li>
+      </ul>
+
+      <h3>SourceSystemOwner & SourceSystemId</h3>
+      <ul>
+        <li>Use a consistent SourceSystemOwner for your integration (e.g., <code>HRC_SQLLOADER</code>, <code>LEGACY_HR</code>)</li>
+        <li>SourceSystemId must be unique per component + SourceSystemOwner</li>
+        <li>Use predictable IDs (e.g., <code>WRKR-{EmpID}</code>, <code>ASG-{EmpID}</code>) so you can reference them across components</li>
+        <li>Cross-references use the format <code>PersonId(SourceSystemId)</code> to link to the Worker</li>
+      </ul>
+
+      <!-- Section 8: UI Navigation -->
+      <h2 id="ui-navigation">Finding HDL in the UI</h2>
+
+      <p>To access HCM Data Loader in Oracle Fusion Cloud:</p>
+
+      <ol>
+        <li>Navigate to <strong>My Client Groups</strong> &rarr; <strong>Data Exchange</strong></li>
+        <li>Select <strong>HCM Data Loader</strong> from the tasks panel</li>
+        <li>Click <strong>Import</strong> to upload your .dat file (zipped in a .zip archive)</li>
+        <li>Monitor progress under <strong>Import and Load Data</strong></li>
+        <li>Download results and log files from the <strong>View Import Status</strong> page</li>
+      </ol>
+
+      <div class="callout info">
+        <p><strong>File packaging:</strong> HDL expects a <code>.zip</code> file containing one or more <code>.dat</code> files. The .dat files can be named anything, but must have the <code>.dat</code> extension. Multiple .dat files in one zip are processed in alphabetical order.</p>
+      </div>
+
+      <p>For automated/scheduled loads, you can upload files to <strong>UCM (WebCenter Content)</strong> and trigger HDL via a <strong>BIP report</strong> or <strong>REST API</strong> call.</p>
+
+      <div class="cta-box">
+        <h3>Look Up Table Schemas for HDL Attributes</h3>
+        <p>Every HDL attribute maps to a column in the underlying HCM table. Search any table to see exact column names, data types, and lengths.</p>
+        <a href="/" class="cta-btn">Search Tables</a>
+      </div>
+
+      <h2>Related Articles</h2>
+      <ul>
+        <li><a href="/blog/lookup-codes-reference">Oracle Fusion HCM Lookup Codes &mdash; Complete Reference Guide</a></li>
+        <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Most Used Oracle Fusion HCM Tables</a></li>
+        <li><a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)</a></li>
+        <li><a href="/blog/per-all-people-f-complete-guide">Complete Guide to PER_ALL_PEOPLE_F</a></li>
+      </ul>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p><a href="/">Search 35,000+ Oracle Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.parentElement.querySelector('pre');
+      const text = pre.innerText;
+      navigator.clipboard.writeText(text).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

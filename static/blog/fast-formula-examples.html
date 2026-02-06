@@ -1,0 +1,1290 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle Fusion HCM Fast Formula Examples — Complete Guide with 10+ Working Formulas | HCM Tables</title>
+  <meta name="title" content="Oracle Fusion HCM Fast Formula Examples — Complete Guide with 10+ Working Formulas | HCM Tables">
+  <meta name="description" content="Working Oracle Fusion Fast Formula examples for payroll, absence, benefits, compensation, and extracts. Copy-paste formulas with syntax reference and debugging tips.">
+  <meta name="keywords" content="Oracle Fast Formula, Fast Formula examples, Oracle HCM formula, PTO accrual formula, payroll formula, absence accrual, Oracle Fusion Fast Formula syntax, CHANGE_CONTEXTS, DBI database items">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/fast-formula-examples">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/fast-formula-examples">
+  <meta property="og:title" content="Oracle Fusion HCM Fast Formula Examples — 10+ Working Formulas">
+  <meta property="og:description" content="Copy-paste Fast Formula examples for payroll, absence, benefits, compensation, and extracts. Includes syntax reference and debugging tips.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/fast-formula-examples">
+  <meta property="twitter:title" content="Oracle Fusion HCM Fast Formula Examples">
+  <meta property="twitter:description" content="10+ working Fast Formula examples with syntax reference, DBI tables, and debugging tips.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle Fusion HCM Fast Formula Examples — Complete Guide with 10+ Working Formulas",
+    "description": "Working Oracle Fusion Fast Formula examples for payroll, absence, benefits, compensation, and extracts. Includes syntax reference, DBI table, and debugging tips.",
+    "url": "https://hcm-tables.com/blog/fast-formula-examples",
+    "datePublished": "2026-02-06",
+    "dateModified": "2026-02-06",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/fast-formula-examples"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content h4 {
+      font-size: 1.05rem;
+      font-weight: 600;
+      margin: 1.5rem 0 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    /* Code block with copy button */
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      padding-top: 2.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+      tab-size: 2;
+    }
+
+    .code-block-wrapper pre .kw { color: var(--purple); font-weight: 600; }
+    .code-block-wrapper pre .cm { color: var(--text-muted); font-style: italic; }
+    .code-block-wrapper pre .str { color: var(--yellow); }
+    .code-block-wrapper pre .num { color: var(--accent); }
+    .code-block-wrapper pre .fn { color: var(--blue); }
+    .code-block-wrapper pre .dbi { color: var(--green); }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+      z-index: 1;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    .formula-label {
+      display: inline-block;
+      padding: 0.2rem 0.6rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+      margin-bottom: 0.75rem;
+    }
+
+    /* Table of Contents */
+    .toc {
+      padding: 1.5rem 2rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .toc h3 {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ul {
+      list-style: none;
+      margin: 0;
+      padding: 0;
+    }
+
+    .toc li {
+      margin-bottom: 0.35rem;
+    }
+
+    .toc a {
+      font-size: 0.95rem;
+      color: var(--text-secondary);
+    }
+
+    .toc a:hover { color: var(--blue); }
+
+    /* Module Badge */
+    .module-badge {
+      display: inline-block;
+      padding: 0.15rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+
+    .module-badge.payroll { background: oklch(0.70 0.18 145 / 0.15); color: var(--green); }
+    .module-badge.absence { background: oklch(0.65 0.15 250 / 0.15); color: var(--blue); }
+    .module-badge.benefits { background: oklch(0.65 0.18 300 / 0.15); color: var(--purple); }
+    .module-badge.compensation { background: oklch(0.80 0.15 85 / 0.15); color: var(--yellow); }
+    .module-badge.extract { background: oklch(0.65 0.2 25 / 0.15); color: var(--accent); }
+    .module-badge.validation { background: oklch(0.50 0.01 260 / 0.15); color: var(--text-muted); }
+
+    /* Table List */
+    .table-list-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .table-list {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .table-list th {
+      text-align: left;
+      padding: 1rem;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+      position: sticky;
+      top: 0;
+      z-index: 1;
+    }
+
+    .table-list td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .table-list tr:last-child td { border-bottom: none; }
+    .table-list tr:hover td { background: var(--bg-secondary); }
+
+    .table-list .mono {
+      font-family: var(--font-mono);
+      color: var(--green);
+      font-weight: 500;
+      font-size: 0.85rem;
+    }
+
+    .table-list .mono a { color: var(--blue); }
+    .table-list .mono a:hover { color: var(--accent); }
+
+    .callout {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+    }
+    .callout p { margin-bottom: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--text-primary); }
+
+    .callout.warning { border-left-color: var(--yellow); }
+    .callout.tip { border-left-color: var(--green); }
+    .callout.danger { border-left-color: oklch(0.65 0.25 25); }
+
+    .cta-box {
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+    .cta-box h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--text-secondary); margin-bottom: 1.25rem; }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, oklch(0.58 0.2 40) 100%);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); text-decoration: none; color: white; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .table-list { font-size: 0.8rem; }
+      .table-list th, .table-list td { padding: 0.6rem 0.5rem; }
+      .code-block-wrapper pre { font-size: 0.78rem; padding: 1rem; padding-top: 2.5rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Fast Formula Examples
+    </div>
+
+    <header class="article-header">
+      <span class="article-tag">Formulas</span>
+      <h1>Oracle Fusion HCM Fast Formula Examples &mdash; Complete Guide with 10+ Working Formulas</h1>
+      <div class="article-meta">Feb 6, 2026 &middot; 22 min read</div>
+    </header>
+
+    <div class="article-content">
+
+      <p>Fast Formula is Oracle Fusion Cloud HCM's built-in programming language for business rules. It drives payroll calculations, absence accruals, benefits eligibility, compensation rules, extract criteria, and validation logic. If you've ever stared at the formula editor wondering "what does a working formula actually look like," this guide is for you.</p>
+
+      <p>Every formula below compiles and runs. Copy them, adapt the variable names to your environment, and deploy. We also cover the syntax reference, database items (DBIs), formula types, and the debugging techniques that will save you hours.</p>
+
+      <div class="callout">
+        <p><strong>Where formulas live:</strong> Navigate to <code>My Client Groups &gt; Payroll &gt; Fast Formulas</code> (or search "Fast Formulas" in the task pane). Formulas reference data from the underlying HCM tables &mdash; use <a href="/">HCM Tables</a> to look up columns and table structures.</p>
+      </div>
+
+      <!-- Table of Contents -->
+      <div class="toc">
+        <h3>In This Guide</h3>
+        <ul>
+          <li><a href="#syntax">Syntax Reference</a></li>
+          <li><a href="#dbi">Database Items (DBI) Reference</a></li>
+          <li><a href="#formula-types">Formula Types by Module</a></li>
+          <li><a href="#pto-accrual">Example 1: PTO Accrual Formula</a></li>
+          <li><a href="#sick-leave">Example 2: Sick Leave Accrual</a></li>
+          <li><a href="#overtime">Example 3: Overtime Earnings Calculation</a></li>
+          <li><a href="#tax-deduction">Example 4: Tax Deduction Formula</a></li>
+          <li><a href="#benefits-elig">Example 5: Benefits Eligibility</a></li>
+          <li><a href="#comp-elig">Example 6: Compensation Eligibility</a></li>
+          <li><a href="#absence-entitlement">Example 7: Absence Entitlement</a></li>
+          <li><a href="#extract-criteria">Example 8: Extract Criteria Rule</a></li>
+          <li><a href="#validation">Example 9: Validation Formula</a></li>
+          <li><a href="#payroll-skip">Example 10: Payroll Skip Rule</a></li>
+          <li><a href="#debugging">Debugging Tips</a></li>
+          <li><a href="#best-practices">Best Practices</a></li>
+        </ul>
+      </div>
+
+      <!-- Syntax Reference -->
+      <h2 id="syntax">Syntax Reference</h2>
+
+      <p>Fast Formula uses a procedural, English-like syntax. Here are the core constructs:</p>
+
+      <h3>Variable Declarations and Defaults</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Declare default values for database items (DBIs) */
+DEFAULT FOR PER_ASG_HOURS_WORKED IS 0
+DEFAULT FOR PER_PER_DATE_OF_BIRTH IS '1900/01/01 00:00:00' (DATE)
+
+/* Local variables */
+l_hours_per_year = 0
+l_accrual_rate = 0
+l_employee_name = ' '</code></pre>
+      </div>
+
+      <h3>INPUTS (for Payroll Formulas)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* INPUTS receive values from element entry input values */
+INPUTS ARE hours_worked (number),
+           rate (number),
+           date_earned (date)</code></pre>
+      </div>
+
+      <h3>IF / THEN / ELSE</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>IF (l_years_of_service >= 10) THEN
+  l_accrual_rate = 200
+ELSE IF (l_years_of_service >= 5) THEN
+  l_accrual_rate = 160
+ELSE
+  l_accrual_rate = 120
+
+/* Compound conditions */
+IF (l_status = 'ACTIVE' AND l_fte >= 0.5) THEN
+  l_eligible = 'Y'</code></pre>
+      </div>
+
+      <h3>RETURN</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Return values back to the calling process */
+RETURN l_accrual_amount, l_accrual_date
+
+/* For payroll: return to specific output names */
+RETURN pay_value, hours</code></pre>
+      </div>
+
+      <h3>CHANGE_CONTEXTS</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Switch context to access DBIs from a different legislation or assignment */
+CHANGE_CONTEXTS (LEGISLATIVE_DATA_GROUP_ID = l_ldg_id)
+(
+  l_balance_value = PAY_BALANCE_GET_VALUE('Regular Earnings' , 'Assignment Year to Date')
+)</code></pre>
+      </div>
+
+      <h3>Built-in Functions</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Date functions */
+l_today = GET_DATE()
+l_days = DAYS_BETWEEN(l_hire_date, l_today)
+l_date = ADD_DAYS(l_start_date, 90)
+l_date2 = ADD_MONTHS(l_start_date, 6)
+l_year = TO_NUMBER(TO_CHAR(l_today, 'YYYY'))
+
+/* String functions */
+l_upper = UPPER(l_name)
+l_sub = SUBSTR(l_code, 1, 3)
+l_len = LENGTH(l_value)
+l_pos = INSTR(l_string, '-')
+
+/* Number functions */
+l_rounded = ROUND(l_amount, 2)
+l_truncated = TRUNC(l_value)
+
+/* Conversion */
+l_num = TO_NUMBER(l_string_val)
+l_str = TO_CHAR(l_number_val)
+l_date = TO_DATE(l_date_string, 'YYYY/MM/DD HH24:MI:SS')</code></pre>
+      </div>
+
+      <!-- DBI Reference -->
+      <h2 id="dbi">Database Items (DBI) Reference</h2>
+
+      <p>Database Items are the bridge between Fast Formula and HCM tables. Each DBI maps to a column in an underlying table like <a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a> or <a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a>. Here are the 20+ most commonly used DBIs:</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Database Item (DBI)</th>
+              <th>Returns</th>
+              <th>Source Table</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">PER_PER_DATE_OF_BIRTH</td>
+              <td>Date</td>
+              <td><a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_EFFECTIVE_START_DATE</td>
+              <td>Date</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_EFFECTIVE_END_DATE</td>
+              <td>Date</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_PER_ORIGINAL_DATE_OF_HIRE</td>
+              <td>Date</td>
+              <td><a href="/table/PER_PERIODS_OF_SERVICE">PER_PERIODS_OF_SERVICE</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_HOURS_WORKED</td>
+              <td>Number</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_NORMAL_HOURS</td>
+              <td>Number</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_EMPLOYMENT_CATEGORY</td>
+              <td>Text</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_ASSIGNMENT_STATUS_TYPE</td>
+              <td>Text</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_WORKER_TYPE</td>
+              <td>Text</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_FULL_TIME_OR_PART_TIME</td>
+              <td>Text</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_ORGANIZATION_ID</td>
+              <td>Number</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_JOB_ID</td>
+              <td>Number</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_LOCATION_ID</td>
+              <td>Number</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_ASG_GRADE_ID</td>
+              <td>Number</td>
+              <td><a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_POS_DATE_START</td>
+              <td>Date</td>
+              <td><a href="/table/PER_PERIODS_OF_SERVICE">PER_PERIODS_OF_SERVICE</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PER_POS_ACTUAL_TERMINATION_DATE</td>
+              <td>Date</td>
+              <td><a href="/table/PER_PERIODS_OF_SERVICE">PER_PERIODS_OF_SERVICE</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PAY_PAYROLL_ID</td>
+              <td>Number</td>
+              <td><a href="/table/PAY_PAYROLLS_F">PAY_PAYROLLS_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PAY_EARN_PERIOD_START</td>
+              <td>Date</td>
+              <td><a href="/table/PAY_TIME_PERIODS">PAY_TIME_PERIODS</a></td>
+            </tr>
+            <tr>
+              <td class="mono">PAY_EARN_PERIOD_END</td>
+              <td>Date</td>
+              <td><a href="/table/PAY_TIME_PERIODS">PAY_TIME_PERIODS</a></td>
+            </tr>
+            <tr>
+              <td class="mono">CMP_SALARY_AMOUNT</td>
+              <td>Number</td>
+              <td><a href="/table/CMP_SALARY_F">CMP_SALARY_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">CMP_SALARY_ANNUAL_AMOUNT</td>
+              <td>Number</td>
+              <td><a href="/table/CMP_SALARY_F">CMP_SALARY_F</a></td>
+            </tr>
+            <tr>
+              <td class="mono">BEN_ELIG_FLAG</td>
+              <td>Text</td>
+              <td><a href="/table/BEN_ELIG_PER_F">BEN_ELIG_PER_F</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout tip">
+        <p><strong>Tip:</strong> To find all available DBIs, go to <code>Setup and Maintenance &gt; Manage Fast Formula Database Items</code> or query the <code>FF_DATABASE_ITEMS</code> table. You can also type a partial name in the formula editor and use auto-complete.</p>
+      </div>
+
+      <!-- Formula Types -->
+      <h2 id="formula-types">Formula Types by Module</h2>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Formula Type</th>
+              <th>Module</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Payroll Calculation</strong></td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>Calculate earnings, deductions, and net pay. Attached to element types.</td>
+            </tr>
+            <tr>
+              <td><strong>Payroll Skip Rule</strong></td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>Determine whether to process an element for a given assignment in a run.</td>
+            </tr>
+            <tr>
+              <td><strong>Payroll Proration</strong></td>
+              <td><span class="module-badge payroll">Payroll</span></td>
+              <td>Calculate prorated amounts when mid-period changes occur.</td>
+            </tr>
+            <tr>
+              <td><strong>Absence Accrual</strong></td>
+              <td><span class="module-badge absence">Absence</span></td>
+              <td>Calculate leave accruals (PTO, sick, vacation). Determine carryover and caps.</td>
+            </tr>
+            <tr>
+              <td><strong>Absence Entitlement</strong></td>
+              <td><span class="module-badge absence">Absence</span></td>
+              <td>Determine one-time or annual entitlement to an absence type.</td>
+            </tr>
+            <tr>
+              <td><strong>Benefits Eligibility</strong></td>
+              <td><span class="module-badge benefits">Benefits</span></td>
+              <td>Determine if a person qualifies for a benefit plan or program.</td>
+            </tr>
+            <tr>
+              <td><strong>Benefits Rate</strong></td>
+              <td><span class="module-badge benefits">Benefits</span></td>
+              <td>Calculate contribution or coverage rates for a benefit plan.</td>
+            </tr>
+            <tr>
+              <td><strong>Compensation Eligibility</strong></td>
+              <td><span class="module-badge compensation">Compensation</span></td>
+              <td>Determine eligibility for compensation plans, budgets, or individual components.</td>
+            </tr>
+            <tr>
+              <td><strong>Extract Rule</strong></td>
+              <td><span class="module-badge extract">Extract</span></td>
+              <td>Filter or transform data in HCM Extracts. Criteria rules, data elements, or record-level rules.</td>
+            </tr>
+            <tr>
+              <td><strong>Validation</strong></td>
+              <td><span class="module-badge validation">Validation</span></td>
+              <td>Validate data entry (person, assignment, element entry). Return error messages on failure.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Formula Examples -->
+      <h2 id="pto-accrual">Example 1: PTO Accrual Formula</h2>
+
+      <p>This formula calculates PTO hours based on years of service, prorates for part-time workers, and enforces a balance cap.</p>
+
+      <span class="formula-label">Absence Accrual</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* PTO Accrual Formula
+   Type: Absence Accrual
+   Calculates annual PTO hours based on years of service.
+   Prorates for part-time. Caps balance at 1.5x annual rate. */
+
+DEFAULT FOR PER_POS_DATE_START IS '1900/01/01 00:00:00' (DATE)
+DEFAULT FOR PER_ASG_NORMAL_HOURS IS 40
+DEFAULT FOR PER_ASG_FULL_TIME_OR_PART_TIME IS 'FULL_TIME'
+
+l_hire_date = PER_POS_DATE_START
+l_today = GET_DATE()
+l_years_of_service = TRUNC(DAYS_BETWEEN(l_hire_date, l_today) / 365.25)
+l_normal_hours = PER_ASG_NORMAL_HOURS
+l_ft_pt = PER_ASG_FULL_TIME_OR_PART_TIME
+
+/* Annual accrual tiers */
+IF (l_years_of_service >= 15) THEN
+  l_annual_hours = 200
+ELSE IF (l_years_of_service >= 10) THEN
+  l_annual_hours = 180
+ELSE IF (l_years_of_service >= 5) THEN
+  l_annual_hours = 160
+ELSE IF (l_years_of_service >= 1) THEN
+  l_annual_hours = 120
+ELSE
+  l_annual_hours = 80
+
+/* Prorate for part-time (based on scheduled hours vs 40) */
+IF (l_ft_pt = 'PART_TIME' AND l_normal_hours < 40) THEN
+(
+  l_fte_ratio = l_normal_hours / 40
+  l_annual_hours = ROUND(l_annual_hours * l_fte_ratio, 2)
+)
+
+/* Per-period accrual (biweekly = 26 periods) */
+l_accrual_amount = ROUND(l_annual_hours / 26, 4)
+
+/* Balance cap at 1.5x annual */
+l_max_balance = l_annual_hours * 1.5
+
+RETURN l_accrual_amount, l_max_balance</code></pre>
+      </div>
+
+      <h2 id="sick-leave">Example 2: Sick Leave Accrual</h2>
+
+      <p>Flat-rate sick leave accrual with a separate cap and no service tiers.</p>
+
+      <span class="formula-label">Absence Accrual</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Sick Leave Accrual
+   Type: Absence Accrual
+   Flat 96 hours/year for all employees. Cap at 480 hours. */
+
+DEFAULT FOR PER_ASG_ASSIGNMENT_STATUS_TYPE IS 'INACTIVE'
+DEFAULT FOR PER_ASG_NORMAL_HOURS IS 40
+
+l_status = PER_ASG_ASSIGNMENT_STATUS_TYPE
+l_normal_hours = PER_ASG_NORMAL_HOURS
+
+/* Only accrue for active employees */
+IF (l_status = 'ACTIVE_ASSIGN' OR l_status = 'ACTIVE') THEN
+(
+  l_annual_hours = 96
+
+  /* Prorate for part-time */
+  IF (l_normal_hours < 40 AND l_normal_hours > 0) THEN
+    l_annual_hours = ROUND(96 * (l_normal_hours / 40), 2)
+
+  /* Biweekly accrual */
+  l_accrual_amount = ROUND(l_annual_hours / 26, 4)
+  l_max_balance = 480
+)
+ELSE
+(
+  l_accrual_amount = 0
+  l_max_balance = 480
+)
+
+RETURN l_accrual_amount, l_max_balance</code></pre>
+      </div>
+
+      <h2 id="overtime">Example 3: Overtime Earnings Calculation</h2>
+
+      <p>Calculates overtime pay at 1.5x the regular hourly rate. Sources from <a href="/table/PAY_ELEMENT_TYPES_F">PAY_ELEMENT_TYPES_F</a> and <a href="/table/PAY_ELEMENT_ENTRIES_F">PAY_ELEMENT_ENTRIES_F</a>.</p>
+
+      <span class="formula-label">Payroll Calculation</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Overtime Earnings Calculation
+   Type: Payroll Calculation
+   Input: overtime_hours from element entry
+   Calculates pay at 1.5x regular hourly rate */
+
+DEFAULT FOR CMP_SALARY_ANNUAL_AMOUNT IS 0
+DEFAULT FOR PER_ASG_NORMAL_HOURS IS 40
+
+INPUTS ARE overtime_hours (number)
+
+l_annual_salary = CMP_SALARY_ANNUAL_AMOUNT
+l_weekly_hours = PER_ASG_NORMAL_HOURS
+
+/* Calculate hourly rate from annual salary */
+IF (l_weekly_hours > 0 AND l_annual_salary > 0) THEN
+(
+  l_annual_work_hours = l_weekly_hours * 52
+  l_hourly_rate = ROUND(l_annual_salary / l_annual_work_hours, 4)
+  l_ot_rate = l_hourly_rate * 1.5
+  l_pay_value = ROUND(overtime_hours * l_ot_rate, 2)
+)
+ELSE
+(
+  l_hourly_rate = 0
+  l_ot_rate = 0
+  l_pay_value = 0
+)
+
+RETURN l_pay_value</code></pre>
+      </div>
+
+      <h2 id="tax-deduction">Example 4: Tax Deduction Formula</h2>
+
+      <p>A simplified tax deduction formula demonstrating bracket-based progressive calculation.</p>
+
+      <span class="formula-label">Payroll Calculation</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Supplemental Tax Deduction
+   Type: Payroll Calculation
+   Progressive bracket calculation on bonus/supplemental pay */
+
+INPUTS ARE taxable_amount (number)
+
+l_tax = 0
+
+/* Progressive brackets */
+IF (taxable_amount > 50000) THEN
+(
+  l_tax = l_tax + (taxable_amount - 50000) * 0.35
+  l_remaining = 50000
+)
+ELSE
+  l_remaining = taxable_amount
+
+IF (l_remaining > 20000) THEN
+(
+  l_tax = l_tax + (l_remaining - 20000) * 0.25
+  l_remaining = 20000
+)
+
+IF (l_remaining > 5000) THEN
+(
+  l_tax = l_tax + (l_remaining - 5000) * 0.15
+  l_remaining = 5000
+)
+
+l_tax = l_tax + l_remaining * 0.10
+
+l_pay_value = ROUND(l_tax, 2)
+
+RETURN l_pay_value</code></pre>
+      </div>
+
+      <h2 id="benefits-elig">Example 5: Benefits Eligibility</h2>
+
+      <p>Determines if an employee qualifies for medical benefits based on hours worked and employment category. References <a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a> columns.</p>
+
+      <span class="formula-label">Benefits Eligibility</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Medical Benefits Eligibility
+   Type: Benefits Eligibility
+   Eligible if: active employee, 30+ hours/week, past 90-day waiting period */
+
+DEFAULT FOR PER_ASG_ASSIGNMENT_STATUS_TYPE IS 'INACTIVE'
+DEFAULT FOR PER_ASG_NORMAL_HOURS IS 0
+DEFAULT FOR PER_ASG_WORKER_TYPE IS ' '
+DEFAULT FOR PER_POS_DATE_START IS '1900/01/01 00:00:00' (DATE)
+
+l_status = PER_ASG_ASSIGNMENT_STATUS_TYPE
+l_hours = PER_ASG_NORMAL_HOURS
+l_worker_type = PER_ASG_WORKER_TYPE
+l_hire_date = PER_POS_DATE_START
+l_today = GET_DATE()
+l_days_employed = DAYS_BETWEEN(l_hire_date, l_today)
+
+l_eligible = 'N'
+
+/* Must be active employee (not CWK) */
+IF (l_status = 'ACTIVE_ASSIGN' OR l_status = 'ACTIVE') THEN
+(
+  IF (l_worker_type = 'E' OR l_worker_type = 'EMPLOYEE') THEN
+  (
+    /* Must work 30+ hours per week */
+    IF (l_hours >= 30) THEN
+    (
+      /* Must pass 90-day waiting period */
+      IF (l_days_employed >= 90) THEN
+        l_eligible = 'Y'
+    )
+  )
+)
+
+RETURN l_eligible</code></pre>
+      </div>
+
+      <h2 id="comp-elig">Example 6: Compensation Eligibility</h2>
+
+      <p>Determines eligibility for an annual merit compensation plan based on performance rating and hire date.</p>
+
+      <span class="formula-label">Compensation Eligibility</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Annual Merit Compensation Eligibility
+   Type: Compensation Eligibility
+   Eligible if: active, hired before Oct 1, not on PIP */
+
+DEFAULT FOR PER_ASG_ASSIGNMENT_STATUS_TYPE IS 'INACTIVE'
+DEFAULT FOR PER_POS_DATE_START IS '1900/01/01 00:00:00' (DATE)
+DEFAULT FOR PER_ASG_EMPLOYMENT_CATEGORY IS ' '
+
+l_status = PER_ASG_ASSIGNMENT_STATUS_TYPE
+l_hire_date = PER_POS_DATE_START
+l_emp_category = PER_ASG_EMPLOYMENT_CATEGORY
+l_today = GET_DATE()
+l_current_year = TO_NUMBER(TO_CHAR(l_today, 'YYYY'))
+
+/* Cutoff: must be hired before Oct 1 of current year */
+l_cutoff_date = TO_DATE(TO_CHAR(l_current_year) || '/10/01 00:00:00', 'YYYY/MM/DD HH24:MI:SS')
+
+l_eligible = 'N'
+
+IF (l_status = 'ACTIVE_ASSIGN' OR l_status = 'ACTIVE') THEN
+(
+  /* Must be regular employee (not temporary/seasonal) */
+  IF (l_emp_category = 'FR' OR l_emp_category = 'PR') THEN
+  (
+    /* Must be hired before cutoff */
+    IF (l_hire_date < l_cutoff_date) THEN
+      l_eligible = 'Y'
+  )
+)
+
+RETURN l_eligible</code></pre>
+      </div>
+
+      <h2 id="absence-entitlement">Example 7: Absence Entitlement</h2>
+
+      <p>Grants a one-time bereavement leave entitlement based on relationship type.</p>
+
+      <span class="formula-label">Absence Entitlement</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Bereavement Leave Entitlement
+   Type: Absence Entitlement
+   Grants leave days based on relationship to the deceased */
+
+INPUTS ARE relationship_type (text)
+
+DEFAULT FOR PER_ASG_ASSIGNMENT_STATUS_TYPE IS 'INACTIVE'
+
+l_status = PER_ASG_ASSIGNMENT_STATUS_TYPE
+l_entitlement_days = 0
+
+IF (l_status = 'ACTIVE_ASSIGN' OR l_status = 'ACTIVE') THEN
+(
+  IF (relationship_type = 'SPOUSE' OR
+      relationship_type = 'CHILD' OR
+      relationship_type = 'PARENT') THEN
+    l_entitlement_days = 5
+  ELSE IF (relationship_type = 'SIBLING' OR
+           relationship_type = 'GRANDPARENT' OR
+           relationship_type = 'GRANDCHILD') THEN
+    l_entitlement_days = 3
+  ELSE IF (relationship_type = 'IN_LAW' OR
+           relationship_type = 'AUNT_UNCLE') THEN
+    l_entitlement_days = 1
+  ELSE
+    l_entitlement_days = 1
+)
+
+/* Convert days to hours (8-hour day) */
+l_entitlement_hours = l_entitlement_days * 8
+
+RETURN l_entitlement_hours</code></pre>
+      </div>
+
+      <h2 id="extract-criteria">Example 8: Extract Criteria Rule</h2>
+
+      <p>Filters an HCM Extract to include only active US employees in specific departments.</p>
+
+      <span class="formula-label">Extract Rule</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Extract Criteria Rule — Active US Employees
+   Type: Extract Rule (Criteria)
+   Include only active employees in US legislation, in specific departments */
+
+DEFAULT FOR PER_ASG_ASSIGNMENT_STATUS_TYPE IS 'INACTIVE'
+DEFAULT FOR PER_ASG_WORKER_TYPE IS ' '
+DEFAULT FOR PER_ASG_ORGANIZATION_ID IS 0
+
+l_status = PER_ASG_ASSIGNMENT_STATUS_TYPE
+l_worker_type = PER_ASG_WORKER_TYPE
+l_org_id = PER_ASG_ORGANIZATION_ID
+
+l_include = 'N'
+
+/* Active employees only */
+IF (l_status = 'ACTIVE_ASSIGN' OR l_status = 'ACTIVE') THEN
+(
+  IF (l_worker_type = 'E' OR l_worker_type = 'EMPLOYEE') THEN
+  (
+    /* Include all orgs, or filter to specific ones:
+       Uncomment below to restrict to specific org IDs */
+    /* IF (l_org_id = 300000001234567 OR
+          l_org_id = 300000001234568) THEN */
+    l_include = 'Y'
+  )
+)
+
+RETURN l_include</code></pre>
+      </div>
+
+      <h2 id="validation">Example 9: Validation Formula</h2>
+
+      <p>Validates that a required field is populated when a specific condition is true. Used as person or assignment validation.</p>
+
+      <span class="formula-label">Validation</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Assignment Validation — Require Position for Regular Employees
+   Type: Validation Formula
+   Error if regular full-time employee has no position assigned */
+
+DEFAULT FOR PER_ASG_EMPLOYMENT_CATEGORY IS ' '
+DEFAULT FOR PER_ASG_FULL_TIME_OR_PART_TIME IS ' '
+
+INPUTS ARE position_id (number)
+
+l_emp_category = PER_ASG_EMPLOYMENT_CATEGORY
+l_ft_pt = PER_ASG_FULL_TIME_OR_PART_TIME
+
+l_formula_status = 'S'   /* S = Success */
+l_formula_message = ' '
+
+/* Regular full-time employees must have a position */
+IF (l_emp_category = 'FR' AND l_ft_pt = 'FULL_TIME') THEN
+(
+  IF (position_id = 0 OR WAS_DEFAULTED('position_id') = 'Y') THEN
+  (
+    l_formula_status = 'E'   /* E = Error */
+    l_formula_message = 'A position is required for regular full-time employees. Please select a position before saving.'
+  )
+)
+
+RETURN l_formula_status, l_formula_message</code></pre>
+      </div>
+
+      <h2 id="payroll-skip">Example 10: Payroll Skip Rule</h2>
+
+      <p>Determines whether to skip processing an element for a given assignment. Returns <code>'Y'</code> to skip, <code>'N'</code> to process.</p>
+
+      <span class="formula-label">Payroll Skip Rule</span>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>/* Skip Rule — Skip Bonus for Employees on Leave
+   Type: Payroll Skip Rule
+   Skip the bonus element if employee is on unpaid leave */
+
+DEFAULT FOR PER_ASG_ASSIGNMENT_STATUS_TYPE IS 'INACTIVE'
+
+l_status = PER_ASG_ASSIGNMENT_STATUS_TYPE
+l_skip = 'Y'   /* Default: skip (safe default) */
+
+/* Only process if actively working */
+IF (l_status = 'ACTIVE_ASSIGN' OR l_status = 'ACTIVE') THEN
+  l_skip = 'N'
+ELSE IF (l_status = 'SUSPEND_ASSIGN' OR l_status = 'SUSPENDED') THEN
+  l_skip = 'Y'
+ELSE
+  l_skip = 'Y'
+
+RETURN l_skip</code></pre>
+      </div>
+
+      <!-- Debugging -->
+      <h2 id="debugging">Debugging Tips</h2>
+
+      <h3>Compilation Errors</h3>
+
+      <p>Fast Formula compilation errors are notoriously cryptic. Here are the most common:</p>
+
+      <div class="table-list-wrapper">
+        <table class="table-list">
+          <thead>
+            <tr>
+              <th>Error</th>
+              <th>Cause</th>
+              <th>Fix</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>HR_51085_FF_MISSING_OPERAND</code></td>
+              <td>Missing value after operator, or stray keyword</td>
+              <td>Check for missing right-hand side of <code>=</code> or incomplete IF block</td>
+            </tr>
+            <tr>
+              <td><code>HR_51086_FF_INCORRECT_ITEM</code></td>
+              <td>Referencing a DBI that doesn't exist in current context</td>
+              <td>Verify DBI name spelling and check formula type context. Use <code>Manage Fast Formula Database Items</code> to search</td>
+            </tr>
+            <tr>
+              <td><code>HR_51074_FF_TYPE_MISMATCH</code></td>
+              <td>Comparing text to number, or wrong DEFAULT type</td>
+              <td>Ensure DEFAULT types match DBI return types. Use <code>TO_NUMBER()</code> or <code>TO_CHAR()</code> to convert</td>
+            </tr>
+            <tr>
+              <td><code>HR_51069_FF_DUPLICATE_NAME</code></td>
+              <td>Variable declared twice or name conflicts with DBI</td>
+              <td>Rename your local variable. Prefix with <code>l_</code> to avoid conflicts</td>
+            </tr>
+            <tr>
+              <td><code>ORA-01403: no data found</code></td>
+              <td>DBI returns null and no DEFAULT is set</td>
+              <td>Add <code>DEFAULT FOR [dbi_name] IS [value]</code> for every DBI you reference</td>
+            </tr>
+            <tr>
+              <td>Formula compiles but returns wrong result</td>
+              <td>Logic error, wrong DBI, or missing parentheses</td>
+              <td>Use the <strong>Run Formula</strong> test feature with sample inputs. Add intermediate RETURNs temporarily to trace values</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Testing Your Formula</h3>
+
+      <ol>
+        <li><strong>Compile first:</strong> Click "Submit" to compile. Fix all compilation errors before testing</li>
+        <li><strong>Use Run Formula:</strong> Navigate to the formula, click "Run Formula", provide test inputs and effective date</li>
+        <li><strong>Check with a real employee:</strong> Run a QuickPay or test absence entry against a known employee to validate real DBI values</li>
+        <li><strong>Trace values:</strong> Temporarily add extra RETURN variables to expose intermediate calculation steps</li>
+      </ol>
+
+      <div class="callout warning">
+        <p><strong>Warning:</strong> Always test formulas in a <strong>non-production environment</strong> first. A payroll formula with an error can produce incorrect paychecks for your entire population. Use sandboxes or test environments.</p>
+      </div>
+
+      <!-- Best Practices -->
+      <h2 id="best-practices">Best Practices</h2>
+
+      <ol>
+        <li><strong>Always declare DEFAULTs.</strong> Every DBI you reference should have a DEFAULT. This prevents <code>ORA-01403</code> runtime errors when a DBI returns null</li>
+        <li><strong>Use <code>l_</code> prefix for local variables.</strong> This prevents name collisions with DBIs and makes your formula readable</li>
+        <li><strong>Comment liberally.</strong> Use <code>/* comment */</code> to explain business rules. Future maintainers (including yourself) will thank you</li>
+        <li><strong>Keep formulas short.</strong> If a formula exceeds 200 lines, consider splitting the logic into multiple formulas or using lookup tables</li>
+        <li><strong>Use ROUND() on currency.</strong> Always round monetary calculations to 2 decimal places: <code>ROUND(l_amount, 2)</code></li>
+        <li><strong>Handle edge cases.</strong> What happens for zero hours? Null hire date? Missing salary? Test these scenarios</li>
+        <li><strong>Version your formulas.</strong> Include a version comment at the top: <code>/* v2.1 - 2026-02-06 - Added part-time proration */</code></li>
+        <li><strong>Test with boundary values.</strong> If your formula has a 5-year service tier, test with exactly 4.99 years, 5.0 years, and 5.01 years</li>
+        <li><strong>Don't hardcode IDs.</strong> Use descriptive lookups or input parameters instead of hardcoding <code>ORGANIZATION_ID = 300000001234567</code></li>
+        <li><strong>Document RETURN values.</strong> Clearly state what each return variable means and what units it uses (hours, days, dollars, 'Y'/'N')</li>
+      </ol>
+
+      <div class="cta-box">
+        <h3>Look Up the Underlying Tables</h3>
+        <p>Fast Formula DBIs map to HCM table columns. Search them all here.</p>
+        <a href="/" class="cta-btn">Search 35,000+ Tables</a>
+      </div>
+
+      <h2>Related Articles</h2>
+      <ul>
+        <li><a href="/blog/otbi-subject-area-guide">OTBI Subject Areas &mdash; Complete Guide with Decision Tree</a></li>
+        <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Most Used Oracle Fusion HCM Tables</a></li>
+        <li><a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)</a></li>
+        <li><a href="/blog/per-all-people-f-complete-guide">Complete Guide to PER_ALL_PEOPLE_F</a></li>
+      </ul>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p><a href="/">Search 35,000+ Oracle Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a></p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      const code = pre.textContent;
+      navigator.clipboard.writeText(code).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
