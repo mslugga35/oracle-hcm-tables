@@ -18,7 +18,7 @@
   <meta property="og:url" content="https://hcm-tables.com/">
   <meta property="og:title" content="Oracle HCM Tables Search - 35,000+ Oracle Fusion Cloud Tables">
   <meta property="og:description" content="Instantly search 35,000+ Oracle HCM tables and 1.2M+ columns. The fastest way to find Oracle Fusion Cloud schema documentation.">
-  <meta property="og:image" content="https://hcm-tables.com/og-image.svg">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
   <meta property="og:site_name" content="HCM Tables">
 
   <!-- Twitter -->
@@ -26,7 +26,7 @@
   <meta property="twitter:url" content="https://hcm-tables.com/">
   <meta property="twitter:title" content="Oracle HCM Tables Search - 35,000+ Tables">
   <meta property="twitter:description" content="Instantly search 35,000+ Oracle HCM, Fusion Cloud tables and 1.2M+ columns. Faster than Oracle docs.">
-  <meta property="twitter:image" content="https://hcm-tables.com/og-image.svg">
+  <meta property="twitter:image" content="https://hcm-tables.com/og-image.png">
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
@@ -52,7 +52,7 @@
       "View table schemas and column types",
       "Cross-module search (HCM, Financials, SCM)"
     ],
-    "screenshot": "https://hcm-tables.com/og-image.svg"
+    "screenshot": "https://hcm-tables.com/og-image.png"
   }
   </script>
   <script type="application/ld+json">
@@ -1182,17 +1182,24 @@
     }
 
     // === INITIALIZATION ===
+    // Columns are lazy-loaded on first search to avoid loading 9.5MB on page load
+    let columnsLoaded = false;
+    async function loadColumns() {
+      if (columnsLoaded) return;
+      const res = await fetch('data/columns.json');
+      columnsData = await res.json();
+      columnsLoaded = true;
+    }
+
     async function init() {
       try {
-        const [statsRes, tablesRes, columnsRes] = await Promise.all([
+        const [statsRes, tablesRes] = await Promise.all([
           fetch('data/stats.json'),
-          fetch('data/tables.json'),
-          fetch('data/columns.json')
+          fetch('data/tables.json')
         ]);
-        
+
         const stats = await statsRes.json();
         tablesData = await tablesRes.json();
-        columnsData = await columnsRes.json();
         
         // Count tables vs views
         const tableCount = tablesData.filter(t => t.type === 'TABLE').length;
@@ -1215,14 +1222,23 @@
       doSearch();
     }
     
-    function doSearch() {
+    async function doSearch() {
       const rawQuery = document.getElementById('search').value.trim();
       if (rawQuery.length < 2) return;
-      
+
+      // Update URL for sharing (e.g. /?q=PER_ALL_PEOPLE_F)
+      const currentQ = new URLSearchParams(window.location.search).get('q');
+      if (currentQ !== rawQuery) {
+        window.history.pushState({}, '', `/?q=${encodeURIComponent(rawQuery)}`);
+      }
+
+      // Lazy-load columns on first search
+      await loadColumns();
+
       // Normalize: uppercase, spaces → underscores for matching
       const query = rawQuery.toUpperCase();
       const queryAlt = query.replace(/\s+/g, '_'); // "interview date" → "INTERVIEW_DATE"
-      
+
       document.getElementById('table-detail').classList.remove('active');
       document.getElementById('results').classList.add('active');
       

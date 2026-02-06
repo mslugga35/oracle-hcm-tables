@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Complete Guide to PER_ALL_PEOPLE_F - Oracle HCM Person Table | HCM Tables</title>
+  <meta name="title" content="Complete Guide to PER_ALL_PEOPLE_F - Oracle HCM Person Table | HCM Tables">
+  <meta name="description" content="PER_ALL_PEOPLE_F is the most important Oracle HCM table. Learn its key columns, date-effective behavior, common joins, and real SQL query examples for reports and integrations.">
+  <meta name="keywords" content="PER_ALL_PEOPLE_F, Oracle HCM person table, Oracle Fusion people table, PERSON_ID, date-effective Oracle, PER_ALL_PEOPLE_F columns, Oracle HCM query examples">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/per-all-people-f-complete-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/per-all-people-f-complete-guide">
+  <meta property="og:title" content="Complete Guide to PER_ALL_PEOPLE_F - Oracle HCM Person Table">
+  <meta property="og:description" content="Everything you need to know about PER_ALL_PEOPLE_F. Key columns, date-effective behavior, joins, and SQL examples.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/per-all-people-f-complete-guide">
+  <meta property="twitter:title" content="Complete Guide to PER_ALL_PEOPLE_F">
+  <meta property="twitter:description" content="The most searched Oracle HCM table. Learn columns, joins, and query patterns.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Complete Guide to PER_ALL_PEOPLE_F - Oracle HCM Person Table",
+    "description": "PER_ALL_PEOPLE_F is the most important Oracle HCM table. Learn its key columns, date-effective behavior, common joins, and real SQL query examples.",
+    "url": "https://hcm-tables.com/blog/per-all-people-f-complete-guide",
+    "datePublished": "2026-02-06",
+    "dateModified": "2026-02-06",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/per-all-people-f-complete-guide"
+    }
+  }
+  </script>
+
+  <!-- Schema.org FAQPage for rich snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is PER_ALL_PEOPLE_F in Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_PEOPLE_F is the primary table storing person records in Oracle HCM Cloud. It contains personal information like person type, date of birth, and links to other HCM tables via the PERSON_ID column. It is date-effective, meaning it tracks changes over time using EFFECTIVE_START_DATE and EFFECTIVE_END_DATE columns."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I get current employees from PER_ALL_PEOPLE_F?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Filter with: WHERE TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE. Then join to PER_ALL_ASSIGNMENTS_F (also date-filtered) and check ASSIGNMENT_STATUS_TYPE = 'ACTIVE' or SYSTEM_PERSON_TYPE = 'EMP' for active employees."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the primary key of PER_ALL_PEOPLE_F?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The primary key is the combination of PERSON_ID + EFFECTIVE_START_DATE. PERSON_ID alone is not unique because date-effective tables store multiple rows per person, one for each historical change."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+    .article-content pre code { background: none; padding: 0; border-radius: 0; }
+
+    /* Column Reference Table */
+    .col-ref-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .col-ref {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .col-ref th {
+      text-align: left;
+      padding: 1rem;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .col-ref td {
+      padding: 0.75rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+    .col-ref tr:last-child td { border-bottom: none; }
+    .col-ref tr:hover td { background: var(--bg-secondary); }
+    .col-ref .mono { font-family: var(--font-mono); color: var(--green); font-weight: 500; font-size: 0.85rem; }
+    .col-ref .type { font-family: var(--font-mono); color: var(--yellow); font-size: 0.85rem; }
+
+    .callout {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+    }
+    .callout p { margin-bottom: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--text-primary); }
+
+    .related-tables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .table-link {
+      padding: 0.4rem 0.8rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--blue);
+      transition: all 0.2s;
+    }
+    .table-link:hover { background: var(--bg-tertiary); border-color: var(--blue); text-decoration: none; }
+
+    .cta-box {
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+    .cta-box h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--text-secondary); margin-bottom: 1.25rem; }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, oklch(0.58 0.2 40) 100%);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+    .cta-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 20px var(--accent-glow); text-decoration: none; color: white; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+      .col-ref { font-size: 0.8rem; }
+      .col-ref th, .col-ref td { padding: 0.6rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; PER_ALL_PEOPLE_F Guide
+    </div>
+
+    <header class="article-header">
+      <span class="article-tag">Deep Dive</span>
+      <h1>Complete Guide to PER_ALL_PEOPLE_F</h1>
+      <div class="article-meta">Feb 6, 2026 &middot; 12 min read</div>
+    </header>
+
+    <div class="article-content">
+      <p><a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a> is the single most important table in Oracle HCM Cloud. It is the master person record: every employee, contingent worker, contact, and applicant has at least one row here. If you are building reports, integrations, or HCM Extracts, you will use this table constantly.</p>
+
+      <p>This guide covers its structure, key columns, date-effective behavior, common join patterns, and practical SQL examples.</p>
+
+      <h2>Table Overview</h2>
+
+      <ul>
+        <li><strong>Full Name:</strong> <code>PER_ALL_PEOPLE_F</code></li>
+        <li><strong>Module:</strong> Core HR (Human Resources)</li>
+        <li><strong>Type:</strong> Date-Effective Table (_F suffix)</li>
+        <li><strong>Primary Key:</strong> <code>PERSON_ID</code> + <code>EFFECTIVE_START_DATE</code></li>
+        <li><strong>Translation Table:</strong> <code>PER_ALL_PEOPLE_TL</code></li>
+        <li><strong>Convenience View:</strong> <code>PER_ALL_PEOPLE_VL</code></li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>Important:</strong> <code>PERSON_ID</code> alone is not unique in this table. Because PER_ALL_PEOPLE_F is date-effective, each person can have multiple rows. Always include a date filter or use <code>PERSON_ID</code> + <code>EFFECTIVE_START_DATE</code> as your key.</p>
+      </div>
+
+      <h2>Key Columns Reference</h2>
+
+      <div class="col-ref-wrapper">
+        <table class="col-ref">
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td class="type">NUMBER</td>
+              <td>Unique person identifier. FK to nearly every HCM table.</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_START_DATE</td>
+              <td class="type">DATE</td>
+              <td>Start of this date-effective row's validity period.</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_END_DATE</td>
+              <td class="type">DATE</td>
+              <td>End of validity. Current row has 4712-12-31.</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_NUMBER</td>
+              <td class="type">VARCHAR2</td>
+              <td>Human-readable person/employee number.</td>
+            </tr>
+            <tr>
+              <td class="mono">DATE_OF_BIRTH</td>
+              <td class="type">DATE</td>
+              <td>Person's date of birth.</td>
+            </tr>
+            <tr>
+              <td class="mono">DATE_OF_DEATH</td>
+              <td class="type">DATE</td>
+              <td>Date of death (if applicable).</td>
+            </tr>
+            <tr>
+              <td class="mono">COUNTRY_OF_BIRTH</td>
+              <td class="type">VARCHAR2</td>
+              <td>Country code where person was born.</td>
+            </tr>
+            <tr>
+              <td class="mono">REGION_OF_BIRTH</td>
+              <td class="type">VARCHAR2</td>
+              <td>Region/state of birth.</td>
+            </tr>
+            <tr>
+              <td class="mono">TOWN_OF_BIRTH</td>
+              <td class="type">VARCHAR2</td>
+              <td>Town/city of birth.</td>
+            </tr>
+            <tr>
+              <td class="mono">BLOOD_TYPE</td>
+              <td class="type">VARCHAR2</td>
+              <td>Blood type (used in some regional deployments).</td>
+            </tr>
+            <tr>
+              <td class="mono">CREATED_BY</td>
+              <td class="type">VARCHAR2</td>
+              <td>Username who created this row.</td>
+            </tr>
+            <tr>
+              <td class="mono">CREATION_DATE</td>
+              <td class="type">TIMESTAMP</td>
+              <td>When this row was first created.</td>
+            </tr>
+            <tr>
+              <td class="mono">LAST_UPDATED_BY</td>
+              <td class="type">VARCHAR2</td>
+              <td>Username who last modified this row.</td>
+            </tr>
+            <tr>
+              <td class="mono">LAST_UPDATE_DATE</td>
+              <td class="type">TIMESTAMP</td>
+              <td>When this row was last modified.</td>
+            </tr>
+            <tr>
+              <td class="mono">OBJECT_VERSION_NUMBER</td>
+              <td class="type">NUMBER</td>
+              <td>Optimistic locking version counter.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>For the full column listing (60+ columns), <a href="/table/PER_ALL_PEOPLE_F">view PER_ALL_PEOPLE_F in our table browser</a>.</p>
+
+      <div class="callout">
+        <p><strong>Where are names?</strong> First name, last name, and display name are stored in <a href="/table/PER_PERSON_NAMES_F">PER_PERSON_NAMES_F</a>, not in PER_ALL_PEOPLE_F. This is because Oracle Fusion supports multiple name types (legal name, preferred name, etc.) and translations.</p>
+      </div>
+
+      <h2>Date-Effective Behavior</h2>
+
+      <p>Every change to a person's record creates a new date-effective row. Suppose an employee's record is first created on January 1, 2025:</p>
+
+      <pre><code>PERSON_ID | EFFECTIVE_START_DATE | EFFECTIVE_END_DATE | PERSON_NUMBER
+----------|---------------------|--------------------|---------------
+    10001 | 2025-01-01          | 4712-12-31         | EMP001</code></pre>
+
+      <p>When a correction is made on March 15, Oracle end-dates the old row and creates a new one:</p>
+
+      <pre><code>PERSON_ID | EFFECTIVE_START_DATE | EFFECTIVE_END_DATE | PERSON_NUMBER
+----------|---------------------|--------------------|---------------
+    10001 | 2025-01-01          | 2025-03-14         | EMP001
+    10001 | 2025-03-15          | 4712-12-31         | EMP001</code></pre>
+
+      <p>This is why you must always filter on dates. Without the filter, a <code>SELECT COUNT(*)</code> on PER_ALL_PEOPLE_F will return a much larger number than your actual headcount.</p>
+
+      <h3>Getting Current Records</h3>
+
+      <pre><code>-- Current person record
+SELECT p.PERSON_ID, p.PERSON_NUMBER, p.DATE_OF_BIRTH
+FROM PER_ALL_PEOPLE_F p
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE
+                          AND p.EFFECTIVE_END_DATE;</code></pre>
+
+      <h3>Getting Records as of a Specific Date</h3>
+
+      <pre><code>-- Person records as of January 1, 2025
+SELECT p.PERSON_ID, p.PERSON_NUMBER
+FROM PER_ALL_PEOPLE_F p
+WHERE DATE '2025-01-01' BETWEEN p.EFFECTIVE_START_DATE
+                              AND p.EFFECTIVE_END_DATE;</code></pre>
+
+      <h2>Common Join Patterns</h2>
+
+      <h3>Person + Name (Most Common Query)</h3>
+
+      <p>Since names are stored separately, the most common query pattern joins PER_ALL_PEOPLE_F with <a href="/table/PER_PERSON_NAMES_F">PER_PERSON_NAMES_F</a>:</p>
+
+      <pre><code>SELECT
+  p.PERSON_ID,
+  p.PERSON_NUMBER,
+  n.FIRST_NAME,
+  n.LAST_NAME,
+  n.DISPLAY_NAME
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_PERSON_NAMES_F n
+  ON p.PERSON_ID = n.PERSON_ID
+  AND n.NAME_TYPE = 'GLOBAL'
+  AND TRUNC(SYSDATE) BETWEEN n.EFFECTIVE_START_DATE
+                          AND n.EFFECTIVE_END_DATE
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE
+                          AND p.EFFECTIVE_END_DATE;</code></pre>
+
+      <div class="callout">
+        <p><strong>NAME_TYPE values:</strong> <code>'GLOBAL'</code> is the default display name. Other values include <code>'US'</code> (US legal name), <code>'JP'</code> (Japanese name format), etc. Always filter by NAME_TYPE or you will get duplicate rows.</p>
+      </div>
+
+      <h3>Person + Assignment (Employee Details)</h3>
+
+      <p>To get employee-level details like job, position, department, and business unit, join to <a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a>:</p>
+
+      <pre><code>SELECT
+  p.PERSON_ID,
+  p.PERSON_NUMBER,
+  n.DISPLAY_NAME,
+  a.ASSIGNMENT_NUMBER,
+  a.ASSIGNMENT_STATUS_TYPE,
+  a.BUSINESS_UNIT_ID,
+  a.JOB_ID,
+  a.POSITION_ID,
+  a.DEPARTMENT_ID,
+  a.LOCATION_ID,
+  a.MANAGER_ID
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_PERSON_NAMES_F n
+  ON p.PERSON_ID = n.PERSON_ID
+  AND n.NAME_TYPE = 'GLOBAL'
+  AND TRUNC(SYSDATE) BETWEEN n.EFFECTIVE_START_DATE AND n.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a
+  ON p.PERSON_ID = a.PERSON_ID
+  AND a.PRIMARY_FLAG = 'Y'
+  AND a.ASSIGNMENT_TYPE = 'E'
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE;</code></pre>
+
+      <h3>Person + Address</h3>
+
+      <pre><code>SELECT
+  p.PERSON_ID,
+  p.PERSON_NUMBER,
+  addr.ADDRESS_LINE_1,
+  addr.TOWN_OR_CITY,
+  addr.REGION_2 AS state,
+  addr.POSTAL_CODE,
+  addr.COUNTRY
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ADDRESSES_F addr
+  ON p.PERSON_ID = addr.PERSON_ID
+  AND addr.ADDRESS_TYPE = 'HOME'
+  AND TRUNC(SYSDATE) BETWEEN addr.EFFECTIVE_START_DATE AND addr.EFFECTIVE_END_DATE
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE;</code></pre>
+
+      <h3>Person + Period of Service (Hire/Termination Dates)</h3>
+
+      <pre><code>SELECT
+  p.PERSON_ID,
+  p.PERSON_NUMBER,
+  pos.DATE_START AS hire_date,
+  pos.ACTUAL_TERMINATION_DATE,
+  pos.PERIOD_TYPE
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_PERIODS_OF_SERVICE pos
+  ON p.PERSON_ID = pos.PERSON_ID
+  AND pos.PRIMARY_FLAG = 'Y'
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE;</code></pre>
+
+      <h2>Related Tables</h2>
+
+      <p>PER_ALL_PEOPLE_F is the hub that connects to these key tables via <code>PERSON_ID</code>:</p>
+
+      <div class="related-tables">
+        <a href="/table/PER_PERSON_NAMES_F" class="table-link">PER_PERSON_NAMES_F</a>
+        <a href="/table/PER_ALL_ASSIGNMENTS_F" class="table-link">PER_ALL_ASSIGNMENTS_F</a>
+        <a href="/table/PER_ADDRESSES_F" class="table-link">PER_ADDRESSES_F</a>
+        <a href="/table/PER_PERIODS_OF_SERVICE" class="table-link">PER_PERIODS_OF_SERVICE</a>
+        <a href="/table/PER_PHONES" class="table-link">PER_PHONES</a>
+        <a href="/table/PER_EMAIL_ADDRESSES" class="table-link">PER_EMAIL_ADDRESSES</a>
+        <a href="/table/PER_NATIONAL_IDENTIFIERS" class="table-link">PER_NATIONAL_IDENTIFIERS</a>
+        <a href="/table/PER_PERSONS" class="table-link">PER_PERSONS</a>
+        <a href="/table/PER_PERSON_TYPE_USAGES_F" class="table-link">PER_PERSON_TYPE_USAGES_F</a>
+        <a href="/table/PAY_RUN_RESULTS_F" class="table-link">PAY_RUN_RESULTS_F</a>
+      </div>
+
+      <h2>Common Pitfalls</h2>
+
+      <ol>
+        <li><strong>Forgetting the date filter</strong> &mdash; You will get inflated row counts and duplicate records. Always filter on <code>EFFECTIVE_START_DATE</code> and <code>EFFECTIVE_END_DATE</code>.</li>
+        <li><strong>Looking for names in PER_ALL_PEOPLE_F</strong> &mdash; Names are in <code>PER_PERSON_NAMES_F</code>, not here.</li>
+        <li><strong>Not filtering by NAME_TYPE</strong> &mdash; When joining to PER_PERSON_NAMES_F, always include <code>NAME_TYPE = 'GLOBAL'</code> (or the specific type you need).</li>
+        <li><strong>Not filtering by ASSIGNMENT_TYPE</strong> &mdash; PER_ALL_ASSIGNMENTS_F contains multiple assignment types (E=Employee, C=Contingent Worker, O=Offer, etc.). Filter to avoid cross-type duplicates.</li>
+        <li><strong>Using PERSON_ID as a unique key</strong> &mdash; It is unique per person but not per row. The true primary key is <code>PERSON_ID</code> + <code>EFFECTIVE_START_DATE</code>.</li>
+      </ol>
+
+      <h2>OTBI / BIP Report Tips</h2>
+
+      <p>When building Oracle Transactional Business Intelligence (OTBI) or BI Publisher (BIP) reports:</p>
+
+      <ul>
+        <li>Prefer the <strong>subject areas</strong> (e.g., "Workforce Management - Person Real Time") over direct table queries when possible</li>
+        <li>Use <strong>PER_ALL_PEOPLE_VL</strong> for views that automatically join translation data</li>
+        <li>In BIP data models, always include the date-effective filter as a bind parameter</li>
+        <li>For headcount reports, use the assignment table's <code>ASSIGNMENT_STATUS_TYPE = 'ACTIVE'</code> rather than trying to derive it from PER_ALL_PEOPLE_F</li>
+      </ul>
+
+      <div class="cta-box">
+        <h3>Explore PER_ALL_PEOPLE_F Schema</h3>
+        <p>View all 60+ columns with data types, lengths, and nullable flags.</p>
+        <a href="/table/PER_ALL_PEOPLE_F" class="cta-btn">View Full Table Schema</a>
+      </div>
+
+      <h2>Related Articles</h2>
+      <ul>
+        <li><a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)</a></li>
+        <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Most Used Oracle Fusion HCM Tables</a></li>
+      </ul>
+    </div>
+  </article>
+
+  <footer class="footer">
+    <div class="container">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p><a href="/">Search 35,000+ Oracle Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a></p>
+    </div>
+  </footer>
+</body>
+</html>

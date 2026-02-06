@@ -1,0 +1,603 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL) | HCM Tables</title>
+  <meta name="title" content="Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL) | HCM Tables">
+  <meta name="description" content="What do _F, _TL, _VL, _ALL, _B, and _PEO suffixes mean in Oracle Fusion Cloud HCM tables? Complete guide with examples, use cases, and tips for choosing the right table.">
+  <meta name="keywords" content="Oracle HCM table suffixes, _F suffix Oracle, _TL suffix Oracle, _VL suffix, _ALL tables, Oracle Fusion naming conventions, date-effective tables, translation tables Oracle">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-table-suffixes-explained">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-table-suffixes-explained">
+  <meta property="og:title" content="Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)">
+  <meta property="og:description" content="What do _F, _TL, _VL, _ALL, _B, and _PEO suffixes mean in Oracle Fusion Cloud HCM tables? Complete guide with examples.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-hcm-table-suffixes-explained">
+  <meta property="twitter:title" content="Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)">
+  <meta property="twitter:description" content="Complete guide to Oracle HCM table naming suffixes with examples and use cases.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)",
+    "description": "What do _F, _TL, _VL, _ALL, _B, and _PEO suffixes mean in Oracle Fusion Cloud HCM tables? Complete guide with examples.",
+    "url": "https://hcm-tables.com/blog/oracle-hcm-table-suffixes-explained",
+    "datePublished": "2026-02-06",
+    "dateModified": "2026-02-06",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/oracle-hcm-table-suffixes-explained"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* Article Layout */
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header {
+      margin-bottom: 3rem;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content */
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      line-height: 1.7;
+      color: var(--text-primary);
+    }
+
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      border-radius: 0;
+    }
+
+    /* Suffix Table */
+    .suffix-table-wrapper {
+      overflow-x: auto;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 2rem;
+    }
+
+    .suffix-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .suffix-table th {
+      text-align: left;
+      padding: 1rem;
+      background: var(--bg-tertiary);
+      color: var(--text-secondary);
+      font-weight: 600;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .suffix-table td {
+      padding: 0.9rem 1rem;
+      border-bottom: 1px solid var(--border);
+      vertical-align: top;
+      color: var(--text-secondary);
+    }
+
+    .suffix-table tr:last-child td { border-bottom: none; }
+    .suffix-table tr:hover td { background: var(--bg-secondary); }
+
+    .suffix-table .mono {
+      font-family: var(--font-mono);
+      color: var(--green);
+      font-weight: 500;
+    }
+
+    /* Callout */
+    .callout {
+      padding: 1.25rem 1.5rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1.5rem;
+    }
+
+    .callout p { margin-bottom: 0; font-size: 0.95rem; }
+    .callout strong { color: var(--text-primary); }
+
+    /* Internal Links Section */
+    .related-tables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .table-link {
+      padding: 0.4rem 0.8rem;
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      color: var(--blue);
+      transition: all 0.2s;
+    }
+
+    .table-link:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--blue);
+      text-decoration: none;
+    }
+
+    /* CTA */
+    .cta-box {
+      padding: 2rem;
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, var(--bg-tertiary) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      text-align: center;
+      margin: 3rem 0 2rem;
+    }
+
+    .cta-box h3 { font-size: 1.25rem; margin-bottom: 0.75rem; }
+    .cta-box p { color: var(--text-secondary); margin-bottom: 1.25rem; }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: linear-gradient(135deg, var(--accent) 0%, oklch(0.58 0.2 40) 100%);
+      color: white;
+      font-weight: 600;
+      border-radius: var(--radius-sm);
+      transition: transform 0.15s, box-shadow 0.2s;
+    }
+
+    .cta-btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 4px 20px var(--accent-glow);
+      text-decoration: none;
+      color: white;
+    }
+
+    /* Footer */
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+    .footer p { color: var(--text-muted); font-size: 0.85rem; margin-bottom: 0.5rem; }
+    .footer a { color: var(--blue); text-decoration: none; }
+    .footer a:hover { color: var(--accent); text-decoration: underline; }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <article class="article-container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Table Suffixes Explained
+    </div>
+
+    <!-- Header -->
+    <header class="article-header">
+      <span class="article-tag">Schema Basics</span>
+      <h1>Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)</h1>
+      <div class="article-meta">Feb 6, 2026 &middot; 8 min read</div>
+    </header>
+
+    <!-- Content -->
+    <div class="article-content">
+      <p>If you have ever browsed the Oracle Fusion Cloud HCM schema, you have seen table names like <code>PER_ALL_PEOPLE_F</code>, <code>PER_ALL_PEOPLE_TL</code>, and <code>PER_ALL_PEOPLE_VL</code>. The suffix at the end is not random. It encodes critical information about what the table stores and how it behaves.</p>
+
+      <p>Understanding these suffixes is essential for writing correct queries, building OTBI reports, and setting up HCM Extract or BIP data models. This guide covers every suffix you will encounter.</p>
+
+      <h2>Quick Reference: All Table Suffixes</h2>
+
+      <div class="suffix-table-wrapper">
+        <table class="suffix-table">
+          <thead>
+            <tr>
+              <th>Suffix</th>
+              <th>Meaning</th>
+              <th>Example</th>
+              <th>When to Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">_F</td>
+              <td>Date-Effective (Fusion)</td>
+              <td class="mono"><a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a></td>
+              <td>When you need historical rows with EFFECTIVE_START_DATE / EFFECTIVE_END_DATE</td>
+            </tr>
+            <tr>
+              <td class="mono">_TL</td>
+              <td>Translation</td>
+              <td class="mono"><a href="/table/PER_ALL_PEOPLE_TL">PER_ALL_PEOPLE_TL</a></td>
+              <td>When you need translated (language-specific) values like names in multiple languages</td>
+            </tr>
+            <tr>
+              <td class="mono">_VL</td>
+              <td>View (Language)</td>
+              <td class="mono">PER_ALL_PEOPLE_VL</td>
+              <td>Convenience view joining _F + _TL for current session language</td>
+            </tr>
+            <tr>
+              <td class="mono">_ALL</td>
+              <td>All Records (No Security)</td>
+              <td class="mono"><a href="/table/HR_LOCATIONS_ALL">HR_LOCATIONS_ALL</a></td>
+              <td>When you need all rows without business-unit/security filtering</td>
+            </tr>
+            <tr>
+              <td class="mono">_B</td>
+              <td>Base Table</td>
+              <td class="mono"><a href="/table/PER_PERIODS_OF_SERVICE_B">PER_PERIODS_OF_SERVICE_B</a></td>
+              <td>Core storage table, non-date-effective version</td>
+            </tr>
+            <tr>
+              <td class="mono">_PEO</td>
+              <td>Person Entity Object (EO)</td>
+              <td class="mono">PER_ALL_PEOPLE_PEO</td>
+              <td>Used internally by the ADF entity framework; avoid querying directly</td>
+            </tr>
+            <tr>
+              <td class="mono">_EO</td>
+              <td>Entity Object</td>
+              <td class="mono">PAY_PAYROLL_ACTIONS_EO</td>
+              <td>ADF framework internal use; prefer the base table instead</td>
+            </tr>
+            <tr>
+              <td class="mono">_V</td>
+              <td>View</td>
+              <td class="mono">PER_PERSON_NAMES_V</td>
+              <td>Pre-built view, sometimes includes joins or filters</td>
+            </tr>
+            <tr>
+              <td class="mono">_S</td>
+              <td>Secured View</td>
+              <td class="mono">PER_ALL_ASSIGNMENTS_S</td>
+              <td>View with Oracle data security (FNDDS) applied</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>_F: Date-Effective Tables</h2>
+
+      <p>The <code>_F</code> suffix is the most important suffix in Oracle Fusion HCM. It stands for <strong>"Fusion"</strong> (historically debated, but functionally it means <strong>date-effective</strong>). These tables track how data changes over time using two key columns:</p>
+
+      <ul>
+        <li><code>EFFECTIVE_START_DATE</code> &mdash; when this row's version becomes active</li>
+        <li><code>EFFECTIVE_END_DATE</code> &mdash; when this row's version expires (default: 4712-12-31)</li>
+      </ul>
+
+      <p>A single person in <a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a> may have dozens of rows, each representing a different time period. For example, when someone changes their last name, Oracle does not overwrite the old row. Instead, it end-dates the current row and inserts a new one.</p>
+
+      <h3>Getting the Current Row</h3>
+
+      <p>To get only the currently-active row, filter like this:</p>
+
+      <pre><code>SELECT *
+FROM PER_ALL_PEOPLE_F
+WHERE PERSON_ID = :person_id
+  AND TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE
+                          AND EFFECTIVE_END_DATE;</code></pre>
+
+      <div class="callout">
+        <p><strong>Common mistake:</strong> Forgetting the date filter on _F tables. Without it, you get duplicate rows for every historical change, inflating record counts in your reports.</p>
+      </div>
+
+      <h3>Key _F Tables</h3>
+      <div class="related-tables">
+        <a href="/table/PER_ALL_PEOPLE_F" class="table-link">PER_ALL_PEOPLE_F</a>
+        <a href="/table/PER_ALL_ASSIGNMENTS_F" class="table-link">PER_ALL_ASSIGNMENTS_F</a>
+        <a href="/table/PER_ADDRESSES_F" class="table-link">PER_ADDRESSES_F</a>
+        <a href="/table/PER_PERSONS" class="table-link">PER_PERSONS</a>
+        <a href="/table/PAY_RUN_RESULTS_F" class="table-link">PAY_RUN_RESULTS_F</a>
+        <a href="/table/PER_GRADES_F" class="table-link">PER_GRADES_F</a>
+        <a href="/table/PER_JOBS_F" class="table-link">PER_JOBS_F</a>
+        <a href="/table/PER_POSITIONS_F" class="table-link">PER_POSITIONS_F</a>
+      </div>
+
+      <h2>_TL: Translation Tables</h2>
+
+      <p>The <code>_TL</code> suffix means <strong>Translation</strong>. Oracle Fusion supports multi-language deployments, so any text that could be translated (names, descriptions, job titles) is stored in a separate _TL table. These tables always have a <code>LANGUAGE</code> column and a <code>SOURCE_LANG</code> column.</p>
+
+      <pre><code>SELECT first_name, last_name, language
+FROM PER_ALL_PEOPLE_TL
+WHERE PERSON_ID = :person_id
+  AND LANGUAGE = 'US';</code></pre>
+
+      <p>For every row in the base table, there will be one row per installed language in the _TL table. If your instance supports English and French, each person will have two _TL rows.</p>
+
+      <h2>_VL: View + Language (Convenience View)</h2>
+
+      <p>The <code>_VL</code> suffix stands for <strong>View Language</strong>. These are database views (not tables) that join the base _F table with its corresponding _TL table, automatically filtering to the user's session language.</p>
+
+      <p>Instead of writing the join yourself:</p>
+
+      <pre><code>-- Manual join (what _VL does internally)
+SELECT f.*, tl.first_name, tl.last_name
+FROM PER_ALL_PEOPLE_F f
+JOIN PER_ALL_PEOPLE_TL tl
+  ON f.PERSON_ID = tl.PERSON_ID
+  AND tl.LANGUAGE = USERENV('LANG')
+WHERE TRUNC(SYSDATE) BETWEEN f.EFFECTIVE_START_DATE
+                          AND f.EFFECTIVE_END_DATE;</code></pre>
+
+      <p>You can just query the _VL view:</p>
+
+      <pre><code>-- Equivalent using _VL view
+SELECT *
+FROM PER_ALL_PEOPLE_VL
+WHERE PERSON_ID = :person_id;</code></pre>
+
+      <div class="callout">
+        <p><strong>Pro tip:</strong> _VL views are the best choice for OTBI reports and most application queries. They handle both the date-effective filter and the language join automatically.</p>
+      </div>
+
+      <h2>_ALL: All Records (No Security)</h2>
+
+      <p>Tables ending in <code>_ALL</code> return <strong>all rows without any business-unit or data-security filtering</strong>. The most common example is <a href="/table/HR_LOCATIONS_ALL">HR_LOCATIONS_ALL</a>, which shows every location in the system regardless of which business unit owns it.</p>
+
+      <p>In Oracle E-Business Suite (the predecessor to Fusion), the _ALL suffix was extremely common (e.g., <code>HR_ALL_ORGANIZATION_UNITS</code>). In Fusion, it is less prevalent but still appears in legacy-style tables and cross-module reference tables.</p>
+
+      <p>Some _ALL tables you will encounter:</p>
+      <div class="related-tables">
+        <a href="/table/HR_LOCATIONS_ALL" class="table-link">HR_LOCATIONS_ALL</a>
+        <a href="/table/HR_ALL_ORGANIZATION_UNITS" class="table-link">HR_ALL_ORGANIZATION_UNITS</a>
+        <a href="/table/PER_ALL_PEOPLE_F" class="table-link">PER_ALL_PEOPLE_F</a>
+        <a href="/table/PER_ALL_ASSIGNMENTS_F" class="table-link">PER_ALL_ASSIGNMENTS_F</a>
+      </div>
+
+      <p>Note that <code>PER_ALL_PEOPLE_F</code> and <code>PER_ALL_ASSIGNMENTS_F</code> use "ALL" as part of the table name (not a suffix). These tables still contain all persons/assignments without security filtering, plus they are date-effective (_F).</p>
+
+      <h2>_B: Base Tables</h2>
+
+      <p>The <code>_B</code> suffix denotes a <strong>base table</strong>, the primary storage table without date-effective behavior. Where _F tables have <code>EFFECTIVE_START_DATE</code> and <code>EFFECTIVE_END_DATE</code>, _B tables simply have the current state of the data.</p>
+
+      <p>Example: <a href="/table/PER_PERIODS_OF_SERVICE_B">PER_PERIODS_OF_SERVICE_B</a> stores each person's employment period (hire date, termination date) as a single row, not multiple date-effective rows.</p>
+
+      <h2>_PEO and _EO: Entity Objects (Internal)</h2>
+
+      <p>Tables and views ending in <code>_PEO</code> or <code>_EO</code> are <strong>ADF Entity Object</strong> artifacts. These are used internally by Oracle's Application Development Framework. You should generally avoid querying these directly because:</p>
+
+      <ul>
+        <li>They may include internal framework columns not meant for reporting</li>
+        <li>They can change between patch levels without notice</li>
+        <li>The base _F or _B tables contain the same data in a more stable format</li>
+      </ul>
+
+      <h2>_S: Secured Views</h2>
+
+      <p>Views ending in <code>_S</code> have <strong>Oracle Data Security (FND Data Security / FNDDS)</strong> applied. They automatically filter rows based on the current user's security profile, business unit access, and data role.</p>
+
+      <p>When building reports for end users, _S views ensure users only see data they are authorized to access. When building system-level integrations (running as a service account), you typically use the _F or _ALL table instead.</p>
+
+      <h2>How to Choose the Right Table</h2>
+
+      <p>Use this decision tree:</p>
+
+      <ol>
+        <li><strong>Need translated text?</strong> Use the <code>_VL</code> view (joins base + translation automatically)</li>
+        <li><strong>Need historical data?</strong> Use the <code>_F</code> table with date filters</li>
+        <li><strong>Need security-filtered results?</strong> Use the <code>_S</code> view</li>
+        <li><strong>Need all records regardless of business unit?</strong> Use the <code>_ALL</code> table</li>
+        <li><strong>Writing an integration or extract?</strong> Use the <code>_F</code> table directly</li>
+        <li><strong>Building an OTBI report?</strong> Use the <code>_VL</code> view when available</li>
+      </ol>
+
+      <!-- CTA -->
+      <div class="cta-box">
+        <h3>Search Any Oracle Table</h3>
+        <p>Look up columns, types, and schema for 35,000+ Oracle Fusion Cloud tables.</p>
+        <a href="/" class="cta-btn">Search Tables</a>
+      </div>
+
+      <h2>Related Articles</h2>
+      <ul>
+        <li><a href="/blog/per-all-people-f-complete-guide">Complete Guide to PER_ALL_PEOPLE_F</a></li>
+        <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Most Used Oracle Fusion HCM Tables</a></li>
+      </ul>
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="container">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p><a href="/">Search 35,000+ Oracle Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a></p>
+    </div>
+  </footer>
+</body>
+</html>
