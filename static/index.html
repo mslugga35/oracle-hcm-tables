@@ -1186,9 +1186,16 @@
     let columnsLoaded = false;
     async function loadColumns() {
       if (columnsLoaded) return;
-      const res = await fetch('data/columns.json');
-      columnsData = await res.json();
-      columnsLoaded = true;
+      try {
+        const res = await fetch('data/columns.json');
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        columnsData = await res.json();
+        columnsLoaded = true;
+      } catch (e) {
+        console.error('Failed to load columns:', e);
+        columnsData = [];
+        columnsLoaded = true;
+      }
     }
 
     async function init() {
@@ -1481,9 +1488,9 @@
       action();
     }
 
-    // Wrap original doSearch
+    // Wrap original doSearch (async — paywallGate calls it, errors handled inside)
     const _originalSearch = doSearch;
-    doSearch = function() { paywallGate(_originalSearch); };
+    doSearch = function() { paywallGate(() => _originalSearch()); };
 
     // Wrap searchTable too
     const _originalSearchTable = searchTable;
