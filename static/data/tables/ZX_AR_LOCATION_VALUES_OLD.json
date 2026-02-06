@@ -1,0 +1,451 @@
+{
+  "id": 30234,
+  "name": "ZX_AR_LOCATION_VALUES_OLD",
+  "type": "TABLE",
+  "description": "The AR_LOCATION_VALUES table defines each jurisdiction that Oracle Receivables uses to validate segments of a customer address and compile sales tax rates.  . The Sales Tax Location Flexfield defines the structure that Receivables uses to relate one segment of an address to another. Rows are automatically created in this table either by using the Oracle Receivables Sales Tax Interface program, or when a new customer address is created. Rows can also be manually created using the Tax Locations and Rates window. . Locations exist within other parent locations. Receivables uses the PARENT_SEGMENT_ID column to enforce this business rule. The first or senior segment of the Sales Tax Location Flexfield is exempt from this ownership rule.  . The primary keys for this table are LOCATION_SEGMENT_QUALIFIER, LOCATION_SEGMENT_VALUE, and PARENT_SEGMENT_ID.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/zxarlocationvaluesold-18343.html#zxarlocationvaluesold-18343",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LOCATION_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Internal location segment ID",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 3
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LOCATION_STRUCTURE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies the Sales Tax Location Structure that this hierarchy of values is used for",
+      "column_order": 7
+    },
+    {
+      "name": "LOCATION_SEGMENT_QUALIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Identifies which authority this location is for. Values may be sourced from the RA_ADDRESSES table.",
+      "column_order": 8
+    },
+    {
+      "name": "LOCATION_SEGMENT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "N",
+      "description": "Upper case of the value in AR_LOCATION_VALUES.LOCATION_SEGMENT_USER_VALUE",
+      "column_order": 9
+    },
+    {
+      "name": "LOCATION_SEGMENT_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Long name for this location, used for reporting purposes only",
+      "column_order": 10
+    },
+    {
+      "name": "PARENT_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifies which location owns this location. For example, which state owns this county.",
+      "column_order": 11
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - date when a program last updated this row).",
+      "column_order": 13
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 14
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 15
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 16
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 17
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 18
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 19
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 20
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 21
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 22
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 23
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 24
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 25
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 26
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 28
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 29
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 30
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 31
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "LOCATION_SEGMENT_USER_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "N",
+      "description": "Short name for this location, sourced from one of the columns in the RA_ADDRESSES or AR_TAX_INTERFACE tables",
+      "column_order": 41
+    },
+    {
+      "name": "TAX_ACCOUNT_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for tax account code combination",
+      "column_order": 42
+    },
+    {
+      "name": "INTERIM_TAX_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the deferred tax account",
+      "column_order": 43
+    },
+    {
+      "name": "ADJ_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the revenue/net expense account for adjustments",
+      "column_order": 44
+    },
+    {
+      "name": "EDISC_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the expense account for earned discounts",
+      "column_order": 45
+    },
+    {
+      "name": "UNEDISC_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the expense account for unearned discounts",
+      "column_order": 46
+    },
+    {
+      "name": "FINCHRG_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the revenue account for finance charges",
+      "column_order": 47
+    },
+    {
+      "name": "ADJ_NON_REC_TAX_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the non-recoverable tax account for adjustments",
+      "column_order": 48
+    },
+    {
+      "name": "EDISC_NON_REC_TAX_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the non-recoverable tax account for earned discounts",
+      "column_order": 49
+    },
+    {
+      "name": "UNEDISC_NON_REC_TAX_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the non-recoverable tax account for unearned discounts",
+      "column_order": 50
+    },
+    {
+      "name": "FINCHRG_NON_REC_TAX_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination ID of the Accounting Flexfield for the non-recoverable account for finance charges",
+      "column_order": 51
+    },
+    {
+      "name": "GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Geography Id",
+      "column_order": 52
+    },
+    {
+      "name": "COUNTRY_GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Country Geography ID",
+      "column_order": 53
+    },
+    {
+      "name": "PROGRAM_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Program name of last concurrent program to update this record",
+      "column_order": 54
+    },
+    {
+      "name": "PROGRAM_APP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Application name of last concurrent program to update this record",
+      "column_order": 55
+    }
+  ]
+}

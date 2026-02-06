@@ -1,0 +1,139 @@
+{
+  "id": 31566,
+  "name": "HZ_GEO_IDEN_PROV_DTLS",
+  "type": "TABLE",
+  "description": "HZ_GEO_IDEN_PROV_DTLS is a tracking table to track the geographies by multiple providers.The intent is to maintain a single geography hierarchy with multiple providers. For example if a geograpy CA is provided by AVALARA,LOQATE,VERTEX, this table will have three records for CA one record for each provider. This table is tracked at the geography_identifiers level.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/hzgeoidenprovdtls-8584.html#hzgeoidenprovdtls-8584",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "GEO_IDEN_PROV_DTL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique ID for geography identifier provider.",
+      "column_order": 1
+    },
+    {
+      "name": "GEOGRAPHY_IDENTIFIER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique ID for geography identifier from HZ_GEOGRAPHY_IDENTIFIERS table.",
+      "column_order": 2
+    },
+    {
+      "name": "GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique geography identifier from HZ_GEOGRAPHIES table used in TCA Geography tables (internal use only).",
+      "column_order": 3
+    },
+    {
+      "name": "PROVIDER_GEO_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Unique master geography identifier provided by the data provider.",
+      "column_order": 4
+    },
+    {
+      "name": "PARENT_PROVIDER_GEO_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Provider Geo ID of parent geography provided by the provider.",
+      "column_order": 5
+    },
+    {
+      "name": "PROVIDER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Code of the geography provider. The value is from HZ_GEO_DATA_PROVIDER lookup type. Valid values are LOQATE, VERTEX, GDT, TAXWARE and so on.",
+      "column_order": 6
+    },
+    {
+      "name": "COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Code of the Country to which the Geography belongs. Value is validated against FND_TERRITORIES_VL.",
+      "column_order": 7
+    },
+    {
+      "name": "IMPORT_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Import batch ID of the geography record. This column indicates the batch ID of the latest import batch which created or updated this geography record",
+      "column_order": 8
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATED_BY_MODULE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Created by module",
+      "column_order": 16
+    }
+  ]
+}

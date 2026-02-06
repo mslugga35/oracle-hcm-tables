@@ -1,0 +1,539 @@
+{
+  "id": 27197,
+  "name": "FLA_INCREMENT_PERIODS",
+  "type": "TABLE",
+  "description": "FLA_INCREMENT_PERIODS contains payment increase assessment periods for the payment increase agreement",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flaincrementperiods-5316.html#flaincrementperiods-5316",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INCREMENT_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique payment increase assessment period identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease identifier. It references the primary key of the FLA_LEASES_ALL table.",
+      "column_order": 3
+    },
+    {
+      "name": "LEASE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease detail identifier. It is referenced from the FLA_LEASE_DETAILS table.",
+      "column_order": 4
+    },
+    {
+      "name": "VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Version number of the lease as captured in the FLA_LEASE_DETAILS table.",
+      "column_order": 5
+    },
+    {
+      "name": "AGREEMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Payment increase agreement number. It is referenced from the FLA_INCREMENT_HEADERS table.",
+      "column_order": 6
+    },
+    {
+      "name": "INCREASE_PERIOD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Payment increase assessment period number.",
+      "column_order": 7
+    },
+    {
+      "name": "ASSESSMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date when the payment increase assessment will be performed.",
+      "column_order": 8
+    },
+    {
+      "name": "FINAL_ASSESSED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the final assessment is done or not for the assessment period.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_ASSESSED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the last date when assessment happened for the assessment period.",
+      "column_order": 10
+    },
+    {
+      "name": "INCREASE_CALC_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Defines whether to use index based, fixed rate based, or a greater or lower value of both when calculating the increase percent.",
+      "column_order": 11
+    },
+    {
+      "name": "INCREASE_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Increase percent as entered by user or as calculated by system for the assessment period.",
+      "column_order": 12
+    },
+    {
+      "name": "FIXED_INCREASE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Fixed increase amount as entered by user for the assessment period.",
+      "column_order": 13
+    },
+    {
+      "name": "BASIS_FACTOR_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Basis factor percent as entered by user for the assessment period.",
+      "column_order": 14
+    },
+    {
+      "name": "INCREASE_APPLICABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the payment increase is applicable for the assessment period or not.",
+      "column_order": 15
+    },
+    {
+      "name": "DATA_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Feeder system from which lease data was created.",
+      "column_order": 16
+    },
+    {
+      "name": "SCHEDULES_IMPACT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag which indicates schedules are impacted and need to be regenerated.",
+      "column_order": 17
+    },
+    {
+      "name": "CHANGE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the type of change to the record, whether INSERT or UPDATE or DELETE.",
+      "column_order": 18
+    },
+    {
+      "name": "CHANGED_IN_VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Version number in which there was a change, either an Addition or Update or Delete.",
+      "column_order": 19
+    },
+    {
+      "name": "PARENT_RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Parent record identifier. This identifies the parent record for this record.",
+      "column_order": 20
+    },
+    {
+      "name": "CARRY_FORWARD_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Percentage of increase to be carry forwarded to next assessment period.",
+      "column_order": 21
+    },
+    {
+      "name": "INCREASE_DERIVATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates source of increase percentage, whether index or fixed increase.",
+      "column_order": 22
+    },
+    {
+      "name": "DERIVED_FIXED_INCREASE_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Fixed increase percentage which was derived.",
+      "column_order": 23
+    },
+    {
+      "name": "DERIVED_INDEX_INCREASE_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Index based increase percentage which was derived.",
+      "column_order": 24
+    },
+    {
+      "name": "DERIVED_INDEX_FINDER_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Index date on which used to derive the index value.",
+      "column_order": 25
+    },
+    {
+      "name": "DERIVED_INDEX_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Index value which was derived for the index finder date.",
+      "column_order": 26
+    },
+    {
+      "name": "ASSESSMENT_DERIVATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the way the missing index should be derived during assessment of an assessment period.",
+      "column_order": 27
+    },
+    {
+      "name": "INDEX_FINDER_MONTHS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Indicates the check for index can span for these number of months.",
+      "column_order": 28
+    },
+    {
+      "name": "SYSTEM_ORIGIN_REFERENCE_1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System reference column to maintain the key of source system from which lease is being imported",
+      "column_order": 29
+    },
+    {
+      "name": "SYSTEM_ORIGIN_REFERENCE_2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System reference column to maintain the key of source system from which lease is being imported",
+      "column_order": 30
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 31
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 32
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "PREVIOUS_DERIVED_INDEX_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Index value which was derived for the index finder date for the previous index. This is applicable for Rolling index.",
+      "column_order": 34
+    },
+    {
+      "name": "PREVIOUS_DERIVED_INDEX_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Index date on which used to derive the index value for the previous index. This is applicable for Rolling index.",
+      "column_order": 35
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 36
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 37
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 38
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    }
+  ]
+}

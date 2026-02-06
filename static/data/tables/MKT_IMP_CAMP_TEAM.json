@@ -1,0 +1,203 @@
+{
+  "id": 32790,
+  "name": "MKT_IMP_CAMP_TEAM",
+  "type": "TABLE",
+  "description": "This interface table stores staging data for marketing campaign team.  The staging data gets populated into MKT_CM_CAMP_RESOURCES and MKT_CM_CAMP_RESOURCE_TEAMS table.  The marketing campaign team is composed of resources and resource teams which have different levels of access to the campaign.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/mktimpcampteam-12103.html#mktimpcampteam-12103",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key. Batch Identifier. Identifier that groups data into a batch.",
+      "column_order": 1
+    },
+    {
+      "name": "INTERFACE_ROW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key. Interface Row Id. Will be used to link this row with rows in the error table.",
+      "column_order": 2
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 3
+    },
+    {
+      "name": "IMPORT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the status of the record to be processed.",
+      "column_order": 4
+    },
+    {
+      "name": "ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Import error message.",
+      "column_order": 5
+    },
+    {
+      "name": "FILE_RECORD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Record indicator in the File.",
+      "column_order": 6
+    },
+    {
+      "name": "ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the operation to be performed on a row, such as Insert, Update etc.",
+      "column_order": 7
+    },
+    {
+      "name": "RESOURCE_ORIG_SYS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Resource  Original System .Stores a unique identifier denoting the source system",
+      "column_order": 8
+    },
+    {
+      "name": "RESOURCE_ORIG_SYS_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Resource  Original System Reference. Stores the unique identifier of the campaign resource  in the source system.",
+      "column_order": 9
+    },
+    {
+      "name": "CAMPAIGN_EXT_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Campaign  Original System Reference. Stores the unique identifier of the campaign  in the source system. Used to look up campaign_id",
+      "column_order": 10
+    },
+    {
+      "name": "RESOURCE_TEAM_ORIG_SYS_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Resource team Original System Reference. Stores the unique identifier of the  resource team  in the source system.",
+      "column_order": 11
+    },
+    {
+      "name": "CAMPAIGN_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Fusion id of the campaign-resource association in MKT_CM_CAMP_RESOURCES",
+      "column_order": 12
+    },
+    {
+      "name": "CAMPAIGN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Fusion id of the campaign in MKT_CM_CAMPAIGNS",
+      "column_order": 13
+    },
+    {
+      "name": "RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Fusion id of the campaign resource in TCA resource schema.",
+      "column_order": 14
+    },
+    {
+      "name": "ACCESS_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Access Level Code indicating the type of access the resource/resource team has to the campaign e.g Edit or Full.",
+      "column_order": 15
+    },
+    {
+      "name": "OWNER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Owner Flag indicating if this resource is the owner of the campaign.",
+      "column_order": 16
+    },
+    {
+      "name": "CAMPAIGN_RESOURCE_TEAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Fusion id of the campaign-resource association in MKT_CM_CAMP_RESOURCE_TEAMS",
+      "column_order": 17
+    },
+    {
+      "name": "RESOURCE_TEAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Fusion id of the resource team in TCA resource team schema",
+      "column_order": 18
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 19
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 20
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 21
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 24
+    }
+  ]
+}

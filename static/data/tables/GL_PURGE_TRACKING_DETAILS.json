@@ -1,0 +1,147 @@
+{
+  "id": 28104,
+  "name": "GL_PURGE_TRACKING_DETAILS",
+  "type": "TABLE",
+  "description": "This table stores the purge status of a business object, ledger, or legal entity. It is used only when the retention location for the archived data is Oracle Cloud ERP. If the archived data is retained at the business object level, then this table will have one row for each combination of calendar and business object. If the archived data is retained at the ledger level, then this table will have one row for each combination of ledger, calendar, and business object. If the archived data is retained at the legal entity level, then this table will have one row for each combination of legal entity, ledger, calendar, and business object as well as one row for each combination of ledger, calendar, and business object. This second set of ledger-only rows will be used to track the purge status of data with no associated legal entity.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/glpurgetrackingdetails-7657.html#glpurgetrackingdetails-7657",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "BUSINESS_OBJECT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Business object for which the archived data was purged. Some valid values are ORA_GL_JOURNALS for General Ledger Journals and ORA_GL_BALANCES for General Ledger Balances.",
+      "column_order": 1
+    },
+    {
+      "name": "CALENDAR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Accounting calendar identifier associated with the archived data that was purged.",
+      "column_order": 2
+    },
+    {
+      "name": "PERIOD_SET_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Accounting calendar name associated with the archived data that was purged.",
+      "column_order": 3
+    },
+    {
+      "name": "PERIOD_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Period type for the accounting calendar associated with the archived data that was purged.",
+      "column_order": 4
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the primary ledger, secondary ledger, or reporting currency for which the archived data was purged.  A value of -99 indicates the row applies to all ledgers.",
+      "column_order": 5
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the legal entity for which the archived data was purged. A value of -99 indicates this row applies to all legal entities.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_PURGED_YEAR",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Fiscal year that contains the latest period that was successfully purged for this combination of business object, calendar, ledger (if applicable), and legal entity (if applicable). A value of 0 indicates that no period has been purg",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_PURGED_PERIOD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Period number of the latest period that was successfully purged for this combination of business object, calendar, ledger (if applicable), and legal entity (if applicable). A value of 0 indicates that no period has been purged yet.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_PURGED_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "End date of the latest period that was successfully purged for this combination of business object, calendar, ledger (if applicable), and legal entity (if applicable). A value of January 1, 1900 indicates that no period has been purged yet.",
+      "column_order": 9
+    },
+    {
+      "name": "NEXT_UNPURGED_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "End date of the earliest period that has not yet been successfully purged for this combination of business object, calendar, ledger (if applicable), and legal entity (if applicable). A value of January 1, 1900 indicates that no period has been purged yet.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 16
+    },
+    {
+      "name": "BALANCING_SEGMENT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "N",
+      "description": "Balancing segment value associated with the specified retention period. A value of -99 indicates all balancing segment values.",
+      "column_order": 17
+    }
+  ]
+}

@@ -1,0 +1,179 @@
+{
+  "id": 26646,
+  "name": "FA_MC_CONVERSION_RATES_INT",
+  "type": "TABLE",
+  "description": "FA_MC_CONVERSION_RATES_INT contains exchange rate information to convert existing asset transaction in the corporate book to the reporting currency when a new subledger level reporting ledger is added to the primary ledger. When you run Phase 1 of the Translate Asset Transactions to Reporting Currency process, the base table FA_MC_CONVERSION_RATES will be populated with all the assets that will be converted. Once Phase 1 is complete you can provide a CONVERSION_BASIS of either R or C to convert each asset. If you provide R as the basis, you will have to provide an exchange rate to use for conversion or use the default rate as defined in the GL conversion options. If you provide a conversion basis of C, you will have to provide the COST of the asset in the reporting currency. The STATUS_CODE should be populated as POST.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/famcconversionratesint-23286.html#famcconversionratesint-23286",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CONVERSION_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique conversion rate identification number.",
+      "column_order": 1
+    },
+    {
+      "name": "BOOK_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the asset book in which asset is recorded.",
+      "column_order": 2
+    },
+    {
+      "name": "SET_OF_BOOKS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Oracle internal use only. Unique reporting currency ledger identifier.",
+      "column_order": 3
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "The currency code of the reporting ledger.",
+      "column_order": 4
+    },
+    {
+      "name": "ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Unique asset identification number.",
+      "column_order": 5
+    },
+    {
+      "name": "ASSET_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "User-defined asset identification number.",
+      "column_order": 6
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Unique lease identification number.",
+      "column_order": 7
+    },
+    {
+      "name": "LEASE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "User-defined lease number of the lease.",
+      "column_order": 8
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Posting status of the asset transaction. For new records, value will be 'POST' , once processed the value will be updated to 'POSTED' or 'ERROR'.",
+      "column_order": 9
+    },
+    {
+      "name": "CONVERSION_BASIS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Basis for converting transaction amounts from primary ledger currency to the reporting currency.",
+      "column_order": 10
+    },
+    {
+      "name": "COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total recorded cost of the asset.",
+      "column_order": 11
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used for converting amounts between primary currency and reporting currency.",
+      "column_order": 12
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "User-entered comments of the transaction.",
+      "column_order": 13
+    },
+    {
+      "name": "ERROR_MSG",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Error message detailing failure of the posting program.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 20
+    },
+    {
+      "name": "LOAD_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the loader job that created or last updated the row.",
+      "column_order": 21
+    }
+  ]
+}

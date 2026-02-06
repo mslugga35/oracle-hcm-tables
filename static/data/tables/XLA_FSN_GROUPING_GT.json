@@ -1,0 +1,1267 @@
+{
+  "id": 30052,
+  "name": "XLA_FSN_GROUPING_GT",
+  "type": "TABLE",
+  "description": "This table is used by the accounting engine to temporarily store accounting entries that are too big to fit into memory. Once the entire accounting entry has been processed, the data in this table is grouped together and then transferred to the XLA_AE_LINES table. The grouping is done by updating the REF_LINE_NUM, ENTERED_DR_SUM, ENTERED_CR_SUM, ACCOUNTED_DR_SUM, ACCOUNTED_CR_SUM, UNROUNDED_ENTERED_DR_SUM, UNROUNDED_ENTERED_CR_SUM, UNROUNDED_ACCOUNTED_DR_SUM, UNROUNDED_ACCOUNTED_CR_SUM, STATISTICAL_AMOUNT_SUM, CODE_COMBINATION_ID, and CURRENCY_CODE columns with the desired value for the grouped lines. All lines with a REF_LINE_NUM equal to their AE_LINE_NUM are then inserted into XLA_AE_LINES.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/xlafsngroupinggt-14551.html#xlafsngroupinggt-14551",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "AE_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Subledger journal entry identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "ANCHOR_LINE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "ANCHOR_LINE_FLAG",
+      "column_order": 2
+    },
+    {
+      "name": "AE_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Subledger journal entry line number.",
+      "column_order": 3
+    },
+    {
+      "name": "APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Functional area within a software suite of products. For example, Financials or Payroll.",
+      "column_order": 4
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique combination of segment values that records accounting transactions. A typical account combination contains the following segments: company, division.",
+      "column_order": 5
+    },
+    {
+      "name": "GL_TRANSFER_MODE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Transfer mode (detail or summary).",
+      "column_order": 6
+    },
+    {
+      "name": "GL_SL_LINK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Combines with GL_SL_LINK_table to form a unique identifier that uniquely identifies this row for drilldown purposes from general ledger journal lines.",
+      "column_order": 7
+    },
+    {
+      "name": "ACCOUNTING_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Lookup type that is shared across the application and used to classify journal entry lines.",
+      "column_order": 8
+    },
+    {
+      "name": "PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Additional party to the internal party and the external party, that participates in a business relationship. Related terms are external party or  internal party.",
+      "column_order": 9
+    },
+    {
+      "name": "PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Site name of an additional party to the internal party and the external party that participates in a business relationship.",
+      "column_order": 10
+    },
+    {
+      "name": "PARTY_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Third party type (customer or supplier).",
+      "column_order": 11
+    },
+    {
+      "name": "ENTERED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Entered debit amount for journal entry line.",
+      "column_order": 12
+    },
+    {
+      "name": "ENTERED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Entered credit amount for journal entry line.",
+      "column_order": 13
+    },
+    {
+      "name": "ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounted debit amount for journal entry line.",
+      "column_order": 14
+    },
+    {
+      "name": "ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounted credit amount for journal entry line.",
+      "column_order": 15
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1996,
+      "nullable": "Y",
+      "description": "Journal entry line description.",
+      "column_order": 16
+    },
+    {
+      "name": "STATISTICAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Used in reporting analysis and allocation journal entries. Examples of statistical units of measure are headcount, copies, and labor hours.",
+      "column_order": 17
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Three-letter ISO code associated with the entered currency.",
+      "column_order": 18
+    },
+    {
+      "name": "CURRENCY_CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date as of which a conversion rate is used to convert an amount into another currency.",
+      "column_order": 19
+    },
+    {
+      "name": "CURRENCY_CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Ratio at which the principal unit of one currency can be converted into another currency.",
+      "column_order": 20
+    },
+    {
+      "name": "CURRENCY_CONVERSION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source of a currency conversion rate, such as user defined, spot, or corporate.",
+      "column_order": 21
+    },
+    {
+      "name": "USSGL_TRANSACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "United States Standard General Ledger transaction code.",
+      "column_order": 22
+    },
+    {
+      "name": "JGZZ_RECON_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "System-assigned identifier used for reconciliation matching.",
+      "column_order": 23
+    },
+    {
+      "name": "CONTROL_BALANCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this is a control account.",
+      "column_order": 24
+    },
+    {
+      "name": "ANALYTICAL_BALANCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag for analytical balances. Valid values are Null: not eligible for balance calculation, P: balance calculation pending, or Y: balance calculation done.",
+      "column_order": 25
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 26
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 28
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 29
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 30
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 31
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "GL_SL_LINK_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Combines with GL_SL_LINK_table to form a unique identifier that uniquely identifies a row when navigating from general ledger journal lines.",
+      "column_order": 42
+    },
+    {
+      "name": "DISPLAYED_LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting entry line number displayed to users.",
+      "column_order": 43
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 44
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 45
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 46
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 47
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 48
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 49
+    },
+    {
+      "name": "UPG_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 50
+    },
+    {
+      "name": "UPG_TAX_REFERENCE_ID1",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Upgraded tax reference identifier.",
+      "column_order": 51
+    },
+    {
+      "name": "UPG_TAX_REFERENCE_ID2",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Upgraded tax reference identifier.",
+      "column_order": 52
+    },
+    {
+      "name": "UPG_TAX_REFERENCE_ID3",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Upgraded tax reference identifier.",
+      "column_order": 53
+    },
+    {
+      "name": "UNROUNDED_ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unrounded debit amount in base currency.",
+      "column_order": 54
+    },
+    {
+      "name": "UNROUNDED_ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unrounded credit amount in base currency.",
+      "column_order": 55
+    },
+    {
+      "name": "GAIN_OR_LOSS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this is a gain or loss line type.",
+      "column_order": 56
+    },
+    {
+      "name": "UNROUNDED_ENTERED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unrounded debit amount in entered currency.",
+      "column_order": 57
+    },
+    {
+      "name": "UNROUNDED_ENTERED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unrounded credit amount in entered currency.",
+      "column_order": 58
+    },
+    {
+      "name": "SUBSTITUTED_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Original account if a replacement account was used.",
+      "column_order": 59
+    },
+    {
+      "name": "BUSINESS_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique abbreviated name assigned to a business class and used for reporting or in reference to an option.",
+      "column_order": 60
+    },
+    {
+      "name": "MULTIPERIOD_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 61
+    },
+    {
+      "name": "MPA_ACCRUAL_ENTRY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 62
+    },
+    {
+      "name": "ENCUMBRANCE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Encumbrance category that allows you to track your encumbrances or anticipated expenditures according to your purchase approval process and to more accurately control your planned expenditures. Examples of encumbrance types are commitments (requisition encumbrances) and obligations (purchase order encumbrances).",
+      "column_order": 63
+    },
+    {
+      "name": "FUNDS_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 64
+    },
+    {
+      "name": "MERGE_CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 65
+    },
+    {
+      "name": "MERGE_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 66
+    },
+    {
+      "name": "MERGE_PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 67
+    },
+    {
+      "name": "ACCOUNTING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date, referenced from Oracle Fusion General Ledger, used to determine the accounting period for transactions.",
+      "column_order": 68
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Self-contained accounting information set for single or multiple legal or management entities.",
+      "column_order": 69
+    },
+    {
+      "name": "SOURCE_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 70
+    },
+    {
+      "name": "SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the source.",
+      "column_order": 71
+    },
+    {
+      "name": "ACCOUNT_OVERLAY_SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 72
+    },
+    {
+      "name": "MERGE_MATCHING_MODE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Level of merging to be done for this line. None, Dr, Cr, or All.",
+      "column_order": 73
+    },
+    {
+      "name": "NATURAL_SIDE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Natural side of this line. Debit or Credit.",
+      "column_order": 74
+    },
+    {
+      "name": "REF_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Line number to be used for this line in XLA_AE_LINES after grouping.",
+      "column_order": 75
+    },
+    {
+      "name": "ENTERED_DR_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total entered debit amount for grouped line.",
+      "column_order": 76
+    },
+    {
+      "name": "ENTERED_CR_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total entered credit amount for grouped line.",
+      "column_order": 77
+    },
+    {
+      "name": "ACCOUNTED_DR_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of accounted debit amounts.",
+      "column_order": 78
+    },
+    {
+      "name": "ACCOUNTED_CR_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of accounted credit amounts.",
+      "column_order": 79
+    },
+    {
+      "name": "UNROUNDED_ENTERED_DR_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total unrounded entered debit amount for grouped line.",
+      "column_order": 80
+    },
+    {
+      "name": "UNROUNDED_ENTERED_CR_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total unrounded entered credit amount for grouped line.",
+      "column_order": 81
+    },
+    {
+      "name": "UNROUNDED_ACCOUNTED_DR_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total unrounded accounted debit amount for grouped line.",
+      "column_order": 82
+    },
+    {
+      "name": "UNROUNDED_ACCOUNTED_CR_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total unrounded accounted credit amount for grouped line.",
+      "column_order": 83
+    },
+    {
+      "name": "SUP_REF_STR1",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "containing all of the supporting reference information concatenated together for use in merging",
+      "column_order": 84
+    },
+    {
+      "name": "SUP_REF_STR2",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "containing all of the supporting reference information concatenated together for use in merging",
+      "column_order": 85
+    },
+    {
+      "name": "MERGE_CRITERIA_STR",
+      "data_type": "VARCHAR2",
+      "data_length": 595,
+      "nullable": "Y",
+      "description": "concatenated together",
+      "column_order": 86
+    },
+    {
+      "name": "STATISTICAL_AMOUNT_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total statistical amount for grouped line",
+      "column_order": 87
+    },
+    {
+      "name": "SEGMENT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Accounting flexfield segment used to automatically balance all journal entries for each value of this segment.",
+      "column_order": 88
+    },
+    {
+      "name": "GAIN_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Gain account for use in gain or loss lines.",
+      "column_order": 89
+    },
+    {
+      "name": "LOSS_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Loss account for use in gain or loss lines",
+      "column_order": 90
+    },
+    {
+      "name": "GAIN_OR_LOSS_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Contains the source value of the gain or loss reference accounting attribute that is used in adding journal lines used in gain or loss amount calculation",
+      "column_order": 91
+    },
+    {
+      "name": "LEDGER_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Three-digit ISO currency code of the currency that the transaction was entered in.",
+      "column_order": 92
+    },
+    {
+      "name": "SUPP_REF_VALUES",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Concatenated value of SR1 to SR30 used for grouping the similar records in balance calculation.",
+      "column_order": 93
+    },
+    {
+      "name": "SUPP_REF_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the combination of additional transactional information on a subledger journal entry or line.",
+      "column_order": 94
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The fiscal period a company uses to report financial results, such as a calendar month or accounting period.",
+      "column_order": 95
+    },
+    {
+      "name": "SR1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 1.",
+      "column_order": 96
+    },
+    {
+      "name": "SR2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 2.",
+      "column_order": 97
+    },
+    {
+      "name": "SR3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 3.",
+      "column_order": 98
+    },
+    {
+      "name": "SR4",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 4.",
+      "column_order": 99
+    },
+    {
+      "name": "SR5",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 5.",
+      "column_order": 100
+    },
+    {
+      "name": "SR6",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 6.",
+      "column_order": 101
+    },
+    {
+      "name": "SR7",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 7.",
+      "column_order": 102
+    },
+    {
+      "name": "SR8",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 8.",
+      "column_order": 103
+    },
+    {
+      "name": "SR9",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 9.",
+      "column_order": 104
+    },
+    {
+      "name": "SR10",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 10.",
+      "column_order": 105
+    },
+    {
+      "name": "SR11",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 11.",
+      "column_order": 106
+    },
+    {
+      "name": "SR12",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 12.",
+      "column_order": 107
+    },
+    {
+      "name": "SR13",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 13.",
+      "column_order": 108
+    },
+    {
+      "name": "SR14",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 14.",
+      "column_order": 109
+    },
+    {
+      "name": "SR15",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 15.",
+      "column_order": 110
+    },
+    {
+      "name": "SR16",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 16.",
+      "column_order": 111
+    },
+    {
+      "name": "SR17",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 17.",
+      "column_order": 112
+    },
+    {
+      "name": "SR18",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 18.",
+      "column_order": 113
+    },
+    {
+      "name": "SR19",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 19.",
+      "column_order": 114
+    },
+    {
+      "name": "SR20",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 20.",
+      "column_order": 115
+    },
+    {
+      "name": "SR21",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 21.",
+      "column_order": 116
+    },
+    {
+      "name": "SR22",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 22.",
+      "column_order": 117
+    },
+    {
+      "name": "SR23",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 23.",
+      "column_order": 118
+    },
+    {
+      "name": "SR24",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 24.",
+      "column_order": 119
+    },
+    {
+      "name": "SR25",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 25.",
+      "column_order": 120
+    },
+    {
+      "name": "SR26",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 26.",
+      "column_order": 121
+    },
+    {
+      "name": "SR27",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 27.",
+      "column_order": 122
+    },
+    {
+      "name": "SR28",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 28.",
+      "column_order": 123
+    },
+    {
+      "name": "SR29",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 29.",
+      "column_order": 124
+    },
+    {
+      "name": "SR30",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 30",
+      "column_order": 125
+    },
+    {
+      "name": "SR31",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 31.",
+      "column_order": 126
+    },
+    {
+      "name": "SR32",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 32.",
+      "column_order": 127
+    },
+    {
+      "name": "SR33",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 33.",
+      "column_order": 128
+    },
+    {
+      "name": "SR34",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 34.",
+      "column_order": 129
+    },
+    {
+      "name": "SR35",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 35.",
+      "column_order": 130
+    },
+    {
+      "name": "SR36",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 36.",
+      "column_order": 131
+    },
+    {
+      "name": "SR37",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 37.",
+      "column_order": 132
+    },
+    {
+      "name": "SR38",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 38.",
+      "column_order": 133
+    },
+    {
+      "name": "SR39",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 39.",
+      "column_order": 134
+    },
+    {
+      "name": "SR40",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 40.",
+      "column_order": 135
+    },
+    {
+      "name": "SR41",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 41.",
+      "column_order": 136
+    },
+    {
+      "name": "SR42",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 42.",
+      "column_order": 137
+    },
+    {
+      "name": "SR43",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 43.",
+      "column_order": 138
+    },
+    {
+      "name": "SR44",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 44.",
+      "column_order": 139
+    },
+    {
+      "name": "SR45",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 45.",
+      "column_order": 140
+    },
+    {
+      "name": "SR46",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 46.",
+      "column_order": 141
+    },
+    {
+      "name": "SR47",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 47.",
+      "column_order": 142
+    },
+    {
+      "name": "SR48",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 48.",
+      "column_order": 143
+    },
+    {
+      "name": "SR49",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 49.",
+      "column_order": 144
+    },
+    {
+      "name": "SR50",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 50.",
+      "column_order": 145
+    },
+    {
+      "name": "SR51",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 51.",
+      "column_order": 146
+    },
+    {
+      "name": "SR52",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 52.",
+      "column_order": 147
+    },
+    {
+      "name": "SR53",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 53.",
+      "column_order": 148
+    },
+    {
+      "name": "SR54",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 54.",
+      "column_order": 149
+    },
+    {
+      "name": "SR55",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 55.",
+      "column_order": 150
+    },
+    {
+      "name": "SR56",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 56.",
+      "column_order": 151
+    },
+    {
+      "name": "SR57",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 57.",
+      "column_order": 152
+    },
+    {
+      "name": "SR58",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 58.",
+      "column_order": 153
+    },
+    {
+      "name": "SR59",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 59.",
+      "column_order": 154
+    },
+    {
+      "name": "SR60",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supporting Reference Segment 60.",
+      "column_order": 155
+    },
+    {
+      "name": "SUBLEDGER_XCC_COMPLETE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Subledger Budgetary Control Status",
+      "column_order": 156
+    },
+    {
+      "name": "PARTITION_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Partition grouping information which determines the database partition in which large accounting entries will be stored temporarily for processing by the accounting engine.",
+      "column_order": 157
+    }
+  ]
+}

@@ -1,0 +1,547 @@
+{
+  "id": 29245,
+  "name": "AR_CASH_RECEIPT_HISTORY_ALL",
+  "type": "TABLE",
+  "description": "The AR_CASH_RECEIPT_HISTORY_ALL table contains one row for each step in the life cycle of a receipt. The STATUS column indicates the status for each step: APPROVED for receipts approved for automatic creation and CONFIRMED for receipts confirmed by  customer to be included in automatic receipt creation. Approved and confirmed statuses are valid only for automatically created receipts. Valid statuses for both manually and automatically created receipts include: REMITTED for receipts that were remitted, CLEARED for receipts that were cleared and REVERSED for receipts that were reversed. Receivables posts each row in this table to the General Ledger. Each row debits the account that is represented by the ACCOUNT_CODE_COMBINATION_ID column on the date specified in the GL_DATE column and credits the account on the date specified in the REVERSAL_GL_DATE column, if a date is present in this column. Optionally, each row will also debit (on the date specified in the GL_DATE column) and credit (on the date specified in the REVERSAL_GL_DATE column) the account that is represented by the BANK_CHARGE_ACCOUNT_CCID column for the amount in the FACTOR_DISCOUNT_AMOUNT column, which is the difference between the remitted amount and the cleared amount. The CURRENT_RECORD_FLAG column points to the current row, which is the current status of the cash receipt. The POSTABLE_FLAG column determines if a row can be posted to General Ledger. The primary key for this table is CASH_RECEIPT_HISTORY_ID.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arcashreceipthistoryall-28388.html#arcashreceipthistoryall-28388",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CASH_RECEIPT_HISTORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Cash receipt history identifier",
+      "column_order": 1
+    },
+    {
+      "name": "CASH_RECEIPT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Not currently used.",
+      "column_order": 2
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "One of the following: APPROVED, CONFIRMED, REMITTED, CLEARED, REVERSED",
+      "column_order": 3
+    },
+    {
+      "name": "TRX_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The transaction date when this history row occurs as entered by the user",
+      "column_order": 4
+    },
+    {
+      "name": "AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The amount for this step of the life cycle of the receipt.  Most of the amounts will be similar to the original amount of the cash receipt but the cleared amount might be different from the remitted due to any charges the bank took.",
+      "column_order": 5
+    },
+    {
+      "name": "FIRST_POSTED_RECORD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This is Y if this is the first row that is posted for this cash receipts; N otherwise.",
+      "column_order": 6
+    },
+    {
+      "name": "POSTABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This is Y if the row is postable and N otherwise.  It is N for the approved row and N for the REVERSED row.  It is Y for all the other statuses.",
+      "column_order": 7
+    },
+    {
+      "name": "FACTOR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This is Y if the status is REMITTED and the cash receipt was factored as specified by the user on the remittance step.",
+      "column_order": 8
+    },
+    {
+      "name": "GL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The General Ledger Date that is used when debiting the ACCOUNT_CODE_COMBINATION_ID",
+      "column_order": 9
+    },
+    {
+      "name": "CURRENT_RECORD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This is Y if this row is the latest step for this cash receipt; it is null otherwise.",
+      "column_order": 10
+    },
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is a foreign key to the AR_BATCHES table that points to the batch that was used to create this row for this cash receipt.",
+      "column_order": 11
+    },
+    {
+      "name": "ACCOUNT_CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is the account that is either debited or credited (on the GL_DATE and REVERSAL_GL_DATE respectively).",
+      "column_order": 12
+    },
+    {
+      "name": "REVERSAL_GL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the General Ledger Date that is used to credit the ACCOUNT_CODE_COMBINATION_ID.  It also signifies that this row has been reversed.  It could mean that the receipt went on to the next step or reverted one step.",
+      "column_order": 13
+    },
+    {
+      "name": "REVERSAL_CASH_RECEIPT_HIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is a unique key that sequences the reversal of this row and is sourced from the same sequence as CASH_RECEIPT_HISTORY_ID.",
+      "column_order": 14
+    },
+    {
+      "name": "FACTOR_DISCOUNT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the amount of the bank charge and/or factor discount taken by the bank at clearance and/or factoring time.",
+      "column_order": 15
+    },
+    {
+      "name": "BANK_CHARGE_ACCOUNT_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is the account that is debited and/or credited for the FACTOR_DISCOUNT_AMOUNT.",
+      "column_order": 16
+    },
+    {
+      "name": "POSTING_CONTROL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Receivables posting batch identifier; -1 means it was posted by the old posting program (ARXGLP); -2 means it's posted from old rel8 RA; -3 means it's not posted; -4 means it's posted by rel9 RAPOST",
+      "column_order": 17
+    },
+    {
+      "name": "REVERSAL_POSTING_CONTROL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Receivables posting batch identifier; -1 means it was posted by the old posting program (ARXGLP); -2 means it's posted from RA; -3 means it's not posted; this should be null if reversal_gl_date is null.",
+      "column_order": 18
+    },
+    {
+      "name": "GL_POSTED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date given when you submit record for General Ledger posting",
+      "column_order": 19
+    },
+    {
+      "name": "REVERSAL_GL_POSTED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date given when you submit reversal for General Ledger posting",
+      "column_order": 20
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 21
+    },
+    {
+      "name": "ACCTD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This is AMOUNT in the functional currency.",
+      "column_order": 22
+    },
+    {
+      "name": "ACCTD_FACTOR_DISCOUNT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is FACTOR_DISCOUNT_AMOUNT in the functional currency.",
+      "column_order": 23
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 24
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 25
+    },
+    {
+      "name": "EXCHANGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date for which rate selected",
+      "column_order": 26
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Exchange rate used to convert foreign currency amounts into functional currency",
+      "column_order": 27
+    },
+    {
+      "name": "EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used to define multiple currency exchange rates for the same date",
+      "column_order": 28
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 29
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - application id of the program that last updated this row (foreign key to FND_APPLICATION.APPLICATION_ID).",
+      "column_order": 30
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - program id of the program that last updated this row (foreign key to FND_CONCURRENT_PROGRAM.CONCURRENT_PROGRAM_ID).",
+      "column_order": 31
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - date when a program last updated this row).",
+      "column_order": 32
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 34
+    },
+    {
+      "name": "PRV_STAT_CASH_RECEIPT_HIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This column has the CASH_RECEIPT_HISTORY_ID of the record that precedes the current record in status.  Normally, it is the ID of the reversed record.  For rate adjustments, it has the same value as that of the record it reversed/adjusted.",
+      "column_order": 35
+    },
+    {
+      "name": "CREATED_FROM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Populated by code that points to form or program that created this row",
+      "column_order": 36
+    },
+    {
+      "name": "REVERSAL_CREATED_FROM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Populated by code that points to form or program that reversed this row",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "NOTE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The state of the Note Receivable",
+      "column_order": 54
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 55
+    },
+    {
+      "name": "MRC_POSTING_CONTROL_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 56
+    },
+    {
+      "name": "MRC_GL_POSTED_DATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 57
+    },
+    {
+      "name": "MRC_REVERSAL_GL_POSTED_DATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 58
+    },
+    {
+      "name": "MRC_ACCTD_AMOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 59
+    },
+    {
+      "name": "MRC_ACCTD_FACTOR_DISC_AMOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 60
+    },
+    {
+      "name": "MRC_EXCHANGE_DATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 61
+    },
+    {
+      "name": "MRC_EXCHANGE_RATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 62
+    },
+    {
+      "name": "MRC_EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 63
+    },
+    {
+      "name": "EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Subledger accounting event identifier.",
+      "column_order": 64
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 65
+    },
+    {
+      "name": "BUDGETARY_CONTROL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option that indicates whether budgeting is enabled on the ledger associated with the standard receipt, and if its details should be interfaced to Budgetary Control. Valid values are Y and N.",
+      "column_order": 66
+    },
+    {
+      "name": "SUBLEDGER_BC_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option that indicates whether to interface standard receipt accounting information from General Ledger to Budgetary Control.  This value is passed by Budgetary Control to General Ledger through the accounting information from Receivables.",
+      "column_order": 67
+    }
+  ]
+}

@@ -1,0 +1,1891 @@
+{
+  "id": 30221,
+  "name": "JG_ZZ_VAT_TRX_DETAILS",
+  "type": "TABLE",
+  "description": "JG_ZZ_VAT_TRX_DETAILS contains all payment related transactions selected for tax reporting. Taxable transactions (invoices) are already marked as selected directly in  ZX repository itself, since payment related transactions have no tax impact, they are not stored in tax repository and they are marked as finally reported using this table. It can be used as a source for audits to provide information reported to the tax authorities at any point in time.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/jgzzvattrxdetails-4156.html#jgzzvattrxdetails-4156",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "VAT_TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key - Sequence generated.",
+      "column_order": 1
+    },
+    {
+      "name": "REPORTING_STATUS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Reporting status identifier. Foreign Key for JG_ZZ_REP_STATUS table.",
+      "column_order": 2
+    },
+    {
+      "name": "SELECTION_PROCESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Selection process identifier. Foreign Key for JG_ZZ_REP_STATUS table.",
+      "column_order": 3
+    },
+    {
+      "name": "FINAL_REPORTING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Final process identifier. Foreign Key for JG_ZZ_REP_STATUS table",
+      "column_order": 4
+    },
+    {
+      "name": "REP_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Legal Entity Identifier or Operating Unit identifier",
+      "column_order": 5
+    },
+    {
+      "name": "REP_CONTEXT_ENTITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Legal Entity Name or Operating Unit Name",
+      "column_order": 6
+    },
+    {
+      "name": "REP_CONTEXT_ENTITY_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Location identifier of the Legal Entity or Operating Unit",
+      "column_order": 7
+    },
+    {
+      "name": "TAXPAYER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "First Party Taxpayer Identification Number",
+      "column_order": 8
+    },
+    {
+      "name": "ORG_INFORMATION2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Tax Registration Number of Business Unit",
+      "column_order": 9
+    },
+    {
+      "name": "LEGAL_AUTHORITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Legal Authority Name",
+      "column_order": 10
+    },
+    {
+      "name": "LEGAL_AUTH_ADDRESS_LINE2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Legal Authority Address information",
+      "column_order": 11
+    },
+    {
+      "name": "LEGAL_AUTH_ADDRESS_LINE3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Legal Authority Address information",
+      "column_order": 12
+    },
+    {
+      "name": "LEGAL_AUTH_CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Legal Authority Address information",
+      "column_order": 13
+    },
+    {
+      "name": "LEGAL_CONTACT_PARTY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Legal Contact Name",
+      "column_order": 14
+    },
+    {
+      "name": "ACTIVITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Activity Code",
+      "column_order": 15
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger (Set of books) identifier",
+      "column_order": 16
+    },
+    {
+      "name": "LEDGER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Ledger Name",
+      "column_order": 17
+    },
+    {
+      "name": "CHART_OF_ACCOUNTS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Chart of Accounts identifier",
+      "column_order": 18
+    },
+    {
+      "name": "EXTRACT_SOURCE_LEDGER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the source ledger for this line. Possible values are Accounts Payable, Accounts Receivable and General Ledger.",
+      "column_order": 19
+    },
+    {
+      "name": "ESTABLISHMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Establishment identifier of the first party",
+      "column_order": 20
+    },
+    {
+      "name": "INTERNAL_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifier of the internal organization for which a transaction is\nprocessed.",
+      "column_order": 21
+    },
+    {
+      "name": "APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Application identifier of the transaction",
+      "column_order": 22
+    },
+    {
+      "name": "ENTITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Entity Code",
+      "column_order": 23
+    },
+    {
+      "name": "EVENT_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code for Subledger Accounting event class code",
+      "column_order": 24
+    },
+    {
+      "name": "TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The transaction header identifier, identifying the transaction\nextracted.",
+      "column_order": 25
+    },
+    {
+      "name": "TRX_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "The transaction number.",
+      "column_order": 26
+    },
+    {
+      "name": "TRX_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description for the transaction.",
+      "column_order": 27
+    },
+    {
+      "name": "TRX_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Transaction currency code",
+      "column_order": 28
+    },
+    {
+      "name": "TRX_TYPE_SEQ_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal identifier used to control the receivable transaction type.",
+      "column_order": 29
+    },
+    {
+      "name": "TRX_TYPE_MNG",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Meaning of Transaction type.",
+      "column_order": 30
+    },
+    {
+      "name": "TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the lowest level for which tax is calculated.",
+      "column_order": 31
+    },
+    {
+      "name": "TRX_LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction line number",
+      "column_order": 32
+    },
+    {
+      "name": "TRX_LINE_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Enter Comments Here",
+      "column_order": 33
+    },
+    {
+      "name": "TRX_LEVEL_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Transaction level type.Values can be HEADER, LINE, FREIGHT or SHIPMENT.",
+      "column_order": 34
+    },
+    {
+      "name": "TRX_LINE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the line type of a transaction line.",
+      "column_order": 35
+    },
+    {
+      "name": "TRX_LINE_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Event class for the transaction line.",
+      "column_order": 36
+    },
+    {
+      "name": "TRX_CLASS_MNG",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Meaning of Transaction class",
+      "column_order": 37
+    },
+    {
+      "name": "TRX_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction date",
+      "column_order": 38
+    },
+    {
+      "name": "TRX_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Payment due date of the transaction.",
+      "column_order": 39
+    },
+    {
+      "name": "TRX_COMMUNICATED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Printed/Received date of the transaction.",
+      "column_order": 40
+    },
+    {
+      "name": "PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Internal identifier of the inventory item or memo line used in\ntransaction line.",
+      "column_order": 41
+    },
+    {
+      "name": "FUNCTIONAL_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Functional currency code",
+      "column_order": 42
+    },
+    {
+      "name": "CURRENCY_CONVERSION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The exchange rate type used to convert the transaction currency to\nfunctional.",
+      "column_order": 43
+    },
+    {
+      "name": "CURRENCY_CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date used to lookup the exchange rate.",
+      "column_order": 44
+    },
+    {
+      "name": "CURRENCY_CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The exchange rate used to convert the transaction currency to the\nfunctional.",
+      "column_order": 45
+    },
+    {
+      "name": "TERRITORY_SHORT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Territory Short Name",
+      "column_order": 46
+    },
+    {
+      "name": "DOC_SEQ_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal identifier of the sequence name used in the transaction.",
+      "column_order": 47
+    },
+    {
+      "name": "DOC_SEQ_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Name of the sequence used in the transaction.",
+      "column_order": 48
+    },
+    {
+      "name": "DOC_SEQ_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Document sequence number for the transaction.",
+      "column_order": 49
+    },
+    {
+      "name": "TRX_LINE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction line amount.",
+      "column_order": 50
+    },
+    {
+      "name": "RECEIPT_CLASS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Receipt Class Identifier.",
+      "column_order": 51
+    },
+    {
+      "name": "APPLIED_FROM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Only AP. Application Id for the Applied from document.",
+      "column_order": 52
+    },
+    {
+      "name": "APPLIED_FROM_ENTITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Entity Code for the Applied From document",
+      "column_order": 53
+    },
+    {
+      "name": "APPLIED_FROM_EVENT_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Event class code for the Applied From document.",
+      "column_order": 54
+    },
+    {
+      "name": "APPLIED_FROM_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal Unique Identifier used to identify the Applied From document.",
+      "column_order": 55
+    },
+    {
+      "name": "APPLIED_FROM_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the lowest level for which tax is calculated.",
+      "column_order": 56
+    },
+    {
+      "name": "APPLIED_FROM_TRX_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Transaction Number for the Applied From document.",
+      "column_order": 57
+    },
+    {
+      "name": "APPLIED_TO_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Application Id for the Applied To document.",
+      "column_order": 58
+    },
+    {
+      "name": "APPLIED_TO_ENTITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Entity Code for the Applied To document.",
+      "column_order": 59
+    },
+    {
+      "name": "APPLIED_TO_EVENT_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Event class for the Applied To document.",
+      "column_order": 60
+    },
+    {
+      "name": "APPLIED_TO_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The internal Id used to identify the Applied to document Name",
+      "column_order": 61
+    },
+    {
+      "name": "APPLIED_TO_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The internal line Id used to identify the Applied to document Name",
+      "column_order": 62
+    },
+    {
+      "name": "APPLIED_TO_TRX_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Transaction Number for the Applied To document.",
+      "column_order": 63
+    },
+    {
+      "name": "ADJUSTED_DOC_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Adjusted document application identifier",
+      "column_order": 64
+    },
+    {
+      "name": "ADJUSTED_DOC_ENTITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Adjusted document entity code.",
+      "column_order": 65
+    },
+    {
+      "name": "ADJUSTED_DOC_EVENT_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Adjusted document event class code.",
+      "column_order": 66
+    },
+    {
+      "name": "ADJUSTED_DOC_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Adjusted document transaction identifier",
+      "column_order": 67
+    },
+    {
+      "name": "ADJUSTED_DOC_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "The Adjusted to transaction number",
+      "column_order": 68
+    },
+    {
+      "name": "ADJUSTED_DOC_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The Adjusted to transaction date",
+      "column_order": 69
+    },
+    {
+      "name": "REF_DOC_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Reference document application identifier.",
+      "column_order": 70
+    },
+    {
+      "name": "REF_DOC_ENTITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reference document entity code.",
+      "column_order": 71
+    },
+    {
+      "name": "REF_DOC_EVENT_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reference document event class code.",
+      "column_order": 72
+    },
+    {
+      "name": "REF_DOC_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for the reference document header",
+      "column_order": 73
+    },
+    {
+      "name": "REF_DOC_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the lowest level for which tax is calculated.",
+      "column_order": 74
+    },
+    {
+      "name": "MERCHANT_PARTY_DOCUMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Merchant party document number recorded on Expense Report",
+      "column_order": 75
+    },
+    {
+      "name": "MERCHANT_PARTY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Merchant party name recorded on Expense Report",
+      "column_order": 76
+    },
+    {
+      "name": "MERCHANT_PARTY_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 250,
+      "nullable": "Y",
+      "description": "Merchant party reference recorded on Expense Report",
+      "column_order": 77
+    },
+    {
+      "name": "MERCHANT_PARTY_TAX_REG_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Merchant party Tax Registration Number recorded on Expense Report",
+      "column_order": 78
+    },
+    {
+      "name": "MERCHANT_PARTY_TAXPAYER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Merchant party Taxpayer Identifier recorded on Expense Report",
+      "column_order": 79
+    },
+    {
+      "name": "START_EXPENSE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start Expense Date",
+      "column_order": 80
+    },
+    {
+      "name": "TAXABLE_LINE_SOURCE_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the taxable Source Table name.",
+      "column_order": 81
+    },
+    {
+      "name": "TAX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax line Identifier for transactions.",
+      "column_order": 82
+    },
+    {
+      "name": "TAX_LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax line number for transactions.",
+      "column_order": 83
+    },
+    {
+      "name": "TAX_INVOICE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax Reporting Date",
+      "column_order": 84
+    },
+    {
+      "name": "TAXABLE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Taxable amount in transaction currency",
+      "column_order": 85
+    },
+    {
+      "name": "TAXABLE_AMT_FUNCL_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Taxable amount in functional currency",
+      "column_order": 86
+    },
+    {
+      "name": "TAX_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax amount in transaction currency",
+      "column_order": 87
+    },
+    {
+      "name": "TAX_AMT_FUNCL_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax amount in functional currency",
+      "column_order": 88
+    },
+    {
+      "name": "REC_TAX_AMT_TAX_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total recoverable tax amount in tax currency",
+      "column_order": 89
+    },
+    {
+      "name": "NREC_TAX_AMT_TAX_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total non-recoverable tax amount in tax currency",
+      "column_order": 90
+    },
+    {
+      "name": "TAXABLE_DISC_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Taxable Discount amount in transaction currency",
+      "column_order": 91
+    },
+    {
+      "name": "TAXABLE_DISC_AMT_FUNCL_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Taxable Discount amount in functional currency",
+      "column_order": 92
+    },
+    {
+      "name": "TAX_DISC_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax Discount Amount in Transaction Currency",
+      "column_order": 93
+    },
+    {
+      "name": "TAX_DISC_AMT_FUNCL_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax Discount Amount in Functional Currency",
+      "column_order": 94
+    },
+    {
+      "name": "TAX_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal identifier for tax rate",
+      "column_order": 95
+    },
+    {
+      "name": "TAX_RATE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Tax rate code associated with the tax line.",
+      "column_order": 96
+    },
+    {
+      "name": "TAX_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The rate specified for a tax status in effect for a period of time",
+      "column_order": 97
+    },
+    {
+      "name": "TAX_RATE_CODE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Rate Code Name",
+      "column_order": 98
+    },
+    {
+      "name": "TAX_RATE_CODE_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Rate Code description",
+      "column_order": 99
+    },
+    {
+      "name": "TAX_RATE_VAT_TRX_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "VAT Transaction type Code for the Tax Rate",
+      "column_order": 100
+    },
+    {
+      "name": "TAX_RATE_VAT_TRX_TYPE_DESC",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description of VAT Transaction type Code for the Tax Rate",
+      "column_order": 101
+    },
+    {
+      "name": "TAX_RATE_CODE_VAT_TRX_TYPE_MNG",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Meaning associated with VAT Transaction Type code for the Tax Rate",
+      "column_order": 102
+    },
+    {
+      "name": "TAX_RATE_REGISTER_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax rate Register Type",
+      "column_order": 103
+    },
+    {
+      "name": "TAX_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax rate type code",
+      "column_order": 104
+    },
+    {
+      "name": "TAX_TYPE_MNG",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Enter Comments Here",
+      "column_order": 105
+    },
+    {
+      "name": "TAX_RECOVERY_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax Recovery rate",
+      "column_order": 106
+    },
+    {
+      "name": "TAX_REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax Regime code",
+      "column_order": 107
+    },
+    {
+      "name": "TAX",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax",
+      "column_order": 108
+    },
+    {
+      "name": "TAX_JURISDICTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax Jurisdiction code",
+      "column_order": 109
+    },
+    {
+      "name": "TAX_STATUS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal identifier of Tax status.",
+      "column_order": 110
+    },
+    {
+      "name": "TAX_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax status code.",
+      "column_order": 111
+    },
+    {
+      "name": "TAX_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax Currency code",
+      "column_order": 112
+    },
+    {
+      "name": "OFFSET_TAX_RATE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Offset tax rate code associated with the tax line.",
+      "column_order": 113
+    },
+    {
+      "name": "BILLING_TP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "The Ship to Customer Name, used only for Receivable Transactions",
+      "column_order": 114
+    },
+    {
+      "name": "BILLING_TP_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Number of the trading partner (customer or supplier).",
+      "column_order": 115
+    },
+    {
+      "name": "BILLING_TP_TAX_REG_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Billing Trading partner Tax registration number",
+      "column_order": 116
+    },
+    {
+      "name": "BILLING_TP_TAXPAYER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Taxpayer Identifier of the trading partner (customer or supplier).",
+      "column_order": 117
+    },
+    {
+      "name": "BILLING_TP_PARTY_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Customer or Supplier Number.",
+      "column_order": 118
+    },
+    {
+      "name": "BILLING_TRADING_PARTNER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Billing Trading partner Identifier",
+      "column_order": 119
+    },
+    {
+      "name": "BILLING_TP_TAX_REPORTING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Billing Trading Partner Tax reporting Flag",
+      "column_order": 120
+    },
+    {
+      "name": "BILLING_TP_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Site Details",
+      "column_order": 121
+    },
+    {
+      "name": "BILLING_TP_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Site Details",
+      "column_order": 122
+    },
+    {
+      "name": "BILLING_TP_SITE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Site Details",
+      "column_order": 123
+    },
+    {
+      "name": "BILLING_TP_SITE_TAX_REG_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Site Details",
+      "column_order": 124
+    },
+    {
+      "name": "SHIPPING_TP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Ship to customer number, used only for Accounts Receivable transactions.",
+      "column_order": 125
+    },
+    {
+      "name": "SHIPPING_TP_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Ship to customer name, used only for Accounts Receivable transactions.",
+      "column_order": 126
+    },
+    {
+      "name": "SHIPPING_TP_TAX_REG_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Ship to customer Tax Registration Number, used only for Accounts Receivable transactions.",
+      "column_order": 127
+    },
+    {
+      "name": "SHIPPING_TP_TAXPAYER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Ship to customer Taxpayer Identification Number, used only for Accounts Receivable transactions.",
+      "column_order": 128
+    },
+    {
+      "name": "SHIPPING_TRADING_PARTNER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ship to customer number, used only for Accounts Receivable transactions.",
+      "column_order": 129
+    },
+    {
+      "name": "SHIPPING_TP_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Site Details",
+      "column_order": 130
+    },
+    {
+      "name": "SHIPPING_TP_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Site Details",
+      "column_order": 131
+    },
+    {
+      "name": "SHIPPING_TP_SITE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Site Details",
+      "column_order": 132
+    },
+    {
+      "name": "SHIPPING_TP_SITE_TAX_REG_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Site Details",
+      "column_order": 133
+    },
+    {
+      "name": "BILL_FROM_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Supplier ID",
+      "column_order": 134
+    },
+    {
+      "name": "BILL_FROM_PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enter Comments Here",
+      "column_order": 135
+    },
+    {
+      "name": "BANKING_TP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Banking Trading Partner Name, (For AR Misc transactions alone).",
+      "column_order": 136
+    },
+    {
+      "name": "BANKING_TP_TAXPAYER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Banking Trading Partner Taxpayer Identifier, for Accounts Receivable miscellaneous transactions alone.",
+      "column_order": 137
+    },
+    {
+      "name": "BANK_ACCOUNT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Back Account Name",
+      "column_order": 138
+    },
+    {
+      "name": "BANK_ACCOUNT_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bank Account Number",
+      "column_order": 139
+    },
+    {
+      "name": "BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bank Account Identifier",
+      "column_order": 140
+    },
+    {
+      "name": "BANK_BRANCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bank Branch Identifier",
+      "column_order": 141
+    },
+    {
+      "name": "LEGAL_ENTITY_TAX_REG_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Legal Entity Tax Registration Number",
+      "column_order": 142
+    },
+    {
+      "name": "HQ_ESTB_REG_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Main Legal Reporting Unit Tax Registration Number",
+      "column_order": 143
+    },
+    {
+      "name": "TAX_LINE_REGISTRATION_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Tax line Tax Registration Number",
+      "column_order": 144
+    },
+    {
+      "name": "CANCELLED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date canceled",
+      "column_order": 145
+    },
+    {
+      "name": "CANCEL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if the tax line is canceled",
+      "column_order": 146
+    },
+    {
+      "name": "OFFSET_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate that the tax is a offset tax.",
+      "column_order": 147
+    },
+    {
+      "name": "POSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate that the tax distribution was posted",
+      "column_order": 148
+    },
+    {
+      "name": "MRC_TAX_LINE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate multiple reporting currencies tax line",
+      "column_order": 149
+    },
+    {
+      "name": "RECONCILIATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Reconciliation flag",
+      "column_order": 150
+    },
+    {
+      "name": "TAX_RECOVERABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Tax Recoverable flag",
+      "column_order": 151
+    },
+    {
+      "name": "REVERSE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "It indicates a tax distribution reverses another Tax distribution.",
+      "column_order": 152
+    },
+    {
+      "name": "CORRECTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate correction records",
+      "column_order": 153
+    },
+    {
+      "name": "AR_CASH_RECEIPT_REVERSE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Receipt Reverse status - Ar_cash_receipts.status",
+      "column_order": 154
+    },
+    {
+      "name": "AR_CASH_RECEIPT_REVERSE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Receipt Reverse date - Ar_cash_receipts. Reversal_Date",
+      "column_order": 155
+    },
+    {
+      "name": "PAYABLES_INVOICE_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Accounts Payable invoice source",
+      "column_order": 156
+    },
+    {
+      "name": "ACCTD_AMOUNT_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Debit accounted amount from Accounts Receivable distribution",
+      "column_order": 157
+    },
+    {
+      "name": "ACCTD_AMOUNT_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit accounted amount from Accounts Receivable distribution",
+      "column_order": 158
+    },
+    {
+      "name": "REC_APPLICATION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Ar_receivable_Applications.status",
+      "column_order": 159
+    },
+    {
+      "name": "VAT_COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Financial_system_parameters. Vat_country_code",
+      "column_order": 160
+    },
+    {
+      "name": "INVOICE_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "invoice identifier from GL_JE_LINES table",
+      "column_order": 161
+    },
+    {
+      "name": "ACCOUNT_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Account class from the customer transaction line GL distribution",
+      "column_order": 162
+    },
+    {
+      "name": "LATEST_REC_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Latest flag from RA_CUST_TRX_LINE_GL_DIST.LATEST_REC_FLAG",
+      "column_order": 163
+    },
+    {
+      "name": "JGZZ_FISCAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Trading partner tax payer identifier",
+      "column_order": 164
+    },
+    {
+      "name": "TAX_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "First Party Tax Registration Number",
+      "column_order": 165
+    },
+    {
+      "name": "PT_LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Portuguese Location. Possible values are A, C, M.",
+      "column_order": 166
+    },
+    {
+      "name": "INVOICE_REPORT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Enter Comments Here",
+      "column_order": 167
+    },
+    {
+      "name": "ES_CORRECTION_YEAR",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Enter Comments Here",
+      "column_order": 168
+    },
+    {
+      "name": "ES_CORRECTION_PERIOD",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Spanish Correction Period",
+      "column_order": 169
+    },
+    {
+      "name": "TRIANGULATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Spanish Triangulation for ZX_LINES_DET_FACTORS.DOCUMENT_SUB_TYPE",
+      "column_order": 170
+    },
+    {
+      "name": "DOCUMENT_SUB_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "French deduction tax rule for ZX_LINES_DET_FACTORS.DOCUMENT_SUB_TYPE",
+      "column_order": 171
+    },
+    {
+      "name": "ASSESSABLE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Italian global descriptive flexfield for self invoice taxable amount",
+      "column_order": 172
+    },
+    {
+      "name": "PROPERTY_LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Spanish global descriptive flexfield property locations",
+      "column_order": 173
+    },
+    {
+      "name": "CHK_VAT_AMOUNT_PAID",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "ECE VAT Registers global descriptive flexfield",
+      "column_order": 174
+    },
+    {
+      "name": "IMPORT_DOCUMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Czech global descriptive flexfield for import document number",
+      "column_order": 175
+    },
+    {
+      "name": "IMPORT_DOCUMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Czech global descriptive flexfield for import document date",
+      "column_order": 176
+    },
+    {
+      "name": "PRL_NO",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Spanish HCM locations global descriptive flexfield",
+      "column_order": 177
+    },
+    {
+      "name": "PROPERTY_RENTAL",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Spanish HR locations global descriptive flexfield for property rental",
+      "column_order": 178
+    },
+    {
+      "name": "RATES_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Spanish HCM locations global descriptive flexfield for rates reference",
+      "column_order": 179
+    },
+    {
+      "name": "STAIR_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stair number for Spain",
+      "column_order": 180
+    },
+    {
+      "name": "FLOOR_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Spanish HCM Location global descriptive flexfield",
+      "column_order": 181
+    },
+    {
+      "name": "DOOR_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Spanish HCM locations global descriptive flexfield",
+      "column_order": 182
+    },
+    {
+      "name": "AMOUNT_APPLIED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount Applied",
+      "column_order": 183
+    },
+    {
+      "name": "ACTG_EVENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Event type code",
+      "column_order": 184
+    },
+    {
+      "name": "ACTG_EVENT_TYPE_MNG",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "event type meaning",
+      "column_order": 185
+    },
+    {
+      "name": "ACTG_EVENT_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Event Number",
+      "column_order": 186
+    },
+    {
+      "name": "ACTG_EVENT_STATUS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Event status flag",
+      "column_order": 187
+    },
+    {
+      "name": "ACTG_EVENT_STATUS_MNG",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Even status meaning",
+      "column_order": 188
+    },
+    {
+      "name": "ACTG_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Category Code",
+      "column_order": 189
+    },
+    {
+      "name": "ACTG_CATEGORY_MNG",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Category meaning",
+      "column_order": 190
+    },
+    {
+      "name": "ACCOUNTING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounting date",
+      "column_order": 191
+    },
+    {
+      "name": "GL_TRANSFER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "GL transfer flag",
+      "column_order": 192
+    },
+    {
+      "name": "ACTG_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting Line Number",
+      "column_order": 193
+    },
+    {
+      "name": "ACTG_LINE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Accounting Line Type Code",
+      "column_order": 194
+    },
+    {
+      "name": "ACTG_LINE_TYPE_MNG",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Accounting Line Type Code meaning",
+      "column_order": 195
+    },
+    {
+      "name": "ACTG_LINE_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1996,
+      "nullable": "Y",
+      "description": "Accounting Line Description.",
+      "column_order": 196
+    },
+    {
+      "name": "ACTG_STAT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Statistical Amount",
+      "column_order": 197
+    },
+    {
+      "name": "ACTG_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party Identifier",
+      "column_order": 198
+    },
+    {
+      "name": "ACTG_PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party Site Identifier",
+      "column_order": 199
+    },
+    {
+      "name": "ACTG_PARTY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Party Type",
+      "column_order": 200
+    },
+    {
+      "name": "ACTG_EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting Event Identifier",
+      "column_order": 201
+    },
+    {
+      "name": "ACTG_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounting Header Identifier",
+      "column_order": 202
+    },
+    {
+      "name": "ACTG_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting line identifier",
+      "column_order": 203
+    },
+    {
+      "name": "ACTG_SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting source id",
+      "column_order": 204
+    },
+    {
+      "name": "ACTG_SOURCE_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Accounting source table",
+      "column_order": 205
+    },
+    {
+      "name": "ACTG_LINE_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code Combination Identifier",
+      "column_order": 206
+    },
+    {
+      "name": "ACCOUNT_FLEXFIELD",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Account Flexfield",
+      "column_order": 207
+    },
+    {
+      "name": "ACCOUNT_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1996,
+      "nullable": "Y",
+      "description": "Account Description",
+      "column_order": 208
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Period Name",
+      "column_order": 209
+    },
+    {
+      "name": "TRX_ARAP_BALANCING_SEGMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Balancing segment",
+      "column_order": 210
+    },
+    {
+      "name": "TRX_ARAP_NATURAL_ACCOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Natural segment",
+      "column_order": 211
+    },
+    {
+      "name": "TRX_TAXABLE_BALANCING_SEGMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Taxable Balancing segment",
+      "column_order": 212
+    },
+    {
+      "name": "TRX_TAXABLE_NATURAL_ACCOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Taxable Natural segment",
+      "column_order": 213
+    },
+    {
+      "name": "TRX_TAX_BALANCING_SEGMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Balancing segment",
+      "column_order": 214
+    },
+    {
+      "name": "TRX_TAX_NATURAL_ACCOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Natural segment.",
+      "column_order": 215
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 216
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 217
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 218
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 219
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 220
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 221
+    },
+    {
+      "name": "PROGRAM_APP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Standard Who column",
+      "column_order": 222
+    },
+    {
+      "name": "PROGRAM_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Standard Who column",
+      "column_order": 223
+    },
+    {
+      "name": "PROGRAM_LOGIN_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Standard Who column",
+      "column_order": 224
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 225
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 226
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 227
+    },
+    {
+      "name": "GL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "GL_DATE for the tax transaction line",
+      "column_order": 228
+    },
+    {
+      "name": "TRX_CONTROL_ACCOUNT_FLEXFIELD",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Taxable line account flexfield",
+      "column_order": 229
+    },
+    {
+      "name": "TAX_ORIGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax Origin",
+      "column_order": 230
+    },
+    {
+      "name": "REPORTING_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Tax Reporting Code",
+      "column_order": 231
+    },
+    {
+      "name": "DEF_REC_SETTLEMENT_OPTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Deferred settlement code",
+      "column_order": 232
+    },
+    {
+      "name": "REC_NREC_TAX_DIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key for zx_rec_nrec_dist table.",
+      "column_order": 233
+    },
+    {
+      "name": "TAX_DIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key for zx_trx_tax_distributions table.",
+      "column_order": 234
+    },
+    {
+      "name": "CHECK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key identifier to ap_checks table.",
+      "column_order": 235
+    }
+  ]
+}

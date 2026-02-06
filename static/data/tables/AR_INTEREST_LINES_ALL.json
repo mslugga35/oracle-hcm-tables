@@ -1,0 +1,275 @@
+{
+  "id": 29333,
+  "name": "AR_INTEREST_LINES_ALL",
+  "type": "TABLE",
+  "description": "The AR_INTEREST_LINES_ALL table contains line level late charge document information.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arinterestlinesall-13725.html#arinterestlinesall-13725",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INTEREST_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Interest line identifier. It is used as a primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "INTEREST_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to ra_interest_headers_all.interest_invoice_id",
+      "column_order": 2
+    },
+    {
+      "name": "PAYMENT_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to AR_PAYMENT_SCHEDULES_ALL.PAYMENT_SCHEDULE_ID.",
+      "column_order": 3
+    },
+    {
+      "name": "OUTSTANDING_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Outstanding Amount, overdue late payment amount",
+      "column_order": 4
+    },
+    {
+      "name": "DAYS_OVERDUE_LATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of days the payment is overdue or late.",
+      "column_order": 5
+    },
+    {
+      "name": "DAYS_OF_INTEREST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of days for which interest is charged.",
+      "column_order": 6
+    },
+    {
+      "name": "INTEREST_CHARGED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of interest charged against an overdue transaction.",
+      "column_order": 7
+    },
+    {
+      "name": "PAYMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Payment date used when late charges are calculated for late payments.",
+      "column_order": 8
+    },
+    {
+      "name": "FINANCE_CHARGE_CHARGED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The adjustments of type FINCHRG this is deducted from the overdue amount of invoice to compute the simple interest for invoices.",
+      "column_order": 9
+    },
+    {
+      "name": "AMOUNT_DUE_ORIGINAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The original amount due for the transaction installment which is selected for late charge calculation.",
+      "column_order": 10
+    },
+    {
+      "name": "AMOUNT_DUE_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The remaining due amount for the transaction installment which is selected for late charge calculation.",
+      "column_order": 11
+    },
+    {
+      "name": "ORIGINAL_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Link between a late charge interest line and its original transaction. RA_CUSTOMER_TRX_ALL.CUSTOMER_TRX_ID, AR_CASH_RECEIPTS_ALL.CASH_RECEIPT_ID.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_CHARGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the late charge was last calculated for the transaction installment.",
+      "column_order": 13
+    },
+    {
+      "name": "DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Payment schedule due date/Balance ford bill date",
+      "column_order": 14
+    },
+    {
+      "name": "ACTUAL_DATE_CLOSED",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual date closed of payment schedule",
+      "column_order": 15
+    },
+    {
+      "name": "INTEREST_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Interest rate applied.",
+      "column_order": 16
+    },
+    {
+      "name": "RATE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate effectivity start date",
+      "column_order": 17
+    },
+    {
+      "name": "RATE_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate effectivity end date",
+      "column_order": 18
+    },
+    {
+      "name": "SCHEDULE_DAYS_FROM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "From days of aging bucket line",
+      "column_order": 19
+    },
+    {
+      "name": "SCHEDULE_DAYS_TO",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "To day of aging bucket line",
+      "column_order": 20
+    },
+    {
+      "name": "PROCESS_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Error message text",
+      "column_order": 21
+    },
+    {
+      "name": "PROCESS_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status code to indicate Success or Error",
+      "column_order": 22
+    },
+    {
+      "name": "ORIGINAL_TRX_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interest on INV, DM (debits), CM, Receipt (credits)",
+      "column_order": 23
+    },
+    {
+      "name": "TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup type : AR_CHARGE_LINE_TYPE",
+      "column_order": 24
+    },
+    {
+      "name": "DAILY_INTEREST_CHARGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Daily interest charged/interest amount charged",
+      "column_order": 25
+    },
+    {
+      "name": "RECEIVABLES_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Interest line or penalty receivables transaction identifier used only for adjustments.",
+      "column_order": 26
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 27
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 28
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 29
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 32
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 33
+    }
+  ]
+}

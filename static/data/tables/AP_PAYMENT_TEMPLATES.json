@@ -1,0 +1,555 @@
+{
+  "id": 28693,
+  "name": "AP_PAYMENT_TEMPLATES",
+  "type": "TABLE",
+  "description": "The AP_PAYMENT_TEMPLATES table contains the user defined Payment Process Request Templates. The Templates can be used to default the Invoice Selection Critera in AP_INV_SELECTION_CRITERIA_ALL.\n\nThis table corresponds to the Create Payment Request Template page.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/appaymenttemplates-11881.html#appaymenttemplates-11881",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System generated primary key for  payment template.",
+      "column_order": 1
+    },
+    {
+      "name": "TEMPLATE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 175,
+      "nullable": "N",
+      "description": "Payment Process Request Template Name",
+      "column_order": 2
+    },
+    {
+      "name": "TEMPLATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment Process Request Template Type. Values, from the lookup PAYMENT_TEMPLATE_TYPE",
+      "column_order": 3
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Payment Process Request Template Description",
+      "column_order": 4
+    },
+    {
+      "name": "INACTIVE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End Date for the Payment Process Request Template",
+      "column_order": 5
+    },
+    {
+      "name": "ADDL_PAY_FROM_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of pay from days defined in the payment template. The value can be either zero or a positive number.",
+      "column_order": 6
+    },
+    {
+      "name": "ADDL_PAY_THRU_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End date in a date range that indicates the date until when the invoices are selected.",
+      "column_order": 7
+    },
+    {
+      "name": "HI_PAYMENT_PRIORITY",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Highest payment priority of the documents to select",
+      "column_order": 8
+    },
+    {
+      "name": "LOW_PAYMENT_PRIORITY",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Lowest payment priority of the documents to select",
+      "column_order": 9
+    },
+    {
+      "name": "PAY_ONLY_WHEN_DUE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag that indicates if documents will be selected by their due date only (Y or N)",
+      "column_order": 10
+    },
+    {
+      "name": "ZERO_INV_ALLOWED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating whether scheduled payments with zero amount remaining will be selected during a pay run",
+      "column_order": 11
+    },
+    {
+      "name": "VENDOR_TYPE_LOOKUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supplier Type. Based on PO Lookup Type VENDOR TYPES",
+      "column_order": 12
+    },
+    {
+      "name": "VENDOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique supplier identifier from the supplier tables.",
+      "column_order": 13
+    },
+    {
+      "name": "PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party identifier of the payment template.",
+      "column_order": 14
+    },
+    {
+      "name": "PAYMENT_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the payment methods, such as check, cash, or credit.",
+      "column_order": 15
+    },
+    {
+      "name": "INV_EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of conversion rate between the payment and your ledger currency.",
+      "column_order": 16
+    },
+    {
+      "name": "PAY_GROUP_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Pay Group Options, All and Specify",
+      "column_order": 17
+    },
+    {
+      "name": "CURRENCY_GROUP_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Currency Options, All and Specify",
+      "column_order": 18
+    },
+    {
+      "name": "LE_GROUP_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Legal Entity Options, All and Specify",
+      "column_order": 19
+    },
+    {
+      "name": "OU_GROUP_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Operating Unit Options, All and Specify",
+      "column_order": 20
+    },
+    {
+      "name": "PAYMENT_DATE_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Payment Date Options, Same as the Request Date, Extra Days",
+      "column_order": 21
+    },
+    {
+      "name": "ADDL_PAYMENT_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Extra payment days in the payment template.",
+      "column_order": 22
+    },
+    {
+      "name": "BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The Internal bank account identifier",
+      "column_order": 23
+    },
+    {
+      "name": "BANK_CHARGE_BEARER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bearer of bank charge cost. Bank charge bearers are defined as the lookup IBY_BANK_CHARGE_BEARER",
+      "column_order": 24
+    },
+    {
+      "name": "SETTLEMENT_PRIORITY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Overrides the invoice value for Oracle Payments' bank charges feature.",
+      "column_order": 25
+    },
+    {
+      "name": "FIRST_VOUCHER_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "First available voucher number in document sequence for payment batch document category",
+      "column_order": 26
+    },
+    {
+      "name": "TRANSFER_PRIORITY",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Transfer priority defined in payment template. This can be express, normal, and any.",
+      "column_order": 27
+    },
+    {
+      "name": "PAYMENT_EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Exchange rate type for a foreign currency payment",
+      "column_order": 28
+    },
+    {
+      "name": "PAYMENT_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment process profile identifier",
+      "column_order": 29
+    },
+    {
+      "name": "ZERO_AMOUNTS_ALLOWED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating whether zero payments allowed in run. Helps in Maximizing credits",
+      "column_order": 30
+    },
+    {
+      "name": "PAYABLES_REVIEW_SETTINGS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Stop Process for Review After Invoice Selection",
+      "column_order": 31
+    },
+    {
+      "name": "CALC_AWT_INT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate Calculate Payment Withholding and Interest During Scheduled Payment Selection",
+      "column_order": 32
+    },
+    {
+      "name": "PAYMENTS_REVIEW_SETTINGS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "If this check box is selected, the Build Payments program runs to group the invoices into payments and the pay run pauses after payments have been built to allow you to review the proposed payments.",
+      "column_order": 33
+    },
+    {
+      "name": "CREATE_INSTRS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Payment Instruction Creation Program. This setting requires the user to select a payment process profile. This setting will also ensure that payments from this payment process request are not combined with payments from other payment process requests when the system creates payment instructions",
+      "column_order": 34
+    },
+    {
+      "name": "DOCUMENT_REJECTION_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the validation failure handling option for payable documents. Possible values are: Reject All Documents for Payee, Reject All Documents in Request, Stop Process for Review",
+      "column_order": 35
+    },
+    {
+      "name": "PAYMENT_REJECTION_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Document used to pay an invoice.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 53
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 54
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 55
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 56
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 57
+    },
+    {
+      "name": "PAYMENT_DOCUMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "A set of documents, such as check stock, on which checks and promissory notes can be printed or written.",
+      "column_order": 58
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 59
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 60
+    },
+    {
+      "name": "X_CURR_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The conversion rate type used to convert the invoice currency to payment currency.",
+      "column_order": 61
+    },
+    {
+      "name": "FIRST_APPROVER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "First approver identifier for payment process requests that the payments approval workflow uses to generate the list of approvers.",
+      "column_order": 62
+    },
+    {
+      "name": "SOURCE_GROUP_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Options on how to select invoices for payment with either all or specific values.",
+      "column_order": 63
+    },
+    {
+      "name": "ACCELERATED_INVOICES_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Dynamic discount invoice code. Values are from lookup ACCELERATED_INVOICES. Possible values are INCLUDE, EXCLUDE and EXCLUSIVE.",
+      "column_order": 64
+    },
+    {
+      "name": "TRANSACTION_CALENDAR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "General Ledger transaction calendar identifier.",
+      "column_order": 65
+    },
+    {
+      "name": "PAYMENT_MODE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Invoice payment mode identifier.",
+      "column_order": 66
+    },
+    {
+      "name": "PAYMENT_INSTRUMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Funding instrument used for making payments.",
+      "column_order": 67
+    },
+    {
+      "name": "PMT_TO_BANK_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of exchange rate used to convert payment to disbursement bank account currency.",
+      "column_order": 68
+    }
+  ]
+}

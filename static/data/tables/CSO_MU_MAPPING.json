@@ -1,0 +1,331 @@
+{
+  "id": 32387,
+  "name": "CSO_MU_MAPPING",
+  "type": "TABLE",
+  "description": "This table used as a Staging table for Mass Update.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/csomumapping-11947.html#csomumapping-11947",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "RECORD_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "N",
+      "description": "Auto generated Record Id.",
+      "column_order": 1
+    },
+    {
+      "name": "DATE_ADDED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The date article was added.",
+      "column_order": 2
+    },
+    {
+      "name": "DATE_MODIFIED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The date article was last modified.",
+      "column_order": 3
+    },
+    {
+      "name": "UNIQUE_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "N",
+      "description": "Uniquely identifies across all MassUpdates, all BUs, all ProductGroups,ProductItems,Categories,UserGroups using IDs of source ProductGroups, Product Items, Categories, UserGroups.",
+      "column_order": 4
+    },
+    {
+      "name": "MU_REQUEST_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "N",
+      "description": "RECORD_ID of Mass Update Request. For the common Mass Update, this will be MU_COMMON.",
+      "column_order": 5
+    },
+    {
+      "name": "SRC_MU_REQUEST_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "RECORD_ID of Source Mass Update Request from which this mapping was copied or for which this was created.",
+      "column_order": 6
+    },
+    {
+      "name": "OBJECT_TYPE",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "ENUM: Category, ProductGroup, ProductItem, UserGroup.",
+      "column_order": 7
+    },
+    {
+      "name": "REMOVE_FROM_ARTICLES",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Boolean: 1=True, 0=False, NULL=False.",
+      "column_order": 8
+    },
+    {
+      "name": "BUSINESS_UNIT_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Target Business Unit.",
+      "column_order": 9
+    },
+    {
+      "name": "MAPPING_SOURCE_TYPE",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "ENUM: 0=MU_REQUEST, 1=MU_COMMON.",
+      "column_order": 10
+    },
+    {
+      "name": "ARTICLE_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Count of Articles which have this Product or Category or UserGroup in this MassUpdate.",
+      "column_order": 11
+    },
+    {
+      "name": "MAPPED",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Boolean: 1=True, 0=False, NULL=False.",
+      "column_order": 12
+    },
+    {
+      "name": "SRC_UNIQUE_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Unique Key which identifies the Source ProductGroup or ProductItem or Category or UserGroup.",
+      "column_order": 13
+    },
+    {
+      "name": "SRC_CATEGORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "CategoryID from FA.",
+      "column_order": 14
+    },
+    {
+      "name": "SRC_USER_GROUP_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Primary Key of CSO_TAG table.",
+      "column_order": 15
+    },
+    {
+      "name": "SRC_PRODUCT_UNIQUE_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Natural (flattened) Unique Key of Source ProductItem or ProductGroup (null otherwise).",
+      "column_order": 16
+    },
+    {
+      "name": "SRC_PRODUCT_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source ProductGroupId from FA.",
+      "column_order": 17
+    },
+    {
+      "name": "SRC_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source OrganizationId from FA.",
+      "column_order": 18
+    },
+    {
+      "name": "SRC_INVENTORY_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source Product InventoryItemId from FA.",
+      "column_order": 19
+    },
+    {
+      "name": "SRC_STRIPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stripe Code of Category.",
+      "column_order": 20
+    },
+    {
+      "name": "SRC_BUSINESS_UNIT_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "BU of the existing Source ProductGroup or ProductItem or Category Or UserGroup.",
+      "column_order": 21
+    },
+    {
+      "name": "SRC_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Name of the Source ProductGroup or ProductItem or Category or UserGroup.",
+      "column_order": 22
+    },
+    {
+      "name": "SRC_NOT_FOUND",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Boolean: 1=True, 0=False, NULL=False.",
+      "column_order": 23
+    },
+    {
+      "name": "TGT_UNIQUE_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Unique Key which identifies ProductGroup or ProductItem or Category or UserGroup.",
+      "column_order": 24
+    },
+    {
+      "name": "TGT_CATEGORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Category from FA.",
+      "column_order": 25
+    },
+    {
+      "name": "TGT_USER_GROUP_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Primary Key of CSO_TAG table.",
+      "column_order": 26
+    },
+    {
+      "name": "TGT_PRODUCT_UNIQUE_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Natural (flattened) Unique Key of ProductItem or ProductGroup (null otherwise).",
+      "column_order": 27
+    },
+    {
+      "name": "TGT_PRODUCT_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "ProductGroupId from FA.",
+      "column_order": 28
+    },
+    {
+      "name": "TGT_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "OrganizationId from FA.",
+      "column_order": 29
+    },
+    {
+      "name": "TGT_INVENTORY_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Product InventoryItemId from FA.",
+      "column_order": 30
+    },
+    {
+      "name": "TGT_STRIPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stripe Code of Category.",
+      "column_order": 31
+    },
+    {
+      "name": "TGT_BUSINESS_UNIT_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "BU of the target ProductGroup or ProductItem or Category Or UserGroup.",
+      "column_order": 32
+    },
+    {
+      "name": "TGT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Name of the Target ProductGroup or ProductItem or Category or UserGroup.",
+      "column_order": 33
+    },
+    {
+      "name": "TGT_NOT_FOUND",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Boolean: 1=True, 0=False, NULL=False.",
+      "column_order": 34
+    },
+    {
+      "name": "MAPPED_BY_USER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "PARTY_ID of the User (RECORD_ID of KM User) who created the mapping (multiple users can work on the mapping of a single MassUpdate over several days).",
+      "column_order": 35
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 37
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 38
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 40
+    }
+  ]
+}

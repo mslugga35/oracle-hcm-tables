@@ -1,0 +1,123 @@
+{
+  "id": 34114,
+  "name": "OSS_TXN_INVOICES",
+  "type": "TABLE",
+  "description": "This entity will have the list of Unique Invoices from ra_customer_trx_all and stamped on oss_bill_lines.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/osstxninvoices-15982.html#osstxninvoices-15982",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TXN_INVOICE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key based of Sequence",
+      "column_order": 1
+    },
+    {
+      "name": "CUSTOMER_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to ra_customer_trx_all.customer_trx_id",
+      "column_order": 2
+    },
+    {
+      "name": "INTERNAL_APPROVAL_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Internal Approval Status",
+      "column_order": 3
+    },
+    {
+      "name": "TASK_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "Human Workflow -Task id of the lastest approval of the contract",
+      "column_order": 4
+    },
+    {
+      "name": "SELF_APPROVER_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Comments entered by user bypassing Approvals and auto approving",
+      "column_order": 5
+    },
+    {
+      "name": "AR_API_ERRORS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Capture the errors returned by AR APIs during txn approval or reversal",
+      "column_order": 6
+    },
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Batch Id for ESS Job. ESS Job will have batch id as parameter and will process all records with this batch_id",
+      "column_order": 7
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 8
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 14
+    }
+  ]
+}

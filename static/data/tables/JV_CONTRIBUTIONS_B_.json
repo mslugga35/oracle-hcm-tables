@@ -1,0 +1,459 @@
+{
+  "id": 28227,
+  "name": "JV_CONTRIBUTIONS_B_",
+  "type": "TABLE",
+  "description": "This table contains audit records for joint venture partner contribution definitions.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/jvcontributionsb-7926.html#jvcontributionsb-7926",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CONTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for the partner contribution.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "JOINT_VENTURE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the joint venture assigned to the partner contribution.",
+      "column_order": 3
+    },
+    {
+      "name": "STAKEHOLDER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the stakeholder assigned to the partner contribution.",
+      "column_order": 4
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date when joint venture distribution records can be applied to the partner contribution.",
+      "column_order": 5
+    },
+    {
+      "name": "SEQUENCE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "The sequence number of the partner contribution.",
+      "column_order": 6
+    },
+    {
+      "name": "CONTRIBUTION_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The contribution amount for the stakeholder in the ledger currency. This is the amount that will be assigned to joint venture distributions and drawn against.",
+      "column_order": 7
+    },
+    {
+      "name": "CONTRIBUTION_OPEN_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The amount available to be drawn, transferred, or refunded for the partner contribution.",
+      "column_order": 8
+    },
+    {
+      "name": "CONTRIBUTION_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The status code of the partner contribution. It is based on ORA_JV_CONTRIBUTION_STATUS. Statuses include: In Progress, Invoiced, Available to Draw, Closed, On Hold, or Error.",
+      "column_order": 9
+    },
+    {
+      "name": "CLOSE_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The reason code identifying why the partner contribution was closed. It is based on ORA_JV_PC_CLOSE_REASON_CODE.",
+      "column_order": 10
+    },
+    {
+      "name": "CLOSE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date the partner contribution was closed.",
+      "column_order": 11
+    },
+    {
+      "name": "CLOSE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The type code used to identify how the partner contribution was closed. It is based on ORA_JV_PC_CLOSE_TYPE. Close types include: Journal Entry or AP Invoice.",
+      "column_order": 12
+    },
+    {
+      "name": "REFUND_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The amount to be refunded to the partner when the partner contribution is closed.",
+      "column_order": 13
+    },
+    {
+      "name": "AGREEMENT_DEFAULT_CHARGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The amount charged to the partner when closing the partner contribution.",
+      "column_order": 14
+    },
+    {
+      "name": "TRANSFER_TO_CONTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the partner contribution that the open amount was transferred to when closing this partner contribution.",
+      "column_order": 15
+    },
+    {
+      "name": "OWNERSHIP_PERCENTAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for the ownership definition that was used to create the partner contribution.",
+      "column_order": 16
+    },
+    {
+      "name": "PREFERRED_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The currency code that will be used to create the partner contribution receivables invoice for the stakeholder.",
+      "column_order": 17
+    },
+    {
+      "name": "FOREIGN_CONTRIBUTION_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The contribution amount for the stakeholder in the preferred currency. This amount is populated only when the preferred currency is different from the primary ledger currency of the joint venture.",
+      "column_order": 18
+    },
+    {
+      "name": "GROSS_CONTRIBUTION_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The gross partner contribution amount that was split among the stakeholders defined in the ownership definition. This amount is in the preferred currency of the contribution. If the preferred currency is not defined, this amount will be in the currency of the primary ledger associated with the joint venture.",
+      "column_order": 19
+    },
+    {
+      "name": "PARTNER_ACCOUNT_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The code combination identifier for the partner account used when invoicing the stakeholder for the partner contribution.",
+      "column_order": 20
+    },
+    {
+      "name": "AUTOMATIC_CONTRIBUTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the partner contribution was created automatically or manually. A value of \"Y\" indicates that the partner contribution was created automatically by the system. A value of \"N\" indicates that the partner contribution was manually created.",
+      "column_order": 21
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 24
+    },
+    {
+      "name": "CONTRIBUTION_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the partner contribution request.",
+      "column_order": 25
+    },
+    {
+      "name": "ACCOUNT_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the account set used by the partner contribution to select distributions to draw against the partner contribution.",
+      "column_order": 26
+    },
+    {
+      "name": "PROJECT_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the project set used by the partner contribution to select distributions to draw against the partner contribution.",
+      "column_order": 27
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 28
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 29
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 54
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 55
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 56
+    }
+  ]
+}

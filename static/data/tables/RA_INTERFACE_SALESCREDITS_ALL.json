@@ -1,0 +1,443 @@
+{
+  "id": 29512,
+  "name": "RA_INTERFACE_SALESCREDITS_ALL",
+  "type": "TABLE",
+  "description": "The RA_INTERFACE_SALESCREDITS_ALL table is used by AutoInvoice to import sales credit information for your transactions. The values you enter for the Require Sales person parameter in the System Options window and the Allow Sales Credit parameter in the Transaction Sources window determine if you must enter sales credit information. If you are importing invoices, debit memos, and on-account credits, and the Require Sales person system option requires a sales person, you must provide sales credit information, regardless of the Allow Sales Credit parameter value for this transaction batch source. If you import credit memos and the Require Sales person system option requires a sales person, you can provide sales credit information. If you do not provide sales credit information, AutoInvoice uses sales credit information from the invoice you are crediting. If the invoice that you are crediting does not have sales credit information, AutoInvoice creates a 100% No Sales Credit line for this invoice and uses this sales credit line to determine the sales credit amount for the credit memo. Regardless of the transaction type you are importing, if the Require Sales person system option does not require a salesperson, but your transaction batch source allows sales credits, you can provide sales credit information. AutoInvoice validates the sales credit information and passes this information with your transaction.  If the Require Sales person system option does not require a salesperson and your transaction batch source does not allow sales credits, do not provide sales credit information. AutoInvoice ignores any values that you pass. The primary key for this table is INTERFACE_SALESCREDIT_ID.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/rainterfacesalescreditsall-3248.html#rainterfacesalescreditsall-3248",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INTERFACE_SALESCREDIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Sales credit identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "INTERFACE_SALESCREDIT_GUID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Global interface line identifier.",
+      "column_order": 2
+    },
+    {
+      "name": "INTERFACE_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Interface line identifier.",
+      "column_order": 3
+    },
+    {
+      "name": "INTERFACE_LINE_CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Context code for Line Transactions descriptive flexfield. Use Manage Receivables Descriptive Flexfields task to identify valid values. Use INTERFACE_LINE_ATTRIBUTE1 to INTERFACE_LINE_ATTRIBUTE15 for the segment values.",
+      "column_order": 4
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 5
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 6
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 7
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 8
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 9
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 10
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 11
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 12
+    },
+    {
+      "name": "SALESREP_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Salesperson number. Use Manage Resources task, role Salesperson, to identify valid values.",
+      "column_order": 13
+    },
+    {
+      "name": "SALESREP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Salesperson identifier.",
+      "column_order": 14
+    },
+    {
+      "name": "SALES_CREDIT_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Sales credit type.  Valid values: Quota Sales Credit, Non-quota Sales Credit.",
+      "column_order": 15
+    },
+    {
+      "name": "SALES_CREDIT_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Sales credit type identifier.",
+      "column_order": 16
+    },
+    {
+      "name": "SALES_CREDIT_AMOUNT_SPLIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sales credit amount for the salesperson. Do not use thousand separators. Use period or comma as decimal separator.",
+      "column_order": 17
+    },
+    {
+      "name": "SALES_CREDIT_PERCENT_SPLIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sales credit percent. Must be between 0 and 100. Use period or comma as decimal separator. If SALES_CREDIT_TYPE_NAME is QUOTA, the sum must be 100% for the transaction.",
+      "column_order": 18
+    },
+    {
+      "name": "INTERFACE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Interface status.",
+      "column_order": 19
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 20
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Context code for Interface Sales Credits descriptive flexfield. Use Manage Receivables Descriptive Flexfields task to identify valid values. Use ATTRIBUTE1 to ATTRIBUTE15 for the segment values.",
+      "column_order": 21
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 22
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 23
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Original system batch name for grouping transactions. Free text field. Not validated.",
+      "column_order": 24
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 25
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 26
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 28
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 29
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 30
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 31
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Interface Sales Credits descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for Line Transactions descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 44
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 45
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 46
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 47
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 48
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Business unit identifier. Use Manage Business units task to identify valid values.",
+      "column_order": 49
+    },
+    {
+      "name": "SALESGROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Salesgroup identifier.",
+      "column_order": 50
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 51
+    },
+    {
+      "name": "RESOURCE_SALESREP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Sales person identifier.",
+      "column_order": 52
+    },
+    {
+      "name": "LOAD_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the interface load job that created the row.",
+      "column_order": 53
+    },
+    {
+      "name": "BU_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Indicates the name of the business unit associated with the row.",
+      "column_order": 54
+    }
+  ]
+}

@@ -1,0 +1,227 @@
+{
+  "id": 27070,
+  "name": "EXM_EMAIL_RECEIPT_IMPORT",
+  "type": "TABLE",
+  "description": "This table contains receipt details retrieved from an email server that were emailed by users to create expense items for expense reports.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/exmemailreceiptimport-8393.html#exmemailreceiptimport-8393",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "EMAIL_RECEIPT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key that locates email receipts.",
+      "column_order": 1
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 2
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 4
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 7
+    },
+    {
+      "name": "FROM_EMAIL_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "Email address of the person who sent the electronic receipt.",
+      "column_order": 8
+    },
+    {
+      "name": "NOTIFY_EMAIL_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Email address of an employee who will receive the notifications for expense creation from the electronic receipt.",
+      "column_order": 9
+    },
+    {
+      "name": "TO_EMAIL_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Email addresses of the To-recipients on the electronic receipt email sent by the merchant.",
+      "column_order": 10
+    },
+    {
+      "name": "CC_EMAIL_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Email addresses of the recipients copied on the electronic receipt email sent by the merchant.",
+      "column_order": 11
+    },
+    {
+      "name": "EMAIL_CONTENT",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Email content received by the email server from the sender.",
+      "column_order": 12
+    },
+    {
+      "name": "PRE_IDR_PROCESSED_EMAIL",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Email content that is processed before it is sent it to Intelligent Document Recognition for parsing.",
+      "column_order": 13
+    },
+    {
+      "name": "IDR_RESPONSE",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Email content that is passed to a parsing engine where its response is stored as a collection of character data known as a Character Large Object.",
+      "column_order": 14
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Code that describes the status of the email that was received by the server.",
+      "column_order": 15
+    },
+    {
+      "name": "DOWNLOAD_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Request identifier of the process that imports data from the email server and loads it to the database.",
+      "column_order": 16
+    },
+    {
+      "name": "PROCESSING_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Request identifier of the process that relays email content to Intelligent Document Recognition for parsing.",
+      "column_order": 17
+    },
+    {
+      "name": "CREATION_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Request identifier of the process that attempts to create an expense by parsing the output from Intelligent Document Recognition.",
+      "column_order": 18
+    },
+    {
+      "name": "REJECT_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Processing reason the email was rejected.",
+      "column_order": 19
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the person who sent the email.",
+      "column_order": 20
+    },
+    {
+      "name": "EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the expense item that was created in response to the email that the user sent to the mail server.",
+      "column_order": 21
+    },
+    {
+      "name": "ORIGINAL_EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the prior expense created for the same trip.",
+      "column_order": 22
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 23
+    },
+    {
+      "name": "MESSAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the email sent to the mail server.",
+      "column_order": 24
+    },
+    {
+      "name": "EMAIL_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the email was received by the mail server.",
+      "column_order": 25
+    },
+    {
+      "name": "EMAIL_SUBJECT",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Subject of the email sent to the mail server.",
+      "column_order": 26
+    },
+    {
+      "name": "EXPENSE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the expense was incurred.",
+      "column_order": 27
+    }
+  ]
+}

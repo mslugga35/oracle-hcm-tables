@@ -1,0 +1,131 @@
+{
+  "id": 30928,
+  "name": "ZCA_SIGNAL_EVENTS",
+  "type": "TABLE",
+  "description": "ZCA_SIGNAL_EVENTS : This  table records the occurrence of an Update, Create or Delete event on a business object registered to generate signals.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zcasignalevents-17482.html#zcasignalevents-17482",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SIGNAL_EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Auto generated primary key of the table",
+      "column_order": 1
+    },
+    {
+      "name": "EVENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Type of Event that generated the Signal (e.g. CREATE, UPDATE, DELETE)\nWill require new ORA_ZCA_SIGNAL_EVENT_TYPE \"system\" Lookup Type to be defined, with three values and associated description.",
+      "column_order": 2
+    },
+    {
+      "name": "OBJECT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "N",
+      "description": "The name of the Object that owns the Signal definition.\ne.g. \"Opportunity\"",
+      "column_order": 3
+    },
+    {
+      "name": "OBJECT_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "N",
+      "description": "Primary Key ID of Business Object that generated the Signal\ne.g. OpptyId of original Object. Use VARCHAR2 instead of NUMBER, as some potential source Business Objects (e.g. Lightbox) have UUID values instead of Numbers. May also include compound Key values (e.g. ContactVO with PartyId, PersonProfileId and SalesProfileId). Compound keys will be stored using the same hashing algorithm as ADF Rest uses to generate identifiers when no PUID is identified.",
+      "column_order": 4
+    },
+    {
+      "name": "REL_OBJECT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "The name of the related (child) Object that generated the Signal, if appropriate.\ne.g. \"OpportunityResource\"",
+      "column_order": 5
+    },
+    {
+      "name": "REL_OBJECT_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Primary Key ID of child (related) Object that generated the Signal\nOnly present for Signals generated for related Object link (e.g. OpptyResourceId). Same identification criteria as OBJECT_ID.",
+      "column_order": 6
+    },
+    {
+      "name": "CORRELATION_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "N",
+      "description": "Unique ID shared by all Signal Events created from the same single transaction commit, derived from ECID.",
+      "column_order": 7
+    },
+    {
+      "name": "SIGNAL_TIMESTAMP",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Last Update Date from the Object that generated the Signal",
+      "column_order": 8
+    },
+    {
+      "name": "SIGNAL_CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "The user that executed the event that generated the Signal",
+      "column_order": 9
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 15
+    }
+  ]
+}

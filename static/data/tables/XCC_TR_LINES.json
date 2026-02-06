@@ -1,0 +1,667 @@
+{
+  "id": 26847,
+  "name": "XCC_TR_LINES",
+  "type": "TABLE",
+  "description": "This table stores the transaction lines associated with each commitment control transaction.  It stores the detailed information used in determining whether each line should pass or fail funds check or reservation.  In the case of partial funds reservation, it also stores the commitment control status of that line. Each transaction line is associated with a single subledger or GL transaction line.  Within a subledger transaction, each transaction line is associated with a different subledger or GL transaction line. The results from old funds check requests may be purged from this table.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/xcctrlines-19347.html#xcctrlines-19347",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "HEADER_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Unique identifier for this transaction.",
+      "column_order": 1
+    },
+    {
+      "name": "LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Line number to uniquely identify the transaction line.",
+      "column_order": 2
+    },
+    {
+      "name": "LINE_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Line group corresponds to the group containing this line.",
+      "column_order": 3
+    },
+    {
+      "name": "TRANSACTION_SUBTYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the subtype of the transaction.",
+      "column_order": 4
+    },
+    {
+      "name": "SOURCE_TRANSACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Identifies the type of transaction.",
+      "column_order": 5
+    },
+    {
+      "name": "SOURCE_LINE_ID_1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger or General Ledger distribution line primary key.",
+      "column_order": 6
+    },
+    {
+      "name": "SOURCE_LINE_ID_2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger or General Ledger distribution line primary key.",
+      "column_order": 7
+    },
+    {
+      "name": "SOURCE_LINE_ID_3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger or General Ledger distribution line primary key.",
+      "column_order": 8
+    },
+    {
+      "name": "SOURCE_LINE_ID_4",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger or General Ledger distribution line primary key.",
+      "column_order": 9
+    },
+    {
+      "name": "SOURCE_LINE_ID_5",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger or General Ledger distribution line primary key.",
+      "column_order": 10
+    },
+    {
+      "name": "SOURCE_LINE_ID_6",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger or General Ledger distribution line primary key.",
+      "column_order": 11
+    },
+    {
+      "name": "DATA_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies the budgetary transaction or group of transactions processed in a run.",
+      "column_order": 12
+    },
+    {
+      "name": "DRAFT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether this funds activity was attempted in draft mode or final mode.  Funds activities attempted in draft mode do not reserve funds.  They just check to see whether the funds activity would have passed.",
+      "column_order": 13
+    },
+    {
+      "name": "RESULT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Status of budgetary control transaction.",
+      "column_order": 14
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger associated with this transaction line, it is NULL for budgets.",
+      "column_order": 15
+    },
+    {
+      "name": "BUSINESS_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Business unit of this transaction line, it is NULL for GL and budgets.",
+      "column_order": 16
+    },
+    {
+      "name": "BACKED_OUT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether this line has been undone or reversed.",
+      "column_order": 17
+    },
+    {
+      "name": "BUDGET_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Budget date used for this transaction line.",
+      "column_order": 18
+    },
+    {
+      "name": "ACCOUNTING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Accounting date used for this transaction line.",
+      "column_order": 19
+    },
+    {
+      "name": "ENCUMBRANCE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Encumbrance type of the distribution line.",
+      "column_order": 20
+    },
+    {
+      "name": "ENTERED_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "The currency in which the transaction is denominated",
+      "column_order": 21
+    },
+    {
+      "name": "UOM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Unit of measure of the amount if the entered currency is STAT.  Unit of measure of the statistical amount if the entered currency is not STAT.  Required if the entered currency is STAT or the statistical amount is not null and the product is not GL or SLA.",
+      "column_order": 22
+    },
+    {
+      "name": "QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "It corresponds to the quantity sold.",
+      "column_order": 23
+    },
+    {
+      "name": "PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unit price of the transaction line",
+      "column_order": 24
+    },
+    {
+      "name": "ENTERED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount entered on the transaction line.",
+      "column_order": 25
+    },
+    {
+      "name": "CONVERSION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Conversion type for budget currency.",
+      "column_order": 26
+    },
+    {
+      "name": "CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion date for budget currency.",
+      "column_order": 27
+    },
+    {
+      "name": "LEDGER_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The ledger currency equivalent of the transaction amount",
+      "column_order": 28
+    },
+    {
+      "name": "STATISTICAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Associated statistical amount, it must be NULL if the entered currency is STAT.",
+      "column_order": 29
+    },
+    {
+      "name": "LIQUIDATION_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The quantity to move from one transaction to another",
+      "column_order": 30
+    },
+    {
+      "name": "LIQUIDATION_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The amount in transaction currency to move from one transaction to another",
+      "column_order": 31
+    },
+    {
+      "name": "LIQUIDATION_TRANS_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the type of transaction being liquidated.",
+      "column_order": 32
+    },
+    {
+      "name": "LIQUIDATION_LINE_ID_1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary key of the distribution line to liquidate.",
+      "column_order": 33
+    },
+    {
+      "name": "LIQUIDATION_LINE_ID_2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary key of the distribution line to liquidate.",
+      "column_order": 34
+    },
+    {
+      "name": "LIQUIDATION_LINE_ID_3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary key of the distribution line to liquidate.",
+      "column_order": 35
+    },
+    {
+      "name": "LIQUIDATION_LINE_ID_4",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary key of the distribution line to liquidate.",
+      "column_order": 36
+    },
+    {
+      "name": "LIQUIDATION_LINE_ID_5",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary key of the distribution line to liquidate.",
+      "column_order": 37
+    },
+    {
+      "name": "LIQUIDATION_LINE_ID_6",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary key of the distribution line to liquidate.",
+      "column_order": 38
+    },
+    {
+      "name": "LIQUIDATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date to determine which period to move balances from one transaction to another",
+      "column_order": 39
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Key flexfield combination defining column that indentifies the general ledger account",
+      "column_order": 40
+    },
+    {
+      "name": "BUDGET_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Budget account, it is only populated for budget adjustments.",
+      "column_order": 41
+    },
+    {
+      "name": "JE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "General ledger journal category, it is populated for GL and SLA only.",
+      "column_order": 42
+    },
+    {
+      "name": "PJC_PROJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management project identifier associated with this transaction line.",
+      "column_order": 43
+    },
+    {
+      "name": "PJC_TOP_TASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management top task identifier associated with this transaction line.",
+      "column_order": 44
+    },
+    {
+      "name": "PJC_TASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management lowest task identifier associated with this transaction line.",
+      "column_order": 45
+    },
+    {
+      "name": "PJC_TOP_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management top resource identifier associated with this transaction line.",
+      "column_order": 46
+    },
+    {
+      "name": "PJC_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management lowest resource identifier associated with this transaction line.",
+      "column_order": 47
+    },
+    {
+      "name": "PJC_CONTRACT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management contract identifier associated with this transaction line.",
+      "column_order": 48
+    },
+    {
+      "name": "PJC_CONTRACT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management contract line identifier associated with this transaction line.",
+      "column_order": 49
+    },
+    {
+      "name": "PJC_FUNDING_ALLOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management funding allocation identifier associated with this transaction line.",
+      "column_order": 50
+    },
+    {
+      "name": "PJC_BILLABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if this line is subject to billing functions in Project Management.",
+      "column_order": 51
+    },
+    {
+      "name": "PJC_CAPITALIZABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if this line is subject to capitalization functions in Project Management.",
+      "column_order": 52
+    },
+    {
+      "name": "PJC_EXPENDITURE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management expenditure type identifier associated with this transaction line.",
+      "column_order": 53
+    },
+    {
+      "name": "PJC_EXPENDITURE_ITEM_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Project Management expenditure item date associated with this transaction line.",
+      "column_order": 54
+    },
+    {
+      "name": "PJC_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management organization identifier associated with this transaction line.",
+      "column_order": 55
+    },
+    {
+      "name": "PJC_WORK_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management work type identifier associated with this transaction line.",
+      "column_order": 56
+    },
+    {
+      "name": "PJC_FUNDING_SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management funding source identifier associated with this transaction line.",
+      "column_order": 57
+    },
+    {
+      "name": "CONTROL_BUDGET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Control budget id, in cases where one is explicitly specified.",
+      "column_order": 58
+    },
+    {
+      "name": "LIQUIDATION_DATE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Method via which the liquidation date should be obtained, it is used for procure to pay flow.",
+      "column_order": 59
+    },
+    {
+      "name": "PARTIAL_RESERVATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "All transaction lines must pass/fail budgetary control together.",
+      "column_order": 60
+    },
+    {
+      "name": "VENDOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Vendor associated with this transaction line.",
+      "column_order": 61
+    },
+    {
+      "name": "INVENTORY_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Inventory item associated with this transaction line.",
+      "column_order": 62
+    },
+    {
+      "name": "ORDER_TYPE_INFO",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Order type information associated with this transaction line.",
+      "column_order": 63
+    },
+    {
+      "name": "NEEDS_RESOURCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if burdening activities generated for this line must provide resource information.",
+      "column_order": 64
+    },
+    {
+      "name": "NEEDS_ACCOUNT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if burdening activities generated for this line must provide account information.",
+      "column_order": 65
+    },
+    {
+      "name": "JE_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "General ledger journal source (populated for general ledger and subledger accounting data only).",
+      "column_order": 66
+    },
+    {
+      "name": "OVERRIDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if this line was overridden when performing overrides with partial reservation turned on. In all other cases, it will be left as blank.",
+      "column_order": 67
+    },
+    {
+      "name": "OVERRIDABLE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates what type of override is available when running in override or override check mode with partial reservation turned on.",
+      "column_order": 68
+    },
+    {
+      "name": "DATA_PURGED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that one or more activities have been purged for this line. Valid values are Y and N.",
+      "column_order": 69
+    },
+    {
+      "name": "FAILURE_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason for failure when budgetary control failed due to a reason other than a failed budgetary control activity. Some potential reasons are: failure of related transactions, failure of related lines, or a burdening failure.",
+      "column_order": 70
+    },
+    {
+      "name": "SUCCESS_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason for success when no budgetary control activity was generated. Potential success reasons are: budgetary control not being applicable, or no control budgets being applicable for this transaction line. The transaction line may still fail budgetary control, if a related transaction or a related transaction line fails.",
+      "column_order": 71
+    },
+    {
+      "name": "BURDEN_FAILURE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether generation of burdening information has failed for this line.",
+      "column_order": 72
+    },
+    {
+      "name": "JE_CASH_ACCOUNT_LINE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if a GL or SLA journal line is a cash account line.",
+      "column_order": 73
+    },
+    {
+      "name": "CASH_CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Cash code combination of the bank account for Receivables receipt.",
+      "column_order": 74
+    },
+    {
+      "name": "REVENUE_CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Code combination for one of these:\n1) revenue code combination for Receivables miscellaneous receipt,\n2) revenue code combination derived from Receivables invoice for receipt application.",
+      "column_order": 75
+    },
+    {
+      "name": "FV_SUMMARY_ACCOUNT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Summary natural account value used for the budget account. This is populated only for federal budget transactions.",
+      "column_order": 76
+    },
+    {
+      "name": "SOURCE_LINE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the type of transaction line.",
+      "column_order": 77
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 78
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 79
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 80
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 81
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 82
+    }
+  ]
+}

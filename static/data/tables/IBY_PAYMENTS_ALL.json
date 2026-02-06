@@ -1,0 +1,2011 @@
+{
+  "id": 28939,
+  "name": "IBY_PAYMENTS_ALL",
+  "type": "TABLE",
+  "description": "IBY_PAYMENTS_ALL stores information on payments. A payment is a single check or fund transfer transaction between first party payer and third party payee. A payment pays one or more documents payable, and there may be one or more payments in a payment instruction. Payments are built by grouping documents payable according to Oracle Payments' grouping rules. This table corresponds to the Payments tab of the Funds Disbursement Process Home.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibypaymentsall-6810.html#ibypaymentsall-6810",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PAYMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System-generated primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "INVOICING_LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Invoicing legal entity unique identifier.",
+      "column_order": 2
+    },
+    {
+      "name": "PAYMENT_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment method identifier",
+      "column_order": 3
+    },
+    {
+      "name": "PAYMENT_SERVICE_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payment process request identifier",
+      "column_order": 4
+    },
+    {
+      "name": "PROCESS_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies the process by which the payment is built into a payment instruction. Values, from the lookup IBY_PROCESS_TYPES, include STANDARD, IMMEDIATE, and MANUAL.",
+      "column_order": 5
+    },
+    {
+      "name": "PAYMENT_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment status. Values, from the lookup IBY_PAYMENT_STATUSES, include CREATED, FORMATTED, TRANSMITTED.",
+      "column_order": 6
+    },
+    {
+      "name": "PAYMENTS_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicates if the payment is confirmed",
+      "column_order": 7
+    },
+    {
+      "name": "PAYMENT_FUNCTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Function or purpose of the payment. Values from the lookup IBY_PAYMENT_FUNCTIONS include SUPPLIER_PAYMENT, CUSTOMER_REFUNDS, and others.",
+      "column_order": 8
+    },
+    {
+      "name": "PAYMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount of the payment",
+      "column_order": 9
+    },
+    {
+      "name": "PAYMENT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Currency of the payment",
+      "column_order": 10
+    },
+    {
+      "name": "BILL_PAYABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether a payment is a bill payable.",
+      "column_order": 11
+    },
+    {
+      "name": "EXCLUSIVE_PAYMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether this payment contains a document payable for which the EXCLUSIVE_PAYMENT_FLAG was Yes.",
+      "column_order": 12
+    },
+    {
+      "name": "SEPARATE_REMIT_ADVICE_REQ_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y or N flag indicating whether a separate remittance advice needs to be generated for a payment. By default, this flag is set to N.",
+      "column_order": 13
+    },
+    {
+      "name": "INTERNAL_BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Internal bank account identifier",
+      "column_order": 14
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 15
+    },
+    {
+      "name": "ORG_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Organization type, such as business unit. Values taken from lookup: IBY_ORGANIZATION_TYPES",
+      "column_order": 16
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Legal entity identifier",
+      "column_order": 17
+    },
+    {
+      "name": "DECLARE_PAYMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag that indicates whether this payment needs to be reported to the central bank. Applicable only when DECLARATION_OPTION for regulatory reporting is set to DECLARE_DIRECT_TO_CENTRAL_BANK.",
+      "column_order": 18
+    },
+    {
+      "name": "DELIVERY_CHANNEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Delivery channel code for the payment, updated only when the payment s are grouped by delivery channel.",
+      "column_order": 19
+    },
+    {
+      "name": "EXT_PAYEE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "External payee identifier",
+      "column_order": 20
+    },
+    {
+      "name": "PAYMENT_INSTRUCTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment instruction identifier",
+      "column_order": 21
+    },
+    {
+      "name": "PAYMENT_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payment process profile identifier",
+      "column_order": 22
+    },
+    {
+      "name": "PREGROUPED_PAYMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y or N flag indicating whether this payment was grouped by the calling application. If the value is Y, all the documents of this payment will contain a non-null value for the payment grouping number attribute.",
+      "column_order": 23
+    },
+    {
+      "name": "STOP_CONFIRMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y or N flag indicating whether a stop has been confirmed on this payment.",
+      "column_order": 24
+    },
+    {
+      "name": "STOP_RELEASED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y or N flag indicating whether a stop request has been released on this payment.",
+      "column_order": 25
+    },
+    {
+      "name": "STOP_REQUEST_PLACED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y or N flag indicating whether a stop request has been placed on this payment.",
+      "column_order": 26
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 27
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 28
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 29
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 32
+    },
+    {
+      "name": "PAYEE_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "TCA party identifier",
+      "column_order": 33
+    },
+    {
+      "name": "PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payee party site identifier",
+      "column_order": 34
+    },
+    {
+      "name": "SUPPLIER_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Supplier site identifier",
+      "column_order": 35
+    },
+    {
+      "name": "PAYMENT_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment reason code",
+      "column_order": 36
+    },
+    {
+      "name": "PAYMENT_REASON_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Free text field available for entering a reason for the payment",
+      "column_order": 37
+    },
+    {
+      "name": "PAYMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Payment date",
+      "column_order": 38
+    },
+    {
+      "name": "ANTICIPATED_VALUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Anticipated value date",
+      "column_order": 39
+    },
+    {
+      "name": "DECLARATION_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of all reporting amounts from the documents that constitute this payment. This amount will be in the declaration or reporting currency.",
+      "column_order": 40
+    },
+    {
+      "name": "DECLARATION_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Currency of the declaration amount",
+      "column_order": 41
+    },
+    {
+      "name": "DISCOUNT_AMOUNT_TAKEN",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Discount amount in payment currency",
+      "column_order": 42
+    },
+    {
+      "name": "PAYMENT_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Concatenated string that represents the payment details",
+      "column_order": 43
+    },
+    {
+      "name": "BANK_CHARGE_BEARER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Party that is responsible for paying regular or express bank charges, such as Payee or Payer. Values taken from lookup: IBY_BANK_CHARGE_BEARER",
+      "column_order": 44
+    },
+    {
+      "name": "BANK_CHARGE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank charge amount in the payment currency",
+      "column_order": 45
+    },
+    {
+      "name": "SETTLEMENT_PRIORITY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Priority with which the financial institution or payment system settles payment for this document. The available values for this column come from the FND lookup IBY_SETTLEMENT_PRIORITY.",
+      "column_order": 46
+    },
+    {
+      "name": "REMITTANCE_MESSAGE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Remittance message for use in payment processing",
+      "column_order": 47
+    },
+    {
+      "name": "REMITTANCE_MESSAGE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Remittance message for use in payment processing",
+      "column_order": 48
+    },
+    {
+      "name": "REMITTANCE_MESSAGE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Remittance message for use in payment processing",
+      "column_order": 49
+    },
+    {
+      "name": "PAYMENT_REFERENCE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "User and bank facing number identifying the payment",
+      "column_order": 50
+    },
+    {
+      "name": "PAPER_DOCUMENT_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment document number if a printed payment",
+      "column_order": 51
+    },
+    {
+      "name": "BANK_ASSIGNED_REF_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment system-provided reference code for this payment",
+      "column_order": 52
+    },
+    {
+      "name": "EXTERNAL_BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "External bank account identifier",
+      "column_order": 53
+    },
+    {
+      "name": "UNIQUE_REMITTANCE_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "Unique remittance Identifier provided by the payee",
+      "column_order": 54
+    },
+    {
+      "name": "URI_CHECK_DIGIT",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Unique remittance identifier check digit",
+      "column_order": 55
+    },
+    {
+      "name": "BANK_INSTRUCTION1_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code of first bank instruction, from the payment process profile",
+      "column_order": 56
+    },
+    {
+      "name": "BANK_INSTRUCTION2_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code of second bank instruction, from the payment process profile",
+      "column_order": 57
+    },
+    {
+      "name": "BANK_INSTRUCTION_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Additional bank instruction details from the payment process profile",
+      "column_order": 58
+    },
+    {
+      "name": "PAYMENT_TEXT_MESSAGE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Text message for use in payment processing",
+      "column_order": 59
+    },
+    {
+      "name": "PAYMENT_TEXT_MESSAGE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Text message for use in payment processing",
+      "column_order": 60
+    },
+    {
+      "name": "PAYMENT_TEXT_MESSAGE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Text message for use in payment processing",
+      "column_order": 61
+    },
+    {
+      "name": "MATURITY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Calculated maturity date on a bill payable payment",
+      "column_order": 62
+    },
+    {
+      "name": "PAYMENT_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the payment is made",
+      "column_order": 63
+    },
+    {
+      "name": "DOCUMENT_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Document category for sequential numbering",
+      "column_order": 64
+    },
+    {
+      "name": "DOCUMENT_SEQUENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Document sequence identifier from sequential numbering",
+      "column_order": 65
+    },
+    {
+      "name": "DOCUMENT_SEQUENCE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Document sequence value from sequential numbering",
+      "column_order": 66
+    },
+    {
+      "name": "BENEFICIARY_PARTY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Beneficiary party, if payment is made through a third party",
+      "column_order": 67
+    },
+    {
+      "name": "STOP_CONFIRMED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "The user who confirmed the stop.",
+      "column_order": 68
+    },
+    {
+      "name": "STOP_CONFIRM_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the stop was confirmed.",
+      "column_order": 69
+    },
+    {
+      "name": "STOP_CONFIRM_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reason for confirming the stop.",
+      "column_order": 70
+    },
+    {
+      "name": "STOP_CONFIRM_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Payment system reference code for the confirmed stop payment.",
+      "column_order": 71
+    },
+    {
+      "name": "STOP_RELEASED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "The user who released the stop request.",
+      "column_order": 72
+    },
+    {
+      "name": "STOP_RELEASE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the stop request was released.",
+      "column_order": 73
+    },
+    {
+      "name": "STOP_RELEASE_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reason for releasing the stop request.",
+      "column_order": 74
+    },
+    {
+      "name": "STOP_RELEASE_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Payment system reference code for releasing or denying the stop request.",
+      "column_order": 75
+    },
+    {
+      "name": "STOP_REQUEST_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the stop request was placed.",
+      "column_order": 76
+    },
+    {
+      "name": "STOP_REQUEST_PLACED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "The user who placed the stop request.",
+      "column_order": 77
+    },
+    {
+      "name": "STOP_REQUEST_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reason for placing the stop request.",
+      "column_order": 78
+    },
+    {
+      "name": "STOP_REQUEST_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Payment system reference code for the stop request.",
+      "column_order": 79
+    },
+    {
+      "name": "VOIDED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "The user who voided the payment.",
+      "column_order": 80
+    },
+    {
+      "name": "VOID_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the payment was voided.",
+      "column_order": 81
+    },
+    {
+      "name": "VOID_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reason for voiding the payment.",
+      "column_order": 82
+    },
+    {
+      "name": "REMIT_TO_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Remit-To address identifier",
+      "column_order": 83
+    },
+    {
+      "name": "COMPLETED_PMTS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The identifier of a group of payments, including this one, which were confirmed. Value is from sequence IBY_COMPLETED_PMTS_GROUP_S.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "EXT_BRANCH_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payee bank routing number (branch number), denormalized from CE bank branches view",
+      "column_order": 101
+    },
+    {
+      "name": "EXT_BANK_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payee bank number, denormalized from CE bank branches view",
+      "column_order": 102
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Payee bank account name, denormalized from CE bank branches view",
+      "column_order": 103
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Masked payee bank account number, denormalized from CE bank accounts view",
+      "column_order": 104
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Payee bank account type, denormalized from CE bank accounts view",
+      "column_order": 105
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_IBAN_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Masked payee bank account IBAN, denormalized from CE bank accounts view",
+      "column_order": 106
+    },
+    {
+      "name": "PAYEE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Name of payee, if provided by administrator",
+      "column_order": 107
+    },
+    {
+      "name": "PAYEE_ADDRESS1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "First line for payee address, if provided by administrator",
+      "column_order": 108
+    },
+    {
+      "name": "PAYEE_ADDRESS2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Second line for payee address, if provided by administrator",
+      "column_order": 109
+    },
+    {
+      "name": "PAYEE_ADDRESS3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Third line for payee address, if provided by administrator",
+      "column_order": 110
+    },
+    {
+      "name": "PAYEE_ADDRESS4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Fourth line for payee address, if provided by administrator",
+      "column_order": 111
+    },
+    {
+      "name": "PAYEE_CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Payee city, if provided by administrator",
+      "column_order": 112
+    },
+    {
+      "name": "PAYEE_POSTAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Payee postal code, if provided by administrator",
+      "column_order": 113
+    },
+    {
+      "name": "PAYEE_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Payee state, if provided by administrator",
+      "column_order": 114
+    },
+    {
+      "name": "PAYEE_PROVINCE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Payee province, if provided by administrator",
+      "column_order": 115
+    },
+    {
+      "name": "PAYEE_COUNTY",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Payee county, if provided by administrator",
+      "column_order": 116
+    },
+    {
+      "name": "PAYEE_COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Payee country code, if provided by administrator",
+      "column_order": 117
+    },
+    {
+      "name": "REMIT_ADVICE_DELIVERY_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "How the remittance advice, if any, is delivered using values from lookup type IBY_DELIVERY_METHODS",
+      "column_order": 118
+    },
+    {
+      "name": "REMIT_ADVICE_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "E-mail address to which the remittance advice is delivered",
+      "column_order": 119
+    },
+    {
+      "name": "REMIT_ADVICE_FAX",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Fax number to which the remittance advice is delivered",
+      "column_order": 120
+    },
+    {
+      "name": "PAYMENT_PROFILE_SYS_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Denormalized from IBY_SYS_PMT_PROFILES and derived via PAYMENT_PROFILE_ ID",
+      "column_order": 121
+    },
+    {
+      "name": "PAYMENT_PROFILE_ACCT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Denormalized from IBY_ACCT_PMT_PROFILES and derived via PAYMENT_PROFILE_ ID",
+      "column_order": 122
+    },
+    {
+      "name": "PAYMENT_PROCESS_REQUEST_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Denormalized from IBY_PAY_SERVICE_REQUESTS.CALL_APP_PAY_SERVICE_REQ_CODE and derived via PAYMENT_SERVICE_REQUEST_ID",
+      "column_order": 123
+    },
+    {
+      "name": "SOURCE_PRODUCT",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Denormalized from product name for product determined by IBY_PAY_SERVICE_REQUESTS. CALLING_APP_ID; derive via PAYMENT_SERVICE_REQUEST_ID",
+      "column_order": 124
+    },
+    {
+      "name": "PAYMENT_REASON_FORMAT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Payment reason value that is put into the extract for use by the format",
+      "column_order": 125
+    },
+    {
+      "name": "DECLARATION_EXCH_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Exchange rate type used for regulatory reporting.",
+      "column_order": 126
+    },
+    {
+      "name": "DECLARATION_FORMAT",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Format used for regulatory reporting.",
+      "column_order": 127
+    },
+    {
+      "name": "DELIVERY_CHANNEL_FORMAT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "An alias for delivery channel code that is put into the extract for optional use by the format.",
+      "column_order": 128
+    },
+    {
+      "name": "BANK_INSTRUCTION1_FORMAT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Bank instruction value that is put into the extract for use by the format",
+      "column_order": 129
+    },
+    {
+      "name": "BANK_INSTRUCTION2_FORMAT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Bank instruction value that is put into the extract for use by the format",
+      "column_order": 130
+    },
+    {
+      "name": "SRA_DELIVERY_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Denormalized from IBY_REMIT_ADVICE_SETUP.REMIT_ADVICE_ DELIVERY_METHOD and derived via payment process profile.",
+      "column_order": 131
+    },
+    {
+      "name": "INT_BANK_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Disbursement bank account name, denormalized from HZ_PARTIES.PARTY_NAME and derived via INTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 132
+    },
+    {
+      "name": "INT_BANK_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Denormalized from TCA; derived via INTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 133
+    },
+    {
+      "name": "INT_BIC",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bank identification code for disbursement bank account",
+      "column_order": 134
+    },
+    {
+      "name": "INT_BANK_BRANCH_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Denormalized from TCA; derived via INTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 135
+    },
+    {
+      "name": "INT_BANK_BRANCH_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Denormalized from TCA; derived via INTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 136
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Denormalized from CE; derived via INTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 137
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Denormalized from CE; derived via INTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 138
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_IBAN",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Denormalized from CE; derived via INTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 139
+    },
+    {
+      "name": "EXT_BANK_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Payee bank name denormalized from IBY_EXT_BANK_ACCOUNTS_V. BANK_NAME and derived via EXTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 140
+    },
+    {
+      "name": "EXT_BIC",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bank identification code for payee bank account",
+      "column_order": 141
+    },
+    {
+      "name": "EXT_BANK_BRANCH_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Denormalized from IBY_EXT_BANK_ACCOUNTS_V. BANK_BRANCH_NAME; derived via EXTERNAL_BANK_ACCOUNT_ID",
+      "column_order": 142
+    },
+    {
+      "name": "ORG_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Business unit name, denormalized from HR_ALL_ORGANIZATION_UNITS.NAME and derived via ORG_ID.",
+      "column_order": 143
+    },
+    {
+      "name": "LEGAL_ENTITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Legal entity name.",
+      "column_order": 144
+    },
+    {
+      "name": "PAYER_LE_REGISTRATION_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Legal registration number of the legal entity making the disbursement",
+      "column_order": 145
+    },
+    {
+      "name": "PAYER_TAX_REGISTRATION_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Tax registration number of the legal entity making the disbursement",
+      "column_order": 146
+    },
+    {
+      "name": "PAYEE_PARTY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Denormalized from HZ_PARTIES.PARTY_NAME; derived via PAYEE_PARTY_ID",
+      "column_order": 147
+    },
+    {
+      "name": "PAYEE_LE_REGISTRATION_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Legal registration number of the legal entity receiving the disbursement",
+      "column_order": 148
+    },
+    {
+      "name": "PAYEE_TAX_REGISTRATION_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Tax registration number of the legal entity receiving the disbursement",
+      "column_order": 149
+    },
+    {
+      "name": "PAYEE_TAX_REGISTRATION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax registration type of the legal entity receiving the disbursement",
+      "column_order": 150
+    },
+    {
+      "name": "PARTY_SITE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Party site name",
+      "column_order": 151
+    },
+    {
+      "name": "PAYEE_ADDRESS_CONCAT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Concatenated denormalization from standard address fields HZ_LOCATIONS; derived via PARTY_SITE_ID.",
+      "column_order": 152
+    },
+    {
+      "name": "BENEFICIARY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Beneficiary name, denormalized from HZ_PARTIES.PARTY_NAME and derived via BENEFICIARY_PARTY_ID",
+      "column_order": 153
+    },
+    {
+      "name": "BENEFICIARY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Beneficiary party site identifier",
+      "column_order": 154
+    },
+    {
+      "name": "BENEFICIARY_SITE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Beneficiary party site name",
+      "column_order": 155
+    },
+    {
+      "name": "BENEFICIARY_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Beneficiary party, if payment is made through a third party",
+      "column_order": 156
+    },
+    {
+      "name": "INT_EFT_SWIFT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "SWIFT code of the payer's bank",
+      "column_order": 157
+    },
+    {
+      "name": "EXT_EFT_SWIFT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "SWIFT code of the payee's bank",
+      "column_order": 158
+    },
+    {
+      "name": "PAYER_LEGAL_ENTITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Name of the legal entity making the disbursement",
+      "column_order": 159
+    },
+    {
+      "name": "PAYER_PARTY_SITE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Payer party site name",
+      "column_order": 160
+    },
+    {
+      "name": "PAYER_PARTY_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payer party number",
+      "column_order": 161
+    },
+    {
+      "name": "PAYEE_PARTY_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payee party number",
+      "column_order": 162
+    },
+    {
+      "name": "PAYEE_ALTERNATE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Payee party alternate name",
+      "column_order": 163
+    },
+    {
+      "name": "PAYEE_SITE_ALTERNATE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 320,
+      "nullable": "Y",
+      "description": "Payee party site alternate name",
+      "column_order": 164
+    },
+    {
+      "name": "PAYEE_SUPPLIER_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supplier number",
+      "column_order": 165
+    },
+    {
+      "name": "PAYEE_FIRST_PARTY_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payee first party reference",
+      "column_order": 166
+    },
+    {
+      "name": "INT_BANK_BRANCH_RFC_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Internal bank branch RFC identifier",
+      "column_order": 167
+    },
+    {
+      "name": "INT_BANK_ACCT_AGENCY_LOC_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Auditing column for the corresponding value in CE_BANK_ACCOUNTS.AGENCY_LOCATION_CODE",
+      "column_order": 168
+    },
+    {
+      "name": "PAYER_ABBREVIATED_AGENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Agency Location Code used by federal agencies",
+      "column_order": 169
+    },
+    {
+      "name": "PAYER_FEDERAL_US_EMPLOYER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Employer identifier used by federal agencies",
+      "column_order": 170
+    },
+    {
+      "name": "EXT_BANK_ACCT_OWNER_PARTY_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Identifier of the bank branch of the payee",
+      "column_order": 171
+    },
+    {
+      "name": "EXT_BANK_ACCT_PMT_FACTOR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Identifier of the bank branch of the payee",
+      "column_order": 172
+    },
+    {
+      "name": "ADDRESS_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source of the address. Possible values from the lookup IBY_ADDRESS_SOURCE_TYPES include TCA and HR.",
+      "column_order": 173
+    },
+    {
+      "name": "EMPLOYEE_ADDRESS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of address. Possible values include HOME and OFFICE.",
+      "column_order": 174
+    },
+    {
+      "name": "EMPLOYEE_PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Employee person Identifier",
+      "column_order": 175
+    },
+    {
+      "name": "EMPLOYEE_PAYMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether the payment is of the employee payment type",
+      "column_order": 176
+    },
+    {
+      "name": "EMPLOYEE_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "HR Identifier of the address",
+      "column_order": 177
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 178
+    },
+    {
+      "name": "EXT_BANK_BRANCH_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifier of the bank branch of the payee",
+      "column_order": 179
+    },
+    {
+      "name": "EXT_BANK_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 320,
+      "nullable": "Y",
+      "description": "Alternate name of the bank of the payee",
+      "column_order": 180
+    },
+    {
+      "name": "EXT_BANK_BRANCH_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 320,
+      "nullable": "Y",
+      "description": "Alternate name of the bank branch of the payee",
+      "column_order": 181
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 320,
+      "nullable": "Y",
+      "description": "Alternate name of the bank account of the payee",
+      "column_order": 182
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_NUM_ELEC",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Auditing column for the corresponding value in IBY_EXT_BANK_ACCOUNTS.BANK_ACCOUNT_NUM_ELEC",
+      "column_order": 183
+    },
+    {
+      "name": "EXT_BANK_BRANCH_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifier of the address of the bank branch of the payee",
+      "column_order": 184
+    },
+    {
+      "name": "EXT_BANK_ACCT_OWNER_PARTY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Name of the account owner of the payee bank account",
+      "column_order": 185
+    },
+    {
+      "name": "INT_BANK_BRANCH_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifier of the bank branch of the payer",
+      "column_order": 186
+    },
+    {
+      "name": "INT_BANK_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Alternate name of the bank of the payer",
+      "column_order": 187
+    },
+    {
+      "name": "INT_BANK_BRANCH_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Alternate name of the bank branch of the payer",
+      "column_order": 188
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 320,
+      "nullable": "Y",
+      "description": "Alternate name of the bank account of the payer",
+      "column_order": 189
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_NUM_ELEC",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Auditing column for the corresponding value in CE_BANK_ACCOUNTS.EFT_USER_NUM",
+      "column_order": 190
+    },
+    {
+      "name": "INT_BANK_BRANCH_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifier of the address of the bank branch of the payer",
+      "column_order": 191
+    },
+    {
+      "name": "INT_BANK_BRANCH_EFT_USER_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Auditing column for the corresponding value in CE_BANK_ACCOUNTS.BANK_ACCOUNT_NUM_ELECTRONIC",
+      "column_order": 192
+    },
+    {
+      "name": "PAYER_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifier of the supplier party",
+      "column_order": 193
+    },
+    {
+      "name": "PAYER_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifier of the supplier party address",
+      "column_order": 194
+    },
+    {
+      "name": "PAYER_PARTY_ATTR_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Payer party attribute category",
+      "column_order": 195
+    },
+    {
+      "name": "PAYER_LE_ATTR_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Payer party legal entity attribute category",
+      "column_order": 196
+    },
+    {
+      "name": "PAYEE_PARTY_ATTR_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Payer party legal entity attribute category",
+      "column_order": 197
+    },
+    {
+      "name": "PAYEE_SUPPLIER_ATTR_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Payer party supplier attribute category",
+      "column_order": 198
+    },
+    {
+      "name": "PAYEE_SPPLR_SITE_ATTR_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Payer partysupplier site attribute category",
+      "column_order": 199
+    },
+    {
+      "name": "PAYEE_SUPPLIER_SITE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Supplier site name",
+      "column_order": 200
+    },
+    {
+      "name": "PAYEE_SUPPLIER_SITE_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 320,
+      "nullable": "Y",
+      "description": "Supplier site alternate name",
+      "column_order": 201
+    },
+    {
+      "name": "PAYEE_SUPPLIER_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Supplier alternate name",
+      "column_order": 202
+    },
+    {
+      "name": "LOGICAL_GROUP_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "If not null, this column indicates that this payment is part of a logical group of payments. It is in the format of [PAYMENT_INSTRUCTION_ID]_COUNT.",
+      "column_order": 203
+    },
+    {
+      "name": "INVOICING_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Invoicing Business Unit",
+      "column_order": 204
+    },
+    {
+      "name": "INVOICING_ORG_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Invoicing Organiztion Type",
+      "column_order": 205
+    },
+    {
+      "name": "SRA_CREATED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating if the separate remittance advice has been printed or delivered for this payment",
+      "column_order": 206
+    },
+    {
+      "name": "SERVICE_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The service level with which a payment is processed.",
+      "column_order": 207
+    },
+    {
+      "name": "POSITIVE_PAY_FILE_CREATED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicates whether a positive pay file has been created for a payment. By default, this flag is set to N.",
+      "column_order": 208
+    },
+    {
+      "name": "INV_EXT_PAYEE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "External payee associated with the invoice supplier",
+      "column_order": 209
+    },
+    {
+      "name": "INV_PAYEE_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party identifier of the supplier that sends the invoice.",
+      "column_order": 210
+    },
+    {
+      "name": "INV_PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party site identifier associated with the supplier.",
+      "column_order": 211
+    },
+    {
+      "name": "INV_SUPPLIER_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Supplier site identifier of the supplier that sends the invoice.",
+      "column_order": 212
+    },
+    {
+      "name": "INV_PAYEE_PARTY_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Party number of the supplier that sends the invoice.",
+      "column_order": 213
+    },
+    {
+      "name": "INV_PAYEE_SUPPLIER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Supplier identifier of the supplier that sends the invoice.",
+      "column_order": 214
+    },
+    {
+      "name": "INV_PAYEE_SUPPLIER_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supplier number of the supplier that sends the invoice.",
+      "column_order": 215
+    },
+    {
+      "name": "INV_PAYEE_PARTY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Payee name of the supplier that sends the invoice.",
+      "column_order": 216
+    },
+    {
+      "name": "INV_PAYEE_ALTERNATE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Alternate name of the supplier that sends the invoice.",
+      "column_order": 217
+    },
+    {
+      "name": "INV_PAYEE_SITE_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Alternate site name of the supplier that sends the invoice.",
+      "column_order": 218
+    },
+    {
+      "name": "INV_PAYEE_SUPPLIER_SITE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Site name of the supplier that sends the invoice.",
+      "column_order": 219
+    },
+    {
+      "name": "INV_PAYEE_SPPLR_SITE_ALT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Alternate site name of the supplier that sends the invoice.",
+      "column_order": 220
+    },
+    {
+      "name": "INV_PAYEE_ADDRESS1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "First address line of the supplier that sends the invoice.",
+      "column_order": 221
+    },
+    {
+      "name": "INV_PAYEE_ADDRESS2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Second address line of the supplier that sends the invoice.",
+      "column_order": 222
+    },
+    {
+      "name": "INV_PAYEE_ADDRESS3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Third address line of the supplier that sends the invoice.",
+      "column_order": 223
+    },
+    {
+      "name": "INV_PAYEE_ADDRESS4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Fourth address line of the supplier that sends the invoice.",
+      "column_order": 224
+    },
+    {
+      "name": "INV_PAYEE_CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "City name of the supplier address that sends the invoice.",
+      "column_order": 225
+    },
+    {
+      "name": "INV_PAYEE_POSTAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Postal code of the supplier address that sends the invoice.",
+      "column_order": 226
+    },
+    {
+      "name": "INV_PAYEE_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "State name of the supplier address that sends the invoice.",
+      "column_order": 227
+    },
+    {
+      "name": "INV_PAYEE_PROVINCE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Province name of the supplier that sends the invoice.",
+      "column_order": 228
+    },
+    {
+      "name": "INV_PAYEE_COUNTY",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "County name of the supplier that sends the invoice.",
+      "column_order": 229
+    },
+    {
+      "name": "INV_PAYEE_COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Country name of the supplier that sends the invoice.",
+      "column_order": 230
+    },
+    {
+      "name": "INV_PAYEE_ADDRESS_CONCAT",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Concatenated standard address fields of the supplier that sends the invoice.",
+      "column_order": 231
+    },
+    {
+      "name": "INV_PAYEE_LE_REG_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Legal registration number of the supplier that sends the invoice.",
+      "column_order": 232
+    },
+    {
+      "name": "INV_PAYEE_TAX_REG_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Tax registration number of the supplier that sends the invoice.",
+      "column_order": 233
+    },
+    {
+      "name": "INV_PAYEE_TAX_REG_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax registration type of the supplier that sends the invoice.",
+      "column_order": 234
+    },
+    {
+      "name": "INV_PAYEE_FIRST_PARTY_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Customer number with the supplier that sends the invoice.",
+      "column_order": 235
+    },
+    {
+      "name": "SET_OF_BOOKS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger identifier for the invoice.",
+      "column_order": 236
+    },
+    {
+      "name": "DATA_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique sequence generated by Budgetary Control for every budget control call.",
+      "column_order": 237
+    },
+    {
+      "name": "FUNDS_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Funds status of the budget controlled payments.",
+      "column_order": 238
+    },
+    {
+      "name": "INBOUND_FILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the inbound payment file.",
+      "column_order": 239
+    },
+    {
+      "name": "ACKNOWLEDGEMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when acknowledgment file was processed.",
+      "column_order": 240
+    },
+    {
+      "name": "BEP_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status returned by the bank or payment system.",
+      "column_order": 241
+    },
+    {
+      "name": "BEP_ERROR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Error code from bank or payment system.",
+      "column_order": 242
+    },
+    {
+      "name": "BEP_ERROR_MESSAGE_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Error message from bank or payment system.",
+      "column_order": 243
+    },
+    {
+      "name": "PAYMENT_MODE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Invoice payment mode identifier.",
+      "column_order": 244
+    },
+    {
+      "name": "PAYMENT_INSTRUMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Funding instrument used for making payments.",
+      "column_order": 245
+    },
+    {
+      "name": "BEP_TRXN_RESPONSE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Response identifier generated by payment system for a payment request.",
+      "column_order": 246
+    },
+    {
+      "name": "ISSUER_AUTHORIZATION_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Alphanumeric reference assigned by the issuing bank for an authorized virtual card transaction.",
+      "column_order": 247
+    },
+    {
+      "name": "ACQUIRER_TRANSACTION_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Payment reference number assigned to a transaction by the acquiring bank. It helps in tracking the payment status through its life cycle.",
+      "column_order": 248
+    },
+    {
+      "name": "ISSUER_PROCESSING_TIMESTAMP",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Timestamp when a payment was authorized, declined, or cleared by the processor.",
+      "column_order": 249
+    },
+    {
+      "name": "DIGITAL_PAYMENT_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Digital payment account identifier. Foreign key to IBY_DIGITAL_PAYMENT_ACCOUNTS.",
+      "column_order": 250
+    }
+  ]
+}

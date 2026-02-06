@@ -1,0 +1,251 @@
+{
+  "id": 33570,
+  "name": "SVC_BI_QUEUE_RESOURCES",
+  "type": "TABLE",
+  "description": "This table is used for BI to store the resources (individual and teams) that belong to queues.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/svcbiqueueresources-26098.html#svcbiqueueresources-26098",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "BI_QUEUE_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Auto-generated number and primary key for this table.",
+      "column_order": 1
+    },
+    {
+      "name": "QUEUE_RS_TEAM_MEMBER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Unique identifier of the queue resource relationship flattened structure and alternate key for this table.",
+      "column_order": 2
+    },
+    {
+      "name": "QUEUE_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates Queue Resource ID and references SVC_QUEUE_RESOURCES(QUEUE_RESOURCE_ID).",
+      "column_order": 3
+    },
+    {
+      "name": "QUEUE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the Queue ID. Loaded from SVC_QUEUE_RESOURCES.QUEUE_ID and references SVC_QUEUES (QUEUE_ID).",
+      "column_order": 4
+    },
+    {
+      "name": "OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Loaded from SVC_QUEUE_RESOURCES.OBJECT_ID and references either HZ_PARTIES (PARTY_ID) for the resource ID or JTF_RS_TEAMS (TEAM_ID) for the resource team ID.",
+      "column_order": 5
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    },
+    {
+      "name": "OBJECT_TYPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Loaded from SVC_QUEUE_RESOURCES.OBJECT_TYPE_CD. Indicates type of resource - 'ORA_SVC_RESOURCE' or 'ORA_SVC_RESOURCE_TEAM'.",
+      "column_order": 12
+    },
+    {
+      "name": "ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Loaded from SVC_QUEUE_RESOURCES.ENABLED_FLAG. Indicates whether the resource is enabled (Y or N) for the queue.",
+      "column_order": 13
+    },
+    {
+      "name": "DELETED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Loaded from SVC_QUEUE_RESOURCES.DELETED_FLAG. Indicates whether this queue resource record is logically deleted (Y or N).",
+      "column_order": 14
+    },
+    {
+      "name": "RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the consolidated Resource ID. In case the resource type is 'ORA_SVC_RESOURCE_TEAM', then the Resource ID is Team Resource ID from JTF_RS_TEAM_MEMBERS, otherwise Resource ID is Object ID from SVC_QUEUE_RESOURCES.",
+      "column_order": 15
+    },
+    {
+      "name": "UNIQUE_RESOURCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether a resource is assigned one time or multiple times to a specific queue (Y or N). An individual can be assigned one time to a specific queue. But, the same individual could belong to multiple teams and those teams can be assigned to the same queue.",
+      "column_order": 16
+    },
+    {
+      "name": "RS_TEAM_MEMBER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the Resource Team Member ID. It is loaded from JTF_RS_TEAM_MEMBERS.TEAM_MEMBER_ID.",
+      "column_order": 17
+    },
+    {
+      "name": "RS_TEAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the Resource Team ID. It is loaded from JTF_RS_TEAM_MEMBERS.TEAM_ID.",
+      "column_order": 18
+    },
+    {
+      "name": "RS_TEAM_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the Team Resource ID. It is loaded from JTF_RS_TEAM_MEMBERS.TEAM_RESOURCE_ID.",
+      "column_order": 19
+    },
+    {
+      "name": "RS_RESOURCE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the type of the resource - 'INDIVIDUAL' or 'GROUP'. Loaded from JTF_RS_TEAM_MEMBERS.RESOURCE_TYPE.",
+      "column_order": 20
+    },
+    {
+      "name": "RS_CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Indicates the user who created the row of JTF_RS_TEAM_MEMBERS if RS_TEAM_MEMBER_ID is not null.",
+      "column_order": 21
+    },
+    {
+      "name": "RS_CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of the creation of JTF_RS_TEAM_MEMBERS row if RS_TEAM_MEMBER_ID is not null.",
+      "column_order": 22
+    },
+    {
+      "name": "RS_LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Indicates the user who last updated the row of JTF_RS_TEAM_MEMBERS if RS_TEAM_MEMBER_ID is not null.",
+      "column_order": 23
+    },
+    {
+      "name": "RS_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of the last update of JTF_RS_TEAM_MEMBERS row if RS_TEAM_MEMBER_ID is not null.",
+      "column_order": 24
+    },
+    {
+      "name": "RS_LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Indicates the session login associated to the user who last updated the row of JTF_RS_TEAM_MEMBERS if RS_TEAM_MEMBER_ID is not null.",
+      "column_order": 25
+    },
+    {
+      "name": "RS_DELETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Loaded from JTF_RS_TEAM_MEMBERS.DELETE_FLAG. Indicates whether the resource record is logically deleted (Y or N). It makes sense only if RS_TEAM_MEMBER_ID is not null.",
+      "column_order": 26
+    },
+    {
+      "name": "PRIORITY",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Loaded from SVC_QUEUE_RESOURCES.PRIORITY. Indicates the priority of an overflow queue.",
+      "column_order": 27
+    },
+    {
+      "name": "BI_CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date and time this record was created.",
+      "column_order": 28
+    },
+    {
+      "name": "BI_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date and time this record was last updated.",
+      "column_order": 29
+    },
+    {
+      "name": "BI_DELETED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this row is logically deleted (Y or N).",
+      "column_order": 30
+    }
+  ]
+}

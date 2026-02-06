@@ -1,0 +1,379 @@
+{
+  "id": 33105,
+  "name": "ZSF_DS_ADJUSTMENT_CALC",
+  "type": "TABLE",
+  "description": "This table contains the metric adjustments from which metrics will be computed in Sales Forecasting.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zsfdsadjustmentcalc-27406.html#zsfdsadjustmentcalc-27406",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ADJUSTMENT_CALC_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for adjustment calc id",
+      "column_order": 1
+    },
+    {
+      "name": "ADJUSTMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key from ZSF_DS_ADJUSTMENT",
+      "column_order": 2
+    },
+    {
+      "name": "OPERATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "When an adjustment is created or updated the value will be ADJUST. When an adjustment is deleted, a set of records will be served with value RESET. This will be used to assist in effectively disregarding this adjustment when computing adjusted metrics.",
+      "column_order": 3
+    },
+    {
+      "name": "METRIC_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Metric name as defined in ZSF_DS_METRIC_DEFN",
+      "column_order": 4
+    },
+    {
+      "name": "METRIC_SRC_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Foreign Key to ZSF_DS_METRIC_SRC. This column will contain the code corresponding to the forecast type for which this adjustment is created",
+      "column_order": 5
+    },
+    {
+      "name": "METRIC_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "May be one of SUB | OWN | TOTAL",
+      "column_order": 6
+    },
+    {
+      "name": "PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Period as defined in ZSF_DS_PERIOD.",
+      "column_order": 7
+    },
+    {
+      "name": "ADJUSTED_BY_DIM1_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "ID of the ancestor who made the adjustment. Copied over from the corresponding  ZSF_DS_ADJUSTMENT record.",
+      "column_order": 8
+    },
+    {
+      "name": "ADJUSTED_BY_DIM1_ANC_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "N",
+      "description": "Path of the ancestor who made the adjustment.",
+      "column_order": 9
+    },
+    {
+      "name": "DIM1_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key of the first metric dimension",
+      "column_order": 10
+    },
+    {
+      "name": "DIM1_PARENT_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Starting from the ADJUSTED_BY_METRIC_DIM1_KEY, all the ancestors of DIM1_KEY are populated in this column",
+      "column_order": 11
+    },
+    {
+      "name": "DIM1_ANC_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "N",
+      "description": "Ancestor path reference of first metric dimension.",
+      "column_order": 12
+    },
+    {
+      "name": "DIM1_ROOT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y / NULL to indicate if the parent root key is the root of the hierarchy or not",
+      "column_order": 13
+    },
+    {
+      "name": "DIM2_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key of the second metric dimension",
+      "column_order": 14
+    },
+    {
+      "name": "DIM2_PARENT_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Parent reference of second metric dimension.",
+      "column_order": 15
+    },
+    {
+      "name": "DIM2_ANC_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Ancestor path reference of second metric dimension.",
+      "column_order": 16
+    },
+    {
+      "name": "DIM2_ROOT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y / NULL to indicate if the parent root key is the root of the hierarchy or not",
+      "column_order": 17
+    },
+    {
+      "name": "DIM3_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key of the third metric dimension",
+      "column_order": 18
+    },
+    {
+      "name": "DIM3_PARENT_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Parent reference of third metric dimension.",
+      "column_order": 19
+    },
+    {
+      "name": "DIM3_ANC_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Ancestor path reference of third metric dimension.",
+      "column_order": 20
+    },
+    {
+      "name": "DIM3_ROOT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y / NULL to indicate if the parent root key is the root of the hierarchy or not",
+      "column_order": 21
+    },
+    {
+      "name": "DIM4_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key of the fourth metric dimension",
+      "column_order": 22
+    },
+    {
+      "name": "DIM4_PARENT_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Parent reference of fourth metric dimension.",
+      "column_order": 23
+    },
+    {
+      "name": "DIM4_ANC_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Ancestor path reference of fourth metric dimension.",
+      "column_order": 24
+    },
+    {
+      "name": "DIM4_ROOT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y / NULL to indicate if the parent root key is the root of the hierarchy or not",
+      "column_order": 25
+    },
+    {
+      "name": "DIM5_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key of the fifth metric dimension",
+      "column_order": 26
+    },
+    {
+      "name": "DIM5_PARENT_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Parent reference of fifth metric dimension.",
+      "column_order": 27
+    },
+    {
+      "name": "DIM5_ANC_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Ancestor path reference of fifth metric dimension.",
+      "column_order": 28
+    },
+    {
+      "name": "DIM5_ROOT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y / NULL to indicate if the parent root key is the root of the hierarchy or not",
+      "column_order": 29
+    },
+    {
+      "name": "METRIC_SRC_PK1",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "PK value of first metric source table",
+      "column_order": 30
+    },
+    {
+      "name": "METRIC_SRC_OVN1",
+      "data_type": "NUMBER",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "OVN value of first metric source table",
+      "column_order": 31
+    },
+    {
+      "name": "METRIC_SRC_PK2",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "PK value of second metric source table",
+      "column_order": 32
+    },
+    {
+      "name": "METRIC_SRC_OVN2",
+      "data_type": "NUMBER",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "OVN value of second metric source table",
+      "column_order": 33
+    },
+    {
+      "name": "METRIC_SRC_PK3",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "PK value of third metric source table",
+      "column_order": 34
+    },
+    {
+      "name": "METRIC_SRC_OVN3",
+      "data_type": "NUMBER",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "OVN value of third metric source table",
+      "column_order": 35
+    },
+    {
+      "name": "ADJUSTED_METRIC_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Value that the adjuster entered in the adjustment.",
+      "column_order": 36
+    },
+    {
+      "name": "PROCESS_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Column to indicate that the row is being worked on by the Metrics compress Process.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 38
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 41
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 42
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 43
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 44
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 45
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 46
+    }
+  ]
+}

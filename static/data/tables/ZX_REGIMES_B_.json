@@ -1,0 +1,723 @@
+{
+  "id": 30338,
+  "name": "ZX_REGIMES_B_",
+  "type": "TABLE",
+  "description": "This table stores tax regimes and the related attributes. There will be one row per distinct tax regime. There are default entry columns to facilitate data entry process.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/zxregimesb-15241.html#zxregimesb-15241",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TAX_REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Tax regime code",
+      "column_order": 1
+    },
+    {
+      "name": "PARENT_REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Parent regime code for this regime",
+      "column_order": 2
+    },
+    {
+      "name": "HAS_SUB_REGIME_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether this regime is a parent regime with one or more child regimes defined under it",
+      "column_order": 3
+    },
+    {
+      "name": "COUNTRY_OR_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code to indicate whether this regime is defined for a country or for a group of countries",
+      "column_order": 4
+    },
+    {
+      "name": "COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Country code for which this regime is defined",
+      "column_order": 5
+    },
+    {
+      "name": "GEOGRAPHY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code to indicate geography type of the group of countries for which this regime is defined",
+      "column_order": 6
+    },
+    {
+      "name": "EFFECTIVE_FROM",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective from date",
+      "column_order": 7
+    },
+    {
+      "name": "EFFECTIVE_TO",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective to date",
+      "column_order": 8
+    },
+    {
+      "name": "EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Exchange rate type for transaction currency to tax currency conversion",
+      "column_order": 9
+    },
+    {
+      "name": "TAX_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Tax currency code",
+      "column_order": 10
+    },
+    {
+      "name": "CONV_ROUNDING_OPTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the currency types for which rounded tax amounts in transaction currency will be used for currency conversion. Possible values are 'Functional Currency', 'Tax Currency' and 'Both'. If no value is specified, unrounded tax amounts in transaction currency will be used to calculate the tax amounts in both Functional and Tax Currency.",
+      "column_order": 11
+    },
+    {
+      "name": "THRSHLD_GROUPING_LVL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code to indicate grouping level for applying thresholds across or within documents or lines or calendar periods",
+      "column_order": 12
+    },
+    {
+      "name": "ROUNDING_RULE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Rounding rule code to be used for rounding taxes of this regime. Possible values are UP, DOWN and NEAREST.",
+      "column_order": 13
+    },
+    {
+      "name": "TAX_PRECISION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax currency precision",
+      "column_order": 14
+    },
+    {
+      "name": "MINIMUM_ACCOUNTABLE_UNIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax currency minimum accountable unit",
+      "column_order": 15
+    },
+    {
+      "name": "TAX_STATUS_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether rules are defined for taxes of this regime to determine tax status. This setting can be overriden at the tax level.",
+      "column_order": 16
+    },
+    {
+      "name": "DEF_PLACE_OF_SUPPLY_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Default place of supply type for this regime",
+      "column_order": 17
+    },
+    {
+      "name": "APPLICABILITY_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether rules are defined for this regime to determine tax applicability",
+      "column_order": 18
+    },
+    {
+      "name": "PLACE_OF_SUPPLY_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether rules are defined for taxes of this regime to determine place of supply type. This setting can be overriden at the tax level.",
+      "column_order": 19
+    },
+    {
+      "name": "TAX_CALC_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether rules are defined for taxes of this regime to calculate tax amount. This setting can be overriden at the tax level.",
+      "column_order": 20
+    },
+    {
+      "name": "TAXABLE_BASIS_THRSHLD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether taxable basis threshold is applicable for this regime",
+      "column_order": 21
+    },
+    {
+      "name": "TAX_RATE_THRSHLD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether tax rate threshold is applicable for this regime",
+      "column_order": 22
+    },
+    {
+      "name": "TAX_AMT_THRSHLD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether tax amount threshold is applicable for this regime",
+      "column_order": 23
+    },
+    {
+      "name": "TAX_RATE_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether rules are defined for taxes of this regime to determine tax rate. This setting can be overriden at the tax level.",
+      "column_order": 24
+    },
+    {
+      "name": "TAXABLE_BASIS_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether rules are defined for taxes of this regime to determine taxable basis. This setting can be overriden at the tax level.",
+      "column_order": 25
+    },
+    {
+      "name": "DEF_INCLUSIVE_TAX_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether all the tax types within this regime are tax inclusive by default",
+      "column_order": 26
+    },
+    {
+      "name": "HAS_OTHER_JURISDICTIONS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether taxes of this regime can have more than one jurisdiction",
+      "column_order": 27
+    },
+    {
+      "name": "ALLOW_ROUNDING_OVERRIDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether the rounding rules can be overridden for taxes of this regime",
+      "column_order": 28
+    },
+    {
+      "name": "ALLOW_EXEMPTIONS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether exemptions are allowed for this tax regime",
+      "column_order": 29
+    },
+    {
+      "name": "ALLOW_EXCEPTIONS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether exceptions are allowed for this tax regime",
+      "column_order": 30
+    },
+    {
+      "name": "ALLOW_RECOVERABILITY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether taxes of this regime are recoverable",
+      "column_order": 31
+    },
+    {
+      "name": "AUTO_PRVN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Not currently used",
+      "column_order": 32
+    },
+    {
+      "name": "HAS_TAX_DET_DATE_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Not currently used",
+      "column_order": 33
+    },
+    {
+      "name": "HAS_EXCH_RATE_DATE_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Not currently used",
+      "column_order": 34
+    },
+    {
+      "name": "HAS_TAX_POINT_DATE_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Not currently used",
+      "column_order": 35
+    },
+    {
+      "name": "USE_LEGAL_MSG_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether legal messages are applicable for this regime",
+      "column_order": 36
+    },
+    {
+      "name": "REGN_NUM_SAME_AS_LE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether the registration number of the tax registration for this regime should be same as the legal entity registration number",
+      "column_order": 37
+    },
+    {
+      "name": "DEF_REC_SETTLEMENT_OPTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code to indicate whether an input tax can be recovered when an invoice is recorded or only when the invoice is paid and whether an output tax is due for settlement when the invoice is issued or only when the payment is received against it.",
+      "column_order": 38
+    },
+    {
+      "name": "RECORD_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code to indicate whether the record is migrated, seeded or defined by the user",
+      "column_order": 39
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 40
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 41
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 42
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 43
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 44
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 45
+    },
+    {
+      "name": "PROGRAM_LOGIN_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Login user identifier of last concurrent program to update this record",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "DEF_REGISTR_PARTY_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code to indicate default registration party type for taxes of this regime",
+      "column_order": 63
+    },
+    {
+      "name": "REGISTRATION_TYPE_RULE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether rules are defined for taxes of this regime to determine registration party type. This setting can be overriden at the tax level.",
+      "column_order": 64
+    },
+    {
+      "name": "TAX_INCLUSIVE_OVERRIDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether the tax inclusive flag can be overridden at tax line",
+      "column_order": 65
+    },
+    {
+      "name": "REGIME_PRECEDENCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Column to indicate the precedence level at which taxes of this regime are determined when taxes are compounded across regimes",
+      "column_order": 66
+    },
+    {
+      "name": "CROSS_REGIME_COMPOUNDING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether cross regime compounding is allowed for this regime",
+      "column_order": 67
+    },
+    {
+      "name": "TAX_REGIME_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier",
+      "column_order": 68
+    },
+    {
+      "name": "GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Geography Id of the group of countries for which this regime is defined",
+      "column_order": 69
+    },
+    {
+      "name": "THRSHLD_CHK_TMPLT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Determining factor template to be used for sub-grouping of total thresholds",
+      "column_order": 70
+    },
+    {
+      "name": "PERIOD_SET_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Accounting calendar name",
+      "column_order": 71
+    },
+    {
+      "name": "REP_TAX_AUTHORITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party tax profile identifier for the tax authority to whom all taxes under this regime are reported",
+      "column_order": 72
+    },
+    {
+      "name": "COLL_TAX_AUTHORITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party tax profile identifier for the tax authority to whom all taxes under this regime are remitted",
+      "column_order": 73
+    },
+    {
+      "name": "TAX_ACCOUNT_PRECEDENCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column to store lowest level used to define tax accounts for this regime",
+      "column_order": 74
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 75
+    },
+    {
+      "name": "PROGRAM_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Program name of last concurrent program to update this record",
+      "column_order": 76
+    },
+    {
+      "name": "PROGRAM_APP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Application name of last concurrent program to update this record",
+      "column_order": 77
+    },
+    {
+      "name": "USE_TAX_REPORT_CONFIG_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Use Tax Reporting Configuration Flag",
+      "column_order": 78
+    },
+    {
+      "name": "REGIME_TYPE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Lookup code that indicates the type of regime. Possible values are W (withholding), I (indirect) and NULL (indirect).",
+      "column_order": 79
+    },
+    {
+      "name": "VALIDATION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reporting type defined for registration number validation.",
+      "column_order": 80
+    },
+    {
+      "name": "VALIDATION_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code to indicate whether validation is based on an error or a warning.",
+      "column_order": 81
+    },
+    {
+      "name": "UNIQUENESS_VALIDATION_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code to indicate whether validation is for all parties or a specific party.",
+      "column_order": 82
+    },
+    {
+      "name": "EXEMPTION_PROCESS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether exemptions are defined for customer, supplier, or both.",
+      "column_order": 83
+    },
+    {
+      "name": "BUCKET_LEVEL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Level at which withholding tax buckets are maintained. Possible values are L for legal entity and B for business unit.",
+      "column_order": 84
+    },
+    {
+      "name": "USE_SYSTEM_DEFAULTS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that application default values of tax status, rate, recovery rate, taxable basis formula, or tax calculation formula are used in tax calculation when an incomplete or inconsistent configuration is found.",
+      "column_order": 85
+    },
+    {
+      "name": "GROSS_NET_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Apply regime on the gross or net amount on retainage indicator.",
+      "column_order": 86
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 87
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 88
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 89
+    }
+  ]
+}

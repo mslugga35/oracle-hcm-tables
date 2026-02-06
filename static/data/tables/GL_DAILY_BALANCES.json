@@ -1,0 +1,1363 @@
+{
+  "id": 27989,
+  "name": "GL_DAILY_BALANCES",
+  "type": "TABLE",
+  "description": "GL_DAILY_BALANCES stores daily aggregate balances for detail and summary balance sheet accounts in sets of books with average balances enabled.\nThis table stores functional currency, foreign entered, statistical, and translated daily aggregate balances for each non-adjusting period that has ever been opened. When journal entries are posted, Oracle General Ledger's Posting program populates this table with aggregate amounts calculated from your journal line amounts. Journal entries posted to adjusting periods will be treated as if they are posted to the corresponding non-adjusting periods which the accounting dates fall into.\nSince Oracle General Ledger currently only maintains actual daily aggregate balances, the ACTUAL_FLAG column is always 'A'.\nThe CURRENCY_TYPE, CURRENCY_CODE, and CONVERTED_FROM_CURRENCY columns serve to identify functional, foreign entered, statistical, and translated balances rows in GL_DAILY_BALANCES. The CURRENCY_TYPE column is 'U' for cumulative functional currency balances or statistical balances; 'E' for foreign entered balances; 'C' for functional currency equivalents of foreign entered balances; 'T' for up to date translated rows; and 'O' for out of date translated rows.  The CURRENCY_CODE column contains the currency of the amounts in the row. The CONVERTED_FROM_CURRENCY column contains the functional currency code in the case of functional currency equivalents of foreign entered balances, and null otherwise.\nThrough the aggregate columns, you can derive the four supported average amount types for non-translated balances, period average to date (PATD), quarter average to date (QATD), year average to date (YATD), and end of date (EOD), using the following formulas:\nFor a particular accounting date i,\nPATD(i) = Period_Aggregate(k) / ( i - Period_Start_Date + 1)\nQATD(i) = ( Opening_Quarter_Aggregate + Period_Aggregate(k) ) / ( i - Quarter_Start_Date + 1)\nYATD(i) = ( Opening_Year_Aggregate + Period_Aggregate(k) ) / ( i - Year_Start_Date + 1)\nEOD(i) = Period_Aggregate(1), for k=1, OR\nEOD(i) = Period_Aggregate(k) - Period_Aggregate(k-1), for k>1\nwhere k is the aggregate column index. k is 1 + the offset from the start date of the period that date i is in.\nFor translated average balances, the aggregates are stored in separate physical columns.  The following formulas derive the four average amount types for translated balances:\nFor a particular accounting date i,\nPATD(i) = Period_Aggregate(k) / ( i - Period_Start_Date + 1)\nQATD(i) = Quarter_Aggregate(k) / ( i - Quarter_Start_Date + 1)\nYATD(i) = Year_Aggregate(k) / ( i - Year_Start_Date + 1)\nEOD(i) = End_Of_Day(k)\nwhere k is the aggregate column index. k is 1 + the offset from the start date of the period that date i is in.\nFor non-translated balances, END_OF_DAY, QUARTER_AGGREGATE, and YEAR_AGGREGATE are always NULL.  For translated balances, QUARTER_AGGREGATE or YEAR_AGGREGATE columns are NULL if you choose not to maintain translated QATD or YATD.  OPENING_QUARTER_AGGREGATE and OPENING_YEAR_AGGREGATE columns are always NULL for translated balances.\nGL_DAILY_BALANCES maintains at the account level each balance sheet account posted to an average balance ledger.  For income statement accounts, Oracle General Ledger's Posting program summarizes balances posted into net income account rows on a per balancing segment value basis.\nFor detail account rows, TEMPLATE_ID is always NULL.  For summary account rows, TEMPLATE_ID has ids of the corresponding summary templates.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/gldailybalances-17396.html#gldailybalances-17396",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Ledger identifier of daily balance.",
+      "column_order": 1
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Key Flexfield combination defining column.",
+      "column_order": 2
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Currency code of daily balance.",
+      "column_order": 3
+    },
+    {
+      "name": "CURRENCY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Currency type code of daily balance.",
+      "column_order": 4
+    },
+    {
+      "name": "ACTUAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Actual flag of daily balance. Valid value is 'A'.",
+      "column_order": 5
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Accounting period name code of daily balance.",
+      "column_order": 6
+    },
+    {
+      "name": "PERIOD_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Start date of the accounting period.",
+      "column_order": 7
+    },
+    {
+      "name": "PERIOD_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "End date of the accounting period.",
+      "column_order": 8
+    },
+    {
+      "name": "QUARTER_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Start date of the quarter containing the accounting period.",
+      "column_order": 9
+    },
+    {
+      "name": "YEAR_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Start date of the fiscal year containing the accounting period.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "CONVERTED_FROM_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Currency the balance was converted from.",
+      "column_order": 16
+    },
+    {
+      "name": "PERIOD_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Accounting period type code of daily balance.",
+      "column_order": 17
+    },
+    {
+      "name": "PERIOD_YEAR",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting period year code of daily balance.",
+      "column_order": 18
+    },
+    {
+      "name": "PERIOD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting period number code of daily balance.",
+      "column_order": 19
+    },
+    {
+      "name": "TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Summary template defining column.",
+      "column_order": 20
+    },
+    {
+      "name": "OPENING_PERIOD_AGGREGATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance of the last day of the previous period.",
+      "column_order": 21
+    },
+    {
+      "name": "OPENING_QUARTER_AGGREGATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter before the 1st day of this accounting period. This column is not used for translated balances.",
+      "column_order": 22
+    },
+    {
+      "name": "OPENING_YEAR_AGGREGATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year before the 1st day of this accounting period. This column is not used for translated balances.",
+      "column_order": 23
+    },
+    {
+      "name": "PERIOD_AGGREGATE1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End balance of the 1st day of this accounting period.",
+      "column_order": 24
+    },
+    {
+      "name": "PERIOD_AGGREGATE2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 2nd day of this accounting period.",
+      "column_order": 25
+    },
+    {
+      "name": "PERIOD_AGGREGATE3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 3rd day of this accounting period.",
+      "column_order": 26
+    },
+    {
+      "name": "PERIOD_AGGREGATE4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 4th day of this accounting period.",
+      "column_order": 27
+    },
+    {
+      "name": "PERIOD_AGGREGATE5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 5th day of this accounting period.",
+      "column_order": 28
+    },
+    {
+      "name": "PERIOD_AGGREGATE6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 6th day of this accounting period.",
+      "column_order": 29
+    },
+    {
+      "name": "PERIOD_AGGREGATE7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 7th day of this accounting period.",
+      "column_order": 30
+    },
+    {
+      "name": "PERIOD_AGGREGATE8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 8th day of this accounting period.",
+      "column_order": 31
+    },
+    {
+      "name": "PERIOD_AGGREGATE9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 9th day of this accounting period.",
+      "column_order": 32
+    },
+    {
+      "name": "PERIOD_AGGREGATE10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 10th day of this accounting period.",
+      "column_order": 33
+    },
+    {
+      "name": "PERIOD_AGGREGATE11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 11th day of this accounting period.",
+      "column_order": 34
+    },
+    {
+      "name": "PERIOD_AGGREGATE12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 12th day of this accounting period.",
+      "column_order": 35
+    },
+    {
+      "name": "PERIOD_AGGREGATE13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 13th day of this accounting period.",
+      "column_order": 36
+    },
+    {
+      "name": "PERIOD_AGGREGATE14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 14th day of this accounting period.",
+      "column_order": 37
+    },
+    {
+      "name": "PERIOD_AGGREGATE15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 15th day of this accounting period.",
+      "column_order": 38
+    },
+    {
+      "name": "PERIOD_AGGREGATE16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 16th day of this accounting period.",
+      "column_order": 39
+    },
+    {
+      "name": "PERIOD_AGGREGATE17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 17th day of this accounting period.",
+      "column_order": 40
+    },
+    {
+      "name": "PERIOD_AGGREGATE18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 18th day of this accounting period.",
+      "column_order": 41
+    },
+    {
+      "name": "PERIOD_AGGREGATE19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 19th day of this accounting period.",
+      "column_order": 42
+    },
+    {
+      "name": "PERIOD_AGGREGATE20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 20th day of this accounting period.",
+      "column_order": 43
+    },
+    {
+      "name": "PERIOD_AGGREGATE21",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 21st day of this accounting period.",
+      "column_order": 44
+    },
+    {
+      "name": "PERIOD_AGGREGATE22",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 22nd day of this accounting period.",
+      "column_order": 45
+    },
+    {
+      "name": "PERIOD_AGGREGATE23",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 23rd day of this accounting period.",
+      "column_order": 46
+    },
+    {
+      "name": "PERIOD_AGGREGATE24",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 24th day of this accounting period.",
+      "column_order": 47
+    },
+    {
+      "name": "PERIOD_AGGREGATE25",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 25th day of this accounting period.",
+      "column_order": 48
+    },
+    {
+      "name": "PERIOD_AGGREGATE26",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 26th day of this accounting period.",
+      "column_order": 49
+    },
+    {
+      "name": "PERIOD_AGGREGATE27",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 27th day of this accounting period.",
+      "column_order": 50
+    },
+    {
+      "name": "PERIOD_AGGREGATE28",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 28th day of this accounting period.",
+      "column_order": 51
+    },
+    {
+      "name": "PERIOD_AGGREGATE29",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 29th day of this accounting period.",
+      "column_order": 52
+    },
+    {
+      "name": "PERIOD_AGGREGATE30",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 30th day of this accounting period.",
+      "column_order": 53
+    },
+    {
+      "name": "PERIOD_AGGREGATE31",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 31st day of this accounting period.",
+      "column_order": 54
+    },
+    {
+      "name": "PERIOD_AGGREGATE32",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 32nd day of this accounting period.",
+      "column_order": 55
+    },
+    {
+      "name": "PERIOD_AGGREGATE33",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 33rd day of this accounting period.",
+      "column_order": 56
+    },
+    {
+      "name": "PERIOD_AGGREGATE34",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 34th day of this accounting period.",
+      "column_order": 57
+    },
+    {
+      "name": "PERIOD_AGGREGATE35",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this period, up to and including the 35th day of this accounting period.",
+      "column_order": 58
+    },
+    {
+      "name": "END_OF_DAY1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 1st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 59
+    },
+    {
+      "name": "END_OF_DAY2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 2nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 60
+    },
+    {
+      "name": "END_OF_DAY3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 3rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 61
+    },
+    {
+      "name": "END_OF_DAY4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 3rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 62
+    },
+    {
+      "name": "END_OF_DAY5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 5th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 63
+    },
+    {
+      "name": "END_OF_DAY6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 6th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 64
+    },
+    {
+      "name": "END_OF_DAY7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 7th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 65
+    },
+    {
+      "name": "END_OF_DAY8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 8th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 66
+    },
+    {
+      "name": "END_OF_DAY9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 9th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 67
+    },
+    {
+      "name": "END_OF_DAY10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 10th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 68
+    },
+    {
+      "name": "END_OF_DAY11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 11th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 69
+    },
+    {
+      "name": "END_OF_DAY12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 12th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 70
+    },
+    {
+      "name": "END_OF_DAY13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 13th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 71
+    },
+    {
+      "name": "END_OF_DAY14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 14th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 72
+    },
+    {
+      "name": "END_OF_DAY15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 15th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 73
+    },
+    {
+      "name": "END_OF_DAY16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 16th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 74
+    },
+    {
+      "name": "END_OF_DAY17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 17th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 75
+    },
+    {
+      "name": "END_OF_DAY18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 18th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 76
+    },
+    {
+      "name": "END_OF_DAY19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 19th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 77
+    },
+    {
+      "name": "END_OF_DAY20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 20th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 78
+    },
+    {
+      "name": "END_OF_DAY21",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 21st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 79
+    },
+    {
+      "name": "END_OF_DAY22",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 22nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 80
+    },
+    {
+      "name": "END_OF_DAY23",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 23rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 81
+    },
+    {
+      "name": "END_OF_DAY24",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 24th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 82
+    },
+    {
+      "name": "END_OF_DAY25",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 25th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 83
+    },
+    {
+      "name": "END_OF_DAY26",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 26th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 84
+    },
+    {
+      "name": "END_OF_DAY27",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 27th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 85
+    },
+    {
+      "name": "END_OF_DAY28",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 28th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 86
+    },
+    {
+      "name": "END_OF_DAY29",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 29th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 87
+    },
+    {
+      "name": "END_OF_DAY30",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 30th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 88
+    },
+    {
+      "name": "END_OF_DAY31",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 31st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 89
+    },
+    {
+      "name": "END_OF_DAY32",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 32nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 90
+    },
+    {
+      "name": "END_OF_DAY33",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 33rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 91
+    },
+    {
+      "name": "END_OF_DAY34",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 34th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 92
+    },
+    {
+      "name": "END_OF_DAY35",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End of day balance for the 35th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 93
+    },
+    {
+      "name": "QUARTER_AGGREGATE1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 1st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 94
+    },
+    {
+      "name": "QUARTER_AGGREGATE2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 2nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 95
+    },
+    {
+      "name": "QUARTER_AGGREGATE3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 3rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 96
+    },
+    {
+      "name": "QUARTER_AGGREGATE4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 4th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 97
+    },
+    {
+      "name": "QUARTER_AGGREGATE5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 5th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 98
+    },
+    {
+      "name": "QUARTER_AGGREGATE6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 6th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 99
+    },
+    {
+      "name": "QUARTER_AGGREGATE7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 7th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 100
+    },
+    {
+      "name": "QUARTER_AGGREGATE8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 8th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 101
+    },
+    {
+      "name": "QUARTER_AGGREGATE9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 9th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 102
+    },
+    {
+      "name": "QUARTER_AGGREGATE10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 10th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 103
+    },
+    {
+      "name": "QUARTER_AGGREGATE11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 11th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 104
+    },
+    {
+      "name": "QUARTER_AGGREGATE12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 12th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 105
+    },
+    {
+      "name": "QUARTER_AGGREGATE13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 13th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 106
+    },
+    {
+      "name": "QUARTER_AGGREGATE14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 14th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 107
+    },
+    {
+      "name": "QUARTER_AGGREGATE15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 15th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 108
+    },
+    {
+      "name": "QUARTER_AGGREGATE16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 16th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 109
+    },
+    {
+      "name": "QUARTER_AGGREGATE17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 17th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 110
+    },
+    {
+      "name": "QUARTER_AGGREGATE18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 18th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 111
+    },
+    {
+      "name": "QUARTER_AGGREGATE19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 19th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 112
+    },
+    {
+      "name": "QUARTER_AGGREGATE20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 20th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 113
+    },
+    {
+      "name": "QUARTER_AGGREGATE21",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 21st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 114
+    },
+    {
+      "name": "QUARTER_AGGREGATE22",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 22nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 115
+    },
+    {
+      "name": "QUARTER_AGGREGATE23",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 23rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 116
+    },
+    {
+      "name": "QUARTER_AGGREGATE24",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 24th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 117
+    },
+    {
+      "name": "QUARTER_AGGREGATE25",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 25th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 118
+    },
+    {
+      "name": "QUARTER_AGGREGATE26",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 26th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 119
+    },
+    {
+      "name": "QUARTER_AGGREGATE27",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 27th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 120
+    },
+    {
+      "name": "QUARTER_AGGREGATE28",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 28th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 121
+    },
+    {
+      "name": "QUARTER_AGGREGATE29",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 29th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 122
+    },
+    {
+      "name": "QUARTER_AGGREGATE30",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 30th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 123
+    },
+    {
+      "name": "QUARTER_AGGREGATE31",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 31st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 124
+    },
+    {
+      "name": "QUARTER_AGGREGATE32",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 32nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 125
+    },
+    {
+      "name": "QUARTER_AGGREGATE33",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 33rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 126
+    },
+    {
+      "name": "QUARTER_AGGREGATE34",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 34th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 127
+    },
+    {
+      "name": "QUARTER_AGGREGATE35",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this quarter, up to and including the 35th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 128
+    },
+    {
+      "name": "YEAR_AGGREGATE1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 1st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 129
+    },
+    {
+      "name": "YEAR_AGGREGATE2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 2nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 130
+    },
+    {
+      "name": "YEAR_AGGREGATE3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 3rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 131
+    },
+    {
+      "name": "YEAR_AGGREGATE4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 4th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 132
+    },
+    {
+      "name": "YEAR_AGGREGATE5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 5th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 133
+    },
+    {
+      "name": "YEAR_AGGREGATE6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 6th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 134
+    },
+    {
+      "name": "YEAR_AGGREGATE7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 7th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 135
+    },
+    {
+      "name": "YEAR_AGGREGATE8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 8th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 136
+    },
+    {
+      "name": "YEAR_AGGREGATE9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 9th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 137
+    },
+    {
+      "name": "YEAR_AGGREGATE10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 10th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 138
+    },
+    {
+      "name": "YEAR_AGGREGATE11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 11th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 139
+    },
+    {
+      "name": "YEAR_AGGREGATE12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 12th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 140
+    },
+    {
+      "name": "YEAR_AGGREGATE13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 13th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 141
+    },
+    {
+      "name": "YEAR_AGGREGATE14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 14th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 142
+    },
+    {
+      "name": "YEAR_AGGREGATE15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 15th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 143
+    },
+    {
+      "name": "YEAR_AGGREGATE16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 16th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 144
+    },
+    {
+      "name": "YEAR_AGGREGATE17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 17th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 145
+    },
+    {
+      "name": "YEAR_AGGREGATE18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 18th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 146
+    },
+    {
+      "name": "YEAR_AGGREGATE19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 19th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 147
+    },
+    {
+      "name": "YEAR_AGGREGATE20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 20th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 148
+    },
+    {
+      "name": "YEAR_AGGREGATE21",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 21st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 149
+    },
+    {
+      "name": "YEAR_AGGREGATE22",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 22nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 150
+    },
+    {
+      "name": "YEAR_AGGREGATE23",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 23rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 151
+    },
+    {
+      "name": "YEAR_AGGREGATE24",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 24th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 152
+    },
+    {
+      "name": "YEAR_AGGREGATE25",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 25th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 153
+    },
+    {
+      "name": "YEAR_AGGREGATE26",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 26th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 154
+    },
+    {
+      "name": "YEAR_AGGREGATE27",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 27th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 155
+    },
+    {
+      "name": "YEAR_AGGREGATE28",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 28th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 156
+    },
+    {
+      "name": "YEAR_AGGREGATE29",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 29th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 157
+    },
+    {
+      "name": "YEAR_AGGREGATE30",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of\nthe end balances of all days in this year, up to and including the 30th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 158
+    },
+    {
+      "name": "YEAR_AGGREGATE31",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 31st day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 159
+    },
+    {
+      "name": "YEAR_AGGREGATE32",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 32nd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 160
+    },
+    {
+      "name": "YEAR_AGGREGATE33",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 33rd day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 161
+    },
+    {
+      "name": "YEAR_AGGREGATE34",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 34th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 162
+    },
+    {
+      "name": "YEAR_AGGREGATE35",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Aggregate of the end balances of all days in this year, up to and including the 35th day of this accounting period.  This column is only used for translated balances.",
+      "column_order": 163
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 164
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column is used in internal processing only",
+      "column_order": 165
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column is used in internal processing only",
+      "column_order": 166
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last program update date of daily balance.",
+      "column_order": 167
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 168
+    },
+    {
+      "name": "PARTITION_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Partition grouping information which when combined with the period, determines the database partition in which this daily balance will be stored.",
+      "column_order": 169
+    }
+  ]
+}

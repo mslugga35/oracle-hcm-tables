@@ -1,0 +1,355 @@
+{
+  "id": 27231,
+  "name": "FLA_LIABILITY_SCHEDULES",
+  "type": "TABLE",
+  "description": "FLA_LIABILITY_SCHEDULES contains cash , present value and liability schedules for the Schedules header.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flaliabilityschedules-19507.html#flaliabilityschedules-19507",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LIABILITY_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "LIABILITY_SCHEDULE_ID. This is the Primary key column.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "SCHEDULE_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Schedule header identifier from FLA_SCHEDULE_HEADERS",
+      "column_order": 3
+    },
+    {
+      "name": "SCHEDULE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Period end date or amortization end date.",
+      "column_order": 4
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Accrual period in which accrual falls in.",
+      "column_order": 5
+    },
+    {
+      "name": "LIABILITY_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Start date for liability calculation.",
+      "column_order": 6
+    },
+    {
+      "name": "LIABILITY_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "End date for liability calculation.",
+      "column_order": 7
+    },
+    {
+      "name": "PAYMENT_ITEM_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Payment item amount in the payment currency.",
+      "column_order": 8
+    },
+    {
+      "name": "NUMBER_OF_LIABILITY_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Number of days between liability start and end dates",
+      "column_order": 9
+    },
+    {
+      "name": "CUMULATIVE_NUMBER_OF_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Cumulative number of days based on number of days.",
+      "column_order": 10
+    },
+    {
+      "name": "PRESENT_VALUE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Present value : Value of actual amount after cumulative number of days.",
+      "column_order": 11
+    },
+    {
+      "name": "OPENING_LIABILITY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Liability balance as on period start date",
+      "column_order": 12
+    },
+    {
+      "name": "CLOSING_LIABILITY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Liability balance as on period end date.",
+      "column_order": 13
+    },
+    {
+      "name": "INTEREST_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Interest amount calculated from last calculated date to current due date.",
+      "column_order": 14
+    },
+    {
+      "name": "INTEREST_REMAINDER_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Interest remainder amount left in current period due to the rounding logic. This should be included in the next period.",
+      "column_order": 15
+    },
+    {
+      "name": "CATCHUP_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if schedules are generated for catchup purpose.",
+      "column_order": 16
+    },
+    {
+      "name": "READ_IN_DRAFT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the payment item was considered for generation in the draft lease.",
+      "column_order": 17
+    },
+    {
+      "name": "LIABILITY_REVERSAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if this transaction is reversed.",
+      "column_order": 18
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 20
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 21
+    },
+    {
+      "name": "INCREASE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Increase amount calculated for the period.",
+      "column_order": 22
+    },
+    {
+      "name": "CONTINGENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Contingent increase amount calculated for the period.",
+      "column_order": 23
+    },
+    {
+      "name": "CUMULATIVE_INCREASE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Cumulative increase amount calculated for the period.",
+      "column_order": 24
+    },
+    {
+      "name": "CUMULATIVE_CONTINGENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Cumulative contingent increase amount calculated for the period.",
+      "column_order": 25
+    },
+    {
+      "name": "SCHEDULING_VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Version of the schedule generation.",
+      "column_order": 26
+    },
+    {
+      "name": "PAYMENT_ITEM_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Payment item due date based on the payment definition.",
+      "column_order": 27
+    },
+    {
+      "name": "SCHEDULES_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Batch identifier for the schedules generation batch.",
+      "column_order": 28
+    },
+    {
+      "name": "OPENING_SHORT_TERM_LIAB_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Opening short term liability amount.",
+      "column_order": 29
+    },
+    {
+      "name": "RECLASS_SHORT_TERM_LIAB_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Short term liability reclassification amount.",
+      "column_order": 30
+    },
+    {
+      "name": "CLOSING_SHORT_TERM_LIAB_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Closing short term liability amount.",
+      "column_order": 31
+    },
+    {
+      "name": "OPENING_LONG_TERM_LIAB_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Opening long term liability amount.",
+      "column_order": 32
+    },
+    {
+      "name": "RECLASS_LONG_TERM_LIAB_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Long term liability reclassification amount.",
+      "column_order": 33
+    },
+    {
+      "name": "CLOSING_LONG_TERM_LIAB_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Closing long term liability amount.",
+      "column_order": 34
+    },
+    {
+      "name": "PAYMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Attribute indicating the payment for which the liability is being calculated.",
+      "column_order": 35
+    },
+    {
+      "name": "VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Version number of the lease as captured in FLA_LEASE_DETAILS.",
+      "column_order": 36
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Lease identifier. It is referenced from FLA_LEASES_ALL table to indicate that the liability schedules that pertain to a specific lease.",
+      "column_order": 37
+    },
+    {
+      "name": "UPFRONT_TAX_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Upfront tax amount included in liability. This includes recoverable and nonrecoverable amounts as applicable.",
+      "column_order": 38
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 39
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 40
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 41
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 42
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 43
+    }
+  ]
+}

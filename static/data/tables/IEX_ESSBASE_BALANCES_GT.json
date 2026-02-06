@@ -1,0 +1,155 @@
+{
+  "id": 26436,
+  "name": "IEX_ESSBASE_BALANCES_GT",
+  "type": "TABLE",
+  "description": "This table stores information about the receivable transactions, receipts and adjustments.This table is used to temporarily store the data and populate the same into essbase cube for calculation of various metrics.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/iexessbasebalancesgt-24066.html#iexessbasebalancesgt-24066",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "IEX_ESSBASE_BALANCES_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for this table to isolate multiple receipt or adjustment with same Payment Schedule id.",
+      "column_order": 1
+    },
+    {
+      "name": "PAYMENT_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payment schedule identifier. Foreign Key to AR_PAYMENT_SCHEDULES.PAYMENT_SCHEDULE_ID.",
+      "column_order": 2
+    },
+    {
+      "name": "DOCUMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "The type of document which is populated from the lookup_type AR_DOCUMENT_TYPE.  Maps to document type dimension in the cube.",
+      "column_order": 3
+    },
+    {
+      "name": "CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Functional currency which is derived from the ledger for the business unit the document is created in. Maps to currency dimension in the cube.",
+      "column_order": 4
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 5
+    },
+    {
+      "name": "CUST_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to the HZ_CUST_ACCOUNTS.CUST_ACCOUNT_ID. Maps to account hierarchy of customer dimension in the cube.",
+      "column_order": 6
+    },
+    {
+      "name": "SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to the HZ_CUST_SITE_USES_ALL.SITE_USE_ID. Maps to site use hierarchy of customer dimension in the cube.",
+      "column_order": 7
+    },
+    {
+      "name": "SALESREP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to JTF_RS_SALESREPS.RESOURCE_SALESREP_ID. Maps to sales representative dimension in the cube.",
+      "column_order": 8
+    },
+    {
+      "name": "ACTIVITY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date is based on the DOCUMENT_TYPE. For invoices, debit memos, credit memos and chargebacks this is the transaction date. For cash applications it is the application date. For cash unapplications it is the reversal date. For receipts it is the receipt date. For adjustments it is the adjustment date. For promise it is the initial load or creation or cancelation or reconciliation date. Maps to time dimension in the cube.",
+      "column_order": 9
+    },
+    {
+      "name": "TRX_ACCOUNTING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounting date for invoices, debit memos, and chargebacks.",
+      "column_order": 10
+    },
+    {
+      "name": "PS_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date is based on the DOCUMENT_TYPE. For invoices, chargebacks, debit memos, and credit memos it is the due date from AR_PAYMENT_SCHEDULES. For receipts, this contains the due date of the payment_schedule _id to which receipt is applied, unapplied or reversed. For adjustments this column stores the due date of the of payment_schedule_id being adjusted. For promise this column keeps the promise date.",
+      "column_order": 11
+    },
+    {
+      "name": "PS_CLOSED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is used only for DOCUMENT_TYPE invoice. It is the GL_CLOSED_DATE from AR_PAYMENT_SCHEDULES for the invoice. Otherwise the column is null. Null for promise.",
+      "column_order": 12
+    },
+    {
+      "name": "AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Remaining amount of invoice, debit memo, credit memo, chargeback, receipt, adjustment in functional currency. Deposits and Guarantees excluded. Promise amount for promise.",
+      "column_order": 13
+    },
+    {
+      "name": "AMOUNT_GLOBAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Remaining amount of invoice, debit memo, credit memo, chargeback, receipt, adjustment in global currency. Deposits and Guarantees excluded. Promise amount in global currency for promise.",
+      "column_order": 14
+    },
+    {
+      "name": "AGING_BUCKET_INDEX",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The aging bucket index is populated. 0 signifies current bucket, 30 as 1 to 30 bucket, 60 as 31 to 60 bucket, 90 as 61 to 90 bucket, 120 as 91 to 120 bucket, 150 as 121 to 150 bucket, 180 as 151 to 180 bucket, 181 as 181+ bucket. For promise, it always be 0.",
+      "column_order": 15
+    },
+    {
+      "name": "PS_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Lookup code for the status of the payment schedule.",
+      "column_order": 16
+    },
+    {
+      "name": "BROKEN_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Broken amount of a promise. Not null for DOCUMENT_TYPE promise.",
+      "column_order": 17
+    },
+    {
+      "name": "BROKEN_AMOUNT_GLOBAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Broken amount in global currency. Not null for DOCUMENT_TYPE promise.",
+      "column_order": 18
+    }
+  ]
+}

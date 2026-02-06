@@ -1,0 +1,147 @@
+{
+  "id": 34240,
+  "name": "MOT_TERR_DIM_MEM_FLAGS",
+  "type": "TABLE",
+  "description": "Territory Dimension Member Flag is the entity that holds the information on the explicit/implicit flags for all dimension members (except for Account Type dimension) and on the visibility flag of the \"unspecified\" members.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/motterrdimmemflags-9628.html#motterrdimmemflags-9628",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TERR_DIM_MEM_FLAG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique Identifier of the Territory Dimension Member Flag.",
+      "column_order": 1
+    },
+    {
+      "name": "PARTITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Id of the \"Flagging\" partition.",
+      "column_order": 2
+    },
+    {
+      "name": "TERR_DIMENSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to the Territory Dimension entity.",
+      "column_order": 3
+    },
+    {
+      "name": "INTEGRATION_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Common member identifier between OBI, Cube, and TM. The second component of the composite FK from Territory Dimension Member entity. The first component is Dimension Code.",
+      "column_order": 4
+    },
+    {
+      "name": "EXPLICIT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A flag identifying if the member is explicit or implicit.",
+      "column_order": 5
+    },
+    {
+      "name": "ENABLE_UNSPEC_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A flag identifying if an \"unspecified\" member will be created below the current member during synchronization process.",
+      "column_order": 6
+    },
+    {
+      "name": "DIM_SUBTYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used only in the case of the Product dimension. The Dimension Subtype Code differentiates between products and product groups. Two allowed values are PROD, and PRODCAT.",
+      "column_order": 7
+    },
+    {
+      "name": "ATTRIBUTE_PK1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "A part of the FK to the Data Source. In the case of a composite key \"Source Attribute PK2\" is also populated.",
+      "column_order": 8
+    },
+    {
+      "name": "ATTRIBUTE_PK2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "A part of the FK to the Data Source.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The time stamp of the last update (or creation).\nThis attribute is needed by the ETL logic to perform the incremental update of the explicit flags in the OBI DW.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 16
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 17
+    }
+  ]
+}

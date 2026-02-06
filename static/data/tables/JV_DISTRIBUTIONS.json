@@ -1,0 +1,611 @@
+{
+  "id": 28239,
+  "name": "JV_DISTRIBUTIONS",
+  "type": "TABLE",
+  "description": "This table contains distribution records generated for each stakeholder from the processing of joint venture transactions.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/jvdistributions-8646.html#jvdistributions-8646",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for a distribution record generated from the processing of a joint venture transaction.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for the joint venture transaction that the distribution was created from.",
+      "column_order": 3
+    },
+    {
+      "name": "TRANSACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the journal entry default effective date for journal entries or the transaction date for subledger entries.",
+      "column_order": 4
+    },
+    {
+      "name": "OWNERSHIP_PERCENTAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the ownership percentage definition.",
+      "column_order": 5
+    },
+    {
+      "name": "STAKEHOLDER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of the joint venture stakeholder that is associated with the distribution of the joint venture transaction.",
+      "column_order": 6
+    },
+    {
+      "name": "DISTRIBUTED_DEBIT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The distribution debit amount for the stakeholder in the accounting currency.",
+      "column_order": 7
+    },
+    {
+      "name": "DISTRIBUTED_CREDIT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The distribution credit amount for the stakeholder in the accounting currency.",
+      "column_order": 8
+    },
+    {
+      "name": "PERCENTAGE_OF_INTEREST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The percent of ownership a stakeholder has in a joint venture transaction.",
+      "column_order": 9
+    },
+    {
+      "name": "DISTRIBUTION_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The status code to identify the state of the distribution of the joint venture transaction. It is based on the ORA_JV_DISTRIBUTION_STATUS lookup codes like Available to Process, Process Complete, and so forth.",
+      "column_order": 10
+    },
+    {
+      "name": "DISTRIBUTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the type of transaction the distribution represents, such as Expense, Revenue, and so forth.",
+      "column_order": 11
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The currency code of the source joint venture transaction.",
+      "column_order": 12
+    },
+    {
+      "name": "ROUND_AMOUNT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A flag to identify if rounding was applied to the distribution amount.",
+      "column_order": 13
+    },
+    {
+      "name": "TARGET_TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the transaction ID of the AR invoice, AP invoice or journal entry created for the joint venture distribution.",
+      "column_order": 14
+    },
+    {
+      "name": "CHILD_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the request ID of the child job that was used to process the distribution record.",
+      "column_order": 15
+    },
+    {
+      "name": "JOINT_VENTURE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the joint venture assigned to the distribution.",
+      "column_order": 16
+    },
+    {
+      "name": "DISTRIBUTION_ONLY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the joint venture stakeholder is only participating in the distribution and not being invoiced.",
+      "column_order": 17
+    },
+    {
+      "name": "ERROR_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the error group number for a set of distribution IDs encountered while creating invoices.",
+      "column_order": 18
+    },
+    {
+      "name": "TRX_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Unique number of the invoice transaction generated for the distribution.",
+      "column_order": 19
+    },
+    {
+      "name": "TRX_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date of the invoice transaction generated for the distribution.",
+      "column_order": 20
+    },
+    {
+      "name": "ADVANCE_PAYMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the advance payment this distribution record was assigned and drawn from.",
+      "column_order": 21
+    },
+    {
+      "name": "DISTRIBUTION_LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Line number used when a distribution record is split between multiple advance payments, or an advance payment and an AR invoice.",
+      "column_order": 22
+    },
+    {
+      "name": "ORIG_DISTRIBUTED_AMOUNT_DEBIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The original debit amount of the joint venture distribution in the accounting currency. This is the amount prior to being split by partner contributions.",
+      "column_order": 23
+    },
+    {
+      "name": "ORIG_DISTRIBUTED_AMOUNT_CREDIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The original credit amount of the joint venture distribution in the accounting currency. This is the amount prior to being split by partner contributions.",
+      "column_order": 24
+    },
+    {
+      "name": "DISTRIBUTION_LINE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The code that indicates the type of distribution line. It is based on ORA_JV_DISTRIBUTION_LINE_CODE lookup codes such as ORA_JV_CANCEL, ORA_JV_REVERSE, and so forth.",
+      "column_order": 25
+    },
+    {
+      "name": "ORIGINAL_DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the original distribution line. This is populated in a reversed distribution line, a distribution line created to reassign a stakeholder, and a distribution line created due to a partner contribution split.",
+      "column_order": 26
+    },
+    {
+      "name": "CHANGE_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The code that indicates the reason for canceling the distribution line. It is based on ORA_JV_CHANGE_REASON_CODE lookup codes such as ORA_JV_INCORRECT_OPD_PERCENT, ORA_JV_INCORRECT_INV_INFO, and so forth.",
+      "column_order": 27
+    },
+    {
+      "name": "CHANGE_REASON_ADDITIONAL_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Additional information describing the reason for canceling the distribution line.",
+      "column_order": 28
+    },
+    {
+      "name": "CONTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the partner contribution this distribution record was assigned and drawn from.",
+      "column_order": 29
+    },
+    {
+      "name": "CONTRIBUTION_REVERSAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the distribution amount was reversed and needs to be added back into the partner contribution open amount.",
+      "column_order": 30
+    },
+    {
+      "name": "PROJECT_COSTING_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Identifies the export status of the joint venture offset accounting entries to the Project Costing system.",
+      "column_order": 31
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 38,
+      "nullable": "Y",
+      "description": "Unique identifier for the GL distribution associated with the joint venture distribution invoice or journal entry. This value is used to retrieve the general ledger account identifier.",
+      "column_order": 32
+    },
+    {
+      "name": "TARGET_TRANSACTION_HEADER_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Account combination identifier for the offset account to the partner account used when creating receivables invoices, payables invoices, and internal transfers.",
+      "column_order": 33
+    },
+    {
+      "name": "PARTNER_ACCOUNT_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Account combination identifier for the partner account used when creating receivables invoices, payables invoices, and internal transfers.",
+      "column_order": 34
+    },
+    {
+      "name": "OWNERSHIP_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective start date of the ownership definition that was used to distribute a joint venture transaction.",
+      "column_order": 35
+    },
+    {
+      "name": "OWNERSHIP_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective end date of the ownership definition that was used to distribute a joint venture transaction.",
+      "column_order": 36
+    },
+    {
+      "name": "DISTRIBUTED_ENTERED_CREDIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The distributed credit amount for the stakeholder in the entered currency.",
+      "column_order": 37
+    },
+    {
+      "name": "DISTRIBUTED_ENTERED_DEBIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The distributed debit amount for the stakeholder in the entered currency.",
+      "column_order": 38
+    },
+    {
+      "name": "ENTERED_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The currency code entered on the original transaction.",
+      "column_order": 39
+    },
+    {
+      "name": "ORIG_DISTRIBUTED_ENTERED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The original debit amount of the joint venture distribution in the entered currency. This is the amount prior to being split by partner contributions.",
+      "column_order": 40
+    },
+    {
+      "name": "ORIG_DISTRIBUTED_ENTERED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The original credit amount of the joint venture distribution in the entered currency. This is the amount prior to being split by partner contributions.",
+      "column_order": 41
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 42
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 43
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 44
+    },
+    {
+      "name": "PARTNER_CONTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the partner contribution created from a partner contribution request. The system populates this ID when the open distribution amount is selected to calculate the partner contribution for a stakeholder.",
+      "column_order": 45
+    },
+    {
+      "name": "ORIGINAL_STAKEHOLDER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier for the stakeholder that was originally associated with the distribution line.",
+      "column_order": 46
+    },
+    {
+      "name": "STAKEHOLDER_RPTG_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The status of the accounting for stakeholder reporting books.",
+      "column_order": 47
+    },
+    {
+      "name": "STAKEHOLDER_RPTG_LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the ledger used for stakeholder reporting books.",
+      "column_order": 48
+    },
+    {
+      "name": "STAKEHOLDER_RPTG_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the transaction ID of the stakeholder reporting journal created for the distribution.",
+      "column_order": 49
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 50
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 51
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 52
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 53
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    }
+  ]
+}

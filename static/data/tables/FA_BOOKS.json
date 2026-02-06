@@ -1,0 +1,1283 @@
+{
+  "id": 26516,
+  "name": "FA_BOOKS",
+  "type": "TABLE",
+  "description": "FA_BOOKS contains the information needed for calculating depreciation. When you initially add an asset, Oracle Fusion Assets inserts one row into the table and that becomes the active row for the asset. Whenever you change the asset's depreciation information, or if you retire or reinstate it, Oracle Fusion Assets inserts another row into the table, which then becomes the new active row, and marks the previous row as obsolete. At any point in time, there is only one active row in the table for an asset in any given depreciation book. Generally, Oracle Fusion Assets uses the active row, but if you run a report for a prior accounting period, Oracle Fusion Assets selects the row that was active during that period. When you retire an asset, Oracle Fusion Assets inserts a new row to reduce the COST by the amount retired. When you reinstate an asset, Oracle Fusion Assets inserts a new row to increase the COST by the COST_RETIRED in the corresponding row in FA_RETIREMENTS.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/fabooks-14068.html#fabooks-14068",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset number.",
+      "column_order": 1
+    },
+    {
+      "name": "DATE_PLACED_IN_SERVICE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date on which the asset was placed in service.",
+      "column_order": 2
+    },
+    {
+      "name": "DATE_EFFECTIVE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date when the row became effective.",
+      "column_order": 3
+    },
+    {
+      "name": "DEPRN_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date the asset started to depreciate.",
+      "column_order": 4
+    },
+    {
+      "name": "RATE_ADJUSTMENT_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Internal factor used to adjust depreciation rates to depreciate the net book value over the remaining life.",
+      "column_order": 5
+    },
+    {
+      "name": "ADJUSTED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Depreciable basis of the asset, calculated as recoverable cost for cost basis depreciation methods, and recoverable cost less the accumulated depreciation for net book value basis methods.",
+      "column_order": 6
+    },
+    {
+      "name": "COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Total recorded cost of the asset.",
+      "column_order": 7
+    },
+    {
+      "name": "ORIGINAL_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Original cost of the asset at the time of its addition.",
+      "column_order": 8
+    },
+    {
+      "name": "SALVAGE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Salvage value amount for the asset.",
+      "column_order": 9
+    },
+    {
+      "name": "PRORATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date used to calculate the annual depreciation for assets.",
+      "column_order": 10
+    },
+    {
+      "name": "CAPITALIZE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Option indicating whether the asset is a capitalized or construction-in-process asset.",
+      "column_order": 11
+    },
+    {
+      "name": "DEPRECIATE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Option indicating whether the asset is depreciating or not.",
+      "column_order": 12
+    },
+    {
+      "name": "DATE_INEFFECTIVE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the row became inactive.",
+      "column_order": 13
+    },
+    {
+      "name": "TRANSACTION_HEADER_ID_IN",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the transaction that created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "TRANSACTION_HEADER_ID_OUT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the transaction that terminated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "RETIREMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the asset retirement transaction.",
+      "column_order": 16
+    },
+    {
+      "name": "RECOVERABLE_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Cost minus salvage value, or depreciation ceiling, whichever is lower.",
+      "column_order": 17
+    },
+    {
+      "name": "ADJUSTED_CAPACITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Remaining production capacity used to depreciate assets that use units of production method.",
+      "column_order": 18
+    },
+    {
+      "name": "FULLY_RSVD_REVALS_COUNTER",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Number of times the asset has been revalued as fully reserved.",
+      "column_order": 19
+    },
+    {
+      "name": "PERIOD_COUNTER_CAPITALIZED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the depreciation period in which asset is capitalized.",
+      "column_order": 20
+    },
+    {
+      "name": "PERIOD_COUNTER_FULLY_RESERVED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the depreciation period in which the asset was fully reserved.",
+      "column_order": 21
+    },
+    {
+      "name": "PERIOD_COUNTER_FULLY_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the depreciation period in which the asset was fully retired.",
+      "column_order": 22
+    },
+    {
+      "name": "PERIOD_COUNTER_FULLY_XFRD",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Period identifier in which the asset was fully transferred to another book.",
+      "column_order": 23
+    },
+    {
+      "name": "PRODUCTION_CAPACITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Production capacity for assets that use units of production method.",
+      "column_order": 24
+    },
+    {
+      "name": "REVAL_AMORTIZATION_BASIS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revaluation reserve used in calculating amortization of revaluation reserve. This changes only when the asset is revalued or an amortized adjustment is performed.",
+      "column_order": 25
+    },
+    {
+      "name": "REVAL_CEILING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Upper limit for revaluing asset cost.",
+      "column_order": 26
+    },
+    {
+      "name": "UNIT_OF_MEASURE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Unit of measure used for assets depreciation under units of production method.",
+      "column_order": 27
+    },
+    {
+      "name": "UNREVALUED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Cost without regard to any revaluations.",
+      "column_order": 28
+    },
+    {
+      "name": "ANNUAL_DEPRN_ROUNDING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Option indicating whether Oracle Fusion Assets should subtract year-to-date depreciation from the annual depreciation amount to get the depreciation amount for the last period of the fiscal year.",
+      "column_order": 29
+    },
+    {
+      "name": "PERCENT_SALVAGE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Salvage value percentage for the asset.",
+      "column_order": 30
+    },
+    {
+      "name": "ALLOWED_DEPRN_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation limit percentage for the asset.",
+      "column_order": 31
+    },
+    {
+      "name": "ALLOWED_DEPRN_LIMIT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation limit amount for the asset.",
+      "column_order": 32
+    },
+    {
+      "name": "PERIOD_COUNTER_LIFE_COMPLETE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the asset book period in which the life of the asset was completed.",
+      "column_order": 33
+    },
+    {
+      "name": "ADJUSTED_RECOVERABLE_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted recoverable cost with special depreciation limits taken into account.",
+      "column_order": 34
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 35
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 37
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 38
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 39
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 40
+    },
+    {
+      "name": "EOFY_ADJ_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted cost at the end of the previous fiscal year.",
+      "column_order": 41
+    },
+    {
+      "name": "SHORT_FISCAL_YEAR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Option indicating whether the asset is added in short tax year.",
+      "column_order": 42
+    },
+    {
+      "name": "REMAINING_LIFE1",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Remaining life of the asset calculated as on the conversion date, prorate date or fiscal year start date.",
+      "column_order": 43
+    },
+    {
+      "name": "REMAINING_LIFE2",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Remaining life of the asset calculated as on the fiscal year start date.",
+      "column_order": 44
+    },
+    {
+      "name": "CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when short tax year asset was added to the acquiring company.",
+      "column_order": 45
+    },
+    {
+      "name": "ORIGINAL_DEPRN_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date short tax year asset begin depreciating in the books of the acquired company.",
+      "column_order": 46
+    },
+    {
+      "name": "OLD_ADJUSTED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Cost before adjustment transaction for the asset depreciation under formula net book value based depreciation method.",
+      "column_order": 47
+    },
+    {
+      "name": "FORMULA_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Factor used to adjust the depreciation rate for formula-NBV method assets.",
+      "column_order": 48
+    },
+    {
+      "name": "EOFY_FORMULA_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Formula factor at the end of the previous fiscal year.",
+      "column_order": 49
+    },
+    {
+      "name": "GROUP_ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identification number of the group asset.",
+      "column_order": 50
+    },
+    {
+      "name": "SALVAGE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Salvage type assigned to the asset. It can be either amount, percentage, or sum of member assets.",
+      "column_order": 51
+    },
+    {
+      "name": "DEPRN_LIMIT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Depreciation limit type assigned to the asset. It can be either amount, percentage, sum of member assets, or none.",
+      "column_order": 52
+    },
+    {
+      "name": "REDUCTION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation reduction percentage for the group and its member assets.",
+      "column_order": 53
+    },
+    {
+      "name": "REDUCE_ADDITION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether depreciation reduction to be considered for addition transaction.",
+      "column_order": 54
+    },
+    {
+      "name": "REDUCE_ADJUSTMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether depreciation reduction to be considered for adjustment transaction.",
+      "column_order": 55
+    },
+    {
+      "name": "REDUCE_RETIREMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether depreciation reduction is to be considered for retirement transaction.",
+      "column_order": 56
+    },
+    {
+      "name": "RECOGNIZE_GAIN_LOSS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating whether gain or loss to be recognized for member asset retirement.",
+      "column_order": 57
+    },
+    {
+      "name": "RECAPTURE_RESERVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether reserve for the group asset can exceed its recoverable cost.",
+      "column_order": 58
+    },
+    {
+      "name": "LIMIT_PROCEEDS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether the member asset proceed of sale to be limited to its recoverable cost.",
+      "column_order": 59
+    },
+    {
+      "name": "TERMINAL_GAIN_LOSS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating how terminal gain or loss to be recognized for member asset retirement.",
+      "column_order": 60
+    },
+    {
+      "name": "TRACKING_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating the group asset tracking method that is used to calculate group and its member asset depreciation.",
+      "column_order": 61
+    },
+    {
+      "name": "EXCLUDE_FULLY_RSV_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether fully reserved assets depreciable basis should be excluded from the depreciable basis of the group assets.",
+      "column_order": 62
+    },
+    {
+      "name": "EXCESS_ALLOCATION_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating whether excess depreciation of the group asset is to be allocated to its member assets or reduced from the group asset depreciation.",
+      "column_order": 63
+    },
+    {
+      "name": "DEPRECIATION_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating whether the member asset's depreciation expense is calculated using its group asset depreciation rules or the member asset depreciation rules.",
+      "column_order": 64
+    },
+    {
+      "name": "MEMBER_ROLLUP_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether group asset depreciation is sum of member asset depreciation or calculated separately.",
+      "column_order": 65
+    },
+    {
+      "name": "ALLOCATE_TO_FULLY_RSV_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether group asset depreciation amount should be allocated to fully retired assets.",
+      "column_order": 66
+    },
+    {
+      "name": "ALLOCATE_TO_FULLY_RET_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether group asset depreciation amount should be allocated to fully retired assets.",
+      "column_order": 67
+    },
+    {
+      "name": "TERMINAL_GAIN_LOSS_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accumulated depreciation remaining for the group asset after the last member asset of the group asset is retired.",
+      "column_order": 68
+    },
+    {
+      "name": "CIP_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Construction-in-Process cost of the asset.",
+      "column_order": 69
+    },
+    {
+      "name": "YTD_PROCEEDS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Year-to-date proceeds of sale for an asset.",
+      "column_order": 70
+    },
+    {
+      "name": "LTD_PROCEEDS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Life-to-date proceeds of sale amount for the asset.",
+      "column_order": 71
+    },
+    {
+      "name": "LTD_COST_OF_REMOVAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Life-to-date cost of removal amount for the asset.",
+      "column_order": 72
+    },
+    {
+      "name": "EOFY_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation reserve at the end of the previous fiscal year.",
+      "column_order": 73
+    },
+    {
+      "name": "PRIOR_EOFY_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Previous accumulated depreciation at the end of the previous fiscal year.",
+      "column_order": 74
+    },
+    {
+      "name": "EOP_ADJ_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted cost at the end of the previous period.",
+      "column_order": 75
+    },
+    {
+      "name": "EOP_FORMULA_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Formula factor at the end of the previous period.",
+      "column_order": 76
+    },
+    {
+      "name": "EXCLUDE_PROCEEDS_FROM_BASIS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Group asset retirement rule which indicates whether proceeds of sale should be excluded when calculating the depreciable basis for group assets.",
+      "column_order": 77
+    },
+    {
+      "name": "RETIREMENT_DEPRN_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating whether group asset should depreciate till the last member asset is retired or end of the fiscal year.",
+      "column_order": 78
+    },
+    {
+      "name": "TERMINAL_GAIN_LOSS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether terminal gain or loss amount needs to be processed by the Calculate Gains and Losses program, when it is running for the last period of the fiscal year.",
+      "column_order": 79
+    },
+    {
+      "name": "OVER_DEPRECIATE_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating whether over depreciation is allowed for the group asset depreciation or not.",
+      "column_order": 80
+    },
+    {
+      "name": "DISABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether the group asset is enabled or disabled.",
+      "column_order": 81
+    },
+    {
+      "name": "OLD_ADJUSTED_CAPACITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Remaining production capacity before the last depreciation process run for assets that that use units of production method.",
+      "column_order": 82
+    },
+    {
+      "name": "METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the depreciation method.",
+      "column_order": 83
+    },
+    {
+      "name": "FLAT_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the rates for the flat rate depreciation method.",
+      "column_order": 84
+    },
+    {
+      "name": "CONVENTION_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the prorate convention.",
+      "column_order": 85
+    },
+    {
+      "name": "BONUS_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the depreciation bonus rule.",
+      "column_order": 86
+    },
+    {
+      "name": "CEILING_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the depreciation ceiling.",
+      "column_order": 87
+    },
+    {
+      "name": "CASH_GENERATING_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the cash generating unit.",
+      "column_order": 88
+    },
+    {
+      "name": "CONTRACT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the lease contract of the asset.",
+      "column_order": 89
+    },
+    {
+      "name": "DRY_HOLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether energy asset is classified as dry hole or not.",
+      "column_order": 90
+    },
+    {
+      "name": "EXTENDED_DEPRECIATION_PERIOD",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "No longer used.",
+      "column_order": 91
+    },
+    {
+      "name": "EXTENDED_DEPRN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether the asset depreciation is extended.",
+      "column_order": 92
+    },
+    {
+      "name": "ITC_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Investment tax credit amount of the asset.",
+      "column_order": 93
+    },
+    {
+      "name": "ITC_AMOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the investment tax credit.",
+      "column_order": 94
+    },
+    {
+      "name": "ITC_BASIS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Investment tax credit calculation basis.",
+      "column_order": 95
+    },
+    {
+      "name": "NBV_AT_SWITCH",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Net book value of the asset as of the date at which the original rate was switched to the revised rate.",
+      "column_order": 96
+    },
+    {
+      "name": "PERIOD_COUNTER_FULLY_EXTENDED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the depreciation period in which the asset life was extended.",
+      "column_order": 97
+    },
+    {
+      "name": "PRIOR_DEPRN_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation limit as a percentage of cost for the asset immediately before it began extended depreciation.",
+      "column_order": 98
+    },
+    {
+      "name": "PRIOR_DEPRN_LIMIT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation limit amount for the asset immediately before it began extended depreciation.",
+      "column_order": 99
+    },
+    {
+      "name": "PRIOR_DEPRN_LIMIT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Depreciation limit type for the asset immediately before it began extended depreciation.",
+      "column_order": 100
+    },
+    {
+      "name": "RATE_IN_USE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation rates used to depreciate the net book value over the remaining life.",
+      "column_order": 101
+    },
+    {
+      "name": "PRIOR_METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the depreciation method for the asset immediately before it began extended depreciation.",
+      "column_order": 102
+    },
+    {
+      "name": "PRIOR_FLAT_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the flat rate for the depreciation method of the asset immediately before it began extended depreciation.",
+      "column_order": 103
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 112
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 113
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 114
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 115
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 116
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 117
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 118
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 119
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 120
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 121
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 122
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 123
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 124
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 125
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 126
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 127
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 128
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 129
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 130
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 131
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 132
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 133
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 134
+    },
+    {
+      "name": "FAIR_MARKET_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the fair value of an asset.",
+      "column_order": 135
+    },
+    {
+      "name": "LAST_PRICE_INDEX_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the value of the price index used during  index-based revaluation for future revaluation.",
+      "column_order": 136
+    },
+    {
+      "name": "PERIOD_COUNTER_EXTENDED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Extended depreciation start period identifier.",
+      "column_order": 137
+    },
+    {
+      "name": "LOW_VALUE_ASSET_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this line is a low value asset.",
+      "column_order": 138
+    },
+    {
+      "name": "USE_BOOKS_SUMMARY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the FA_BOOKS_SUMMARY table for the asset was populated.",
+      "column_order": 139
+    },
+    {
+      "name": "ACCELERATED_BONUS_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bonus rule used to take a higher depreciation amount than the amount calculated by the depreciation method.",
+      "column_order": 140
+    },
+    {
+      "name": "ACCELERATED_ADJUSTED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The base amount on which the accelerated depreciation is calculated.",
+      "column_order": 141
+    },
+    {
+      "name": "BONUS_ADJUSTED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The base amount on which the bonus depreciation is calculated.",
+      "column_order": 142
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 143
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 144
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 145
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 146
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 147
+    },
+    {
+      "name": "LEASE_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique lease payment schedule identification number.",
+      "column_order": 148
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique lease identification number.",
+      "column_order": 149
+    },
+    {
+      "name": "LEASE_EXPENSE_BASIS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Basis used for calculating the periodic lease expense of the asset.",
+      "column_order": 150
+    },
+    {
+      "name": "LEASE_ADJUSTMENT_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Internal factor used to amortize the lease basis over the remaining lease term of the asset.",
+      "column_order": 151
+    },
+    {
+      "name": "DEPRN_ADJUSTMENT_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Controls the speed of depreciation of an asset by multiplying this factor by the annual depreciation rate.",
+      "column_order": 152
+    },
+    {
+      "name": "FULLY_RESERVE_ON_ADD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether to fully depreciate an asset when the asset is added.",
+      "column_order": 153
+    },
+    {
+      "name": "REVALUED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Increase or decrease in cost due to revaluation of the asset.  Can be a positive or negative amount.",
+      "column_order": 154
+    },
+    {
+      "name": "EOFY_REVAL_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revaluation reserve at the end of previous fiscal year.",
+      "column_order": 155
+    },
+    {
+      "name": "PRIOR_EOFY_REVAL_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the value of revaluation reserve at the end of fiscal year before the transaction. This is used to rollback the depreciation for the last period of fiscal year.",
+      "column_order": 156
+    },
+    {
+      "name": "IB_ASSET_LINK_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether to synchronize the transaction between a fixed asset and its associated installed base asset.",
+      "column_order": 157
+    },
+    {
+      "name": "BOOK_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Unique book identification name.",
+      "column_order": 158
+    },
+    {
+      "name": "ANNUITY_INTEREST_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Annual interest rate used to calculate annual interest expense.",
+      "column_order": 159
+    }
+  ]
+}

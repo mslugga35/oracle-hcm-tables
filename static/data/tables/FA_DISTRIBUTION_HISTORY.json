@@ -1,0 +1,379 @@
+{
+  "id": 26573,
+  "name": "FA_DISTRIBUTION_HISTORY",
+  "type": "TABLE",
+  "description": "FA_DISTRIBUTION_HISTORY contains information about the employee, location, and Accounting Flexfield values you assign to your assets.   The depreciation program uses this information to allocate depreciation expense and the Transfers form uses it to maintain an audit trail of asset transfers. . When you initially assign distributions to an asset using the Transfers form, Oracle Assets inserts one row into this table for each distribution.  Whenever you transfer, retire, reinstate, or reclassify an asset, Oracle Assets marks the appropriate rows as obsolete and creates new rows that reflect changes in assigned units, employees, general ledger depreciation expense account, or location. . Oracle Assets terminates a row by setting the DATE_INEFFECTIVE and TRANSACTION_HEADER_ID_OUT to the DATE_EFFECTIVE and TRANSACTION_HEADER_ID_IN of the new row.  This means you can identify rows affected by the same transaction because they have the same DATE_EFFECTIVE / DATE_INEFFECTIVE and TRANSACTION_HEADER_ID_IN / TRANSACTION_HEADER_ID_OUT pairs.  For new rows, TRANSACTION_HEADER_ID_IN is the same as TRANSACTION_HEADER_ID of the row inserted into FA_TRANSACTION_HEADERS for the transaction, and DATE_EFFECTIVE is the system date. . When you perform a full retirement, Oracle Assets updates the asset's current distribution lines with the RETIREMENT_ID from FA_RETIREMENTS so you can easily determine which retirement affected the rows.  Oracle Assets stores the number of units retired as a negative number in TRANSACTION_UNITS.\nThe sum of TRANSACTION_UNITS for the retired distribution lines matches the UNITS column in FA_RETIREMENTS, except the signs are opposite. . When you perform a partial unit retirement, Oracle Assets updates only the rows affected by the retirement.  For any distribution lines that have units remaining after the retirement, Oracle Assets inserts new rows into this table where UNITS_ASSIGNED is reduced by the units retired, and terminates the old rows. . Partial cost retirements do not affect this table. . If you reinstate a full retirement, Oracle Assets inserts new rows that are the same as those that were active when you retired the asset, except that they have a different DISTRIBUTION_ID, TRANSACTION_HEADER_ID_IN and DATE_EFFECTIVE.  If you reinstate a partial unit retirement, Oracle Assets inserts new rows that are the same as those that were active except UNITS_ASSIGNED increases by the units retired and the rows have a new DISTRIBUTION_ID, TRANSACTION_HEADER_ID_IN and DATE_EFFECTIVE. . Oracle Assets terminates the previous rows by setting TRANSACTION_HEADER_ID_OUT to the  TRANSACTION_HEADER_ID of the reinstated transaction. . RETIREMENT_ID identifies all the rows affected by a retirement. . TRANSACTION_UNITS is the number of units affected by each retirement, reinstatement, transfer, addition or reclassification transaction. . .",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/fadistributionhistory-10540.html#fadistributionhistory-10540",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset distribution.",
+      "column_order": 1
+    },
+    {
+      "name": "BOOK_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Unique book identification name.",
+      "column_order": 2
+    },
+    {
+      "name": "ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset number.",
+      "column_order": 3
+    },
+    {
+      "name": "UNITS_ASSIGNED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Number of units assigned to the distribution.",
+      "column_order": 4
+    },
+    {
+      "name": "TRANSACTION_UNITS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of units involved in the transaction. Negative value for the row from which the units were transferred away or retired. Positive value for the row to which the units were transferred to or added.",
+      "column_order": 5
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the account code combination for the depreciation expense account.",
+      "column_order": 6
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Location flexfield identification number.",
+      "column_order": 7
+    },
+    {
+      "name": "ASSIGNED_TO",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the employee to whom the asset is assigned.",
+      "column_order": 8
+    },
+    {
+      "name": "TRANSACTION_HEADER_ID_IN",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the transaction that created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "TRANSACTION_HEADER_ID_OUT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the transaction that terminated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "DATE_EFFECTIVE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date when the row became effective.",
+      "column_order": 11
+    },
+    {
+      "name": "DATE_INEFFECTIVE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the row became inactive.",
+      "column_order": 12
+    },
+    {
+      "name": "RETIREMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the asset retirement transaction.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 19
+    },
+    {
+      "name": "INVENTORY_DATE_TAKEN",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "User-defined inventory taken date.",
+      "column_order": 20
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 21
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 22
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 23
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 24
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 25
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 26
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 28
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 29
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 30
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 31
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    }
+  ]
+}

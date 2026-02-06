@@ -1,0 +1,147 @@
+{
+  "id": 28870,
+  "name": "IBY_FILE_ACKS",
+  "type": "TABLE",
+  "description": "Stores bank acknowledgments for the payment files sent",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibyfileacks-28885.html#ibyfileacks-28885",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "FILE_ACK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System-generated primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "INBOUND_FILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "If funds capture flow, foreign key to inbound file record at IBY_INBOUND_FILE.INBOUND_FILE_ID.",
+      "column_order": 2
+    },
+    {
+      "name": "PAYMENT_FLOW",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies funds capture or disbursement flow.  Values taken from lookup: IBY_PAYMENT_FLOW",
+      "column_order": 3
+    },
+    {
+      "name": "PAYMENT_INSTRUCTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "If disbursement flow, foreign key to payment file at IBY_PAY_INSTRUCTIONS_ALL .",
+      "column_order": 4
+    },
+    {
+      "name": "MBATCHID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to settlement batch at IBY_BATCHES_ALL .MBATCHID.",
+      "column_order": 5
+    },
+    {
+      "name": "PROCESSING_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Processing status for the acknowledgment record.",
+      "column_order": 6
+    },
+    {
+      "name": "ACK_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Bank acknowledged status.",
+      "column_order": 7
+    },
+    {
+      "name": "ACKED_ORIG_FILE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "File-level identifier of the acknowledgment record. Maps to OriginalMessageIdentification in ISO20022 schema.",
+      "column_order": 8
+    },
+    {
+      "name": "ACKED_ORIG_FILE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Original network file name assigned by the system when sending out the payment file. Maps to NetworkFileName in ISO20022 schema.",
+      "column_order": 9
+    },
+    {
+      "name": "BANK_ACK_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date/Time for bank acknowledgment.",
+      "column_order": 10
+    },
+    {
+      "name": "TRANSACTION_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 7,
+      "nullable": "Y",
+      "description": "Number of transactions in the file.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 17
+    }
+  ]
+}

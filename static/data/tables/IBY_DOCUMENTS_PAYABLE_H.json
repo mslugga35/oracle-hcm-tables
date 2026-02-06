@@ -1,0 +1,1155 @@
+{
+  "id": 28854,
+  "name": "IBY_DOCUMENTS_PAYABLE_H",
+  "type": "TABLE",
+  "description": "IBY_DOCUMENTS_PAYABLE_H stores historical snapshots of documents payable. This table contains denormalized versions of documents payable from specific points in time, such as when the payment for this document was submitted to a payment system. Different snapshots of the same document payable can exist in this table. These snapshots are differentiated by the table's primary key and a snapshot date.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibydocumentspayableh-14659.html#ibydocumentspayableh-14659",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DOCUMENT_PAYABLE_HISTORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System-generated primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "DOCUMENT_PAYABLE_HISTORY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Document payable snapshot date",
+      "column_order": 2
+    },
+    {
+      "name": "PAYMENT_HISTORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Associated payment snapshot Identifier",
+      "column_order": 3
+    },
+    {
+      "name": "PAY_PROC_TRXN_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Type of payment processing transaction or document",
+      "column_order": 4
+    },
+    {
+      "name": "CALLING_APP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Source product Identifier",
+      "column_order": 5
+    },
+    {
+      "name": "CALLING_APP_DOC_UNIQUE_REF1",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Source product's first unique document payable Identifier",
+      "column_order": 6
+    },
+    {
+      "name": "CALLING_APP_DOC_UNIQUE_REF2",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Source product's second unique document payable Identifier",
+      "column_order": 7
+    },
+    {
+      "name": "CALLING_APP_DOC_UNIQUE_REF3",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Source product's third unique document payable Identifier",
+      "column_order": 8
+    },
+    {
+      "name": "CALLING_APP_DOC_UNIQUE_REF4",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Source product's fourth unique document payable Identifier",
+      "column_order": 9
+    },
+    {
+      "name": "CALLING_APP_DOC_UNIQUE_REF5",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Source product's fifth unique document payable Identifier",
+      "column_order": 10
+    },
+    {
+      "name": "CALLING_APP_DOC_REF_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Reference number entered by user of the source product. Need not be unique",
+      "column_order": 11
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "STRAIGHT_THROUGH_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y or N flag indicating whether the document payable has been processed without unexpected manual intervention",
+      "column_order": 18
+    },
+    {
+      "name": "PO_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Purchase order numbers to which this document is matched. If multiple purchase orders, value is comma delimited.",
+      "column_order": 19
+    },
+    {
+      "name": "DOCUMENT_PAYABLE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Oracle Payments' unique internal document payable Identifier",
+      "column_order": 20
+    },
+    {
+      "name": "PAYMENT_FUNCTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Function or purpose of the payment. Values from the lookup IBY_PAYMENT_FUNCTIONS include SUPPLIER_PAYMENT, CUSTOMER_REFUNDS, and others.",
+      "column_order": 21
+    },
+    {
+      "name": "DOCUMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date of document",
+      "column_order": 22
+    },
+    {
+      "name": "DOCUMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Type of document payable. Values from the IBY_DOCUMENT_TYPES lookup include INVOICE.",
+      "column_order": 23
+    },
+    {
+      "name": "DOCUMENT_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Document description",
+      "column_order": 24
+    },
+    {
+      "name": "DOCUMENT_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Document status. Values from the lookup IBY_DOCS_PAYABLE_STATUSES include PAYMENT CREATED.",
+      "column_order": 25
+    },
+    {
+      "name": "DOCUMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Total document amount",
+      "column_order": 26
+    },
+    {
+      "name": "DOCUMENT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Document currency code",
+      "column_order": 27
+    },
+    {
+      "name": "DOC_CURRENCY_PAYMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount to be paid in document currency",
+      "column_order": 28
+    },
+    {
+      "name": "DOCUMENT_CURRENCY_TAX_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax amount in document currency",
+      "column_order": 29
+    },
+    {
+      "name": "DOCUMENT_CURR_CHARGE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Charge amount in document currency",
+      "column_order": 30
+    },
+    {
+      "name": "PAYMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount to be paid, in payment currency",
+      "column_order": 31
+    },
+    {
+      "name": "PAYMENT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Payment currency code",
+      "column_order": 32
+    },
+    {
+      "name": "PAYMENT_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date on which the payment is made",
+      "column_order": 33
+    },
+    {
+      "name": "PAYMENT_CURR_DISCOUNT_TAKEN",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Discount taken, in payment currency",
+      "column_order": 34
+    },
+    {
+      "name": "DISCOUNT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Discount date",
+      "column_order": 35
+    },
+    {
+      "name": "AMOUNT_WITHHELD",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount withheld",
+      "column_order": 36
+    },
+    {
+      "name": "PAYMENT_SERVICE_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the payment process request in which this document was submitted.",
+      "column_order": 37
+    },
+    {
+      "name": "PAYMENT_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment method Identifier.",
+      "column_order": 38
+    },
+    {
+      "name": "PAYMENT_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payment process profile Identifier",
+      "column_order": 39
+    },
+    {
+      "name": "PAYMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the payment in which this document was paid",
+      "column_order": 40
+    },
+    {
+      "name": "FORMATTING_PAYMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Formatting payment identifier. This field identifies the payment stub on which this document's details are printed. This field is populated when the document has been grouped into a payment.",
+      "column_order": 41
+    },
+    {
+      "name": "EXCLUSIVE_PAYMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether this document payable should be prevented from being grouped with other like documents payable for payment.",
+      "column_order": 42
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_ROUTING_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Internal bank account routing number from CE bank accounts",
+      "column_order": 43
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Internal bank account number from CE bank accounts",
+      "column_order": 44
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_IBAN_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Internal bank account IBAN number from CE bank accounts",
+      "column_order": 45
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_ROUTING_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "External bank account routing number from IBY bank accounts",
+      "column_order": 46
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "External bank account number from IBY bank accounts",
+      "column_order": 47
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_BANK_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Internal bank account bank name from IBY bank accounts",
+      "column_order": 48
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_BRANCH_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Internal bank account branch name from IBY bank accounts",
+      "column_order": 49
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_BRANCH_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Internal bank account branch number from IBY bank accounts",
+      "column_order": 50
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_IBAN_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Internal bank account IBAN number from IBY bank accounts",
+      "column_order": 51
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_SWIFT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Internal bank account SWIFT code from IBY bank accounts",
+      "column_order": 52
+    },
+    {
+      "name": "EXT_PAYEE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "External payee Identifier",
+      "column_order": 53
+    },
+    {
+      "name": "PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payee party site Identifier",
+      "column_order": 54
+    },
+    {
+      "name": "PAYEE_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "TCA party Identifier",
+      "column_order": 55
+    },
+    {
+      "name": "SUPPLIER_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Supplier site Identifier",
+      "column_order": 56
+    },
+    {
+      "name": "PARTY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Party name, denormalized from HZ_PARTIES_ALL.PARTY_NAME and derived via PARTY_ID.",
+      "column_order": 57
+    },
+    {
+      "name": "COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "N",
+      "description": "Country code from the TERRITORY_CODE column in the FND_TERRITORY table from TCA location",
+      "column_order": 58
+    },
+    {
+      "name": "ADDRESS1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "First line for address from TCA location",
+      "column_order": 59
+    },
+    {
+      "name": "ADDRESS2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Second line for address from TCA location",
+      "column_order": 60
+    },
+    {
+      "name": "ADDRESS3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Third line for address from TCA location",
+      "column_order": 61
+    },
+    {
+      "name": "ADDRESS4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Fourth line for address from TCA location",
+      "column_order": 62
+    },
+    {
+      "name": "CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "City from TCA location",
+      "column_order": 63
+    },
+    {
+      "name": "POSTAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Postal code from TCA location",
+      "column_order": 64
+    },
+    {
+      "name": "POSTAL_PLUS4_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Four digit extension to the United States Postal ZIP code from TCA location",
+      "column_order": 65
+    },
+    {
+      "name": "STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "State from TCA location",
+      "column_order": 66
+    },
+    {
+      "name": "PROVINCE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Province from TCA location",
+      "column_order": 67
+    },
+    {
+      "name": "COUNTY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "County from TCA location",
+      "column_order": 68
+    },
+    {
+      "name": "BENEFICIARY_PARTY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Beneficiary party, if payment is made through a third party",
+      "column_order": 69
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 70
+    },
+    {
+      "name": "ORG_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Organization type, such as business unit. Values taken from lookup: IBY_ORGANIZATION_TYPES",
+      "column_order": 71
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Legal entity Identifier",
+      "column_order": 72
+    },
+    {
+      "name": "BANK_CHARGE_BEARER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Party that is responsible for paying regular or express bank charges, such as Payee or Payer. Values taken from lookup: IBY_BANK_CHARGE_BEARER",
+      "column_order": 73
+    },
+    {
+      "name": "INTEREST_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Interest rate on which this document payable was created if it is an interest invoice",
+      "column_order": 74
+    },
+    {
+      "name": "PAYMENT_GROUPING_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment grouping number. All documents with the same grouping number are automatically grouped into a single payment. No document in the payment group can be removed from the payment unless the whole payment is removed.",
+      "column_order": 75
+    },
+    {
+      "name": "PAYMENT_REASON_FORMAT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Payment reason value required by the payment format that uses this payment reason",
+      "column_order": 76
+    },
+    {
+      "name": "PAYMENT_REASON_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Free text field available for entering a reason for the payment",
+      "column_order": 77
+    },
+    {
+      "name": "SETTLEMENT_PRIORITY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Priority with which the financial institution or payment system settles payment for this document. The available values for this column come from the FND lookup IBY_SETTLEMENT_PRIORITY.",
+      "column_order": 78
+    },
+    {
+      "name": "REMITTANCE_MESSAGE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Remittance message for use in payment processing",
+      "column_order": 79
+    },
+    {
+      "name": "REMITTANCE_MESSAGE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Remittance message for use in payment processing",
+      "column_order": 80
+    },
+    {
+      "name": "REMITTANCE_MESSAGE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Remittance message for use in payment processing",
+      "column_order": 81
+    },
+    {
+      "name": "UNIQUE_REMITTANCE_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "Unique remittance Identifier provided by the payee",
+      "column_order": 82
+    },
+    {
+      "name": "URI_CHECK_DIGIT",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Unique remittance Identifier check digit",
+      "column_order": 83
+    },
+    {
+      "name": "DELIVERY_FORMAT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Delivery value required by the payment format that uses this delivery channel",
+      "column_order": 84
+    },
+    {
+      "name": "FORMAT_TEMPLATE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Payment format code, as defined in the XML Publisher registry",
+      "column_order": 85
+    },
+    {
+      "name": "EXTRACT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code for the extract version",
+      "column_order": 86
+    },
+    {
+      "name": "DOCUMENT_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Sequential numbering document category",
+      "column_order": 87
+    },
+    {
+      "name": "DOCUMENT_SEQUENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sequential numbering document sequence Identifier",
+      "column_order": 88
+    },
+    {
+      "name": "DOCUMENT_SEQUENCE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sequence number of document payable",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "INVOICING_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Invoicing Business Unit",
+      "column_order": 106
+    },
+    {
+      "name": "INVOICING_ORG_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Invoicing Organization Type",
+      "column_order": 107
+    },
+    {
+      "name": "INV_EXT_PAYEE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "External payee associated with the invoice supplier",
+      "column_order": 108
+    },
+    {
+      "name": "INV_PAYEE_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party identifier of the supplier that sends the invoice.",
+      "column_order": 109
+    },
+    {
+      "name": "INV_PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party site identifier associated with the supplier.",
+      "column_order": 110
+    },
+    {
+      "name": "INV_SUPPLIER_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Supplier site identifier of the supplier that sends the invoice.",
+      "column_order": 111
+    },
+    {
+      "name": "RELATIONSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the relationship between payee and supplier that sends the invoice.",
+      "column_order": 112
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 113
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 114
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 115
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 116
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 117
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 118
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 119
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 120
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 121
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 122
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 123
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 124
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 125
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 126
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 127
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 128
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 129
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 130
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 131
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 132
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 133
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 134
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 135
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 136
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 137
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 138
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 139
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 140
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 141
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 142
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 143
+    }
+  ]
+}

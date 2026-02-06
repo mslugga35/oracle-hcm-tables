@@ -1,0 +1,307 @@
+{
+  "id": 33125,
+  "name": "ZSF_FCST_AUTO_PILOT_JOB_DEFN",
+  "type": "TABLE",
+  "description": "A list of managed jobs that should be scheduled by Autopilot Job shall be maintained in table ZSF_FCST_AUTO_PILOT_JOB_DEFN. Data for this table shall be inserted using SQL script during upgrade.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zsffcstautopilotjobdefn-20158.html#zsffcstautopilotjobdefn-20158",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "MANAGED_JOB_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Primary Key. Name of the managed job to be scheduled by autopilot.",
+      "column_order": 1
+    },
+    {
+      "name": "ESS_JOB_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "N",
+      "description": "Package within which the ESS job has been defined in the CrmEss application",
+      "column_order": 2
+    },
+    {
+      "name": "ESS_JOB_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "N",
+      "description": "Job Name as defined in the CrmEss application.",
+      "column_order": 3
+    },
+    {
+      "name": "FREQUENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "MINUTE / HOUR / DAY / WEEK / MONTH / YEAR / FCST_HEADER_FREEZE_DATE",
+      "column_order": 4
+    },
+    {
+      "name": "FREQUENCY_INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Frequency Interval. Eg., HOUR with 2 will mean once every 2 hours.",
+      "column_order": 5
+    },
+    {
+      "name": "RETRY_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Number of times the Autopilot Job should retry execution of this job if it results in an ERROR before giving up.",
+      "column_order": 6
+    },
+    {
+      "name": "REFERENCE_DATE_TIME",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "For Hourly jobs, the earliest MINUTE is used. For Daily jobs, only HH is used. For WEEKLY jobs, the WEEKDAY+HH is used. For MONTHLY jobs, the DAY+HH is used. For Yearly jobs, the DAY+MONTH+HH is used. For FCST_HEADER_FREEZE_DATE based jobs, only HH is used.",
+      "column_order": 7
+    },
+    {
+      "name": "NOTIFY",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "One or more of ERROR/WARNING/SUCCESS (For ex., ERROR+WARNING)",
+      "column_order": 8
+    },
+    {
+      "name": "PRIORITY",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "1 to 99. 1 is the highest and 99 is the lowest.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 15
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 16
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 17
+    },
+    {
+      "name": "PARAM1",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 18
+    },
+    {
+      "name": "PARAM2",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 19
+    },
+    {
+      "name": "PARAM3",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 20
+    },
+    {
+      "name": "PARAM4",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 21
+    },
+    {
+      "name": "PARAM5",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 22
+    },
+    {
+      "name": "PARAM6",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 23
+    },
+    {
+      "name": "PARAM7",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 24
+    },
+    {
+      "name": "PARAM8",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 25
+    },
+    {
+      "name": "PARAM9",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 26
+    },
+    {
+      "name": "PARAM10",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 27
+    },
+    {
+      "name": "PARAM11",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 28
+    },
+    {
+      "name": "PARAM12",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 29
+    },
+    {
+      "name": "PARAM13",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 30
+    },
+    {
+      "name": "PARAM14",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 31
+    },
+    {
+      "name": "PARAM15",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 32
+    },
+    {
+      "name": "PARAM16",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 33
+    },
+    {
+      "name": "PARAM17",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 34
+    },
+    {
+      "name": "PARAM18",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 35
+    },
+    {
+      "name": "PARAM19",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 36
+    },
+    {
+      "name": "PARAM20",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Parameter to be passed to the job.",
+      "column_order": 37
+    }
+  ]
+}

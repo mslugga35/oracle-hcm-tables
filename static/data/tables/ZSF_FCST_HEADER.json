@@ -1,0 +1,267 @@
+{
+  "id": 33129,
+  "name": "ZSF_FCST_HEADER",
+  "type": "TABLE",
+  "description": "This table has the forecast header for each forecast in forecasting application",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zsffcstheader-18551.html#zsffcstheader-18551",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "FCST_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key for the Forecast header, representing a forecast",
+      "column_order": 1
+    },
+    {
+      "name": "FCST_METRICS_PARTITION_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This column will be copied over to the ZSF_FCST_METRICS table, where it will be used as partition key.",
+      "column_order": 2
+    },
+    {
+      "name": "FCST_SERIES_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "FK to ZSF_FCST_SERIES.FCST_SERIES_ID, this represents the series to which the forecast belongs to",
+      "column_order": 3
+    },
+    {
+      "name": "FORECAST_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of Forecast, this is derived from the due date/start date of the forecast",
+      "column_order": 4
+    },
+    {
+      "name": "FORECAST_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Forecast type. Values could be Revenue / Non-Revenue. Lookup type is zsf_fcst_type.",
+      "column_order": 5
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start date of Forecast. The first date of the forecast.",
+      "column_order": 6
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End Date of Forecast. The last date of the forecast.",
+      "column_order": 7
+    },
+    {
+      "name": "DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date when the forecast is due, after which it will be locked.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_REFRESH_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date of last refresh for this particular forecast",
+      "column_order": 9
+    },
+    {
+      "name": "TERR_HIER_FREEZE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This represents the date after which territory changes will not be considered for the forecast",
+      "column_order": 10
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of Header, it could be PAST, ACTIVE, FUTURE.",
+      "column_order": 11
+    },
+    {
+      "name": "LATEST_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Latest Flag indicates if this is the latest forecast for  the period.",
+      "column_order": 12
+    },
+    {
+      "name": "CALENDAR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Reference to the GL calendar selected for CRM",
+      "column_order": 13
+    },
+    {
+      "name": "CORP_CURR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reference to the corporate currency selected for CRM",
+      "column_order": 14
+    },
+    {
+      "name": "CORP_CURR_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reference to the corporate currency selected for CRM",
+      "column_order": 15
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Period name from the common calendar for the forecast header",
+      "column_order": 16
+    },
+    {
+      "name": "FORECAST_SEQ_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Sequence number for the forecast in the list of forecasts for the current forecast period",
+      "column_order": 17
+    },
+    {
+      "name": "DELETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This flag is used to indicate if the header needs to be deleted during generation",
+      "column_order": 18
+    },
+    {
+      "name": "DENORM_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This has a FK reference to ZSF_TERR_HIERARCHY_DN table",
+      "column_order": 19
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 20
+    },
+    {
+      "name": "PRODUCT_SNAPSHOT_VER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The version of the product snapshot is stored in the header table.",
+      "column_order": 21
+    },
+    {
+      "name": "FCST_STATUS_QUALIFIER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This qualifies the existing status to provide more granular display status for overview page, namely ACTIVE, NEXT, PREVIOUS",
+      "column_order": 22
+    },
+    {
+      "name": "FCST_HEADER_JOB_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column introduced to determine interoperability status between jobs",
+      "column_order": 23
+    },
+    {
+      "name": "FCST_HEADER_JOB_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Column introduced to determine interoperability status between jobs",
+      "column_order": 24
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 25
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 27
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 28
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 29
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 30
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 31
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 32
+    }
+  ]
+}

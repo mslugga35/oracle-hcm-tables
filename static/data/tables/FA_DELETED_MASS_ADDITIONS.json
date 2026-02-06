@@ -1,0 +1,3867 @@
+{
+  "id": 26554,
+  "name": "FA_DELETED_MASS_ADDITIONS",
+  "type": "TABLE",
+  "description": "FA_DELETED_MASS_ADDITIONS contains information about the mass additions that are deleted for audit trail. The delete mass additions process inserts a row into this table for each mass addition that has a POSTING_STATUS of DELETE in FA_MASS_ADDITIONS for the asset book.  The mass additions purge process will delete the records in this table.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/fadeletedmassadditions-16480.html#fadeletedmassadditions-16480",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Mass addition line preparation, processing and posting status.",
+      "column_order": 1
+    },
+    {
+      "name": "MASS_ADDITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique mass addition identifier.",
+      "column_order": 2
+    },
+    {
+      "name": "ASSET_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique asset number. Free text field. Generated automatically if not provided.",
+      "column_order": 3
+    },
+    {
+      "name": "TAG_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Asset tag number. Must be unique. Free text field.",
+      "column_order": 4
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Asset description. Required field. Free text field.",
+      "column_order": 5
+    },
+    {
+      "name": "ASSET_CATEGORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Asset category identifier. Required field. Use the Manage Asset Categories task to identify valid values.",
+      "column_order": 6
+    },
+    {
+      "name": "MANUFACTURER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Manufacturers name. Free text field. Not validated.",
+      "column_order": 7
+    },
+    {
+      "name": "PREPARER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Person who prepared the mass addition line. Use the Manage Resources task to identify valid values.",
+      "column_order": 8
+    },
+    {
+      "name": "SERIAL_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 35,
+      "nullable": "Y",
+      "description": "Serial number. Free text field. Not validated.",
+      "column_order": 9
+    },
+    {
+      "name": "MODEL_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Asset model identification number.",
+      "column_order": 10
+    },
+    {
+      "name": "BOOK_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Asset Book name. Use the Manage Asset Books task to identify valid values.",
+      "column_order": 11
+    },
+    {
+      "name": "DATE_PLACED_IN_SERVICE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date asset placed in service. Date format: YYYY/MM/DD. If the date is not entered the default date from the current open period is used. If the date is prior or after the current period, the beginning or last day of the period are used respectively.",
+      "column_order": 12
+    },
+    {
+      "name": "FIXED_ASSETS_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Asset cost. Required field. Do not use thousands separator. Use a period or comma as decimal separator.",
+      "column_order": 13
+    },
+    {
+      "name": "PAYABLES_UNITS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Units from Oracle Fusion Payables. Use whole number without thousand separator. Must be right aligned.",
+      "column_order": 14
+    },
+    {
+      "name": "FIXED_ASSETS_UNITS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of units. Must be right aligned.",
+      "column_order": 15
+    },
+    {
+      "name": "PAYABLES_CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Cost clearing account identifier. Use the Manage Account Combinations task to identify valid values.",
+      "column_order": 16
+    },
+    {
+      "name": "FEEDER_SYSTEM_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Identifies system in which the asset was created. Free text field. Not validated.",
+      "column_order": 17
+    },
+    {
+      "name": "CREATE_BATCH_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date mass additions program that created the asset. Date format: YYYY/MM/DD.",
+      "column_order": 18
+    },
+    {
+      "name": "CREATE_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Process identification number of mass additions create program",
+      "column_order": 19
+    },
+    {
+      "name": "CASH_GENERATING_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Cash generating unit identifier. Use the Manage Cash Generating Units task to identify valid values. Must be right aligned.",
+      "column_order": 20
+    },
+    {
+      "name": "YTD_IMPAIRMENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Year-to-date impairment amount. Enter without thousands separator. Use a period or comma as decimal separator. Cannot exceed asset cost.",
+      "column_order": 21
+    },
+    {
+      "name": "IMPAIRMENT_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total impairment loss for the asset. Enter without thousands separator. Use a period or comma as decimal separator. Cannot exceed asset cost.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 24
+    },
+    {
+      "name": "REVIEWER_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Comments. Used to review mass additions process only: not available thereafter. Free text field. Not validated.",
+      "column_order": 25
+    },
+    {
+      "name": "INVOICE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Invoice number for associated asset invoice.",
+      "column_order": 26
+    },
+    {
+      "name": "VENDOR_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Supplier number for associated asset invoice.",
+      "column_order": 27
+    },
+    {
+      "name": "PO_VENDOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Supplier identifier for associated asset invoice.",
+      "column_order": 28
+    },
+    {
+      "name": "PO_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Purchase order number for associated asset invoice.",
+      "column_order": 29
+    },
+    {
+      "name": "POSTING_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Status of the mass addition. Valid values: ON HOLD, NEW, POST, MERGED. ON HOLD means the asset is not ready for addition. NEW means the asset must be added. POST means the asset is posted. MERGED means the asset is merged.",
+      "column_order": 30
+    },
+    {
+      "name": "QUEUE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Mass addition queue name. Valid values: ON HOLD, NEW, POST, MERGED. ON HOLD means the asset is not ready for addition. NEW means the asset must be added. POST means the asset is posted. MERGED means the asset is merged.",
+      "column_order": 31
+    },
+    {
+      "name": "INVOICE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Invoice date for associated asset invoice.",
+      "column_order": 32
+    },
+    {
+      "name": "INVOICE_CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Oracle internal use only. User identification of the person who created the associated asset invoice.",
+      "column_order": 33
+    },
+    {
+      "name": "INVOICE_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Oracle internal use only. User identification of the person who updated the associated asset invoice.",
+      "column_order": 34
+    },
+    {
+      "name": "PAYABLES_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Original asset cost. Enter without thousands separator. Use a period or comma as decimal separator. Precision must not exceed currency definition.",
+      "column_order": 35
+    },
+    {
+      "name": "INVOICE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Invoice identifier from Oracle Fusion Payables.",
+      "column_order": 36
+    },
+    {
+      "name": "PAYABLES_BATCH_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Batch name used by associated asset invoice.",
+      "column_order": 37
+    },
+    {
+      "name": "DEPRECIATE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Identifies whether the asset must be depreciated. Valid values: Y, N.",
+      "column_order": 38
+    },
+    {
+      "name": "PARENT_MASS_ADDITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Identifies the mass addition into which you merged this mass addition.",
+      "column_order": 39
+    },
+    {
+      "name": "PARENT_ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Parent asset identifier. Use Asset Inquiry in any work area to identify valid values.",
+      "column_order": 40
+    },
+    {
+      "name": "SPLIT_MERGED_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Indicates whether a mass addition was split or merged.",
+      "column_order": 41
+    },
+    {
+      "name": "AP_DISTRIBUTION_LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Distribution line number from associated asset invoice.",
+      "column_order": 42
+    },
+    {
+      "name": "POST_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Unique identification number for a mass additions post request.",
+      "column_order": 43
+    },
+    {
+      "name": "ADD_TO_ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Asset to apply the mass addition as a cost adjustment. Use the Asset Inquiry task to identify valid values.",
+      "column_order": 44
+    },
+    {
+      "name": "AMORTIZE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Option indicating whether the transaction should be amortized or expensed.Valid values: Y, N.",
+      "column_order": 45
+    },
+    {
+      "name": "NEW_MASTER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Determines whether to reclassify the asset which is being adjusted. Valid values: Y, N.",
+      "column_order": 46
+    },
+    {
+      "name": "ASSET_KEY_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Asset key flexfield identifier. Use the Manage Asset Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 47
+    },
+    {
+      "name": "ASSET_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 11,
+      "nullable": "Y",
+      "description": "Asset type. Valid values: CAPITALIZED, CIP, GROUP, EXPENSED. CAPITALIZED means the asset is to be depreciated. CIP means the asset is still unfinished or under construction. GROUP means the asset is a collection of member assets. EXPENSED means assets do not depreciate and have to be expensed in the period of addition.",
+      "column_order": 48
+    },
+    {
+      "name": "DEPRN_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation reserve of the asset. Enter without thousands separator. Use a period or comma as decimal separator.",
+      "column_order": 49
+    },
+    {
+      "name": "YTD_DEPRN",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Year-to-date depreciation expense of the asset. Enter without thousands separator. Use a period or comma as decimal separator.",
+      "column_order": 50
+    },
+    {
+      "name": "LOAD_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle Fusion Enterprise Resource Planning: request ID of the job that created or last updated the row.",
+      "column_order": 51
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 52
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 53
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 54
+    },
+    {
+      "name": "SALVAGE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Asset salvage value. Enter without thousands separator. Use a period or comma as decimal separator.",
+      "column_order": 55
+    },
+    {
+      "name": "ACCOUNTING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal user only. Accounting Date of the Oracle Fusion Payables invoice distribution line from AP_INVOICE_DISTRIBUTIONS..",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 72
+    },
+    {
+      "name": "MERGE_INVOICE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Invoice number of a mass addition line merged parent.",
+      "column_order": 73
+    },
+    {
+      "name": "MERGE_VENDOR_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Supplier number of a mass addition line merged parent.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ATTRIBUTE21",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "ATTRIBUTE22",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "ATTRIBUTE23",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE24",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE25",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE26",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE27",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE28",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE29",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE30",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 112
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 113
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 114
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 115
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 116
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 117
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 118
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 119
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 120
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 121
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 122
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 123
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 124
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 125
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 126
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 127
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 128
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 129
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 130
+    },
+    {
+      "name": "MERGED_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Indicates if the mass addition is a merged parent of a merged child.",
+      "column_order": 131
+    },
+    {
+      "name": "SPLIT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Indicates if the mass addition is a split parent or a split child.",
+      "column_order": 132
+    },
+    {
+      "name": "MERGE_PARENT_MASS_ADDITIONS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Merged parent mass addition identifier. Valid values: Y, N.",
+      "column_order": 133
+    },
+    {
+      "name": "SPLIT_PARENT_MASS_ADDITIONS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Split parent mass addition identifier.",
+      "column_order": 134
+    },
+    {
+      "name": "PROJECT_ASSET_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Identifier of the summarized asset cost line transferred.",
+      "column_order": 135
+    },
+    {
+      "name": "PROJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Identifier of the project from which the costs were collected, summarized, and transferred.",
+      "column_order": 136
+    },
+    {
+      "name": "TASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Identifier of the task from which costs were collected, summarized, and transferred. Only populated if the costs are summarized by task.",
+      "column_order": 137
+    },
+    {
+      "name": "SUM_UNITS",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Sum the units of merged mass additions. Valid values: Y, N.",
+      "column_order": 138
+    },
+    {
+      "name": "INVENTORIAL",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Indicator used to determine whether the asset should be included in physical inventory.Valid values: Y, N.",
+      "column_order": 139
+    },
+    {
+      "name": "DIST_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Name of the distribution set.",
+      "column_order": 140
+    },
+    {
+      "name": "CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 250,
+      "nullable": "Y",
+      "description": "Context code for Asset Category descriptive flexfield. Use the Fixed Assets Descriptive Flexfields task to identify valid values. Use columns beginning with ATTRIBUTE for segment values.",
+      "column_order": 141
+    },
+    {
+      "name": "SHORT_FISCAL_YEAR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Asset is added in a short fiscal year indicator. Valid values: Y, N.",
+      "column_order": 142
+    },
+    {
+      "name": "CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date short fiscal year asset added to acquiring company. Date format: YYYY/MM/DD. Must be within current calendar period of the primary company.",
+      "column_order": 143
+    },
+    {
+      "name": "ORIGINAL_DEPRN_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date short fiscal year asset began depreciating in the acquired company's books. Date format: YYYY/MM/DD. Must be within current calendar period of the primary company.",
+      "column_order": 144
+    },
+    {
+      "name": "GROUP_ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Identification number of the group asset.",
+      "column_order": 145
+    },
+    {
+      "name": "UNITS_TO_ADJUST",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Total units to adjust. Use a whole number with no thousands separators.",
+      "column_order": 146
+    },
+    {
+      "name": "BONUS_YTD_DEPRN",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Year-to-date bonus depreciation expense of the asset. Amount must be included in YTD_DEPRN. Enter without thousands separator. Use a period or comma as decimal separator.",
+      "column_order": 147
+    },
+    {
+      "name": "BONUS_DEPRN_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bonus depreciation reserve of the asset. Amount must be included in DEPRN_RESERVE. Enter without thousands separator. Use a period or comma as decimal separator.",
+      "column_order": 148
+    },
+    {
+      "name": "AMORTIZATION_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date to start amortizing the net book value for an asset if the transaction is amortized. Date format: YYYY/MM/DD. Must be equal to or later than the date the asset was placed in service.",
+      "column_order": 149
+    },
+    {
+      "name": "PROPERTY_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Property type. Valid values: PERSONAL, REAL.",
+      "column_order": 150
+    },
+    {
+      "name": "PROPERTY_1245_1250_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Property type. Valid values: 1245, 1250. 1245 means personal. 1250 means real.",
+      "column_order": 151
+    },
+    {
+      "name": "IN_USE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Indicates whether the asset is in use. Possible values: Y, N.",
+      "column_order": 152
+    },
+    {
+      "name": "OWNED_LEASED",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Indicates whether the asset is owned or leased. Valid values: OWNED, LEASED.",
+      "column_order": 153
+    },
+    {
+      "name": "NEW_USED",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Indicates whether the asset is new or used. Valid values: NEW, USED.",
+      "column_order": 154
+    },
+    {
+      "name": "ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Asset identifier. Use an Assets Inquiry in any work area to identify valid values.",
+      "column_order": 155
+    },
+    {
+      "name": "MATERIAL_INDICATOR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the source line is of material nature. Valid values: Y, N.",
+      "column_order": 156
+    },
+    {
+      "name": "SALVAGE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Salvage type. Valid values: PCT, AMT, SUM. PCT means percentage of value. AMT means amount. SUM means sum of member assets.",
+      "column_order": 157
+    },
+    {
+      "name": "PERCENT_SALVAGE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Salvage value as a percentage of asset cost. Must be a value from 0 to 100.",
+      "column_order": 158
+    },
+    {
+      "name": "DEPRN_LIMIT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Depreciation limit type. Valid values: PCT, AMT, SUM, NONE. PCT means percentage of asset cost. AMT means the limit is an amount. SUM is used for group assets, means the sum of member assets. NONE means there is no depreciation limit.",
+      "column_order": 159
+    },
+    {
+      "name": "ALLOWED_DEPRN_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Default depreciation limit as a percentage of cost. Must be a value from 0 to 100.",
+      "column_order": 160
+    },
+    {
+      "name": "ALLOWED_DEPRN_LIMIT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation limit amount for the asset. Enter without thousands separator. Use a period or comma as decimal separator. Must be less than asset cost less depreciation.",
+      "column_order": 161
+    },
+    {
+      "name": "INVOICE_LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Line number from associated asset invoice.",
+      "column_order": 162
+    },
+    {
+      "name": "INVOICE_DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Invoice distribution identifier from associated asset invoice.",
+      "column_order": 163
+    },
+    {
+      "name": "PO_DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Purchase order distribution identifier from associated asset invoice.",
+      "column_order": 164
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 165
+    },
+    {
+      "name": "WORKER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Internal identifier for parallel processing.",
+      "column_order": 166
+    },
+    {
+      "name": "PROCESS_ORDER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal identifier indicating the order in which transactions must be processed.",
+      "column_order": 167
+    },
+    {
+      "name": "MASS_PROPERTY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Eligible for mass property allocation. Valid values: Y, N.",
+      "column_order": 168
+    },
+    {
+      "name": "INVOICE_PAYMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Payment identifier for associated asset invoice.",
+      "column_order": 169
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 170
+    },
+    {
+      "name": "METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Depreciation method identifier. Use the Manage Depreciation Methods task to identify valid values.",
+      "column_order": 171
+    },
+    {
+      "name": "FLAT_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Flat rate depreciation method identifier. Use the Manage Depreciation Methods task to identify valid values.",
+      "column_order": 172
+    },
+    {
+      "name": "CONVENTION_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Prorate convention identifier.Use the Manage Prorate Conventions to identify valid values.",
+      "column_order": 173
+    },
+    {
+      "name": "BONUS_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bonus rule identifier. Use the Manage Bonus Rules task to identify valid values.",
+      "column_order": 174
+    },
+    {
+      "name": "CEILING_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Depreciation ceiling type identifier. Use the Manage Ceilings task to identify valid values.",
+      "column_order": 175
+    },
+    {
+      "name": "COMMITMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether there are external commitments for the asset. Valid values: Y, N.",
+      "column_order": 176
+    },
+    {
+      "name": "INVESTMENT_LAW",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether there are laws that may apply to purchasing the asset. Valid values: Y, N.",
+      "column_order": 177
+    },
+    {
+      "name": "TRANSACTION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description of the transaction. Free text field. Not validated.",
+      "column_order": 178
+    },
+    {
+      "name": "TH_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 179
+    },
+    {
+      "name": "TH_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 180
+    },
+    {
+      "name": "TH_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 181
+    },
+    {
+      "name": "TH_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 182
+    },
+    {
+      "name": "TH_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 183
+    },
+    {
+      "name": "TH_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 184
+    },
+    {
+      "name": "TH_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 185
+    },
+    {
+      "name": "TH_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 186
+    },
+    {
+      "name": "TH_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 187
+    },
+    {
+      "name": "TH_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 188
+    },
+    {
+      "name": "TH_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 189
+    },
+    {
+      "name": "TH_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 190
+    },
+    {
+      "name": "TH_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 191
+    },
+    {
+      "name": "TH_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 192
+    },
+    {
+      "name": "TH_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 193
+    },
+    {
+      "name": "TH_ATTRIBUTE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Context code for Transactions descriptive flexfield. Use the Fixed Assets Descriptive Flexfields task to identify valid values. Use columns beginning with TH for segment values. Used for ADDITION transaction type.",
+      "column_order": 194
+    },
+    {
+      "name": "TH_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 195
+    },
+    {
+      "name": "TH_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 196
+    },
+    {
+      "name": "TH_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 197
+    },
+    {
+      "name": "TH_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 198
+    },
+    {
+      "name": "TH_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 199
+    },
+    {
+      "name": "TH_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 200
+    },
+    {
+      "name": "TH_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 201
+    },
+    {
+      "name": "TH_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 202
+    },
+    {
+      "name": "TH_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 203
+    },
+    {
+      "name": "TH_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for ADDITION transaction type.",
+      "column_order": 204
+    },
+    {
+      "name": "TH2_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 205
+    },
+    {
+      "name": "TH2_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 206
+    },
+    {
+      "name": "TH2_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 207
+    },
+    {
+      "name": "TH2_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 208
+    },
+    {
+      "name": "TH2_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 209
+    },
+    {
+      "name": "TH2_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 210
+    },
+    {
+      "name": "TH2_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 211
+    },
+    {
+      "name": "TH2_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 212
+    },
+    {
+      "name": "TH2_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 213
+    },
+    {
+      "name": "TH2_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 214
+    },
+    {
+      "name": "TH2_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 215
+    },
+    {
+      "name": "TH2_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 216
+    },
+    {
+      "name": "TH2_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 217
+    },
+    {
+      "name": "TH2_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 218
+    },
+    {
+      "name": "TH2_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 219
+    },
+    {
+      "name": "TH2_ATTRIBUTE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Context code for Transactions descriptive flexfield. Use the Fixed Assets Descriptive Flexfields task to identify valid values. Use columns beginning with TH2 for segment values. Used for TRANSFER IN transaction type.",
+      "column_order": 220
+    },
+    {
+      "name": "TH2_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 221
+    },
+    {
+      "name": "TH2_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 222
+    },
+    {
+      "name": "TH2_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 223
+    },
+    {
+      "name": "TH2_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 224
+    },
+    {
+      "name": "TH2_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 225
+    },
+    {
+      "name": "TH2_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 226
+    },
+    {
+      "name": "TH2_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 227
+    },
+    {
+      "name": "TH2_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 228
+    },
+    {
+      "name": "TH2_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 229
+    },
+    {
+      "name": "TH2_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Transactions descriptive flexfield. Used for TRANSFER IN transaction type.",
+      "column_order": 230
+    },
+    {
+      "name": "AI_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 231
+    },
+    {
+      "name": "AI_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 232
+    },
+    {
+      "name": "AI_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 233
+    },
+    {
+      "name": "AI_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 234
+    },
+    {
+      "name": "AI_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 235
+    },
+    {
+      "name": "AI_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 236
+    },
+    {
+      "name": "AI_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 237
+    },
+    {
+      "name": "AI_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 238
+    },
+    {
+      "name": "AI_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 239
+    },
+    {
+      "name": "AI_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 240
+    },
+    {
+      "name": "AI_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 241
+    },
+    {
+      "name": "AI_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 242
+    },
+    {
+      "name": "AI_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 243
+    },
+    {
+      "name": "AI_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 244
+    },
+    {
+      "name": "AI_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Assets Invoices descriptive flexfield.",
+      "column_order": 245
+    },
+    {
+      "name": "AI_ATTRIBUTE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Context code for Assets Invoices descriptive flexfield. Use the Manage Fixed Assets Descriptive Flexfields task to identify valid values. Use columns beginning with AI for segment values.",
+      "column_order": 246
+    },
+    {
+      "name": "AI_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Assets Invoices descriptive flexfield.",
+      "column_order": 247
+    },
+    {
+      "name": "AI_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Assets Invoices descriptive flexfield.",
+      "column_order": 248
+    },
+    {
+      "name": "AI_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Assets Invoices descriptive flexfield.",
+      "column_order": 249
+    },
+    {
+      "name": "AI_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Assets Invoices descriptive flexfield.",
+      "column_order": 250
+    },
+    {
+      "name": "AI_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for Assets Invoices descriptive flexfield.",
+      "column_order": 251
+    },
+    {
+      "name": "AI_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Assets Invoices descriptive flexfield.",
+      "column_order": 252
+    },
+    {
+      "name": "AI_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Assets Invoices descriptive flexfield.",
+      "column_order": 253
+    },
+    {
+      "name": "AI_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Assets Invoices descriptive flexfield.",
+      "column_order": 254
+    },
+    {
+      "name": "AI_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Assets Invoices descriptive flexfield.",
+      "column_order": 255
+    },
+    {
+      "name": "AI_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date value for Assets Invoices descriptive flexfield.",
+      "column_order": 256
+    },
+    {
+      "name": "REDUCTION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation reduction rate for the group and its assets. Must be between 0 and 100.",
+      "column_order": 257
+    },
+    {
+      "name": "REDUCE_ADDITION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether reduction rate is applied to additions. Applicable only to group assets. Used when depreciable basis rule has year end balance with positive reduction amount and half year rule. Valid values: Y, N.",
+      "column_order": 258
+    },
+    {
+      "name": "REDUCE_ADJUSTMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether reduction rate is applied to adjustments. Applicable only to group assets. Used when depreciable basis rule has year end balance with positive reduction amount and half year rule. Valid values: Y, N.",
+      "column_order": 259
+    },
+    {
+      "name": "REDUCE_RETIREMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether reduction rate is applied to retirements. Applicable only to group assets. Used when depreciable basis rule has year end balance with positive reduction amount and half year rule. Valid values: Y, N.",
+      "column_order": 260
+    },
+    {
+      "name": "RECOGNIZE_GAIN_LOSS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Recognize gain or loss at asset retirement. Valid values: Y, N.",
+      "column_order": 261
+    },
+    {
+      "name": "RECAPTURE_RESERVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Reserve can exceed recoverable asset cost. Valid values: Y, N.",
+      "column_order": 262
+    },
+    {
+      "name": "LIMIT_PROCEEDS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Limit asset proceeds to recoverable cost. Valid values: Y, N.",
+      "column_order": 263
+    },
+    {
+      "name": "TERMINAL_GAIN_LOSS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether terminal gain or loss must be recognized for member asset retirement. Valid values: Y, N.",
+      "column_order": 264
+    },
+    {
+      "name": "TRACKING_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Group asset tracking method for calculating group and member asset depreciation. Valid values: ALLOCATE, CALCULATE. ALLOCATE means allocate group depreciation amount to member assets. CALCULATE means calculate depreciation for each member asset.",
+      "column_order": 265
+    },
+    {
+      "name": "EXCESS_ALLOCATION_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicate whether excess depreciation for group asset is allocated to member assets. Valid values: Y, N.",
+      "column_order": 266
+    },
+    {
+      "name": "DEPRECIATION_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Depreciate member asset based on either group or individual member asset depreciation rules. Valid values: GROUP, MEMBER.",
+      "column_order": 267
+    },
+    {
+      "name": "MEMBER_ROLLUP_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether group asset depreciation is sum of member asset depreciation or calculated separately.Valid values: Y, N.",
+      "column_order": 268
+    },
+    {
+      "name": "ALLOCATE_TO_FULLY_RSV_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether to allocate group asset depreciation amount to a reserved member asset.Valid values: Y, N.",
+      "column_order": 269
+    },
+    {
+      "name": "OVER_DEPRECIATE_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Over depreciation is allowed for group assets. Valid values: Y, N.",
+      "column_order": 270
+    },
+    {
+      "name": "NBV_AT_SWITCH",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Net book value at switch.",
+      "column_order": 271
+    },
+    {
+      "name": "PERIOD_FULL_RESERVE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "No longer used.",
+      "column_order": 272
+    },
+    {
+      "name": "PERIOD_EXTD_DEPRN",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "No longer used.",
+      "column_order": 273
+    },
+    {
+      "name": "PRIOR_DEPRN_LIMIT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Depreciation limit type for asset before it begins extended depreciation.",
+      "column_order": 274
+    },
+    {
+      "name": "PRIOR_DEPRN_LIMIT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Prior depreciation limit amount. Enter without thousands separator. Use a period or comma as decimal separator.",
+      "column_order": 275
+    },
+    {
+      "name": "PRIOR_DEPRN_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Depreciation limit as a percentage of asset cost immediately prior to beginning extended depreciation.",
+      "column_order": 276
+    },
+    {
+      "name": "PRIOR_METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Depreciation method identifier for asset immediately prior to beginning extended depreciation.",
+      "column_order": 277
+    },
+    {
+      "name": "PRIOR_FLAT_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Flat rate identifier for depreciation method of asset immediately prior to beginning extended depreciation.",
+      "column_order": 278
+    },
+    {
+      "name": "WARRANTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Warranty identifier for the asset.",
+      "column_order": 279
+    },
+    {
+      "name": "WARRANTY_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Warranty number for the asset.",
+      "column_order": 280
+    },
+    {
+      "name": "ITC_AMOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Investment Tax Credfit amount identification number for the asset.",
+      "column_order": 281
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Lease identifier for capital or operating lease.",
+      "column_order": 282
+    },
+    {
+      "name": "LESSOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Lessor identifier.",
+      "column_order": 283
+    },
+    {
+      "name": "YTD_REVAL_DEPRN_EXPENSE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Year-to-date depreciation expense due to revaluation. Oracle Fusion Assets does not create any journal entries for this amount. Reporting purposes only.",
+      "column_order": 284
+    },
+    {
+      "name": "PRODUCTION_CAPACITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Production capacity. Enter a whole number with no thousands separators.",
+      "column_order": 285
+    },
+    {
+      "name": "REVAL_AMORTIZATION_BASIS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Revaluation reserve for calculating amortization of revaluation reserve. Updated when asset is revalued or has amortized adjustment.",
+      "column_order": 286
+    },
+    {
+      "name": "REVAL_CEILING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Upper limit for revaluating asset cost.",
+      "column_order": 287
+    },
+    {
+      "name": "REVAL_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Change in net book value due to revaluation of depreciation reserve for revaluation period. For all other periods, the revaluation reserve amount after depreciation run.",
+      "column_order": 288
+    },
+    {
+      "name": "UNIT_OF_MEASURE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Unit of measure for depreciation based on production units. Use the Manage Units of Measure task to identify valid values.",
+      "column_order": 289
+    },
+    {
+      "name": "UNREVALUED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Cost that is independent of any revaluations.",
+      "column_order": 290
+    },
+    {
+      "name": "FULLY_RSVD_REVALS_COUNTER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Number of times asset is revalued as fully reserved.",
+      "column_order": 291
+    },
+    {
+      "name": "ATTACHMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether asset has attachments. Not available for Oracle Cloud customers. Valid values: Y, N.",
+      "column_order": 292
+    },
+    {
+      "name": "ERROR_MSG",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Encoded message text associated with a failure of the posting program.",
+      "column_order": 293
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 294
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 295
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 296
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT4",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 297
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT5",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 298
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT6",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 299
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT7",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 300
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT8",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 301
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT9",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 302
+    },
+    {
+      "name": "ASSET_KEY_SEGMENT10",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Segment value for the Asset Key flexfield. Use the Manage Assets Keys task to identify valid values. Use either ASSET_KEY_CCID or the columns beginning with ASSET_KEY_SEGMENT, but not both.",
+      "column_order": 303
+    },
+    {
+      "name": "ADD_TO_ASSET_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Asset number of the asset to which the mass addition line will be applied as a cost adjustment",
+      "column_order": 304
+    },
+    {
+      "name": "PARENT_ASSET_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Asset number of the parent asset for the child or component asset.",
+      "column_order": 305
+    },
+    {
+      "name": "GROUP_ASSET_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Asset number of the group asset.",
+      "column_order": 306
+    },
+    {
+      "name": "BONUS_RULE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Name of the bonus depreciation rule.",
+      "column_order": 307
+    },
+    {
+      "name": "CASH_GENERATING_UNIT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Name of the cash generating unit.",
+      "column_order": 308
+    },
+    {
+      "name": "CEILING_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Name of the cost or depreciation ceiling.",
+      "column_order": 309
+    },
+    {
+      "name": "PRORATE_CONVENTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Unique name of the prorate convention.",
+      "column_order": 310
+    },
+    {
+      "name": "METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 12,
+      "nullable": "Y",
+      "description": "Name of the depreciation method.",
+      "column_order": 311
+    },
+    {
+      "name": "LIFE_IN_MONTHS",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Life in months for the depreciation method.",
+      "column_order": 312
+    },
+    {
+      "name": "BASIC_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Basic depreciation rate for a flat rate depreciation method.",
+      "column_order": 313
+    },
+    {
+      "name": "ADJUSTED_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Basic flat depreciation rate plus the adjusting depreciation rate multiplied by the basic depreciation rate.",
+      "column_order": 314
+    },
+    {
+      "name": "CATEGORY_SEGMENT1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 315
+    },
+    {
+      "name": "CATEGORY_SEGMENT2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 316
+    },
+    {
+      "name": "CATEGORY_SEGMENT3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 317
+    },
+    {
+      "name": "CATEGORY_SEGMENT4",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 318
+    },
+    {
+      "name": "CATEGORY_SEGMENT5",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 319
+    },
+    {
+      "name": "CATEGORY_SEGMENT6",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 320
+    },
+    {
+      "name": "CATEGORY_SEGMENT7",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 321
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT1",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 322
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT2",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 323
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT3",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 324
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT4",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 325
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT5",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 326
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT6",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 327
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT7",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 328
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT8",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 329
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT9",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 330
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT10",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 331
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT11",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 332
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT12",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 333
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT13",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 334
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT14",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 335
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT15",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 336
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT16",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 337
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT17",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 338
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT18",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 339
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT19",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 340
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT20",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 341
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT21",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 342
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT22",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 343
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT23",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 344
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT24",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 345
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT25",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 346
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT26",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 347
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT27",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 348
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT28",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 349
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT29",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 350
+    },
+    {
+      "name": "CLEARING_ACCT_SEGMENT30",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 351
+    },
+    {
+      "name": "PREPARER_EMAIL_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Optional email address of the person assigned to prepare the line.",
+      "column_order": 352
+    },
+    {
+      "name": "ADJUSTED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciable basis of the asset. Enter without the thousands separator. Use a period or comma as the decimal separator.",
+      "column_order": 353
+    },
+    {
+      "name": "FAIR_MARKET_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Fair value of the asset after revaluation.",
+      "column_order": 354
+    },
+    {
+      "name": "IMPAIR_LOSS_BALANCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accumulated impairment expense.",
+      "column_order": 355
+    },
+    {
+      "name": "LAST_PRICE_INDEX_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the value of the price index used during  index-based revaluation for future revaluation.",
+      "column_order": 356
+    },
+    {
+      "name": "REVAL_LOSS_BALANCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revaluation loss of an asset after revaluation.",
+      "column_order": 357
+    },
+    {
+      "name": "PERIOD_NAME_FULLY_RESERVED",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Name of the period in which the asset was fully reserved.",
+      "column_order": 358
+    },
+    {
+      "name": "PERIOD_COUNTER_FULLY_RESERVED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Fully reserved period identifier.",
+      "column_order": 359
+    },
+    {
+      "name": "PERIOD_NAME_EXTENDED",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Name of the period in which the asset starts extended depreciation.",
+      "column_order": 360
+    },
+    {
+      "name": "PERIOD_COUNTER_EXTENDED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Extended depreciation start period identifier.",
+      "column_order": 361
+    },
+    {
+      "name": "PRIOR_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 12,
+      "nullable": "Y",
+      "description": "Depreciation method code for the asset before extended depreciation.",
+      "column_order": 362
+    },
+    {
+      "name": "PRIOR_LIFE_IN_MONTHS",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Life in months for the asset before extended depreciation.",
+      "column_order": 363
+    },
+    {
+      "name": "PRIOR_BASIC_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Basic depreciation rate for the asset before extended depreciation.",
+      "column_order": 364
+    },
+    {
+      "name": "PRIOR_ADJUSTED_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted depreciation rate for the asset before extended depreciation.",
+      "column_order": 365
+    },
+    {
+      "name": "PREPARER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Optional name of the person assigned to prepare the line.",
+      "column_order": 366
+    },
+    {
+      "name": "PREPARER_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Optional number of the person assigned to prepare the line.",
+      "column_order": 367
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 368
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 369
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 370
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 371
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 372
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 373
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 374
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 375
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 376
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 377
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 378
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 379
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 380
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 381
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 382
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 383
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 384
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 385
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 386
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 387
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 388
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 389
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 390
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 391
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 392
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 393
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 394
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 395
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 396
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 397
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 398
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 399
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 400
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 401
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 402
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 403
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 404
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 405
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 406
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 407
+    },
+    {
+      "name": "BK_GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 408
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 409
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 410
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 411
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 412
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 413
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 414
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 415
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 416
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 417
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 418
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 419
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 420
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 421
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 422
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 423
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 424
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 425
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 426
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 427
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 428
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 429
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 430
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 431
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 432
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 433
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 434
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 435
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 436
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 437
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 438
+    },
+    {
+      "name": "TH_GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 439
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 440
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 441
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 442
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 443
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 444
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 445
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 446
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 447
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 448
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 449
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 450
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 451
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 452
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 453
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 454
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 455
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 456
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 457
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 458
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 459
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 460
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 461
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 462
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 463
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 464
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 465
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 466
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 467
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 468
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 469
+    },
+    {
+      "name": "AI_GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 470
+    },
+    {
+      "name": "LOW_VALUE_ASSET_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this line is a low value asset.",
+      "column_order": 471
+    },
+    {
+      "name": "CREATE_EXPENSED_ASSET_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the source lines need to be created as an expensed asset.",
+      "column_order": 472
+    },
+    {
+      "name": "CAP_THRESHOLD_CHECK_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this line was evaluated against the capitalization thresholds.",
+      "column_order": 473
+    },
+    {
+      "name": "INVOICE_LINE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of invoice line. It is based on INVOICE LINE TYPE lookup codes like FREIGHT,TAX,ITEM etc.",
+      "column_order": 474
+    },
+    {
+      "name": "LINE_TYPE_LOOKUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Type of invoice distribution. It is based on INVOICE DISTRIBUTION TYPE lookup codes like ITEM,ERV, FREIGHT, TAX, etc.",
+      "column_order": 475
+    },
+    {
+      "name": "INVOICE_LINE_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description of the invoice line.",
+      "column_order": 476
+    },
+    {
+      "name": "PROJECT_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The organization that is responsible for the project work.",
+      "column_order": 477
+    },
+    {
+      "name": "TASK_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The task organization that is responsible for the work task. This is a task-specific attribute.",
+      "column_order": 478
+    },
+    {
+      "name": "EXPENDITURE_ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The expenditure expendature organization that is responsible for the work task. This is a task-specific attribute.",
+      "column_order": 479
+    },
+    {
+      "name": "PROJECT_TXN_DOC_ENTRY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies a project document entry.",
+      "column_order": 480
+    },
+    {
+      "name": "EXPENDITURE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The project expenditure classification type.",
+      "column_order": 481
+    },
+    {
+      "name": "IB_REFERENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The reference identifier used to link a fixed asset with an installed base asset.",
+      "column_order": 482
+    }
+  ]
+}

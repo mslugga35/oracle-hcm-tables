@@ -1,0 +1,259 @@
+{
+  "id": 31456,
+  "name": "ZCH_MERGE_DETAILS_B",
+  "type": "TABLE",
+  "description": "The ZCH_MERGE_DETAILS table stores deduplication request detail information. This table stores survivor and source records information. It is a self hierarchical table. A mergeable parent entity can have multiple mergeable children entities.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zchmergedetailsb-29814.html#zchmergedetailsb-29814",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "MERGE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key",
+      "column_order": 1
+    },
+    {
+      "name": "MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "To carry over the match score from duplicate set",
+      "column_order": 2
+    },
+    {
+      "name": "MATCH_RULE",
+      "data_type": "VARCHAR2",
+      "data_length": 250,
+      "nullable": "Y",
+      "description": "MATCH_RULE",
+      "column_order": 3
+    },
+    {
+      "name": "DEDUP_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to ZCH_DEDUP_HDRS",
+      "column_order": 4
+    },
+    {
+      "name": "PAR_MERGE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to ZCH_MRGE_DTLS, child mergeable entity",
+      "column_order": 5
+    },
+    {
+      "name": "RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Record to be linked, merged or transferred to another record or retained as the master record that can be linked from other records.",
+      "column_order": 6
+    },
+    {
+      "name": "SURVIVOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Master record which this record will be linked, merged or transferred to when processing this request.",
+      "column_order": 7
+    },
+    {
+      "name": "SURVIVOR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if this record is the master record to which other records will be linked, merged or transferred when processing this request.",
+      "column_order": 8
+    },
+    {
+      "name": "OBJ_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the object to be processed by duplicate resolution.",
+      "column_order": 9
+    },
+    {
+      "name": "OBJ_DEF",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Definition of the object to be processed by duplicate resolution.",
+      "column_order": 10
+    },
+    {
+      "name": "TABLE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Table name of the object",
+      "column_order": 11
+    },
+    {
+      "name": "TOP_ENTITY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "The top level Y or N",
+      "column_order": 12
+    },
+    {
+      "name": "MERGE_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason for merge",
+      "column_order": 13
+    },
+    {
+      "name": "MERGE_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status for merge",
+      "column_order": 14
+    },
+    {
+      "name": "ACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the action to be performed for a record processed by duplicate resolution.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 16
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 20
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 21
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 22
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 23
+    },
+    {
+      "name": "PARENT_RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the parent record of this entity",
+      "column_order": 24
+    },
+    {
+      "name": "RULE_BASED_ACTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the action to be performed for this record has been determined by rules.",
+      "column_order": 25
+    },
+    {
+      "name": "ACTION_QUALIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Qualifies the action to be performed for a record processed by duplicate resolution.",
+      "column_order": 26
+    },
+    {
+      "name": "ORIG_SURVIVOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Original master record if this record was already linked to another record in the registry before the new master record was chosen.",
+      "column_order": 27
+    },
+    {
+      "name": "ORIG_SURVIVOR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if this record was the original master record linked from other records before the new master record was chosen.",
+      "column_order": 28
+    },
+    {
+      "name": "RECORD_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of the record to be processed by duplicate resolution.",
+      "column_order": 29
+    },
+    {
+      "name": "RECORD_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source of the record to be processed by duplicate resolution.",
+      "column_order": 30
+    },
+    {
+      "name": "USER_REQUESTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if this record was initially part of the resolution request when it was created by the user.",
+      "column_order": 31
+    }
+  ]
+}

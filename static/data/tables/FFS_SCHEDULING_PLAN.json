@@ -1,0 +1,643 @@
+{
+  "id": 32120,
+  "name": "FFS_SCHEDULING_PLAN",
+  "type": "TABLE",
+  "description": "Contains a full list of configured routing plans.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffsschedulingplan-18955.html#ffsschedulingplan-18955",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SCHEDULING_PLAN_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Unique identifier of the scheduling plan.",
+      "column_order": 1
+    },
+    {
+      "name": "SCHEDULING_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Identifier of the scheduling profile. The foreign key to the table FFS_SCHEDULING_PROFILE.",
+      "column_order": 2
+    },
+    {
+      "name": "PREDECESSOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Identifier of the scheduling plan that comes prior the SCHEDULING_PLAN_ID if they launched sequentially.",
+      "column_order": 3
+    },
+    {
+      "name": "NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "Scheduling plan name which is defined by the customer.",
+      "column_order": 4
+    },
+    {
+      "name": "ACTIVE",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Actual Status Of The Scheduling Plan. The Field Contains 1 For Active Scheduling Plan And 0 For Plans That Have To Be Skipped If There Is The Sequence Plan Starting, Ignored If It Is The Automatic Starting And Prevented If It Is The Manual Starting.",
+      "column_order": 5
+    },
+    {
+      "name": "TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Mode how the run of the scheduling plan has to be launched. If the field is 'automatic' it means that the runs of the plan are started automatically, but value 'manual' means the run has to be initiated by customer from GUI.",
+      "column_order": 6
+    },
+    {
+      "name": "GOAL_BASED_OPTIMIZATION",
+      "data_type": "VARCHAR2",
+      "data_length": 21,
+      "nullable": "Y",
+      "description": "Optimization goal that is chosen by the customer.",
+      "column_order": 7
+    },
+    {
+      "name": "START_DAY_OFFSET",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Start Day Offset For Activity Processing Regarding The Route Date. The Field Makes Sense For Scheduling Plans That Start Automatically.",
+      "column_order": 8
+    },
+    {
+      "name": "FROM_TIME",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "In the case of the recurrent or immediate scheduling plan it is the time within configured days of weeks when the series of recurrent runs has to begin. In the case of a single run it is just the start time. The time is measured in minutes regarding the midnight. For example, 600 means 10 AM.",
+      "column_order": 9
+    },
+    {
+      "name": "TO_TIME",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Time within configured days of week when the series of runs has to end. The field makes sense for recurrent and immediate runs. The time is measured in minutes regarding the midnight. For example, 1080 means 6 PM.",
+      "column_order": 10
+    },
+    {
+      "name": "INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Time interval between launching of recurrent scheduling runs of the plan, minutes. If it is set to 5, it means that a new scheduling run will be launched every 5 minutes. The field is empty for non recurrent scheduling plans.",
+      "column_order": 11
+    },
+    {
+      "name": "WEEKDAYS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Bit Mask For Days Of Week When The Routing Plan Has To Be Launched.",
+      "column_order": 12
+    },
+    {
+      "name": "TIME_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Time Limit For A Scheduling Run Duration, Seconds.",
+      "column_order": 13
+    },
+    {
+      "name": "AUTO_ORDERING",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Defines the behaviour of not-ordered activities.",
+      "column_order": 14
+    },
+    {
+      "name": "UNIFORMITY_COEFF",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Boolean coefficient to activate the uniform activity assignment 'Try to schedule activities to service window start'.",
+      "column_order": 15
+    },
+    {
+      "name": "FITNESS_COEFF_WINDOW_RESERV",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Deprecated. Will be removed soon.",
+      "column_order": 16
+    },
+    {
+      "name": "DYNAMIC_SCHED_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Parameter of the dynamic scheduling 'Resources loading interval, minutes'.",
+      "column_order": 17
+    },
+    {
+      "name": "DYNAMIC_SCHED_NUM_ACTIVITIES",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Parameter of the dynamic scheduling 'Resources loading amount, activities'.",
+      "column_order": 18
+    },
+    {
+      "name": "DYNAMIC_SCHED_STOP_CONDITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Parameter of the dynamic scheduling 'Stop loading when'. It has two possible values 'any limit is exceeded' and 'both limits are exceeded'.",
+      "column_order": 19
+    },
+    {
+      "name": "HOME_ZONE_OVERSTEP_WGHT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Weight coefficient for the home zone overstep. It is used by the optimisation engine to prevent field resources to leave their home zones.",
+      "column_order": 20
+    },
+    {
+      "name": "UPDATED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Timestamp when the scheduling plan was updated last time.",
+      "column_order": 21
+    },
+    {
+      "name": "RESOURCE_OVERTIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Maximal allowed overtime for all field resources within the scheduling plan.",
+      "column_order": 22
+    },
+    {
+      "name": "UNACCEPTABLE_TRAVEL_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Maximal allowed travel time between two neighbouring locations in a route. It is a constraint for activity assignment.",
+      "column_order": 23
+    },
+    {
+      "name": "UNACCEPTABLE_TRAVEL_DISTANCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Maximal allowed distance between two neighbouring locations in a route. It is a constraint for activity assignment.",
+      "column_order": 24
+    },
+    {
+      "name": "TRAVEL_OPTIMIZATION_STRATEGY",
+      "data_type": "VARCHAR2",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Strategy of travel optimization: to minimize either travel time or travel distance.",
+      "column_order": 25
+    },
+    {
+      "name": "USE_SLT",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Boolean flag that allows using the SLT-service to obtain travel data.",
+      "column_order": 26
+    },
+    {
+      "name": "LIMIT_WORK_BY_POINTS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Boolean flag if routes have to be limited by points.",
+      "column_order": 27
+    },
+    {
+      "name": "DEFAULT_APPT_POINTS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Deprecated. Will be removed soon.",
+      "column_order": 28
+    },
+    {
+      "name": "APPT_POINTS_PROPERTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Deprecated field. Will be removed soon.",
+      "column_order": 29
+    },
+    {
+      "name": "GET_TECH_POINTS_FROM_CALENDAR",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Deprecated. Will be removed soon.",
+      "column_order": 30
+    },
+    {
+      "name": "DEFAULT_TECH_POINTS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Deprecated. Will be removed soon.",
+      "column_order": 31
+    },
+    {
+      "name": "TECH_POINTS_PROPERTYID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Deprecated. Will be removed soon.",
+      "column_order": 32
+    },
+    {
+      "name": "CALENDAR_POINT_SIZE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Deprecated field. Will be removed soon.",
+      "column_order": 33
+    },
+    {
+      "name": "CALENDAR_RESERVED",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Deprecated field. Will be removed soon.",
+      "column_order": 34
+    },
+    {
+      "name": "ASSURANCE_STILL_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated field. Will be removed soon.",
+      "column_order": 35
+    },
+    {
+      "name": "INSUFFICIENT_SKILL_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Additional multiplier for the ratio between actual and preferred skill levels. It affects the relevance cost of activity assignment.",
+      "column_order": 36
+    },
+    {
+      "name": "DEFAULT_HOME_ZONE_RADIUS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Defines the size of the home zone as the radius regarding the home zone center. In turn the home zone center has to be defined for every field resource separately.",
+      "column_order": 37
+    },
+    {
+      "name": "HOME_ZONE_ENABLE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Enables home zone restrictions while scheduling.",
+      "column_order": 38
+    },
+    {
+      "name": "USE_REQUIRED_INVENTORY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Enables the scheduling engine to consider required inventory for activity assignment.",
+      "column_order": 39
+    },
+    {
+      "name": "REOPT_ENABLE",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Enables reoptimization for preassigned activities.",
+      "column_order": 40
+    },
+    {
+      "name": "REOPT_GOAL",
+      "data_type": "VARCHAR2",
+      "data_length": 31,
+      "nullable": "Y",
+      "description": "Re-optimization goal. By default the goal is 'optimize routes'.",
+      "column_order": 41
+    },
+    {
+      "name": "REOPT_REDUCE_OVERDUE_THOLD",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Parameter 'Preferable overall reduction of activities overdue value, %' for the optimization goal 'Reduce activity overdue'. The result of the optimization is applied if the total overdue for such kind of activities is decreased by the value.",
+      "column_order": 42
+    },
+    {
+      "name": "TRIGGER_FILTER_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Parameter of the immediate scheduling. Scheduling will be performed immediately when the activity that corresponds to the selected filter is detected on the bucket.",
+      "column_order": 43
+    },
+    {
+      "name": "IMMEDIATE_SCHEDULING_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Parameter of the immediate scheduling. Possible values are 'Urgent', 'Scheduled' and 'Continuous'.",
+      "column_order": 44
+    },
+    {
+      "name": "ASSIGNMENT_FROM",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Starting day of multiday scheduling relatively to the route_date. It is not configurable, is set automatically and usually equals to zero.",
+      "column_order": 45
+    },
+    {
+      "name": "ASSIGNMENT_TO",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Number of days for the multiday scheduling.",
+      "column_order": 46
+    },
+    {
+      "name": "BUNDLING_FROM",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Makes sense for immediate plans of 'Scheduled type. Fields BUNDLING_FROM and. BUNDLING_TO define the time interval in days within which an activity can be scheduled and bundled to a suitable day.",
+      "column_order": 47
+    },
+    {
+      "name": "BUNDLING_TO",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Both fields BUNDLING_FROM and. BUNDLING_TO define the time interval in days within which an activity can be scheduled and bundled to a suitable day.",
+      "column_order": 48
+    },
+    {
+      "name": "REOPT_MOVE_COST_OVERRIDE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Allows override default moving activities penalty.",
+      "column_order": 49
+    },
+    {
+      "name": "REOPT_MOVE_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Size of the penalty for moving activities.",
+      "column_order": 50
+    },
+    {
+      "name": "SW_RESERVATION_OVERRIDE",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Allows overriding the default value SW_RESERVATION.",
+      "column_order": 51
+    },
+    {
+      "name": "SW_RESERVATION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Reserved part of Service Window from its end where activity assignment is not desired.",
+      "column_order": 52
+    },
+    {
+      "name": "IMMEDIATE_SCHEDULING_SUBTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Parameter of the immediate scheduling for activity assignment. It points at the automatic assignment or at the assignment via collaboration.",
+      "column_order": 53
+    },
+    {
+      "name": "COLLAB_ROUTING_TIME_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "In the case of the assignment via collaboration it is the interval for users to accept the activity, minutes.",
+      "column_order": 54
+    },
+    {
+      "name": "FLOW_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Identifier of the message scenario that should be run if an immediate assignment times out or fails. It is the foreign key to the table FFS_MESSAGE_FLOW.",
+      "column_order": 55
+    },
+    {
+      "name": "SCHEDULING_TO_CONTRACTOR",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Boolean flag which defines if the assignment to contractor's resource is allowed or activities have Ito be moved to the bucket instead of the assignment to contractor's resource.",
+      "column_order": 56
+    },
+    {
+      "name": "ONLY_INTERNAL_RESOURCES",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Boolean flag restricts the use resources outside the routing bucket.",
+      "column_order": 57
+    },
+    {
+      "name": "IGNORE_WORK_ZONE_MISMATCH",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Indicates whether the immediate scheduling may ignore work zone mismatch assigning activities.",
+      "column_order": 58
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 254,
+      "nullable": "Y",
+      "description": "Scheduling plan description provided by customer.",
+      "column_order": 59
+    },
+    {
+      "name": "ACTIVITY_TYPE_ID_INV_PICKUP",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Identifier of an activity type which will be used as a template to create warehouse visits.",
+      "column_order": 60
+    },
+    {
+      "name": "TIME_LIMIT_PERCENT_SLT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Time limit for SLT-service as percents from total scheduling plan time limit.",
+      "column_order": 61
+    },
+    {
+      "name": "TARGET_QUALITY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Target value of the expected assignment quality, percents.",
+      "column_order": 62
+    },
+    {
+      "name": "RECOMM_MIN_TIME_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Minimal recommended time limit for scheduling plan, seconds.",
+      "column_order": 63
+    },
+    {
+      "name": "RECOMM_MAX_TIME_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Maximal (the best) recommended time limit for scheduling plan, seconds.",
+      "column_order": 64
+    },
+    {
+      "name": "RECOMM_BALANCED_TIME_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Balanced recommended time limit for scheduling plan, seconds.",
+      "column_order": 65
+    },
+    {
+      "name": "LABEL",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Scheduling plan label provided by customer.",
+      "column_order": 66
+    },
+    {
+      "name": "INVENTORY_REQUIRED_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Number of days prior to the activity date that inventory is required. A value of 0 indicates that inventory is required for all days.",
+      "column_order": 67
+    },
+    {
+      "name": "DAILY_DISTANCE_LIMIT_IS_USED",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Is daily travel distance limitation applied.",
+      "column_order": 68
+    },
+    {
+      "name": "UNACCEPTABLE_DAILY_DISTANCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Daily travel distance limitation in Scheduling, km.",
+      "column_order": 69
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 70
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 71
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 72
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 73
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 74
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 75
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 76
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 77
+    },
+    {
+      "name": "DELETED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the record is logically deleted (Y - soft deleted, N or NULL - active).",
+      "column_order": 78
+    },
+    {
+      "name": "FLAGS",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "It is a bitmask field that defines scheduling plan flags.",
+      "column_order": 79
+    }
+  ]
+}

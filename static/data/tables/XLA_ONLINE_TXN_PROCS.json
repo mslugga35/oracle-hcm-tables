@@ -1,0 +1,155 @@
+{
+  "id": 30104,
+  "name": "XLA_ONLINE_TXN_PROCS",
+  "type": "TABLE",
+  "description": "This table represents the collection of processes running the online transaction engine.  Each row will map to a single concurrent request identifier which is the primary key to this table.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/xlaonlinetxnprocs-14147.html#xlaonlinetxnprocs-14147",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CRID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key and concurrent request identifier for process.",
+      "column_order": 1
+    },
+    {
+      "name": "ENGINE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the engine that is running.",
+      "column_order": 2
+    },
+    {
+      "name": "ENGINE_LANGUAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Implementation languages are [C], [J] Java, or [P] PL/SQL.",
+      "column_order": 3
+    },
+    {
+      "name": "SPECIALIZATION_ZONE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Used to segregate requests for performance default 0 *.",
+      "column_order": 4
+    },
+    {
+      "name": "PROCESS_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Process status value for online accounting processing.",
+      "column_order": 5
+    },
+    {
+      "name": "ERR_MSG",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Error message name for online accounting processing.",
+      "column_order": 6
+    },
+    {
+      "name": "MEMTOP",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 7
+    },
+    {
+      "name": "TXN_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of transaction by online accounting processing.",
+      "column_order": 8
+    },
+    {
+      "name": "PARENT_CRID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent request identifier of process that this process is replacing.",
+      "column_order": 9
+    },
+    {
+      "name": "CHILD_CRID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent request identifier of process that is replacing this process.",
+      "column_order": 10
+    },
+    {
+      "name": "OTE_CACHE_INVALIDATION_EVENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "This column will hold notifications about the events that invalidate OTE cache, for example GL period opened or closeed. OTE engines will monitor events that were stamped in this column and replace themselves to force refresh their cache. An event stamped in this column will have the following pattern:\n#EVENT_TYPE_CODE#EVENT_TIMESTAMP#EVENT_PARAMETER1_EVENT_PARAMETER2;\nFor example, for a GL period Sep-11 closed event that happened on Oct 17 11:48 AM, we would have a event stamp as:\n#GL_PERIOD_CLOSE #17-OCT-11 11:48:27.363747 AM#1#Sep-11;\n#1 is for ledger_id = 1. \nIf there are multiple cache invalidation events happen in a very close short period of time before an engine was able to detect an invalidation and changes its status, the events would be concatenated.",
+      "column_order": 11
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "ESS_REQ_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the online engine request.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 18
+    }
+  ]
+}

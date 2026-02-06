@@ -1,0 +1,347 @@
+{
+  "id": 32550,
+  "name": "CSO_SEARCH_STATS",
+  "type": "TABLE",
+  "description": "This table will be populated hourly and daily from cso_stg_questions. Hourly rollup will be deleted at the end of every day once the day ends. At the end of every month, older daily rollup data will be purged.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/csosearchstats-20365.html#csosearchstats-20365",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SEARCH_STATS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key of the table. Populated by sequence number.",
+      "column_order": 1
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 2
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 7
+    },
+    {
+      "name": "STAT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The date on which the stats occurred.",
+      "column_order": 8
+    },
+    {
+      "name": "STAT_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Applicable for window=1 and represents the HOUR of the DAY for which the data belongs to.",
+      "column_order": 9
+    },
+    {
+      "name": "NORMALIZED_QUESTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The unique ID used to track the text for a given normalized question.",
+      "column_order": 10
+    },
+    {
+      "name": "LOCALE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "N",
+      "description": "This is the reference to the locale in CSO_LOCALE table.",
+      "column_order": 11
+    },
+    {
+      "name": "QUESTION_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "The question count is the number of questions asked. These questions can be actual or normalized questions.",
+      "column_order": 12
+    },
+    {
+      "name": "RESPONSE_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "The response count is the number of responses returned for a given question. The question can be an actual or normalized question.",
+      "column_order": 13
+    },
+    {
+      "name": "WINDOW",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "1-hourly, 2-daily, 3-monthly (rollup strategy).",
+      "column_order": 14
+    },
+    {
+      "name": "UNKNOWN_WORD_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Number of unknown words that are not configured in search application.",
+      "column_order": 15
+    },
+    {
+      "name": "CONCEPT_MATCH_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Number of known words or concepts that are configured in search application.",
+      "column_order": 16
+    },
+    {
+      "name": "DEPARTMENT_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "The unique ID for the department as stored by knowledge and will be used for striping questions.",
+      "column_order": 17
+    },
+    {
+      "name": "CLICKTHROUGH_01_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the first position and is clicked against a question.",
+      "column_order": 18
+    },
+    {
+      "name": "CLICKTHROUGH_02_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the second position and is clicked against a question.",
+      "column_order": 19
+    },
+    {
+      "name": "CLICKTHROUGH_03_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the third position and is clicked against a question.",
+      "column_order": 20
+    },
+    {
+      "name": "CLICKTHROUGH_04_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the fourth position and is clicked against a question.",
+      "column_order": 21
+    },
+    {
+      "name": "CLICKTHROUGH_05_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the fifth position and is clicked against a question.",
+      "column_order": 22
+    },
+    {
+      "name": "CLICKTHROUGH_06_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the sixth position and is clicked against a question.",
+      "column_order": 23
+    },
+    {
+      "name": "CLICKTHROUGH_07_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the seventh position and is clicked against a question.",
+      "column_order": 24
+    },
+    {
+      "name": "CLICKTHROUGH_08_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the eighth position and is clicked against a question.",
+      "column_order": 25
+    },
+    {
+      "name": "CLICKTHROUGH_09_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the ninth position and is clicked against a question.",
+      "column_order": 26
+    },
+    {
+      "name": "CLICKTHROUGH_10_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the tenth position and is clicked against a question.",
+      "column_order": 27
+    },
+    {
+      "name": "CLICKTHROUGH_11_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the eleventh position and is clicked against a question.",
+      "column_order": 28
+    },
+    {
+      "name": "CLICKTHROUGH_12_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the twelfth position and is clicked against a question.",
+      "column_order": 29
+    },
+    {
+      "name": "CLICKTHROUGH_13_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the thirteenth position and is clicked against a question.",
+      "column_order": 30
+    },
+    {
+      "name": "CLICKTHROUGH_14_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the fourteenth position and is clicked against a question.",
+      "column_order": 31
+    },
+    {
+      "name": "CLICKTHROUGH_15_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the fifteenth position and is clicked against a question.",
+      "column_order": 32
+    },
+    {
+      "name": "CLICKTHROUGH_16_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the sixteenth position and is clicked against a question.",
+      "column_order": 33
+    },
+    {
+      "name": "CLICKTHROUGH_17_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the seventeenth position and is clicked against a question.",
+      "column_order": 34
+    },
+    {
+      "name": "CLICKTHROUGH_18_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the eighteenth position and is clicked against a question.",
+      "column_order": 35
+    },
+    {
+      "name": "CLICKTHROUGH_19_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the nineteenth position and is clicked against a question.",
+      "column_order": 36
+    },
+    {
+      "name": "CLICKTHROUGH_20_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed is at the twentieth position and is clicked against a question.",
+      "column_order": 37
+    },
+    {
+      "name": "CLICKTHROUGH_21_PLUS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "This value is incremented by 1 if the position of the answer displayed greater than the twentieth position and is clicked against a question.",
+      "column_order": 38
+    },
+    {
+      "name": "CLICKTHROUGH_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "The count of answers clicked against a question.",
+      "column_order": 39
+    },
+    {
+      "name": "CLICKTHROUGH_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "The position of each answer clicked against a question.",
+      "column_order": 40
+    },
+    {
+      "name": "QUESTIONS_WITH_CLICKS_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "The value is set to 1 against a question if the question has at least one answer view else the value is set to 0.",
+      "column_order": 41
+    },
+    {
+      "name": "BU_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is the reference to Business Unit Org Id.",
+      "column_order": 42
+    }
+  ]
+}

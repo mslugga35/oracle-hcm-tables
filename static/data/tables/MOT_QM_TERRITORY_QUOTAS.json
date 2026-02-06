@@ -1,0 +1,307 @@
+{
+  "id": 34203,
+  "name": "MOT_QM_TERRITORY_QUOTAS",
+  "type": "TABLE",
+  "description": "Stores all information relating to the quota of a particular territory for all quota plans.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/motqmterritoryquotas-30546.html#motqmterritoryquotas-30546",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TERRITORY_QUOTA_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key",
+      "column_order": 1
+    },
+    {
+      "name": "PROPOSAL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used for proposal integration. Stores the proposal id that affected the options record.",
+      "column_order": 2
+    },
+    {
+      "name": "SEASONALITY_APPLIED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Tentative. Whether seasonality  has been applied for this territory.",
+      "column_order": 3
+    },
+    {
+      "name": "QUOTA_REPUBLISHED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used for proposal integration. Indicates whether  the territory has been published within a draft proposal.",
+      "column_order": 4
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 5
+    },
+    {
+      "name": "TERRITORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "TerritoryId from MOT_TERRITORIES",
+      "column_order": 6
+    },
+    {
+      "name": "TERRITORY_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Territory Verison Id from MOT_TERRITORIES",
+      "column_order": 7
+    },
+    {
+      "name": "QUOTA_PLAN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "FK: MOT_QM_QUOTA_PLANS",
+      "column_order": 8
+    },
+    {
+      "name": "TERRITORY_QUOTA",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quota assigned to this territory",
+      "column_order": 9
+    },
+    {
+      "name": "PAD_ADJUSTMENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The pad adjustment over and abive the territory quota for this territory",
+      "column_order": 10
+    },
+    {
+      "name": "PREDICTED_QUOTA",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quota predicted using the prediction formulae",
+      "column_order": 11
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of this territory quota - PUBLISHED/NON-PUBLISHED/PENDING REVISION",
+      "column_order": 12
+    },
+    {
+      "name": "COMMITED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the quota has been published",
+      "column_order": 13
+    },
+    {
+      "name": "DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date by which the quota allocation process must be completed for this territory",
+      "column_order": 14
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The start date of the quota period",
+      "column_order": 15
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The start date of the quota period",
+      "column_order": 16
+    },
+    {
+      "name": "SPREAD_FORMULA_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "FK : MOT_QM_SPREAD_FORMULA_B",
+      "column_order": 17
+    },
+    {
+      "name": "SPREAD_PERIOD",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "The period for which the desired data must be retrieved from the essbase cube",
+      "column_order": 18
+    },
+    {
+      "name": "SPREAD_SOURCE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "ADJUSTED_TERRITORY_QUOTA/VARIANCE/ADHOC_AMOUNT",
+      "column_order": 19
+    },
+    {
+      "name": "SPREAD_SCOPE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "ALL_SUBTERRITORIES/SELECTED_SUBTERRITORIES",
+      "column_order": 20
+    },
+    {
+      "name": "ALLOCATION_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "Allocation coments for the quota",
+      "column_order": 21
+    },
+    {
+      "name": "EXCLUDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicate whether the territory is part of the quota allocation process",
+      "column_order": 22
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Currency code",
+      "column_order": 23
+    },
+    {
+      "name": "CURR_EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Currency exchange rate",
+      "column_order": 24
+    },
+    {
+      "name": "CRM_CORP_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "CRM corporate curreny code",
+      "column_order": 25
+    },
+    {
+      "name": "CRM_CURR_CONV_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "CRM currency conversion rate type",
+      "column_order": 26
+    },
+    {
+      "name": "REALIGNMENT_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "Reason of realignment",
+      "column_order": 27
+    },
+    {
+      "name": "TERRITORY_REALIGNED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicated is this territory has been religned",
+      "column_order": 28
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 29
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 32
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATED_BY_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Contains the party id of the user who last updated the row.",
+      "column_order": 34
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 35
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 37
+    }
+  ]
+}

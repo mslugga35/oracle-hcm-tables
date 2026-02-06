@@ -1,0 +1,787 @@
+{
+  "id": 28838,
+  "name": "IBY_CREDITCARD_",
+  "type": "TABLE",
+  "description": "IBY_CREDITCARD_ is the audit table for IBY_CREDITCARD. Table IBY_CREDITCARD contains records of the credit card details of the customers entered manually or imported through IBY_FNDCPT_SETUP_PUB.Create_Card API. This is the related table for Create Credit Card UI. This table stores information like credit card number, expiry date, card holder's name, billing address, card brand, purchase card subtype, inactive date, etc.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibycreditcard-28762.html#ibycreditcard-28762",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INSTRID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System generated unique primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "CCNUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "The credit card number. It must be numeric.",
+      "column_order": 2
+    },
+    {
+      "name": "EXPIRYDATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which credit card expires.",
+      "column_order": 3
+    },
+    {
+      "name": "ACCTTYPEID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Account type identifier which is no longer used.",
+      "column_order": 4
+    },
+    {
+      "name": "ADDRESSID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Will become a foreign key to HZ_PARTY_SITE_USES.PARTY_SITE_USE_ID instead of HZ_LOCATIONS.LOCATION_ID ; changes to existing customer data will be implemented in an upgrade script",
+      "column_order": 5
+    },
+    {
+      "name": "INSTRNAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Instrument name which is no longer used.",
+      "column_order": 6
+    },
+    {
+      "name": "INSTRBUF",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Customer owned credit card instrument.",
+      "column_order": 7
+    },
+    {
+      "name": "CHNAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Card holder name as displayed on credit card.",
+      "column_order": 8
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Additional details of credit card.",
+      "column_order": 9
+    },
+    {
+      "name": "FINAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Financial institution issued the credit card.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 16
+    },
+    {
+      "name": "SUBTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Credit card sub type which is no longer used.",
+      "column_order": 17
+    },
+    {
+      "name": "SECURITY_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Security group identifier used in hosted environments.",
+      "column_order": 18
+    },
+    {
+      "name": "ENCRYPTED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if the instrument is encrypted",
+      "column_order": 19
+    },
+    {
+      "name": "BILLING_ADDR_POSTAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Postal code of the billing address.",
+      "column_order": 20
+    },
+    {
+      "name": "BILL_ADDR_TERRITORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Territory code of the billing address.",
+      "column_order": 21
+    },
+    {
+      "name": "MASKED_CC_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Masked credit card number; to be used for display purposes",
+      "column_order": 22
+    },
+    {
+      "name": "CARD_MASK_SETTING",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Mask setting option selected for credit card.",
+      "column_order": 23
+    },
+    {
+      "name": "CARD_UNMASK_LENGTH",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Number of digits of the credit card to be displayed in clear text.",
+      "column_order": 24
+    },
+    {
+      "name": "CC_NUMBER_HASH1",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Hash value 1 of the credit card number",
+      "column_order": 25
+    },
+    {
+      "name": "CC_NUMBER_HASH2",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Hash value 2 of the credit card number",
+      "column_order": 26
+    },
+    {
+      "name": "CARD_OWNER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Credit card owner party identifier.",
+      "column_order": 27
+    },
+    {
+      "name": "INSTRUMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Instrument type of the credit card.",
+      "column_order": 28
+    },
+    {
+      "name": "PURCHASECARD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator to identify purchase type credit card.",
+      "column_order": 29
+    },
+    {
+      "name": "PURCHASECARD_SUBTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "IBY_PURCHASECARD_SUBTYPE include B (Business Card), C (Corporate Card), P (Purchase Card) and U (Unknown).",
+      "column_order": 30
+    },
+    {
+      "name": "CARD_ISSUER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Card Issuer Code if know. Otherwise UNKNOWN.",
+      "column_order": 31
+    },
+    {
+      "name": "CC_ISSUER_RANGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Credit card issuer range identifier.",
+      "column_order": 32
+    },
+    {
+      "name": "SINGLE_USE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator to identify single use credit card.",
+      "column_order": 33
+    },
+    {
+      "name": "INFORMATION_ONLY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether the credit card is registered for information use only",
+      "column_order": 34
+    },
+    {
+      "name": "CARD_PURPOSE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Purpose of the credit card from lookup type IBY_CARD_PURPOSE",
+      "column_order": 35
+    },
+    {
+      "name": "SEC_SUBKEY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifies the security sub-key used to encrypt this instrument",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE21",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE22",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE23",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE24",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE25",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE26",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE27",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE28",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE29",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE30",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 68
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent request identifier of the program name that last updated",
+      "column_order": 69
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent request identifier of the program that last updated",
+      "column_order": 70
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which concurrent request program last updated",
+      "column_order": 71
+    },
+    {
+      "name": "CC_NUMBER_LENGTH",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Number of digits of the credit card.",
+      "column_order": 72
+    },
+    {
+      "name": "CC_NUM_SEC_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Credit card number security segment identifier.",
+      "column_order": 73
+    },
+    {
+      "name": "UPGRADE_ADDRESSID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Upgraded address identifier of credit card.",
+      "column_order": 74
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date from which card is available for use",
+      "column_order": 75
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date until which card is available for use",
+      "column_order": 76
+    },
+    {
+      "name": "ORIG_SYSTEM",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Original system from which the credit card record was imported from",
+      "column_order": 77
+    },
+    {
+      "name": "ORIG_SYSTEM_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Unique identifier that identifies the credit card record in the original system",
+      "column_order": 78
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Id to support multi-tenancy",
+      "column_order": 79
+    },
+    {
+      "name": "EXPIRY_SEC_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to IBY_SECURITY_SEGMENTS table that holds all encrypted values in system.",
+      "column_order": 80
+    },
+    {
+      "name": "CHNAME_SEC_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to IBY_SECURITY_SEGMENTS table that holds all encrypted values in system.",
+      "column_order": 81
+    },
+    {
+      "name": "ERR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Error message during row upgrade.",
+      "column_order": 82
+    },
+    {
+      "name": "ERR_MSG",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Error message during row upgrade.",
+      "column_order": 83
+    },
+    {
+      "name": "TOKEN_PROVIDER_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "A supplementary reference number or code to uniquely identify each tokenization request or response.",
+      "column_order": 84
+    },
+    {
+      "name": "TOKEN_REQUEST_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Message format for creating outbound request to launch hosted payment page owned by payment gateway to create credit card token.",
+      "column_order": 85
+    },
+    {
+      "name": "TOKEN_RESPONSE_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Message format for reading and processing inbound response received from payment gateway for credit card token creation using hosted payment page.",
+      "column_order": 86
+    },
+    {
+      "name": "TOKEN_REQUEST_ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Error raised while initiating outbound request for credit card token creation.",
+      "column_order": 87
+    },
+    {
+      "name": "TOKEN_RESPONSE_ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Error raised while reading and processing inbound response received from payment gateway for token creation request.",
+      "column_order": 88
+    },
+    {
+      "name": "OAUTH_PERFORMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the credit card token supports Oauth.",
+      "column_order": 89
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 90
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 91
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 92
+    },
+    {
+      "name": "BEPID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The payment system identifier that issued the credit card token.",
+      "column_order": 93
+    },
+    {
+      "name": "BEP_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment system account that contains the merchant identifier parameters of the payment system that issued the credit card token.",
+      "column_order": 94
+    },
+    {
+      "name": "USER_PROFILE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Funds capture process profile code related to credit card token.",
+      "column_order": 95
+    },
+    {
+      "name": "NETWORK_TRXN_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Network transaction identifier related to credit card token.",
+      "column_order": 96
+    },
+    {
+      "name": "ROUTING_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the tokenization routing rule applied while generating the credit card token.",
+      "column_order": 97
+    }
+  ]
+}

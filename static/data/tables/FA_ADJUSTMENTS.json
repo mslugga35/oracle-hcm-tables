@@ -1,0 +1,251 @@
+{
+  "id": 26495,
+  "name": "FA_ADJUSTMENTS",
+  "type": "TABLE",
+  "description": "FA_ADJUSTMENTS stores information that Oracle Assets needs to\ncreate journal entries for transactions.  The posting program\ncreates journal entries for regular depreciation expense from\ninformation in FA_DEPRN_DETAIL.   Oracle Assets inserts a row in\nthis table for the debit and credit sides of a financial\ntransaction.  All the rows for the same transaction have the same\nvalue in the TRANSACTION_HEADER_ID column.\n.\nThe SOURCE_TYPE_CODE column tells you which program created the\nadjustment:\n.\n{{FB}}ADDITION{{F0}}\n{{TAB}}Depreciation program\n.\n{{FB}}ADJUSTMENT{{F0}}\n{{TAB}}Expensed or Amortized Adjustment User Exit\n.\n{{FB}}CIP ADDITION{{F0}}\n{{TAB}}Depreciation program\n.\n{{FB}}CIP ADJUSTMENT{{F0}}\n{{TAB}}Expensed or Amortized Adjustment User Exit\n.\n{{FB}}CIP RETIREMENT{{F0}}\n{{TAB}}Gain/loss program\n.\n{{FB}}DEPRECIATION{{F0}}\n{{TAB}}Depreciation program (Retroactive transactions and\nexpensed depreciation adjustments)\n.\n{{FB}}RETIREMENT{{F0}}\n{{TAB}}Gain/loss program\n.\n{{FB}}RECLASS{{F0}}\n{{TAB}}Reclassification user exit\n.\n{{FB}}TRANSFER{{F0}}\n{{TAB}}Transfers form\n.\n{{FB}}TAX{{F0}}\n{{TAB}}Reserve Adjustments form\n.\n{{FB}}REVALUATION{{F0}}\n{{TAB}}Mass revaluation program\n.\n.\n.\nThe ADJUSTMENT_TYPE column tells you which type of account Oracle\nAssets adjusts.\n.\nDEBIT_CREDIT_FLAG is DR if the amount is a debit and CR if the\namount is a credit.\n.\nADJUSTMENT_AMOUNT is the amount debited or credited to the account.\n.\nANNUALIZED_ADJUSTMENT is the adjustment amount for a period\ntimes the number of periods in a fiscal year.  The depreciation\nprogram uses it to calculate the depreciation adjustment for an asset\nwhen you perform multiple retroactive transactions on the asset.\nOracle Assets calculates ADJUSTMENT_PER_PERIOD by dividing the\nADJUSTMENT_AMOUNT for a retroactive transaction by the number of\nperiods between the period you entered the transaction and the period\nthat it was effective.  For current period transactions, this\ncolumn is zero.\n.\nPERIOD_COUNTER_CREATED IS the period that you entered the adjustment\ninto Oracle Assets.\n.\nPERIOD_COUNTER_ADJUSTED is the period to which the adjustment applies.\nIt is the same as PERIOD_COUNTER_CREATED, unless you enter a reserve\nadjustment, in which case PERIOD_COUNTER_ADJUSTED is the last period\nof the fiscal year to which the adjustment applies.\n.\nCODE_COMBINATION_ID indicates the Accounting Flexfield combination\nOracle Assets debits or credits for all transactions except\nreclassifications and intercompany transfers.  This\nCODE_COMBINATION_ID is generated using the Account Generator, and the\nposting\nprogram does not perform any further processing.\n.\n.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/faadjustments-18693.html#faadjustments-18693",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TRANSACTION_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset transaction.",
+      "column_order": 1
+    },
+    {
+      "name": "ADJUSTMENT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset accounting line.",
+      "column_order": 2
+    },
+    {
+      "name": "SOURCE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Asset transaction type of the accounting line.",
+      "column_order": 3
+    },
+    {
+      "name": "ADJUSTMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "The type of account this row affects.",
+      "column_order": 4
+    },
+    {
+      "name": "DEBIT_CREDIT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "Option indicating whether the line is Credit or Debit in the accounting entry for the asset transaction.",
+      "column_order": 5
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the account code combination to be used to account the asset transaction line.",
+      "column_order": 6
+    },
+    {
+      "name": "BOOK_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Unique book identification name.",
+      "column_order": 7
+    },
+    {
+      "name": "PERIOD_COUNTER_CREATED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the depreciation period in which the transaction was performed.",
+      "column_order": 8
+    },
+    {
+      "name": "PERIOD_COUNTER_ADJUSTED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the depreciation period in which the transaction was effective.",
+      "column_order": 9
+    },
+    {
+      "name": "ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset number.",
+      "column_order": 10
+    },
+    {
+      "name": "DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset distribution.",
+      "column_order": 11
+    },
+    {
+      "name": "ADJUSTMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount of the asset adjustment broken down by the account type and asset distribution.",
+      "column_order": 12
+    },
+    {
+      "name": "ANNUALIZED_ADJUSTMENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjustment amount for a period multiplied by number of periods in fiscal year for retroactive transactions.",
+      "column_order": 13
+    },
+    {
+      "name": "SOURCE_DEST_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Indicator of whether this line is on the source or destination side of a transaction.",
+      "column_order": 14
+    },
+    {
+      "name": "SOURCE_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the asset source line.",
+      "column_order": 15
+    },
+    {
+      "name": "ASSET_INVOICE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the asset invoice.",
+      "column_order": 16
+    },
+    {
+      "name": "DEPRN_OVERRIDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator as to whether the depreciation amount for the transaction is overridden or not.",
+      "column_order": 17
+    },
+    {
+      "name": "TRACK_MEMBER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether the account information is created at the member asset level or at group asset level.",
+      "column_order": 18
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 19
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 20
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 21
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 24
+    },
+    {
+      "name": "INSERTION_ORDER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The order of bonus reserve adjustment amount entered for prior period transfer.",
+      "column_order": 25
+    },
+    {
+      "name": "COUNTERPARTY_DIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the counterparty asset distribution for a book transfer transaction.",
+      "column_order": 26
+    },
+    {
+      "name": "COUNTERPARTY_BAL_SEG_VAL1",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Primary balancing segment value from the counter asset distribution for a transfer between books transaction.",
+      "column_order": 27
+    },
+    {
+      "name": "COUNTERPARTY_BAL_SEG_VAL2",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Second balancing segment value from the counter asset distribution for a transfer between books transaction.",
+      "column_order": 28
+    },
+    {
+      "name": "COUNTERPARTY_BAL_SEG_VAL3",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Third balancing segment value from the counter asset distribution for a transfer between books transaction.",
+      "column_order": 29
+    },
+    {
+      "name": "COUNTERPARTY_CC_SEG_VAL",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Cost center segment value from the counter asset distribution for a transfer between books transaction.",
+      "column_order": 30
+    }
+  ]
+}

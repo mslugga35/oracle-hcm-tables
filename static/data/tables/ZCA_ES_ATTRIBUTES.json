@@ -1,0 +1,667 @@
+{
+  "id": 30685,
+  "name": "ZCA_ES_ATTRIBUTES",
+  "type": "TABLE",
+  "description": "This table is used to store the attributes of an entity",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zcaesattributes-3824.html#zcaesattributes-3824",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ATTRIBUTE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "N",
+      "description": "the primary key for the attribute within the meta-data version",
+      "column_order": 1
+    },
+    {
+      "name": "META_MODEL_VERSION_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "N",
+      "description": "the meta-data version for this attribute",
+      "column_order": 2
+    },
+    {
+      "name": "ENTITY_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "N",
+      "description": "the uuid of the entity that this attribute belongs to",
+      "column_order": 3
+    },
+    {
+      "name": "ATTRIBUTE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "N",
+      "description": "the language-independent name for the entity composed from alphanumberic characters, plus underscore, beginning with a letter",
+      "column_order": 4
+    },
+    {
+      "name": "ATTRIBUTE_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "one of 'Record', 'ForeignKey', 'Boolean', 'Byte', 'Short', 'Integer', 'Long', 'Float', 'Double', 'String', 'BigDecimal', 'Date', 'Percentage', 'Time', or 'Timestamp'",
+      "column_order": 5
+    },
+    {
+      "name": "CURRENCY_CODE_ATTRIBUTE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "the uuid for the attriute that holds the currency code for this attribute",
+      "column_order": 6
+    },
+    {
+      "name": "CONV_EXCH_RATE_ATTRIBUTE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "stores the uuid of the attribute that holds the conversion rate for converting the currency to the corporate currency.",
+      "column_order": 7
+    },
+    {
+      "name": "ENTITY_USAGE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "the uuid of the entity usage that this attribute applies to, if any",
+      "column_order": 8
+    },
+    {
+      "name": "COLUMN_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "the column name in the table name for the entity usage that this attribute is sourced from, if any",
+      "column_order": 9
+    },
+    {
+      "name": "LOOKUP_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "the lookup type if the attributes is an enum atrtibute otherwise null. The lookup type may either be the name of a SqlForLookupType enum or an lookup type that appears in FND_LOOKUP_TYPES",
+      "column_order": 10
+    },
+    {
+      "name": "LOOKUP_TYPE_EXPR",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "the expression that is used to initialize the lookup type when a sandbox is created",
+      "column_order": 11
+    },
+    {
+      "name": "LOOKUP_TYPE_V_A_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The view application id to be used for the lookup type, if any",
+      "column_order": 12
+    },
+    {
+      "name": "AGGREGATION_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "the name of the type of aggregation, either Max, Min, Sum, or Average",
+      "column_order": 13
+    },
+    {
+      "name": "AGGREGATE_CLAUSE",
+      "data_type": "VARCHAR2",
+      "data_length": 999,
+      "nullable": "Y",
+      "description": "the select clause to compute the aggregate from the database",
+      "column_order": 14
+    },
+    {
+      "name": "AGGREGATE_CHILD_ATTR_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "the UUID of a child entity's attribute over which to compute in-document aggregations (mutually exclusive with AGGREGATE_CLAUSE)",
+      "column_order": 15
+    },
+    {
+      "name": "RECORD_ENTITY_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "the foreign key for the entity that describes the record if the attribute type name is 'Record'",
+      "column_order": 16
+    },
+    {
+      "name": "USES_SECURITY_CONTEXT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is a foreign key reference that needs to include the security context of the reign key, otherwise N",
+      "column_order": 17
+    },
+    {
+      "name": "ATTRIBUTE_UUID_FOR_FILTERING",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "the uuid of the attribute within this entity that contains source of the filtering.  If the attribute is a foreign key, then the uuid points to the attribute that holds the foreign key provided the FILTER is satidfied.  If the atrtibute is a record, then\nthe uuid points to the attribute that contains the list of records to be filtered",
+      "column_order": 18
+    },
+    {
+      "name": "FILTERED_ATTRIBUTE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "the uuid of the attribute to be filtered.  The attrbute type must be Long and the attribute to be filtered must match the type of this attribute and be an attribute in the recrod entity that is filtered.",
+      "column_order": 19
+    },
+    {
+      "name": "ATTRIBUTE_UUID_FOR_RECORDS",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "Obsolete: Replaced by ATTRIBUTE_UUID_FOR_FILTERING",
+      "column_order": 20
+    },
+    {
+      "name": "ATTRIBUTE_FILTER",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "the json string for the map that holds the value constrains for establishing the forign key or record.The REFRESH_ATTRIBUTE_UUID holds attribute that triggers recomputation and ATTRIBUTE_UUID_FOR_FILTERING",
+      "column_order": 21
+    },
+    {
+      "name": "RECORDS_FILTER",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "Obsolete: Replaced by ATTRIBUTE_FILTER",
+      "column_order": 22
+    },
+    {
+      "name": "SQL_FOR_VALUE_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "the name of the SqlForValueType enum used to compute the attribute value",
+      "column_order": 23
+    },
+    {
+      "name": "SQL_BIND_ATTRIBUTE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "the uuid of the attribute that serves as the bind variable in SQL_FOR_ATTRIUTE_VALUE",
+      "column_order": 24
+    },
+    {
+      "name": "REFRESH_ATTRIBUTE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "the uuid of the attribute that should cause the value for this attribute to be re-computed",
+      "column_order": 25
+    },
+    {
+      "name": "SQL_REFRESH_ATTRIBUTE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "Obsolete: Replaced by REFRESH_ATTRIBUTE_UUID",
+      "column_order": 26
+    },
+    {
+      "name": "REFRESH_DOC_FIELD_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Obsolete",
+      "column_order": 27
+    },
+    {
+      "name": "SQL_REFRESH_DOC_FIELD_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Obsolete: Replaced by REFRESH_DOC_FIELD_PATH",
+      "column_order": 28
+    },
+    {
+      "name": "SQL_HIERARCHY_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "the name of the hierarchy that this attribute is dependent on, if any",
+      "column_order": 29
+    },
+    {
+      "name": "MIN_OCCURS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "the minimum times the attribute occurs",
+      "column_order": 30
+    },
+    {
+      "name": "MAX_OCCURS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "the maximum times the attribute occurs",
+      "column_order": 31
+    },
+    {
+      "name": "SECURITY_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "The name of the security type, either Secured, Unsecured, or Mixed",
+      "column_order": 32
+    },
+    {
+      "name": "SECURED_DATA_TYPE_NAMES",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "If the attibuteis not secured, then the value is NULL. If the attribute is secured and the attribute belongs to a top-level entity then the value is a serialized JSON string that represents the list of secured data type names that need to be checked for access",
+      "column_order": 33
+    },
+    {
+      "name": "IDENTIFIER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is an identifier",
+      "column_order": 34
+    },
+    {
+      "name": "LOCALIZABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y if the attribute is localizable,e.g., it is sourced from TL table.",
+      "column_order": 35
+    },
+    {
+      "name": "COPY_TO_ENTITY_ALL_FIELD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the values for this attribute sghould be copied to the entity's _all field, otherwise N",
+      "column_order": 36
+    },
+    {
+      "name": "INCLUDE_IN_REFERENCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y if the field should be included in the reference.  Child entities must have all their attributes marked as Y.",
+      "column_order": 37
+    },
+    {
+      "name": "INLINE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute refers to a foreign key (or record) whose fields should be 'promoted' to same level as this attribute",
+      "column_order": 38
+    },
+    {
+      "name": "SEARCHABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is searchable",
+      "column_order": 39
+    },
+    {
+      "name": "SORTABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is sortable",
+      "column_order": 40
+    },
+    {
+      "name": "AGGREGATABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute can be used for aggregation",
+      "column_order": 41
+    },
+    {
+      "name": "DEFAULT_AGGREGATION_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "Obsolete: the uuid of the default aggregation for this field, if any",
+      "column_order": 42
+    },
+    {
+      "name": "TRANSIENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is transient, e.g., \"Snippet\" is transient, not searchable, not sortable, and not aggreggatable",
+      "column_order": 43
+    },
+    {
+      "name": "LANG_DETECT_ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y to enable CJK language support for non translatable attributes",
+      "column_order": 44
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is an extension field",
+      "column_order": 45
+    },
+    {
+      "name": "RESOURCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y if the attribute is an resource field",
+      "column_order": 46
+    },
+    {
+      "name": "CAN_BE_ENABLED_DISABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute can be enabled/disabled",
+      "column_order": 47
+    },
+    {
+      "name": "FORBID_REFERENCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y if the attribute cannot be included in reference",
+      "column_order": 48
+    },
+    {
+      "name": "IN_SECURITY_CONTEXT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is part of the security context for the attribute's entity, otherwise N",
+      "column_order": 49
+    },
+    {
+      "name": "ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is enabled",
+      "column_order": 50
+    },
+    {
+      "name": "INDEXED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the attribute is indexed in Elastic Search",
+      "column_order": 51
+    },
+    {
+      "name": "DISPLAY_WIDTH",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "the display width for the attribute",
+      "column_order": 52
+    },
+    {
+      "name": "MIN_LENGTH",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "the minimum length for the attribute",
+      "column_order": 53
+    },
+    {
+      "name": "MAX_LENGTH",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "the maximum length for the attribute",
+      "column_order": 54
+    },
+    {
+      "name": "DECIMAL_PLACES",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "the number of decimal places to use, iff applicable",
+      "column_order": 55
+    },
+    {
+      "name": "MIN_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "the min value, iff applicable",
+      "column_order": 56
+    },
+    {
+      "name": "MAX_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "the max value, iff applicable",
+      "column_order": 57
+    },
+    {
+      "name": "RESOURCE_BUNDLE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "The resource bundle for this attribute",
+      "column_order": 58
+    },
+    {
+      "name": "RESOURCE_KEY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "the resource key in the RESOURCE_BUNDLE_ID for the localized name",
+      "column_order": 59
+    },
+    {
+      "name": "RESOURCE_KEY_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "the resource key in the RESOURCE_BUNDLE_ID for the localized description",
+      "column_order": 60
+    },
+    {
+      "name": "RESOURCE_KEY_HELP",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "the resource key in the RESOURCE_BUNDLE_ID for the localized help",
+      "column_order": 61
+    },
+    {
+      "name": "EXTN_RESOURCE_BUNDLE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "The customized resource bundle for this attribute",
+      "column_order": 62
+    },
+    {
+      "name": "EXTN_RESOURCE_KEY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "the resource key in the EXTN_RESOURCE_BUNDLE_ID for the localized name",
+      "column_order": 63
+    },
+    {
+      "name": "EXTN_RESOURCE_KEY_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "the resource key in the EXTN_RESOURCE_BUNDLE_ID for the localized description",
+      "column_order": 64
+    },
+    {
+      "name": "EXTN_RESOURCE_KEY_HELP",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "the resource key in the EXTN_RESOURCE_BUNDLE_ID for the localized help",
+      "column_order": 65
+    },
+    {
+      "name": "DELETED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y iff the row was deleted, otherwise N",
+      "column_order": 66
+    },
+    {
+      "name": "RECORD_TYPE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y if the attribute is RecordType",
+      "column_order": 67
+    },
+    {
+      "name": "RECORD_TYPE_ROLES",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Jason data for record type roles and corresponding values for roles",
+      "column_order": 68
+    },
+    {
+      "name": "ALIAS_TO_ATTRIBUTE_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 36,
+      "nullable": "Y",
+      "description": "Current row is the alias attribute, specified UUID in this column is the real indexed attribute",
+      "column_order": 69
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 70
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 71
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 72
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 73
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 74
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 75
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 76
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 77
+    },
+    {
+      "name": "NORMALIZER_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "One of 'Lowercase', 'Uppercase','TitleCase' or 'None'. This represents to normalizer used for indexing the attribute.",
+      "column_order": 78
+    },
+    {
+      "name": "NGRAM_ANALYZER_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "One of the Ngram Analyzer Types like TwoThruTenNgram or NumberNgram",
+      "column_order": 79
+    },
+    {
+      "name": "EDGE_ANALYZER_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "COLUMN1",
+      "column_order": 80
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 81
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 82
+    }
+  ]
+}

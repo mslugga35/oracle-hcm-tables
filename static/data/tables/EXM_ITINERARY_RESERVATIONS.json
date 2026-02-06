@@ -1,0 +1,795 @@
+{
+  "id": 27107,
+  "name": "EXM_ITINERARY_RESERVATIONS",
+  "type": "TABLE",
+  "description": "This table contains information about travel itinerary bookings or reservations made, which includes reservations for air travel, hotel, car rental and/or rail transportation.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/exmitineraryreservations-24038.html#exmitineraryreservations-24038",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ITINERARY_RESERVATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique Identifier of a reservation in a travel itinerary.",
+      "column_order": 1
+    },
+    {
+      "name": "HOTEL_LOCATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Distribution System code of hotel location.",
+      "column_order": 2
+    },
+    {
+      "name": "PICKUP_LOCATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Distribution System code of pickup location for vehicle rental.",
+      "column_order": 3
+    },
+    {
+      "name": "RETURN_LOCATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Distribution System code of return location for vehicle rental.",
+      "column_order": 4
+    },
+    {
+      "name": "TRAVEL_ITINERARY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Itinerary to which reservation belongs.",
+      "column_order": 5
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 6
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CONFIRMATION_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Confirmation number for HOTEL and VEHICLE RENTAL reservations. Null for AIR and RAIL reservations because confirmation numbe is stored at the travel segment level in EXM_RESERVATION_ITEMS table.",
+      "column_order": 8
+    },
+    {
+      "name": "RESERVATION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Type of reservation such as AIR,  HOTEL, RAIL or VEHICLE RENTAL.",
+      "column_order": 9
+    },
+    {
+      "name": "VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Version number of imported reservation record.  This number is incremented every time that data in reservation has been updated in the travel partner system from which data was imported.",
+      "column_order": 10
+    },
+    {
+      "name": "VALIDATION_FAILURE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether reservation has validation failures.",
+      "column_order": 11
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Currency of reservation amount.",
+      "column_order": 12
+    },
+    {
+      "name": "AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reservation amount, which does not include tax.",
+      "column_order": 13
+    },
+    {
+      "name": "TOTAL_TAX",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax on reservation amount.",
+      "column_order": 14
+    },
+    {
+      "name": "TOTAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total reservation amount, which includes tax.",
+      "column_order": 15
+    },
+    {
+      "name": "LOWER_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Lowest amount available in the booking tool that was not chosen by employee.",
+      "column_order": 16
+    },
+    {
+      "name": "FUNCTIONAL_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Functional currency of primary ledger for business unit.",
+      "column_order": 17
+    },
+    {
+      "name": "FUNCTIONAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reservation amount, which does not include tax, converted to functional currency of primary ledger for Business Unit.",
+      "column_order": 18
+    },
+    {
+      "name": "FUNCTIONAL_LOWER_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Lowest amount available in the booking tool that was not chosen by employee. This amount is  converted to functional currency of primary ledger for business unit.",
+      "column_order": 19
+    },
+    {
+      "name": "FUNCTIONAL_TOTAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total reservation amount, which includes tax, that is converted to functional currency of primary ledger for business unit.",
+      "column_order": 20
+    },
+    {
+      "name": "EXCHANGE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Conversion type used to convert amounts from transactional currency into functional currency.",
+      "column_order": 21
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion rate used to convert amounts from transactional curency for functional currency.",
+      "column_order": 22
+    },
+    {
+      "name": "MERCHANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Merchant identifier.  This column is populated only if a match is found for merchant_code against EXM_MERCHANTS table as part of  itinerary validation process.",
+      "column_order": 23
+    },
+    {
+      "name": "MERCHANT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Merchant code for Hotel Chain or Car Rental Agency.",
+      "column_order": 24
+    },
+    {
+      "name": "MERCHANT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Merchant name for hotel or car rental agency.",
+      "column_order": 25
+    },
+    {
+      "name": "HOTEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Hotel code for a hotel reservation.",
+      "column_order": 26
+    },
+    {
+      "name": "START_DATE_TIME",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Check-in date and time for hotel reservation and pickup time for vehicle rental.",
+      "column_order": 27
+    },
+    {
+      "name": "END_DATE_TIME",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Checkout date and time for hotel reservation and drop-off time for vehicle rental.",
+      "column_order": 28
+    },
+    {
+      "name": "NUMBER_OF_ROOMS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Number of hotel rooms for this hotel reservation.",
+      "column_order": 29
+    },
+    {
+      "name": "ROOM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Hotel room type for this hotel reservation.",
+      "column_order": 30
+    },
+    {
+      "name": "BASE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Daily base rate for this hotel reservation.",
+      "column_order": 31
+    },
+    {
+      "name": "RATE_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Details provided by the hotel for this hotel reservation.",
+      "column_order": 32
+    },
+    {
+      "name": "NUMBER_OF_GUESTS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Number of guests for this hotel reservation.",
+      "column_order": 33
+    },
+    {
+      "name": "ADDRESS_LINE_1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "First line of address information for hotel or vehicle rental reservation.",
+      "column_order": 34
+    },
+    {
+      "name": "ADDRESS_LINE_2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Second line of address information hotel or vehicle rental reservation.",
+      "column_order": 35
+    },
+    {
+      "name": "ADDRESS_LINE_3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Third line of address information hotel or vehicle rental reservation.",
+      "column_order": 36
+    },
+    {
+      "name": "ADDRESS_LINE_4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Fourth line of address information hotel or vehicle rental reservation.",
+      "column_order": 37
+    },
+    {
+      "name": "CONTACT_NUMBER_1",
+      "data_type": "VARCHAR2",
+      "data_length": 16,
+      "nullable": "Y",
+      "description": "First contact number hotel or vehicle rental reservation.",
+      "column_order": 38
+    },
+    {
+      "name": "CONTACT_NUMBER_2",
+      "data_type": "VARCHAR2",
+      "data_length": 16,
+      "nullable": "Y",
+      "description": "Second contact number hotel or vehicle rental reservation.",
+      "column_order": 39
+    },
+    {
+      "name": "CONTACT_NUMBER_3",
+      "data_type": "VARCHAR2",
+      "data_length": 16,
+      "nullable": "Y",
+      "description": "Third contact number hotel or vehicle rental reservation.",
+      "column_order": 40
+    },
+    {
+      "name": "CONTACT_NUMBER_4",
+      "data_type": "VARCHAR2",
+      "data_length": 16,
+      "nullable": "Y",
+      "description": "Fourth contact number hotel or vehicle rental reservation.",
+      "column_order": 41
+    },
+    {
+      "name": "HOTEL_CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "City in which hotel is located for which reservation is made.",
+      "column_order": 42
+    },
+    {
+      "name": "HOTEL_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "State or province in which hotel is located for which reservation is made.",
+      "column_order": 43
+    },
+    {
+      "name": "HOTEL_STATE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Code of the state or province in which hotel is located for which reservation is made.",
+      "column_order": 44
+    },
+    {
+      "name": "HOTEL_COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Country in which hotel is located for which reservation is made.",
+      "column_order": 45
+    },
+    {
+      "name": "HOTEL_COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Code of the country in which hotel is located for which reservation is made.",
+      "column_order": 46
+    },
+    {
+      "name": "HOTEL_GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Geographical hotel location in Oracle Trading Community Architecture(TCA).  This column will only be populated if a geographical match is found in TCA using hotel city, state or province and country as part of the travel itinerary validation process.",
+      "column_order": 47
+    },
+    {
+      "name": "VEHICLE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Vehicle type for vehicle rental reservation.",
+      "column_order": 48
+    },
+    {
+      "name": "PICKUP_CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Pickup city for vehicle rental reservation.",
+      "column_order": 49
+    },
+    {
+      "name": "PICKUP_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Pickup state or province for vehicle rental reservation.",
+      "column_order": 50
+    },
+    {
+      "name": "PICKUP_STATE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Code of pickup state or province for vehicle rental reservation.",
+      "column_order": 51
+    },
+    {
+      "name": "PICKUP_COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Pickup country for vehicle rental reservation.",
+      "column_order": 52
+    },
+    {
+      "name": "PICKUP_COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Pickup country code for vehicle rental reservation.",
+      "column_order": 53
+    },
+    {
+      "name": "PICKUP_GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Geographical rental vehicle pickup location in Oracle Trading Community Architecture(TCA). This column will only be populated if a geographical match is found in TCA using rental vehicle pickup city, state or province, and country as part of the travel itinerary validation process.",
+      "column_order": 54
+    },
+    {
+      "name": "RETURN_CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Return city for vehicle rental reservation.",
+      "column_order": 55
+    },
+    {
+      "name": "RETURN_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Return state or province for vehicle rental reservation.",
+      "column_order": 56
+    },
+    {
+      "name": "RETURN_STATE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Return state or province code for vehicle rental reservation.",
+      "column_order": 57
+    },
+    {
+      "name": "RETURN_COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Return country for vehicle rental reservation.",
+      "column_order": 58
+    },
+    {
+      "name": "RETURN_COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Return country code for vehicle rental reservation.",
+      "column_order": 59
+    },
+    {
+      "name": "RETURN_GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Geographical rental vehicle return location in Oracle Trading Community Architecture(TCA). This column will only be populated if a geographical match is found in TCA using rental vehicle return city, state or province, and country as part of the travel itinerary validation process.",
+      "column_order": 60
+    },
+    {
+      "name": "POLICY_VIOLATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Policy violation text displayed to employee while booking this reservation.",
+      "column_order": 61
+    },
+    {
+      "name": "POLICY_VIOLATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Policy violation lookup_code that maps to policy violation text.  This column is populated only if match is found against lookup_code in FND_LOOKUPS table during the itinerary validation process.",
+      "column_order": 62
+    },
+    {
+      "name": "POLICY_JUSTIFICATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Policy violation justification text provided by employee while booking this reservation.",
+      "column_order": 63
+    },
+    {
+      "name": "POLICY_JUSTIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Policy violation lookup_code that maps to policy violation justification text.  This column will only be populated if match was found against FND_LOOKUPS table during the itinerary validation process.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ATTRIBUTE_CHAR11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ATTRIBUTE_CHAR12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ATTRIBUTE_CHAR13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ATTRIBUTE_CHAR14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ATTRIBUTE_CHAR15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE_DATETIME1",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE_DATETIME2",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 93
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 94
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 95
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 96
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 97
+    },
+    {
+      "name": "PREPAID_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the reservation in a travel itinerary is prepaid.",
+      "column_order": 98
+    }
+  ]
+}

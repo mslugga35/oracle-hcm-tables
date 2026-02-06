@@ -1,0 +1,435 @@
+{
+  "id": 33567,
+  "name": "SVC_BI_AUDIT_SR_STAGE",
+  "type": "TABLE",
+  "description": "Staging table for reading audit data from SVC_SERVICE_REQUESTS_ and populating the BI table SVC_BI_AUDIT_SR.  The table is partitioned for performance purposes, with each stage of the process populating a different partition of the table.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/svcbiauditsrstage-8313.html#svcbiauditsrstage-8313",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "AUDIT_SR_STAGE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "N",
+      "description": "Derived primary key for this table.",
+      "column_order": 1
+    },
+    {
+      "name": "PARTITION_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Identifies the stage of processing the data, and serves as the partition value for the table.",
+      "column_order": 2
+    },
+    {
+      "name": "PROCESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to sequence SR_ID for purposes of parallel processing of ranges of SRs.  For example, if parallel processing 10 SRs, then the first set of SRs would be PROCESS_ID 1 to 10, the next set 11 to 20, etc.",
+      "column_order": 3
+    },
+    {
+      "name": "AUDIT_SR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.AUDIT_SR_ID.",
+      "column_order": 4
+    },
+    {
+      "name": "SR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.SR_ID.",
+      "column_order": 5
+    },
+    {
+      "name": "AUDIT_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.AUDIT_SEQ_NO.",
+      "column_order": 6
+    },
+    {
+      "name": "AUDIT_START_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.AUDIT_START_DATE.",
+      "column_order": 7
+    },
+    {
+      "name": "AUDIT_END_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.AUDIT_END_DATE.",
+      "column_order": 8
+    },
+    {
+      "name": "AUDIT_DURATION_MS",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.AUDIT_DURATION_MS.",
+      "column_order": 9
+    },
+    {
+      "name": "LATEST_AUDIT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.LATEST_AUDIT_FLAG.",
+      "column_order": 10
+    },
+    {
+      "name": "AUDIT_HISTORY_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.AUDIT_HISTORY_COMPLETE_FLAG.",
+      "column_order": 11
+    },
+    {
+      "name": "AUDIT_PURGE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.AUDIT_PURGE_DATE.",
+      "column_order": 12
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Sourced from SVC_SERVICE_REQUESTS_.AUDIT_ACTION_TYPE_.",
+      "column_order": 13
+    },
+    {
+      "name": "AUDIT_INSERT_UPDATE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Differentiates new audit records (I) from existing audit records (U).",
+      "column_order": 14
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 20
+    },
+    {
+      "name": "LAST_RESOLVED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR AUDIT_START_DATE and AUDIT_END_DATE.",
+      "column_order": 21
+    },
+    {
+      "name": "CLOSED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR AUDIT_START_DATE and AUDIT_END_DATE.",
+      "column_order": 22
+    },
+    {
+      "name": "STATUS_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.STATUS_CD.",
+      "column_order": 23
+    },
+    {
+      "name": "OLD_STATUS_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The previous audited value of STATUS_CD.",
+      "column_order": 24
+    },
+    {
+      "name": "STATUS_TYPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.STATUS_TYPE_CD.",
+      "column_order": 25
+    },
+    {
+      "name": "OLD_STATUS_TYPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The previous audited value of STATUS_TYPE_CD.",
+      "column_order": 26
+    },
+    {
+      "name": "SEVERITY_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.SEVERITY_CD.",
+      "column_order": 27
+    },
+    {
+      "name": "OLD_SEVERITY_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The previous audited value of SEVERITY_CD.",
+      "column_order": 28
+    },
+    {
+      "name": "ASSIGNEE_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.ASSIGNEE_RESOURCE_ID.",
+      "column_order": 29
+    },
+    {
+      "name": "OLD_ASSIGNEE_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The previous audited value of ASSIGNEE_RESOURCE_ID.",
+      "column_order": 30
+    },
+    {
+      "name": "QUEUE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.QUEUE_ID.",
+      "column_order": 31
+    },
+    {
+      "name": "OLD_QUEUE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The previous audited value of QUEUE_ID.",
+      "column_order": 32
+    },
+    {
+      "name": "STATUS_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.STATUS_SEQ_NO.",
+      "column_order": 33
+    },
+    {
+      "name": "STATUS_TYPE_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.STATUS_TYPE_SEQ_NO.",
+      "column_order": 34
+    },
+    {
+      "name": "SEVERITY_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.SEVERITY_SEQ_NO.",
+      "column_order": 35
+    },
+    {
+      "name": "ASSIGNEE_RESOURCE_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.ASSIGNEE_RESOURCE_SEQ_NO.",
+      "column_order": 36
+    },
+    {
+      "name": "QUEUE_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.QUEUE_SEQ_NO.",
+      "column_order": 37
+    },
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to group SRs together for parallel processing.  The first group of SRs would have BATCH_ID 1, the next group 2, etc.  The maximum BATCH_ID would equal the total number of groups to process.",
+      "column_order": 38
+    },
+    {
+      "name": "REOPEN_EVENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.REOPEN_EVENT_FLAG.",
+      "column_order": 39
+    },
+    {
+      "name": "SR_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.SR_LAST_UPDATE_DATE.",
+      "column_order": 40
+    },
+    {
+      "name": "CAT_PROD_HISTORY_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.CAT_PROD_HISTORY_COMPLETE_FLAG.",
+      "column_order": 41
+    },
+    {
+      "name": "CATEGORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.CATEGORY_ID.",
+      "column_order": 42
+    },
+    {
+      "name": "OLD_CATEGORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The previous audited value of CATEGORY_ID.",
+      "column_order": 43
+    },
+    {
+      "name": "CATEGORY_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.CATEGORY_SEQ_NO.",
+      "column_order": 44
+    },
+    {
+      "name": "PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.PRODUCT_ID.",
+      "column_order": 45
+    },
+    {
+      "name": "OLD_PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The previous audited value of PRODUCT_ID.",
+      "column_order": 46
+    },
+    {
+      "name": "PRODUCT_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.PRODUCT_SEQ_NO.",
+      "column_order": 47
+    },
+    {
+      "name": "SCHEDULE_HISTORY_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.SCHEDULE_HISTORY_COMPLETE_FLAG.",
+      "column_order": 48
+    },
+    {
+      "name": "SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.SCHEDULE_ID.",
+      "column_order": 49
+    },
+    {
+      "name": "OLD_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The previous audited value of SCHEDULE_ID.",
+      "column_order": 50
+    },
+    {
+      "name": "WORK_DURATION_MS",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.WORK_DURATION_MS.",
+      "column_order": 51
+    },
+    {
+      "name": "SCHEDULE_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.SCHEDULE_SEQ_NO.",
+      "column_order": 52
+    },
+    {
+      "name": "SCHEDULE_ASSIGNEE_SR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to stage SVC_BI_AUDIT_SR.SCHEDULE_ASSIGNEE_SR_ID.",
+      "column_order": 53
+    }
+  ]
+}

@@ -1,0 +1,131 @@
+{
+  "id": 34268,
+  "name": "MOT_TERR_RULES_",
+  "type": "TABLE",
+  "description": "This is the entity that organizes the territory boundaries ie. dimensions in the form of Rules. Using this territories can be either just simple territories defined by a single rule or complex ones with multiple rules. This entity along with Territory Rule Boundary Value stores the dimensions of the Territory in an expression form. \nRules are evaluated as choices ie. not additively. eg. if Rule 1 has Geography and Product as dimensions and Rule 2 has only Geography and Industry as dimensions, both will be evaluated and the Territory will be chosen if either Rule is a match.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/motterrrules-28810.html#motterrrules-28810",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TERR_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key",
+      "column_order": 1
+    },
+    {
+      "name": "TERRITORY_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to MOT_TERRITORIES",
+      "column_order": 2
+    },
+    {
+      "name": "RULE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "A unique number within a territory definition. Generated from a sequence.",
+      "column_order": 3
+    },
+    {
+      "name": "RULE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifier for the type of rule, also known as coverage type.",
+      "column_order": 4
+    },
+    {
+      "name": "RULE_OPERATOR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies whether the rule is inclusion or exclusion",
+      "column_order": 5
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 12
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 13
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 14
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 15
+    }
+  ]
+}

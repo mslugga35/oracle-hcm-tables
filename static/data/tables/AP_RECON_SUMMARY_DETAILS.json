@@ -1,0 +1,171 @@
+{
+  "id": 28704,
+  "name": "AP_RECON_SUMMARY_DETAILS",
+  "type": "TABLE",
+  "description": "This table stores the extract of the data, which is required for the preparation of the summary report.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/apreconsummarydetails-3513.html#apreconsummarydetails-3513",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "RECON_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "This columns is the PK of this table. This is a running sequence number derived from the database sequence.",
+      "column_order": 1
+    },
+    {
+      "name": "RECON_ITEM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "N",
+      "description": "This is the payables reconciliation report summary reconciliation item category.",
+      "column_order": 2
+    },
+    {
+      "name": "RECON_ITEM_ORDER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the order in which the report categories will be sorted.",
+      "column_order": 3
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The code combination id column will be populated for the values, which come from SLA or GL. The lookup codes for which CCIDs will be populated is:\nOTHER\nGl_BEGIN_BALANCE\nINVOICES\nPAYMENTS\nPREPAY_APP_UNAPP\nNOT_POSTED_GL\nNOT_TRFD_TO_GL\nNON_AP_ACTIVITY\nGL_VARIANCE\nGl_END_BALANCE\nNON_AP_BEGIN_BAL\nThe data source in this case would be either SLA or GL or GL Plus.",
+      "column_order": 4
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The ledger for which the data extraction is being carried out",
+      "column_order": 5
+    },
+    {
+      "name": "DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Set of records from which report information is retrieved.",
+      "column_order": 6
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "BU_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The bu_id will be populated for the amounts, which have the data source as  'AP'. The amounts which have the source as AP will be stored at BU level. For example, the Begin Balance will be stored for each BU. The lookup codes for which bu_id will be populated are:\tAP_BEGIN_BALANCE\nNON_AP_BEGIN_BAL\nINVOICES\nPAYMENTS\nPREPAY_APP_UNAPP\nAP_VARIANCE\nAP_END_BALANCE",
+      "column_order": 8
+    },
+    {
+      "name": "AP_ACCTD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount converted to the ledger currency and stored in subledger tables",
+      "column_order": 9
+    },
+    {
+      "name": "ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The debit amounts will be populated for the amounts that are being extracted for SLA or GL.",
+      "column_order": 10
+    },
+    {
+      "name": "ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The credit amounts will be populated for the amounts that are being extracted for SLA or GL",
+      "column_order": 11
+    },
+    {
+      "name": "BALANCING_SEGMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Value of balancing segment used to automatically balance journal entries.",
+      "column_order": 12
+    },
+    {
+      "name": "NATURAL_ACCOUNT_SEGMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Natural account segment of the account code combination.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 18
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 20
+    }
+  ]
+}

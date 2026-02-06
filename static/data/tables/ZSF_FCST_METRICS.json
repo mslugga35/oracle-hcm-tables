@@ -1,0 +1,2627 @@
+{
+  "id": 33133,
+  "name": "ZSF_FCST_METRICS",
+  "type": "TABLE",
+  "description": "This table will store sales forecasting metrics against the Forecast Header, Territory, Product and Adjustment Period. Metrics from the Forecast Items, Item Adjustments and Summary Adjustments will be stored against the aforesaid dimensions. \nThe metrics stored in this table will be rolled up the Territory hierarchy and Product hierarchy. Forecast metrics are stored at the Territory and Product grain and also Territory, Product and Adjustment Period grains. This enables retrieving metrics based on one or more of these dimensions.\nUp-to-date metrics for a particular Forecast Header, Territory, Product and Adjustment Period can be retrieved from this table by summing the metrics along with the transactional metrics from the table ZSF_FCST_METRICS_TXN. A separate database view ZSF_FCST_METRICS_V will be provided for this purpose.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zsffcstmetrics-20915.html#zsffcstmetrics-20915",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "FCST_METRIC_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key for the ZSF_FCST_METRICS_TABLE, this will be a genarated value",
+      "column_order": 1
+    },
+    {
+      "name": "FCST_METRICS_PARTITION_KEY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The table will be partitioned on this column. This is an alternate key to the fcst_header_id.",
+      "column_order": 2
+    },
+    {
+      "name": "BI_METRIC_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Type of metric. Can be BI_TERR_PROD, BI_TERR_PROD_ADJPER.",
+      "column_order": 3
+    },
+    {
+      "name": "FCST_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The forecast header for which the metric details are captured.",
+      "column_order": 4
+    },
+    {
+      "name": "ADJUST_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Adjustment Period. For adjustments by Territory and Product, this will be the last adjust_period_id of the corresponding forecast header.",
+      "column_order": 5
+    },
+    {
+      "name": "FCST_TERRITORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Territory Id of the fcst_participant_id for which the metrics details are captured",
+      "column_order": 6
+    },
+    {
+      "name": "FCST_PARTICIPANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Participant Id from zsf_fcst_participant for which metrics are stored in this table.",
+      "column_order": 7
+    },
+    {
+      "name": "FCST_PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Product id for which metrics is stored. If there are no products in the application, a dummy product will be created and that Id will be used in this column instead.",
+      "column_order": 8
+    },
+    {
+      "name": "ROOT_PRODUCT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used only in case the metrics should be computed for TERR, TERR_AP views. This will be either 'Y' indicating that fcst_product_id is the root product for that header or N if it is not the Root product",
+      "column_order": 9
+    },
+    {
+      "name": "UNALLOCATED_ADJUSTMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This column will have the value 'N' if the adjustment of category BI_TERR_PROD_ADJPER is created from an actual VIEW2 adjustment. It will have a value 'Y' if the adjustment is a copy of the VIEW1 adjustment created for bi_metric_type BI_TERR_PROD_ADJPER.",
+      "column_order": 10
+    },
+    {
+      "name": "CORP_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unadjusted revenue amount for the non pseudo territory is stored here.",
+      "column_order": 11
+    },
+    {
+      "name": "CORP_REVN_EXPECT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "expected revenue amount for the non pseudo territory is stored here.",
+      "column_order": 12
+    },
+    {
+      "name": "CORP_UPSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted Metrics for Non-Pseudo Territory, upside revenue amount is stored here",
+      "column_order": 13
+    },
+    {
+      "name": "CORP_DOWNSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted Metrics for Non-Pseudo Territory, downside revenue amount is stored here.",
+      "column_order": 14
+    },
+    {
+      "name": "CORP_PRED_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted Metrics for Non-Pseudo Territory, predicted revenue amount is stored here.",
+      "column_order": 15
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom unadjusted metrics",
+      "column_order": 16
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2  for custom unadjusted metrics",
+      "column_order": 17
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom unadjusted metrics",
+      "column_order": 18
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom unadjusted metrics",
+      "column_order": 19
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5 for custom unadjusted metrics",
+      "column_order": 20
+    },
+    {
+      "name": "CORP_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "expected revenue amount  (part of unadj metrics) for unallocated product. Will be NULL if product is a leaf product",
+      "column_order": 21
+    },
+    {
+      "name": "CORP_REVN_EXPECT_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "expected revenue amount  (part of unadj metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 22
+    },
+    {
+      "name": "CORP_UPSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "upside revenue amount (part of unadj metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 23
+    },
+    {
+      "name": "CORP_DOWNSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "downside revenue amount (part of unadj metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 24
+    },
+    {
+      "name": "CORP_PRED_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "predicted adjustment amount for Unadjusted Forecast for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 25
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_UNAL_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom unadjusted metrics for unallocated product",
+      "column_order": 26
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_UNAL_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2 for custom unadjusted metrics for unallocated product",
+      "column_order": 27
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_UNAL_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom unadjusted metrics for unallocated product",
+      "column_order": 28
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_UNAL_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom unadjusted metrics for unallocated product",
+      "column_order": 29
+    },
+    {
+      "name": "CORP_EXTN_UNADJ_MET_UNAL_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5 for custom unadjusted metrics for unallocated product",
+      "column_order": 30
+    },
+    {
+      "name": "CORP_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment delta amount for non-pseudo terrtiory is stored here.",
+      "column_order": 31
+    },
+    {
+      "name": "CORP_BEST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case item adjustment (delta) amount for non-pseudo terrtiory is stored here.",
+      "column_order": 32
+    },
+    {
+      "name": "CORP_WRST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case item adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 33
+    },
+    {
+      "name": "CORP_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment delta amount made by all the subordinates is stored here.",
+      "column_order": 34
+    },
+    {
+      "name": "CORP_BEST_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case item adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 35
+    },
+    {
+      "name": "CORP_WRST_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case item adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 36
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom item adjustment metrics",
+      "column_order": 37
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2 for custom item adjustment metrics",
+      "column_order": 38
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom item adjustment metrics",
+      "column_order": 39
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom item adjustment metrics",
+      "column_order": 40
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5 for custom item adjustment metrics",
+      "column_order": 41
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom item adjustment metrics for subordinate participant",
+      "column_order": 42
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2 for custom item adjustment metrics for subordinate participant",
+      "column_order": 43
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom item adjustment metrics for subordinate participant",
+      "column_order": 44
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom item adjustment metrics for subordinate participant",
+      "column_order": 45
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5 for custom item adjustment metrics for subordinate participant",
+      "column_order": 46
+    },
+    {
+      "name": "CORP_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment delta amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 47
+    },
+    {
+      "name": "CORP_BEST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case item adjustment (delta) amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 48
+    },
+    {
+      "name": "CORP_WRST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case item adjustment (delta) amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 49
+    },
+    {
+      "name": "CORP_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment delta amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 50
+    },
+    {
+      "name": "CORP_BEST_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case item adjustment (delta) amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 51
+    },
+    {
+      "name": "CORP_WRST_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case item adjustment (delta) amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 52
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_UNAL_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 1 for custom item adjustment metrics for unallocated product",
+      "column_order": 53
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_UNAL_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 2 for custom item adjustment metrics for unallocated product",
+      "column_order": 54
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_UNAL_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 3 for custom item adjustment metrics for unallocated product",
+      "column_order": 55
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_UNAL_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 4 for custom item adjustment metrics for unallocated product",
+      "column_order": 56
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_UNAL_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 5 for custom item adjustment metrics for unallocated product",
+      "column_order": 57
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_UNAL_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 1 for custom item adjustment metrics for unallocated product for subordinate participant",
+      "column_order": 58
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_UNAL_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 2 for custom item adjustment metrics for unallocated product for subordinate participant",
+      "column_order": 59
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_UNAL_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 3 for custom item adjustment metrics for unallocated product for subordinate participant",
+      "column_order": 60
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_UNAL_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 4 for custom item adjustment metrics for unallocated product for subordinate participant",
+      "column_order": 61
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_UNAL_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 5 for custom item adjustment metrics for unallocated product for subordinate participant",
+      "column_order": 62
+    },
+    {
+      "name": "CORP_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 63
+    },
+    {
+      "name": "CORP_BEST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 64
+    },
+    {
+      "name": "CORP_WRST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 65
+    },
+    {
+      "name": "CORP_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 66
+    },
+    {
+      "name": "CORP_BEST_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 67
+    },
+    {
+      "name": "CORP_WRST_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 68
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom summary adustment metrics",
+      "column_order": 69
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2 for custom summary adustment metrics",
+      "column_order": 70
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom summary adustment metrics",
+      "column_order": 71
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom summary adustment metrics",
+      "column_order": 72
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5 for custom summary adustment metrics",
+      "column_order": 73
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom summary adustment metrics for subordinate participant",
+      "column_order": 74
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2 for custom summary adustment metrics for subordinate participant",
+      "column_order": 75
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom summary adustment metrics for subordinate participant",
+      "column_order": 76
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom summary adustment metrics for subordinate participant",
+      "column_order": 77
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5 for custom summary adustment metrics for subordinate participant",
+      "column_order": 78
+    },
+    {
+      "name": "CORP_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 79
+    },
+    {
+      "name": "CORP_BEST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case summary adjustment (delta) amount for the unallocated product is stored here.",
+      "column_order": 80
+    },
+    {
+      "name": "CORP_WRST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case summary adjustment (delta) amount for the unallocated product is stored here.",
+      "column_order": 81
+    },
+    {
+      "name": "CORP_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unallocated summary adjustment made for fcst_product_id made by all the subordinates. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 82
+    },
+    {
+      "name": "CORP_BEST_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case summary adjustment (delta) amount for the unallocated product made by all the subordinates",
+      "column_order": 83
+    },
+    {
+      "name": "CORP_WRST_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case summary adjustment (delta) amount for the unallocated product made by all the subordinates",
+      "column_order": 84
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_UNAL_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 1 for custom summary adustment metrics for unallocated product",
+      "column_order": 85
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_UNAL_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 2 for custom summary adustment metrics for unallocated product",
+      "column_order": 86
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_UNAL_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 3 for custom summary adustment metrics for unallocated product",
+      "column_order": 87
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_UNAL_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 4 for custom summary adustment metrics for unallocated product",
+      "column_order": 88
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_UNAL_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 5 for custom summary adustment metrics for unallocated product",
+      "column_order": 89
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_UNAL_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 1 for custom summary adustment metrics for unallocated product for subordinate participant",
+      "column_order": 90
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_UNAL_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 2 for custom summary adustment metrics for unallocated product for subordinate participant",
+      "column_order": 91
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_UNAL_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 3 for custom summary adustment metrics for unallocated product for subordinate participant",
+      "column_order": 92
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_UNAL_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 4 for custom summary adustment metrics for unallocated product for subordinate participant",
+      "column_order": 93
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_UNAL_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 5 for custom summary adustment metrics for unallocated product for subordinate participant",
+      "column_order": 94
+    },
+    {
+      "name": "CORP_PS_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unadjusted revenue amount for the pseudo territory is stored here.",
+      "column_order": 95
+    },
+    {
+      "name": "CORP_PS_REVN_EXPECT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "expected revenue amount  (part of unadj metrics) for the pseudo territory is stored here.",
+      "column_order": 96
+    },
+    {
+      "name": "CORP_PS_UPSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "upside revenue amount (part of unadj metrics) - for the pseudo territory is stored here.",
+      "column_order": 97
+    },
+    {
+      "name": "CORP_PS_DOWNSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "downside revenue amount (part of unadj metrics) - for the pseudo territory is stored here.",
+      "column_order": 98
+    },
+    {
+      "name": "CORP_PS_PRED_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "predicted adjustment amount for Unadjusted Forecast for the pseudo territory is stored here.",
+      "column_order": 99
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom unadjusted metrics for pseudo territory",
+      "column_order": 100
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2 for custom unadjusted metrics for pseudo territory",
+      "column_order": 101
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom unadjusted metrics for pseudo territory",
+      "column_order": 102
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom unadjusted metrics for pseudo territory",
+      "column_order": 103
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5 for custom unadjusted metrics for pseudo territory",
+      "column_order": 104
+    },
+    {
+      "name": "CORP_PS_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unadjusted revenue amount for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 105
+    },
+    {
+      "name": "CORP_PS_REVN_EXPECT_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "expected revenue amount  (part of unadj metrics) for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 106
+    },
+    {
+      "name": "CORP_PS_UPSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "upside revenue amount (part of unadj metrics) - for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 107
+    },
+    {
+      "name": "CORP_PS_DOWNSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "downside revenue amount (part of unadj metrics) - for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 108
+    },
+    {
+      "name": "CORP_PS_PRED_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "predicted adjustment amount for Unadjusted Forecast for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 109
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_UNAL_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 1 for custom unadjusted metrics for unallocated product for pseudo territory",
+      "column_order": 110
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_UNAL_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 2 for custom unadjusted metrics for unallocated product for pseudo territory",
+      "column_order": 111
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_UNAL_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 3 for custom unadjusted metrics for unallocated product for pseudo territory",
+      "column_order": 112
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_UNAL_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 4 for custom unadjusted metrics for unallocated product for pseudo territory",
+      "column_order": 113
+    },
+    {
+      "name": "CORP_PS_EXTN_UNADJ_MET_UNAL_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 5 for custom unadjusted metrics for unallocated product for pseudo territory",
+      "column_order": 114
+    },
+    {
+      "name": "CORP_PS_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment delta amount for the pseudo territory is stored here.",
+      "column_order": 115
+    },
+    {
+      "name": "CORP_PS_BEST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case item adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 116
+    },
+    {
+      "name": "CORP_PS_WRST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case item adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 117
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom item adjustment metrics for pseudo territory.",
+      "column_order": 118
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2 for custom item adjustment metrics for pseudo territory.",
+      "column_order": 119
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom item adjustment metrics for pseudo territory.",
+      "column_order": 120
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom item adjustment metrics for pseudo territory.",
+      "column_order": 121
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5  for custom item adjustment metrics for pseudo territory.",
+      "column_order": 122
+    },
+    {
+      "name": "CORP_PS_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment delta amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 123
+    },
+    {
+      "name": "CORP_PS_BEST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case item adjustment (delta) amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 124
+    },
+    {
+      "name": "CORP_PS_WRST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case item adjustment (delta) amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 125
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_UNAL_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 1 for custom item adjustment metrics for unallocated product for pseudo territory",
+      "column_order": 126
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_UNAL_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 2 for custom item adjustment metrics for unallocated product for pseudo territory",
+      "column_order": 127
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_UNAL_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 3 for custom item adjustment metrics for unallocated product for pseudo territory",
+      "column_order": 128
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_UNAL_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 4 for custom item adjustment metrics for unallocated product for pseudo territory",
+      "column_order": 129
+    },
+    {
+      "name": "CORP_PS_EXTN_ITADJ_MET_UNAL_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 5 for custom item adjustment metrics for unallocated product for pseudo territory",
+      "column_order": 130
+    },
+    {
+      "name": "CORP_PS_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 131
+    },
+    {
+      "name": "CORP_PS_BEST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 132
+    },
+    {
+      "name": "CORP_PS_WRST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 133
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 1 for custom summary adustment metrics for pseudo territory",
+      "column_order": 134
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 2  for custom summary adustment metrics for pseudo territory",
+      "column_order": 135
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 3 for custom summary adustment metrics for pseudo territory",
+      "column_order": 136
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 4 for custom summary adustment metrics for pseudo territory",
+      "column_order": 137
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: place holder column 5 for custom summary adustment metrics for pseudo territory",
+      "column_order": 138
+    },
+    {
+      "name": "CORP_PS_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product. for the pseudo territory",
+      "column_order": 139
+    },
+    {
+      "name": "CORP_PS_BEST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "best case summary adjustment (delta) amount for the unallocated product for the pseudo territory is stored here.",
+      "column_order": 140
+    },
+    {
+      "name": "CORP_PS_WRST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "worst case summary adjustment (delta) amount for the unallocated product for the pseudo territory",
+      "column_order": 141
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_UNAL_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 1 for custom summary adustment metrics for unallocated product for pseudo territory",
+      "column_order": 142
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_UNAL_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 2 for custom summary adustment metrics for unallocated product for pseudo territory",
+      "column_order": 143
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_UNAL_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 3 for custom summary adustment metrics for unallocated product for pseudo territory",
+      "column_order": 144
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_UNAL_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 4 for custom summary adustment metrics for unallocated product for pseudo territory",
+      "column_order": 145
+    },
+    {
+      "name": "CORP_PS_EXTN_SUMADJ_MET_UNAL_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "place holder column 5 for custom summary adustment metrics for unallocated product for pseudo territory",
+      "column_order": 146
+    },
+    {
+      "name": "CORP_REVN_WON_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field has the Won amount stored in corporate currency.",
+      "column_order": 147
+    },
+    {
+      "name": "CORP_REVN_WON_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field has the revenue won amount in corporate currency that is unallocated.",
+      "column_order": 148
+    },
+    {
+      "name": "CORP_PS_REVN_WON_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field has the revenue won amount for the pseudo territory in corporate currency.",
+      "column_order": 149
+    },
+    {
+      "name": "CORP_PS_REVN_WON_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field stores the won revenue unallocated amount for pseudo territory in corporate currency",
+      "column_order": 150
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 151
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 152
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 153
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 154
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 155
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 156
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 157
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 158
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 159
+    },
+    {
+      "name": "UNADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unadjusted Quantity for the non pseudo territory is stored here.",
+      "column_order": 160
+    },
+    {
+      "name": "UNADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The Quantity associated to the unallocated product. Will be NULL if product is a leaf product",
+      "column_order": 161
+    },
+    {
+      "name": "ITADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment for Quantity for non-pseudo terrtiory is stored here.",
+      "column_order": 162
+    },
+    {
+      "name": "ITADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment for Quantity for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 163
+    },
+    {
+      "name": "ITADJ_SUB_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment for Quantity made by all the subordinates is stored here.",
+      "column_order": 164
+    },
+    {
+      "name": "ITADJ_SUB_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Subordinate Item Adjustment for Unallocated product",
+      "column_order": 165
+    },
+    {
+      "name": "SUMADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "summary adjustment (delta) for Quantity for non-pseudo territory is stored here.",
+      "column_order": 166
+    },
+    {
+      "name": "SUMADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 167
+    },
+    {
+      "name": "SUMADJ_SUB_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "summary adjustment (delta) on Quantity made by all the subordinates is stored here.",
+      "column_order": 168
+    },
+    {
+      "name": "SUMADJ_SUB_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Subordinate Adjustment for an unallocated product",
+      "column_order": 169
+    },
+    {
+      "name": "PS_UNADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unadjusted Quantity for the pseudo territory is stored here.",
+      "column_order": 170
+    },
+    {
+      "name": "PS_UNADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unadjusted Quantity for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 171
+    },
+    {
+      "name": "PS_ITADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment delta for Quantity for the pseudo territory is stored here.",
+      "column_order": 172
+    },
+    {
+      "name": "PS_ITADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "item adjustment delta afor Quantity for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 173
+    },
+    {
+      "name": "PS_SUMADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "summary adjustment delta for Quantity for the pseudo territory is stored here.",
+      "column_order": 174
+    },
+    {
+      "name": "PS_SUMADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unallocated summary adjustment  for Quantity made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product. for the pseudo territory",
+      "column_order": 175
+    },
+    {
+      "name": "RNWL_REVN_EXPECT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expected renewal revenue amount for the non pseudo territory is stored here.",
+      "column_order": 176
+    },
+    {
+      "name": "RNWL_DOWNSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted metrics for non-pseudo territory, downside renewal renewal revenue amount is stored here.",
+      "column_order": 177
+    },
+    {
+      "name": "RNWL_REVN_WON_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal won amount in corporate currency.",
+      "column_order": 178
+    },
+    {
+      "name": "RNWL_PRED_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted metrics for non-pseudo territory,  predicted renewal revenue amount is stored here.",
+      "column_order": 179
+    },
+    {
+      "name": "RNWL_UPSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted metrics for non-pseudo territory,  upside renewal revenue amount is stored here.",
+      "column_order": 180
+    },
+    {
+      "name": "RNWL_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted renewal revenue amount for the non pseudo territory is stored here.",
+      "column_order": 181
+    },
+    {
+      "name": "RNWL_REVN_EXPECT_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expected renewal revenue amount (part of unadjusted metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 182
+    },
+    {
+      "name": "RNWL_UPSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Upside renewal revenue amount (part of unadjusted metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 183
+    },
+    {
+      "name": "RNWL_PRED_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Predicted renewal adjustment amount for unadjusted forecast for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 184
+    },
+    {
+      "name": "RNWL_DOWNSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Downside renewal revenue amount (part of unadjusted metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 185
+    },
+    {
+      "name": "RNWL_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal revenue amount (part of unadjusted metrics) for unallocated product. Will be NULL if product is a leaf product",
+      "column_order": 186
+    },
+    {
+      "name": "RNWL_REVN_WON_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field has the renewal revenue won amount in corporate currency that is unallocated.",
+      "column_order": 187
+    },
+    {
+      "name": "RNWL_PS_PRED_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Predicted renewal adjustment amount for unadjusted Forecast for the pseudo territory is stored here.",
+      "column_order": 188
+    },
+    {
+      "name": "RNWL_PS_DOWNSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Downside renewal revenue amount (part of unadjusted metrics) - for the pseudo territory is stored here.",
+      "column_order": 189
+    },
+    {
+      "name": "RNWL_PS_REVN_WON_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field has the renewal revenue won amount for the pseudo territory in corporate currency.",
+      "column_order": 190
+    },
+    {
+      "name": "RNWL_PS_REVN_EXPECT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expected renewal revenue amount (part of unadjusted metrics) for the pseudo territory is stored here.",
+      "column_order": 191
+    },
+    {
+      "name": "RNWL_PS_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted renewal revenue amount for the pseudo territory is stored here.",
+      "column_order": 192
+    },
+    {
+      "name": "RNWL_PS_UPSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Upside renewal revenue amount (part of unadjusted metrics) - for the pseudo territory is stored here.",
+      "column_order": 193
+    },
+    {
+      "name": "RNWL_PS_REVN_EXPECT_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expected renewal revenue amount (part of unadjusted metrics) for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 194
+    },
+    {
+      "name": "RNWL_PS_PRED_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Predicted renewal adjustment amount for unadjusted forecast for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 195
+    },
+    {
+      "name": "RNWL_PS_REVN_WON_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field stores the renewal won revenue unallocated amount for pseudo territory in corporate currency.",
+      "column_order": 196
+    },
+    {
+      "name": "RNWL_PS_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted renewal revenue amount for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 197
+    },
+    {
+      "name": "RNWL_PS_UPSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Upside renewal revenue amount (part of unadjusted metrics) - for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 198
+    },
+    {
+      "name": "RNWL_PS_DOWNSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Downside renewal revenue amount (part of unadjusted metrics) - for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 199
+    },
+    {
+      "name": "RNWL_UNADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal unadjusted quantity for the non pseudo territory is stored here.",
+      "column_order": 200
+    },
+    {
+      "name": "RNWL_UNADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal quantity associated to the unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 201
+    },
+    {
+      "name": "RNWL_PS_UNADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal unadjusted quantity for the pseudo territory is stored here.",
+      "column_order": 202
+    },
+    {
+      "name": "RNWL_PS_UNADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal unadjusted quantity for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 203
+    },
+    {
+      "name": "RNWL_WRST_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case item adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 204
+    },
+    {
+      "name": "RNWL_BEST_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case item adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 205
+    },
+    {
+      "name": "RNWL_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment delta amount for non-pseudo territory is stored here.",
+      "column_order": 206
+    },
+    {
+      "name": "RNWL_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 207
+    },
+    {
+      "name": "RNWL_WRST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case item adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 208
+    },
+    {
+      "name": "RNWL_BEST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case item adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 209
+    },
+    {
+      "name": "RNWL_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment (delta) amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 210
+    },
+    {
+      "name": "RNWL_WRST_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case item adjustment (delta) amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 211
+    },
+    {
+      "name": "RNWL_WRST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case item adjustment (delta) amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 212
+    },
+    {
+      "name": "RNWL_BEST_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case item adjustment (delta) amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 213
+    },
+    {
+      "name": "RNWL_BEST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case item adjustment (delta) amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 214
+    },
+    {
+      "name": "RNWL_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment (delta) amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 215
+    },
+    {
+      "name": "RNWL_PS_BEST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case item adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 216
+    },
+    {
+      "name": "RNWL_PS_WRST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case item adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 217
+    },
+    {
+      "name": "RNWL_PS_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 218
+    },
+    {
+      "name": "RNWL_PS_WRST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case item adjustment (delta) amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 219
+    },
+    {
+      "name": "RNWL_PS_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment (delta) amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 220
+    },
+    {
+      "name": "RNWL_PS_BEST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case item adjustment (delta) amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 221
+    },
+    {
+      "name": "RNWL_ITADJ_SUB_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment for quantity made by all the subordinates is stored here.",
+      "column_order": 222
+    },
+    {
+      "name": "RNWL_ITADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment for quantity for non-pseudo territory is stored here.",
+      "column_order": 223
+    },
+    {
+      "name": "RNWL_ITADJ_SUB_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Subordinate renewal item adjustment for unallocated product.",
+      "column_order": 224
+    },
+    {
+      "name": "RNWL_ITADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment for quantity for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 225
+    },
+    {
+      "name": "RNWL_PS_ITADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment (delta) for quantity for the pseudo territory is stored here.",
+      "column_order": 226
+    },
+    {
+      "name": "RNWL_PS_ITADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal item adjustment (delta) for quantity for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 227
+    },
+    {
+      "name": "RNWL_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 228
+    },
+    {
+      "name": "RNWL_BEST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 229
+    },
+    {
+      "name": "RNWL_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 230
+    },
+    {
+      "name": "RNWL_WRST_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Worst case renewal summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 231
+    },
+    {
+      "name": "RNWL_WRST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 232
+    },
+    {
+      "name": "RNWL_BEST_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 233
+    },
+    {
+      "name": "RNWL_WRST_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case summary adjustment (delta) amount for the unallocated product made by all the subordinates.",
+      "column_order": 234
+    },
+    {
+      "name": "RNWL_WRST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case summary adjustment (delta) amount for the unallocated product is stored here.",
+      "column_order": 235
+    },
+    {
+      "name": "RNWL_BEST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case summary adjustment (delta) amount for the unallocated product is stored here.",
+      "column_order": 236
+    },
+    {
+      "name": "RNWL_BEST_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case summary adjustment (delta) amount for the unallocated product made by all the subordinates.",
+      "column_order": 237
+    },
+    {
+      "name": "RNWL_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal unallocated summary adjustment made for fcst_product_id made by all the subordinates. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 238
+    },
+    {
+      "name": "RNWL_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 239
+    },
+    {
+      "name": "RNWL_PS_BEST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 240
+    },
+    {
+      "name": "RNWL_PS_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 241
+    },
+    {
+      "name": "RNWL_PS_WRST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 242
+    },
+    {
+      "name": "RNWL_PS_WRST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal worst case summary adjustment (delta) amount for the unallocated product for the pseudo territory.",
+      "column_order": 243
+    },
+    {
+      "name": "RNWL_PS_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product. for the pseudo territory.",
+      "column_order": 244
+    },
+    {
+      "name": "RNWL_PS_BEST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal best case summary adjustment (delta) amount for the unallocated product for the pseudo territory is stored here.",
+      "column_order": 245
+    },
+    {
+      "name": "RNWL_SUMADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal summary adjustment (delta) for quantity for non-pseudo territory is stored here.",
+      "column_order": 246
+    },
+    {
+      "name": "RNWL_SUMADJ_SUB_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal summary adjustment (delta) on quantity made by all the subordinates is stored here.",
+      "column_order": 247
+    },
+    {
+      "name": "RNWL_SUMADJ_SUB_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Subordinate renewal adjustment for an unallocated product.",
+      "column_order": 248
+    },
+    {
+      "name": "RNWL_SUMADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 249
+    },
+    {
+      "name": "RNWL_PS_SUMADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal summary adjustment delta for quantity for the pseudo territory is stored here.",
+      "column_order": 250
+    },
+    {
+      "name": "RNWL_PS_SUMADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Renewal unallocated summary adjustment  for quantity made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product for the pseudo territory.",
+      "column_order": 251
+    },
+    {
+      "name": "NEW_REVN_EXPECT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expected new revenue amount for the non pseudo territory is stored here.",
+      "column_order": 252
+    },
+    {
+      "name": "NEW_DOWNSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted metrics for non-pseudo territory, downside new revenue amount is stored here.",
+      "column_order": 253
+    },
+    {
+      "name": "NEW_REVN_WON_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New won amount in corporate currency.",
+      "column_order": 254
+    },
+    {
+      "name": "NEW_PRED_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted metrics for non-pseudo territory, predicted new revenue amount is stored here.",
+      "column_order": 255
+    },
+    {
+      "name": "NEW_UPSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted metrics for non-pseudo territory, upside new revenue amount is stored here.",
+      "column_order": 256
+    },
+    {
+      "name": "NEW_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted new revenue amount for the non pseudo territory is stored here.",
+      "column_order": 257
+    },
+    {
+      "name": "NEW_REVN_EXPECT_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expected new revenue amount (part of unadjusted metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 258
+    },
+    {
+      "name": "NEW_UPSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Upside new revenue amount (part of unadjusted metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 259
+    },
+    {
+      "name": "NEW_PRED_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Predicted new adjustment amount for unadjusted forecast for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 260
+    },
+    {
+      "name": "NEW_DOWNSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Downside new revenue amount (part of unadjusted metrics) for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 261
+    },
+    {
+      "name": "NEW_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New revenue amount (part of unadjusted metrics) for unallocated product. Will be NULL if product is a leaf product",
+      "column_order": 262
+    },
+    {
+      "name": "NEW_REVN_WON_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field has the new revenue won amount in corporate currency that is unallocated.",
+      "column_order": 263
+    },
+    {
+      "name": "NEW_PS_PRED_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Predicted new adjustment amount for unadjusted forecast for the pseudo territory is stored here.",
+      "column_order": 264
+    },
+    {
+      "name": "NEW_PS_DOWNSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Downside new revenue amount (part of unadjusted metrics) for the pseudo territory is stored here.",
+      "column_order": 265
+    },
+    {
+      "name": "NEW_PS_REVN_WON_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field has the new revenue won amount for the pseudo territory in corporate currency.",
+      "column_order": 266
+    },
+    {
+      "name": "NEW_PS_REVN_EXPECT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expected new revenue amount (part of unadjusted metrics) for the pseudo territory is stored here.",
+      "column_order": 267
+    },
+    {
+      "name": "NEW_PS_REVN_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted new revenue amount for the pseudo territory is stored here.",
+      "column_order": 268
+    },
+    {
+      "name": "NEW_PS_UPSIDE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Upside new revenue amount (part of unadjusted metrics) for the pseudo territory is stored here.",
+      "column_order": 269
+    },
+    {
+      "name": "NEW_PS_REVN_EXPECT_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Expected new revenue amount (part of unadjusted metrics) for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 270
+    },
+    {
+      "name": "NEW_PS_PRED_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Predicted new adjustment amount for unadjusted forecast for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 271
+    },
+    {
+      "name": "NEW_PS_REVN_WON_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field stores the new won revenue unallocated amount for pseudo territory in corporate currency.",
+      "column_order": 272
+    },
+    {
+      "name": "NEW_PS_REVN_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unadjusted new revenue amount for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 273
+    },
+    {
+      "name": "NEW_PS_UPSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Upside new revenue amount (part of unadjusted metrics) for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 274
+    },
+    {
+      "name": "NEW_PS_DOWNSIDE_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Downside new revenue amount (part of unadjusted metrics) - for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 275
+    },
+    {
+      "name": "NEW_UNADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New unadjusted quantity for the non pseudo territory is stored here.",
+      "column_order": 276
+    },
+    {
+      "name": "NEW_UNADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New quantity associated to the unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 277
+    },
+    {
+      "name": "NEW_PS_UNADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New unadjusted quantity for the pseudo territory is stored here.",
+      "column_order": 278
+    },
+    {
+      "name": "NEW_PS_UNADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New unadjusted quantity for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 279
+    },
+    {
+      "name": "NEW_WRST_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case item adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 280
+    },
+    {
+      "name": "NEW_BEST_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case item adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 281
+    },
+    {
+      "name": "NEW_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment delta amount for non-pseudo territory is stored here.",
+      "column_order": 282
+    },
+    {
+      "name": "NEW_ITEM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 283
+    },
+    {
+      "name": "NEW_WRST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case item adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 284
+    },
+    {
+      "name": "NEW_BEST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case item adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 285
+    },
+    {
+      "name": "NEW_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment (delta) amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 286
+    },
+    {
+      "name": "NEW_WRST_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case item adjustment (delta) amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 287
+    },
+    {
+      "name": "NEW_WRST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case item adjustment (delta) amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 288
+    },
+    {
+      "name": "NEW_BEST_ITEM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case item adjustment (delta) amount for unallocated product made by all the subordinates. Will be NULL if product is a leaf product.",
+      "column_order": 289
+    },
+    {
+      "name": "NEW_BEST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case item adjustment (delta) amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 290
+    },
+    {
+      "name": "NEW_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment (delta) amount for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 291
+    },
+    {
+      "name": "NEW_PS_BEST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case item adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 292
+    },
+    {
+      "name": "NEW_PS_WRST_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case item adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 293
+    },
+    {
+      "name": "NEW_PS_ITEM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 294
+    },
+    {
+      "name": "NEW_PS_WRST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case item adjustment (delta) amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 295
+    },
+    {
+      "name": "NEW_PS_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment (delta) amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 296
+    },
+    {
+      "name": "NEW_PS_BEST_ITEM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case item adjustment (delta) amount for the pseudo territory for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 297
+    },
+    {
+      "name": "NEW_ITADJ_SUB_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment for quantity made by all the subordinates is stored here.",
+      "column_order": 298
+    },
+    {
+      "name": "NEW_ITADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment for quantity for non-pseudo territory is stored here.",
+      "column_order": 299
+    },
+    {
+      "name": "NEW_ITADJ_SUB_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Subordinate new item adjustment for unallocated product.",
+      "column_order": 300
+    },
+    {
+      "name": "NEW_ITADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment for quantity for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 301
+    },
+    {
+      "name": "NEW_PS_ITADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment (delta) for quantity for the pseudo territory is stored here.",
+      "column_order": 302
+    },
+    {
+      "name": "NEW_PS_ITADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New item adjustment (delta) for quantity for the pseudo territory for unallocated product. Will be NULL if product is a leaf product.",
+      "column_order": 303
+    },
+    {
+      "name": "NEW_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 304
+    },
+    {
+      "name": "NEW_BEST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 305
+    },
+    {
+      "name": "NEW_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 306
+    },
+    {
+      "name": "NEW_WRST_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Worst case new summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 307
+    },
+    {
+      "name": "NEW_WRST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case summary adjustment (delta) amount for non-pseudo territory is stored here.",
+      "column_order": 308
+    },
+    {
+      "name": "NEW_BEST_SUM_SUBADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case summary adjustment (delta) amount made by all the subordinates is stored here.",
+      "column_order": 309
+    },
+    {
+      "name": "NEW_WRST_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case summary adjustment (delta) amount for the unallocated product made by all the subordinates.",
+      "column_order": 310
+    },
+    {
+      "name": "NEW_WRST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case summary adjustment (delta) amount for the unallocated product is stored here.",
+      "column_order": 311
+    },
+    {
+      "name": "NEW_BEST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case summary adjustment (delta) amount for the unallocated product is stored here.",
+      "column_order": 312
+    },
+    {
+      "name": "NEW_BEST_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case summary adjustment (delta) amount for the unallocated product made by all the subordinates.",
+      "column_order": 313
+    },
+    {
+      "name": "NEW_SUM_SUBADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New unallocated summary adjustment made for fcst_product_id made by all the subordinates. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 314
+    },
+    {
+      "name": "NEW_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 315
+    },
+    {
+      "name": "NEW_PS_BEST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 316
+    },
+    {
+      "name": "NEW_PS_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 317
+    },
+    {
+      "name": "NEW_PS_WRST_SUM_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case summary adjustment (delta) amount for the pseudo territory is stored here.",
+      "column_order": 318
+    },
+    {
+      "name": "NEW_PS_WRST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New worst case summary adjustment (delta) amount for the unallocated product for the pseudo territory.",
+      "column_order": 319
+    },
+    {
+      "name": "NEW_PS_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product for the pseudo territory.",
+      "column_order": 320
+    },
+    {
+      "name": "NEW_PS_BEST_SUM_ADJ_UNAL_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New best case summary adjustment (delta) amount for the unallocated product for the pseudo territory is stored here.",
+      "column_order": 321
+    },
+    {
+      "name": "NEW_SUMADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New summary adjustment (delta) for quantity for non-pseudo territory is stored here.",
+      "column_order": 322
+    },
+    {
+      "name": "NEW_SUMADJ_SUB_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New summary adjustment (delta) on quantity made by all the subordinates is stored here.",
+      "column_order": 323
+    },
+    {
+      "name": "NEW_SUMADJ_SUB_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Subordinate new adjustment for an unallocated product.",
+      "column_order": 324
+    },
+    {
+      "name": "NEW_SUMADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New unallocated summary adjustment made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product.",
+      "column_order": 325
+    },
+    {
+      "name": "NEW_PS_SUMADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New summary adjustment delta for quantity for the pseudo territory is stored here.",
+      "column_order": 326
+    },
+    {
+      "name": "NEW_PS_SUMADJ_UNAL_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "New unallocated summary adjustment  for quantity made for fcst_product_id. Will be NULL if fcst_product_id is a leaf product for the pseudo territory.",
+      "column_order": 327
+    }
+  ]
+}

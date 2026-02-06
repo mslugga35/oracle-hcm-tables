@@ -1,0 +1,219 @@
+{
+  "id": 35593,
+  "name": "SBS_JOB_EXECUTIONS",
+  "type": "TABLE",
+  "description": "Job manager table",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/sbsjobexecutions-19498.html#sbsjobexecutions-19498",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "JOB_EXECUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The identifier column for every job request execution",
+      "column_order": 1
+    },
+    {
+      "name": "JOB_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key reference to job requests identifier column",
+      "column_order": 2
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Name of the job definition for this execution request",
+      "column_order": 3
+    },
+    {
+      "name": "JOB_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "N",
+      "description": "This column displays the status of the job execution. Valid values are Running, Successful, Failed, Cancelled",
+      "column_order": 4
+    },
+    {
+      "name": "CANCEL_REQUEST_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "The status for processing the cancellation request",
+      "column_order": 5
+    },
+    {
+      "name": "JOB_EXECUTION_CONTEXT",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "To store the job execution context such as a job request and etc.",
+      "column_order": 6
+    },
+    {
+      "name": "JOB_RETRY_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Job request retry number, starting from 0, which is increased by 1 for every subsequent retry attempt",
+      "column_order": 7
+    },
+    {
+      "name": "START_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual start time of the job",
+      "column_order": 8
+    },
+    {
+      "name": "END_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual end time of the job",
+      "column_order": 9
+    },
+    {
+      "name": "TIMEOUT_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Termination timeout threshold (in seconds), which is used to automatically timeout and terminate a running job",
+      "column_order": 10
+    },
+    {
+      "name": "ARRAY_JOB_PARENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "ID of the parent execution record that represents the overall array job.",
+      "column_order": 11
+    },
+    {
+      "name": "ARRAY_JOB_INSTANCE_INDEX",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "-2 for manager container running in PRE-PROCESSING mode, -1 for manager container running in POST-PROCESSING mode, 0 for first worker instance, 1 for second worker instance, etc., NULL in all other cases.",
+      "column_order": 12
+    },
+    {
+      "name": "RETRY_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "To store retry count for a single execution, each execution is for a given job retry count",
+      "column_order": 13
+    },
+    {
+      "name": "IS_PREEMPTION_ALLOWED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the job can be preemptively terminated after it is already running",
+      "column_order": 14
+    },
+    {
+      "name": "SCHEDULING_URGENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The level of scheduling urgency for the job, e.g. NORMAL, TIME_SENSITIVE, TIME_INSENSITIVE",
+      "column_order": 15
+    },
+    {
+      "name": "DELAY_TOLERANCE_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "The amount of execution delay in seconds that the job can tolerate",
+      "column_order": 16
+    },
+    {
+      "name": "SCHEDULED_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The time at which the job is scheduled to run",
+      "column_order": 17
+    },
+    {
+      "name": "JOB_RESOURCE_RELEASED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicate whether the job resources are released. Possible values are NULL, N, Y",
+      "column_order": 18
+    },
+    {
+      "name": "LAST_PUBLISHED_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Tracks the last status published for Job Scheduler to consume",
+      "column_order": 19
+    },
+    {
+      "name": "TIMEOUT_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The timer set for the current state would expire after the given time",
+      "column_order": 20
+    },
+    {
+      "name": "VISIBILITY_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The visibility flag used to support multiple consumers",
+      "column_order": 21
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 22
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 26
+    }
+  ]
+}

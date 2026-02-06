@@ -1,0 +1,291 @@
+{
+  "id": 28919,
+  "name": "IBY_INSTR_CREATION_RULES_",
+  "type": "TABLE",
+  "description": "IBY_INSTR_CREATION_RULES specifies how payments are grouped into payment instructions. Payment instructions are always grouped by internal bank account and payment process profile but additional items stored in this table can be added for further grouping. With more grouping rules, there are likely to be more, but smaller, payment instructions. This table corresponds to the Payment Instruction Creation tab of the Update Payment Process Profile page.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibyinstrcreationrules-18700.html#ibyinstrcreationrules-18700",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SYSTEM_PROFILE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Unique primary key",
+      "column_order": 1
+    },
+    {
+      "name": "ORG_ID_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Business unit flag",
+      "column_order": 2
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 3
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 8
+    },
+    {
+      "name": "GROUP_BY_PAYMENT_DATE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for payment date.",
+      "column_order": 9
+    },
+    {
+      "name": "GROUP_BY_PAYMENT_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for payment currency.",
+      "column_order": 10
+    },
+    {
+      "name": "GROUP_BY_INTERNAL_BANK_ACCOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for disbursement bank account. If the processing type on the payment process profile is Printed, this flag is automatically set to Yes and cannot be overridden.",
+      "column_order": 11
+    },
+    {
+      "name": "GROUP_BY_MAX_PAYMENTS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether there is a limit on the number of payments that can be grouped into one payment file.",
+      "column_order": 12
+    },
+    {
+      "name": "GROUP_BY_PAY_SERVICE_REQUEST",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they originated in different payment process requests.",
+      "column_order": 13
+    },
+    {
+      "name": "GROUP_BY_LEGAL_ENTITY",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for legal entity.",
+      "column_order": 14
+    },
+    {
+      "name": "GROUP_BY_BILL_PAYABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for bill payable.",
+      "column_order": 15
+    },
+    {
+      "name": "GROUP_BY_ORGANIZATION",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for business unit.",
+      "column_order": 16
+    },
+    {
+      "name": "GROUP_BY_MAX_INSTRUCTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether there is a limit on the total payment amount when payment file is created. This value is set to Yes when a value is specified in the MAX_AMOUNT_PER_INSTR_VALUE column.",
+      "column_order": 17
+    },
+    {
+      "name": "GROUP_BY_PAYMENT_FUNCTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for payment function.",
+      "column_order": 18
+    },
+    {
+      "name": "GROUP_BY_PAYMENT_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for payment reason.",
+      "column_order": 19
+    },
+    {
+      "name": "GROUP_BY_RFC",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for regional finance center.",
+      "column_order": 20
+    },
+    {
+      "name": "MAX_PAYMENTS_PER_INSTRUCTION",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Maximum number of payments that can be included in a payment instruction. When a value exists in this column, the Create Payment Instructions program uses it as one of its rules for building payment instructions.",
+      "column_order": 21
+    },
+    {
+      "name": "MAX_AMOUNT_PER_INSTR_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Maximum total amount for which a payment instruction can be created. When a value exists in this column, the Create Payment Instructions program uses it as one of its rules for building payment instructions.",
+      "column_order": 22
+    },
+    {
+      "name": "MAX_AMOUNT_PER_INSTR_CURR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Currency in which the maximum total amount per payment instruction is calculated.",
+      "column_order": 23
+    },
+    {
+      "name": "MAX_AMOUNT_FX_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Exchange rate type, such as corporate, spot, and daily, used to compare the payment file total amount to the maximum total amount allowed. Types are defined in the General Ledger currency exchange rate type table.",
+      "column_order": 24
+    },
+    {
+      "name": "SORT_OPTION_1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary column by which payments in a payment instruction are sorted. Values from the lookup IBY_PAYMENT_SORT_OPTIONS include PAYEE_NAME, PAYEE_NUMBER, and others.",
+      "column_order": 25
+    },
+    {
+      "name": "SORT_ORDER_1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Order in which the primary sorting occurs. Values from the lookup IBY_PAYMENT_SORT_ORDERS include ASCENDING and DESCENDING.",
+      "column_order": 26
+    },
+    {
+      "name": "SORT_OPTION_2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Second column by which payments in a payment instruction are sorted. Values from the lookup IBY_PAYMENT_SORT_OPTIONS include PAYEE_NAME, PAYEE_NUMBER, and others.",
+      "column_order": 27
+    },
+    {
+      "name": "SORT_ORDER_2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Order in which the secondary sorting occurs. Values from the lookup IBY_PAYMENT_SORT_ORDERS include ASCENDING and DESCENDING.",
+      "column_order": 28
+    },
+    {
+      "name": "SORT_OPTION_3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Third column by which payments in a payment instruction are sorted. Values from the lookup IBY_PAYMENT_SORT_OPTIONS include PAYEE_NAME, PAYEE_NUMBER, and others.",
+      "column_order": 29
+    },
+    {
+      "name": "SORT_ORDER_3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Order in which the tertiary sorting occurs. Values from the lookup IBY_PAYMENT_SORT_ORDERS include ASCENDING and DESCENDING.",
+      "column_order": 30
+    },
+    {
+      "name": "GROUP_BY_PAYMENT_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether payments should be put into separate payment files when they have different values for payment method.",
+      "column_order": 31
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 32
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 33
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 34
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 35
+    }
+  ]
+}

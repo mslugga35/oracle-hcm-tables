@@ -1,0 +1,323 @@
+{
+  "id": 33138,
+  "name": "ZSF_FCST_PERIOD_ADJUSTMENT",
+  "type": "TABLE",
+  "description": "This table stores the adjustment amount and subordinate adjustment amount for each period in corporate currency.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zsffcstperiodadjustment-7800.html#zsffcstperiodadjustment-7800",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "FCST_PERIOD_ADJUSTMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key for the table  ZSF_FCST_PERIOD_ADJUSTMENT",
+      "column_order": 1
+    },
+    {
+      "name": "SUMADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The adjustment made to the Quantity field at the Product Aggregate leve;",
+      "column_order": 2
+    },
+    {
+      "name": "SUMADJ_SUB_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The Subordinate adjustment made to the Quantity field at the Product Aggregate leve;",
+      "column_order": 3
+    },
+    {
+      "name": "FCST_ADJUST_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to the periods table namely ZSF_FCST_ADJUST_PERIOD",
+      "column_order": 4
+    },
+    {
+      "name": "BI_ADJUSTMENT_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Same as FCST_ADJUST_PERIOD_ID for a territory adjustment, will be storing last adjusted period for a product adjustment that doesnt have time dimension.",
+      "column_order": 5
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "FCST_ADJUSTMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the summary table storing the adjustment details ZSF_FCST_ADJUSTMENT",
+      "column_order": 7
+    },
+    {
+      "name": "CORP_ADJUSTMENT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The adjustment amount for each adjust period stored in corporate currency.",
+      "column_order": 8
+    },
+    {
+      "name": "CORP_SUB_ADJUST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Adjustment amount done for the subordinate stored in corporate currency.",
+      "column_order": 9
+    },
+    {
+      "name": "FCST_PARTICIPANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This has the foreign key reference to the forecast participant  table",
+      "column_order": 10
+    },
+    {
+      "name": "TERRITORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This has the territory id denormalized and stored here.",
+      "column_order": 11
+    },
+    {
+      "name": "CHANNEL_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "This stores the channel type code, eg : Direct/ Indirect. This is used in summary adj metrics",
+      "column_order": 12
+    },
+    {
+      "name": "ADJUSTMENT_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Adjustment category that corresponds to adjustments on a given forecast item category totals.",
+      "column_order": 13
+    },
+    {
+      "name": "FCST_PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "FK to the snapshot of product hierarchy stored in ZSF_FCST_PRODUCT",
+      "column_order": 14
+    },
+    {
+      "name": "CORP_BESTCASE_ADJUST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The best case adjustment amount for each adjust period stored in corporate currency.",
+      "column_order": 15
+    },
+    {
+      "name": "CORP_SUB_BESTCASE_ADJUST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The best adjustment amount for each adjust period stored in corporate currency for subordinate.",
+      "column_order": 16
+    },
+    {
+      "name": "CORP_WORSTCASE_ADJUST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The worst case adjustment amount for each adjust period stored in corporate currency.",
+      "column_order": 17
+    },
+    {
+      "name": "CORP_SUB_WORSTCASE_ADJUST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The worstcase adjustment amount for each adjust period stored in corporate currency for subordinate.",
+      "column_order": 18
+    },
+    {
+      "name": "CORP_SUB_PROD_ADJUST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This stores the product level adjustment amount entered by subordinate",
+      "column_order": 19
+    },
+    {
+      "name": "CORP_SUB_PROD_BEST_ADJUST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This stores the product level best case amount entered by subordinate",
+      "column_order": 20
+    },
+    {
+      "name": "CORP_SUB_PROD_WORST_ADJUST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This stores the product level worst case amount entered by subordinate",
+      "column_order": 21
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 22
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 23
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 24
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 25
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_MET_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 26
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 27
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 28
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 29
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 30
+    },
+    {
+      "name": "CORP_EXTN_SUMADJ_SUB_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 32
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 37
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 38
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 39
+    }
+  ]
+}

@@ -1,0 +1,539 @@
+{
+  "id": 29210,
+  "name": "AR_BATCHES_ALL",
+  "type": "TABLE",
+  "description": "The AR_BATCHES_ALL table stores batch source information about each receipt and remittance batch. Each row includes specific batch information, such as batch source, status, batch type, control count, and control amount. The BATCH_APPLIED_STATUS column stores the status of each batch. Other status values are used for remittance batches. For receipt batch rows, valid values are IN_PROCESS, PROCESSED, and POSTBATCH_WAITING. The TYPE column has one of these values:  MANUAL for manually created batches, CREATION for batches that contain automatic receipts, REMITTANCE for remittance batches, CLEARANCE for clearance batches, and BR_REMITTANCE for bills receivable remittance batches. The primary key for this table is BATCH_ID.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arbatchesall-5526.html#arbatchesall-5526",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the payment batch",
+      "column_order": 1
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 2
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 4
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 5
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "Payment batch name.",
+      "column_order": 7
+    },
+    {
+      "name": "BATCH_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date for the payment batch",
+      "column_order": 8
+    },
+    {
+      "name": "GL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounting date.",
+      "column_order": 9
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Payment batch status",
+      "column_order": 10
+    },
+    {
+      "name": "DEPOSIT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Deposit date for the payment batch",
+      "column_order": 11
+    },
+    {
+      "name": "CLOSED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the payment batch closed",
+      "column_order": 12
+    },
+    {
+      "name": "TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Type of the payment batch",
+      "column_order": 13
+    },
+    {
+      "name": "CONTROL_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Control count of items in the payment batch",
+      "column_order": 14
+    },
+    {
+      "name": "ACTUAL_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Number of receipts in this payment batch",
+      "column_order": 15
+    },
+    {
+      "name": "ACTUAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual amount for this payment batch",
+      "column_order": 16
+    },
+    {
+      "name": "CONTROL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Control amount for this payment batch",
+      "column_order": 17
+    },
+    {
+      "name": "BATCH_APPLIED_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates the actual stage of the payment batch",
+      "column_order": 18
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Currency code for the batch",
+      "column_order": 19
+    },
+    {
+      "name": "EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used to define multiple currency exchange rates for the same date",
+      "column_order": 20
+    },
+    {
+      "name": "EXCHANGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date for which rate is selected",
+      "column_order": 21
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Exchange rate used to convert foreign currency amounts into functional currency",
+      "column_order": 22
+    },
+    {
+      "name": "TRANSMISSION_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the lockbox transmission associated with this payment batch",
+      "column_order": 23
+    },
+    {
+      "name": "LOCKBOX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the lockbox associated with this payment batch",
+      "column_order": 24
+    },
+    {
+      "name": "LOCKBOX_BATCH_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Name of the lockbox associated with this payment batch",
+      "column_order": 25
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Comments",
+      "column_order": 26
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 28
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 29
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 30
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 31
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "MEDIA_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of the media that will be used for the transmission",
+      "column_order": 38
+    },
+    {
+      "name": "OPERATION_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent request of the program which creates the payment batch",
+      "column_order": 39
+    },
+    {
+      "name": "RECEIPT_METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to the payment method in AR_RECEIPT_METHODS",
+      "column_order": 40
+    },
+    {
+      "name": "REMITTANCE_BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to the remittance bank account in AP_BANK_ACCOUNTS",
+      "column_order": 41
+    },
+    {
+      "name": "RECEIPT_CLASS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key reference to RECEIPT_CLASS_ID from AR_RECEIPT_CLASSES",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - application id of the program that last updated this row (foreign key to FND_APPLICATION.APPLICATION_ID).",
+      "column_order": 48
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - program id of the program that last updated this row (foreign key to FND_CONCURRENT_PROGRAM.CONCURRENT_PROGRAM_ID).",
+      "column_order": 49
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - date when a program last updated this row).",
+      "column_order": 50
+    },
+    {
+      "name": "REMITTANCE_BANK_BRANCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the default remittance bank branch of the payment batch",
+      "column_order": 51
+    },
+    {
+      "name": "REMIT_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the remittance method that will be used for remitting automatic receipts created with this payment batch",
+      "column_order": 52
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 53
+    },
+    {
+      "name": "SET_OF_BOOKS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the General Ledger set of books associated with this payment batch",
+      "column_order": 54
+    },
+    {
+      "name": "TRANSMISSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the transmission that processed the lockbox receipts",
+      "column_order": 55
+    },
+    {
+      "name": "BANK_DEPOSIT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "An optional, user entered reference number",
+      "column_order": 56
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 57
+    },
+    {
+      "name": "PURGED_CHILDREN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Value is Yes if some details have been purged; otherwise value is null",
+      "column_order": 58
+    },
+    {
+      "name": "WITH_RECOURSE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the bank has the right of recourse if the drawee defaults on a factored bill receivable",
+      "column_order": 59
+    },
+    {
+      "name": "AUTO_PRINT_PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Print program identifier to be used for the remittance.",
+      "column_order": 60
+    },
+    {
+      "name": "AUTO_TRANS_PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Magnetic format print program identifier to be used for the remittance.",
+      "column_order": 61
+    },
+    {
+      "name": "REMIT_BANK_ACCT_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the remittance bank account use id to which the automatic receipt will be deposited",
+      "column_order": 62
+    },
+    {
+      "name": "OLD_REMITTANCE_BANK_BRANCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the old default remittance bank branch of the payment batch.",
+      "column_order": 63
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 64
+    },
+    {
+      "name": "BATCH_SOURCE_SEQ_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Batch source sequence identifier.",
+      "column_order": 65
+    },
+    {
+      "name": "AUTOMATCH_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Automatch request identifier",
+      "column_order": 66
+    }
+  ]
+}

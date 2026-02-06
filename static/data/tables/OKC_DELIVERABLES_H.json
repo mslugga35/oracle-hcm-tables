@@ -1,0 +1,803 @@
+{
+  "id": 31150,
+  "name": "OKC_DELIVERABLES_H",
+  "type": "TABLE",
+  "description": "OKC_DELIVERABLES_H stores deliverables present on a business document.   Each deliverable has a due date, either a fixed due date or relative due date. A relative due date is relative to an event in the lifecycle of the business document.  A deliverable can be one-time or recurring. A deliverable can be defined on a business document like Purchase Order, RFQ, RFI, Blanket Purchase Agreement or defined on a Contract Template and defaulted onto the business document from the contract template .  Deliverables can be one of the three types: Contractual, Internal Purchasing and Negotiation.    Each deliverable can have a responsible party (Supplier or Buyer Organization) and a contact for each. Note: Deliverables are only supported on Procurement Contracts covering the following document types: a)\tPurchase Order b)\tBlanket Purchase Agreement c)\tRFQ d)\tRFI and  e)\tAuctions",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/okcdeliverablesh-12113.html#okcdeliverablesh-12113",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DELIVERABLE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique Identifier for a Deliverable. This is also the Primary key for the table.",
+      "column_order": 1
+    },
+    {
+      "name": "CONTRACT_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "CONTRACT_TYPE_ID",
+      "column_order": 2
+    },
+    {
+      "name": "MANUALLY_ACTIVATED_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "MANUALLY_ACTIVATED_YN",
+      "column_order": 3
+    },
+    {
+      "name": "BUSINESS_DOCUMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Business Document Type for the Deliverable. Refers to DOCUMENT_TYPE in OKC_BUS_DOC_TYPES_B",
+      "column_order": 4
+    },
+    {
+      "name": "BUSINESS_DOCUMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Unique Identifier for a Business Document of the  Business Document Type. (Example: If BUSINESS_DOCUMENT_TYPE= `BPA` then the BUSINESS_DOCUMENT_ID with the PO_HEADER_ID from PO_HEADERS_ALL)",
+      "column_order": 5
+    },
+    {
+      "name": "BUSINESS_DOCUMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Document Number for a Business Document. Example: PO_NUMBER, AUCTION_ID .",
+      "column_order": 6
+    },
+    {
+      "name": "DELIVERABLE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Deliverable Type for the given Deliverable. Some of the valid values are CONTRACTUAL, INTERNAL_PURCHASING and SOURCING. Refers to the deliverable_type_code in OKC_DELIVERABLE_TYPES_B.",
+      "column_order": 7
+    },
+    {
+      "name": "RESPONSIBLE_PARTY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Responsible Party for the given Deliverable. Valid Values are SUPPLIER_ORG or BUYER_ORG. Refers to the RESP_PARTY_CODE in the OKC_DEL_RESP_PARTIES_B table.",
+      "column_order": 8
+    },
+    {
+      "name": "INTERNAL_PARTY_CONTACT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique Identifier for the Internal Party contact on a Deliverable",
+      "column_order": 9
+    },
+    {
+      "name": "EXTERNAL_PARTY_CONTACT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique Identifier for the External Party contact on a Deliverable",
+      "column_order": 10
+    },
+    {
+      "name": "DELIVERABLE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "Name for the Deliverable.",
+      "column_order": 11
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Deliverable description",
+      "column_order": 12
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Notes added on the Deliverable by the internal  user.",
+      "column_order": 13
+    },
+    {
+      "name": "DISPLAY_SEQUENCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The sequence in which the deliverable will appear on a Contract when printed.",
+      "column_order": 14
+    },
+    {
+      "name": "FIXED_DUE_DATE_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate if the deliverable has a fixed due date. Valid values are Y and N.",
+      "column_order": 15
+    },
+    {
+      "name": "ACTUAL_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The actual date by which the deliverable is due.",
+      "column_order": 16
+    },
+    {
+      "name": "RECURRING_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate if the deliverable is one-time or recurring. Valid values are Y and N.",
+      "column_order": 17
+    },
+    {
+      "name": "NOTIFY_PRIOR_DUE_DATE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the number of periods (period type specified by NOTIFY_PRIOR_DUE_DATE_UOM column) prior to the due date by which the Reminder notification  has to be sent.",
+      "column_order": 18
+    },
+    {
+      "name": "NOTIFY_PRIOR_DUE_DATE_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the  period type (Days, Weeks or Months) prior to the due date by which the Deliverable Reminder notification has to be sent. Refers to LOOKUP_CODE in FND_LOOKUPS where LOOKUP_TYPE = `OKC_DELIVERABLE_TIME_UNITS`.",
+      "column_order": 19
+    },
+    {
+      "name": "NOTIFY_PRIOR_DUE_DATE_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate whether a notification needs to be sent prior to the Due Date on the Deliverable.",
+      "column_order": 20
+    },
+    {
+      "name": "NOTIFY_COMPLETED_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate whether a notification should be sent upon any change in status of the Deliverable.",
+      "column_order": 21
+    },
+    {
+      "name": "NOTIFY_OVERDUE_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate whether a notification needs to be sent if the Deliverable is overdue.",
+      "column_order": 22
+    },
+    {
+      "name": "NOTIFY_ESCALATION_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate whether an escalation notification needs to be sent if the Deliverable is overdue.",
+      "column_order": 23
+    },
+    {
+      "name": "NOTIFY_ESCALATION_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the number of periods (period type specified by the NOTIFY_ESCALATION_UOM column) after the due date by which an escalation notification is to be sent",
+      "column_order": 24
+    },
+    {
+      "name": "NOTIFY_ESCALATION_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the period type (Days, Weeks or Months) by which an escalation notification is due. Refers to the LOOKUP_CODE in FND_LOOKUPS where LOOKUP_TYPE= `OKC_DELIVERABLE_TIME_UNITS`.",
+      "column_order": 25
+    },
+    {
+      "name": "ESCALATION_ASSIGNEE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique Identifier for the Internal Party contact to whom the escalation notification needs to be sent",
+      "column_order": 26
+    },
+    {
+      "name": "AMENDMENT_OPERATION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code to indicate the type of the amendment performed on the Deliverable. Valid values are ADDED, DELETED and UPDATED. Refers to the LOOKUP_CODE in FND_LOOKUPS where  LOOKUP_TYPE= `OKC_AMEND_OPN_CODE`.",
+      "column_order": 27
+    },
+    {
+      "name": "PRIOR_NOTIFICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "System generated identifier for the Notification sent as Reminder Notification prior to the due date of the Deliverable.",
+      "column_order": 28
+    },
+    {
+      "name": "AMENDMENT_NOTES",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Notes to describe the amendment operation performed on the Deliverable.",
+      "column_order": 29
+    },
+    {
+      "name": "COMPLETED_NOTIFICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "System generated identifier for the Notification sent upon status change of a Deliverable.",
+      "column_order": 30
+    },
+    {
+      "name": "OVERDUE_NOTIFICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "System generated identifier for the Notification sent when a Deliverable is overdue.",
+      "column_order": 31
+    },
+    {
+      "name": "ESCALATION_NOTIFICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "System generated identifier for the Notification sent when an overdue Deliverable is escalated.",
+      "column_order": 32
+    },
+    {
+      "name": "DELIVERABLE_LANGUAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 12,
+      "nullable": "N",
+      "description": "Language of the Deliverable",
+      "column_order": 33
+    },
+    {
+      "name": "ORIGINAL_DELIVERABLE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Identifier of the original deliverable on which amendments have been performed. This is carried forward across all the versions of that deliverable. This will be used to synchronize status of a deliverable across versions.",
+      "column_order": 34
+    },
+    {
+      "name": "REQUESTER_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique Identifier for the Internal Party contact who requested the Deliverable.",
+      "column_order": 35
+    },
+    {
+      "name": "EXTERNAL_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique Identifier for the External Party on the Deliverable",
+      "column_order": 36
+    },
+    {
+      "name": "RECURRING_DEL_PARENT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Deliverable Id of the recurring Deliverable from which recurring instances are generated.",
+      "column_order": 37
+    },
+    {
+      "name": "BUSINESS_DOCUMENT_VERSION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Business document version for a given Business Document Id",
+      "column_order": 38
+    },
+    {
+      "name": "RELATIVE_ST_DATE_DURATION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Duration before or after the Relative Start Date. The period type is defined by the RELATIVE_ST_DATE_UOM",
+      "column_order": 39
+    },
+    {
+      "name": "RELATIVE_ST_DATE_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Period type for the start date of the due date. Only applicable when the deliverable has a relative start date. Refers to the LOOKUP_CODE in FND_LOOKUPS where LOOKUP_TYPE= `OKC_DELIVERABLE_TIME_UNITS`.",
+      "column_order": 40
+    },
+    {
+      "name": "RELATIVE_ST_DATE_EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique Identifier for the start date event. Only applicable when the deliverable has a relative start date. Refers to the EVENT_ID in OKC_BUS_DOC_EVENTS_B",
+      "column_order": 41
+    },
+    {
+      "name": "RELATIVE_END_DATE_DURATION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Duration before or after the Relative End Date. The period type is defined by the RELATIVE_END_DATE_UOM",
+      "column_order": 42
+    },
+    {
+      "name": "RELATIVE_END_DATE_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Period type for the end date of the due date. Only applicable when the deliverable has a relative end date. Refers to the LOOKUP_CODE in FND_LOOKUPS where LOOKUP_TYPE= `OKC_DELIVERABLE_TIME_UNITS`.",
+      "column_order": 43
+    },
+    {
+      "name": "RELATIVE_END_DATE_EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique Identifier for the end date event. Refers to EVENT_ID in OKC_BUS_DOC_EVENTS_B",
+      "column_order": 44
+    },
+    {
+      "name": "REPEATING_DAY_OF_MONTH",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Day of the month the deliverable will repeat. Refers to LOOKUP_CODE in FND_LOOKUPS where LOOKUP_TYPE=` OKC_DAY_OF_MONTH `",
+      "column_order": 45
+    },
+    {
+      "name": "REPEATING_DAY_OF_WEEK",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Day of the week the deliverable will repeat. Refers to the LOOKUP_CODE in FND_LOOKUPS where LOOKUP_TYPE= `DAY_OF_WEEK`.",
+      "column_order": 46
+    },
+    {
+      "name": "REPEATING_FREQUENCY_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Repeating frequency for a recurring deliverable.. Used in conjunction with the REPEATING_DURATION column to define the repeating frequency. Example: 3 months. Refers to the LOOKUP_CODE in FND_LOOKUPS where LOOKUP_TYPE= `OKC_DEL_REPEAT_FREQ`.",
+      "column_order": 47
+    },
+    {
+      "name": "REPEATING_DURATION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Duration of the repeating frequency for a recurring deliverable. Used in conjunction with REPEATING_FREQUENCY_UOM. Example: 3 months",
+      "column_order": 48
+    },
+    {
+      "name": "FIXED_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start date of the deliverable when the start date is fixed.",
+      "column_order": 49
+    },
+    {
+      "name": "FIXED_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End date of the deliverable when the end date is fixed.",
+      "column_order": 50
+    },
+    {
+      "name": "MANAGE_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate if the deliverable is active and if it can be managed/fulfilled. Valid values are Y and N",
+      "column_order": 51
+    },
+    {
+      "name": "INTERNAL_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique identifier for the Internal party on the deliverable.",
+      "column_order": 52
+    },
+    {
+      "name": "DELIVERABLE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Current status of this Deliverable. Refers to LOOKUP_CODE in FND_LOOKUPS where LOOKUP_TYPE= `OKC_DELIVERABLE_STATUS`",
+      "column_order": 53
+    },
+    {
+      "name": "STATUS_CHANGE_NOTES",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Notes provided by the responsible party as part of managing the deliverable",
+      "column_order": 54
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 55
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 56
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 57
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 58
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 59
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "ATTRIBUTE21",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE22",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE23",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE24",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE25",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE26",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE27",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE28",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE29",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE30",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "DISABLE_NOTIFICATIONS_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate whether or not notifications are disabled for a Deliverable. Valid values are Y or N. By default the value is N . Used to disable notifications for e.g., on a draft bid until the bid is submitted. The value is set to Y once the bid is submitted.",
+      "column_order": 92
+    },
+    {
+      "name": "LAST_AMENDMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last time amendment occurred on this Deliverable",
+      "column_order": 93
+    },
+    {
+      "name": "BUSINESS_DOCUMENT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique Identifier for a Line Item in a Business Document. (For Future use)",
+      "column_order": 94
+    },
+    {
+      "name": "EXTERNAL_PARTY_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique identifier for the external party site. Example: Supplier Site of a Supplier",
+      "column_order": 95
+    },
+    {
+      "name": "START_EVENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the start event of this Deliverable occurred. Only applicable for a Relative due date deliverable.",
+      "column_order": 96
+    },
+    {
+      "name": "END_EVENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the end event of this Deliverable occurred. Only applicable for a Relative due date deliverable.",
+      "column_order": 97
+    },
+    {
+      "name": "SUMMARY_AMEND_OPERATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Resultant amendment code for the amendment operations performed on a deliverable between two signed versions of the business document.",
+      "column_order": 98
+    },
+    {
+      "name": "EXTERNAL_PARTY_ROLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Role of the external party. Valid values are SUPPLIER_ORG, CUSTOMER_ORG, PARTNER_ORG.",
+      "column_order": 99
+    }
+  ]
+}

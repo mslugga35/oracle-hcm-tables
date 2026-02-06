@@ -1,0 +1,635 @@
+{
+  "id": 28988,
+  "name": "IBY_SYS_PMT_PROFILES_B_",
+  "type": "TABLE",
+  "description": "IBY_SYS_PMT_PROFILES stores seeded information that specifies the bulk of payment processing behavior. The rest of the behavior is specified in a user-defined account payment process profile stored in IBY_ACCT_PMT_PROFILES. A combination of the two tables is defined in the view IBY_PAYMENT_PROFILES. The payment process profile as a whole controls the behavior of the payment process. To create a payment process profile, the user specifies how the payment instruction should be formatted, how it should be transmitted, how its acknowledgment and clearing files should be handled by the system, and other relevant information. This table corresponds to the Payment Process Profile pages.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibysyspmtprofilesb-24783.html#ibysyspmtprofilesb-24783",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SYSTEM_PROFILE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "User-entered primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "LOGICAL_GROUPING_MODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies the grouping mode for ISO20022 format.",
+      "column_order": 2
+    },
+    {
+      "name": "BEPID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment system Identifier",
+      "column_order": 3
+    },
+    {
+      "name": "SECURITY_PROTOCOL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Security protocol Identifier",
+      "column_order": 4
+    },
+    {
+      "name": "TRANSMIT_PROTOCOL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Transmission protocol Identifier",
+      "column_order": 5
+    },
+    {
+      "name": "PAYMENT_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment format code",
+      "column_order": 6
+    },
+    {
+      "name": "POSITIVE_PAY_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Positive pay format code",
+      "column_order": 7
+    },
+    {
+      "name": "PAY_FILE_LETTER_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment file accompanying letter format code",
+      "column_order": 8
+    },
+    {
+      "name": "PRINT_INSTRUCTION_IMMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether a printed payment instruction should be printed immediately after the payment instruction is created. The default value of this flag is N. The value of this flag defaults to the Print Directly After Formatting parameter of the Create Payment Instruction program.",
+      "column_order": 9
+    },
+    {
+      "name": "DEFAULT_PRINTER",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Printer to be used by default for printing payments.",
+      "column_order": 10
+    },
+    {
+      "name": "DEFAULT_PAYMENT_DOCUMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment document to be used by default for printing payments.",
+      "column_order": 11
+    },
+    {
+      "name": "PERIODIC_SEQUENCE_NAME_1",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of the sequence. The name is referenced in the payment format templates.",
+      "column_order": 12
+    },
+    {
+      "name": "PERIODIC_SEQUENCE_NAME_2",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of the sequence. The name is referenced in the payment format templates.",
+      "column_order": 13
+    },
+    {
+      "name": "PERIODIC_SEQUENCE_NAME_3",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of the sequence. The name is referenced in the payment format templates.",
+      "column_order": 14
+    },
+    {
+      "name": "PROCESSING_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies what type of processing should be done. Values from the IBY_PROCESSING_TYPES lookup include ELECTRONIC and PRINTED.",
+      "column_order": 15
+    },
+    {
+      "name": "MARK_COMPLETE_EVENT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Event at which payments in a payment instruction are automatically marked complete. Values are from the lookup IBY_MARK_COMPLETE_EVENTS. Value for payments with a processing type of Printed is always PRINTED.",
+      "column_order": 16
+    },
+    {
+      "name": "MANUAL_MARK_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether an administrator can manually mark the payments in a payment instruction complete after the instruction is formatted, but before it is automatically marked complete",
+      "column_order": 17
+    },
+    {
+      "name": "POSITIVE_PAY_DELIVERY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether Positive Pay is delivered using the same transmission configuration as the payment instruction.",
+      "column_order": 18
+    },
+    {
+      "name": "TRANSMIT_INSTR_IMMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether an electronic payment instruction should be transmitted immediately after the payment instruction is created. The default value of this flag is N. The value of this flag defaults to the Print Directly After Formatting parameter of the Create Payment Instruction program.",
+      "column_order": 19
+    },
+    {
+      "name": "SEEDED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag controlling updatability of records. Y indicates record was seeded by Oracle and may have user updates limited.",
+      "column_order": 20
+    },
+    {
+      "name": "AUTOMATIC_PI_REG_SUBMIT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether the payment instruction register is submitted automatically at the payment completion point",
+      "column_order": 21
+    },
+    {
+      "name": "AUTOMATIC_PPR_REPORT_SUBMIT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Submit payment process request status report automatically",
+      "column_order": 22
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 23
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 27
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 28
+    },
+    {
+      "name": "DECLARATION_OPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies the customer's chosen declaration option. The declaration options are defined in IBY_CENTRAL_BANK_REPORT_OPTION lookup. They include NO_DECLARATIONS, DECLARE_THROUGH_BANK, and DECLARE_DIRECT_TO_CENTRAL_BANK",
+      "column_order": 29
+    },
+    {
+      "name": "DCL_ONLY_FOREIGN_CURR_PMT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used in upgrade.",
+      "column_order": 30
+    },
+    {
+      "name": "DECLARATION_REPORT_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Format of the Regulatory Report. Only needed if the DECLARATION_OPTION is set to DECLARE_DIRECT_TO_CENTRAL_BANK",
+      "column_order": 31
+    },
+    {
+      "name": "DECLARATION_CURR_FX_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Exchange rate type, such as corporate, spot, and daily, used for regulatory reporting. Types are defined in the General Ledger currency exchange rate type table.",
+      "column_order": 32
+    },
+    {
+      "name": "DECLARATION_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Declaration or reporting currency code",
+      "column_order": 33
+    },
+    {
+      "name": "DECLARATION_THRESHOLD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Threshold amount, above which the payment needs to be reported to the central bank",
+      "column_order": 34
+    },
+    {
+      "name": "BANK_INSTRUCTION1_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code of first bank instruction",
+      "column_order": 35
+    },
+    {
+      "name": "BANK_INSTRUCTION2_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code of second bank instruction",
+      "column_order": 36
+    },
+    {
+      "name": "BANK_INSTRUCTION_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Additional bank instruction details",
+      "column_order": 37
+    },
+    {
+      "name": "PAYMENT_TEXT_MESSAGE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Text message for use in payment processing",
+      "column_order": 38
+    },
+    {
+      "name": "PAYMENT_TEXT_MESSAGE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Text message for use in payment processing",
+      "column_order": 39
+    },
+    {
+      "name": "INACTIVE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Inactive date",
+      "column_order": 40
+    },
+    {
+      "name": "ACK_TRANSMIT_PROTOCOL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Transmission protocol identifier for acknowledgment file",
+      "column_order": 41
+    },
+    {
+      "name": "ACK_SECURITY_PROTOCOL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Security protocol identifier for acknowledgment file",
+      "column_order": 42
+    },
+    {
+      "name": "SEND_TO_FILE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether the payment format output should be sent to a file or a system printer. A Y value indicates that the formatted output is sent to a file so that payments may be printed outside of Oracle Payments. An N value indicates that the printing of the formatted output is managed within Oracle Payments.",
+      "column_order": 43
+    },
+    {
+      "name": "PPR_REPORT_FORMAT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Format to be used for payment process request status report",
+      "column_order": 44
+    },
+    {
+      "name": "PI_REGISTER_FORMAT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment Instruction Register format",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "OUTBOUND_PMT_FILE_DIRECTORY",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "File directory where output of outbound payment file is stored",
+      "column_order": 62
+    },
+    {
+      "name": "OUTBOUND_PMT_FILE_EXTENSION",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "File extension of outbound payment files",
+      "column_order": 63
+    },
+    {
+      "name": "OUTBOUND_PMT_FILE_PREFIX",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "File name prefix of outbound payment files",
+      "column_order": 64
+    },
+    {
+      "name": "POSITIVE_PAY_FILE_DIRECTORY",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "File directory where output of positive pay file is stored",
+      "column_order": 65
+    },
+    {
+      "name": "POSITIVE_PAY_FILE_EXTENSION",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "File extension of positive pay files",
+      "column_order": 66
+    },
+    {
+      "name": "POSITIVE_PAY_FILE_PREFIX",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "File name prefix of positive pay files",
+      "column_order": 67
+    },
+    {
+      "name": "ELECTRONIC_PROCESSING_CHANNEL",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Investigate",
+      "column_order": 68
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date from which the payment process profile is available for use.",
+      "column_order": 69
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date until which the payment process profile is available for use.",
+      "column_order": 70
+    },
+    {
+      "name": "BATCH_BOOKING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Denotes if customer requests for batch booking entry to their bank.",
+      "column_order": 71
+    },
+    {
+      "name": "SERVICE_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The service level with which a payment transaction should be processed.",
+      "column_order": 72
+    },
+    {
+      "name": "DELIVERY_CHANNEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Additional information to qualify a service level.",
+      "column_order": 73
+    },
+    {
+      "name": "AUTO_RECORD_PRINTED_PMTS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the check print status is automatically recorded after payment.",
+      "column_order": 74
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 75
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 76
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 77
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 78
+    }
+  ]
+}

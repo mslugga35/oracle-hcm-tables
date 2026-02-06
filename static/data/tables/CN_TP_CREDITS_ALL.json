@@ -1,0 +1,915 @@
+{
+  "id": 34691,
+  "name": "CN_TP_CREDITS_ALL",
+  "type": "TABLE",
+  "description": "This table stores Credited transactions",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/cntpcreditsall-20880.html#cntpcreditsall-20880",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CREDIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Generated from the sequence",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Points to the base transaction from which the credit is generated. This column will have value for direct and rollup credit (if summ is not enabled).",
+      "column_order": 3
+    },
+    {
+      "name": "SOURCE_CREDIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Points to the source credit/summarized credit  record from which the rollup credit is generated. This column will have value only for rollup credits.",
+      "column_order": 4
+    },
+    {
+      "name": "SUMMARY_CREDIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Points to the summarized credit record. This column will have value for direct credits if summarization is enabled.",
+      "column_order": 5
+    },
+    {
+      "name": "TRANSACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Transaction Type, identifying the source of the transaction",
+      "column_order": 6
+    },
+    {
+      "name": "CREDIT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Possible Values : Direct, Indirect, Summarized",
+      "column_order": 7
+    },
+    {
+      "name": "CREATED_DURING",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Possible values: Crediting, Summarization, Rollup, Team Rollup",
+      "column_order": 8
+    },
+    {
+      "name": "PARTICIPANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for salesrep of the transaction",
+      "column_order": 9
+    },
+    {
+      "name": "CREDITED_PARTICIPANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for credited salesrep",
+      "column_order": 10
+    },
+    {
+      "name": "ROLE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Role of the Credited participant",
+      "column_order": 11
+    },
+    {
+      "name": "SOURCE_EVENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date transaction was processed in the source system",
+      "column_order": 12
+    },
+    {
+      "name": "SOURCE_EVENT_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Period ID of source event date",
+      "column_order": 13
+    },
+    {
+      "name": "ROLLUP_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date based on which rollup hierarchy will be determined",
+      "column_order": 14
+    },
+    {
+      "name": "CREDIT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date based on which Direct Credit Receivers will be identified",
+      "column_order": 15
+    },
+    {
+      "name": "CREDIT_AMT_SOURCE_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit Amount in source currency",
+      "column_order": 16
+    },
+    {
+      "name": "TRANSACTION_AMT_SOURCE_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in source currency",
+      "column_order": 17
+    },
+    {
+      "name": "SOURCE_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Source Currency Code",
+      "column_order": 18
+    },
+    {
+      "name": "CALC_TO_SOURCE_CURR_CNVRT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used to convert amount from calculation currency to source currency : this will be populated during credit adjustment in UI",
+      "column_order": 19
+    },
+    {
+      "name": "CREDIT_AMT_FUNC_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit amount in functional currency",
+      "column_order": 20
+    },
+    {
+      "name": "TRANSACTION_AMT_FUNC_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in functional currency",
+      "column_order": 21
+    },
+    {
+      "name": "CALC_TO_FUNC_CURR_CNVRT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used to convert credit amount from calculation currency to functional currency. This column will be populated while creating record from credit UI",
+      "column_order": 22
+    },
+    {
+      "name": "SOURCE_TO_FUNC_CURR_CNVRT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used to convert credit amount from source currency to functional currency. This column will be populated while creating record by the crediting process",
+      "column_order": 23
+    },
+    {
+      "name": "CREDIT_AMT_HOME_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit amount in Home currency",
+      "column_order": 24
+    },
+    {
+      "name": "TRANSACTION_AMT_HOME_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in Home currency",
+      "column_order": 25
+    },
+    {
+      "name": "HOME_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Participant's home currency code",
+      "column_order": 26
+    },
+    {
+      "name": "CALC_TO_HOME_CURR_CNVRT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used to convert credit amount from calculation currency to home currency",
+      "column_order": 27
+    },
+    {
+      "name": "SOURCE_TO_HOME_CURR_CNVRT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used to ocnvert credit amount from Source currency to Participant's home currency. This column will be populated while creating record from the crediting process",
+      "column_order": 28
+    },
+    {
+      "name": "CREDIT_AMT_CALC_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit amount in Calculation currency",
+      "column_order": 29
+    },
+    {
+      "name": "TRANSACTION_AMT_CALC_CURR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in Calculation currency",
+      "column_order": 30
+    },
+    {
+      "name": "CALC_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Participant's calculation currency code",
+      "column_order": 31
+    },
+    {
+      "name": "SOURCE_TO_CALC_CURR_CNVRT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used to convert credit amount from source currency to calculation currency. This will be populated while creating the credits in the crediting process",
+      "column_order": 32
+    },
+    {
+      "name": "TRANSACTION_QTY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quantity of the unit sold in the transaction",
+      "column_order": 33
+    },
+    {
+      "name": "REVENUE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Possible values : Revenue, Non revenue, a custom revenue type",
+      "column_order": 34
+    },
+    {
+      "name": "NEW_CREDIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Points to the adjusted credit record",
+      "column_order": 35
+    },
+    {
+      "name": "ELIGIBLE_CAT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Eligible Category, populated during classification",
+      "column_order": 36
+    },
+    {
+      "name": "SOURCE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Will identify the source of the transaction. Possible Values : Manual and Collection",
+      "column_order": 37
+    },
+    {
+      "name": "OBJECT_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of the transaction\nPossible values :\nCredited,Summary Rolled up,Rolled up,Rollup Error,Eligible,Eligibility Error,Reversed",
+      "column_order": 38
+    },
+    {
+      "name": "COLLECTION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Collection Status",
+      "column_order": 39
+    },
+    {
+      "name": "ADJUSTMENT_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Adjustment Status\nPossible values :\nUnadjusted,Split,Deal Split,Adjusted,Mass Adjusted",
+      "column_order": 40
+    },
+    {
+      "name": "ADJUSTMENT_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Reason for adjustment",
+      "column_order": 41
+    },
+    {
+      "name": "PROCESS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code to identify the phases required for the transaction; Points to a new table, which will contain a separate row for the processing_code, phase and a flag to indicate whether to skip the phase",
+      "column_order": 42
+    },
+    {
+      "name": "REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason for adjustment",
+      "column_order": 43
+    },
+    {
+      "name": "SOURCE_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of organization from which the transaction is imported",
+      "column_order": 44
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 45
+    },
+    {
+      "name": "SOURCE_TRX_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "source_trx_number info about the transaction",
+      "column_order": 46
+    },
+    {
+      "name": "SPLIT_PCT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Split Percentage",
+      "column_order": 47
+    },
+    {
+      "name": "CLSFN_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the classification rule",
+      "column_order": 48
+    },
+    {
+      "name": "CREDIT_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for credit rule",
+      "column_order": 49
+    },
+    {
+      "name": "DIRECT_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for credit rule",
+      "column_order": 50
+    },
+    {
+      "name": "ROLLUP_LEVEL",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Level in the hierarchy in case of rollup credits",
+      "column_order": 51
+    },
+    {
+      "name": "CHANGED_CREDIT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if this is a modified credit",
+      "column_order": 52
+    },
+    {
+      "name": "HOLD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Credit will not be considered for further processing if this flag is set to Y",
+      "column_order": 53
+    },
+    {
+      "name": "WORKER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used to group transactions into batches",
+      "column_order": 54
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 55
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 56
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 57
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 58
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 59
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 60
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 61
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 62
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 63
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 64
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 65
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 66
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 67
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 68
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 69
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 70
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 71
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 72
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER11",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 73
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER12",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 74
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER13",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 75
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER14",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 76
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER15",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 77
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER16",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 78
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER17",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 79
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER18",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 80
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER19",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 81
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER20",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 82
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER21",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 83
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER22",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 84
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER23",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 85
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER24",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 86
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER25",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 87
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER26",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 88
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER27",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 89
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER28",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 90
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER29",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 91
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER30",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 92
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER31",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 93
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER32",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 94
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER33",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 95
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER34",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 96
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER35",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 97
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER36",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 98
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER37",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 99
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER38",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 100
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER39",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 101
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER40",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 102
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER41",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 103
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER42",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 104
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER43",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 105
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER44",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 106
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER45",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 107
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER46",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 108
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER47",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 109
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER48",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 110
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER49",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 111
+    },
+    {
+      "name": "TRX_ATTRIBUTE_NUMBER50",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield segment",
+      "column_order": 112
+    },
+    {
+      "name": "ERROR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "ERROR_CODE column capatures the classification  and crediting error reason.",
+      "column_order": 113
+    }
+  ]
+}

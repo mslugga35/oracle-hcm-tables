@@ -1,0 +1,115 @@
+{
+  "id": 32434,
+  "name": "CSO_REPUTATION_REW_QUEUE",
+  "type": "TABLE",
+  "description": "This table stores transient details of how many reputations rewards a user has been awarded. The rows in this table will be deleted after the view count is merged in to USERINFORMATION table for each user. assert( NOT_NULL(CALCULATEDPOINTS) or NOT_NULL(REWARDMULTIPLIERTYPE, POINTSPERREWARD, REWARDTYPE, TIMESREWARDED) )",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/csoreputationrewqueue-11678.html#csoreputationrewqueue-11678",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "RECORD_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "N",
+      "description": "This is the primary key of the table.",
+      "column_order": 1
+    },
+    {
+      "name": "DATE_ADDED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This is the datetime that the record was added to the repository.",
+      "column_order": 2
+    },
+    {
+      "name": "DATE_MODIFIED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This is the datetime that the record was modified.",
+      "column_order": 3
+    },
+    {
+      "name": "USER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "This is the obsolete GUID for the associated user.",
+      "column_order": 4
+    },
+    {
+      "name": "IS_ADD",
+      "data_type": "CHAR",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag indicating whether points need to be added or subtracted.",
+      "column_order": 5
+    },
+    {
+      "name": "CALCULATED_POINTS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The (incremental) number of points which need to be added to or subtracted from the user's reputation points. No further calculations are needed if this column is populated.",
+      "column_order": 6
+    },
+    {
+      "name": "REWARD_MULTIPLIER_TYPE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "ENUM ReputationRewardMultiplierType Ordinal - NORMAL, FLOAT.",
+      "column_order": 7
+    },
+    {
+      "name": "POINTS_PER_REWARD",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the number of points for this reward (before any multipliers are applied). Generally positive value.",
+      "column_order": 8
+    },
+    {
+      "name": "REWARD_TYPE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the type of ReputationReward (REWARD_CONTENT_AUTHORED, etc).",
+      "column_order": 9
+    },
+    {
+      "name": "TIMES_REWARDED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the number of times this type of reward is rewarded (or to be taken away). Positive value.",
+      "column_order": 10
+    },
+    {
+      "name": "OPTIMISTIC_FAILURE_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The count of optimistic locking failures faced when merging this record into CONTENTMETRICs.",
+      "column_order": 11
+    },
+    {
+      "name": "OTHER_FAILURE_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The count of other failures faced when merging this record into CONTENTMETRICs.",
+      "column_order": 12
+    },
+    {
+      "name": "USER_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is the ID of the associated user.",
+      "column_order": 13
+    }
+  ]
+}

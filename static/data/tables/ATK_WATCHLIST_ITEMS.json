@@ -1,0 +1,155 @@
+{
+  "id": 34898,
+  "name": "ATK_WATCHLIST_ITEMS",
+  "type": "TABLE",
+  "description": "Watchlist User Items: stores the actual watchlist item counts against users or roles.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/atkwatchlistitems-13823.html#atkwatchlistitems-13823",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "WATCHLIST_USER_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Watchlist User Item Identifier",
+      "column_order": 1
+    },
+    {
+      "name": "WATCHLIST_ITEM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Watchlist Item Code: references the item code from the watchlist setup table (ATK_WATCHLIST_SETUP.WATCHLIST_ITEM_CODE).",
+      "column_order": 2
+    },
+    {
+      "name": "USER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Globally Unique User Identifier.",
+      "column_order": 3
+    },
+    {
+      "name": "WATCHLIST_ITEM_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "User-created saved search name. Required if WATCHLIST_ITEM_TYPE = USER_SAVED_SEARCH for this item in setup table.",
+      "column_order": 4
+    },
+    {
+      "name": "SAVED_SEARCH_VIEW_CRITERIA_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Internal identifier for user-created saved search. Required if WATCHLIST_ITEM_TYPE = USER_SAVED_SEARCH for this item in setup table.",
+      "column_order": 5
+    },
+    {
+      "name": "REFRESH_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the status of last refresh request for this item. Valid values are PENDING and COMPLETE. Required if WATCHLIST_ITEM_TYPE != TXN_FLOW_BASED.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_REFRESH_REQUEST_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date and time of the last refresh request for this item. Required if WATCHLIST_ITEM_TYPE != TXN_FLOW_BASED.",
+      "column_order": 7
+    },
+    {
+      "name": "ITEM_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "The actual count for this item shown to the user in Watchlist UI. Required if REFRESH_STATUS != PENDING (empty only during initial refresh request for user).",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_REFRESH_COMPLETION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Watchlist item counts are calculated periodically by the product web services.This column represents the date when the item was last refreshed.",
+      "column_order": 9
+    },
+    {
+      "name": "CATEGORY_ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This flag is used to determine if the category has been disabled by the user using the watchlist preferences UI.",
+      "column_order": 10
+    },
+    {
+      "name": "ITEM_ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This flag is used to determine if the watchlist itesm has been disabled by the user using the watchlist preferences UI.",
+      "column_order": 11
+    },
+    {
+      "name": "ENABLE_ZERO_ITEMS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This flag is used to identify whether the items with zero count are shown or hidden.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 18
+    }
+  ]
+}

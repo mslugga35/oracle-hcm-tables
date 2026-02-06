@@ -1,0 +1,587 @@
+{
+  "id": 26678,
+  "name": "FA_RETIREMENTS",
+  "type": "TABLE",
+  "description": "FA_RETIREMENTS contains information about asset retirements. Oracle Fusion Assets inserts a row into this table when you retire an asset and updates it if you reinstate the asset. When you perform a retirement, the row that Oracle Assets inserts has a TRANSACTION_HEADER_ID_IN and DATE_EFFECTIVE that matches the TRANSACTION_HEADER_ID and DATE_EFFECTIVE in FA_TRANSACTION_HEADERS. The TRANSACTION_HEADER_ID_OUT and DATE_INEFFECTIVE are NULL. If you reinstate a retirement for which Oracle Assets has calculated the gain or loss, Oracle Assets updates TRANSACTION_HEADER_ID_OUT and DATE_INEFFECTIVE with the TRANSACTION_HEADER_ID and DATE_EFFECTIVE from the FA_TRANSACTION_HEADERS row.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/faretirements-22103.html#faretirements-22103",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "RETIREMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset retirement transaction.",
+      "column_order": 1
+    },
+    {
+      "name": "BOOK_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Unique book identification name.",
+      "column_order": 2
+    },
+    {
+      "name": "ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset number.",
+      "column_order": 3
+    },
+    {
+      "name": "TRANSACTION_HEADER_ID_IN",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the transaction that created the row.",
+      "column_order": 4
+    },
+    {
+      "name": "DATE_RETIRED",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date on which an asset was retired.",
+      "column_order": 5
+    },
+    {
+      "name": "DATE_EFFECTIVE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date when the row became effective.",
+      "column_order": 6
+    },
+    {
+      "name": "COST_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount of cost retired from the asset.",
+      "column_order": 7
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Status of the retirement transaction.",
+      "column_order": 8
+    },
+    {
+      "name": "RETIREMENT_CONVENTION_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the prorate convention.",
+      "column_order": 9
+    },
+    {
+      "name": "TRANSACTION_HEADER_ID_OUT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the transaction that terminated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "UNITS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of units retired in the transaction.",
+      "column_order": 11
+    },
+    {
+      "name": "COST_OF_REMOVAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount required to remove the retired asset.",
+      "column_order": 12
+    },
+    {
+      "name": "NBV_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Net book value of an asset at the time of retirement.",
+      "column_order": 13
+    },
+    {
+      "name": "GAIN_LOSS_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Gain or loss amount from retiring an asset.",
+      "column_order": 14
+    },
+    {
+      "name": "PROCEEDS_OF_SALE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount received from the sale of an asset.",
+      "column_order": 15
+    },
+    {
+      "name": "GAIN_LOSS_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Indicator of whether the retirement resulted in a gain or loss.",
+      "column_order": 16
+    },
+    {
+      "name": "RETIREMENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason why the asset is retired in the system.",
+      "column_order": 17
+    },
+    {
+      "name": "REFERENCE_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Unique internal reference number for retirement transactions.",
+      "column_order": 18
+    },
+    {
+      "name": "SOLD_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Name of the party to whom the asset was sold as part of retirement.",
+      "column_order": 19
+    },
+    {
+      "name": "TRADE_IN_ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Asset identification number of the new asset for which the retired asset was traded.",
+      "column_order": 20
+    },
+    {
+      "name": "STL_METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the straight line depreciation method used to calculate the depreciation for retirement transaction.",
+      "column_order": 21
+    },
+    {
+      "name": "STL_DEPRN_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Straight line depreciation amount for reporting of 1250 property in a tax book.",
+      "column_order": 22
+    },
+    {
+      "name": "REVAL_RESERVE_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revaluation reserve retired at the time of retiring an asset.",
+      "column_order": 23
+    },
+    {
+      "name": "UNREVALUED_COST_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Cost retired without any regard to any revaluations.",
+      "column_order": 24
+    },
+    {
+      "name": "BONUS_RESERVE_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bonus depreciation reserve retired.",
+      "column_order": 25
+    },
+    {
+      "name": "RECOGNIZE_GAIN_LOSS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating whether gain or loss should be recognized for member asset retirement or not.",
+      "column_order": 26
+    },
+    {
+      "name": "REDUCTION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation reduction percentage for the group and its member assets.",
+      "column_order": 27
+    },
+    {
+      "name": "RECAPTURE_RESERVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether reserve for the group asset can exceed its recoverable cost or not.",
+      "column_order": 28
+    },
+    {
+      "name": "LIMIT_PROCEEDS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option indicating whether the member asset proceed of sale should be limited to its recoverable cost or not.",
+      "column_order": 29
+    },
+    {
+      "name": "TERMINAL_GAIN_LOSS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option indicating how terminal gain or loss should be recognized for member asset retirement.",
+      "column_order": 30
+    },
+    {
+      "name": "RESERVE_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation reserve retired along with the asset.",
+      "column_order": 31
+    },
+    {
+      "name": "RECAPTURE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Recaptured accumulated depreciation amount.",
+      "column_order": 32
+    },
+    {
+      "name": "EOFY_RESERVE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Depreciation reserve at the end of the previous fiscal year.",
+      "column_order": 33
+    },
+    {
+      "name": "IMPAIR_RESERVE_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Impairment reserve amount which is retired.",
+      "column_order": 34
+    },
+    {
+      "name": "ITC_RECAPTURED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Recaptured amount from investment tax credits.",
+      "column_order": 35
+    },
+    {
+      "name": "ITC_RECAPTURE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifier for the investment tax credits recapture rate.",
+      "column_order": 36
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 38
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 41
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "REVALUED_COST_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revalued cost amount retired for the asset.",
+      "column_order": 69
+    },
+    {
+      "name": "BACKLOG_RESERVE_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Backlog depreciation reserve amount retired for the asset.",
+      "column_order": 70
+    },
+    {
+      "name": "REVAL_AMORTIZATION_RETIRED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Life-to-date revaluation reserve amortization amount for retirement.",
+      "column_order": 71
+    },
+    {
+      "name": "TERMINATE_IB_ASSET_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether to terminate the associated installed base asset when a fixed asset is retired.",
+      "column_order": 72
+    }
+  ]
+}

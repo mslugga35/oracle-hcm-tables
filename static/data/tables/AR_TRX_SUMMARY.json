@@ -1,0 +1,419 @@
+{
+  "id": 29454,
+  "name": "AR_TRX_SUMMARY",
+  "type": "TABLE",
+  "description": "This table stores the fields, such as 'Total Invoices Value', 'Total Invoices Count', 'Total Cash Receipts Value', etc., that require summarization for a specified period of time.  The lowest level of granularity at which the data can be stored and retrieved from this table is as of a specified date for a given currency at a specified 'BILL_TO' location for a specific account of a party.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/artrxsummary-20526.html#artrxsummary-20526",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CUST_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Customer Account Identifier",
+      "column_order": 1
+    },
+    {
+      "name": "SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Site Use Identifier",
+      "column_order": 2
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 3
+    },
+    {
+      "name": "CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Currency code",
+      "column_order": 4
+    },
+    {
+      "name": "AS_OF_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Specific date for which the current summary record has been created.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "OP_BAL_HIGH_WATERMARK",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column value contains the highest Open Receivables Balance for the specific Account, Site, Currency and date (identified by as_of_date). The Open Receivables Balance is calculated by summing the amount_due_remaining on the payment schedules of all the debit items and unresolved cash on all cash receipts.",
+      "column_order": 11
+    },
+    {
+      "name": "OP_BAL_HIGH_WATERMARK_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Highest open receivables balance, which is the sum of the amount_due_remaining on the payment schedules of the debit items and unresolved cash on all cash receipts, for a specific account, site, currency, and date.",
+      "column_order": 12
+    },
+    {
+      "name": "TOTAL_CASH_RECEIPTS_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the amounts of all Cash Receipts for the specific Account, Site, Currency and a date.",
+      "column_order": 13
+    },
+    {
+      "name": "TOTAL_CASH_RECEIPTS_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of payment schedules (installments) of all Chargebacks for the specific Account, Site, Currency and a date.",
+      "column_order": 14
+    },
+    {
+      "name": "TOTAL_INVOICES_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the amount_due_original on payment schedules (installments) of all Invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 15
+    },
+    {
+      "name": "TOTAL_INVOICES_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of the payment schedules (installments) of all Invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 16
+    },
+    {
+      "name": "INV_PAID_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the total amount paid against closed invoices for a specific Account, Site, Currency and as of a given date.",
+      "column_order": 17
+    },
+    {
+      "name": "INV_INST_PMT_DAYS_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Summation of the product of number of days that it took to make payments against invoice installments and the paid amount for a specific Account, Site, Currency and a date i.e.(amount_applied*(apply_date - due_date)).",
+      "column_order": 18
+    },
+    {
+      "name": "TOTAL_BILLS_RECEIVABLES_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the original amount of all bills receivable in a particular currency and on a particular date that belong to one customer site.",
+      "column_order": 19
+    },
+    {
+      "name": "TOTAL_BILLS_RECEIVABLES_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of bills receivable in a particular currency and on a particular date that belong to one customer site.",
+      "column_order": 20
+    },
+    {
+      "name": "TOTAL_CREDIT_MEMOS_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the amount_due_original on payment schedules (installments) of all Credit Memos for the specific Account, Site, Currency and a date.",
+      "column_order": 21
+    },
+    {
+      "name": "TOTAL_CREDIT_MEMOS_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of payment schedules (installments) of all Credit Memos for the specific Account, Site, Currency and a date.",
+      "column_order": 22
+    },
+    {
+      "name": "TOTAL_DEBIT_MEMOS_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the amount_due_original on payment schedules (installments) of all Debit Memos for the specific Account, Site, Currency and a date.",
+      "column_order": 23
+    },
+    {
+      "name": "TOTAL_DEBIT_MEMOS_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of payment schedules (installments) of all Debit Memos for the specific Account, Site, Currency and a date.",
+      "column_order": 24
+    },
+    {
+      "name": "TOTAL_CHARGEBACK_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the AMOUNT_DUE_ORIGINAL on payment schedules (installments) of all chargebacks for the specific customer account, site, currency and date.",
+      "column_order": 25
+    },
+    {
+      "name": "TOTAL_CHARGEBACK_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column value contains a count of the payment schedules (installments) of all chargebacks for the specific customer account, site, currency and date.",
+      "column_order": 26
+    },
+    {
+      "name": "TOTAL_EARNED_DISC_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the Earned Discounts that were given on the closed payment schedules (installments) of all invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 27
+    },
+    {
+      "name": "TOTAL_EARNED_DISC_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the Earned Discounts that were given on the closed payment schedules (installments) of all invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 28
+    },
+    {
+      "name": "TOTAL_UNEARNED_DISC_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the Unearned Discounts that was given on the closed payment schedules (installments) of all invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 29
+    },
+    {
+      "name": "TOTAL_UNEARNED_DISC_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of the Unearned Discounts that were given on the closed payment schedules (installments) of all invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 30
+    },
+    {
+      "name": "TOTAL_ADJUSTMENTS_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the adjustment amounts on the payment schedules of all the debit items for the specific Account, Site, Currency and a date (identified by as_of_date column).  Special adjustments, such as Adjustment Reversal, are not included because they are used for internal accounting purposes only.",
+      "column_order": 31
+    },
+    {
+      "name": "TOTAL_ADJUSTMENTS_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of the adjustments on the payment schedules of all the debit items for the specific Account, Site, Currency and a date. Special adjustments, such as Adjustment Reversal are not included.",
+      "column_order": 32
+    },
+    {
+      "name": "TOTAL_DEPOSITS_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the amount_due_original on payment schedules (installments) of all Deposits for the specific Account, Site, Currency and a date.",
+      "column_order": 33
+    },
+    {
+      "name": "TOTAL_DEPOSITS_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of payment schedules (installments) of all Deposits for the specific Account, Site, Currency and a date.",
+      "column_order": 34
+    },
+    {
+      "name": "SUM_APP_AMT_DAYS_LATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Summation of the product of amount applied and the difference in apply date and due date for all the cash receipt applications against the Invoices Installments for the specific Account, Site, Currency and a date i.e. (amount_applied*(apply_date - due_date)).",
+      "column_order": 35
+    },
+    {
+      "name": "SUM_APP_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the amount applied against the closed payment schedules (installments) of all the Invoices for the specific Account, Site, Currency and date.",
+      "column_order": 36
+    },
+    {
+      "name": "COUNT_OF_TOT_INV_INST_PAID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of the payment schedules (installments), that have been paid off completely, i.e., status = CL, of all Invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 37
+    },
+    {
+      "name": "COUNT_OF_INV_INST_PAID_LATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of the payment schedules (installments) that have been paid late, i.e., status = CL and actual_date_closed > due_date of all Invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 38
+    },
+    {
+      "name": "COUNT_OF_DISC_INV_INST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of the payment schedules (installments) with earned or unearned discounts applied to Invoices for the specific Account, Site, Currency and a date",
+      "column_order": 39
+    },
+    {
+      "name": "LARGEST_INV_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount corresponding to the largest invoice for the specific Account, Site, Currency and a date.",
+      "column_order": 40
+    },
+    {
+      "name": "LARGEST_INV_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction date corresponding to the largest invoice for the specific Account, Site, Currency and a date.",
+      "column_order": 41
+    },
+    {
+      "name": "LARGEST_INV_CUST_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the largest invoice for the specific Account, Site, Currency and a date.",
+      "column_order": 42
+    },
+    {
+      "name": "DAYS_CREDIT_GRANTED_SUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Summation of the product of amount_due_original and difference of the due_date and trx_date, i.e., (amount_due_original * (due_date - trx_date)), for the payment schedules (installments) of all Invoices for the specific Account, Site, Currency and a date.",
+      "column_order": 43
+    },
+    {
+      "name": "NSF_STOP_PAYMENT_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of all cash receipts having a status of Reversed with a Reversal Category of Non Sufficient Funds for the specific Account, Site, Currency and a date.",
+      "column_order": 44
+    },
+    {
+      "name": "NSF_STOP_PAYMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sum of the amount on all Cash Receipts having a status of Reversed with a Reversal Category of Non Sufficient Funds for the specific Account, Site, Currency and a date.",
+      "column_order": 45
+    },
+    {
+      "name": "REFERENCE_1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference columns for future usage",
+      "column_order": 46
+    },
+    {
+      "name": "REFERENCE_2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference columns for future usage",
+      "column_order": 47
+    },
+    {
+      "name": "REFERENCE_3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference columns for future usage",
+      "column_order": 48
+    },
+    {
+      "name": "REFERENCE_4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference columns for future usage",
+      "column_order": 49
+    },
+    {
+      "name": "REFERENCE_5",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference columns for future usage",
+      "column_order": 50
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 51
+    }
+  ]
+}

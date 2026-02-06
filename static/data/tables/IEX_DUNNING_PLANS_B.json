@@ -1,0 +1,211 @@
+{
+  "id": 26429,
+  "name": "IEX_DUNNING_PLANS_B",
+  "type": "TABLE",
+  "description": "This table stores the header level information for dunning plans.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/iexdunningplansb-31150.html#iexdunningplansb-31150",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DUNNING_PLAN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The earliest date that this dunning plan can be used.",
+      "column_order": 2
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The last date the dunning plan can be used.",
+      "column_order": 3
+    },
+    {
+      "name": "ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the dunning plan is enabled for use.",
+      "column_order": 4
+    },
+    {
+      "name": "AGING_BUCKET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of aging bucket from aging bucket table.",
+      "column_order": 5
+    },
+    {
+      "name": "SCORE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the IEX_SCORES table.",
+      "column_order": 6
+    },
+    {
+      "name": "DUNNING_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Level at which we are sending\n                                               dunning(Party/Account/BillTo/Delinquency)",
+      "column_order": 7
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column -\n                                               application id of the program\n                                               that last updated this row\n                                               (foreign key to\n                                               FND_APPLICATION.APPLICATION_ID).",
+      "column_order": 14
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column -\n                                               program id of the program that\n                                               last updated this row (foreign\n                                               key to\n                                               FND_CONCURRENT_PROGRAM.CONCURRENT_PROGRAM_ID).",
+      "column_order": 15
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Concurrent Program who column -\n                                               date when a program last updated\n                                               this row).",
+      "column_order": 16
+    },
+    {
+      "name": "SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies a set of reference data shared across business units and other entities. Also known as Reference Data Sets, they are used to filter reference data in transactional UIs.",
+      "column_order": 17
+    },
+    {
+      "name": "INCLUDE_CURRENT",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Flag to determine if current invoices should be included in the dunning letter.",
+      "column_order": 18
+    },
+    {
+      "name": "INCLUDE_DISPUTED",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Flag to determine if disputed amounts should be included in the dunning letter.",
+      "column_order": 19
+    },
+    {
+      "name": "INCLUDE_TRX_COPY",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Flag to determine if invoice copies should be included with the dunning letter.",
+      "column_order": 20
+    },
+    {
+      "name": "INCLUDE_CREDIT_MEMO",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Flag to determine if credit memos should be included in the dunning letter.",
+      "column_order": 21
+    },
+    {
+      "name": "AGED_STAGED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Indicates if the dunning plan is staged or aged.",
+      "column_order": 22
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 23
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 24
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 25
+    }
+  ]
+}

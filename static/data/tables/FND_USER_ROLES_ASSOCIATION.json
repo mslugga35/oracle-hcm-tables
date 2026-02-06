@@ -1,0 +1,139 @@
+{
+  "id": 35523,
+  "name": "FND_USER_ROLES_ASSOCIATION",
+  "type": "TABLE",
+  "description": "Table for storing one record for each Role Membership that the user has been provisioned in LDAP.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/fnduserrolesassociation-22162.html#fnduserrolesassociation-22162",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "USER_ROLE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies the role for the user.",
+      "column_order": 1
+    },
+    {
+      "name": "USER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to PER_USERS table.",
+      "column_order": 2
+    },
+    {
+      "name": "ROLE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to PER_ROLES_DN table.",
+      "column_order": 3
+    },
+    {
+      "name": "BUSINESS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of Enterprise, used for multi-tenancy partitioning. Foreign key to HR_ORGANIZATION_UNITS.",
+      "column_order": 4
+    },
+    {
+      "name": "ROLE_GUID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Denormalized Role Guid",
+      "column_order": 5
+    },
+    {
+      "name": "METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Automatic, Manually or Externally provisioned",
+      "column_order": 6
+    },
+    {
+      "name": "ACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Flag to mark when a user role is active.",
+      "column_order": 7
+    },
+    {
+      "name": "TERMINATED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Flag to identify that this role belongs to a user that has had their employment terminated (used if reverse termination process is initiated to re-provision roles)",
+      "column_order": 8
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "the date that the user role is active from",
+      "column_order": 9
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date that the user role will cease to be active from",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 16
+    }
+  ]
+}

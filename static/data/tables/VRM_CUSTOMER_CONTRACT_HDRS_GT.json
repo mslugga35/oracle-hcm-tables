@@ -1,0 +1,387 @@
+{
+  "id": 29714,
+  "name": "VRM_CUSTOMER_CONTRACT_HDRS_GT",
+  "type": "TABLE",
+  "description": "Oracle internal use only. This global temporary table is used in identify customer contracts job during internal processing.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/vrmcustomercontracthdrsgt-18335.html#vrmcustomercontracthdrsgt-18335",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CUSTOMER_CONTRACT_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Customer contract header unique identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "ACCOUNTING_DATE_CLOSED",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the contract is fully satisfied and fully billed.",
+      "column_order": 2
+    },
+    {
+      "name": "CUSTOMER_CONTRACT_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Customer contract number. This is a running sequence number.",
+      "column_order": 3
+    },
+    {
+      "name": "CUSTOMER_CONTRACT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Customer contract date. Used for deriving price effectivity period of the customer contract.",
+      "column_order": 4
+    },
+    {
+      "name": "CUSTOMER_CONTRACT_FREEZE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date on which the contract will be frozen for automatic inclusion of new lines by the Identify Customer Contracts program. The value will be defaulted by adding the freeze period defined in the contract identification rule to the contract date.",
+      "column_order": 5
+    },
+    {
+      "name": "CONTRACT_CLASSIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Classification code of a contract. Values are derived from lookup type ORA_VRM_CONTRACT_CLASSIF_CODE.",
+      "column_order": 6
+    },
+    {
+      "name": "CONTRACT_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal identifier of the customer contract identification rule.",
+      "column_order": 7
+    },
+    {
+      "name": "EFFECTIVITY_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a standard sales price effectivity period. Derived using the customer contract date.",
+      "column_order": 8
+    },
+    {
+      "name": "REVIEW_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Review status of the customer contract. Values are derived from lookup type ORA_VRM_CONTRACT_REVIEW_STATUS.",
+      "column_order": 9
+    },
+    {
+      "name": "REVIEW_REQUIRED_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason for which contract is pending for review. Values are from the lookup ORA_REVIEW_REQUIRED_REASON. Possible values are ORA_SOURCE_HOLD, ORA_TRANS_PRICE_THRESHOLD, ORA_MANUAL_HOLD.",
+      "column_order": 10
+    },
+    {
+      "name": "ALLOCATION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Allocation status of the customer contract. Values are derived from lookup type ORA_VRM_CONTRACT_ALLOCN_STATUS.",
+      "column_order": 11
+    },
+    {
+      "name": "ALLOCATION_PENDING_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "If the allocation of the contract is pending, then this attribute captures the reason it is pending. Values are derived from lookup type ORA_ALLOCATION_PENDING_REASON.",
+      "column_order": 12
+    },
+    {
+      "name": "CONTRACT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Contract currency code. Populated with ledger currency code.",
+      "column_order": 13
+    },
+    {
+      "name": "CONTR_CUR_TRANSACTION_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total contract amount (transaction price) in the contract currency.  It is the sum of the net consideration amount of all obligations.",
+      "column_order": 14
+    },
+    {
+      "name": "CONTR_CUR_NONEXEMPT_TRX_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total nonexempt transaction price in the contract currency. The value is derived from the transaction price after excluding the exempt perfomance obligation amounts.",
+      "column_order": 15
+    },
+    {
+      "name": "CONTR_CUR_TOTAL_RECOG_REV_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total revenue recognized of all the performance obligations in the contract currency.",
+      "column_order": 16
+    },
+    {
+      "name": "CONTR_CUR_TOTAL_BILLED_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total billed amount of all the performance obligations in the contract currency.",
+      "column_order": 17
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion rate for converting amounts from contract currency to ledger currency.",
+      "column_order": 18
+    },
+    {
+      "name": "EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Conversion rate type of the contract.",
+      "column_order": 19
+    },
+    {
+      "name": "EXCHANGE_RATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion date to be used for conversion.",
+      "column_order": 20
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger identifer of the customer contract.",
+      "column_order": 21
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Legal entity of the customer contract.",
+      "column_order": 22
+    },
+    {
+      "name": "SINGLE_OBLIGATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether contract has single or multiple obligations. Y means single obligation contract and N means multiple obligation contract.",
+      "column_order": 23
+    },
+    {
+      "name": "STANDALONE_SALES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Identifies whether the contract is included for observed standalone selling price calculation.",
+      "column_order": 24
+    },
+    {
+      "name": "IS_EXCH_RATE_INFO_AVAILABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 25
+    },
+    {
+      "name": "CREATED_FROM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The process or user interface from which this row is created..",
+      "column_order": 26
+    },
+    {
+      "name": "CONTRACT_HASH_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 550,
+      "nullable": "Y",
+      "description": "Contract processing unique identifier.",
+      "column_order": 27
+    },
+    {
+      "name": "REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "User entered contract reference or grouping attribute values used to identify the contract as derived by enabling the Copy to Reference option in the Contract Identification rule.",
+      "column_order": 28
+    },
+    {
+      "name": "CONTRACT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 29
+    },
+    {
+      "name": "LATEST_IMMATERIAL_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Latest immaterial change type processed on this customer contract. Valid values are from the lookup type ORA_IMMATERIAL_CHANGE_TYPE.",
+      "column_order": 30
+    },
+    {
+      "name": "CONTRACT_MODIFICATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the revenue contract was modified.",
+      "column_order": 31
+    },
+    {
+      "name": "CONTR_CUR_MOD_DATE_ALLOC_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Allocated amount as of the contract modification date in the contract currency.",
+      "column_order": 32
+    },
+    {
+      "name": "CONTR_CUR_MOD_DATE_CARVE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Discounted amount in the contract currency as of the contract revision date.",
+      "column_order": 33
+    },
+    {
+      "name": "CONTRACT_GROUP_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 320,
+      "nullable": "Y",
+      "description": "Concatenation of the original customer contract's source document number and customer contract number for the recurring line.",
+      "column_order": 34
+    },
+    {
+      "name": "ADJUSTMENT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Contract's eligibility for adjustment by the Residual Account Balance Write Off process. Values are from the lookup type ORA_ADJUSTMENT_STATUS.",
+      "column_order": 35
+    },
+    {
+      "name": "EXCL_FROM_AUTO_WRITEOFF_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the contract will be excluded from processing by the Residual Account Balance Write Off process. Values are from the lookup type VRM_YES/NO.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_ACTIVITY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the last activity was performed on the contract.",
+      "column_order": 37
+    },
+    {
+      "name": "SATISFACTION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Overall satisfaction status of the contract. When all of the performance obligations in the contract are fully satisfied, the status is set to Fully Satisfied and the Satisfaction Date is set to Max (Satisfaction Date) of all the performance obligations of the contract. When at least performance obligation in the contract is not fully satisfied, then the status is set to Not Satisfied. Values are derived from the lookup type ORA_VRM_SATISFACTION_STATUS.",
+      "column_order": 38
+    },
+    {
+      "name": "FULL_SATISFACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Latest satisfaction date for all of the performance obligations within a contract when all performance obligations in the contract are fully satisified. Use in conjunction with the SATISFACTION_STATUS column.",
+      "column_order": 39
+    },
+    {
+      "name": "ALLOCATION_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The allocation currency basis used to allocate and recognize revenue for a contract. Valid values are from the lookup type ORA_VRM_ALLOCATION_METHOD.",
+      "column_order": 40
+    },
+    {
+      "name": "ENTER_CURR_MOD_DATE_ALLOC_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Allocated amount as of the contract modification date in the entered currency.",
+      "column_order": 41
+    },
+    {
+      "name": "ENTER_CURR_MOD_DATE_CARVE_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Discounted amount in the entered currency as of the contract revision date.",
+      "column_order": 42
+    },
+    {
+      "name": "ENTERED_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The transaction currency code used for revenue contract.",
+      "column_order": 43
+    },
+    {
+      "name": "ENTER_CURR_TRANSACTION_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total contract amount (transaction price) in the entered currency, which is the sum of the net consideration amount of all obligations.",
+      "column_order": 44
+    },
+    {
+      "name": "ENTER_CURR_TOTAL_RECOG_REV_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total revenue recognized for all the performance obligations in the entered currency.",
+      "column_order": 45
+    },
+    {
+      "name": "ENTER_CURR_TOTAL_BILLED_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total billed amount for all the performance obligations in the entered currency.",
+      "column_order": 46
+    },
+    {
+      "name": "CURR_REVAL_OFFSET_ADJ_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Contract's eligibility for adjustment by the Residual Account Balance Write Off process. Values are from the lookup type ORA_CURR_REVAL_OFFSET_ADJ_STATUS.",
+      "column_order": 47
+    }
+  ]
+}

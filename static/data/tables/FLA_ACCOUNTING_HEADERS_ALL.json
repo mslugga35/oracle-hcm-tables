@@ -1,0 +1,291 @@
+{
+  "id": 27174,
+  "name": "FLA_ACCOUNTING_HEADERS_ALL",
+  "type": "TABLE",
+  "description": "FLA_ACCOUNTING_HEADERS_ALL contains accounting transactions generated within Lease Accounting for booking, revision, termination, accurals, reclassification, expiry, right of use adjustment and payment approval.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flaaccountingheadersall-23468.html#flaaccountingheadersall-23468",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Accounting transaction identifier. It is the primary key of the table.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease identifier. It references the primary key of the FLA_LEASES_ALL table.",
+      "column_order": 4
+    },
+    {
+      "name": "VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Version number of the lease as captured in FLA_LEASE_DETAILS.",
+      "column_order": 5
+    },
+    {
+      "name": "LEASE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease detail identifier. It is referenced from FLA_LEASE_DETAILS table.",
+      "column_order": 6
+    },
+    {
+      "name": "TRANSACTION_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Accounting transaction reference number.",
+      "column_order": 7
+    },
+    {
+      "name": "TRANSACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Accounting transaction type like BOOKING, ACCRUAL, PAYMENT, REVISION, TERMINATION and so forth.",
+      "column_order": 8
+    },
+    {
+      "name": "TRANSACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Source reference date. This is Payment items due date or Schedule header transaction date or Accrual schedule date.",
+      "column_order": 9
+    },
+    {
+      "name": "TRANSACTION_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Accounting transaction status code like PENDING, PROCESSED, ERRORED and so forth.",
+      "column_order": 10
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Description of the transaction header.",
+      "column_order": 11
+    },
+    {
+      "name": "EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the categorization of accounting events that is unique within an application and event class. This is referenced from XLA_EVENTS table.",
+      "column_order": 12
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Ledger identifier as defined in general ledger.",
+      "column_order": 13
+    },
+    {
+      "name": "REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Regime code. This drives the accounting model and reporting for the lease.",
+      "column_order": 14
+    },
+    {
+      "name": "PROCESSING_SEQ_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Transaction processing sequence number for the accounting transactions.",
+      "column_order": 15
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Period based on Schedule date or payment item due date.",
+      "column_order": 16
+    },
+    {
+      "name": "LINKED_TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Linked transaction ID column. This will be used to maintain link between two transactions.",
+      "column_order": 17
+    },
+    {
+      "name": "ACCOUNTING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Accounting date which will be sent to Subledger Accounting.",
+      "column_order": 18
+    },
+    {
+      "name": "REVERSED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if this transaction is reversed.",
+      "column_order": 19
+    },
+    {
+      "name": "PARENT_TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source Transaction Identifier in case this transaction is for a reversal.",
+      "column_order": 20
+    },
+    {
+      "name": "SWEEP_PROCESS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the transaction is marked for accounting period sweep.",
+      "column_order": 21
+    },
+    {
+      "name": "SOURCE_REFERENCE_ID1",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source reference ID identifier 1. For future use.",
+      "column_order": 22
+    },
+    {
+      "name": "SOURCE_REFERENCE_ID2",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source reference ID identifier 2. For future use.",
+      "column_order": 23
+    },
+    {
+      "name": "SOURCE_REFERENCE_ID3",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source reference ID identifier 3. For future use.",
+      "column_order": 24
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 25
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 26
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 27
+    },
+    {
+      "name": "BALANCE_SYNC_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle Enterprise Scheduler: request identifier of the job that created or last updated the row. This is used for request created for the purpose of lease balances.",
+      "column_order": 28
+    },
+    {
+      "name": "ACCOUNTED_IN_GL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the accounting was done into general ledger.",
+      "column_order": 29
+    },
+    {
+      "name": "ACCOUNTING_TIEBACK_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the accounted amounts are derived and tied back.",
+      "column_order": 30
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 32
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 35
+    }
+  ]
+}

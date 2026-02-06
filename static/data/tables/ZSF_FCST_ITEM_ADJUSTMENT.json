@@ -1,0 +1,435 @@
+{
+  "id": 33130,
+  "name": "ZSF_FCST_ITEM_ADJUSTMENT",
+  "type": "TABLE",
+  "description": "This table stores all the item level adjustments and supports scenarios such as ADJUST / PULL / PULLNADJUST / DROP",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zsffcstitemadjustment-24494.html#zsffcstitemadjustment-24494",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "FCST_ITEM_ADJUSTMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key for the table ZSF_FCST_ITEM_ADJUSTMENT which has the item level adjustments",
+      "column_order": 1
+    },
+    {
+      "name": "FCST_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the zsf_fcst_item_detail table having the fcst items",
+      "column_order": 2
+    },
+    {
+      "name": "FCST_PARTICIPANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the zsf_fcst_participant table having the participant information",
+      "column_order": 3
+    },
+    {
+      "name": "ADJUSTED_BY_TERRITORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "ADJUSTED_BY_TERRITORY_ID",
+      "column_order": 4
+    },
+    {
+      "name": "CUST_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party ID of the owner of the revenue item. This is a foreign key to hz_parties.",
+      "column_order": 5
+    },
+    {
+      "name": "ADJUSTMENT_COMMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Comments given by the user performing item level adjustment",
+      "column_order": 6
+    },
+    {
+      "name": "ADJUSTMENT_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Adjustment reason selected by the user performing adjustment. This is a lookup",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_ADJUSTED_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Resource ID of the user making the last adjustment for the selected item.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_ADJUSTED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the item was last adjusted is stored in this column.",
+      "column_order": 9
+    },
+    {
+      "name": "ADJUSTMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of adjustment, namely ADJUST / PULL / PULLNADJUST / DROP",
+      "column_order": 10
+    },
+    {
+      "name": "CORP_ADJUSTMENT_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Adjustment amount represented in corporate currency",
+      "column_order": 11
+    },
+    {
+      "name": "CORP_SUB_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Sum of adjustments (delta) done by all the subordinates for this particular item . Used for calculation purpose.",
+      "column_order": 12
+    },
+    {
+      "name": "CORP_BEST_CASE_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Best case adjustment amount amount entered by the user in corporate currency.",
+      "column_order": 13
+    },
+    {
+      "name": "CORP_WORST_CASE_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Worst case adjustment amount entered by the user in corporate currency.",
+      "column_order": 14
+    },
+    {
+      "name": "CORP_SUB_BEST_CASE_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Sum of best case adjustments(delta) done by all subordinates for a particular item. Used for calculation purpose.",
+      "column_order": 15
+    },
+    {
+      "name": "CORP_SUB_WORST_CASE_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Sum of worst case adjustments(delta) done by all subordinates for a particular item. Used for calculation purpose.",
+      "column_order": 16
+    },
+    {
+      "name": "ADJUSTMENT_FILLER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate that this is a filler and not an actual adjustment record.",
+      "column_order": 17
+    },
+    {
+      "name": "WRITE_BACK_ADJ_TO_REVN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if the item adjustment has to be written back to revenue.",
+      "column_order": 18
+    },
+    {
+      "name": "FCST_ITEM_TERRITORY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Primary territory id of the item is denormalized here for query efficiency.",
+      "column_order": 19
+    },
+    {
+      "name": "ADJUST_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjustment period if of the item is denormalized here for query efficiency.",
+      "column_order": 20
+    },
+    {
+      "name": "CORP_EXPECT_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This has the expected adjustment amount in corporate currency",
+      "column_order": 21
+    },
+    {
+      "name": "CORP_SUB_EXPECT_ADJ_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This has the subordinate expected adj amount in corp currency",
+      "column_order": 22
+    },
+    {
+      "name": "CORP_PRED_AMT_ADJ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Has the adjustment for predicted amount in corporate currency",
+      "column_order": 23
+    },
+    {
+      "name": "CORP_SUB_PRED_AMT_ADJ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Has the subordinate's predicted adjustment amount in corporate currency",
+      "column_order": 24
+    },
+    {
+      "name": "CURR_EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This has the currency exchange rate for this item adjustment.",
+      "column_order": 25
+    },
+    {
+      "name": "ADJUSTED_PARTICIPANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Participant ID for which the adjustment is being made.",
+      "column_order": 26
+    },
+    {
+      "name": "FCST_PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "FK to the snapshot of product hierarchy stored in ZSF_FCST_PRODUCT",
+      "column_order": 27
+    },
+    {
+      "name": "CHANNEL_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Stores the channel type code. This will be used in product adjustment for metrics calculation",
+      "column_order": 28
+    },
+    {
+      "name": "FCST_ITEM_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Adjusted forecast item category.",
+      "column_order": 29
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 30
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 31
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 32
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 33
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_MET_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 34
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 35
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 36
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 37
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 38
+    },
+    {
+      "name": "CORP_EXTN_ITADJ_SUB_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for metrics related extension attributes.",
+      "column_order": 39
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 40
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 41
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 42
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 43
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 44
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 45
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 46
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 47
+    },
+    {
+      "name": "ITADJ_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quantity entered by the user as an adjustment",
+      "column_order": 48
+    },
+    {
+      "name": "ITADJ_SUB_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quantity entered by the subordinate users",
+      "column_order": 49
+    },
+    {
+      "name": "FORECAST_ADJUSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if the Forecast metric has been item adjusted",
+      "column_order": 50
+    },
+    {
+      "name": "BESTCASE_ADJUSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if the Best Case metric has been item adjusted",
+      "column_order": 51
+    },
+    {
+      "name": "WORSTCASE_ADJUSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if the Worst Case metric has been item adjusted",
+      "column_order": 52
+    },
+    {
+      "name": "QUANTITY_ADJUSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if the Quantity metric has been item adjusted",
+      "column_order": 53
+    }
+  ]
+}

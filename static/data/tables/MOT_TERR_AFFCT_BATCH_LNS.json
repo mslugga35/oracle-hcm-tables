@@ -1,0 +1,123 @@
+{
+  "id": 34226,
+  "name": "MOT_TERR_AFFCT_BATCH_LNS",
+  "type": "TABLE",
+  "description": "This table is used for improving the reassignment of sales territories to work objects after a territory realignment process occurs, or when stage data is propogated by serving as a placeholder for all the affected territories. In addition, the affected parent, sibling and child territories will also be listed in this table.\nThe territories listed in this table are grouped under batches that are listed in the territory realignment batch s table. \nThe respective work objects will use this table to identify which work object transactions will need to modify their territory assignments as a result of the territories that have been changed.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/motterraffctbatchlns-19145.html#motterraffctbatchlns-19145",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TERR_AFFCT_BATCH_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key.",
+      "column_order": 1
+    },
+    {
+      "name": "TERR_AFFCT_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to mot_terr_affct_batches",
+      "column_order": 2
+    },
+    {
+      "name": "TERR_PROPOSAL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to mot_terr_proposals",
+      "column_order": 3
+    },
+    {
+      "name": "TERRITORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Territory Identifier",
+      "column_order": 4
+    },
+    {
+      "name": "TERRITORY_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to mot_territories",
+      "column_order": 5
+    },
+    {
+      "name": "REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Reason Code.",
+      "column_order": 6
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 13
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 14
+    }
+  ]
+}

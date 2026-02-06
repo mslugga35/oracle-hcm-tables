@@ -1,0 +1,283 @@
+{
+  "id": 27175,
+  "name": "FLA_ACCOUNTING_LINES",
+  "type": "TABLE",
+  "description": "FLA_ACCOUNTING_LINES contains accounting transaction lines generated for FLA_ACCOUNTING_HEADERS_ALL.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flaaccountinglines-15664.html#flaaccountinglines-15664",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TRANSACTION_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Accounting transaction line identifier. It is the primary key of the table.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Accounting transaction header identifier. This is referenced from FLA_ACCOUNTING_HEADERS_ALL.",
+      "column_order": 3
+    },
+    {
+      "name": "SCHEDULE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Schedule type code like INTEREST_EXPENSE, LEASE_LIABILITY, RESERVE, RIGHT_OF_USE, AMORTIZATION, LEASE_EXPENSE and so forth.",
+      "column_order": 4
+    },
+    {
+      "name": "LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Line number for the accounting transaction line.",
+      "column_order": 5
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Description of the transaction line.",
+      "column_order": 6
+    },
+    {
+      "name": "DR_CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Row identifier in the GL Code Combinations table associated with this distribution. This will be populated if the Lease Accounting Payment Accounts are setup for the Payment.",
+      "column_order": 7
+    },
+    {
+      "name": "CR_CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Row identifier in the GL Code Combinations table associated with this distribution. This will be populated if the Lease Accounting Payment Accounts are setup for the Payment.",
+      "column_order": 8
+    },
+    {
+      "name": "DR_ACCOUNT_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Account class of the debit account.",
+      "column_order": 9
+    },
+    {
+      "name": "CR_ACCOUNT_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Account class of the credit account.",
+      "column_order": 10
+    },
+    {
+      "name": "ENTERED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Transaction amount in entered currency.",
+      "column_order": 11
+    },
+    {
+      "name": "ACCOUNTED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in accounted currency.",
+      "column_order": 12
+    },
+    {
+      "name": "CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used to calculate the functional currency amount.",
+      "column_order": 13
+    },
+    {
+      "name": "CONVERSION_RATE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Exchange rate type for foreign currency amounts.",
+      "column_order": 14
+    },
+    {
+      "name": "CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date exchange rate is effective from.",
+      "column_order": 15
+    },
+    {
+      "name": "APPLIED_TO_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Business flow transaction line identifier.",
+      "column_order": 16
+    },
+    {
+      "name": "PAYMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment number. Payment header to which the accounting line belongs to.",
+      "column_order": 17
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Payment currency code as defined in the lease payment.",
+      "column_order": 18
+    },
+    {
+      "name": "SCHEDULE_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Schedule header identifier. This is referenced from FLA_SCHEDULE_HEADERS table.",
+      "column_order": 19
+    },
+    {
+      "name": "ACCRUAL_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accrual schedule identifier. This is referenced from FLA_ACCRUAL_SCHEDULES table.",
+      "column_order": 20
+    },
+    {
+      "name": "PAYMENT_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment item identifier. This is referenced from FLA_PAYMENT_ITEMS table.",
+      "column_order": 21
+    },
+    {
+      "name": "SOURCE_REFERENCE_ID1",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Source reference ID identifier 1. Source value could be SCHEDULE_HEADER_ID, PAYMENT_ITEM_ID, ACCRUAL_SCHEDULE_ID.",
+      "column_order": 22
+    },
+    {
+      "name": "SOURCE_REFERENCE_ID2",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source reference ID identifier 2. For future use.",
+      "column_order": 23
+    },
+    {
+      "name": "SOURCE_REFERENCE_ID3",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source reference ID identifier 3. For future use.",
+      "column_order": 24
+    },
+    {
+      "name": "REVERSED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if this transaction is reversed.",
+      "column_order": 25
+    },
+    {
+      "name": "PARENT_TRANSACTION_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Parent transaction Identifier in case this transaction is for a reversal.",
+      "column_order": 26
+    },
+    {
+      "name": "PREVIOUS_CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Previous Rate used to calculate the functional currency amount.",
+      "column_order": 27
+    },
+    {
+      "name": "PREVIOUS_CONV_RATE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Previous Exchange rate type for foreign currency amounts.",
+      "column_order": 28
+    },
+    {
+      "name": "PREVIOUS_CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Previous Date exchange rate is effective from. Usually the payment due date.",
+      "column_order": 29
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 30
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 32
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 34
+    }
+  ]
+}

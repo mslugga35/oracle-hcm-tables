@@ -1,0 +1,155 @@
+{
+  "id": 30832,
+  "name": "ZCA_OBJECT_SHARE",
+  "type": "TABLE",
+  "description": "This database table lists the objects that are accessible to a given Access Group.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zcaobjectshare-26614.html#zcaobjectshare-26614",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "OBJECT_SHARE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key of the Object Share (surrogate).",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to the object's primary key. Eg., for Opportunity, this would be OPTY_ID.",
+      "column_order": 2
+    },
+    {
+      "name": "OBJECT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 300,
+      "nullable": "N",
+      "description": "PUID of the object. Eg., for Opportunity, this column will contain OPTY_NUMBER.",
+      "column_order": 3
+    },
+    {
+      "name": "OBJECT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "References values in ZCA_OBJECTS.LANG_INDEPENDENT_CODE for both standard and custom objects. This table will be partitioned using the list partition scheme, with this column as the partition key.",
+      "column_order": 4
+    },
+    {
+      "name": "ACCESS_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to ZCA_ACCESS_GROUPS. Indicates the Access Group that has access to this Object.",
+      "column_order": 5
+    },
+    {
+      "name": "ACCESS_GROUP_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "N",
+      "description": "PUID of the access group, denormalized to support REST CRUD.",
+      "column_order": 6
+    },
+    {
+      "name": "ACCESS_GROUP_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Denormalization of the Access Group Type from ZCA_ACCESS_GROUPS",
+      "column_order": 7
+    },
+    {
+      "name": "ACCESS_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Access level determines the type of access granted to the group. Can be 'FULL','VIEW','EDIT',etc.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 14
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "CREATION_QUARTER",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Virtual Column used in partition along with Object Type.",
+      "column_order": 18
+    }
+  ]
+}

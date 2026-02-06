@@ -1,0 +1,355 @@
+{
+  "id": 30097,
+  "name": "XLA_MPA_DISTRIBUTIONS",
+  "type": "TABLE",
+  "description": "This table keeps track the MPA accounting progress and the running recognized amounts for an event, transaction MPA distribution, MPA class and ledger combination.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/xlampadistributions-20582.html#xlampadistributions-20582",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Accounting event identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Subledger application identifier for which the multiperiod accounting transaction is created.",
+      "column_order": 2
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Ledger identifier. This can be a primary, secondary or ALC ledger.",
+      "column_order": 3
+    },
+    {
+      "name": "AE_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Subledger journal header identifier of the accrual entry.",
+      "column_order": 4
+    },
+    {
+      "name": "AE_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Subledger journal line number of the accrual entry.",
+      "column_order": 5
+    },
+    {
+      "name": "TEMP_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Intermediary line number for the subledger journal of the accrual entry.",
+      "column_order": 6
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Classification of transaction source distribution.",
+      "column_order": 7
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_CHAR_1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in character data type.",
+      "column_order": 8
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_CHAR_2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in character data type.",
+      "column_order": 9
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_CHAR_3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in character data type.",
+      "column_order": 10
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_CHAR_4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in character data type.",
+      "column_order": 11
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_CHAR_5",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in character data type.",
+      "column_order": 12
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_NUM_1",
+      "data_type": "NUMBER",
+      "data_length": 38,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in numeric data type.",
+      "column_order": 13
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_NUM_2",
+      "data_type": "NUMBER",
+      "data_length": 38,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in numeric data type.",
+      "column_order": 14
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_NUM_3",
+      "data_type": "NUMBER",
+      "data_length": 38,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in numeric data type.",
+      "column_order": 15
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_NUM_4",
+      "data_type": "NUMBER",
+      "data_length": 38,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in numeric data type.",
+      "column_order": 16
+    },
+    {
+      "name": "SOURCE_DISTRIBUTION_ID_NUM_5",
+      "data_type": "NUMBER",
+      "data_length": 38,
+      "nullable": "Y",
+      "description": "Transaction source distribution identifier in numeric data type.",
+      "column_order": 17
+    },
+    {
+      "name": "MULTIPERIOD_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Multiperiod class for this distribution.",
+      "column_order": 18
+    },
+    {
+      "name": "LAST_GL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounting date of the last multiperiod journal entry with Final status.",
+      "column_order": 19
+    },
+    {
+      "name": "NEXT_GL_EFF_PERIOD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The denormalized period number of the accounting period for the next multiperiod journal entry of the distribution, ledger, and multiperiod accounting class. Defaults to the first open period of the ledger when the multiperiod accounting distribution row is first created.",
+      "column_order": 20
+    },
+    {
+      "name": "PROC_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Stores the processing status of the last accounting entry for the multiperiod distribution.",
+      "column_order": 21
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Multiperiod distribution recognition or reversal status.  Possible values are U (Final status journal has not been created yet),  P (Final status journal has been created but amount is not fully recognized yet), R(reversed), and F (entire amount has been fully recognized).",
+      "column_order": 22
+    },
+    {
+      "name": "FULLY_PROCESSED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "It is used to determine whether additional multiperiod journals need to be created in the future. Once the distribution has been fully recognized or reversed, it is updated from N to Y.",
+      "column_order": 23
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Transaction currency of the distribution",
+      "column_order": 24
+    },
+    {
+      "name": "UNROUNDED_ENTERED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total debit amount in transaction currency to be recognized.",
+      "column_order": 25
+    },
+    {
+      "name": "UNROUNDED_ENTERED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total credit amount in transaction currency to be recognized.",
+      "column_order": 26
+    },
+    {
+      "name": "UNROUNDED_ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total debit amount in ledger currency to be recognized.",
+      "column_order": 27
+    },
+    {
+      "name": "UNROUNDED_ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total credit amount in ledger currency to be recognized.",
+      "column_order": 28
+    },
+    {
+      "name": "REC_ENTERED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Debit amount in entered currency already recognized for the distribution. This is updated when multiperiod journal entry is created in final status.",
+      "column_order": 29
+    },
+    {
+      "name": "REC_ENTERED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit amount in entered currency already recognized for the distribution. This is updated when multiperiod journal entry is created in final status.",
+      "column_order": 30
+    },
+    {
+      "name": "REC_ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Debit amount in ledger currency already recognized for the distribution. This is updated when multiperiod journal entry is created in final status.",
+      "column_order": 31
+    },
+    {
+      "name": "REC_ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit amount in ledger currency already recognized for the distribution. This is updated when multiperiod journal entry is created in final status.",
+      "column_order": 32
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 33
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 34
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 37
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 38
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 39
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 41
+    },
+    {
+      "name": "PARTITION_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Partition grouping information, when combined with the period, determines the database partition in which this multi-period accounting information will be stored.",
+      "column_order": 42
+    },
+    {
+      "name": "ACCRUAL_PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Accounting period of the accrual entry.",
+      "column_order": 43
+    }
+  ]
+}

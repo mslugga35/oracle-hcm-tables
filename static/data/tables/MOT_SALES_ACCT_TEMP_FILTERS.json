@@ -1,0 +1,99 @@
+{
+  "id": 34219,
+  "name": "MOT_SALES_ACCT_TEMP_FILTERS",
+  "type": "TABLE",
+  "description": "This entity is introduced to enhance performance when showing Sales Accounts in the Territory Manager UI ( ie Dimension shuttle)\nIt is used in flows where it is necessary to filter the sales account dimension by the values for the other dimensions selected for the Territory in context.\nIt holds the user entered values for the chosen dimensions and related sequence number information.\nData in this table is temporary and will be purged as soon as the user completes the selection of the sales account.\nNote: The data will be purged in a separate process in cases where data remains i the table when the user terminates\nthe application by any other means.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/motsalesaccttempfilters-22872.html#motsalesaccttempfilters-22872",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SESSION_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "N",
+      "description": "Indicates user session",
+      "column_order": 1
+    },
+    {
+      "name": "TERR_DIMENSION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Refers to Terr Dimension Code in MOT_TERR_DIMENSIONS_B table.",
+      "column_order": 2
+    },
+    {
+      "name": "SEQUENCE_LOW",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Sequence Low for dimension member, used by Assignment Manager to identify territory which should be selected for given dimension.",
+      "column_order": 3
+    },
+    {
+      "name": "SEQUENCE_HIGH",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Sequence High for dimension member, used by Assignment Manager to identify territory which should be selected for given dimension.",
+      "column_order": 4
+    },
+    {
+      "name": "UNSPEC_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used in generating a separate predicate for 'Unspecified' dimension members. Valid values are 'Y' and 'N'.",
+      "column_order": 5
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    }
+  ]
+}

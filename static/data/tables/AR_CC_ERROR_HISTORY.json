@@ -1,0 +1,171 @@
+{
+  "id": 29250,
+  "name": "AR_CC_ERROR_HISTORY",
+  "type": "TABLE",
+  "description": "Whenever a transaction has a credit card error that has been marked for automatic correction, the AR_CC_ERROR_HISTORY table stores the details of the transaction, its error code, and its corrective action.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arccerrorhistory-7088.html#arccerrorhistory-7088",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 1
+    },
+    {
+      "name": "CC_TRX_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Transaction category for credit card errors. Based on lookup CC_TRX_CATEGORY.",
+      "column_order": 2
+    },
+    {
+      "name": "CC_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier for transactions with credit card errors",
+      "column_order": 3
+    },
+    {
+      "name": "CC_ERROR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Error code from credit card payment processor",
+      "column_order": 4
+    },
+    {
+      "name": "CC_ERROR_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit card error date",
+      "column_order": 5
+    },
+    {
+      "name": "CC_VENDOR_ERROR_DESC",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Payment processor description of credit card error",
+      "column_order": 6
+    },
+    {
+      "name": "CC_ERROR_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "User-enterable description for credit card error code",
+      "column_order": 7
+    },
+    {
+      "name": "CC_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Corrective action to be performed on transactions with errors. Based on lookup AR_CC_ACTION_CODES.",
+      "column_order": 8
+    },
+    {
+      "name": "CC_ACTION_TYPE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "S indicates if a subsequent action can be performed for a credit card error after N number of days. Otherwise, set to  A.",
+      "column_order": 9
+    },
+    {
+      "name": "PAYMENT_SERVER_ORDER_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Identifies credit card payment authorized by Oracle Payment Server",
+      "column_order": 10
+    },
+    {
+      "name": "CUSTOMER_BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Customer credit card account identifier.",
+      "column_order": 11
+    },
+    {
+      "name": "FIRST_RECORD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y indicates transactions that have credit card errors for the first time",
+      "column_order": 12
+    },
+    {
+      "name": "CURRENT_RECORD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y indicates current attempt at correction of credit card error. Used to identify if number of days for subsequent action (or manual correction) have passed.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "PAYMENT_TRXN_EXTENSION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Payment transaction extension identifier for credit card or bank account payment processing. Identifier of the transaction created in Fusion Oracle Payments for processing the credit card or bank account payment.",
+      "column_order": 19
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 20
+    }
+  ]
+}

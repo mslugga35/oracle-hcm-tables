@@ -1,0 +1,155 @@
+{
+  "id": 28105,
+  "name": "GL_PURGE_TRACKING_ERRORS",
+  "type": "TABLE",
+  "description": "This table stores any validation errors that are preventing a business object and fiscal year from being ready for archive and purge.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/glpurgetrackingerrors-22512.html#glpurgetrackingerrors-22512",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "BUSINESS_OBJECT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Business object for which archive and purge is being done. Some valid values are ORA_GL_JOURNALS and ORA_GL_BALANCES.",
+      "column_order": 1
+    },
+    {
+      "name": "CALENDAR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Calendar for which archive and purge is being done.",
+      "column_order": 2
+    },
+    {
+      "name": "PERIOD_RANGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Period range for which archive and purge is being done. Currently only maps to a single fiscal year and contains that year.",
+      "column_order": 3
+    },
+    {
+      "name": "ERROR_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Order in which this error was encountered when validating this business object and fiscal year. Added in order to have a unique primary key.",
+      "column_order": 4
+    },
+    {
+      "name": "ERROR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Error code of the validation error. Generally the same as the message name used to generate the error text.",
+      "column_order": 5
+    },
+    {
+      "name": "ERROR_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "N",
+      "description": "Error message of the validation error.",
+      "column_order": 6
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Period associated with the validation error.",
+      "column_order": 7
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger associated with the validation error.",
+      "column_order": 8
+    },
+    {
+      "name": "SECONDARY_LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Secondary ledger associated with the validation error.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 18
+    }
+  ]
+}

@@ -1,0 +1,243 @@
+{
+  "id": 34700,
+  "name": "CN_TP_EVENT_LOGS_ALL_INT",
+  "type": "TABLE",
+  "description": "The table stores the information of the events during the deployer process run.\nThe row can contain the plan object event or a payment object event  or a role compensation plan assignment row event.\nThe table aslo stores events that affect multiple compensation plans as seperate rows. Earlier this data was constructed and stored in cn_temp_gt table.\nThis table stores this information to make deployer process resilient.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/cntpeventlogsallint-29235.html#cntpeventlogsallint-29235",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "EVENT_LOG_OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Used as Unique Identifier for the table.",
+      "column_order": 1
+    },
+    {
+      "name": "EVENT_LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Event information copied from cn_tp_event_logs_all table.",
+      "column_order": 2
+    },
+    {
+      "name": "PRIMARY_OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Object here can be a compensation plan or a payment object or a compensation role assignment object copied from cn_tp_event_logs_all table.\nFor the denormalized compensation plans records, -1000 will be populated.\nIt will be populated as -2000 for denormalized rows of event type NOTIFY",
+      "column_order": 3
+    },
+    {
+      "name": "SECONDARY_OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Secondary object id will contain Compensation Plan Id for the plan related compenstion plan events create as part of  denormalization of the plan object event affecting multiple plans\nSecondary object id will contain Role Id for Role compensation Plan event.\nFor the all other events and direct event from logs table -1000 will be populated.\nIt will be populated as -2000 for denormalized rows of event type NOTIFY",
+      "column_order": 4
+    },
+    {
+      "name": "EVENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Will represent whether a Plan object event or a Role compensation plan assignment event or a payment event . A different event type namely,plan event related compenstion plan is used to identify denormalized rows of the plan object event affecting multiple plans.\nAn event type namely Notify is used to identify the denormalized participant information affected by the event.",
+      "column_order": 5
+    },
+    {
+      "name": "EVENT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Event name will be taken from the cn_tp_event_logs_all table. Will be null for denormalized event cp association.",
+      "column_order": 6
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 8
+    },
+    {
+      "name": "DEPLOY_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column used to mark if a event is already processed by deployer in its run to populate the srp tables or payment tables.\nIt will be populated as null for denormalized rows of event type NOTIFY",
+      "column_order": 9
+    },
+    {
+      "name": "NOTIFY_LOG_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column used to mark if a event is already processed by notify_log process of the deployer.\nIt will be populated as INCOMPLETE for denormalized rows of event type NOTIFY",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "OBJECT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The column will store the puid value of the object the event represents.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 17
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "WORKER_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Worker Number that will process this row. This worker number will belong between a range depending on the organization.",
+      "column_order": 20
+    },
+    {
+      "name": "PARTICIPANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Participant for whom notify logs needs to be populated. Will be only populated for event type as NOTIFY",
+      "column_order": 21
+    },
+    {
+      "name": "PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Period for which the event is logged. Will be only populated for event type as NOTIFY",
+      "column_order": 22
+    },
+    {
+      "name": "REVERT_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Revert State of the event. Will be only populated for event type as NOTIFY possible values are ROLLUP,CALCULATION and ELIGIBLE",
+      "column_order": 23
+    },
+    {
+      "name": "SRP_COMP_PLAN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Points to cn_srp_comp_plans_all. Will be only populated for event type as NOTIFY and REVERT TYPE as ELIGIBLE.",
+      "column_order": 24
+    },
+    {
+      "name": "PLAN_COMPONENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Points to cn_plan_components_all .Will be only populated for event type as NOTIFY and REVERT TYPE as ELIGIBLE.",
+      "column_order": 25
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Period start date. Will be only populated for event type as NOTIFY",
+      "column_order": 26
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Period end date. Will be only populated for event type as NOTIFY.",
+      "column_order": 27
+    },
+    {
+      "name": "BATCH_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Batch Identifier. Will be only populated for event type as NOTIFY.",
+      "column_order": 28
+    },
+    {
+      "name": "ERROR_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "The column will display the reason  the event failed while processing.",
+      "column_order": 29
+    }
+  ]
+}

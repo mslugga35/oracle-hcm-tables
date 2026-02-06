@@ -1,0 +1,763 @@
+{
+  "id": 28996,
+  "name": "IBY_TEMP_EXT_BANK_ACCTS",
+  "type": "TABLE",
+  "description": "IBY_TEMP_EXT_BANK_ACCTS defines the temporary records for external bank accounts.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibytempextbankaccts-18581.html#ibytempextbankaccts-18581",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TEMP_EXT_BANK_ACCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Oracle internal use only. Populated by Oracle.",
+      "column_order": 1
+    },
+    {
+      "name": "EXT_BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bank account identifier. Use the Manage Bank Accounts task to identify valid values.",
+      "column_order": 2
+    },
+    {
+      "name": "PAYMENT_FLOW",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies funds capture or disbursement flow. Use the Manage Lookup Types task, lookup type IBY_PAYMENT_FLOW to identify valid values.",
+      "column_order": 3
+    },
+    {
+      "name": "COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "Country code where the bank is located. Use the two character ISO code. Example: United States is US.",
+      "column_order": 4
+    },
+    {
+      "name": "BRANCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies bank branch. Used if BANK_ID is populated. Use the Manage Bank Branches task to identify valid values.",
+      "column_order": 5
+    },
+    {
+      "name": "BANK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies branch''s bank. Mandatory if Allow International Payments, FOREIGN_PAYMENT_USE_FLAG is Y. Use the Manage Bank Accounts task to identify valid values.",
+      "column_order": 6
+    },
+    {
+      "name": "BANK_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Bank name. Must be unique based on the country code.",
+      "column_order": 7
+    },
+    {
+      "name": "BANK_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bank number. The combination of bank number, branch number, and country code must be unique for each bank.",
+      "column_order": 8
+    },
+    {
+      "name": "BANK_NAME_ALT",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Alternative bank name. Free text field. Not validated.",
+      "column_order": 9
+    },
+    {
+      "name": "BANK_INSTITUTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Bank institution type. Valid values: BANK, CLEARINGHOUSE.",
+      "column_order": 10
+    },
+    {
+      "name": "BANK_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 11
+    },
+    {
+      "name": "BRANCH_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Branch number assigned by banking authority. For US banks, use the nine-digit transit routing number. The number must be unique for the bank.",
+      "column_order": 12
+    },
+    {
+      "name": "BRANCH_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Branch type. Valid values: BANK_BRANCH, CLEARINGHOUSE_BRANCH.",
+      "column_order": 13
+    },
+    {
+      "name": "BRANCH_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Branch name. Free text field. Not validated.",
+      "column_order": 14
+    },
+    {
+      "name": "BRANCH_NAME_ALT",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Alternative branch name. Free text field. Not validated.",
+      "column_order": 15
+    },
+    {
+      "name": "BIC",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bank Identifier Code (BIC) for the payee bank branch. First four letters are institution or bank code. Position four through six are country code. Positions six through eight are location code. Last three characters are optional: bank code.",
+      "column_order": 16
+    },
+    {
+      "name": "RFC_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Branch Regional Finance Center. Applicable to US banks only. Use the Manage Cash Management Lookups task, lookup type RFC_IDENTIFIER to identify valid values.",
+      "column_order": 17
+    },
+    {
+      "name": "BANK_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Short code for the bank. Varies based upon country of bank branch. Use the Manage Cash Management Lookups task, lookup type BANK_CODE to identify valid values by country.",
+      "column_order": 18
+    },
+    {
+      "name": "BRANCH_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Branch location. Oracle internal use only. Foreign key to HZ_IMP_LOCATIONS_T.LOCATION_T_ID.",
+      "column_order": 19
+    },
+    {
+      "name": "ACCOUNT_OWNER_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Owner party Identifier.",
+      "column_order": 20
+    },
+    {
+      "name": "OWNER_PRIMARY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Primary flag for the owner. Use: Y. Valid values: Y, N.",
+      "column_order": 21
+    },
+    {
+      "name": "BANK_ACCOUNT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Bank account name. Free text field. Not validated.",
+      "column_order": 22
+    },
+    {
+      "name": "BANK_ACCOUNT_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Account number. The combination of bank account number, branch number, country code, and currency must be unique for each bank.",
+      "column_order": 23
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Currency code. Use the Manage Currencies task to find valid values. Use the three character ISO currency code. Example: US Dollars is USD. Leave this field blank if the bank account accepts payments in multiple currencies.",
+      "column_order": 24
+    },
+    {
+      "name": "IBAN",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "International Bank Account Number (IBAN) for the payee bank account.  First two positions are letters. Third and fourth positions are numbers. Mod 97 rule is used for IBAN check digit.",
+      "column_order": 25
+    },
+    {
+      "name": "CHECK_DIGITS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Check digits to validate bank account number.",
+      "column_order": 26
+    },
+    {
+      "name": "BANK_ACCOUNT_NAME_ALT",
+      "data_type": "VARCHAR2",
+      "data_length": 320,
+      "nullable": "Y",
+      "description": "Alternate account name. Free text field. Not validated.",
+      "column_order": 27
+    },
+    {
+      "name": "BANK_ACCOUNT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Bank account type. Valid values: SAVINGS, CHECKING, OTHER. Use the Manage Standard Lookups task, lookup IBY_BANKACCT_TYPES to identify valid values.",
+      "column_order": 28
+    },
+    {
+      "name": "ACCOUNT_SUFFIX",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Account suffix. New Zealand banks only: combination of bank account number, currency, and account suffix must be unique within a bank.",
+      "column_order": 29
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description. Free text field. Not validated.",
+      "column_order": 30
+    },
+    {
+      "name": "AGENCY_LOCATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Agency location code assigned by the treasury financial management service of the company. Free text field. Not validated.",
+      "column_order": 31
+    },
+    {
+      "name": "PAYMENT_FACTOR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this is a payment factor bank account. Valid values: Y, N.",
+      "column_order": 32
+    },
+    {
+      "name": "FOREIGN_PAYMENT_USE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether foreign payments are permitted: when the bank branch country of payer bank account differs from payee bank account country. Valid values: Y, N.",
+      "column_order": 33
+    },
+    {
+      "name": "EXCHANGE_RATE_AGREEMENT_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Exchange rate agreement number. Free text field. Not validated.",
+      "column_order": 34
+    },
+    {
+      "name": "EXCHANGE_RATE_AGREEMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Exchange rate agreement type. Use the Manage Standard Lookups task, lookup type IBY_XCHG_RATE_AGREEMENT to identify valid values.",
+      "column_order": 35
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Exchange rate per agreement between supplier and its bank account. Used to convert payment currency to bank account currency.",
+      "column_order": 36
+    },
+    {
+      "name": "HEDGING_CONTRACT_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Hedging contract reference. Free text field. Not validated.",
+      "column_order": 37
+    },
+    {
+      "name": "SECONDARY_ACCOUNT_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Additional account number reference. Example: Building Society Roll Number. Free text field. Not validated.",
+      "column_order": 38
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the bank account becomes active. Date format: YYYY/MM/DD. Must be earlier than END_DATE.",
+      "column_order": 39
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the bank account becomes inactive. Date format: YYYY/MM/DD. Must be later than START_DATE.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Context code for External Bank Accounts descriptive flexfield. Use the Manage Payment System Connectivity Flexfields task to identify valid values. Use ATTRIBUTE1 to ATTRIBUTE15 for the segment values.",
+      "column_order": 41
+    },
+    {
+      "name": "NOTE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Note. Free text field.",
+      "column_order": 42
+    },
+    {
+      "name": "NOTE_ALT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Alternative note. Free text field. Not validated.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for External Bank Accounts descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Status of the bank account approval process.",
+      "column_order": 59
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: date and time of the last update of the row.",
+      "column_order": 60
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: user who last updated the row.",
+      "column_order": 61
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: date and time of the creation of the row.",
+      "column_order": 62
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: user who created the row.",
+      "column_order": 63
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: session login associated to the user who last updated the row.",
+      "column_order": 64
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: request ID of the job that created or last updated the row.",
+      "column_order": 65
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Who column.",
+      "column_order": 66
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Who column.",
+      "column_order": 67
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Who column.",
+      "column_order": 68
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. Incremented every time the row is updated. Compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 69
+    },
+    {
+      "name": "CALLING_APP_UNIQUE_REF1",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only. First unique identifier of the owner in the source product.",
+      "column_order": 70
+    },
+    {
+      "name": "CALLING_APP_UNIQUE_REF2",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Second unique identifier of the owner in the source product",
+      "column_order": 71
+    },
+    {
+      "name": "EXT_PAYEE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Payee to whom the bank account must be assigned. Not used for Oracle Cloud implementations.",
+      "column_order": 72
+    },
+    {
+      "name": "FEEDER_IMPORT_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Batch identifier.  Must be unique.",
+      "column_order": 73
+    },
+    {
+      "name": "ORIG_SYSTEM",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Original system for the bank account. Not used for Oracle Cloud implementations. Free text field. Not validated.",
+      "column_order": 74
+    },
+    {
+      "name": "ORIG_SYSTEM_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Original system reference for the bank account. Not used for Oracle Cloud implementations. Free text field. Not validated.",
+      "column_order": 75
+    },
+    {
+      "name": "BANK_MRG_TGT_OSR",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Stores the original source reference of the bank merge target interface record.",
+      "column_order": 76
+    },
+    {
+      "name": "BRANCH_MRG_TGT_OSR",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Stores the original source reference of the branch merge target interface record.",
+      "column_order": 77
+    },
+    {
+      "name": "LOAD_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: request ID of the loader job that created or last updated the row.",
+      "column_order": 78
+    },
+    {
+      "name": "TEMP_EXT_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Account owner party identifier. Use either ACCOUNT_OWNER_PARTY_ID  or TEMP_EXT_PARTY_ID, but not both.",
+      "column_order": 79
+    },
+    {
+      "name": "BANK_ACCOUNT_NUM_ELECTRONIC",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "The bank account number used in electronic files, if different from the written form.",
+      "column_order": 80
+    },
+    {
+      "name": "BA_NUM_ELEC_SEC_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Electronically-formatted bank number security segment identifier.",
+      "column_order": 81
+    },
+    {
+      "name": "SALT_VERSION",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Denotes the versions of the encryption algorithm used for the bank account number encryption.",
+      "column_order": 82
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise identifier to support multi-tenancy.",
+      "column_order": 83
+    },
+    {
+      "name": "ENCRYPTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Whether the instrument is encrypted.",
+      "column_order": 84
+    },
+    {
+      "name": "IBAN_SEC_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Security identifier of IBAN(International Bank Account Number).",
+      "column_order": 85
+    },
+    {
+      "name": "IBAN_HASH1",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Hash value of IBAN(International Bank Account Number).",
+      "column_order": 86
+    },
+    {
+      "name": "IBAN_HASH2",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Salted hash value of IBAN(International Bank Account Number).",
+      "column_order": 87
+    },
+    {
+      "name": "MASKED_IBAN",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Masked IBAN value to be used for display purposes.",
+      "column_order": 88
+    },
+    {
+      "name": "BANK_ACCOUNT_NUM_HASH1",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Hash of the bank account number.",
+      "column_order": 89
+    },
+    {
+      "name": "BANK_ACCOUNT_NUM_HASH2",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Hash of the salted bank account number.",
+      "column_order": 90
+    },
+    {
+      "name": "MASKED_BANK_ACCOUNT_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Masked bank account number to be used for display purposes.",
+      "column_order": 91
+    },
+    {
+      "name": "BA_MASK_SETTING",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Current bank account masking setting values taken from lookup IBY_INSTRUMENT_MASK_SETTING.",
+      "column_order": 92
+    },
+    {
+      "name": "BA_UNMASK_LENGTH",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Number of digits to expose in the external bank account mask.",
+      "column_order": 93
+    },
+    {
+      "name": "BA_NUM_SEC_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bank account number security identifier.",
+      "column_order": 94
+    }
+  ]
+}

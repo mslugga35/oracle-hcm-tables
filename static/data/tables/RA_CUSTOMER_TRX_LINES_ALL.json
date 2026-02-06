@@ -1,0 +1,2003 @@
+{
+  "id": 29491,
+  "name": "RA_CUSTOMER_TRX_LINES_ALL",
+  "type": "TABLE",
+  "description": "The RA_CUSTOMER_TRX_LINES_ALL table stores line information about invoices, debit memos, credit memos, and bills receivable. For example, an invoice can have one line for Product A and another line for Product B. Each line requires one row in this table.\nInvoices, debit memos, credit memos, and bills receivable distinguished by the transaction type of the corresponding row in the RA_CUSTOMER_TRX_ALL table. Credit memos must also have a value in the PREVIOUS_CUSTOMER_TRX_LINE_ID column. On-account credits, which are not related to specific invoices or invoice lines when they are created, will not have values in this column.\nThe QUANTITY_ORDERED column stores the amount of product that was ordered. The QUANTITY_INVOICED column stores the amount of product that was invoiced. For manually entered invoices, the QUANTITY_ORDERED and QUANTITY_INVOICED columns must be the same. For invoices that were imported through AutoInvoice, the QUANTITY_ORDERED and QUANTITY_INVOICED columns can be different. If you enter a credit memo, the QUANTITY_CREDITED column stores the amount of product that was credited.\nThe UOM_CODE column stores the unit of measure code as defined in the INV_UNITS_OF_MEASURE table. The UNIT_STANDARD_PRICE column stores the list price per unit for this transaction line. The UNIT_SELLING_PRICE column stores the selling price per unit for this transaction line. For transactions that were imported through AutoInvoice, the UNIT_STANDARD_PRICE and UNIT_SELLING_PRICE columns can be different. The DESCRIPTION, TAXING_RULE, QUANTITY_ORDERED, UNIT_STANDARD_PRICE, UOM_CODE, and UNIT_SELLING_PRICE columns are required even though they are null allowed.\nReceivables uses the LINE_TYPE column to distinguish between the different types of lines. LINE represents regular invoice lines that normally refer to an item. TAX represents a tax line. The LINK_TO_CUST_TRX_LINE_ID column references the invoice line that is associated with the row that holds the TAX line type. FREIGHT is similar to TAX, but you can have at most one freight line per invoice line. You can also have one freight line that has a null LINK_TO_CUST_TRX_LINE_ID column. An invoice that has one freight line with a null LINK_TO_CUST_TRX_LINE_ID column has header-level freight.\nCB represents a chargeback line. For every row in this table that belongs to a completed postable or nonpostable transaction, where the RA_CUSTOMER_TRX.COMPLETE_FLAG is Y, there must be at least one row in the RA_CUST_TRX_LINE_GL_DIST table that stores accounting information. There must be at least one row in this table even for nonpostable transactions.\nThe primary key for this table is CUSTOMER_TRX_LINE_ID.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/racustomertrxlinesall-28051.html#racustomertrxlinesall-28051",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CUSTOMER_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Transaction line identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 2
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 3
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 4
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CUSTOMER_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Transaction identifier.",
+      "column_order": 7
+    },
+    {
+      "name": "LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Transaction line number.",
+      "column_order": 8
+    },
+    {
+      "name": "SET_OF_BOOKS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies the ledger associated with the transaction line.",
+      "column_order": 9
+    },
+    {
+      "name": "REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Transaction line reason code.",
+      "column_order": 10
+    },
+    {
+      "name": "INVENTORY_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Inventory item identifier.  Mutually exclusive with the column MEMO_LINE_ID.",
+      "column_order": 11
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Line description",
+      "column_order": 12
+    },
+    {
+      "name": "PREVIOUS_CUSTOMER_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Credit memo's invoice identifier",
+      "column_order": 13
+    },
+    {
+      "name": "PREVIOUS_CUSTOMER_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Credit memo line's invoice line identifier",
+      "column_order": 14
+    },
+    {
+      "name": "QUANTITY_ORDERED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quantity of an order",
+      "column_order": 15
+    },
+    {
+      "name": "QUANTITY_CREDITED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quantity credited",
+      "column_order": 16
+    },
+    {
+      "name": "QUANTITY_INVOICED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quantity of invoice line",
+      "column_order": 17
+    },
+    {
+      "name": "UNIT_STANDARD_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "List price per unit. Price is gross of inclusive taxes. There is no separate gross standard price.",
+      "column_order": 18
+    },
+    {
+      "name": "UNIT_SELLING_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Selling price per unit for a transaction line",
+      "column_order": 19
+    },
+    {
+      "name": "SALES_ORDER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Sales order",
+      "column_order": 20
+    },
+    {
+      "name": "SALES_ORDER_REVISION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used",
+      "column_order": 21
+    },
+    {
+      "name": "SALES_ORDER_LINE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Sales order line",
+      "column_order": 22
+    },
+    {
+      "name": "SALES_ORDER_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sales order date",
+      "column_order": 23
+    },
+    {
+      "name": "ACCOUNTING_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting rule identifier",
+      "column_order": 24
+    },
+    {
+      "name": "ACCOUNTING_RULE_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The number of periods in which revenue is to be recognized.  Must be filled in for lines with fixed and variable duration rules.",
+      "column_order": 25
+    },
+    {
+      "name": "LINE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "Receivables lookup code for STD_LINE_TYPE",
+      "column_order": 26
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 28
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 29
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 30
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 31
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 38
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - application id of the program that last updated this row (foreign key to FND_APPLICATION.APPLICATION_ID).",
+      "column_order": 39
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - program id of the program that last updated this row (foreign key to FND_CONCURRENT_PROGRAM.CONCURRENT_PROGRAM_ID).",
+      "column_order": 40
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - date when a program last updated this row).",
+      "column_order": 41
+    },
+    {
+      "name": "RULE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "First GL date of the invoice. Only used for invoice with rules",
+      "column_order": 42
+    },
+    {
+      "name": "INITIAL_CUSTOMER_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the initial transaction line for the customer",
+      "column_order": 43
+    },
+    {
+      "name": "INTERFACE_LINE_CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line context",
+      "column_order": 44
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 45
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 46
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 47
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 48
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 49
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 50
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 51
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 52
+    },
+    {
+      "name": "SALES_ORDER_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "The source of the sales order",
+      "column_order": 53
+    },
+    {
+      "name": "TAXABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 54
+    },
+    {
+      "name": "EXTENDED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Transaction line amount",
+      "column_order": 55
+    },
+    {
+      "name": "REVENUE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction line revenue amount",
+      "column_order": 56
+    },
+    {
+      "name": "AUTORULE_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if all account assignments have been created. Y for yes, N otherwise.",
+      "column_order": 57
+    },
+    {
+      "name": "LINK_TO_CUST_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Link to transaction line identifier",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "TAX_PRECEDENCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax precedence for a tax line",
+      "column_order": 64
+    },
+    {
+      "name": "TAX_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax rate for a line",
+      "column_order": 65
+    },
+    {
+      "name": "ITEM_EXCEPTION_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax exception identifier",
+      "column_order": 66
+    },
+    {
+      "name": "TAX_EXEMPTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax exemption identifier",
+      "column_order": 67
+    },
+    {
+      "name": "AUTORULE_DURATION_PROCESSED",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Number of times revenue recognition has created distributions for the line",
+      "column_order": 68
+    },
+    {
+      "name": "UOM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Unit of measure code",
+      "column_order": 69
+    },
+    {
+      "name": "DEFAULT_USSGL_TRANSACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Default value for the USSGL Transaction Code Flexfield",
+      "column_order": 70
+    },
+    {
+      "name": "DEFAULT_USSGL_TRX_CODE_CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Default context value for the USSGL Transaction Code Flexfield",
+      "column_order": 71
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 72
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 73
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 74
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 75
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 76
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 77
+    },
+    {
+      "name": "INTERFACE_LINE_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Interface line attribute value",
+      "column_order": 78
+    },
+    {
+      "name": "VAT_TAX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for AR_VAT_TAX",
+      "column_order": 79
+    },
+    {
+      "name": "AUTOTAX",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if this tax line was generated automatically by the tax engine. Y for yes, N otherwise.",
+      "column_order": 80
+    },
+    {
+      "name": "LAST_PERIOD_TO_CREDIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last period to credit for unit credit memos against invoices with rules",
+      "column_order": 81
+    },
+    {
+      "name": "ITEM_CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield structure defining column",
+      "column_order": 82
+    },
+    {
+      "name": "TAX_EXEMPT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Tax Lines are controlled by the lookup (TAX_CONTROL_FLAG), which allows for standard tax, exempt tax, and required tax.",
+      "column_order": 83
+    },
+    {
+      "name": "TAX_EXEMPT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Exemption certificate number for item lines that have TAX_EXEMPT_FLAG set to E for exempt",
+      "column_order": 84
+    },
+    {
+      "name": "TAX_EXEMPT_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax Exempt Reason, for item lines that have tax_exempt_flag set to \"E\" (exempt)",
+      "column_order": 85
+    },
+    {
+      "name": "TAX_VENDOR_RETURN_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Warning code returned during vendor calculation of a sales tax rate, used for diagnostics and support.",
+      "column_order": 86
+    },
+    {
+      "name": "SALES_TAX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used in the production release - replaced by location_segment_id",
+      "column_order": 87
+    },
+    {
+      "name": "LOCATION_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This column points to the record in the AR_LOCATION_VALUES table from which AutoAccounting derived the tax account for this line",
+      "column_order": 88
+    },
+    {
+      "name": "MOVEMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Intrastat movement identification number.",
+      "column_order": 89
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 90
+    },
+    {
+      "name": "WH_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date sent to data warehouse",
+      "column_order": 91
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 112
+    },
+    {
+      "name": "GROSS_UNIT_SELLING_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unit selling price inclusive of tax amounts",
+      "column_order": 113
+    },
+    {
+      "name": "GROSS_EXTENDED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount gross of inclusive tax amounts",
+      "column_order": 114
+    },
+    {
+      "name": "AMOUNT_INCLUDES_TAX_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag that indicates if the tax is inclusive or exclusive. Yes (Y) indicates tax is inclusive, No (N) indicates tax is exclusive, and NULL for lines indicates that you cannot override tax or tax group. The value cannot be NULL for tax types.",
+      "column_order": 115
+    },
+    {
+      "name": "TAXABLE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The taxable amount for lines of the tax type that are tax inclusive",
+      "column_order": 116
+    },
+    {
+      "name": "WAREHOUSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the HR_ORGANIZATIONS table.  The warehouse identifies the ship-from location and can be used to control taxation.  Within the US, the Warehouse ID is important when calculating tax on the origin/modified origin state sales tax. Outside the US you can use tax groups and conditions to build a schedule of multiple conditional taxes based on both the ship-from and ship-to county/county/state or provinces.",
+      "column_order": 117
+    },
+    {
+      "name": "TRANSLATED_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Translated description of this transaction line.",
+      "column_order": 118
+    },
+    {
+      "name": "EXTENDED_ACCTD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction line amount in functional currency for bills receivable",
+      "column_order": 119
+    },
+    {
+      "name": "BR_REF_CUSTOMER_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of a transaction to which the bill receivable is applied.",
+      "column_order": 120
+    },
+    {
+      "name": "BR_REF_PAYMENT_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of a transaction installment to which the bill receivable is applied.",
+      "column_order": 121
+    },
+    {
+      "name": "BR_ADJUSTMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of a non-accounting adjustment created when a bill receivable is applied to an existing bill receivable.",
+      "column_order": 122
+    },
+    {
+      "name": "MRC_EXTENDED_ACCTD_AMOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 123
+    },
+    {
+      "name": "PAYMENT_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the prepayment application's payment set",
+      "column_order": 124
+    },
+    {
+      "name": "CONTRACT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifies the contract line from Oracle Contracts Core that is associated with this line",
+      "column_order": 125
+    },
+    {
+      "name": "SOURCE_DATA_KEY1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Identifies source data from original system",
+      "column_order": 126
+    },
+    {
+      "name": "SOURCE_DATA_KEY2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Identifies source data from original system",
+      "column_order": 127
+    },
+    {
+      "name": "SOURCE_DATA_KEY3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Identifies source data from original system",
+      "column_order": 128
+    },
+    {
+      "name": "SOURCE_DATA_KEY4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Identifies source data from original system",
+      "column_order": 129
+    },
+    {
+      "name": "SOURCE_DATA_KEY5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Identifies source data from original system",
+      "column_order": 130
+    },
+    {
+      "name": "INVOICED_LINE_ACCTG_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Identifies accounting level for lines eligible for invoice in original system.",
+      "column_order": 131
+    },
+    {
+      "name": "OVERRIDE_AUTO_ACCOUNTING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag provided by the source system indicating if AutoAccounting should overridden.",
+      "column_order": 132
+    },
+    {
+      "name": "SHIP_TO_CUSTOMER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies ship-to customer",
+      "column_order": 133
+    },
+    {
+      "name": "SHIP_TO_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies ship-to address",
+      "column_order": 134
+    },
+    {
+      "name": "SHIP_TO_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies ship-to site",
+      "column_order": 135
+    },
+    {
+      "name": "SHIP_TO_CONTACT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies ship-to contact or recipient",
+      "column_order": 136
+    },
+    {
+      "name": "HISTORICAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes, No, or NULL flag indicates if the transaction line exists prior to EBS release 12.",
+      "column_order": 137
+    },
+    {
+      "name": "TAX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the detail tax line in ZX_LINES table that corresponds to this tax line.",
+      "column_order": 138
+    },
+    {
+      "name": "LINE_RECOVERABLE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction line amount which is considered to be recoverable during tax calculation.",
+      "column_order": 139
+    },
+    {
+      "name": "TAX_RECOVERABLE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total tax recovery amount used for tax calculations.",
+      "column_order": 140
+    },
+    {
+      "name": "TAX_CLASSIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax determining attribute used at transaction line level.",
+      "column_order": 141
+    },
+    {
+      "name": "AMOUNT_DUE_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "remaining balance",
+      "column_order": 142
+    },
+    {
+      "name": "ACCTD_AMOUNT_DUE_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "accounted remaining balance",
+      "column_order": 143
+    },
+    {
+      "name": "AMOUNT_DUE_ORIGINAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "original balance",
+      "column_order": 144
+    },
+    {
+      "name": "CHRG_AMOUNT_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "charges balance on revenue line",
+      "column_order": 145
+    },
+    {
+      "name": "CHRG_ACCTD_AMOUNT_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "accounted charges balance on revenue line",
+      "column_order": 146
+    },
+    {
+      "name": "FRT_ADJ_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "freight adjusted amount on revenue line",
+      "column_order": 147
+    },
+    {
+      "name": "FRT_ADJ_ACCTD_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "freight adjusted accounted amount on revenue line.",
+      "column_order": 148
+    },
+    {
+      "name": "FRT_ED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "earned discount on freight assigned to the revenue line.",
+      "column_order": 149
+    },
+    {
+      "name": "FRT_ED_ACCTD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "earned accounted discount on freight assigned to the revenue line.",
+      "column_order": 150
+    },
+    {
+      "name": "FRT_UNED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unearned discount on freight assigned to the revenue line.",
+      "column_order": 151
+    },
+    {
+      "name": "FRT_UNED_ACCTD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "unearned accounted discount on freight assigned to the revenue line.",
+      "column_order": 152
+    },
+    {
+      "name": "DEFERRAL_EXCLUSION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Excludes line from automated revenue deferral",
+      "column_order": 153
+    },
+    {
+      "name": "ACCTD_AMOUNT_DUE_ORIGINAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "accounted original balance",
+      "column_order": 154
+    },
+    {
+      "name": "RULE_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last GL date of the invoice. Only used for invoice",
+      "column_order": 155
+    },
+    {
+      "name": "PAYMENT_TRXN_EXTENSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle Payments transaction identifier for processing a credit card or bank account payment.",
+      "column_order": 156
+    },
+    {
+      "name": "INTEREST_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key for late charge.",
+      "column_order": 157
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 158
+    },
+    {
+      "name": "MEMO_LINE_SEQ_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Memo line sequence identifier.",
+      "column_order": 159
+    },
+    {
+      "name": "TRX_BUSINESS_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Transaction business category tax determinant.",
+      "column_order": 160
+    },
+    {
+      "name": "USER_DEFINED_FISC_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "User defined fiscal classification tax determinant.",
+      "column_order": 161
+    },
+    {
+      "name": "PRODUCT_FISC_CLASSIFICATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Product fiscal classification tax determinant.",
+      "column_order": 162
+    },
+    {
+      "name": "LINE_INTENDED_USE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Transaction line intended use tax determinant.",
+      "column_order": 163
+    },
+    {
+      "name": "PRODUCT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Product type tax determinant.",
+      "column_order": 164
+    },
+    {
+      "name": "PRODUCT_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Product category tax determinant.",
+      "column_order": 165
+    },
+    {
+      "name": "ASSESSABLE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Assessable value tax determinant.",
+      "column_order": 166
+    },
+    {
+      "name": "SOURCE_DOCUMENT_LINE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Source Document Line Number",
+      "column_order": 167
+    },
+    {
+      "name": "SOURCE_DOCUMENT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source Document Line Identifier",
+      "column_order": 168
+    },
+    {
+      "name": "FAIR_MARKET_VALUE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Fair market value amount.",
+      "column_order": 169
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 170
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 171
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 172
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 173
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 174
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 175
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 176
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 177
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 178
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 179
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 180
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 181
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 182
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 183
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 184
+    },
+    {
+      "name": "LINK_TO_PARENTLINE_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Link to parent line to derive its contingency information.",
+      "column_order": 185
+    },
+    {
+      "name": "TAX_ACTION",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "This column will store Tax Action values of CREATE, UPDATE that is used by calculate tax api",
+      "column_order": 186
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 187
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 188
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 189
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 190
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 191
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 192
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 193
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 194
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 195
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 196
+    },
+    {
+      "name": "REQUIRES_MANUAL_SCHEDULING",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "REQUIRES_MANUAL_SCHEDULING",
+      "column_order": 197
+    },
+    {
+      "name": "TAX_INVOICE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Number on Fiscal document generated during shipment of goods",
+      "column_order": 198
+    },
+    {
+      "name": "TAX_INVOICE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on Fiscal document generated during shipment of goods",
+      "column_order": 199
+    },
+    {
+      "name": "FINAL_DISCHARGE_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "End final discharge point or final customer location where shipment will be sent",
+      "column_order": 200
+    },
+    {
+      "name": "AUTHORIZATION_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Credit check authorization number linked to the invoice.",
+      "column_order": 201
+    },
+    {
+      "name": "AUTH_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether credit check authorization is complete.",
+      "column_order": 202
+    },
+    {
+      "name": "SHIP_TO_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the ship-to party.",
+      "column_order": 203
+    },
+    {
+      "name": "SHIP_TO_PARTY_CONTACT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the ship-to party contact.",
+      "column_order": 204
+    },
+    {
+      "name": "SHIP_TO_PARTY_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the ship-to party site use.",
+      "column_order": 205
+    },
+    {
+      "name": "SHIP_TO_PARTY_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the ship-to party address.",
+      "column_order": 206
+    },
+    {
+      "name": "DOC_LINE_ID_INT_1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Source document line unique identifier.",
+      "column_order": 207
+    },
+    {
+      "name": "DOC_LINE_ID_INT_2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Source document line unique identifier.",
+      "column_order": 208
+    },
+    {
+      "name": "DOC_LINE_ID_INT_3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Source document line unique identifier.",
+      "column_order": 209
+    },
+    {
+      "name": "DOC_LINE_ID_INT_4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Source document line unique identifier.",
+      "column_order": 210
+    },
+    {
+      "name": "DOC_LINE_ID_INT_5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Source document line unique identifier.",
+      "column_order": 211
+    },
+    {
+      "name": "DOC_LINE_ID_CHAR_1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique identifier of the source document line.",
+      "column_order": 212
+    },
+    {
+      "name": "DOC_LINE_ID_CHAR_2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique identifier of the source document line.",
+      "column_order": 213
+    },
+    {
+      "name": "DOC_LINE_ID_CHAR_3",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique identifier of the source document line.",
+      "column_order": 214
+    },
+    {
+      "name": "DOC_LINE_ID_CHAR_4",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique identifier of the source document line.",
+      "column_order": 215
+    },
+    {
+      "name": "DOC_LINE_ID_CHAR_5",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique identifier of the source document line.",
+      "column_order": 216
+    },
+    {
+      "name": "RECURRING_BILL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option that indicates whether the line is for a recurring invoice. Valid values are Y, N, null. Null is the same as N.",
+      "column_order": 217
+    },
+    {
+      "name": "CONTRACT_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The start date of the contract, if the transaction line is associated with a contract.",
+      "column_order": 218
+    },
+    {
+      "name": "CONTRACT_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The end date of the contract, if the transaction line is associated with a contract.",
+      "column_order": 219
+    },
+    {
+      "name": "RECURRING_BILL_PLAN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the recurring bill plan associated with the invoice.",
+      "column_order": 220
+    },
+    {
+      "name": "BILLING_PERIOD_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The start date of the billing period associated with the invoice.",
+      "column_order": 221
+    },
+    {
+      "name": "BILLING_PERIOD_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The end date of the billing period associated with the invoice.",
+      "column_order": 222
+    },
+    {
+      "name": "RECURRING_BILL_PLAN_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the recurring bill plan line associated with the credit memo.",
+      "column_order": 223
+    },
+    {
+      "name": "BILL_PLAN_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the recurring bill plan line.",
+      "column_order": 224
+    },
+    {
+      "name": "FREIGHT_CHARGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Freight amount charged to the customer for the sale of item on the line.",
+      "column_order": 225
+    },
+    {
+      "name": "INSURANCE_CHARGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Insurance amount charged to the customer for the sale of item on the line.",
+      "column_order": 226
+    },
+    {
+      "name": "PACKING_CHARGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Packing amount charged to the customer for the sale of item on the line.",
+      "column_order": 227
+    },
+    {
+      "name": "MISCELLANEOUS_CHARGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Other charge amount charged to the customer for the sale of item on the line.",
+      "column_order": 228
+    },
+    {
+      "name": "COMMERCIAL_DISCOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Commercial discount extended to the customer for the purchase of the item on the line.",
+      "column_order": 229
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 230
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 231
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 232
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 233
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 234
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 235
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 236
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 237
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 238
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 239
+    },
+    {
+      "name": "PREPAY_CUSTOMER_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Prepayment customer transaction identifier.",
+      "column_order": 240
+    },
+    {
+      "name": "PREPAY_CUSTOMER_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Prepayment customer transaction line identifier.",
+      "column_order": 241
+    },
+    {
+      "name": "REMAINING_PREPAY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Remaining prepayment amount against the prepayment transaction line.",
+      "column_order": 242
+    },
+    {
+      "name": "ORIGINAL_BATCH_SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Original transaction source sequence identifier passed by the source system.",
+      "column_order": 243
+    },
+    {
+      "name": "ORIGINAL_TRX_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Original transaction date passed by the source system. No value exists if LINE_TYPE is TAX, or if the line is for freight.",
+      "column_order": 244
+    },
+    {
+      "name": "PURCHASE_ORDER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Purchase order number passed by the source system.",
+      "column_order": 245
+    },
+    {
+      "name": "PURCHASE_ORDER_REVISION",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Purchase order revision passed by the source system.",
+      "column_order": 246
+    },
+    {
+      "name": "PURCHASE_ORDER_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Purchase order date passed by the source system.",
+      "column_order": 247
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Free text field to capture review comments on Invoice lines.",
+      "column_order": 248
+    },
+    {
+      "name": "INTERNAL_NOTES",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Free text field to capture internal comments on Invoice lines. Not validated.",
+      "column_order": 249
+    }
+  ]
+}

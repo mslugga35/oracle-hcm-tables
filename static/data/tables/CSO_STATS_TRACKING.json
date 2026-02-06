@@ -1,0 +1,123 @@
+{
+  "id": 32567,
+  "name": "CSO_STATS_TRACKING",
+  "type": "TABLE",
+  "description": "Stats tracking table to track exceptions, last hourly, daily, monthly and yearly extracts",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/csostatstracking-28468.html#csostatstracking-28468",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 1
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 2
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 5
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 6
+    },
+    {
+      "name": "TABLE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The name of the target table that is being tracked.",
+      "column_order": 7
+    },
+    {
+      "name": "EXCEPTIONS",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Set to 1 for this table if there is a failure. If not it will be set to 0.",
+      "column_order": 8
+    },
+    {
+      "name": "EXCEPTION_WINDOW",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Set to 1 for this table if there is an hourly failure. Set to 2 for this table if there is an aggregate job failure. If not it will be set to 0.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_HOURLY_EXTRACT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date and time of the last hourly extraction. Gives flexibility in case any job has to be run separately.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_DAILY_EXTRACT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date and time of the last daily extraction.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_MONTHLY_EXTRACT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date and time of the last monthly extraction.",
+      "column_order": 12
+    },
+    {
+      "name": "ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Store the exception details of the error.",
+      "column_order": 13
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 14
+    }
+  ]
+}

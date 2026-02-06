@@ -1,0 +1,291 @@
+{
+  "id": 27258,
+  "name": "FLA_TAX_TRANSACTIONS",
+  "type": "TABLE",
+  "description": "FLA_TAX_TRANSACTIONS contains the tax transaction details for the payment.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flataxtransactions-7457.html#flataxtransactions-7457",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TAX_TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payment tax transaction identifier. This is primary key for the table.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease identifier from FLA_LEASES_ALL table.",
+      "column_order": 3
+    },
+    {
+      "name": "LEASE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease details identifier which is referenced.",
+      "column_order": 4
+    },
+    {
+      "name": "PAYMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment number. Tax transactions are created for this Payment.",
+      "column_order": 5
+    },
+    {
+      "name": "REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Regime code. This drives the accounting model and reporting for the lease.",
+      "column_order": 6
+    },
+    {
+      "name": "TAX_REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Tax regime code for the tax rate.",
+      "column_order": 7
+    },
+    {
+      "name": "TAX",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Tax for which the rate is defined.",
+      "column_order": 8
+    },
+    {
+      "name": "VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Version number of the lease as captured in FLA_LEASE_DETAILS.",
+      "column_order": 9
+    },
+    {
+      "name": "TRANSACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Transaction type. Possible values are RECOVERABLE and NONRECOVERABLE.",
+      "column_order": 10
+    },
+    {
+      "name": "TRANSACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Indicates the Transaction date.",
+      "column_order": 11
+    },
+    {
+      "name": "COMMENCEMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the commencement date.",
+      "column_order": 12
+    },
+    {
+      "name": "PRIOR_TAX_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the prior tax amount.",
+      "column_order": 13
+    },
+    {
+      "name": "FORECASTED_TAX_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the forecasted tax amount.",
+      "column_order": 14
+    },
+    {
+      "name": "ADJUSTED_TAX_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the adjusted tax amount.",
+      "column_order": 15
+    },
+    {
+      "name": "ACCOUNTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate that the accounting is processed.",
+      "column_order": 16
+    },
+    {
+      "name": "REVERSAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the transaction is reversed or pending for reversal.",
+      "column_order": 17
+    },
+    {
+      "name": "ACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the tax transaction is active or not.",
+      "column_order": 18
+    },
+    {
+      "name": "REGENERATE_SCHEDULES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the schedules need to be regenerated.",
+      "column_order": 19
+    },
+    {
+      "name": "PARENT_RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Contains parent tax transaction identifier.",
+      "column_order": 20
+    },
+    {
+      "name": "INCLUDE_IN_ROU_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the amount is included in Right of Use or not.",
+      "column_order": 21
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 24
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Attribute indicating tax payment currency code.",
+      "column_order": 25
+    },
+    {
+      "name": "EFFECTIVE_TAX_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective Tax rate which is calculated.",
+      "column_order": 26
+    },
+    {
+      "name": "PAYMENT_TAX_LINE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment tax line number. This is generated by system using a document sequence.",
+      "column_order": 27
+    },
+    {
+      "name": "TAX_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax rate identifier of the selected tax rate code.",
+      "column_order": 28
+    },
+    {
+      "name": "RECOVERY_TAX_RATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Recovery tax rate identifier of the selected recovery tax rate code.",
+      "column_order": 29
+    },
+    {
+      "name": "TAX_JURISDICTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax jurisdiction code for which this rate is defined.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 32
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 33
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 35
+    }
+  ]
+}

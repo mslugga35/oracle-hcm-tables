@@ -1,0 +1,131 @@
+{
+  "id": 35352,
+  "name": "FND_NTF_EVENT",
+  "type": "TABLE",
+  "description": "Entity for persisting business events received from all registered ApplicationModules.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/fndntfevent-20559.html#fndntfevent-20559",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary identifier of the entity.",
+      "column_order": 1
+    },
+    {
+      "name": "EVENT_VERSION",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "0 based version column for tracking subsequent change requests on top of the original event-id row.",
+      "column_order": 2
+    },
+    {
+      "name": "APP_MODULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key referencing the fnd_ntf_application_module table.",
+      "column_order": 3
+    },
+    {
+      "name": "CLOUD_EVENT_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "N",
+      "description": "Unique identifier of the business event as specified by the producer ApplicationModule.",
+      "column_order": 4
+    },
+    {
+      "name": "CLOUD_EVENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "N",
+      "description": "Event Type of the business event as specified by the producer ApplicationModule.",
+      "column_order": 5
+    },
+    {
+      "name": "CLOUD_EVENT_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "N",
+      "description": "Event Source of the business event as specified by the producer ApplicationModule.",
+      "column_order": 6
+    },
+    {
+      "name": "DATA_CONTENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "Mine-type of the payload of the business event.",
+      "column_order": 7
+    },
+    {
+      "name": "CHANNEL_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "The name for the channel as registered in fnd_ntf_channel table.",
+      "column_order": 8
+    },
+    {
+      "name": "PROCESSING_HINTS_JSON",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "N",
+      "description": "JSON (versioned) configuration specifying the application layer tuning parameters chosen for fine grained control of how this business event is precoessed.",
+      "column_order": 9
+    },
+    {
+      "name": "DATA",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The actual payload to be delivered to the outbound channel(s).",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    }
+  ]
+}

@@ -1,0 +1,427 @@
+{
+  "id": 26739,
+  "name": "XCC_BALANCE_ACTIVITIES",
+  "type": "TABLE",
+  "description": "This tables reflects how transactions affect the budgetary control balances.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/xccbalanceactivities-10511.html#xccbalanceactivities-10511",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "HEADER_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Unique identifier for this transaction.",
+      "column_order": 1
+    },
+    {
+      "name": "PENDING_HEADER_GROUP_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total pending reservation amount for earlier transactions with same header group in current budgetary control request for this control budget, account, and period at time of funds reservation.",
+      "column_order": 2
+    },
+    {
+      "name": "LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Internal line number for budgetary control engine processing",
+      "column_order": 3
+    },
+    {
+      "name": "BALANCE_LINE_ORDER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Balance line number, it is part of the primary key.",
+      "column_order": 4
+    },
+    {
+      "name": "CONTROL_BUDGET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the impacted Control Budget for this balance activity entry.",
+      "column_order": 5
+    },
+    {
+      "name": "CONTROL_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The control level code indicates how the entry is treated, it is either ABSOLUTE, ADVISORY, TRACKING or NONE.",
+      "column_order": 6
+    },
+    {
+      "name": "TOLERANCE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tolerance used in funds checking expressed by an amount.",
+      "column_order": 7
+    },
+    {
+      "name": "TOLERANCE_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tolerance used in funds checking expressed by a percentage.",
+      "column_order": 8
+    },
+    {
+      "name": "ENTERED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount entered on the transaction line.",
+      "column_order": 9
+    },
+    {
+      "name": "ENTERED_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Represents the transaction currency.",
+      "column_order": 10
+    },
+    {
+      "name": "CONVERSION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Conversion type used to obtain the budget currency.",
+      "column_order": 11
+    },
+    {
+      "name": "CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Conversion rate used to calculate the amount in  budget currency.",
+      "column_order": 12
+    },
+    {
+      "name": "AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount expressed in budget currency.",
+      "column_order": 13
+    },
+    {
+      "name": "BUDGET_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date used to perform the budget checking.",
+      "column_order": 14
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Budget period in which falls the budget checking.",
+      "column_order": 15
+    },
+    {
+      "name": "BUDGET_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Key flexfield combination defining column that indentifies the budget account",
+      "column_order": 16
+    },
+    {
+      "name": "RESULT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Status of funds check or reservation for this particular balance activity",
+      "column_order": 17
+    },
+    {
+      "name": "ACTIVITY_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Activity type can be Original, Liquidation, Rounding Plug or Backout.",
+      "column_order": 18
+    },
+    {
+      "name": "ALLOC_HEADER_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "For liquidations, it identifies the original header.",
+      "column_order": 19
+    },
+    {
+      "name": "ALLOC_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "For liquidations, it identifies the original line number.",
+      "column_order": 20
+    },
+    {
+      "name": "BACKOUT_HEADER_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "For backouts, it identifies the backed out header.",
+      "column_order": 21
+    },
+    {
+      "name": "BACKOUT_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "For backouts, it corresponds to the backed out line number.",
+      "column_order": 22
+    },
+    {
+      "name": "BALANCE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Identifes the type of balance, it can be Obligation, Commitment, Other, Actual or Budget.",
+      "column_order": 23
+    },
+    {
+      "name": "SUB_BALANCE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This code represents the detail balance type.",
+      "column_order": 24
+    },
+    {
+      "name": "BUDGET_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Initial amount budgeted to this control budget, account, and period at the time of funds reservation.  Add the budget adjustment amount to get the total budget.",
+      "column_order": 25
+    },
+    {
+      "name": "BUDGET_ADJUSTMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount by which the budgeted amount had been increased or decreased for this control budget, account, and period at the time of funds reservation.",
+      "column_order": 26
+    },
+    {
+      "name": "COMMITMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Funds committed for this control budget, account, and period at the time of funds reservation.",
+      "column_order": 27
+    },
+    {
+      "name": "OBLIGATION_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Funds obligated for this control budget, account, and period at the time of funds reservation.",
+      "column_order": 28
+    },
+    {
+      "name": "OTHER_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Funds in the bucket called other, for this control budget, account, and period at the time of funds reservation.",
+      "column_order": 29
+    },
+    {
+      "name": "ACTUAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Funds spent for this control budget, account, and period at the time of funds reservation.",
+      "column_order": 30
+    },
+    {
+      "name": "FUNDS_AVAILABLE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total funds available for this control budget, account, and period at the time of funds reservation.",
+      "column_order": 31
+    },
+    {
+      "name": "PENDING_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total pending reservations for earlier transactions for this control budget, account, and period at the time of funds reservation.",
+      "column_order": 32
+    },
+    {
+      "name": "OTHER_LINES_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total pending reservations for earlier lines in this transaction for this control budget, account, and period at the time of funds reservation.",
+      "column_order": 33
+    },
+    {
+      "name": "NET_TOLERANCE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tolerance allowed at the time of funds reservation.  It does not indicate what has been used, just records what was allowed.",
+      "column_order": 34
+    },
+    {
+      "name": "PJC_EXPENDITURE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management expenditure type identifier. This is only populated for burdening activities.",
+      "column_order": 35
+    },
+    {
+      "name": "PJC_TOP_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management top resource identifier being burdened against. This is only populated for burdening activities.",
+      "column_order": 36
+    },
+    {
+      "name": "PJC_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management lowest resource identifier being burdened against. This is only populated for burdening activities.",
+      "column_order": 37
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Account impacted by this activity. This is only populated for burdening activities.",
+      "column_order": 38
+    },
+    {
+      "name": "LEDGER_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount in the primary ledger's currency. This is only populated for burdening activities.",
+      "column_order": 39
+    },
+    {
+      "name": "BURDEN_LINE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A Yes or No flag indicating whether this line is a burdening line.",
+      "column_order": 40
+    },
+    {
+      "name": "OVERRIDE_CLOSED_PERIOD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether an activity has closed period override considered.",
+      "column_order": 41
+    },
+    {
+      "name": "OVERRIDE_FUNDS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether an activity has insufficient funds override considered.",
+      "column_order": 42
+    },
+    {
+      "name": "ESTIMATED_TOLERANCE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Estimated tolerance amount needed for funds reservation.",
+      "column_order": 43
+    },
+    {
+      "name": "ESTIMATED_OVERRIDE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Estimated override amount needed for funds reservation.",
+      "column_order": 44
+    },
+    {
+      "name": "PERIOD_CHANGE_FOR_UNDO_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that the data is reversed into a different period.",
+      "column_order": 45
+    },
+    {
+      "name": "PROCESSED_FOR_ESSBASE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that balances have been transferred to the budget cube for this control budget and period name combination.Valid values are Y and N.",
+      "column_order": 46
+    },
+    {
+      "name": "BALANCES_UPDATED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether control budget balance is impacted. Valid values are Y, N and NULL.",
+      "column_order": 47
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 48
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 49
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 50
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 51
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 52
+    }
+  ]
+}

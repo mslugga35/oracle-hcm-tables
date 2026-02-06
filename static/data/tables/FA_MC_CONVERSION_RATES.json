@@ -1,0 +1,139 @@
+{
+  "id": 26645,
+  "name": "FA_MC_CONVERSION_RATES",
+  "type": "TABLE",
+  "description": "FA_MC_CONVERSION_RATES contains exchange rate information to convert assets from primary to reporting books during MRC Asset Transactions Upgrade. When you run Phase 1 of the MRC Asset Transactions Upgrade, this table will store all the assets that will be converted. Once Phase 1 is complete you can provide a CONVERSION_BASIS of either R or C to convert each asset. If you provide R as the basis, you will have to provide an exchange rate to use for conversion or use the default rate as defined in the GL conversion options. If you provide a conversion basis of C, you will have to provide the COST of the asset in the reporting currency. PRIMARY_CUR_COST reflects the COST of the asset in the primary book and you should not update this column. STATUS column is used during Phase 2 of the upgrade and will reflect CF or CL once Phase 2 is complete.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/famcconversionrates-26943.html#famcconversionrates-26943",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SET_OF_BOOKS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the accounting ledger.",
+      "column_order": 1
+    },
+    {
+      "name": "BOOK_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Unique book identification name.",
+      "column_order": 2
+    },
+    {
+      "name": "ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the asset number.",
+      "column_order": 3
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "Status of currency conversion for transactions.",
+      "column_order": 4
+    },
+    {
+      "name": "COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total recorded cost of the asset.",
+      "column_order": 5
+    },
+    {
+      "name": "PRIMARY_CUR_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Cost of an asset in the primary currency.",
+      "column_order": 6
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used for converting amounts between primary currency and reporting currency.",
+      "column_order": 7
+    },
+    {
+      "name": "CONVERSION_BASIS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Basis for converting transaction amounts from primary ledger currency to the reporting currency.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_PERIOD_COUNTER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Last period asset depreciated in primary book at time of reporting conversion.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 15
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the capital or operating lease.",
+      "column_order": 16
+    }
+  ]
+}

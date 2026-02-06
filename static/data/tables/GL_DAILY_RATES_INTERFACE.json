@@ -1,0 +1,379 @@
+{
+  "id": 27998,
+  "name": "GL_DAILY_RATES_INTERFACE",
+  "type": "TABLE",
+  "description": "GL_DAILY_RATES_INTERFACE is used to create, update, and delete daily conversion rates. You can use this table to load rates into the GL_DAILY_RATES table.  To use this table to insert/update rates into GL_DAILY_RATES, insert rows into it with a FROM_CURRENCY, a TO_CURRENCY, a FROM_CONVERSION_DATE, a TO_CONVERSION_DATE, a USER_CONVERSION_TYPE, a CONVERSION_RATE, a MODE of 'I', and optionally, an INVERSE_CONVERSION_RATE. Oracle General Ledger will automatically create rows in GL_DAILY_RATES for each date between the FROM_CONVERSION_DATE and the TO_CONVERSION_DATE, using the specified FROM_CURRENCY, TO_CURRENCY, USER_CONVERSION_TYPE, and CONVERSION_RATE.  It will also automatically insert the inverse rows, switching the FROM_CURRENCY and TO_CURRENCY and using the INVERSE_CONVERSION_RATE, if provided, or otherwise, taking the inverse of the CONVERSION_RATE provided. If these rows already exist, it will update these rows with the new rates instead.  For example, if you specified a FROM_CURRENCY of USD, a TO_CURRENCY of CND, a FROM_CONVERSION_DATE of January 1, 1997, a TO_CONVERSION_DATE of January 3, 1997, a USER_CONVERSION_TYPE of Spot, a CONVERSION_RATE of 1.377, an INVERSION_CONVERSION_RATE of NULL, and a MODE of 'I', Oracle General Ledger will automatically create three rows in GL_DAILY_RATES with a FROM_CURRENCY of USD, a TO_CURRENCY of CND, a CONVERSION_TYPE of Spot, a CONVERSION_RATE of 1.377, and with CONVERSION_DATEs of January 1, 1997, January 2, 1997, and January 3, 1997.\nIt would also automatically create the three inverse rows in GL_DAILY_RATES with a FROM_CURRENCY of CND, a TO_CURRENCY of USD, a CONVERSION_TYPE of Spot, a CONVERSION_RATE of 0.7262, and with CONVERSION_DATEs of January 1, 1997, January 2, 1997, and January 3, 1997. To use this table to delete rows from GL_DAILY_RATES, insert rows into it with a FROM_CURRENCY, a TO_CURRENCY, a FROM_CONVERSION_DATE, a TO_CONVERSION_DATE, a USER_CONVERSION_TYPE, a dummy CONVERSION_RATE, and a MODE of 'D'. Any rates in GL_DAILY_RATES with a date between the FROM_CONVERSION_DATE and TO_CONVERSION_DATE and with that FROM_CURRENCY, TO_CURRENCY, and USER_CONVERSION_TYPE will be deleted automatically. The corresponding inverse rows will also be deleted.  The insert/update/delete is all done automatically by database triggers on GL_DAILY_RATES_INTERFACE. No import programs need to be run.  Note that when inserting into this table, you must specify the USER_CONVERSION_TYPE, not the CONVERSION_TYPE. Oracle General Ledger will automatically convert the USER_CONVERSION_TYPE to the CONVERSION_TYPE when it maintains GL_DAILY_RATES.  Scope: public  Product: GL  Lifecycle: active  Display Name: GL Daily Rate Interface  Category: BUSINESS_ENTITY GL_DAILY_RATE  @rep:ihelp GL/@t_drt_auto#t_drt_auto Loading Daily Rates Automatically Using the GL_DAILY_RATES_INTERFACE table, Oracle General Ledger Help",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/gldailyratesinterface-12820.html#gldailyratesinterface-12820",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "FROM_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "From currency code of daily rate.",
+      "column_order": 1
+    },
+    {
+      "name": "TO_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "To currency code of daily rate.",
+      "column_order": 2
+    },
+    {
+      "name": "FROM_CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Start of date range for which this rate is valid.",
+      "column_order": 3
+    },
+    {
+      "name": "TO_CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "End of date range for which this rate is valid.",
+      "column_order": 4
+    },
+    {
+      "name": "USER_CONVERSION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "User entered currency conversion type.",
+      "column_order": 5
+    },
+    {
+      "name": "CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "User entered currency conversion rate.",
+      "column_order": 6
+    },
+    {
+      "name": "MODE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Import mode ('D' - delete any matching rows from gl_daily_rates,  'I' - insert or update rows in gl_daily_rates, and 'X' - invalid row).",
+      "column_order": 7
+    },
+    {
+      "name": "INVERSE_CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Inverse of the currency conversion rate.",
+      "column_order": 8
+    },
+    {
+      "name": "USER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the user who is adding the rows.",
+      "column_order": 9
+    },
+    {
+      "name": "LAUNCH_RATE_CHANGE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Automatically launch rate change program flag.",
+      "column_order": 10
+    },
+    {
+      "name": "ERROR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Error code for unsuccessful rows.",
+      "column_order": 11
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 12
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 13
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 14
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 15
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 16
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 17
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 18
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 19
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 20
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 21
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 22
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 23
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 24
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 25
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 26
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "USED_FOR_AB_TRANSLATION",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used for internal processing. Do not put a value into this column.",
+      "column_order": 28
+    },
+    {
+      "name": "LOAD_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle Enterprise Scheduler: request identifier of the job that created the row.",
+      "column_order": 29
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 30
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 32
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 35
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise or business group identifier.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    }
+  ]
+}

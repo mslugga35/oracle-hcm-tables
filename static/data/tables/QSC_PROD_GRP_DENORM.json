@@ -1,0 +1,251 @@
+{
+  "id": 30543,
+  "name": "QSC_PROD_GRP_DENORM",
+  "type": "TABLE",
+  "description": "This table stores denormalized product group relationships storing the path details from a parent or root node to a descendant node.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/qscprodgrpdenorm-23369.html#qscprodgrpdenorm-23369",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PROD_GRP_DENORM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Product Group Denorm Identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "FIRST_PROD_GRP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Product Group Identifier for the first node in the path.",
+      "column_order": 3
+    },
+    {
+      "name": "LAST_PROD_GRP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Product Group Identifier for the last node in the path.",
+      "column_order": 4
+    },
+    {
+      "name": "SECOND_LAST_PROD_GRP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Product Group Identifier for the penultimate node in the path.",
+      "column_order": 5
+    },
+    {
+      "name": "DENORM_DISTANCE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Distance/Level from the first product group to the last product group in the path.",
+      "column_order": 6
+    },
+    {
+      "name": "PATH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Persistent identifier for the path",
+      "column_order": 7
+    },
+    {
+      "name": "CONCAT_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "Y",
+      "description": "Concatenation of the node identifiers participating in the path.",
+      "column_order": 8
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Accumulated effective start date of the path.",
+      "column_order": 9
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Accumulated effective end date of the path.",
+      "column_order": 10
+    },
+    {
+      "name": "ACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Accumulated active flag on any node in the path.",
+      "column_order": 11
+    },
+    {
+      "name": "REL_ACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Active Flag of the product group relationship.",
+      "column_order": 12
+    },
+    {
+      "name": "REL_START_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start Date of the product group relationship.",
+      "column_order": 13
+    },
+    {
+      "name": "REL_END_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End Date of the product group relationship.",
+      "column_order": 14
+    },
+    {
+      "name": "DEFAULT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate path marked as a default path.",
+      "column_order": 15
+    },
+    {
+      "name": "UI_COLLAPSE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Accumulated Collapse Flag for a node on the path.",
+      "column_order": 16
+    },
+    {
+      "name": "CONCAT_DISPLAY_ORDER_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Concatenated Display Order Sequence for node identifiers in the path. By default this column is only populated for UI collapsed path.",
+      "column_order": 17
+    },
+    {
+      "name": "RUNTIME_STATUS_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Column for internal use. Used to store runtime status codes.",
+      "column_order": 18
+    },
+    {
+      "name": "ADMIN_STATUS_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Column for internal use. Used to store admin status.",
+      "column_order": 19
+    },
+    {
+      "name": "BATCH_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Column for internal use. Used to store transient information about the batch process that is updating denormalization data based on the value in a group.",
+      "column_order": 20
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 21
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 24
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 27
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 28
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 29
+    },
+    {
+      "name": "USED_IN_TERR_FILTERING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if the path is part of territory filtering",
+      "column_order": 30
+    }
+  ]
+}

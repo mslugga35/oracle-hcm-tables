@@ -1,0 +1,139 @@
+{
+  "id": 29034,
+  "name": "IBY_VALIDATION_SETS_B_",
+  "type": "TABLE",
+  "description": "IBY_VALIDATION_SETS stores links to payment validations. These validations must be performed before submitting transactions to a payment system. Validations may be required for many reasons, including bank account restrictions or the countries, currencies, or payment systems involved in a transaction. Payment validations are currently implemented in code, rather than in meta data. Thus, each validation in this table should be accompanied by a pointer to the code in which the validation is implemented. Validations can be further defined by specifying the entity with which they are associated. This determines when the validation should take place. Payment method validations are done immediately when a calling application submits a payment process request to Oracle Payments, and in some cases earlier as well. Other validations are done later, after Oracle Payments assigns the appropriate entities, such as payment format, to the payment. This division is done in the IBY_VAL_ASSIGNMENTS table.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibyvalidationsetsb-20004.html#ibyvalidationsetsb-20004",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "VALIDATION_SET_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "User-entered primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "VALIDATION_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Level at which this validation should apply. Values, from the IBY_VALIDATION_LEVELS lookup, include DOCUMENT, PAYMENT, and INSTRUCTION",
+      "column_order": 2
+    },
+    {
+      "name": "VALIDATION_CODE_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Package where the validation is defined; in PL/SQL this corresponds to a package name, in Java a class name",
+      "column_order": 3
+    },
+    {
+      "name": "VALIDATION_CODE_ENTRY_POINT",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Entry point of the code that implements the validation set. For example, this could be in the form of a PL/SQL package and procedure, or a Java class and method.",
+      "column_order": 4
+    },
+    {
+      "name": "VALIDATION_CODE_LANGUAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Language of the code that implements the validation set. Possible values are PLSQL and JAVA.",
+      "column_order": 5
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    },
+    {
+      "name": "PAYMENT_FLOW",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies funds capture or disbursement flow.  Values taken from lookup: IBY_PAYMENT_FLOW",
+      "column_order": 12
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 13
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 14
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 15
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 16
+    }
+  ]
+}

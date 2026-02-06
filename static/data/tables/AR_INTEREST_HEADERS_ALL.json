@@ -1,0 +1,451 @@
+{
+  "id": 29332,
+  "name": "AR_INTEREST_HEADERS_ALL",
+  "type": "TABLE",
+  "description": "The AR_INTEREST_HEADERS_ALL table contains header level late charge document information.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arinterestheadersall-19490.html#arinterestheadersall-19490",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INTEREST_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Interest header identifier. It is used as a primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "INTEREST_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to ra_interest_batches_all.interest_batch_id",
+      "column_order": 2
+    },
+    {
+      "name": "CUSTOMER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to HZ_CUST_ACCOUNTS_ALL.CUST_ACCOUNT_ID.",
+      "column_order": 3
+    },
+    {
+      "name": "CUSTOMER_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to HZ_CUST_SITE_USES_ALL.SITE_USE_ID.",
+      "column_order": 4
+    },
+    {
+      "name": "HEADER_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Type of late charges documents ADJ, DM, INV",
+      "column_order": 5
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Currency code from FND_CURRENCIES.",
+      "column_order": 6
+    },
+    {
+      "name": "LATE_CHARGE_CALCULATION_TRX",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Eligibility criteria to select transactions for late charge processing based on overdue invoices and late payments.",
+      "column_order": 7
+    },
+    {
+      "name": "CREDIT_ITEMS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Eligibility criteria to select transactions for late charge processing based on optional late charges",
+      "column_order": 8
+    },
+    {
+      "name": "DISPUTED_TRANSACTIONS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Eligibility criteria to select transactions for late charge processing based on optional late charges",
+      "column_order": 9
+    },
+    {
+      "name": "PAYMENT_GRACE_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Grace days after which payment is considered late and eligible for late charge calculation.",
+      "column_order": 10
+    },
+    {
+      "name": "LATE_CHARGE_TERM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "If late charge type is DEBIT_MEMO/INTEREST_INVOICE then the payment term must be populated,this is used to create the Invoice or Debit Memo",
+      "column_order": 11
+    },
+    {
+      "name": "INTEREST_PERIOD_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Days in interest period",
+      "column_order": 12
+    },
+    {
+      "name": "INTEREST_CALCULATION_PERIOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Period over which to calculate late charges for the customer.",
+      "column_order": 13
+    },
+    {
+      "name": "CHARGE_ON_FINANCE_CHARGE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Formula on overdue amount to compute interest.",
+      "column_order": 14
+    },
+    {
+      "name": "HOLD_CHARGED_INVOICES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Place a hold on charged invoices",
+      "column_order": 15
+    },
+    {
+      "name": "MESSAGE_TEXT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Message text printed on the late charge transaction. Applies only to late charges recorded as invoices or debit memos. Foreign key to AR_STANDARD_TEXT.STANDARD_TEXT_ID.",
+      "column_order": 16
+    },
+    {
+      "name": "MULTIPLE_INTEREST_RATES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Use Multiple Interest Rates",
+      "column_order": 17
+    },
+    {
+      "name": "CHARGE_BEGIN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start date for last charge calculation.",
+      "column_order": 18
+    },
+    {
+      "name": "CUST_ACCT_PROFILE_AMT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign Key to HZ_CUST_PROFILE_AMTS.CUST_ACCT_PROFILE_AMT_ID",
+      "column_order": 19
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Conversion rate.",
+      "column_order": 20
+    },
+    {
+      "name": "EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Conversion rate type.",
+      "column_order": 21
+    },
+    {
+      "name": "MIN_FC_INVOICE_OVERDUE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Minimum Invoice amount overdue type",
+      "column_order": 22
+    },
+    {
+      "name": "MIN_FC_INVOICE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Invoice balance threshold amount below which late charges must not be charged.",
+      "column_order": 23
+    },
+    {
+      "name": "MIN_FC_INVOICE_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Invoice balance threshold percentage below which late charges must not be charged.",
+      "column_order": 24
+    },
+    {
+      "name": "MIN_FC_BALANCE_OVERDUE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Minimum customer balance overdue type",
+      "column_order": 25
+    },
+    {
+      "name": "MIN_FC_BALANCE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Customer balance threshold amount below which the late charge must not be charged",
+      "column_order": 26
+    },
+    {
+      "name": "MIN_FC_BALANCE_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Customer balance percentage threshold below which the late charge must not be charged",
+      "column_order": 27
+    },
+    {
+      "name": "MIN_INTEREST_CHARGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Threshold amount below  which the late charge must not charged.",
+      "column_order": 28
+    },
+    {
+      "name": "MAX_INTEREST_CHARGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Threshold amount above which the late charge must not be charged.",
+      "column_order": 29
+    },
+    {
+      "name": "INTEREST_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Fixed amount, percent, charges schedule based interest.",
+      "column_order": 30
+    },
+    {
+      "name": "INTEREST_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Interest rate",
+      "column_order": 31
+    },
+    {
+      "name": "INTEREST_FIXED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Interest amount",
+      "column_order": 32
+    },
+    {
+      "name": "INTEREST_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to AR_CHARGES_SCHEDULES.SCHEDULE_ID.",
+      "column_order": 33
+    },
+    {
+      "name": "PENALTY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Fixed amount, percent, charges schedule based penalty.",
+      "column_order": 34
+    },
+    {
+      "name": "PENALTY_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Penalty rate",
+      "column_order": 35
+    },
+    {
+      "name": "PENALTY_FIXED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Penalty amount",
+      "column_order": 36
+    },
+    {
+      "name": "PENALTY_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to AR_CHARGES_SCHEDULES.SCHEDULE_ID.",
+      "column_order": 37
+    },
+    {
+      "name": "LAST_ACCRUE_CHARGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date as of which last compounded",
+      "column_order": 38
+    },
+    {
+      "name": "CUSTOMER_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to HZ_CUSTOMER_PROFILES.CUST_ACCOUNT_PROFILE_ID.",
+      "column_order": 39
+    },
+    {
+      "name": "COLLECTOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to collectors entity",
+      "column_order": 40
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key of the legal entity",
+      "column_order": 41
+    },
+    {
+      "name": "PROCESS_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Error message text",
+      "column_order": 42
+    },
+    {
+      "name": "PROCESS_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status code to indicate Success or Error",
+      "column_order": 43
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 44
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 45
+    },
+    {
+      "name": "WORKER_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Worker Id which created the header for the request id",
+      "column_order": 46
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 47
+    },
+    {
+      "name": "FINANCE_CHARGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date as of which the finance charge was generated",
+      "column_order": 48
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 49
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 50
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 51
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 52
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 53
+    },
+    {
+      "name": "DISPLAY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 54
+    },
+    {
+      "name": "CUST_TRX_TYPE_SEQ_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transaction type sequence identifier.",
+      "column_order": 55
+    }
+  ]
+}

@@ -1,0 +1,595 @@
+{
+  "id": 31081,
+  "name": "OKC_ARTICLE_VERSIONS",
+  "type": "TABLE",
+  "description": "This table stores all the versions of a standard clause and non-standard clause created on a business document. Standard Clauses have multiple versions while the non-standard clauses are created as a single version. This table replaces the OKC_STD_ART_VERSIONS available in releases prior to 11.5.10. Furthermore, the non- standard clause text in OKC_K_ARTICLES_TL is migrated to this table as a part of 11.5.10 migration.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/okcarticleversions-16448.html#okcarticleversions-16448",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ARTICLE_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System generated Primary Key.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "ARTICLE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "This references the Clause for which this version is created. Foreign Key to OKC_ARTICLES_ALL.",
+      "column_order": 3
+    },
+    {
+      "name": "ARTICLE_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "This is the system generated version number of the clause. Sequence begins at 1.",
+      "column_order": 4
+    },
+    {
+      "name": "ARTICLE_TEXT",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This is the textual content of the clause including the embedded variables.",
+      "column_order": 5
+    },
+    {
+      "name": "PROVISION_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes/No flag  to indicate whether the clause is provision or not i.e. if  Y then Provision, if N then Clause.",
+      "column_order": 6
+    },
+    {
+      "name": "INSERT_BY_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes/No flag  to determine the text that will be printed i.e. if  Y then clause should be printed without the clause text, if N then the clause text is printed.",
+      "column_order": 7
+    },
+    {
+      "name": "LOCK_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes/No flag  to indicate whether the clause text can be modified on a business document ( this flag determines whether user can modify a standard clause to create a non-standard clause).",
+      "column_order": 8
+    },
+    {
+      "name": "GLOBAL_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes/No flag  to indicate whether the clause is global or not i.e. if  Y then Global , if N then Local.",
+      "column_order": 9
+    },
+    {
+      "name": "ARTICLE_LANGUAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "N",
+      "description": "This is the language of the Clause. Same as that of OKC_ARTICLES_ALL as it is required for text index.",
+      "column_order": 10
+    },
+    {
+      "name": "ARTICLE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This is the status of standard clause. This is a foreign key to FND_LOOKUPS with LOOKUP_TYPE = OKC_ARTICLE_STATUS.",
+      "column_order": 11
+    },
+    {
+      "name": "SAV_RELEASE",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "This is the user entered release label prior to 11.5.10.  Kept for backward compatibility for migrated clauses.",
+      "column_order": 12
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the Effective Start Date of the  Standard Clause Version.",
+      "column_order": 13
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the Effective End Date of the  Standard Clause Version.",
+      "column_order": 14
+    },
+    {
+      "name": "ADOPTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This is the adoption type of the local clause. It could either be LOCALIZED (same as the adoption type of OKC_ARTICLE_ADOPTIONS) or LOCAL.",
+      "column_order": 15
+    },
+    {
+      "name": "STD_ARTICLE_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This references the standard clause  version that was modified to create a non-standard clause. This is a foreign key to OKC_ARTICLE_VERSIONS.",
+      "column_order": 16
+    },
+    {
+      "name": "DISPLAY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 450,
+      "nullable": "Y",
+      "description": "This is the clause name that will be printed or displayed in a business document. If this column is not populated , the clause title will be used.",
+      "column_order": 17
+    },
+    {
+      "name": "TRANSLATED_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes/No flag  to indicate whether the clause is created as a translation of global clause or not.",
+      "column_order": 18
+    },
+    {
+      "name": "ARTICLE_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "This is a short description of the Clause Version.",
+      "column_order": 19
+    },
+    {
+      "name": "DATE_APPROVED",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This is the approval date of the clause.",
+      "column_order": 20
+    },
+    {
+      "name": "DEFAULT_SECTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This is the default section to which the clause belongs. Foreign Key to FND_LOOKUPS where Lookup_Type = OKC_ARTICLE_SECTION.",
+      "column_order": 21
+    },
+    {
+      "name": "REFERENCE_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "This is the reference source of the clause if the Insert By Reference column is Yes e.g. website/publication etc.",
+      "column_order": 22
+    },
+    {
+      "name": "REFERENCE_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "This is the reference text of the clause if the Insert By Reference column is Yes e.g. website/publication etc.",
+      "column_order": 23
+    },
+    {
+      "name": "ORIG_SYSTEM_REFERENCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This column is used to preserve the code for the migrated system.",
+      "column_order": 24
+    },
+    {
+      "name": "ORIG_SYSTEM_REFERENCE_ID1",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column is used to preserve the identifier1 for the migrated system.",
+      "column_order": 25
+    },
+    {
+      "name": "ORIG_SYSTEM_REFERENCE_ID2",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "This column is used to preserve the identifier2 for the migrated system.",
+      "column_order": 26
+    },
+    {
+      "name": "ADDITIONAL_INSTRUCTIONS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "This column stores any additional instructions that are needed  for using the Clause Version.",
+      "column_order": 27
+    },
+    {
+      "name": "VARIATION_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "This is used in the case of non-standard clauses to enter variations from Standard Clauses prior to 11.5.10. This column is kept for backward compatibility.",
+      "column_order": 28
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 29
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 32
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "PROGRAM_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the concurrent program",
+      "column_order": 34
+    },
+    {
+      "name": "PROGRAM_APP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Identifies the Application name spawning the Concurrent Request",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE21",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE22",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE23",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE24",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE25",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE26",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE27",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE28",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE29",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE30",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "DATE_PUBLISHED",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the clause was published , specifically used for XML based Clause Import",
+      "column_order": 67
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 68
+    },
+    {
+      "name": "SECTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This references the Section of OKC_LIBRARY_SECTIONS",
+      "column_order": 69
+    },
+    {
+      "name": "EDITED_IN_WORD",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "EDITED_IN_WORD",
+      "column_order": 70
+    },
+    {
+      "name": "ARTICLE_TEXT_IN_WORD",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "ARTICLE_TEXT_IN_WORD",
+      "column_order": 71
+    },
+    {
+      "name": "TASK_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "This references the approval Workflow task Id.",
+      "column_order": 72
+    },
+    {
+      "name": "CROSS_REF_VARIABLE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This references the cross reference variable of the standard clause. Foreign Key to OKC_BUS_VARIABLES_B",
+      "column_order": 73
+    }
+  ]
+}

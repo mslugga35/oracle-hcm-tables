@@ -1,0 +1,339 @@
+{
+  "id": 26435,
+  "name": "IEX_ESSBASE_BALANCES",
+  "type": "TABLE",
+  "description": "IEX_ESSBASE_BALANCES table stores information about the receivable transactions, receipts and adjustments.This table is used to temporarily store the data and populate the same into essbase cube for calculation of various metrics.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/iexessbasebalances-13797.html#iexessbasebalances-13797",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "IEX_ESSBASE_BALANCES_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of this essbase balance table.",
+      "column_order": 1
+    },
+    {
+      "name": "DOCUMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "The type of Document which is populated from the lookup_type  AR_DOCUMENT_TYPE.This maps to Document Type dimension in the cube.",
+      "column_order": 2
+    },
+    {
+      "name": "TRX_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Invoice, debit memo, credit memo and chargeback amount in functional currency. Deposits and Guarantees are excluded.",
+      "column_order": 3
+    },
+    {
+      "name": "RECEIPT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Receipt application, unapplication or reversal amount in functional currency.",
+      "column_order": 4
+    },
+    {
+      "name": "ADJ_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjustment amount in functional currency.",
+      "column_order": 5
+    },
+    {
+      "name": "PROMISE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Promise to pay in functional currency.",
+      "column_order": 6
+    },
+    {
+      "name": "NSF_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Non Sufficient Fund amount in functional currency.",
+      "column_order": 7
+    },
+    {
+      "name": "TRX_AMOUNT_GLOBAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Invoice or Debit Memo or Credit Memo or Charge Back amount in global currency. Deposits and Guarantees are excluded.",
+      "column_order": 8
+    },
+    {
+      "name": "RECEIPT_AMOUNT_GLOBAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The receipt application, unapplication or reversal amount in global currency.",
+      "column_order": 9
+    },
+    {
+      "name": "ADJ_AMOUNT_GLOBAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjustment amount in global currency.",
+      "column_order": 10
+    },
+    {
+      "name": "PROMISE_AMOUNT_GLOBAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Promise to pay in global currency.",
+      "column_order": 11
+    },
+    {
+      "name": "NSF_AMOUNT_GLOBAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Non Sufficient Fund amount in global currency.",
+      "column_order": 12
+    },
+    {
+      "name": "SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The object score for a party, account, or bill to customer.",
+      "column_order": 13
+    },
+    {
+      "name": "AVERAGE_TERMS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The product of relative amount and due days from RA_TERMS_LINES used for calculation of weighted average terms metric.",
+      "column_order": 14
+    },
+    {
+      "name": "ACTIVITY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The transaction date for Invoice or Debit Memo or Credit Memo or Chargeback, Application and unapplication or reversal date for receipts and adjsutment application date for adjustments. This maps to time dimension in the cube.",
+      "column_order": 15
+    },
+    {
+      "name": "PS_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Due date from PAYMENT_SCHEDULE_ID is populated for document type invoice, chargeback, debit memos, and credit memos  For document type receipt, due date column contains the due date of the payment_schedule _id to which receipt is applied,unapplied or reversed. In case of adjustments this column stores the due date of the of payment_schedule_id being adjusted.",
+      "column_order": 16
+    },
+    {
+      "name": "PS_CLOSED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "GL_CLOSED_DATE from payment schedules is populated for the object type invoices. For open invoices the close date is null.",
+      "column_order": 17
+    },
+    {
+      "name": "CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "The functional currency which is dervied from the ledger to which business unit is associated with. This maps to currency dimension in the cube.",
+      "column_order": 18
+    },
+    {
+      "name": "BU_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "The business unit name is stored.This maps to business unit dimension in the cube.",
+      "column_order": 19
+    },
+    {
+      "name": "PARTY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "N",
+      "description": "Name of the party from HZ_PARTIES. This maps to customer dimension in the cube.",
+      "column_order": 20
+    },
+    {
+      "name": "ACCOUNT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 450,
+      "nullable": "N",
+      "description": "The account number conctenated with party name  from HZ_CUST_ACCOUNTS Table is stored. This forms the part of customer dimension hierarchy in the cube.",
+      "column_order": 21
+    },
+    {
+      "name": "PARTY_SITE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 700,
+      "nullable": "N",
+      "description": "The party site name concatenated with party name and account number from HZ_PARTY_SITES table is stored. This forms the part of customer dimension hierarchy in the cube.",
+      "column_order": 22
+    },
+    {
+      "name": "COLLECTOR_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Collector Name associated in profile tab at business level. This maps to  Collector dimension in the cube.",
+      "column_order": 23
+    },
+    {
+      "name": "SALESREP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Sales Representative Name. This maps to Sales Representative dimension in the cube.",
+      "column_order": 24
+    },
+    {
+      "name": "COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Country from HZ_LOCATIONS. This is part of location dimension hierarchy in the cube.",
+      "column_order": 25
+    },
+    {
+      "name": "STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "State Code from HZ_LOCATIONS. This is part of location dimension hierarchy in the cube.",
+      "column_order": 26
+    },
+    {
+      "name": "COUNTY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "County from HZ_LOCATIONS. This is part of location dimension hierarchy in the cube.",
+      "column_order": 27
+    },
+    {
+      "name": "CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "City from HZ_LOCATIONS. This is part of location dimension hierarchy in the cube.",
+      "column_order": 28
+    },
+    {
+      "name": "POSTAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Zip Code from HZ_LOCATIONS. This is part of location dimension hierarchy in the cube.",
+      "column_order": 29
+    },
+    {
+      "name": "LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Location concatenated with LOCATION_ID from  HZ_LOCATIONS is stored in this column. This will be part of location hierarchy in the cube.",
+      "column_order": 30
+    },
+    {
+      "name": "PROFILE_CLASSIFICATION",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Profile classification from HZ_CUST_PROFILE_CLASSES.",
+      "column_order": 31
+    },
+    {
+      "name": "AGING_BUCKET_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "The aging bucket information popluated from the lookup_type IEX_AGING_BUCKETS.",
+      "column_order": 32
+    },
+    {
+      "name": "PAYMENT_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to AR_PAYMENT_SCHEDULES.PAYMENT_SCHEDULE_ID.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 38
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 39
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 41
+    }
+  ]
+}

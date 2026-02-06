@@ -1,0 +1,491 @@
+{
+  "id": 26770,
+  "name": "XCC_BUDGET_DIST_ACCTS_GT",
+  "type": "TABLE",
+  "description": "This temporary table is used to store the budget distribution accounts during processing.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/xccbudgetdistacctsgt-30029.html#xccbudgetdistacctsgt-30029",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to XCC_BUDGET_DIST_LINES",
+      "column_order": 1
+    },
+    {
+      "name": "SOURCE_APPLICATION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The source budget application for which this interface row is budgeted.",
+      "column_order": 2
+    },
+    {
+      "name": "SOURCE_BUDGET",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "The source budget name to which this interface row is budgeted.",
+      "column_order": 3
+    },
+    {
+      "name": "LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to XCC_BUDGET_DIST_LINES",
+      "column_order": 4
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "The period name for which the budget amount is loaded",
+      "column_order": 5
+    },
+    {
+      "name": "SUMMARY_PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Period name of the summary control budget.",
+      "column_order": 6
+    },
+    {
+      "name": "AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Budget amount for specific control budget, account and period",
+      "column_order": 7
+    },
+    {
+      "name": "CONTROL_BUDGET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The control budget that is impacted by this distribution",
+      "column_order": 8
+    },
+    {
+      "name": "BUDGET_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The budget account that is impacted by this distribution",
+      "column_order": 9
+    },
+    {
+      "name": "BUDGET_ACTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates whether the distribution is for budget initialization (INIT) or budget adjustment (ADJUST)",
+      "column_order": 10
+    },
+    {
+      "name": "PERIOD_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The start date of the period. Denormalized from gl_periods",
+      "column_order": 11
+    },
+    {
+      "name": "DATA_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The data_set_id to be used by the Budgetary Control Engine for budget adjustments",
+      "column_order": 12
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The currency of the budget amount",
+      "column_order": 13
+    },
+    {
+      "name": "UOM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "The unit of measure used by this statistical budget amount when the currency code is set as STAT.",
+      "column_order": 14
+    },
+    {
+      "name": "DATA_SET",
+      "data_type": "VARCHAR2",
+      "data_length": 500,
+      "nullable": "N",
+      "description": "Set of records to be imported by the budget import process.",
+      "column_order": 15
+    },
+    {
+      "name": "CONTROL_BUDGET_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates whether the budget distribution is for a summary control budget or a master control budget. Valid values are MASTER and SUMMARY.",
+      "column_order": 16
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates whether the budget distribution is valid for further processing.",
+      "column_order": 17
+    },
+    {
+      "name": "SEGMENT1",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 18
+    },
+    {
+      "name": "SEGMENT2",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 19
+    },
+    {
+      "name": "SEGMENT3",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 20
+    },
+    {
+      "name": "SEGMENT4",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 21
+    },
+    {
+      "name": "SEGMENT5",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 22
+    },
+    {
+      "name": "SEGMENT6",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 23
+    },
+    {
+      "name": "SEGMENT7",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 24
+    },
+    {
+      "name": "SEGMENT8",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 25
+    },
+    {
+      "name": "SEGMENT9",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 26
+    },
+    {
+      "name": "SEGMENT10",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 27
+    },
+    {
+      "name": "SEGMENT11",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 28
+    },
+    {
+      "name": "SEGMENT12",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 29
+    },
+    {
+      "name": "SEGMENT13",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 30
+    },
+    {
+      "name": "SEGMENT14",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 31
+    },
+    {
+      "name": "SEGMENT15",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "SEGMENT16",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "SEGMENT17",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "SEGMENT18",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "SEGMENT19",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "SEGMENT20",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "SEGMENT21",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "SEGMENT22",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "SEGMENT23",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "SEGMENT24",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "SEGMENT25",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "SEGMENT26",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "SEGMENT27",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "SEGMENT28",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "SEGMENT29",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "SEGMENT30",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Key Flexfield: segment of the key flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "PJC_PROJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management project identifier used to load the budget amounts.",
+      "column_order": 48
+    },
+    {
+      "name": "PJC_TOP_TASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management top task identifier used to load the budget amounts.",
+      "column_order": 49
+    },
+    {
+      "name": "PJC_TASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management lowest task identifier used to load the budget amounts.",
+      "column_order": 50
+    },
+    {
+      "name": "PJC_TOP_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management top resource identifier used to load the budget amounts.",
+      "column_order": 51
+    },
+    {
+      "name": "PJC_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management lowest resource identifier used to load the budget amounts.",
+      "column_order": 52
+    },
+    {
+      "name": "PJC_CONTRACT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management contract identifier used to load the budget amounts.",
+      "column_order": 53
+    },
+    {
+      "name": "PJC_CONTRACT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management contract line identifier used to load the budget amounts.",
+      "column_order": 54
+    },
+    {
+      "name": "PJC_FUNDING_ALLOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management funding allocation identifier used to load the budget amounts.",
+      "column_order": 55
+    },
+    {
+      "name": "PJC_FUNDING_SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Project Management funding source identifier used to load the budget amounts.",
+      "column_order": 56
+    },
+    {
+      "name": "BUDGET_CHART_OF_ACCOUNTS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The budget chart of accounts of the control budget",
+      "column_order": 57
+    },
+    {
+      "name": "EFF_PERIOD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The effective period number of the period being budgeted to. Denormalized from gl_periods",
+      "column_order": 58
+    },
+    {
+      "name": "DELTA_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the difference between the desired amount and the amount currently in the balances table for the overwrite case.",
+      "column_order": 59
+    },
+    {
+      "name": "ORIGINAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The original amount that the user entered in the interface.",
+      "column_order": 60
+    }
+  ]
+}

@@ -1,0 +1,171 @@
+{
+  "id": 29387,
+  "name": "AR_RECON_SUMMARY_DETAILS",
+  "type": "TABLE",
+  "description": "This table stores the extract of the data, which is required for the preparation of the summary report.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arreconsummarydetails-12756.html#arreconsummarydetails-12756",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "RECON_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "This columns is the PK of this table. This is a running sequence number derived from the database sequence.",
+      "column_order": 1
+    },
+    {
+      "name": "RECON_ITEM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "This code is populated through the lookup. The lookup codes defined for this column are:  BEGIN_BAL, NON_AR_BEGIN_BAL, TRANSACTIONS, ADJUSTMENTS, APPLIED_RECEIPT, UNAPPLIED_RECEIPT, OTHER, AR_VARIANCE, AR_END_BAL,\n NON_AR_ACTIVITY, NOT_TRFD_TO_GL, NOT_POSTED_GL, GL_VARIANCE and GL_END_BALANCE.",
+      "column_order": 2
+    },
+    {
+      "name": "RECON_ITEM_ORDER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Reconciliation items on summary report in Oracle Business Intelligence Enterprise Edition must display in a specific, fixed order requiring hard coding. This column stores a numeric sequence value that sorts the report in the specified order.",
+      "column_order": 3
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This column is populated by source data values from Subledger Accounting or GL. The lookup codes for which values are populated are: BEGIN_BAL ( GL), NON_AR_ACTIVITY, NOT_TRFD_TO_GL, NOT_POSTED_GL, GL_VARIANCE, and GL_END_BALANCE.",
+      "column_order": 4
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The ledger for which the data extraction is being carried out.",
+      "column_order": 5
+    },
+    {
+      "name": "BU_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The BU_ID is populated for  amounts with data source of  Receivables. These amounts are stored at BU level. For example, the Begin Balance will be stored for each BU. The lookup code values for which BU_ID is populated are: BEGIN_BAL(AR), TRANSACTIONS, ADJUSTMENTS, APPLIED_RECEIPT, UNAPPLIED_RECEIPT, OTHER and AR_VARIANCE.",
+      "column_order": 6
+    },
+    {
+      "name": "AR_ACCTD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column is populated for the amounts that are extracted from receivables tables. The lookup code values for which the column is populated are: BEGIN_BAL(AR), TRANSACTIONS, ADJUSTMENTS, APPLIED_RECEIPT, UNAPPLIED_RECEIPT, OTHER and AR_VARIANCE.",
+      "column_order": 7
+    },
+    {
+      "name": "ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The debit amounts will be populated for the amounts that are being extracted for SLA or GL.",
+      "column_order": 8
+    },
+    {
+      "name": "ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The credit amounts will be populated for the amounts that are being extracted for SLA or GL.",
+      "column_order": 9
+    },
+    {
+      "name": "DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The data source will have the following values depending on the lookup code and amount which is being populated: AR, SLA, GL or Plug.",
+      "column_order": 10
+    },
+    {
+      "name": "BALANCING_SEGMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Balancing Segment",
+      "column_order": 11
+    },
+    {
+      "name": "NATURAL_ACCOUNT_SEGMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Natural Account Segment",
+      "column_order": 12
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 18
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 20
+    }
+  ]
+}

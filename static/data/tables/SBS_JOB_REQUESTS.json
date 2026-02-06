@@ -1,0 +1,267 @@
+{
+  "id": 35596,
+  "name": "SBS_JOB_REQUESTS",
+  "type": "TABLE",
+  "description": "Job Scheduler stores job-related information into a database",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/sbsjobrequests-21175.html#sbsjobrequests-21175",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "JOB_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The identifier column for every job request submitted via the job scheduler",
+      "column_order": 1
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Name of the job definition for this execution request",
+      "column_order": 2
+    },
+    {
+      "name": "SPECTRA_SERVICE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "The spectra service that owns this job",
+      "column_order": 3
+    },
+    {
+      "name": "JOB_DEFINITION_VERSION",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Version of the job definition",
+      "column_order": 4
+    },
+    {
+      "name": "JOB_SUBMITTER",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "Job request submitting user",
+      "column_order": 5
+    },
+    {
+      "name": "JOB_RETRY_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Job request retry number, starting from 0, which is increased by 1 for every subsequent retry attempt",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_ACTION_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Timestamp of last action",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_ACTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Last action name, e.g. 'ENQUEUE_REQUEST', 'ENQUEUE_CANCEL_REQUEST'",
+      "column_order": 8
+    },
+    {
+      "name": "JOB_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "N",
+      "description": "This column displays the status of the job request. Valid values are Submitted, Waiting, Running, Successful, Failed, Cancelled",
+      "column_order": 9
+    },
+    {
+      "name": "CANCEL_REQUEST_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "The status for tracking the progress in processing the cancellation request.",
+      "column_order": 10
+    },
+    {
+      "name": "SCHEDULING_URGENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The level of scheduling urgency for the job, e.g. NORMAL, TIME_SENSITIVE, TIME_INSENSITIVE",
+      "column_order": 11
+    },
+    {
+      "name": "DELAY_TOLERANCE_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "The amount of execution delay in seconds that the job can tolerate",
+      "column_order": 12
+    },
+    {
+      "name": "SCHEDULED_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The time at which the job is scheduled to run",
+      "column_order": 13
+    },
+    {
+      "name": "CLIENT_REQUEST_UUID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Optional client-given unique identifier for the submitted request.",
+      "column_order": 14
+    },
+    {
+      "name": "JOB_PAYLOAD",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This column stores the attributes for Spectra Job submission that are part of the payload for Job request submission",
+      "column_order": 15
+    },
+    {
+      "name": "JOB_PROGRESS",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column store the near real-time progress information for the job request",
+      "column_order": 16
+    },
+    {
+      "name": "TIMEOUT_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Termination timeout threshold in seconds, which is used to automatically timeout and terminate a running job",
+      "column_order": 17
+    },
+    {
+      "name": "TIMEOUT_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The timer set for the current state would expire after the given time",
+      "column_order": 18
+    },
+    {
+      "name": "JOB_RETRY_POLICY",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The retry policy could include properties such as retryCount, retryInterval and backoffStrategy etc",
+      "column_order": 19
+    },
+    {
+      "name": "REMAINING_RETRIES",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Number of retries yet to be performed. When it reaches 0, we are done with all retries",
+      "column_order": 20
+    },
+    {
+      "name": "INPUT_FILES_READY",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Used to indicate that the input files for the job request are ready and the job execution can continue. Possible values are NULL, N, and Y",
+      "column_order": 21
+    },
+    {
+      "name": "VISIBILITY_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The visibility flag used to support multiple consumers",
+      "column_order": 22
+    },
+    {
+      "name": "PARENT_JOB_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "FK to the original job request",
+      "column_order": 23
+    },
+    {
+      "name": "NEXT_SCHEDULED_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Scheduled time for running the next recurrence of a recurring job",
+      "column_order": 24
+    },
+    {
+      "name": "SCHEDULE",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the scheduling rules, which is a copy of the runAtTimes property from the request payload",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_RUN_SCHEDULED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the last run per the recurring schedule has already been scheduled and there is no need to calculate NEXT_SCHEDULED_TIME any more",
+      "column_order": 26
+    },
+    {
+      "name": "NEXT_SCHEDULED_TIMES",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores or caches a number of pre-calculated time slots for running the job for better performance",
+      "column_order": 27
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 28
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 29
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 32
+    }
+  ]
+}

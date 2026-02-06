@@ -1,0 +1,195 @@
+{
+  "id": 31725,
+  "name": "HZ_RELATIONSHIP_TYPES",
+  "type": "TABLE",
+  "description": "The HZ_RELATIONSHIP_TYPES table defines the business rules that are associated with a relationship type. A non-directional relationship type consists of a single record with the same forward (FORWARD_REL_CODE) and backward (BACKWARD_REL_CODE) relationship codes. A directional relationship type consists of two records: one for the parent (DIRECTION_CODE is P) and the other for a child (DIRECTION_CODE is C) of that parent. Forward and backward relationship codes are validated against the PARTY_RELATIONS_TYPE lookup type.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/hzrelationshiptypes-4735.html#hzrelationshiptypes-4735",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "RELATIONSHIP_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Relationship type identifier",
+      "column_order": 1
+    },
+    {
+      "name": "RELATIONSHIP_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The relationship type name.  For example, CUSTOMER_SUPPLIER",
+      "column_order": 2
+    },
+    {
+      "name": "FORWARD_REL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The forward relationship code used to describe relationships. For example, CUSTOMER_OF",
+      "column_order": 3
+    },
+    {
+      "name": "BACKWARD_REL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The backward relationship code used to describe relationships. For example, SUPPLIER_OF",
+      "column_order": 4
+    },
+    {
+      "name": "DIRECTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Validated by DIRECTION_CODE lookup type. P for Parent, C for Child, and N for Not Directional",
+      "column_order": 5
+    },
+    {
+      "name": "HIERARCHICAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "No Longer used in Fusion V1.",
+      "column_order": 6
+    },
+    {
+      "name": "ALLOW_RELATE_TO_SELF_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if a party can be related to itself",
+      "column_order": 7
+    },
+    {
+      "name": "SUBJECT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subject type of the relationship type",
+      "column_order": 8
+    },
+    {
+      "name": "OBJECT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Object type of the relationship type",
+      "column_order": 9
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if the relationship type is inactive or active. I for Inactive, A for Active",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "ALLOW_CIRCULAR_RELATIONSHIPS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if circular relationships are allowed using  this relationship type.",
+      "column_order": 16
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 17
+    },
+    {
+      "name": "CREATED_BY_MODULE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "TCA Who column",
+      "column_order": 18
+    },
+    {
+      "name": "MULTIPLE_PARENT_ALLOWED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "No Longer used in Fusion V1.",
+      "column_order": 19
+    },
+    {
+      "name": "ROLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique relationship role lookup code based on relationship type and phrase. In the HZ_RELATIONSHIP_ROLE lookup type meaning is the plural role and description is the singular role.",
+      "column_order": 20
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 21
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 22
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 23
+    }
+  ]
+}

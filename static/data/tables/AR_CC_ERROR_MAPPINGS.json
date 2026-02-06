@@ -1,0 +1,187 @@
+{
+  "id": 29251,
+  "name": "AR_CC_ERROR_MAPPINGS",
+  "type": "TABLE",
+  "description": "The AR_CC_ERROR_MAPPINGS table contains the mapping between credit card errors and their corresponding corrective actions. Based on these corrective mappings, Receivables will automatically correct any credit card error that occurs during automatic receipt or remittance batch processing.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arccerrormappings-17841.html#arccerrormappings-17841",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CC_ERROR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Error code from credit card payment processor",
+      "column_order": 1
+    },
+    {
+      "name": "CC_ERROR_MAP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of credit card error mappings",
+      "column_order": 2
+    },
+    {
+      "name": "CC_ERROR_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "User-enterable description for credit card error code",
+      "column_order": 3
+    },
+    {
+      "name": "RECEIPT_METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of receipt method.Foreign key to AR_RECEIPT_METHODS_ALL.RECEIPT_METHOD_ID.",
+      "column_order": 4
+    },
+    {
+      "name": "CC_TRX_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Transaction category for credit card errors. Based on lookup CC_TRX_CATEGORY.",
+      "column_order": 5
+    },
+    {
+      "name": "CC_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Corrective action to be performed on transactions with errors. Based on lookup\nAR_CC_ACTION_CODES.",
+      "column_order": 6
+    },
+    {
+      "name": "NO_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of days after which a subsequent corrective action can be performed. If no subsequent action exists, transaction will appear for manual correction after specified number of days.",
+      "column_order": 7
+    },
+    {
+      "name": "SUBSEQUENT_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Subsequent action that will be performed after first action is performed.",
+      "column_order": 8
+    },
+    {
+      "name": "ERROR_NOTES",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "User-enterable notes, attached to corrected transaction",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 15
+    },
+    {
+      "name": "RULE_PRIORITY",
+      "data_type": "NUMBER",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "Number that identifies the rule priority, with the lowest number equal to the highest priority. If a transaction falls under more than one rule, select the rule with the highest priority.",
+      "column_order": 16
+    },
+    {
+      "name": "RETRY_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Maximum number of retries for a rule with the Retry action.",
+      "column_order": 17
+    },
+    {
+      "name": "ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Identifies whether the rule is enabled.",
+      "column_order": 18
+    },
+    {
+      "name": "FINAL_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup codes under the AR_CC_ACTION_CODES lookup type that determine the final corrective action to take on the transaction if the maximum number of retires fails. Valid values are CLR PAY INFO and REV REC.",
+      "column_order": 19
+    },
+    {
+      "name": "RETRY_UOM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup codes under the ORA_AR_RCPT_RETRY_UOM lookup type that determine the chronological unit of measure to use to define the interval between retries. Valid values are Minutes, Hours, and Days.",
+      "column_order": 20
+    },
+    {
+      "name": "RETRY_INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "Number that identifies the length of the interval between retries according to the chronological unit of measure.",
+      "column_order": 21
+    },
+    {
+      "name": "RETRY_SCHEDULE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code under the ORA_AR_RETRY_SCHEDULE lookup type that determines the name that identifies the retry schedule containing the Retry action definitions. Valid value is Incremental.",
+      "column_order": 22
+    }
+  ]
+}

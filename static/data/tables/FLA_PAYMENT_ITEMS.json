@@ -1,0 +1,955 @@
+{
+  "id": 27238,
+  "name": "FLA_PAYMENT_ITEMS",
+  "type": "TABLE",
+  "description": "FLA_PAYMENT_ITEMS contains payment items data generated for the lease payments.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flapaymentitems-28220.html#flapaymentitems-28220",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PAYMENT_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "PAYMENT_ITEM_ID. It is the primary key of the table.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease identifier. It references the primary key of the FLA_LEASES_ALL table.",
+      "column_order": 3
+    },
+    {
+      "name": "LEASE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease detail identifier. It is referenced from FLA_LEASE_DETAILS table.",
+      "column_order": 4
+    },
+    {
+      "name": "PAYMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment number. Payment Item is part of this Payment Header.",
+      "column_order": 5
+    },
+    {
+      "name": "PAYMENT_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Payment line number. Payment Item is part of this Payment Line.",
+      "column_order": 6
+    },
+    {
+      "name": "VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Version number of the lease as captured in FLA_LEASE_DETAILS.",
+      "column_order": 7
+    },
+    {
+      "name": "VENDOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Supplier identifier.  It is used to send the information to Payables during the payment process.",
+      "column_order": 8
+    },
+    {
+      "name": "VENDOR_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Supplier site identifier. It is used to send the information to Payables during the payment process.",
+      "column_order": 9
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment item currency code. This is based on the Payment currency code.",
+      "column_order": 10
+    },
+    {
+      "name": "ESTIMATED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Estimated payment item amount in the payment currency.",
+      "column_order": 11
+    },
+    {
+      "name": "ACTUAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Payment item amount in the payment currency.",
+      "column_order": 12
+    },
+    {
+      "name": "ASSESSABLE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "User-enterable amount to be used as taxable basis.",
+      "column_order": 13
+    },
+    {
+      "name": "DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Due date of the payment item as per the schedule in Payment Lines.",
+      "column_order": 14
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Beginning date of the payment item.",
+      "column_order": 15
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Ending date of the payment item. This is based on the Payment Line.",
+      "column_order": 16
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Period in which payment item falls in.",
+      "column_order": 17
+    },
+    {
+      "name": "ACCOUNTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if the payment item is transferred for accounting.",
+      "column_order": 18
+    },
+    {
+      "name": "ADJUSTMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if the payment item is created because of an adjustment.",
+      "column_order": 19
+    },
+    {
+      "name": "ADJUSTMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the payment item adjustment is made.",
+      "column_order": 20
+    },
+    {
+      "name": "REVERSAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if the payment item is created because of a reversal of generated payment items.",
+      "column_order": 21
+    },
+    {
+      "name": "READ_IN_DRAFT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the payment item was considered for generation in the draft lease.",
+      "column_order": 22
+    },
+    {
+      "name": "PAYMENT_ITEM_FOR_STUB_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the payment item was generated for a stub payment line.",
+      "column_order": 23
+    },
+    {
+      "name": "INVOICE_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Stores the invoice number generated and sent to Payables for the payment item.",
+      "column_order": 24
+    },
+    {
+      "name": "INVOICE_LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the invoice line number generated and sent to Payables for the payment item.",
+      "column_order": 25
+    },
+    {
+      "name": "ESTIMATED_FUNC_CURR_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Estimated payment item amount in the functional currency.",
+      "column_order": 26
+    },
+    {
+      "name": "ACTUAL_FUNC_CURR_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual payment item amount in the functional currency",
+      "column_order": 27
+    },
+    {
+      "name": "FUNC_CURR_CONV_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate used to calculate the functional currency amount.",
+      "column_order": 28
+    },
+    {
+      "name": "FUNC_CURR_CONV_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Exchange rate type for foreign currency amounts.",
+      "column_order": 29
+    },
+    {
+      "name": "FUNC_CURR_CONV_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date exchange rate is effective from. Usually the payment due date.",
+      "column_order": 30
+    },
+    {
+      "name": "APPROVAL_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates if the payment item is approved for Payables invoice creation.",
+      "column_order": 31
+    },
+    {
+      "name": "APPROVAL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the approval for the payment item was done.",
+      "column_order": 32
+    },
+    {
+      "name": "APPROVED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "User ID who has done the approval of the payment item.",
+      "column_order": 33
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Comments or details provided by the user who has approved or exported the payment item",
+      "column_order": 34
+    },
+    {
+      "name": "INTERFACE_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the payment item export status to Oracle Payables. Various statuses can be PENDING, INPROGRESS, HOLD, INTERFACED, ABANDONED.",
+      "column_order": 35
+    },
+    {
+      "name": "INTERFACE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the payment item status was updated",
+      "column_order": 36
+    },
+    {
+      "name": "INVOICE_CREATION_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of Payables Invoice, whether the Invoice was generated successfully. For future use.",
+      "column_order": 37
+    },
+    {
+      "name": "PARENT_PAYMENT_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This identifies the parent payment item for this payment item.",
+      "column_order": 38
+    },
+    {
+      "name": "EXPORT_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payables Invoice grouping purpose. For future use.",
+      "column_order": 39
+    },
+    {
+      "name": "OPTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option flag which indicates if the payment items are generated for an option or not.",
+      "column_order": 40
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 41
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 42
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 43
+    },
+    {
+      "name": "DISTRIBUTION_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Distribution set identifier. It is passed into Payables.",
+      "column_order": 44
+    },
+    {
+      "name": "PAYMENT_TERM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment term identifier for calculation of due date.",
+      "column_order": 45
+    },
+    {
+      "name": "PRIMARY_INTENDED_USE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax Driver: The purpose for which a product may be used. The actual use is stored at the distribution level.",
+      "column_order": 46
+    },
+    {
+      "name": "TAX_CLASSIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax classification code for payment term.",
+      "column_order": 47
+    },
+    {
+      "name": "TAX_INCLUDED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether tax is included or not.",
+      "column_order": 48
+    },
+    {
+      "name": "PRODUCT_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Identifies the taxable nature of a noninventory based item for tax determination or tax reporting.",
+      "column_order": 49
+    },
+    {
+      "name": "PRODUCT_FISCAL_CLASSIFICATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Product fiscal classification",
+      "column_order": 50
+    },
+    {
+      "name": "PRODUCT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Type of product. Possible values are Goods and Services. This value defaults from Inventory Item attributes or is entered by the user.",
+      "column_order": 51
+    },
+    {
+      "name": "REPORT_FROM_INCEPTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the streams is generated from the inception of the lease or not.",
+      "column_order": 52
+    },
+    {
+      "name": "TRX_BUSINESS_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Transactions category assigned by user.",
+      "column_order": 53
+    },
+    {
+      "name": "USER_DEFINED_FISCAL_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Fiscal Classification.",
+      "column_order": 54
+    },
+    {
+      "name": "WITHHOLDING_TAX_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Withholding tax group identifier.",
+      "column_order": 55
+    },
+    {
+      "name": "INTERCOMPANY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Intercompany flag with possible values as Y or N. Mainly used for reporting purposes",
+      "column_order": 56
+    },
+    {
+      "name": "APPROVAL_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Batch identifier of the batch which was picked and processed for invoice & accounting approval.",
+      "column_order": 57
+    },
+    {
+      "name": "INTERFACE_ELIGIBILITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the payment item export status to Oracle Payables. Various statuses can be YES, NO or HOLD. This would be a user entered option.",
+      "column_order": 58
+    },
+    {
+      "name": "CHARGE_ACCOUNT_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Account identifier. Code Combination of the primary ledger charge account stored on the payment. Charge account will be sent to Oracle Payables during invoice creation.",
+      "column_order": 59
+    },
+    {
+      "name": "LIABILITY_ACCOUNT_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Account identifier. Code Combination of the primary ledger liability account stored on the payment. Liability account will be sent to Oracle Payables during invoice creation.",
+      "column_order": 60
+    },
+    {
+      "name": "SUPPLIER_INVOICE_REF_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Supplier number reference for the invoice.",
+      "column_order": 61
+    },
+    {
+      "name": "CONTINGENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Contingent amount captured for the payment increase per payment period.",
+      "column_order": 62
+    },
+    {
+      "name": "AGREEMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Payment increase agreement number referenced from the FLA_INCREMENT_HEADERS table.",
+      "column_order": 63
+    },
+    {
+      "name": "ASSESSMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the payment increase assessment is performed.",
+      "column_order": 64
+    },
+    {
+      "name": "PAYMENT_INCREASE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the payment is generated for a payment increase line.",
+      "column_order": 65
+    },
+    {
+      "name": "CUMULATIVE_INCREASE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the payment is generated for cumulative increase amount of payment increase line.",
+      "column_order": 66
+    },
+    {
+      "name": "MANUAL_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the manual action that has happened on the payment item before its approval. Possible values can be Modified or Manually Created.",
+      "column_order": 67
+    },
+    {
+      "name": "PAYMENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment type. Values are derived from ORA_FLA_PAYMENT_TYPE lookup.",
+      "column_order": 68
+    },
+    {
+      "name": "PAYMENT_PURPOSE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment purpose. Values are derived from ORA_FLA_PAYMENT_PURPOSE lookup.",
+      "column_order": 69
+    },
+    {
+      "name": "ASSET_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Asset number which is associated to the payment.",
+      "column_order": 70
+    },
+    {
+      "name": "PAYMENT_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment template identifier. References the payment template from which the payment is created.",
+      "column_order": 71
+    },
+    {
+      "name": "RESPONSIBLE_USER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Name of the user responsible for the update to the payment item amount.",
+      "column_order": 72
+    },
+    {
+      "name": "REVENUE_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the method for spread of generated revenue, valid values are lease revenue and non lease revenue.",
+      "column_order": 73
+    },
+    {
+      "name": "SCHEDULE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates the type of schedule, valid values are PAYMENT and BILLING.",
+      "column_order": 74
+    },
+    {
+      "name": "BILL_TO_CUSTOMER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill to customer identifier for the billing.",
+      "column_order": 75
+    },
+    {
+      "name": "BILL_TO_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill to customer site use identifier.",
+      "column_order": 76
+    },
+    {
+      "name": "SHIP_TO_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ship to customer site use identifier.",
+      "column_order": 77
+    },
+    {
+      "name": "CUSTOMER_TRX_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transaction type identifier to be sent to Receivables.",
+      "column_order": 78
+    },
+    {
+      "name": "AR_INVOICE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Invoice identifier of the Receivables invoice.",
+      "column_order": 79
+    },
+    {
+      "name": "AR_INVOICE_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Invoice line identifier of the Receivables invoice line.",
+      "column_order": 80
+    },
+    {
+      "name": "DOCUMENT_SUB_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Classification used by a tax authority to categorize a document associated with a transaction for a tax.",
+      "column_order": 81
+    },
+    {
+      "name": "FIRST_PTY_REG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Deploying company's Tax Registration number",
+      "column_order": 82
+    },
+    {
+      "name": "THIRD_PTY_REG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill-to Customer Tax Registration Number",
+      "column_order": 83
+    },
+    {
+      "name": "REFERENCE_PAYMENT_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the reference payment item identifier for which the credit memo is being generated.",
+      "column_order": 84
+    },
+    {
+      "name": "PAYMENT_ITEM_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates the type of payment item. Values can be REGULAR, RECOVERABLE and NONRECOVERABLE.",
+      "column_order": 85
+    },
+    {
+      "name": "TAX_TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Reference of the tax transaction identifier.",
+      "column_order": 86
+    },
+    {
+      "name": "PAYMENT_TAX_LINE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment tax line number. This is generated by system using a document sequence.",
+      "column_order": 87
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 88
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 89
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 90
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 91
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 112
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 113
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 114
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 115
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 116
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 117
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 118
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "id": 31355,
+  "name": "OKC_XPRT_QUESTIONS_B",
+  "type": "TABLE",
+  "description": "This entity stores the user questions, constants and expert variables.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/okcxprtquestionsb-7140.html#okcxprtquestionsb-7140",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "QUESTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "This is the primary column for the questions and constants table and is sequence generated.",
+      "column_order": 1
+    },
+    {
+      "name": "QUESTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "QUESTION_CODE",
+      "column_order": 2
+    },
+    {
+      "name": "CONDITION_EXPR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether the conditions on the questions are 'Any True' or 'All True'. Possible values are 'ALL' or 'ANY'. FK to FND lookup OKC_XPRT_CONDITION_EXPRESSION.",
+      "column_order": 3
+    },
+    {
+      "name": "QUESTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This indicates the question type. FK to FND lookup OKC_XPRT_QUESTION_TYPE. Possible values are Q and C. Q: Question, C: Constant.",
+      "column_order": 4
+    },
+    {
+      "name": "QUESTION_INTENT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Intent of Question or Constant. B: Buy, S: Sell.",
+      "column_order": 5
+    },
+    {
+      "name": "DISABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if the question or constant is disabled",
+      "column_order": 6
+    },
+    {
+      "name": "QUESTION_DATATYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates response datatype. FK to FND lookup OKC_XPRT_QUESTION_DATATYPE. B: Boolean, N: Numeric, L: List of values.",
+      "column_order": 7
+    },
+    {
+      "name": "VALUE_SET_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "The value set corresponding to the question with response type of List of Values. FK to FND value set.",
+      "column_order": 8
+    },
+    {
+      "name": "DEFAULT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Value for Questions/Constants. Question value can be a Value id in case of Value set based Questions or Numeric value in case of Numeric Questions. This is mandatory when defining constants.",
+      "column_order": 9
+    },
+    {
+      "name": "MINIMUM_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used. For a future release",
+      "column_order": 10
+    },
+    {
+      "name": "MAXIMUM_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used. For a future release",
+      "column_order": 11
+    },
+    {
+      "name": "QUESTION_SYNC_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This will be used to indicate if a question needs to be synchronized with Oracle Confiugrator",
+      "column_order": 12
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 20
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 21
+    },
+    {
+      "name": "MODULE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "MODULE",
+      "column_order": 22
+    },
+    {
+      "name": "HEIGHT",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "HEIGHT",
+      "column_order": 23
+    },
+    {
+      "name": "WIDTH",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "WIDTH",
+      "column_order": 24
+    },
+    {
+      "name": "CONDITIONAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the Question is conditional. Possible values are 'Y', 'N'.",
+      "column_order": 25
+    },
+    {
+      "name": "VARIABLE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "VARIABLE_CODE",
+      "column_order": 26
+    }
+  ]
+}

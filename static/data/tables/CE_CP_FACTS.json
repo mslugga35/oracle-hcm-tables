@@ -1,0 +1,747 @@
+{
+  "id": 26899,
+  "name": "CE_CP_FACTS",
+  "type": "TABLE",
+  "description": "This table contains the fact data to build the cube.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/cecpfacts-16753.html#cecpfacts-16753",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CP_FACT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Sequentially generated surrogate key for the facts table.",
+      "column_order": 1
+    },
+    {
+      "name": "TRANSACTION_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "Transaction number of the system transaction.",
+      "column_order": 2
+    },
+    {
+      "name": "EXCLUDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Determines if the transaction is excluded from cash positioning and forecasting calculation. Valid values are Yes  or No.",
+      "column_order": 3
+    },
+    {
+      "name": "SRC_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to source transaction.",
+      "column_order": 4
+    },
+    {
+      "name": "BANK_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of the bank of the transaction.",
+      "column_order": 5
+    },
+    {
+      "name": "BANK_ACCOUNT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name assigned to a bank account for identification purposes.",
+      "column_order": 6
+    },
+    {
+      "name": "LEGAL_ENTITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Name of the legal entity of the transaction.",
+      "column_order": 7
+    },
+    {
+      "name": "LEGAL_ENTITY_REGION",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of the legal entity region.",
+      "column_order": 8
+    },
+    {
+      "name": "CASH_POOL_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of the cash pool dimension member",
+      "column_order": 9
+    },
+    {
+      "name": "PARENT_CASH_POOL_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 250,
+      "nullable": "Y",
+      "description": "Fully qualified dimension member name of the parent cash pool",
+      "column_order": 10
+    },
+    {
+      "name": "SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Source of transaction. For example, accounts receivable receipts, accounts payable payments, payrolls, external cash transactions and bank statements.",
+      "column_order": 11
+    },
+    {
+      "name": "FLOW_INDICATOR",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Flow indicator of the transaction. Valid values are INFLOW, OUTFLOW or BALANCE.",
+      "column_order": 12
+    },
+    {
+      "name": "RECON_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reconciliation Status of the transaction.",
+      "column_order": 13
+    },
+    {
+      "name": "BANK_ACCOUNT_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Currency code of the bank account.",
+      "column_order": 14
+    },
+    {
+      "name": "FUNCTIONAL_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Ledger currency code of the transaction.",
+      "column_order": 15
+    },
+    {
+      "name": "REPORTING_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Reporting currency code.",
+      "column_order": 16
+    },
+    {
+      "name": "TRANSACTION_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Transaction currency code.",
+      "column_order": 17
+    },
+    {
+      "name": "TRANSACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Types of transaction. For example, cash, check, manual, credit card.",
+      "column_order": 18
+    },
+    {
+      "name": "OPBD_BALANCE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening ledger balance date.",
+      "column_order": 19
+    },
+    {
+      "name": "CLBD_BALANCE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing ledger balance date.",
+      "column_order": 20
+    },
+    {
+      "name": "OPAV_BALANCE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening available balance date.",
+      "column_order": 21
+    },
+    {
+      "name": "CLAV_BALANCE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing available balance date.",
+      "column_order": 22
+    },
+    {
+      "name": "VDB_BALANCE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The value dated balance date of the transaction.",
+      "column_order": 23
+    },
+    {
+      "name": "TRX_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The transaction date of the transaction.",
+      "column_order": 24
+    },
+    {
+      "name": "VALUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The value date of the transaction.",
+      "column_order": 25
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 1",
+      "column_order": 26
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 2",
+      "column_order": 27
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 3",
+      "column_order": 28
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 4",
+      "column_order": 29
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 5",
+      "column_order": 30
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 6",
+      "column_order": 31
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 7",
+      "column_order": 32
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 8",
+      "column_order": 33
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 9",
+      "column_order": 34
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 10",
+      "column_order": 35
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 11",
+      "column_order": 36
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 12",
+      "column_order": 37
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 13",
+      "column_order": 38
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 14",
+      "column_order": 39
+    },
+    {
+      "name": "EXT_DIM_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Extensible Dimension Attribute 15",
+      "column_order": 40
+    },
+    {
+      "name": "OPEN_LEDGER_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening ledger balance in bank account currency.",
+      "column_order": 41
+    },
+    {
+      "name": "OPEN_AVAILABLE_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening available balance in bank acccount currency.",
+      "column_order": 42
+    },
+    {
+      "name": "CLOSE_LEDGER_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing ledger balance in bank account currency.",
+      "column_order": 43
+    },
+    {
+      "name": "CLOSE_AVAILABLE_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing available balance in bank account currency.",
+      "column_order": 44
+    },
+    {
+      "name": "CLOSE_VDBAL_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's  closing value dated balance in bank account currency.",
+      "column_order": 45
+    },
+    {
+      "name": "TARGET_BAL_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Target balance in bank account currency.",
+      "column_order": 46
+    },
+    {
+      "name": "TRX_AMOUNT_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in bank account currency.",
+      "column_order": 47
+    },
+    {
+      "name": "TRX_AMOUNT_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in reporting currency.",
+      "column_order": 48
+    },
+    {
+      "name": "TRX_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in transaction currency.",
+      "column_order": 49
+    },
+    {
+      "name": "VD_TRX_AMOUNT_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Value dated transaction amount in bank account currency.",
+      "column_order": 50
+    },
+    {
+      "name": "OPEN_LEDGER_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening ledger balance in ledger currency.",
+      "column_order": 51
+    },
+    {
+      "name": "OPEN_AVAILABLE_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening available balance in ledger currency.",
+      "column_order": 52
+    },
+    {
+      "name": "CLOSE_LEDGER_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing ledger balance in ledger currency.",
+      "column_order": 53
+    },
+    {
+      "name": "CLOSE_AVAILABLE_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing available balance in ledger currency.",
+      "column_order": 54
+    },
+    {
+      "name": "CLOSE_VDBAL_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing value dated balance in ledger currency.",
+      "column_order": 55
+    },
+    {
+      "name": "TARGET_BAL_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Target balance in ledger currency",
+      "column_order": 56
+    },
+    {
+      "name": "TRX_AMOUNT_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in ledger currency",
+      "column_order": 57
+    },
+    {
+      "name": "VD_TRX_AMOUNT_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Value dated transaction amount in ledger currency",
+      "column_order": 58
+    },
+    {
+      "name": "OPEN_FLOAT_1DAY_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening 1 day float in bank account currency.",
+      "column_order": 59
+    },
+    {
+      "name": "OPEN_FLOAT_2DAY_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening 2 or more days float in bank account currency.",
+      "column_order": 60
+    },
+    {
+      "name": "CLOSE_FLOAT_1DAY_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing 1 day float in bank account currency.",
+      "column_order": 61
+    },
+    {
+      "name": "CLOSE_FLOAT_2DAY_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing 2 or more days float in bank account currency.",
+      "column_order": 62
+    },
+    {
+      "name": "OPEN_FLOAT_1DAY_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening 1 day float in ledger currency.",
+      "column_order": 63
+    },
+    {
+      "name": "OPEN_FLOAT_2DAY_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening 2 or more days float in ledger currency.",
+      "column_order": 64
+    },
+    {
+      "name": "CLOSE_FLOAT_1DAY_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing 1 day float in ledger currency.",
+      "column_order": 65
+    },
+    {
+      "name": "CLOSE_FLOAT_2DAY_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing 2 or more days float in ledger currency.",
+      "column_order": 66
+    },
+    {
+      "name": "SOURCE_SYSTEM",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "N",
+      "description": "Instance of the source. Valid values are FUSION, EBS or OTHER.",
+      "column_order": 67
+    },
+    {
+      "name": "PARENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Statement header identifier for transaction type of statement lines. Null for other transaction types.",
+      "column_order": 68
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 69
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 70
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 71
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 72
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 73
+    },
+    {
+      "name": "BALANCE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the statement balance was last reported.",
+      "column_order": 74
+    },
+    {
+      "name": "TARGET_BAL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the bank account target balance was reported.",
+      "column_order": 75
+    },
+    {
+      "name": "LAST_KNOWN_BAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "The last known balance indicator for a bank account. Valid values are Y or N.",
+      "column_order": 76
+    },
+    {
+      "name": "BALANCE_AC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Statement balance in bank account currency.",
+      "column_order": 77
+    },
+    {
+      "name": "BALANCE_FC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Statement balance in ledger currency.",
+      "column_order": 78
+    },
+    {
+      "name": "BALANCE_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Statement balance in reporting currency.",
+      "column_order": 79
+    },
+    {
+      "name": "OPEN_LEDGER_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening ledger balance in reporting currency.",
+      "column_order": 80
+    },
+    {
+      "name": "OPEN_AVAILABLE_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening available balance in reporting currency.",
+      "column_order": 81
+    },
+    {
+      "name": "CLOSE_LEDGER_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing ledger balance in reporting currency.",
+      "column_order": 82
+    },
+    {
+      "name": "CLOSE_AVAILABLE_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing available balance in reporting currency.",
+      "column_order": 83
+    },
+    {
+      "name": "CLOSE_VDBAL_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing value dated balance in reporting currency.",
+      "column_order": 84
+    },
+    {
+      "name": "TARGET_BAL_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's target balance in reporting currency.",
+      "column_order": 85
+    },
+    {
+      "name": "VD_TRX_AMOUNT_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's value dated transaction amount in reporting currency.",
+      "column_order": 86
+    },
+    {
+      "name": "OPEN_FLOAT_1DAY_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening 1 day float in reporting currency.",
+      "column_order": 87
+    },
+    {
+      "name": "OPEN_FLOAT_2DAY_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's opening 2 or more days float in reporting currency.",
+      "column_order": 88
+    },
+    {
+      "name": "CLOSE_FLOAT_1DAY_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing 1 day float in reporting currency.",
+      "column_order": 89
+    },
+    {
+      "name": "CLOSE_FLOAT_2DAY_RC",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank account's closing 2 or more days float in reporting currency.",
+      "column_order": 90
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 91
+    },
+    {
+      "name": "TRANSACTION_CALENDAR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 92
+    }
+  ]
+}

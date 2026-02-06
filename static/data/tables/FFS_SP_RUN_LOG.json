@@ -1,0 +1,347 @@
+{
+  "id": 32154,
+  "name": "FFS_SP_RUN_LOG",
+  "type": "TABLE",
+  "description": "Used to store a history of routing plan runs.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffssprunlog-4618.html#ffssprunlog-4618",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SCHEDULING_LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Unique identifier of the log record. In the case of scheduling runs, the filed is the run ID. The field is the primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "OPERATION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 23,
+      "nullable": "Y",
+      "description": "Type of the operation that is logged. Possible values are 'routing', 'rollback', and 'move to bucket'.",
+      "column_order": 2
+    },
+    {
+      "name": "RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Identifier of the resource (bucket) where the scheduling run was launched. It is the foreign key to the table FFS_RESOURCE.",
+      "column_order": 3
+    },
+    {
+      "name": "SEQUENCE_LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Identifier of the sequence of runs. In the case of sequential runs the ID equals to the ID of the first run in the sequence.",
+      "column_order": 4
+    },
+    {
+      "name": "PREDECESSOR_LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Equals to the scheduling plan ID of the previous run in the sequence. If it is single scheduling run, it equals to zero.",
+      "column_order": 5
+    },
+    {
+      "name": "SUCCESSOR_LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Equals to the scheduling plan ID of the next run in the sequence. If it is single scheduling run, it equals to zero.",
+      "column_order": 6
+    },
+    {
+      "name": "SCHEDULING_PLAN_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Scheduling plan ID that the run belongs to. It is the foreign key to the table FFS_SCHEDULING_PLAN.",
+      "column_order": 7
+    },
+    {
+      "name": "ACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 19,
+      "nullable": "N",
+      "description": "Who column: identifier of the action which is assigned by the Application server.",
+      "column_order": 8
+    },
+    {
+      "name": "USER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Who column: identifier of the user the operation is performed by.",
+      "column_order": 9
+    },
+    {
+      "name": "RUN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when scheduling run was launched. The date corresponds to the local time zone.",
+      "column_order": 10
+    },
+    {
+      "name": "ROUTE_DATE_START",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the scheduling run was launched for. The date corresponds to the local time zone.",
+      "column_order": 11
+    },
+    {
+      "name": "STARTED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "UTC timestamp when exactly the scheduling run was launched.",
+      "column_order": 12
+    },
+    {
+      "name": "FINISHED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "UTC timestamp when the scheduling run was actually completed. The difference between FINISHED and STARTED equals to the total duration of the scheduling run that includes all processing steps and infrastructure delays.",
+      "column_order": 13
+    },
+    {
+      "name": "RESOURCE_TZ_DIFF",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Time shift between UTC and local time zone for the resource (bucket) where the scheduling run was launched.",
+      "column_order": 14
+    },
+    {
+      "name": "FILTERS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "List of filters that the scheduling run passed.",
+      "column_order": 15
+    },
+    {
+      "name": "TOTAL_RESOURCES",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Total number of field resources that were sent to the scheduling engine for optimization.",
+      "column_order": 16
+    },
+    {
+      "name": "RESOURCES_CHANGED_ROUTES",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "The number of field resources that have their routes changed after the scheduling run.",
+      "column_order": 17
+    },
+    {
+      "name": "ACTIVITIES_TO_BE_ASSIGNED",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Total number of activities that have to be assigned by the scheduling run.",
+      "column_order": 18
+    },
+    {
+      "name": "ASSIGNED_ACTIVITIES",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Actual number of activities were assigned by the scheduling run.",
+      "column_order": 19
+    },
+    {
+      "name": "NOT_ASSIGNED_ACTIVITIES",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Total number of activities were not assigned by the scheduling run due to different reasons. More details on the activities are provided in the table FFS_SP_RUN_LOG_DETAILS.",
+      "column_order": 20
+    },
+    {
+      "name": "NOT_ASSIGNED_DYNAMIC_SCHED",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Number of activities were not assigned due to the dynamic scheduling.",
+      "column_order": 21
+    },
+    {
+      "name": "OPTIMIZATION_FUNCTION_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Value of the optimization function that were reached in the scheduling run.",
+      "column_order": 22
+    },
+    {
+      "name": "ASSURANCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual assurance of the scheduling run result. The assurance varies from 0 to 99 where 99 means the optimal solution is found.",
+      "column_order": 23
+    },
+    {
+      "name": "RESULT_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Status Of The Scheduling Run. Possible Values Are 'Succeeded', 'Failed', 'Running', 'Stopped', 'Waiting'.",
+      "column_order": 24
+    },
+    {
+      "name": "RESULT_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Additional information about the scheduling run result. For example, in the case of the failed run, it contains the reason of the failure. For succeeded runs, it points if the reoptimization was allowed, or if the reoptimization was accepted.",
+      "column_order": 25
+    },
+    {
+      "name": "RESULT_DETAILS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Details on scheduling run result in xml-format.",
+      "column_order": 26
+    },
+    {
+      "name": "ROUTE_DATE_END",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End date for the multiday routing: multiday routing covers dates from ROUTE_DATE_START to ROUTE_DATE_END including both of them. In the case of the single day routing ROUTE_DATE_END is the same as ROUTE_DATE_START.",
+      "column_order": 27
+    },
+    {
+      "name": "PRIORITY",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "The priority level of the scheduling run.",
+      "column_order": 28
+    },
+    {
+      "name": "SLT_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Time that the run actually spent at SLT service, seconds.",
+      "column_order": 29
+    },
+    {
+      "name": "SCHED_RUN_TIME",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Time that the run actually spent at the scheduling engine, seconds.",
+      "column_order": 30
+    },
+    {
+      "name": "SCHED_RUN_TIME_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Time limit for the scheduling run duration, seconds.",
+      "column_order": 31
+    },
+    {
+      "name": "PREDICT_SCHED_RUN_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Predicted full run time of the scheduling run, seconds.",
+      "column_order": 32
+    },
+    {
+      "name": "ACTUAL_SCHED_RUN_STRATUP_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Actual start up time of the scheduling run, seconds.",
+      "column_order": 33
+    },
+    {
+      "name": "ACTUAL_FULL_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Actual full run time including start up and processing time of the scheduling run, seconds.",
+      "column_order": 34
+    },
+    {
+      "name": "EVENT_FIELDS",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Fields to be exported in the routingRun event and Daily Export.",
+      "column_order": 35
+    },
+    {
+      "name": "ROLLBACK_LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Scheduling run ID which were rolled back.",
+      "column_order": 36
+    },
+    {
+      "name": "STARTUP_MODE",
+      "data_type": "VARCHAR2",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Startup Mode For Continuous Routing Plans.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 38
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 41
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 42
+    }
+  ]
+}

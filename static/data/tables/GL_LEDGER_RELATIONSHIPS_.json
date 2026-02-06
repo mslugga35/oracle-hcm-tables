@@ -1,0 +1,499 @@
+{
+  "id": 28070,
+  "name": "GL_LEDGER_RELATIONSHIPS_",
+  "type": "TABLE",
+  "description": "GL_LEDGER_RELATIONSHIPS contains the relationships between ledgers.  Each relationship between a primary ledger and a secondary ledger or between a ledger and its reporting currency is stored in one or more rows in this table.  GL_LEDGER_RELATIONSHIPS also contains the chart of accounts mapping, conversion, and initialization rules necessary to convert data from the source ledger to its secondary ledger or reporting currency.  For upgrade cases, it may contain multiple rows for a single relationship; one row per application or per operating unit for which that relationship is maintained. GL_LEDGER_RELATIONSHIPS also always contains one row for each ledger and for each subledger or journal level reporting currency, even if that ledger has no relationships defined for it.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/glledgerrelationships-28616.html#glledgerrelationships-28616",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "RELATIONSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Ledger relationship defining column.",
+      "column_order": 1
+    },
+    {
+      "name": "SOURCE_LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger identifier where reporting currency conversions are based from transactions, journals, or balances.",
+      "column_order": 2
+    },
+    {
+      "name": "TARGET_LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Destination ledger identifier for conversion of transactions, journals, or balances.",
+      "column_order": 3
+    },
+    {
+      "name": "SLA_LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger identifier in the subledger transactions used for creating subledger accounting entries.",
+      "column_order": 4
+    },
+    {
+      "name": "PRIMARY_LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger identifier of the primary ledger as defined in the accounting configuration.",
+      "column_order": 5
+    },
+    {
+      "name": "TARGET_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Target ledger functional currency.",
+      "column_order": 6
+    },
+    {
+      "name": "TARGET_LEDGER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "User entered target ledger name.",
+      "column_order": 7
+    },
+    {
+      "name": "TARGET_LEDGER_SHORT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "User entered target ledger short name.",
+      "column_order": 8
+    },
+    {
+      "name": "TARGET_LEDGER_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Target ledger category. Valid values are PRIMARY, SECONDARY and ALC.",
+      "column_order": 9
+    },
+    {
+      "name": "RELATIONSHIP_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Relationship level between source and target ledger.",
+      "column_order": 10
+    },
+    {
+      "name": "RELATIONSHIP_ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Whether or not ledger relationship is enabled.",
+      "column_order": 11
+    },
+    {
+      "name": "INHERIT_CREATION_USER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Whether or not to inherit user creation from source transaction.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "GL_JE_CONVERSION_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Journal conversion rules identifier.",
+      "column_order": 18
+    },
+    {
+      "name": "SL_COA_MAPPING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Key flexfield structure identifier.",
+      "column_order": 19
+    },
+    {
+      "name": "AUTOMATIC_POST_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Whether or not to post the journal automatically in target ledger.",
+      "column_order": 20
+    },
+    {
+      "name": "ALC_DEFAULT_CONV_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Default conversion rate type for reporting ledger journal.",
+      "column_order": 21
+    },
+    {
+      "name": "ALC_NO_RATE_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Report error or use the last available rate when no rate exists.",
+      "column_order": 22
+    },
+    {
+      "name": "ALC_MAX_DAYS_ROLL_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Maximum roll days allowed for a conversion rate.",
+      "column_order": 23
+    },
+    {
+      "name": "ALC_INHERIT_CONVERSION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Inherit conversion rate type from transaction.",
+      "column_order": 24
+    },
+    {
+      "name": "ALC_INIT_CONV_OPTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Historical conversion option (Derive and  Initialize).",
+      "column_order": 25
+    },
+    {
+      "name": "ALC_INIT_PERIOD",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "First accounting period for reporting currency.",
+      "column_order": 26
+    },
+    {
+      "name": "ALC_INIT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "First accounting date for reporting currency.",
+      "column_order": 27
+    },
+    {
+      "name": "ALC_INITIALIZING_RATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate date used for initializing historical transactions or balances.",
+      "column_order": 28
+    },
+    {
+      "name": "ALC_INITIALIZING_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Rate type used for initializing historical transactions or balances.",
+      "column_order": 29
+    },
+    {
+      "name": "ALC_PERIOD_AVERAGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reporting currency period average rate type.",
+      "column_order": 30
+    },
+    {
+      "name": "ALC_PERIOD_END_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reporting currency period end rate type.",
+      "column_order": 31
+    },
+    {
+      "name": "APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Application defining column (backward compatible only).",
+      "column_order": 32
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 33
+    },
+    {
+      "name": "DISABLE_CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date which conversion is disabled.",
+      "column_order": 34
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Ledger relationship status code.",
+      "column_order": 35
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 36
+    },
+    {
+      "name": "REV_EXP_XLATION_RULE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Revenue or expense translation rule.",
+      "column_order": 37
+    },
+    {
+      "name": "OE_XLATION_RULE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Owner equity translation  rule.",
+      "column_order": 38
+    },
+    {
+      "name": "BSV_REPLICATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Identifies whether journal replication by primary balancing segment value is enabled between a source primary ledger and a target secondary ledger. Valid values are N for not enabled, Y for enabled, and blank.",
+      "column_order": 39
+    },
+    {
+      "name": "BSV_REPLICATION_ENABLED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date when journal replication by primary balancing segment value is enabled.",
+      "column_order": 40
+    },
+    {
+      "name": "SOURCE_TREE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tree code for the primary balancing segment in the source ledger.",
+      "column_order": 41
+    },
+    {
+      "name": "SOURCE_TREE_VERSION_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Tree version for the tree code associated with the primary balancing segment in the source ledger.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 59
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 60
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 61
+    }
+  ]
+}

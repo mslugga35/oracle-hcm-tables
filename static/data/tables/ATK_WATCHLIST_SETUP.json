@@ -1,0 +1,259 @@
+{
+  "id": 34899,
+  "name": "ATK_WATCHLIST_SETUP",
+  "type": "TABLE",
+  "description": "Watchlist Seeded Items Reference Data\n \nThis table stores the reference/seed data for watchlist items and is used for item count calculation. The translation for item name is using FND_LOOKUPS. This table needs to contain data for all watchlist items (even user created saved search items - the item code needs to be passed when calling the watchlist api during saved search promotion to watchlist).",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/atkwatchlistsetup-7752.html#atkwatchlistsetup-7752",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "WATCHLIST_ITEM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Watchlist Item Identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "ITEM_LOOKUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Item Lookup Code: reference to FND_LOOKUPS.LOOKUP_CODE . Product teams to seed lookup code with meaning for the parent category lookup type. The translated lookup meaning is shown in the watchlist ui with the count appended. Required if  WATCHLIST_ITEM_TYPE != USER_SAVED_SEARCH.",
+      "column_order": 2
+    },
+    {
+      "name": "CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Category Code: reference to ATK_WATCHLIST_CATEGORIES.WATCHLIST_CATEGORY_CODE .",
+      "column_order": 3
+    },
+    {
+      "name": "WATCHLIST_ITEM_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "Defines the watchlist item type. Valid values are:\nSEEDED_QUERY (Seeded Query)\nSEEDED_SAVED_SEARCH (Seeded Saved Search)\nUSER_SAVED_SEARCH (User-created Saved Search)\nTXN_FLOW_BASED (Transaction Flow Based - product teams calculate and pass the count)\nHUMAN_TASK (Worklist Based - count is determined by calling worklist api)",
+      "column_order": 4
+    },
+    {
+      "name": "DRILLDOWN_VIEW_PAGEDEF",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "N",
+      "description": "This defines the complete page definition path for the drilldown workarea page and is used for checking security. The watchlist item is visible only if the user has region permission to view this page.",
+      "column_order": 5
+    },
+    {
+      "name": "HUMAN_TASK_DEF_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Human Task Definition Identifier. Required if WATCHLIST_ITEM_TYPE = HUMAN_TASK",
+      "column_order": 6
+    },
+    {
+      "name": "HUMAN_TASK_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Human Task State Identifier. Required if WATCHLIST_ITEM_TYPE = HUMAN_TASK",
+      "column_order": 7
+    },
+    {
+      "name": "REFRESH_AGE",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Defines the age for item count in seconds. After this many seconds have passed since the last refresh time, the watchlist UI would issue count recalculation request. Required if\nWATCHLIST_ITEM_TYPE NOT IN (TXN_FLOW_BASED, HUMAN_TASK) .",
+      "column_order": 8
+    },
+    {
+      "name": "VIEW_OBJECT",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Complete path of the View Object that needs to be executed for count calculation. Required if\nWATCHLIST_ITEM_TYPE NOT IN (TXN_FLOW_BASED, HUMAN_TASK).",
+      "column_order": 9
+    },
+    {
+      "name": "SUMMARY_VIEW_ATTRIBUTE",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Indicates the VO attribute name if using a summary view object for watchlist count calculation (on execution, this VO returns only one row with the watchlist item count). Required if\nWATCHLIST_ITEM_TYPE NOT IN (TXN_FLOW_BASED, HUMAN_TASK) and this is a summary VO.",
+      "column_order": 10
+    },
+    {
+      "name": "APPLICATION_MODULE",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Complete path of the Application Module that contains the View Object instance that needs to be executed for count calculation. Required if\nWATCHLIST_ITEM_TYPE NOT IN (TXN_FLOW_BASED, HUMAN_TASK) .",
+      "column_order": 11
+    },
+    {
+      "name": "AM_CONFIG_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "The AM Configuration Name for creating an instance of the Application Module from code. This is typically AMLOCAL. Required if\nWATCHLIST_ITEM_TYPE NOT IN (TXN_FLOW_BASED, HUMAN_TASK) .",
+      "column_order": 12
+    },
+    {
+      "name": "VIEW_OBJECT_INSTANCE",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "The Instance Name for the View Object in the Application Module. Required if\nWATCHLIST_ITEM_TYPE NOT IN (TXN_FLOW_BASED, HUMAN_TASK) .",
+      "column_order": 13
+    },
+    {
+      "name": "VIEW_CRITERIA_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "The View Criteria that needs to be applied when executing the VO. Required if\nWATCHLIST_ITEM_TYPE NOT IN (TXN_FLOW_BASED, HUMAN_TASK) .",
+      "column_order": 14
+    },
+    {
+      "name": "NAVIGATION_URL_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "This is the key to determine the host, port, context root, etc. to construct the url for the UI drilldown from watchlist item. Reference to FND_DEPLOYMENTS.DEPLOYMENT_NAME .\nThis will be used for the applcore ui shell navigate api that will be used for UI navigation across applications.",
+      "column_order": 15
+    },
+    {
+      "name": "VIEW_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "N",
+      "description": "The view id (as per the ui shell menu) for the workarea/page that contains the task flow for this watchlist item's drilldown from Watchlist UI.",
+      "column_order": 16
+    },
+    {
+      "name": "PAGE_PARAM_LIST_STRING",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Parameters list for the page. If the target workarea page accepts page parameters, this is a semicolon delimited String of name value pairs.",
+      "column_order": 17
+    },
+    {
+      "name": "TASKFLOW_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "The task flow for this watchlist item's drilldown from Watchlist UI.",
+      "column_order": 18
+    },
+    {
+      "name": "TF_KEY_LIST_STRING",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Key list to pass into the task flow to open in the target workspace. This is a semicolon delimited keys or key-value pairs. For example, \"key1;key2=value2\".",
+      "column_order": 19
+    },
+    {
+      "name": "TF_PARAMETER_STRING",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Parameters list to pass in to the task flow to open in the target workspace. This is a semicolon delimited String of name value pairs. For example, \"param1=value1;param2=value2\"\nFor user created saved search, the view criteria id will be appended to this string (the string will need to end with <paramName>=  for saved search). Required if WATCHLIST_ITEM_TYPE IN (SEEDED_SAVED_SEARCH, USER_SAVED_SEARCH) .",
+      "column_order": 20
+    },
+    {
+      "name": "TASK_TAB_LABEL",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "N",
+      "description": "Label for the task flow to open in the target workspace. This should be an EL expression with fully qualified resource bundle reference within the target application.",
+      "column_order": 21
+    },
+    {
+      "name": "ENABLED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Enabled Flag - indicates if this watchlist item is enabled/active.",
+      "column_order": 22
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 23
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 27
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 28
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 29
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 30
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 31
+    }
+  ]
+}

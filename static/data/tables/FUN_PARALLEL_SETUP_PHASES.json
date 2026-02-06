@@ -1,0 +1,259 @@
+{
+  "id": 27428,
+  "name": "FUN_PARALLEL_SETUP_PHASES",
+  "type": "TABLE",
+  "description": "This table contains details of each phase of a parallel run.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/funparallelsetupphases-30212.html#funparallelsetupphases-30212",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PARALLEL_PHASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of the parallel phase.",
+      "column_order": 1
+    },
+    {
+      "name": "PARALLEL_SETUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Parallel setup that contains this phase.",
+      "column_order": 2
+    },
+    {
+      "name": "PHASE_ORDER_NUM",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Indicates the logical order of the phases. An older phases can only create data for later phases.",
+      "column_order": 3
+    },
+    {
+      "name": "PHASE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Internal name of the phase. Its value must be unique within the parallel job.",
+      "column_order": 4
+    },
+    {
+      "name": "HAS_CHUNKING_ATTRIBUTE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether a chunking attribute is provided. This attribute is for future use only. It is not currently supported.",
+      "column_order": 5
+    },
+    {
+      "name": "DATA_RETRIEVAL_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Method used to retrieve the initial data for this phase. Possible values are NONE, SQL, and GT_TABLE. A value of NONE means that this phase does not have any initial data, and only processes data produced by upstream phases.",
+      "column_order": 6
+    },
+    {
+      "name": "GENDATA_RETRIEVAL_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Method used to retrieve the data produced for downstream phases as a result of processing data in this phase. Possible values are NONE, SQL, and GT_TABLE. A value of NONE means that this phase does not produce data for a downstream phase.",
+      "column_order": 7
+    },
+    {
+      "name": "HAS_PRIORITIES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether priority information is provided for the phase data.",
+      "column_order": 8
+    },
+    {
+      "name": "HIGHEST_PRIORITY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Indicates the priority order with which data is processed. of the job. Data with priority value of 1 is processed before data with priority value of 2, and so on.",
+      "column_order": 9
+    },
+    {
+      "name": "PROCESS_PRIORITIES_IN_ORDER",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether all data for a higher priority must be processed completely before any data for a lower priority can be processed. If set as Y, idle threads will not start processing lower priority data while other threads are still processing higher priority data.",
+      "column_order": 10
+    },
+    {
+      "name": "CHUNK_ACROSS_PRIORITIES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether a single chunk can contain data with multiple different priorities.",
+      "column_order": 11
+    },
+    {
+      "name": "HAS_SPLIT_COLUMN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether split column information is provided for the phase data.",
+      "column_order": 12
+    },
+    {
+      "name": "SPLIT_VALUE_CONCURRENCY_MODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Concurrency mode for split values. It determines whether split values are processed simultaneously. Possible values are NO_LIMIT, SINGLE, ONE_WITHIN, or ONE_ACROSS.",
+      "column_order": 13
+    },
+    {
+      "name": "GROUPING_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Method used to group related data into the same chunk. Possible values are NONE, SIMPLE, and ADVANCED.",
+      "column_order": 14
+    },
+    {
+      "name": "GROUP_ACROSS_ORIGINAL_SQL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether grouping is done across all of the SQL statements in the initial fetch, when the initial fetch is done using SQL.",
+      "column_order": 15
+    },
+    {
+      "name": "GROUP_ACROSS_PRIOR_CHUNKS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether grouping is done across all of the data provided from prior phases for this phase, even if the data is coming from different prior phase chunks, different prior phase SQLs, or different phases.",
+      "column_order": 16
+    },
+    {
+      "name": "GROUP_ACROSS_BOTH_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether grouping is done across both data from the initial fetch and data provided from prior phases for this phase.",
+      "column_order": 17
+    },
+    {
+      "name": "NUMBER_OF_ADVANCED_COLUMNS",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Number of advanced chunking columns.",
+      "column_order": 18
+    },
+    {
+      "name": "CHUNK_MODE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Mode for creating chunks. Possible values are NORMAL, ONLY_ONE, and MAX_SIZED.",
+      "column_order": 19
+    },
+    {
+      "name": "MAXIMUM_CHUNK_SIZE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Maximum size limit for creating chunks. This limit is ignored if larger chunks are required to satisfy the grouping and other settings.",
+      "column_order": 20
+    },
+    {
+      "name": "MINIMUM_CHUNK_SIZE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Minimum size limit for creating chunks. This limit is ignored if smaller chunks are required to satisfy the data processing and other settings.",
+      "column_order": 21
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 22
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 23
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 27
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 28
+    },
+    {
+      "name": "FLATTEN_ADVANCED_COLUMNS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether grouping is done across all advanced columns treating them as common attribute.",
+      "column_order": 29
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 30
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 31
+    }
+  ]
+}

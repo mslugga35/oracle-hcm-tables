@@ -1,0 +1,347 @@
+{
+  "id": 30888,
+  "name": "ZCA_ROLLUPS_B",
+  "type": "TABLE",
+  "description": "This table stores the metadata of various rollups that are defined for different source objects and their related objects.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zcarollupsb-16328.html#zcarollupsb-16328",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ROLLUP_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Unique identifier for the rollup.",
+      "column_order": 1
+    },
+    {
+      "name": "ROLLUP_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies the type of the rollup. Valid values are ORA_REGULAR (Regular) and ORA_AGING (Aging).",
+      "column_order": 2
+    },
+    {
+      "name": "SOURCE_OBJ_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "N",
+      "description": "Name of the source object. Foreign key to LANG_INDEPENDENT_CODE column in ZCA_OBJECTS table.",
+      "column_order": 3
+    },
+    {
+      "name": "SOURCE_STORAGE_OBJ_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "N",
+      "description": "Name of the source rollup storage object. Foreign key to LANG_INDEPENDENT_CODE column in ZCA_OBJECTS table.",
+      "column_order": 4
+    },
+    {
+      "name": "SOURCE_OBJ_ROLLUP_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the table where calculated rollup data of the source object is stored.",
+      "column_order": 5
+    },
+    {
+      "name": "SOURCE_OBJ_ATTR",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "View object attribute name of the source object's rollup attribute.",
+      "column_order": 6
+    },
+    {
+      "name": "SOURCE_OBJ_ATTR_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Rollup attribute type. Derived from ZCA_OBJECT_ATTRIUTES.ATTR_TYPE. Supported values are NUMBER and TIMESTAMP.",
+      "column_order": 7
+    },
+    {
+      "name": "SOURCE_OBJ_FILTER",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Filter expression that would be used to filter the source object data.",
+      "column_order": 8
+    },
+    {
+      "name": "RELATED_OBJ_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "Name of the related object. Foreign key to LANG_INDEPENDENT_CODE column in ZCA_OBJECTS table.",
+      "column_order": 9
+    },
+    {
+      "name": "RELATIONSHIP_NAME_LIC",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Name of the relationship between source and related objects. Foreign key to RELATIONSHIP_NAME_LIC column in ZCA_OBJECT_RELATIONS table.",
+      "column_order": 10
+    },
+    {
+      "name": "RELATED_OBJ_ATTR",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "View object attribute name of the related object's rollup attribute.",
+      "column_order": 11
+    },
+    {
+      "name": "RELATED_OBJ_FILTER",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Filter expression that would be used to filter the related object data.",
+      "column_order": 12
+    },
+    {
+      "name": "FUNCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Aggregation function code that is used to calculate the rollup data. Valid values include ORA_SUM (Sum), ORA_COUNT (Count), ORA_MAX (Max), and ORA_MIN (Min).",
+      "column_order": 13
+    },
+    {
+      "name": "REFRESH_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "The maximum number of days set as the threshold for the selection of Activity or Interactions records.",
+      "column_order": 14
+    },
+    {
+      "name": "HIERARCHY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Specifies if the hierarchy rollup is enabled or not.",
+      "column_order": 15
+    },
+    {
+      "name": "HIERARCHY_ATTR",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "View object attribute name of the source object's hierarchy rollup attribute.",
+      "column_order": 16
+    },
+    {
+      "name": "STATUS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if the rollup is active or deleted.",
+      "column_order": 17
+    },
+    {
+      "name": "FREQUENCY",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Indicates the frequency of the rollup data refresh.",
+      "column_order": 18
+    },
+    {
+      "name": "FREQUENCY_UNIT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Rollup data refresh frequency unit. Valid values include ORA_HOUR (Hour), ORA_DAY (Day), ORA_WEEK (Week), and ORA_MONTH (Month).",
+      "column_order": 19
+    },
+    {
+      "name": "COMPILED_SOURCE_AMT_CONV",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Generated expression to convert the amount field value to corporate currency.",
+      "column_order": 20
+    },
+    {
+      "name": "COMPILED_FULL_SQL",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Internal attribute to store the full refresh SQL.",
+      "column_order": 21
+    },
+    {
+      "name": "COMPILED_INCREMENTAL_SQL",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Internal attribute to store the incremental refresh SQL.",
+      "column_order": 22
+    },
+    {
+      "name": "COMPILED_OBJ_LIST_SQL",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Internal attribute to store the object list refresh SQL.",
+      "column_order": 23
+    },
+    {
+      "name": "PUBLISHED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if the rollup is published or not.",
+      "column_order": 24
+    },
+    {
+      "name": "PUBLISHED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the rollup was published.",
+      "column_order": 25
+    },
+    {
+      "name": "PUBLISHED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "User Name of the user who published the rollup.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_SUCCESSFUL_RUN",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date of the last successful full or incremental run of the back-end job that calculates the rollup attribute value.",
+      "column_order": 27
+    },
+    {
+      "name": "LAST_PROCESSED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date of the last full or incremental run of the back-end job that calculates the rollup attribute value.",
+      "column_order": 28
+    },
+    {
+      "name": "LAST_PROCESSED_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of the last full or incremental run of the back-end job that calculates the rollup attribute value. Valid values include ORA_SUCCESS (SUCCESS) and ORA_ERROR (Error).",
+      "column_order": 29
+    },
+    {
+      "name": "ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Error message of the full or incremental run of the back-end job that calculates the rollup attribute value.",
+      "column_order": 30
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 32
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 37
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 38
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 39
+    },
+    {
+      "name": "NRT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if the rollup is enabled for Near Real Time Calculation.",
+      "column_order": 40
+    },
+    {
+      "name": "BOFO_LINKSET_REFRESH_SQL",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Internal attribute to store the back office linkset refresh SQL.",
+      "column_order": 41
+    },
+    {
+      "name": "EXPLAINABILITY_METADATA",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "This column stores the rollup explainability metadata in json format.",
+      "column_order": 42
+    }
+  ]
+}

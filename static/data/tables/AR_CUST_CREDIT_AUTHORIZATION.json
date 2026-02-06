@@ -1,0 +1,203 @@
+{
+  "id": 29303,
+  "name": "AR_CUST_CREDIT_AUTHORIZATION",
+  "type": "TABLE",
+  "description": "This entity describes credit amounts that have been authorized for a customer account.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arcustcreditauthorization-16686.html#arcustcreditauthorization-16686",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CUST_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier for the customer account. Foreign key to the HZ_CUST_ACCOUNTS table.",
+      "column_order": 1
+    },
+    {
+      "name": "AUTHORIZATION_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Unique identifying number for the credit authorization. It is generated when the credit authorization amount is approved.",
+      "column_order": 2
+    },
+    {
+      "name": "REQUEST_AUTH_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The amount requested for credit checking, and is approved.  It should be the same amount as that from the requested sales order line with the corresponding authorization number.",
+      "column_order": 3
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 9
+    },
+    {
+      "name": "REQUEST_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Currency code associated with an authorization amount.",
+      "column_order": 10
+    },
+    {
+      "name": "CREDIT_AUTH_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Authorized amount converted to the credit limit currency using the conversion rate defined on the customer account profile.",
+      "column_order": 11
+    },
+    {
+      "name": "REM_AUTH_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Remaining authorized amount converted to the credit limit currency using the conversion rate defined on the customer account profile.",
+      "column_order": 12
+    },
+    {
+      "name": "EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Currency conversion rate type associated with the authorization currency.",
+      "column_order": 13
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Currency conversion rate associated with the authorization currency",
+      "column_order": 14
+    },
+    {
+      "name": "AUTHORIZATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date and time the credit amount was authorized.",
+      "column_order": 15
+    },
+    {
+      "name": "AUTHORIZATION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "Indicates the status of the authorization, based on the system lookup values.",
+      "column_order": 16
+    },
+    {
+      "name": "EXPIRATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Expiration date and time of the authorized amount.",
+      "column_order": 17
+    },
+    {
+      "name": "EXCLUDE_FROM_EXPIRATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "Indicates whether the authorization is finalized.",
+      "column_order": 18
+    },
+    {
+      "name": "RECURRENCE_PERIOD",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Used for price types other than one-time to indicate the recurring time period.",
+      "column_order": 19
+    },
+    {
+      "name": "PRICE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Indicates the basis on which a price applies. Valid values are: One-Time, Recurring, Usage, Recurring Usage and Rate Plan.",
+      "column_order": 20
+    },
+    {
+      "name": "CREDIT_AUTHORIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Credit authorization unique identifier.",
+      "column_order": 21
+    },
+    {
+      "name": "CREDIT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Credit currency defined in the customer or customer account profile.",
+      "column_order": 22
+    },
+    {
+      "name": "AUTH_UPDATE_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the request identifier of the most recent process which updates the authorization detail table.",
+      "column_order": 23
+    },
+    {
+      "name": "SALES_ORDER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Indicates the Sales Order Number for which the authorization is requested.",
+      "column_order": 24
+    }
+  ]
+}

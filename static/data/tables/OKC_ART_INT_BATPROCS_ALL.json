@@ -1,0 +1,203 @@
+{
+  "id": 31083,
+  "name": "OKC_ART_INT_BATPROCS_ALL",
+  "type": "TABLE",
+  "description": "An internal system table that stores the batch process parameters and statistics for each import run.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/okcartintbatprocsall-28484.html#okcartintbatprocsall-28484",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "BATCH_PROCESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key to identify the batch process run.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "BATCH_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Value for Batch process parameter for the run.",
+      "column_order": 3
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 4
+    },
+    {
+      "name": "VALIDATE_ONLY_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes/No flag to indicate the value for 'Validate Only' parameter for this run.  If 'Y', then it has been run in validation mode. If 'N', then it has been run in import mode.",
+      "column_order": 5
+    },
+    {
+      "name": "FETCH_SIZE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Value for the parameter \"Commit Size\" for this run.",
+      "column_order": 6
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Time stamp for the beginning of the run",
+      "column_order": 7
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time stamp for the end of the run",
+      "column_order": 8
+    },
+    {
+      "name": "TOTAL_ROWS_PROCESSED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The total number of rows processed for this run.",
+      "column_order": 9
+    },
+    {
+      "name": "TOTAL_ROWS_FAILED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The number of rows failed in the run.",
+      "column_order": 10
+    },
+    {
+      "name": "TOTAL_ROWS_WARNED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The number of rows processed with warnings.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "IMPORT_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Source of the Import",
+      "column_order": 17
+    },
+    {
+      "name": "GLOBAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Value of the Global Flag that will be defaulted in case of it is not provided in the XML Based Clause Import",
+      "column_order": 18
+    },
+    {
+      "name": "CLAUSE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Value of the Clause Status that will be defaulted in case of it is not provided in the XML Based Clause Import",
+      "column_order": 19
+    },
+    {
+      "name": "ENTITY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Entity to which, batch number created for Import corresponds. It includes CLAUSES,VARIABLES,VALUESETS,VSVALUES,RELATIONSHIPS",
+      "column_order": 20
+    },
+    {
+      "name": "SOURCE_FILE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Source File name from where the data is imported",
+      "column_order": 21
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "PROGRAM_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the concurrent program",
+      "column_order": 23
+    },
+    {
+      "name": "PROGRAM_APP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Identifies the Application name spawning the Concurrent Request",
+      "column_order": 24
+    }
+  ]
+}

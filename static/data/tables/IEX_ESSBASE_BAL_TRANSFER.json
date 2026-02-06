@@ -1,0 +1,331 @@
+{
+  "id": 26437,
+  "name": "IEX_ESSBASE_BAL_TRANSFER",
+  "type": "TABLE",
+  "description": "This table stores all the aging bucket amount information and pre-calculated Essbase metrices value for each payment schedule record. These information is required for Aging bucket balance transfer and WADL, WADP, ADL calculation.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/iexessbasebaltransfer-24059.html#iexessbasebaltransfer-24059",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PAYMENT_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign Key to AR_PAYMENT_SCHEDULES.PAYMENT_SCHEDULE_ID.",
+      "column_order": 1
+    },
+    {
+      "name": "CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Functional currency which is dervied from the ledger for the business unit the document is created in. Maps to currency dimension in the cube.",
+      "column_order": 2
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 3
+    },
+    {
+      "name": "CUST_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to the HZ_CUST_ACCOUNTS.CUST_ACCOUNT_ID. Maps to account hierarchy of customer dimension in the cube.",
+      "column_order": 4
+    },
+    {
+      "name": "SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to the HZ_CUST_SITE_USES_ALL.SITE_USE_ID. Maps to site use hierarchy of customer dimension in the cube.",
+      "column_order": 5
+    },
+    {
+      "name": "SALESREP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to JTF_RS_SALESREPS.RESOURCE_SALESREP_ID. Maps to sales representative dimension in the cube.",
+      "column_order": 6
+    },
+    {
+      "name": "ACTIVITY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date is based on the DOCUMENT_TYPE.  For invoices, debit memos, credit memos or chargeback this is the accounting date. For cash applications it is the application date. For cash unapplications it is the reversal date. For receipts it is the receipt date. For adjustments it is the adjustment date. Maps to time dimension in the cube.",
+      "column_order": 7
+    },
+    {
+      "name": "PS_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date is based on the DOCUMENT_TYPE. For invoices, chargebacks, debit memos, and credit memos it is the due date from AR_PAYMENT_SCHEDULES. For receipts, this contains the due date of the payment_schedule _id to which receipt is applied, unapplied or reversed.  For adjustments this column stores the due date of the of payment_schedule_id being adjusted.",
+      "column_order": 8
+    },
+    {
+      "name": "PS_CLOSED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This will be used only for DOCUMENT_TYPE invoice.  It will be the GL_CLOSED_DATE from AR_PAYMENT_SCHEDULES for the invoice. Otherwise the column is null.",
+      "column_order": 9
+    },
+    {
+      "name": "WEIGHTED_DAYS_LATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Product of the applied amount and applied days late. The applied days late is calculated as difference between the application accounting date of receipt, adjustment or credit memo and due date of the payment schedule to which it is applied. Used to calculate the Weighted Average Days Late for closed payment schedules.",
+      "column_order": 10
+    },
+    {
+      "name": "WEIGHTED_DAYS_PAID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Product of applied amount and applied days paid. The applied days paid is calculated as difference between the application accounting date of receipt, adjustment or credit memo and accounting date of the payment schedule to which it is applied. Used to calculate the Weighted Average Days Paid for closed payment schedules.",
+      "column_order": 11
+    },
+    {
+      "name": "TOTAL_ACTIVITY_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total number of adjustment or receipt application activities associated with the payment schedule.",
+      "column_order": 12
+    },
+    {
+      "name": "TARGET_AGING_BUCKET_INDEX",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The target bucket index of the payment schedule in current aging balance transfer program. This would be the start bucket index of the payment schedule in the consecutive execution of this program.",
+      "column_order": 13
+    },
+    {
+      "name": "AMOUNT_CHANGE_START_BUCKET",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The starting aging bucket index from where the amount of the payment schedule is impacted by adjustment or receipt application.",
+      "column_order": 14
+    },
+    {
+      "name": "BUCKET_ACCT_CURRENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in functional currency for payment schedule in current bucket.",
+      "column_order": 15
+    },
+    {
+      "name": "BUCKET_ACCT_30DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in functional currency for payment schedule in 1-30 days bucket.",
+      "column_order": 16
+    },
+    {
+      "name": "BUCKET_ACCT_60DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in functional currency for payment schedule in 31-60 days bucket.",
+      "column_order": 17
+    },
+    {
+      "name": "BUCKET_ACCT_90DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in functional currency for payment schedule in 61-90 days bucket.",
+      "column_order": 18
+    },
+    {
+      "name": "BUCKET_ACCT_120DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in functional currency for payment schedule in 91-120 days bucket.",
+      "column_order": 19
+    },
+    {
+      "name": "BUCKET_ACCT_150DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in functional currency for payment schedule in 121-150 days bucket.",
+      "column_order": 20
+    },
+    {
+      "name": "BUCKET_ACCT_180DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in functional currency for payment schedule in 151-180 days bucket.",
+      "column_order": 21
+    },
+    {
+      "name": "BUCKET_ACCT_181DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in functional currency for payment schedule in 181+ days bucket.",
+      "column_order": 22
+    },
+    {
+      "name": "BUCKET_GLOBAL_CURRENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in global currency for payment schedule in current bucket.",
+      "column_order": 23
+    },
+    {
+      "name": "BUCKET_GLOBAL_30DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in global currency for payment schedule in 1-30 days bucket.",
+      "column_order": 24
+    },
+    {
+      "name": "BUCKET_GLOBAL_60DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in global currency for payment schedule in 31-60 days bucket.",
+      "column_order": 25
+    },
+    {
+      "name": "BUCKET_GLOBAL_90DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in global currency for payment schedule in 61-90 days bucket.",
+      "column_order": 26
+    },
+    {
+      "name": "BUCKET_GLOBAL_120DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in global currency for payment schedule in 91-120 days bucket.",
+      "column_order": 27
+    },
+    {
+      "name": "BUCKET_GLOBAL_150DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in global currency for payment schedule in 121-150 days bucket.",
+      "column_order": 28
+    },
+    {
+      "name": "BUCKET_GLOBAL_180DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in global currency for payment schedule in 151-180 days bucket.",
+      "column_order": 29
+    },
+    {
+      "name": "BUCKET_GLOBAL_181DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount due remaining in global currency for payment schedule in 181+ days bucket.",
+      "column_order": 30
+    },
+    {
+      "name": "PS_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Lookup code for the status of the payment schedule.",
+      "column_order": 31
+    },
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Batch indentifier to help data extraction program to filter the records for aging balance transfer calculation.",
+      "column_order": 32
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 33
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 35
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 36
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 37
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 38
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 39
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 40
+    }
+  ]
+}

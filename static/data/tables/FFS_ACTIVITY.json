@@ -1,0 +1,635 @@
+{
+  "id": 31890,
+  "name": "FFS_ACTIVITY",
+  "type": "TABLE",
+  "description": "Contains all activities except shift/mass/repeating ones.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffsactivity-4666.html#ffsactivity-4666",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ARCH_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "DB record partitioning date. Set automatically by DB Optimization job.",
+      "column_order": 1
+    },
+    {
+      "name": "ACTIVITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Unique identifier of the activity in Oracle Field Service.",
+      "column_order": 2
+    },
+    {
+      "name": "ROUTE_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Identifier of the route this activity belongs to.",
+      "column_order": 3
+    },
+    {
+      "name": "MASTER_ACTIVITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Identifier of a segmentable activity. It is available for activities that are segments of a segmentable activity which has the recordType=multiday_activity_segment. This field is not set for regular activities.",
+      "column_order": 4
+    },
+    {
+      "name": "TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Identifier of the repeating/mass/shift activity this record belongs to.",
+      "column_order": 5
+    },
+    {
+      "name": "TEAM_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Activity Team holder resource reference. Used for teamwork activities.",
+      "column_order": 6
+    },
+    {
+      "name": "VISIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Activity Reference to Visit. Used when activites are combined to visits.",
+      "column_order": 7
+    },
+    {
+      "name": "ACTIVITY_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "Identifier of the activity in the origin system. The value can be empty.",
+      "column_order": 8
+    },
+    {
+      "name": "RECORD_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Activity type . The following values are allowed: 'regular', 'reopened', 'prework', 'multiday_activity', 'multiday_activity_segment'.",
+      "column_order": 9
+    },
+    {
+      "name": "TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Reference to Activity Work Type List.",
+      "column_order": 10
+    },
+    {
+      "name": "WORK_ZONE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Activity work zone reference . It is a read-only field that is automatically assigned to an activity, based on the company setting 'work zone key' and the activity properties.",
+      "column_order": 11
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Activity Status. As a technician works through the activity, the status changes. The actions that are available for an activity are based on this status. Allowed Values: 'cancelled', 'completed', 'suspended', 'started', 'enroute', 'pending', 'notdone'.",
+      "column_order": 12
+    },
+    {
+      "name": "DURATION",
+      "data_type": "NUMBER",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "Estimated activity duration in minutes. Fills with actual duration after activity start.",
+      "column_order": 13
+    },
+    {
+      "name": "ETA",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Predicted or the actual activity start time. The time is displayed in the time zone of the resource to which the activity is assigned, ETA Time. Can be empty for regular and reopen appointments if status is pending or suspended. For started and ended - time when appointment is started. For cancelled can be empty or set, If set - it is time when provider started appointment before it was.",
+      "column_order": 14
+    },
+    {
+      "name": "TIME_DELIVERED_START",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start time of the technician's arrival interval as communicated to the customer. The value is used by routing optimization engine to reduce changes to arrival time, so it is important to keep the value actual.",
+      "column_order": 15
+    },
+    {
+      "name": "TIME_DELIVERED_END",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End time of the technician's arrival interval as communicated to the customer. The value is used by routing optimization engine to reduce changes to arrival time, so it is important to keep the value actual.",
+      "column_order": 16
+    },
+    {
+      "name": "TIME_SLOT_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Reference To The time slot during which the activity is completed. The time slot also indicates the service window for the activity. This time is displayed in the time zone of the resource to which the activity is assigned.",
+      "column_order": 17
+    },
+    {
+      "name": "SERVICE_WINDOW_START",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Activity Service window start time. Service window is returned in the time zone of the resource to which the activity is currently assigned.",
+      "column_order": 18
+    },
+    {
+      "name": "SERVICE_WINDOW_END",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Activity Service window end time. Service window is returned in the time zone of the resource to which the activity is currently assigned.",
+      "column_order": 19
+    },
+    {
+      "name": "DELIVERY_WINDOW_START",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Activity delivery window start time. The time is displayed in the time zone of the resource to which the activity is assigned.",
+      "column_order": 20
+    },
+    {
+      "name": "DELIVERY_WINDOW_END",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Activity delivery window end time. The time is displayed in the time zone of the resource to which the activity is assigned.",
+      "column_order": 21
+    },
+    {
+      "name": "TRAVEL_TIME",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Estimated time taken to travel to this activity. For activities that were started (status is 'started', 'completed', 'notdone') this parameter indicates reported travelling time, which is calculated based on the actual times.",
+      "column_order": 22
+    },
+    {
+      "name": "TRAVEL_ESTIMATION_METHOD",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Travel estimation method. It is a read-only field. The following values are returned: Airline Distance , Airline Distance and Statistics, External Adjustment,Manual Adjustment,Not Estimated,Point to Point,Same Location,Statistics,Street Level Routing,Travel key based Airline Distance,Using Defaults.",
+      "column_order": 23
+    },
+    {
+      "name": "TRAVEL_FROM_ACTIVITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Previous Activity identifier. Used only for travel adjustment process.",
+      "column_order": 24
+    },
+    {
+      "name": "CONTINUOUS_TRAVELING_TIME",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Time of travel between activities/locations with addresses/coordinates.",
+      "column_order": 25
+    },
+    {
+      "name": "CUSTOMER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 1680,
+      "nullable": "Y",
+      "description": "Activity Name of the customer. Maximum field length is 420. Encrypted.",
+      "column_order": 26
+    },
+    {
+      "name": "CUSTOMER_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "Activity account number of the customer. This field is used by integrations as a placeholder for the external identifier of the Account ID in the application. This parameter has no business significance in Oracle Field Service and can be left empty. Maximum field length is 40.",
+      "column_order": 27
+    },
+    {
+      "name": "CUSTOMER_PHONE",
+      "data_type": "VARCHAR2",
+      "data_length": 960,
+      "nullable": "Y",
+      "description": "Activity regular (land) phone number of the customer. Encrypted.",
+      "column_order": 28
+    },
+    {
+      "name": "CUSTOMER_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 1280,
+      "nullable": "Y",
+      "description": "Activity email address of the customer. Maximum field length is 320.Encrypted.",
+      "column_order": 29
+    },
+    {
+      "name": "CUSTOMER_CELL",
+      "data_type": "VARCHAR2",
+      "data_length": 960,
+      "nullable": "Y",
+      "description": "Activity cell phone number of the customer. Encrypted.",
+      "column_order": 30
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Deprecated. Will be removed soon.",
+      "column_order": 31
+    },
+    {
+      "name": "STREET_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 960,
+      "nullable": "Y",
+      "description": "Activity street address of the customer. This field is used for geocoding and must contain a valid address. Maximum field length is 240. Encrypted.",
+      "column_order": 32
+    },
+    {
+      "name": "CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Activity city of the customer where the activity is scheduled. Maximum field length is 60.",
+      "column_order": 33
+    },
+    {
+      "name": "POSTAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Activity ZIP code of the customer where the activity is scheduled.",
+      "column_order": 34
+    },
+    {
+      "name": "STATE_PROVINCE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Activity state of the customer where the activity is scheduled. Maximum field length is 60.",
+      "column_order": 35
+    },
+    {
+      "name": "LANGUAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Activity language. Reference to Language.Lid.",
+      "column_order": 36
+    },
+    {
+      "name": "REMINDER_TIME",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Number of minutes before the activity start time the customer must be notified of the activity.",
+      "column_order": 37
+    },
+    {
+      "name": "TIME_ZONE_ID",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Activity Time Zone. Reference to Time_Zone.Zid.",
+      "column_order": 38
+    },
+    {
+      "name": "DIFF",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Activity Time Zone Difference. Filled automatically based on selected time_zone_id.",
+      "column_order": 39
+    },
+    {
+      "name": "UPDATE_FLAGS",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Activity Type features. Filled automatically after Activity Type selection.",
+      "column_order": 40
+    },
+    {
+      "name": "COORD_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Activity coordinates found staues: 'Is Found', 'Not_Found'.",
+      "column_order": 41
+    },
+    {
+      "name": "COORD_ACCURACY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Activity accuracy Level Of Geocoding Coordinates Not Valid - -1 Undefined - 0 Country - 1 State - 2 County - 3 City - 4 Zip - 5 Route - 6 Street - 7 Intersection - 8 Address - 9.",
+      "column_order": 42
+    },
+    {
+      "name": "COORD_X",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Geographic coordinates that specify the location of the activity.",
+      "column_order": 43
+    },
+    {
+      "name": "COORD_Y",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Geographic coordinates that specify the location of the activity.",
+      "column_order": 44
+    },
+    {
+      "name": "SLA_START",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time when the service level agreement (SLA) window starts. SLA window is returned in the time zone of the resource to which the activity is currently assigned.",
+      "column_order": 45
+    },
+    {
+      "name": "SLA_END",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time when the service level agreement (SLA) window ends. The time is displayed in 'YYYY-MM-DD HH:MM:SS' format. SLA window is returned in the time zone of the resource to which the activity is currently assigned.",
+      "column_order": 46
+    },
+    {
+      "name": "FEATURES",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "It is a bitmask field that defines active features for this activity. This value is copied from a selected activity type on create/update actions.",
+      "column_order": 47
+    },
+    {
+      "name": "POINTS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "The cost of the activity in 'points'. This field is intended for use by the Routing module.",
+      "column_order": 48
+    },
+    {
+      "name": "COMPLIANCE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Bit-Mask that represents Activity compliance parameters (Compliance_* Constants).",
+      "column_order": 49
+    },
+    {
+      "name": "TIME_OF_BOOKING",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time when the customer booked the activity. The time is displayed in the time zone of the customer.",
+      "column_order": 50
+    },
+    {
+      "name": "TIME_OF_ASSIGNMENT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time when the activity is assigned to the technician. This time is displayed in the time zone of the resource to which the activity is assigned.",
+      "column_order": 51
+    },
+    {
+      "name": "AUTO_ROUTED_TO_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Resource This Activity Was Assigned To During The Latest Routing Run.",
+      "column_order": 52
+    },
+    {
+      "name": "AUTO_ROUTED_TO_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date This Activity Was Scheduled For During The Latest Routing Run.",
+      "column_order": 53
+    },
+    {
+      "name": "FIRST_MANUAL_OPER",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Name Of The First Manual Reschedule/Move/Reorder Operation Performed After An Automatic One.",
+      "column_order": 54
+    },
+    {
+      "name": "FIRST_MANUAL_OPER_USER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier Of user who performed the first manual reschedule/Move/Reorder operation after an automatic one.",
+      "column_order": 55
+    },
+    {
+      "name": "FIRST_MANUAL_OPER_INTERFACE",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Interface The First Manual Reschedule/Move/Reorder Operation Was Performed From After An Automatic One.",
+      "column_order": 56
+    },
+    {
+      "name": "ACCESS_HOURS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Activity access hours.It is generally not possible to work beyond the access hours.",
+      "column_order": 57
+    },
+    {
+      "name": "ACCESS_SCHEDULE",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "The schedule (that is, the set of time intervals or access hours, two intervals per week day) when the asset or the activity location is accessible. Work must start and complete during this interval. It is generally not possible to work beyond the access hours. Maximum field length is 1020.",
+      "column_order": 58
+    },
+    {
+      "name": "ACTIVITY_FLOW_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Reference to identifier of a flow that will be used to guide activity processing.",
+      "column_order": 59
+    },
+    {
+      "name": "SVC_WO_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier Of Fusion Service Work Order the Activity is linked to. Optional Field. Reference To Svc_Work_Orders.Wo_Id In Fusion.",
+      "column_order": 60
+    },
+    {
+      "name": "WIE_WO_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier Of Maintenance Work Order the activity Is linked to. Optional Field. Reference to Wie_Work_Orders_B.Work_Order_Id In Fusion.",
+      "column_order": 61
+    },
+    {
+      "name": "WIE_WO_OPERATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier Of Maintenance Work Order Operation the activity is linked to. Optional Field. Reference to Wie_Wo_Operations_B.Wo_Operation_Id In Fusion.",
+      "column_order": 62
+    },
+    {
+      "name": "IB_ASSET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier Of installed based asset the activity is linked to. Optional Field. Reference To Cse_Assets_B.Asset_Id In Fusion.",
+      "column_order": 63
+    },
+    {
+      "name": "PJF_PROJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier Of project the Activity is linked to. Optional Field. Reference to Pjf_Projects_All_B.Project_Id In Fusion.",
+      "column_order": 64
+    },
+    {
+      "name": "PJF_PROJ_ELEMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of project task the activity is linked to. Optional Field. Reference To Pjf_Proj_Elements_B.Proj_Element_Id In Fusion.",
+      "column_order": 65
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 66
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 67
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 68
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 69
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 70
+    },
+    {
+      "name": "WMT_TOKEN",
+      "data_type": "VARCHAR2",
+      "data_length": 12,
+      "nullable": "Y",
+      "description": "Generated unique 8-symbol base62 string (ShUT), unique key to activity for the end customer.",
+      "column_order": 71
+    },
+    {
+      "name": "WMT_THEME_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "WMT theme (by id) which displays the activity to an end customer.",
+      "column_order": 72
+    },
+    {
+      "name": "WMT_LINK_CREATED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date/time when the WMT_TOKEN has been generated.",
+      "column_order": 73
+    },
+    {
+      "name": "WMT_LINK_OPENED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date/time when the WMT_TOKEN has been opened for the first time by the customer.",
+      "column_order": 74
+    },
+    {
+      "name": "WMT_SERVICE_RATING",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Numeric feedback (1-5) from the end customer, null by default.",
+      "column_order": 75
+    },
+    {
+      "name": "WMT_SERVICE_COMMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Feedback text from the end customer, null by default.",
+      "column_order": 76
+    },
+    {
+      "name": "WMT_FEEDBACK_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date/time when a WMT_SERVICE_RATING and/or WMT_SERVICE_RATING were provided by the end customer.",
+      "column_order": 77
+    },
+    {
+      "name": "COORD_VIEWPORT_RADIUS",
+      "data_type": "NUMBER",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "Radius of activity location viewport returned by geoprovider in meters.",
+      "column_order": 78
+    }
+  ]
+}

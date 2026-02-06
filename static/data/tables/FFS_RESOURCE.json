@@ -1,0 +1,299 @@
+{
+  "id": 32100,
+  "name": "FFS_RESOURCE",
+  "type": "TABLE",
+  "description": "Used to stores all created resources.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffsresource-10667.html#ffsresource-10667",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Unique identifier of the resource.",
+      "column_order": 1
+    },
+    {
+      "name": "ACTIVE",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates current resource availability status. Values: 1 - active, 0 - inactive.",
+      "column_order": 2
+    },
+    {
+      "name": "PARENT",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Unique identifier of a parent resources. If this resource is the top resource in the hierarchy then the value is 0.",
+      "column_order": 3
+    },
+    {
+      "name": "EXTERNAL_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "Unique identifier of the resource used for integrations (external identifier).",
+      "column_order": 4
+    },
+    {
+      "name": "TYPE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Indicates type of the resource.",
+      "column_order": 5
+    },
+    {
+      "name": "QTS_BUCKET_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Defines if this resource is also used as a capacity area. It happens when a value of this field is equal to 'resource_id'.",
+      "column_order": 6
+    },
+    {
+      "name": "NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "The name of the resource. The maximum character length of this field is 40 characters.",
+      "column_order": 7
+    },
+    {
+      "name": "ORGANIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Unique identifier of an organization this resource belongs to.",
+      "column_order": 8
+    },
+    {
+      "name": "LANGUAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Unique identifier of a preferred language for the resource.",
+      "column_order": 9
+    },
+    {
+      "name": "TIME_FORMAT_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Unique identifier of a preferred time format for the resource.",
+      "column_order": 10
+    },
+    {
+      "name": "DATE_FORMAT_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Unique identifier of a preferred date format for the resource.",
+      "column_order": 11
+    },
+    {
+      "name": "TIME_ZONE_ID",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Unique identifier a time zone for the resource.",
+      "column_order": 12
+    },
+    {
+      "name": "EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Email address of the resource. The maximum character length of this field is 255 characters.",
+      "column_order": 13
+    },
+    {
+      "name": "PHONE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Phone number of the resource. The maximum character length of this field is 16 characters. Only digits and plus sign are allowed (e.g. '+123456789').",
+      "column_order": 14
+    },
+    {
+      "name": "CREATED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of the resource creation.",
+      "column_order": 15
+    },
+    {
+      "name": "UPDATED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Indicates the date and time of the resource most recent update.",
+      "column_order": 16
+    },
+    {
+      "name": "TRAVEL_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Resource Travel Key. Filled automatically based on configured 'Resource Travel Key' on Business Rules screen.",
+      "column_order": 17
+    },
+    {
+      "name": "SD_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Unique identifier for Resource Duration key value.",
+      "column_order": 18
+    },
+    {
+      "name": "STARTTIMEKEY",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Deprecated field, can be removed.",
+      "column_order": 19
+    },
+    {
+      "name": "SCHEDULING_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Identifier of the scheduling profile which the configuration of the resource is related to. It is the foreign key to the table FFS_SCHEDULING_PROFILE.",
+      "column_order": 20
+    },
+    {
+      "name": "FEATURES",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Bit mask: 2 - route owner, 4 - is a bucket, 16 - allow child providers, 32 - allow to assist to, 64 - allow to be a teamholder, 128 - share inventory in teamwork, 256 - allow users, 512 - enable capacity, 1024 - use in routing, 2048 - starting travel is worktime, 4096 - ending travel is worktime, 8192 - track location, 16384 - share location in teamwork, 32768 - enable 'not activate in time' alert, 65536 - share work skills in teamwork, 131072 - contingent workers, 262144 - is a warehouse.",
+      "column_order": 21
+    },
+    {
+      "name": "COLOR",
+      "data_type": "VARCHAR2",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "Hex color (6 hex symbols, e.g. 'FF0000'). Used as a background color for resource's avatar in graphical interface.",
+      "column_order": 22
+    },
+    {
+      "name": "SD_INITIAL_RATIO",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Initial ratio for the calculation of an activity duration when the resource is new.",
+      "column_order": 23
+    },
+    {
+      "name": "SD_INITIAL_RATIO_READONLY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Parameter to indicate if the Initial ratio of the resource was modified by Stats duration job.",
+      "column_order": 24
+    },
+    {
+      "name": "SKIP_DAYS_FOR_STATS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Indicates number of days which are skipped for learning statistics.",
+      "column_order": 25
+    },
+    {
+      "name": "SKIP_DAYS_UPDATED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the date and time of most recent SKIP_DAYS_FOR_STATS update.",
+      "column_order": 26
+    },
+    {
+      "name": "ORGANIZATION_ID_OLD",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Deprecated. Was used as a backup ORGANIZATION_ID field while upgrading from 23B to 23C version.",
+      "column_order": 27
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 28
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 29
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 32
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 33
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 34
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 35
+    },
+    {
+      "name": "PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for the party. Reference to HZ_PARTIES.PARTY_ID.",
+      "column_order": 36
+    }
+  ]
+}

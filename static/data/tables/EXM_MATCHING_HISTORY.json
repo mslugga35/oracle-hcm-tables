@@ -1,0 +1,771 @@
+{
+  "id": 27113,
+  "name": "EXM_MATCHING_HISTORY",
+  "type": "TABLE",
+  "description": "This table contains the expense status, starting from creation to automatic sweep.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/exmmatchinghistory-22173.html#exmmatchinghistory-22173",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "MATCHING_HISTORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of events recorded in the table.",
+      "column_order": 1
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Person identifier of the individual on the corporate card.",
+      "column_order": 2
+    },
+    {
+      "name": "EVENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Type of event, whether creation, matching, or submission.",
+      "column_order": 3
+    },
+    {
+      "name": "EVENT_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Source of the event, whether bot creation, bot update, resolution of potential matches, during the hourly matching process, after manual expense submission, or during the automatic submission process.",
+      "column_order": 4
+    },
+    {
+      "name": "SOURCE_OBJECT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code to identify if the expense being matched is sourced from a vendor expense or from an existing expense.",
+      "column_order": 5
+    },
+    {
+      "name": "EVENT_START_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The time when the event started.",
+      "column_order": 6
+    },
+    {
+      "name": "MATCHED_RULE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Name of rule the expense was matched against, whether an auth transaction number, a receipt, an amount, or a merchant.",
+      "column_order": 7
+    },
+    {
+      "name": "MATCHING_OUTCOME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Results generated from matching digital expenses to card or authorization expenses while detecting duplicates.",
+      "column_order": 8
+    },
+    {
+      "name": "RECEIPT_AMOUNT_MATCH_RULE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Rule name using which the score is generated for Receipt Amount.",
+      "column_order": 9
+    },
+    {
+      "name": "RECEIPT_DATE_MATCH_RULE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Rule name using which the score is generated for Receipt Date.",
+      "column_order": 10
+    },
+    {
+      "name": "RECEIPT_CURRENCY_MATCH_RULE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Rule name using which the score is generated for Receipt Currency.",
+      "column_order": 11
+    },
+    {
+      "name": "EXPENSE_TYPE_MATCH_RULE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Rule name using which the score is generated for Expense Type.",
+      "column_order": 12
+    },
+    {
+      "name": "EXPENSE_TYPE_CAT_MATCH_RULE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Rule name using which the score is generated for Expense Type Category.",
+      "column_order": 13
+    },
+    {
+      "name": "MERCHANT_NAME_MATCH_RULE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Rule name using which the score is generated for Merchant Name.",
+      "column_order": 14
+    },
+    {
+      "name": "RECEIPT_AMOUNT_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score of an uploaded digital assistant expense item's receipt amount that matches a corporate card transaction's transaction amount.",
+      "column_order": 15
+    },
+    {
+      "name": "RECEIPT_DATE_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score of an uploaded digital assistant expense item's receipt date that matches a corporate card transaction's transaction date.",
+      "column_order": 16
+    },
+    {
+      "name": "RECEIPT_CURRENCY_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score of an uploaded digital assistant expense item's receipt currency that matches a corporate card transaction's transaction currency.",
+      "column_order": 17
+    },
+    {
+      "name": "EXPENSE_TYPE_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score of an uploaded digital assistant expense item's expense type that matches a corporate card transaction's expense type.",
+      "column_order": 18
+    },
+    {
+      "name": "EXPENSE_TYPE_CAT_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score of an uploaded digital assistant expense item's expense type category that matches a corporate card transaction's expense type category.",
+      "column_order": 19
+    },
+    {
+      "name": "MERCHANT_NAME_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score of an uploaded digital assistant expense item's merchant name that matches a corporate card transaction's merchant name.",
+      "column_order": 20
+    },
+    {
+      "name": "LOCATION_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score generated by matching the location during duplicate expense detection.",
+      "column_order": 21
+    },
+    {
+      "name": "DISTANCE_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score generated by matching the distance during duplicate expense detection.",
+      "column_order": 22
+    },
+    {
+      "name": "DISTANCE_UNIT_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score generated by matching the distance unit during duplicate expense detection.",
+      "column_order": 23
+    },
+    {
+      "name": "RECEIPT_TIME_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score generated by matching the receipt time during duplicate expense detection.",
+      "column_order": 24
+    },
+    {
+      "name": "END_DATE_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score generated by matching the end date during duplicate expense detection.",
+      "column_order": 25
+    },
+    {
+      "name": "APPROVAL_CODE_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Score generated by matching the approval status code during duplicate detection.",
+      "column_order": 26
+    },
+    {
+      "name": "TOTAL_MATCH_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total score of an uploaded digital assistant expense item that matches a corporate card transaction.",
+      "column_order": 27
+    },
+    {
+      "name": "MERGED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Option that indicates whether an expense item created from a digital assistant is already merged with an expense item created from a corporate card transaction.",
+      "column_order": 28
+    },
+    {
+      "name": "GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the group of duplicate expenses.",
+      "column_order": 29
+    },
+    {
+      "name": "ANCHOR_EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the anchor expense within a group of duplicate expenses.",
+      "column_order": 30
+    },
+    {
+      "name": "ANCHOR_RANK",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the priority of anchors within a group of duplicate expenses.",
+      "column_order": 31
+    },
+    {
+      "name": "DA_EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the expense item that was created from the digital assistant.",
+      "column_order": 32
+    },
+    {
+      "name": "DA_AUTH_TRXN_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Credit card transaction authorization code captured by the digital assistant. The value is obtained from the credit card charge.",
+      "column_order": 33
+    },
+    {
+      "name": "DA_RECEIPT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Digital Assistant receipt amount in the receipt currency.",
+      "column_order": 34
+    },
+    {
+      "name": "DA_RECEIPT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Receipt currency of a digital assistant expense item.",
+      "column_order": 35
+    },
+    {
+      "name": "DA_MERCHANT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Merchant where the expense was incurred, which was captured by the digital assistant.",
+      "column_order": 36
+    },
+    {
+      "name": "DA_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the expense occurred or the first day of an expense that spans multiple days.",
+      "column_order": 37
+    },
+    {
+      "name": "DA_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last day of the Digital Assistant expense, if it spans multiple days.",
+      "column_order": 38
+    },
+    {
+      "name": "DA_APPROVAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Approval code for the Digital Assistant expense.",
+      "column_order": 39
+    },
+    {
+      "name": "DA_EXPENSE_TYPE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Group of expense types and additional data fields for similar expenses. For example, the airfare group to include information such as class of fare, merchant, ticket number, and so on.",
+      "column_order": 40
+    },
+    {
+      "name": "DA_CREATION_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Method of expense item creation, such as mobile iOS device or mobile Android device.",
+      "column_order": 41
+    },
+    {
+      "name": "DA_REPORT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of an expense report type related to a digital assistant expense.",
+      "column_order": 42
+    },
+    {
+      "name": "DA_EXPENSE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of an expense type related to a digital assistant expense.",
+      "column_order": 43
+    },
+    {
+      "name": "DA_TYPE_KEYWORDS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "The keywords returned by IDR that are used to narrow down the expense type.",
+      "column_order": 44
+    },
+    {
+      "name": "CC_EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the expense item created from a corporate card transaction.",
+      "column_order": 45
+    },
+    {
+      "name": "CC_AUTH_TRXN_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Authorization transaction number provided by the corporate card issuer.",
+      "column_order": 46
+    },
+    {
+      "name": "CC_RECEIPT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit card expense amount of the receipt in the receipt currency.",
+      "column_order": 47
+    },
+    {
+      "name": "CC_RECEIPT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Receipt currency of a credit card expense item.",
+      "column_order": 48
+    },
+    {
+      "name": "CC_MERCHANT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Merchant where the expense was incurred.",
+      "column_order": 49
+    },
+    {
+      "name": "CC_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the Corporate Card expense occurred or the first day of an expense that spans multiple days.",
+      "column_order": 50
+    },
+    {
+      "name": "CC_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last day of the Corporate Card expense, if it spans multiple days.",
+      "column_order": 51
+    },
+    {
+      "name": "CC_TRANSACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the credit card transaction occurred.",
+      "column_order": 52
+    },
+    {
+      "name": "CC_APPROVAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Approval code for the Corporate Card expense.",
+      "column_order": 53
+    },
+    {
+      "name": "CC_EXPENSE_TYPE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Classification of an expense item such as business or personal.",
+      "column_order": 54
+    },
+    {
+      "name": "CC_EXPENSE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of expense type in a credit card expense.",
+      "column_order": 55
+    },
+    {
+      "name": "CC_CREATION_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Method of expense item creation, such as mobile iOS device or mobile Android device.",
+      "column_order": 56
+    },
+    {
+      "name": "CC_AIR_DEPARTURE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Departure date for the first leg of a multiple leg trip.",
+      "column_order": 57
+    },
+    {
+      "name": "CC_HOTEL_DEPART_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Departure date from a hotel for a credit card expense.",
+      "column_order": 58
+    },
+    {
+      "name": "CC_HOTEL_ARRIVAL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Check-in date at hotel or scheduled arrival date in case of a no show.",
+      "column_order": 59
+    },
+    {
+      "name": "CC_CAR_RETURN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit card expense date in which the car was returned.",
+      "column_order": 60
+    },
+    {
+      "name": "CC_CAR_RENTAL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Credit card expense date in which the car was first rented.",
+      "column_order": 61
+    },
+    {
+      "name": "CC_REPORT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of an expense report for credit card expenses.",
+      "column_order": 62
+    },
+    {
+      "name": "CC_ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: Segment of the user descriptive flexfield for credit card expense item.",
+      "column_order": 63
+    },
+    {
+      "name": "CC_ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: Segment of the user descriptive flexfield for credit card expense item.",
+      "column_order": 64
+    },
+    {
+      "name": "CC_ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: Segment of the user descriptive flexfield for credit card expense item.",
+      "column_order": 65
+    },
+    {
+      "name": "CC_ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: Segment of the user descriptive flexfield for credit card expense item.",
+      "column_order": 66
+    },
+    {
+      "name": "CC_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: Segment of the user descriptive flexfield for credit card expense item.",
+      "column_order": 67
+    },
+    {
+      "name": "CC_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: Segment of the user descriptive flexfield for credit card expense item.",
+      "column_order": 68
+    },
+    {
+      "name": "CC_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: Segment of the user descriptive flexfield for credit card expense item.",
+      "column_order": 69
+    },
+    {
+      "name": "CC_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: Segment of the user descriptive flexfield for credit card expense item.",
+      "column_order": 70
+    },
+    {
+      "name": "SOURCE_ATTRIBUTE_NAME1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the source attribute name for a custom configured similarity rule.",
+      "column_order": 71
+    },
+    {
+      "name": "SOURCE_ATTRIBUTE_NAME2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the source attribute name for a custom configured similarity rule.",
+      "column_order": 72
+    },
+    {
+      "name": "SOURCE_ATTRIBUTE_NAME3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the source attribute name for a custom configured similarity rule.",
+      "column_order": 73
+    },
+    {
+      "name": "SOURCE_ATTRIBUTE_NAME4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the source attribute name for a custom configured similarity rule.",
+      "column_order": 74
+    },
+    {
+      "name": "SOURCE_ATTRIBUTE_NAME5",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the source attribute name for a custom configured similarity rule.",
+      "column_order": 75
+    },
+    {
+      "name": "TARGET_ATTRIBUTE_NAME1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the target attribute name for a custom configured similarity rule.",
+      "column_order": 76
+    },
+    {
+      "name": "TARGET_ATTRIBUTE_NAME2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the target attribute name for a custom configured similarity rule.",
+      "column_order": 77
+    },
+    {
+      "name": "TARGET_ATTRIBUTE_NAME3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the target attribute name for a custom configured similarity rule.",
+      "column_order": 78
+    },
+    {
+      "name": "TARGET_ATTRIBUTE_NAME4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the target attribute name for a custom configured similarity rule.",
+      "column_order": 79
+    },
+    {
+      "name": "TARGET_ATTRIBUTE_NAME5",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the target attribute name for a custom configured similarity rule.",
+      "column_order": 80
+    },
+    {
+      "name": "SIMILARITY_RULE1",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the rule name based on which the source and target attributes are considered similar.",
+      "column_order": 81
+    },
+    {
+      "name": "SIMILARITY_RULE2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the rule name based on which the source and target attributes are considered similar.",
+      "column_order": 82
+    },
+    {
+      "name": "SIMILARITY_RULE3",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the rule name based on which the source and target attributes are considered similar.",
+      "column_order": 83
+    },
+    {
+      "name": "SIMILARITY_RULE4",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the rule name based on which the source and target attributes are considered similar.",
+      "column_order": 84
+    },
+    {
+      "name": "SIMILARITY_RULE5",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Extensible column to capture the rule name based on which the source and target attributes are considered similar.",
+      "column_order": 85
+    },
+    {
+      "name": "SIMILARITY_SCORE1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Extensible column to capture the score based on which the source and target attributes are considered similar.",
+      "column_order": 86
+    },
+    {
+      "name": "SIMILARITY_SCORE2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Extensible column to capture the score based on which the source and target attributes are considered similar.",
+      "column_order": 87
+    },
+    {
+      "name": "SIMILARITY_SCORE3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Extensible column to capture the score based on which the source and target attributes are considered similar.",
+      "column_order": 88
+    },
+    {
+      "name": "SIMILARITY_SCORE4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Extensible column to capture the score based on which the source and target attributes are considered similar.",
+      "column_order": 89
+    },
+    {
+      "name": "SIMILARITY_SCORE5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Extensible column to capture the score based on which the source and target attributes are considered similar.",
+      "column_order": 90
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 91
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 92
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 93
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 94
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 95
+    }
+  ]
+}

@@ -1,0 +1,1323 @@
+{
+  "id": 30893,
+  "name": "ZCA_ROLLUP_ENTITIES",
+  "type": "TABLE",
+  "description": "Extensible one-to-one relationship table used to store custom object rollup records.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zcarollupentities-8659.html#zcarollupentities-8659",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of the intersection row in this table.",
+      "column_order": 1
+    },
+    {
+      "name": "PARENT_ID1",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Source entity identifier's first value.This will store the foreign key from the parent object.",
+      "column_order": 2
+    },
+    {
+      "name": "PARENT_ID2",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Source entity identifier's second value.This will store the foreign key from the parent object.",
+      "column_order": 3
+    },
+    {
+      "name": "PARENT_ID3",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Source entity identifier's third value.This will store the foreign key from the parent object.",
+      "column_order": 4
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 5
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 6
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 7
+    },
+    {
+      "name": "CPDRF_VER_SOR",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Cross Pillar Data Replication Framework (CPDRF) system column for tracking record version in System of Record (SOR) pillar when a record change is replicated to subscribing pillars by the replication flows.",
+      "column_order": 8
+    },
+    {
+      "name": "CPDRF_VER_PILLAR",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Cross Pillar Data Replication Framework (CPDRF) system column for tracking record version when a record is changed by replication flows.",
+      "column_order": 9
+    },
+    {
+      "name": "CPDRF_LAST_UPD",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Cross Pillar Data Replication Framework (CPDRF) system column for tracking source pillar name when a record is changed by the replication flows.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 16
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The currency code for all currency amounts entered on this record.",
+      "column_order": 20
+    },
+    {
+      "name": "CURCY_CONV_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The currency conversion rate type defined as the standard rate type at the time the row is created. Used to calculate currency conversion rates between the entered currency and the corporate currency.",
+      "column_order": 21
+    },
+    {
+      "name": "CORP_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "The corporate currency code defined as the standard front office reporting currency at the time the row is created. Currency conversion rates will be calculated between the entered currency and the corporate currency.",
+      "column_order": 22
+    },
+    {
+      "name": "RECORD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Record name: user recognizable identifier for this record. Uniquely identifies this record among others with the same structure definition (ATTRIBUTE_CATEGORY).",
+      "column_order": 23
+    },
+    {
+      "name": "RECORD_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Record number: public unique identifier for this record.",
+      "column_order": 24
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP001",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 25
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP002",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 26
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP003",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 27
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER001",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 28
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER002",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 29
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER003",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 30
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER004",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 31
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER005",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 32
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER006",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 33
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER007",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 34
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER008",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 35
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP004",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 36
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP005",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 37
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP006",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 38
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER009",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 39
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER010",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 40
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER011",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 41
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER012",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 42
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER013",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 43
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER014",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 44
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER015",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 45
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER016",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 46
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP007",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 47
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP008",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 48
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP009",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 49
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER017",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 50
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER018",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 51
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER019",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 52
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER020",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 53
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER021",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 54
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER022",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 55
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER023",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 56
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER024",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 57
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP010",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 58
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP011",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 59
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP012",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 60
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER025",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 61
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER026",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 62
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER027",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 63
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER028",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 64
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER029",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 65
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER030",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 66
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER031",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 67
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER032",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 68
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP013",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 69
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP014",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 70
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP015",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 71
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER033",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 72
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER034",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 73
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER035",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 74
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER036",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 75
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER037",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 76
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER038",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 77
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER039",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 78
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER040",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 79
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP016",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 80
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP017",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 81
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP018",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 82
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER041",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 83
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER042",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 84
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER043",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 85
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER044",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 86
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER045",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 87
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER046",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 88
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER047",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 89
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER048",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 90
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP019",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 91
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP020",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 92
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP021",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 93
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER049",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 94
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER050",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 95
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER051",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 96
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER052",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 97
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER053",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 98
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER054",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 99
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER055",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 100
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER056",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 101
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP022",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 102
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP023",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 103
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP024",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 104
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER057",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 105
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER058",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 106
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER059",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 107
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER060",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 108
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER061",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 109
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER062",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 110
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER063",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 111
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER064",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 112
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP025",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 113
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP026",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 114
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP027",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 115
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER065",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 116
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER066",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 117
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER067",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 118
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER068",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 119
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER069",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 120
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER070",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 121
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER071",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 122
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER072",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 123
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER073",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 124
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER074",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 125
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER075",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 126
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER076",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 127
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER077",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 128
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER078",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 129
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER079",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 130
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER080",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 131
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP028",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 132
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP029",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 133
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP030",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 134
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP031",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 135
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP032",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 136
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP033",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 137
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER081",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 138
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER082",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 139
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER083",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 140
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER084",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 141
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER085",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 142
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER086",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 143
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER087",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 144
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER088",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 145
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP034",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 146
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP035",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 147
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP036",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 148
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER089",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 149
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER090",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 150
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER091",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 151
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER092",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 152
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER093",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 153
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER094",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 154
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER095",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 155
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER096",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 156
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP037",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 157
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP038",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 158
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP039",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 159
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER097",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 160
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER098",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 161
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER099",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 162
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_NUMBER100",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 163
+    },
+    {
+      "name": "EXTN_ATTRIBUTE_TIMESTAMP040",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Runtime Extensibility: Column reserved for custom extension attributes.",
+      "column_order": 164
+    }
+  ]
+}

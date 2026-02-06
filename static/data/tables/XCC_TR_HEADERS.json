@@ -1,0 +1,251 @@
+{
+  "id": 26845,
+  "name": "XCC_TR_HEADERS",
+  "type": "TABLE",
+  "description": "This table stores the transaction header attributes calling the budgetary control engine. There are foreign keys back to the calling subledger or general ledger transaction.  Funds check calls maybe purged from this table.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/xcctrheaders-14907.html#xcctrheaders-14907",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "HEADER_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Unique identifier for this transaction.",
+      "column_order": 1
+    },
+    {
+      "name": "TRANSACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Identifies the type of transaction.",
+      "column_order": 2
+    },
+    {
+      "name": "SOURCE_HEADER_ID_1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger or General Ledger transaction primary key.",
+      "column_order": 3
+    },
+    {
+      "name": "SOURCE_HEADER_ID_2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger or General Ledger transaction primary key.",
+      "column_order": 4
+    },
+    {
+      "name": "TRANSACTION_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "This columns contains the transaction number.",
+      "column_order": 5
+    },
+    {
+      "name": "SOURCE_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Subledger commitment control action.  Valid values depend upon the subledger and transaction type involved.",
+      "column_order": 6
+    },
+    {
+      "name": "DATA_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies the budgetary control transaction or group of transactions processed in a run.",
+      "column_order": 7
+    },
+    {
+      "name": "RESULT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Status of the budgetary control transaction.",
+      "column_order": 8
+    },
+    {
+      "name": "ARRIVAL_ORDER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "If multiple transactions are being processed at once, order in which they should be considered.",
+      "column_order": 9
+    },
+    {
+      "name": "DRAFT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether this funds activity was attempted in draft mode or final mode.  Funds activities attempted in draft mode do not reserve funds.  They just check to see whether the funds activity would have passed.",
+      "column_order": 10
+    },
+    {
+      "name": "BUDGET_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether or not this is a budget transaction.",
+      "column_order": 11
+    },
+    {
+      "name": "OVERRIDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if this transaction was overridden.",
+      "column_order": 12
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger associated with this transaction, it is NULL for GL and XLA, as the ledger is a line level attribute there.  It is also NULL for budgets.",
+      "column_order": 13
+    },
+    {
+      "name": "BUSINESS_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Business unit of this transaction, it is only populated here when the transaction type or action does not support distribution level BUs.",
+      "column_order": 14
+    },
+    {
+      "name": "DESTINATION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Destination type is either Expense or Inventory.",
+      "column_order": 15
+    },
+    {
+      "name": "TRANSACTION_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Transaction source code is populated for projects only.",
+      "column_order": 16
+    },
+    {
+      "name": "DOCUMENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Document type code is populated for projects only.",
+      "column_order": 17
+    },
+    {
+      "name": "JE_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "General ledger journal source is populated for GL and XLA data only.",
+      "column_order": 18
+    },
+    {
+      "name": "LIQUIDATION_DATE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Method via which the liquidation date should be obtained, it is used for PPM.",
+      "column_order": 19
+    },
+    {
+      "name": "PARTIAL_RESERVATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if partial reservations are allowed.",
+      "column_order": 20
+    },
+    {
+      "name": "DATA_PURGED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that one or more lines have been purged for this transaction. Valid values are Y and N.",
+      "column_order": 21
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 22
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 26
+    },
+    {
+      "name": "OVERRIDABLE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates what type of override is available when running in override or override check mode.",
+      "column_order": 27
+    },
+    {
+      "name": "HEADER_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used to control whether multiple transactions should be grouped together for purposes of budegtary control. If provided, any transactions with the same value for this column will pass or fail budgetary control as a unit.",
+      "column_order": 28
+    },
+    {
+      "name": "FAILURE_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason for failure when budgetary control failed for some reason other than a failed budgetary control activity. Some potential reasons are: failure of related transactions, or a burdening failure.",
+      "column_order": 29
+    },
+    {
+      "name": "SUCCESS_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason for success when no budgetary control activity was generated. Potential success reasons are: budgetary control not being applicable, or no control budgets being applicable for this transaction. A transaction may still fail budgetary control, if a related transaction fails.",
+      "column_order": 30
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "id": 33807,
+  "name": "SVC_SR_AGG",
+  "type": "TABLE",
+  "description": "Aggregate table for interaction metrics.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/svcsragg-24285.html#svcsragg-24285",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SR_AGG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Surrogate key, populated by sequence SVC_SR_AGG_SEQ",
+      "column_order": 1
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 2
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 7
+    },
+    {
+      "name": "SR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to SVC_SERVICE_REQUESTS.",
+      "column_order": 8
+    },
+    {
+      "name": "STRIPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Application stripe code. Used for application striping.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_STATUS_TYPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Values of the service request's STATUS_TYPE_CD column at the time of the last aggregation.",
+      "column_order": 10
+    },
+    {
+      "name": "SR_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Value of the service request's LAST_UPDATE_DATE column at the time of the last aggregation.",
+      "column_order": 11
+    },
+    {
+      "name": "INTERACTION_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Timestamp of the last update date of the interactions associated to this service request.",
+      "column_order": 12
+    },
+    {
+      "name": "MILESTONE_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Latest update date of milestones associated to this service request at the time of the last aggregation.",
+      "column_order": 13
+    },
+    {
+      "name": "RESOLVED_INTERACTIONS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of interactions between the service request's creation date and the service request's SR_LAST_RESOLVED_DATE.",
+      "column_order": 14
+    },
+    {
+      "name": "RESOLVED_CHANNEL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Id of the channel of the last interaction before the service request's SR_LAST_RESOLVED_DATE.",
+      "column_order": 15
+    },
+    {
+      "name": "RESOLVED_AGENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Id of the agent handling the last interaction before the service request's SR_LAST_RESOLVED_DATE.",
+      "column_order": 16
+    },
+    {
+      "name": "CLOSED_INTERACTIONS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of interactions between the service request's creation date and its SR_CLOSE_DATE.",
+      "column_order": 17
+    },
+    {
+      "name": "CLOSED_CHANNEL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Id of the channel of the last interaction before the serivce request's SR_CLOSE_DATE.",
+      "column_order": 18
+    },
+    {
+      "name": "CLOSED_AGENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Id of the agent handling the last interaction before the service request's SR_CLOSE_DATE.",
+      "column_order": 19
+    },
+    {
+      "name": "SR_COMPLIANT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A flag that indicates whether the service request is fully compliant or not.",
+      "column_order": 20
+    },
+    {
+      "name": "SR_MILESTONE_ASSIGNMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "A flag that indicates whether the service request has milestone or not.",
+      "column_order": 21
+    },
+    {
+      "name": "ARTICLE_LINKED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A flag that indicates whether or not the service request has one or more knowledge articles associated to it.",
+      "column_order": 22
+    },
+    {
+      "name": "ARTICLE_RESOLVED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A flag that indicates whether or not the service request is resolved by one or more knowledge articles that are associated with it.",
+      "column_order": 23
+    },
+    {
+      "name": "REFERENCE_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Latest update date of references associated to this service request at the time of the last aggregation.",
+      "column_order": 24
+    },
+    {
+      "name": "AFFECTED_PARTY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A flag that indicates whether or not the service request has any affected parties associated with it.",
+      "column_order": 25
+    }
+  ]
+}

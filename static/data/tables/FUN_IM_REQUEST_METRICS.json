@@ -1,0 +1,131 @@
+{
+  "id": 27394,
+  "name": "FUN_IM_REQUEST_METRICS",
+  "type": "TABLE",
+  "description": "This table tracks instrumentation metrics for individual concurrent request runs.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/funimrequestmetrics-24040.html#funimrequestmetrics-24040",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INSTRUMENTED_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of instrumentation request.",
+      "column_order": 1
+    },
+    {
+      "name": "METRIC_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Metric instrumented by the request.",
+      "column_order": 2
+    },
+    {
+      "name": "METRIC_SEQUENCE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Sequence number that provides ordering and uniqueness when a single metric can have multiple values for the same request. For example, when the instrumentation metric is child request identifier, and a Create Accounting request has multiple accounting child requests.",
+      "column_order": 3
+    },
+    {
+      "name": "INSTRUMENTED_JOB_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Code of the job that is instrumented. For example, contains XLAFSNAPRPT for the regular Create Accounting job and XLAFSNAPDST for Create Accounting for Data Set.",
+      "column_order": 4
+    },
+    {
+      "name": "PARENT_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of request that is parent to the instrumented request. If there is no parent or the parent is unknown, the instrumented request identifier is used.",
+      "column_order": 5
+    },
+    {
+      "name": "METRIC_VALUE_STRING",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Character value for instrumented metric.",
+      "column_order": 6
+    },
+    {
+      "name": "METRIC_VALUE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number value for instrumented metric.",
+      "column_order": 7
+    },
+    {
+      "name": "METRIC_VALUE_TIMESTAMP",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time stamp for instrumented metric.",
+      "column_order": 8
+    },
+    {
+      "name": "INDEX_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Key value used to optimize common queries against this table for a particular job and metric combination. For example, application and ledger identifiers might be stored in this column so that queries can efficiently find all Create Accounting requests for a particular application and ledger combination.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 15
+    }
+  ]
+}

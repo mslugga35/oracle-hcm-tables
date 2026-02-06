@@ -1,0 +1,291 @@
+{
+  "id": 30774,
+  "name": "ZCA_IMPORT_PROGRESS",
+  "type": "TABLE",
+  "description": "The table will hold the status of the progress of the import jobs. The table stores the information like the time taken to complete each step, total steps that would be executed during the import activity and also the current step of execution during the import activity.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zcaimportprogress-6670.html#zcaimportprogress-6670",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ZCA_IMPORT_PROGRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key",
+      "column_order": 1
+    },
+    {
+      "name": "PARENT_PROGRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is used to store parent progress id information.",
+      "column_order": 2
+    },
+    {
+      "name": "TRACKING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is used to store Tracking id information.",
+      "column_order": 3
+    },
+    {
+      "name": "PARENT_TRACKING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This is used to store Parent Tracking id information.",
+      "column_order": 4
+    },
+    {
+      "name": "IMPORT_JOB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "FK to parent import job systask, MKT_IMP_JOBS",
+      "column_order": 5
+    },
+    {
+      "name": "SYSTASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "FK to parent import job systask, MKT_CM_SYSTASKS",
+      "column_order": 6
+    },
+    {
+      "name": "STEP_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Name of the step which is being tracked",
+      "column_order": 7
+    },
+    {
+      "name": "STEP_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Current status of the step, updated as the import job progresses",
+      "column_order": 8
+    },
+    {
+      "name": "TRACKING_STEP",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "To store name of the step which is being tracked",
+      "column_order": 9
+    },
+    {
+      "name": "TRACKING_STEP_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "To store status of the step which is being tracked",
+      "column_order": 10
+    },
+    {
+      "name": "THREAD_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "To store thread number information of the particular  thread",
+      "column_order": 11
+    },
+    {
+      "name": "THREAD_RECORDS",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "To store thread record information of the particular  thread",
+      "column_order": 12
+    },
+    {
+      "name": "COMMIT_SIZE",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "To store commit size information for the tracking step",
+      "column_order": 13
+    },
+    {
+      "name": "PROCESS_TIME",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "To indicate the process time of current tracking step",
+      "column_order": 14
+    },
+    {
+      "name": "TOTAL_MEMORY_STATE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "To indicate the memory state of the process involved",
+      "column_order": 15
+    },
+    {
+      "name": "CLEANUP_COUNTER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "To store cleanup counter value for the tracking step",
+      "column_order": 16
+    },
+    {
+      "name": "ECID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "This field is used to store Ecid information",
+      "column_order": 17
+    },
+    {
+      "name": "ERROR_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "This field is used to store detailed error message",
+      "column_order": 18
+    },
+    {
+      "name": "ESS_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This field is used to store ESS request identifier",
+      "column_order": 19
+    },
+    {
+      "name": "START_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start time of the current step",
+      "column_order": 20
+    },
+    {
+      "name": "END_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End time of the current step",
+      "column_order": 21
+    },
+    {
+      "name": "TIME_TAKEN",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Total time taken by the current step (in milliseconds), i.e. END_TIME - START_TIME",
+      "column_order": 22
+    },
+    {
+      "name": "ESTIMATED_TIME",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Total estimated time which might be taken for completion of the current step (in milliseconds)",
+      "column_order": 23
+    },
+    {
+      "name": "TOTAL_RECORDS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Total number of records processed by the current step",
+      "column_order": 24
+    },
+    {
+      "name": "ERROR_RECORDS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Number of records which errored out during processing of the current step",
+      "column_order": 25
+    },
+    {
+      "name": "SUCCESS_RECORDS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Number of records successfully processed by the current step",
+      "column_order": 26
+    },
+    {
+      "name": "WARNING_RECORDS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Number of records processed with warning by the current step",
+      "column_order": 27
+    },
+    {
+      "name": "TOTAL_SUBSTEPS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Total number of sub-steps that would be executed in the current step",
+      "column_order": 28
+    },
+    {
+      "name": "CURRENT_SUBSTEP",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Current sub-step that is being executed in the step, this would be continously updated as the step progresses",
+      "column_order": 29
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 32
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 33
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 35
+    }
+  ]
+}

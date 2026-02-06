@@ -1,0 +1,1123 @@
+{
+  "id": 29244,
+  "name": "AR_CASH_RECEIPTS_ALL",
+  "type": "TABLE",
+  "description": "The AR_CASH_RECEIPTS_ALL table stores one record for each receipt that you enter. Oracle Receivables concurrently creates records in the AR_CASH_RECEIPT_HISTORY_ALL, AR_PAYMENT_SCHEDULES_ALL, and AR_RECEIVABLE_APPLICATIONS_ALL tables for invoice-related receipts. For receipts that are not related to invoices, such as miscellaneous receipts, Receivables creates records in the AR_MISC_CASH_DISTRIBUTIONS_ALL table instead of the AR_RECEIVABLE_APPLICATIONS_ALL table. Receivables associates a status with each receipt. These statuses include: APP for applied, UNAPP for unapplied, UNID for unidentified, NSF for nonsufficient funds, REV for reversed receipt and STOP for stop payment. Receivables does not update the status of a receipt from UNAPP to APP until the entire amount of the receipt is either applied or placed on account. A receipt can have a status of APP even if the entire receipt amount is placed on account. Cash receipts proceed through the confirmation, remittance, and clearance steps. Each step creates rows in the AR_CASH_RECEIPT_HISTORY table. The CODE_COMBINATION_ID column in this table stores the general ledger accounts that are debited and credited as part of the cycle of steps. The RECEIVABLES_TRX_ID column links the AR_CASH_RECEIPTS_ALL table to  AR_RECEIVABLES_TRX_ALL table and identifies receivables activity associated with miscellaneous receipts. The DISTRIBUTION_SET_ID column links AR_CASH_RECEIPTS_ALL table to AR_DISTRIBUTION_SETS_ALL table and identifies  distribution set and distribution set line accounts that are credited for miscellaneous receipts. The CUSTOMER_BANK_ACCOUNT_ID column is a foreign key to the IBY_EXT_BANK_ACCOUNTS table for bank accounts that do not belong to you and have a type of EXTERNAL.  The primary key for this table is CASH_RECEIPT_ID.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arcashreceiptsall-24217.html#arcashreceiptsall-24217",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CASH_RECEIPT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Cash receipt  identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "COLLECTOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Collector identifier.",
+      "column_order": 2
+    },
+    {
+      "name": "RECEIPT_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Receipt batch identifier.",
+      "column_order": 3
+    },
+    {
+      "name": "REMITTANCE_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Remittance batch identifier.",
+      "column_order": 4
+    },
+    {
+      "name": "RECON_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Added the column as part of the Cash Management uptake on ARP_CASHBOOK. The value of the column will be defaulted to N in Receivables and modified by Cash Management during bank reconciliation.",
+      "column_order": 5
+    },
+    {
+      "name": "LOGICAL_GROUP_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "A column that is added as part of the Cash Management uptake on ARP_CASHBOOK and used in payments.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 11
+    },
+    {
+      "name": "AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount of the payment entry, denormalized from the history record to allow querying on amount",
+      "column_order": 12
+    },
+    {
+      "name": "TAX_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Tax amount of the miscellaneous receipt.",
+      "column_order": 13
+    },
+    {
+      "name": "SET_OF_BOOKS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "General ledger set of books used. Only one is supported currently.",
+      "column_order": 14
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Currency code of the payment batch associated with this payment entry",
+      "column_order": 15
+    },
+    {
+      "name": "RECEIVABLES_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the transaction associated with this payment entry",
+      "column_order": 16
+    },
+    {
+      "name": "PAY_FROM_CUSTOMER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the customer associated with this payment entry",
+      "column_order": 17
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies whether the status of this payment entry is applied, unapplied, unidentified, insufficient funds, reverse payment or stop payment",
+      "column_order": 18
+    },
+    {
+      "name": "TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Identifies the category of the payment entry - either CASH or MISC; when coding, please use = 'MISC' or != 'MISC' (instead of = 'CASH') because of internal customization",
+      "column_order": 19
+    },
+    {
+      "name": "RECEIPT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Cash receipt number",
+      "column_order": 20
+    },
+    {
+      "name": "RECEIPT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "This is the receipt date.",
+      "column_order": 21
+    },
+    {
+      "name": "MISC_PAYMENT_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies the source of the miscellaneous receipt",
+      "column_order": 22
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Comments about this receipt record",
+      "column_order": 23
+    },
+    {
+      "name": "DISTRIBUTION_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the distribution set associated with this payment entry",
+      "column_order": 24
+    },
+    {
+      "name": "REVERSAL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date payment entry reversed",
+      "column_order": 25
+    },
+    {
+      "name": "REVERSAL_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Identifies the reason why the payment entry was reversed",
+      "column_order": 26
+    },
+    {
+      "name": "REVERSAL_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates reason for reversing receipt, defined by user",
+      "column_order": 27
+    },
+    {
+      "name": "REVERSAL_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Comments regarding reversal",
+      "column_order": 28
+    },
+    {
+      "name": "EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Defines multiple currency exchange rates for the same date",
+      "column_order": 29
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Exchange rate used to convert foreign amounts into functional currency",
+      "column_order": 30
+    },
+    {
+      "name": "EXCHANGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date for which rate selected",
+      "column_order": 31
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 32
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 34
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 35
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "REMITTANCE_BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the user's bank account for depositing the receipt",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "CONFIRMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This is null or Y when the cash receipt is confirmed.  It is N if the cash receipt is not confirmed.  Always use null value (confirmed_flag,'Y') when checking this column.",
+      "column_order": 49
+    },
+    {
+      "name": "CUSTOMER_BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the customer's bank account from where the receipt was paid",
+      "column_order": 50
+    },
+    {
+      "name": "CUSTOMER_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the customer's location",
+      "column_order": 51
+    },
+    {
+      "name": "DEPOSIT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This will be a user column, and will have no significance within the system",
+      "column_order": 52
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - application id of the program that last updated this row (foreign key to FND_APPLICATION.APPLICATION_ID).",
+      "column_order": 53
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - program id of the program that last updated this row (foreign key to FND_CONCURRENT_PROGRAM.CONCURRENT_PROGRAM_ID).",
+      "column_order": 54
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - date when a program last updated this row).",
+      "column_order": 55
+    },
+    {
+      "name": "RECEIPT_METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies the payment method of the receipt",
+      "column_order": 56
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 57
+    },
+    {
+      "name": "SELECTED_FOR_FACTORING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the receipt amount is discounted",
+      "column_order": 58
+    },
+    {
+      "name": "SELECTED_REMITTANCE_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the batch created by the receipt remitting process",
+      "column_order": 59
+    },
+    {
+      "name": "FACTOR_DISCOUNT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The amount determined to factor the receipt",
+      "column_order": 60
+    },
+    {
+      "name": "USSGL_TRANSACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code defined by public sector accounting",
+      "column_order": 61
+    },
+    {
+      "name": "USSGL_TRANSACTION_CODE_CONTEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield structure defining column for public sector accounting",
+      "column_order": 62
+    },
+    {
+      "name": "DOC_SEQUENCE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Value assigned to document receipt",
+      "column_order": 63
+    },
+    {
+      "name": "DOC_SEQUENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies database sequence used to assign document number to receipt",
+      "column_order": 64
+    },
+    {
+      "name": "VAT_TAX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This column refers to the VAT tax that this miscellaneous receipt is subject",
+      "column_order": 65
+    },
+    {
+      "name": "REFERENCE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates if this Miscellaneous Receipts is a PAYMENT, RECEIPT, or REMITTANCE",
+      "column_order": 66
+    },
+    {
+      "name": "REFERENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the AR_BATCHES, AR_CASH_RECEIPTS, or AP_CHECKS tables",
+      "column_order": 67
+    },
+    {
+      "name": "CUSTOMER_RECEIPT_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This column is used to store a customer reference value that the customer supplies at confirmation time",
+      "column_order": 68
+    },
+    {
+      "name": "OVERRIDE_REMIT_ACCOUNT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag that indicates if the remittance selection process can override the remittance bank account, when a value indicates null then the flag should be considered as yes.",
+      "column_order": 69
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 70
+    },
+    {
+      "name": "ANTICIPATED_CLEARING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the receipt is expected to clear the bank",
+      "column_order": 71
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ISSUER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Issuer name of Notes Receivable (Asia Pacific requirement)",
+      "column_order": 103
+    },
+    {
+      "name": "ISSUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date this Note Receivable was issued (Asia Pacific requirement)",
+      "column_order": 104
+    },
+    {
+      "name": "ISSUER_BANK_BRANCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bank / Branch issuing the Note Receivable (Asia Pacific requirement)",
+      "column_order": 105
+    },
+    {
+      "name": "CUSTOMER_BANK_BRANCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for customer bank branch ID",
+      "column_order": 106
+    },
+    {
+      "name": "PAYMENT_SERVER_ORDER_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Identifies credit card payment authorized by Oracle Payment Server",
+      "column_order": 107
+    },
+    {
+      "name": "APPROVAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Payment approval code from credit card issuer",
+      "column_order": 108
+    },
+    {
+      "name": "ADDRESS_VERIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Credit card address verification code from Oracle Payment Server",
+      "column_order": 109
+    },
+    {
+      "name": "TAX_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The new tax rate entered when you override the rate for an ad hoc tax code",
+      "column_order": 110
+    },
+    {
+      "name": "ACTUAL_VALUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date cash is withdrawn or deposited in a bank account",
+      "column_order": 111
+    },
+    {
+      "name": "POSTMARK_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The postmark date of the Receipt. Updated for record type 6. Used for discount calculation",
+      "column_order": 112
+    },
+    {
+      "name": "APPLICATION_NOTES",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Reference number that could not be matched to a transaction number during lockbox validation.",
+      "column_order": 113
+    },
+    {
+      "name": "UNIQUE_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Unique identifier for the automatic receipt.",
+      "column_order": 114
+    },
+    {
+      "name": "PROMISE_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source that generated this promise to pay",
+      "column_order": 115
+    },
+    {
+      "name": "REC_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates receipt version number for audit purposes",
+      "column_order": 116
+    },
+    {
+      "name": "CC_ERROR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Error code from credit card payment processor",
+      "column_order": 117
+    },
+    {
+      "name": "CC_ERROR_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "User-enterable description for credit card error code",
+      "column_order": 118
+    },
+    {
+      "name": "CC_ERROR_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y indicates a transaction had a credit card processing error",
+      "column_order": 119
+    },
+    {
+      "name": "REMIT_BANK_ACCT_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the remittance bank account use id to which the automatic receipt will be deposited",
+      "column_order": 120
+    },
+    {
+      "name": "OLD_CUSTOMER_BANK_BRANCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the old default remittance bank branch of the payment batch",
+      "column_order": 121
+    },
+    {
+      "name": "OLD_ISSUER_BANK_BRANCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the old default remittance bank branch of the payment batch",
+      "column_order": 122
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the legal entity to receive this receipt",
+      "column_order": 123
+    },
+    {
+      "name": "PAYMENT_TRXN_EXTENSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle Payments transaction identifier for processing a credit card or bank account payment.",
+      "column_order": 124
+    },
+    {
+      "name": "AX_ACCOUNTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Upgrade flag to indicate the distributions have been upgraded by AX",
+      "column_order": 125
+    },
+    {
+      "name": "OLD_CUSTOMER_BANK_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Old customer bank account identifier.",
+      "column_order": 126
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 127
+    },
+    {
+      "name": "RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This the PARTY_ID of the receivable specialist to whom the current receipt is assigned.",
+      "column_order": 128
+    },
+    {
+      "name": "AUTOAPPLY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator for Automatch to pick the receipt",
+      "column_order": 129
+    },
+    {
+      "name": "AUTOMATCH_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Request Id of Automatch Run",
+      "column_order": 130
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting identifier.",
+      "column_order": 131
+    },
+    {
+      "name": "PREV_PAY_FROM_CUSTOMER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the customer that was previously associated with this payment entry.",
+      "column_order": 132
+    },
+    {
+      "name": "PREV_CUSTOMER_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the customer account site that was previously associated with this payment entry.",
+      "column_order": 133
+    },
+    {
+      "name": "RECOMMENDATION_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Total number of application recommendations available for this receipt.",
+      "column_order": 134
+    },
+    {
+      "name": "STRUCTURED_PAYMENT_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "An industry standard reference on receivables transactions composed of letters, check digits,\nand transaction information, used to identify the transaction, transaction lines, and its payments to the customer and bank.",
+      "column_order": 135
+    },
+    {
+      "name": "FUNDS_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of the funds update on the receipt. Valid values are mapped to the lookup ORA_XCC_FUNDS_STATUS.",
+      "column_order": 136
+    },
+    {
+      "name": "SOURCE_STMT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifer of the bank statement line.",
+      "column_order": 137
+    },
+    {
+      "name": "BANK_TRANSACTION_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Identifier of the bank transaction assigned by the first instructing agent. This identifier is passed on unchanged throughout the entire interbank chain.",
+      "column_order": 138
+    },
+    {
+      "name": "CUSTOMER_DETAILS",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Customer information from the remittance advice.",
+      "column_order": 139
+    }
+  ]
+}

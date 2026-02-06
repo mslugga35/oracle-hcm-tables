@@ -1,0 +1,1203 @@
+{
+  "id": 29364,
+  "name": "AR_PAYMENT_SCHEDULES_ALL",
+  "type": "TABLE",
+  "description": "The AR_PAYMENT_SCHEDULES_ALL table stores all transactions except adjustments and miscellaneous cash receipts. Oracle Receivables updates this table when activity occurs against an invoice, debit memo, chargeback, credit memo, on-account credit, or receipt. Oracle Receivables groups different transactions by entering one of these values in the CLASS column: INV for Invoice, DM for Debit Memo, CM for Credit Memo, CB for Chargeback, PMT for receipt and BR for bills receivable.\nTransaction classes determine if a transaction relates to RA_CUSTOMER_TRX_ALL table or AR_CASH_RECEIPTS_ALL table. Using the CUSTOMER_TRX_ID foreign key column, the AR_PAYMENT_SCHEDULES_ALL table joins to  RA_CUSTOMER_TRX_ALL table for nonpayment transaction entries, such as the creation of credit memos, debit memos, invoices, or chargebacks. Using the CASH_RECEIPT_ID foreign key column, the AR_PAYMENT_SCHEDULES_ALL table joins to the AR_CASH_RECEIPTS_ALL table for invoice-related payment transactions. When a receipt is applied, Receivables updates the AMOUNT_APPLIED, AMOUNT_DUE_REMAINING, and STATUS columns. The STATUS column changes from OP for open to CL for closed for any transaction that has an AMOUNT_DUE_REMAINING value of 0. For a receipt, the amount due that remains includes on account and unapplied amounts. Receivables stores debit items such as invoices, debit memos, chargebacks, deposits, and guarantees as positive numbers in the AMOUNT_DUE_REMAINING and AMOUNT_DUE_ORIGINAL columns. Credit items such as credit memos and receipts are stored as negative numbers. Receipts are confirmed or not confirmed as designated by the CONFIRMED_FLAG column. The sum of the AMOUNT_DUE_REMAINING column for a customer for all confirmed payment schedules reflects the current customer balance. If this amount is negative, then the AMOUNT_DUE_REMAINING column indicates the credit balance amount currently available for this customer. For invoices with split terms, Oracle Receivables creates one record in the RA_CUSTOMER_TRX_ALL table and one record in the AR_PAYMENT_SCHEDULES_ALL table for each installment. In the AR_PAYMENT_SCHEDULES_ALL table, the DUE_DATE and AMOUNT_DUE_REMAINING columns can differ for each installment of a split term invoice. Each installment is differentiated by the TERMS_SEQUENCE_NUMBER column. If you create a debit memo reversal when you reverse a receipt, Receivables creates a new payment schedule record for the debit memo and populates the REVERSED_CASH_RECEIPT_ID column with the CASH_RECEIPT_ID column for the reversed receipt. Receivables creates a new payment schedule record when you create a chargeback. The ASSOCIATED_CASH_RECEIPT_ID column is the cash receipt of the payment you entered when you created the chargeback. The ACTUAL_DATE_CLOSED column gives the date you applied a payment or credit to an open transaction that set the AMOUNT_DUE_REMAINING column to 0 for that transaction. The GL_DATE_CLOSED column indicates the accounting date the transaction was closed.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/arpaymentschedulesall-27543.html#arpaymentschedulesall-27543",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PAYMENT_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifies the payment schedule",
+      "column_order": 1
+    },
+    {
+      "name": "MODULE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Seed Data Framework: indicates the module that owns the row. A module is an entry in Application Taxonomy such as a Logical Business Area. When the MODULE_ID column exists and the owner of the row is not specified, then the Seed Data Framework will not extract the row as seed data.",
+      "column_order": 2
+    },
+    {
+      "name": "AMOUNT_ON_ACCOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of receipt placed on account.",
+      "column_order": 3
+    },
+    {
+      "name": "AMOUNT_OTHER_ACCOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 4
+    },
+    {
+      "name": "STAGED_DUNNING_LEVEL",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Dunning level of the item as printed on the dunning correspondence",
+      "column_order": 5
+    },
+    {
+      "name": "DUNNING_LEVEL_OVERRIDE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "System date that user manually adjusted the dunning level of a debit item",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Due date of this installment",
+      "column_order": 12
+    },
+    {
+      "name": "AMOUNT_DUE_ORIGINAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Original due amount.",
+      "column_order": 13
+    },
+    {
+      "name": "AMOUNT_DUE_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The current amount due remaining",
+      "column_order": 14
+    },
+    {
+      "name": "NUMBER_OF_DUE_DATES",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The total number of installments for this invoice",
+      "column_order": 15
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Lookup code for the status of the item",
+      "column_order": 16
+    },
+    {
+      "name": "INVOICE_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Lookup code for the currency of the invoice",
+      "column_order": 17
+    },
+    {
+      "name": "CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "Lookup code for the class of the payment schedule",
+      "column_order": 18
+    },
+    {
+      "name": "CUSTOMER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the customer associated with the item",
+      "column_order": 19
+    },
+    {
+      "name": "CUSTOMER_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the customer site associated with the customer. This must be a 'BILL_TO' site.",
+      "column_order": 20
+    },
+    {
+      "name": "CUSTOMER_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transaction identifier.",
+      "column_order": 21
+    },
+    {
+      "name": "CASH_RECEIPT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the payment (cash receipt)",
+      "column_order": 22
+    },
+    {
+      "name": "ASSOCIATED_CASH_RECEIPT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for CASH_RECEIPT_ID of receipt from which chargeback is created",
+      "column_order": 23
+    },
+    {
+      "name": "TERM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the terms used in calculating the payment schedule",
+      "column_order": 24
+    },
+    {
+      "name": "TERMS_SEQUENCE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The sequence number given to each installment for multiple payment terms",
+      "column_order": 25
+    },
+    {
+      "name": "GL_DATE_CLOSED",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The accounting date when the schedule was closed.  If the schedule is not closed it will not have a value. To improve performance this column must have a value, so it is populated with largest date of 31-DEC-4712.",
+      "column_order": 26
+    },
+    {
+      "name": "ACTUAL_DATE_CLOSED",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The actual date when the schedule was closed.  If the schedule is not closed it will not have a value. To improve performance this column must have a value, so it is populated with largest date of 31-DEC-4712.",
+      "column_order": 27
+    },
+    {
+      "name": "DISCOUNT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 28
+    },
+    {
+      "name": "AMOUNT_LINE_ITEMS_ORIGINAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Original line amount of the item",
+      "column_order": 29
+    },
+    {
+      "name": "AMOUNT_LINE_ITEMS_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Remaining line amount of the item",
+      "column_order": 30
+    },
+    {
+      "name": "AMOUNT_APPLIED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount applied to the installment.",
+      "column_order": 31
+    },
+    {
+      "name": "AMOUNT_ADJUSTED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount adjusted against the item",
+      "column_order": 32
+    },
+    {
+      "name": "AMOUNT_IN_DISPUTE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The amount in dispute against the item",
+      "column_order": 33
+    },
+    {
+      "name": "AMOUNT_CREDITED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The amount credited against the item",
+      "column_order": 34
+    },
+    {
+      "name": "RECEIVABLES_CHARGES_CHARGED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of receivables charges incurred against the item",
+      "column_order": 35
+    },
+    {
+      "name": "RECEIVABLES_CHARGES_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of receivables charges remaining",
+      "column_order": 36
+    },
+    {
+      "name": "FREIGHT_ORIGINAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Original freight amount for the item",
+      "column_order": 37
+    },
+    {
+      "name": "FREIGHT_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Remaining freight amount for the item",
+      "column_order": 38
+    },
+    {
+      "name": "TAX_ORIGINAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Original tax amount for the item",
+      "column_order": 39
+    },
+    {
+      "name": "TAX_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Remaining tax amount for the item",
+      "column_order": 40
+    },
+    {
+      "name": "DISCOUNT_ORIGINAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 41
+    },
+    {
+      "name": "DISCOUNT_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 42
+    },
+    {
+      "name": "DISCOUNT_TAKEN_EARNED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual amount of earned discount taken for the item",
+      "column_order": 43
+    },
+    {
+      "name": "DISCOUNT_TAKEN_UNEARNED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Actual amount of unearned discount taken for the item",
+      "column_order": 44
+    },
+    {
+      "name": "IN_COLLECTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag to indicate whether the item is in collection",
+      "column_order": 45
+    },
+    {
+      "name": "CASH_APPLIED_ID_LAST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 46
+    },
+    {
+      "name": "CASH_APPLIED_DATE_LAST",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 47
+    },
+    {
+      "name": "CASH_APPLIED_AMOUNT_LAST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 48
+    },
+    {
+      "name": "CASH_APPLIED_STATUS_LAST",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 49
+    },
+    {
+      "name": "CASH_GL_DATE_LAST",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 50
+    },
+    {
+      "name": "CASH_RECEIPT_ID_LAST",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 51
+    },
+    {
+      "name": "CASH_RECEIPT_DATE_LAST",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 52
+    },
+    {
+      "name": "CASH_RECEIPT_AMOUNT_LAST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 53
+    },
+    {
+      "name": "CASH_RECEIPT_STATUS_LAST",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 54
+    },
+    {
+      "name": "EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Conversion rate type.",
+      "column_order": 55
+    },
+    {
+      "name": "EXCHANGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion rate date.",
+      "column_order": 56
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion rate.",
+      "column_order": 57
+    },
+    {
+      "name": "ADJUSTMENT_ID_LAST",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 58
+    },
+    {
+      "name": "ADJUSTMENT_DATE_LAST",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 59
+    },
+    {
+      "name": "ADJUSTMENT_GL_DATE_LAST",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 60
+    },
+    {
+      "name": "ADJUSTMENT_AMOUNT_LAST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 61
+    },
+    {
+      "name": "FOLLOW_UP_DATE_LAST",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the customer was last contacted with reference to the item",
+      "column_order": 62
+    },
+    {
+      "name": "FOLLOW_UP_CODE_LAST",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code for the outcome of the last follow up with the customer",
+      "column_order": 63
+    },
+    {
+      "name": "PROMISE_DATE_LAST",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. The latest promise date of the promise dates given by the customer for paying this installment.",
+      "column_order": 64
+    },
+    {
+      "name": "PROMISE_AMOUNT_LAST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. The sum of all the amounts promised by the customer for this installment.",
+      "column_order": 65
+    },
+    {
+      "name": "COLLECTOR_LAST",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The last collector that called the customer",
+      "column_order": 66
+    },
+    {
+      "name": "CALL_DATE_LAST",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The last date a collector called a customer",
+      "column_order": 67
+    },
+    {
+      "name": "TRX_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The transaction number of the item",
+      "column_order": 68
+    },
+    {
+      "name": "TRX_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The transaction date of the item",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    },
+    {
+      "name": "REVERSED_CASH_RECEIPT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for CASH_RECEIPT_ID of reversed receipt from which debit memo is created",
+      "column_order": 81
+    },
+    {
+      "name": "AMOUNT_ADJUSTED_PENDING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of pending adjustment",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "GL_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Accounting date.",
+      "column_order": 88
+    },
+    {
+      "name": "ACCTD_AMOUNT_DUE_REMAINING",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Open amount of transaction in functional currency",
+      "column_order": 89
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - application id of the program that last updated this row (foreign key to FND_APPLICATION.APPLICATION_ID).",
+      "column_order": 90
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - program id of the program that last updated this row (foreign key to FND_CONCURRENT_PROGRAM.CONCURRENT_PROGRAM_ID).",
+      "column_order": 91
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - date when a program last updated this row).",
+      "column_order": 92
+    },
+    {
+      "name": "RECEIPT_CONFIRMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag for a receipt to indicate whether the receipt has been confirmed",
+      "column_order": 93
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 94
+    },
+    {
+      "name": "SELECTED_FOR_RECEIPT_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier for automatic receipt batch. A transaction is available for automatic receipt if this column is null and invoice is associated with an automatic payment method.",
+      "column_order": 95
+    },
+    {
+      "name": "LAST_CHARGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the late charge was last calculated for the transaction installment.",
+      "column_order": 96
+    },
+    {
+      "name": "SECOND_LAST_CHARGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 97
+    },
+    {
+      "name": "DISPUTE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column stores the last date that was inserted into the AR_DISPUTE_HISTORY table.  It basically serves as a placeholder so that the database trigger knows what date to insert.",
+      "column_order": 98
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 99
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 112
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 113
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 114
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 115
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 116
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 117
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 118
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 119
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 120
+    },
+    {
+      "name": "CONS_INV_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Consolidated invoice ID that contains this transaction",
+      "column_order": 121
+    },
+    {
+      "name": "CONS_INV_ID_REV",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies a consolidated billing number that includes a cash receipt reversal",
+      "column_order": 122
+    },
+    {
+      "name": "EXCLUDE_FROM_DUNNING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N indicates whether this customer should be excluded from the dunning process",
+      "column_order": 123
+    },
+    {
+      "name": "BR_AMOUNT_ASSIGNED",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of a bill receivable that is applied to a transaction in the transaction currency.",
+      "column_order": 124
+    },
+    {
+      "name": "RESERVED_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies transactions that have been reserved by another entity.",
+      "column_order": 125
+    },
+    {
+      "name": "RESERVED_VALUE",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ID of the entity that is reserving this transaction.",
+      "column_order": 126
+    },
+    {
+      "name": "ACTIVE_CLAIM_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "This will be used to determine if an active claim exists in  Trade Management for this transaction.",
+      "column_order": 127
+    },
+    {
+      "name": "EXCLUDE_FROM_CONS_BILL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that the current payment schedule must be excluded from the consolidated bill.",
+      "column_order": 128
+    },
+    {
+      "name": "PAYMENT_APPROVAL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This column is used to approve or reject an invoice for payment.",
+      "column_order": 129
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 130
+    },
+    {
+      "name": "CUST_TRX_TYPE_SEQ_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transaction type sequence identifier.",
+      "column_order": 131
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 132
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 133
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 134
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 135
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 136
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 137
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 138
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 139
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 140
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 141
+    },
+    {
+      "name": "DEL_CONTACT_EMAIL_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "E-Mail address of the customer bill-to contact  who receives printed transactions.",
+      "column_order": 142
+    },
+    {
+      "name": "PRINT_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the last print.",
+      "column_order": 143
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 144
+    },
+    {
+      "name": "EXPECTED_COLLECTION_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount expected to be received.",
+      "column_order": 145
+    },
+    {
+      "name": "EXPECTED_COLLECTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date when the payment is expected to be received.",
+      "column_order": 146
+    },
+    {
+      "name": "COLLECTION_BASED_FORECAST_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. System date calculated from the due date, promise date, and expected collection date for cash forecasting purposes.",
+      "column_order": 147
+    },
+    {
+      "name": "COLLECTION_BASED_FORECAST_AMT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. System amount calculated from the amount due, amount promised, and expected collection amount for cash forecasting purposes.",
+      "column_order": 148
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Legal entity identifier of the legal entity assigned to the transaction installment.",
+      "column_order": 149
+    }
+  ]
+}

@@ -1,0 +1,1659 @@
+{
+  "id": 28029,
+  "name": "GL_INTERFACE",
+  "type": "TABLE",
+  "description": "GL_INTERFACE contains journal entry batches through Journal Import. You insert rows in this table and then use the Import Journals window to create journal batches. You must supply values for all NOT NULL columns. For a complete description of how to load this table, see the Oracle General Ledger User Guide.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/glinterface-8480.html#glinterface-8480",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "N",
+      "description": "Journal Import status.  Use: NEW.",
+      "column_order": 1
+    },
+    {
+      "name": "JOURNAL_ATTACHMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Add attachments using URLs to General Ledger journal batches when creating single journals in the ADFdi Create Journal spreadsheet",
+      "column_order": 2
+    },
+    {
+      "name": "GL_INTERFACE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Interface Identifier.  Oracle internal use only. Populated by the journal import program.",
+      "column_order": 3
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: date and time of the creation of the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: date and time of the last update of the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: session login associated to the user who last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: user who last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. Incremented every time the row is updated.  Compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 8
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger identifier.  Use the Manage Primary Ledgers task to find valid values.",
+      "column_order": 9
+    },
+    {
+      "name": "JE_SOURCE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Oracle internal use only.  Use column USER_JE_SOURCE_NAME to populate journal source.",
+      "column_order": 10
+    },
+    {
+      "name": "JE_CATEGORY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Oracle internal use only.  Use column USER_JE_CATEGORY_NAME to populate journal category.",
+      "column_order": 11
+    },
+    {
+      "name": "ACCOUNTING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Effective date of the journal entry.  Used to assign the accounting period.",
+      "column_order": 12
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Entered currency of the transaction.  Use the Manage Currencies task to find valid values.  Use the three character ISO currency code.  Example: US Dollars is USD.",
+      "column_order": 13
+    },
+    {
+      "name": "DATE_CREATED",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: date the row was created.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: user who created the row.",
+      "column_order": 15
+    },
+    {
+      "name": "ACTUAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Balance type of the journal.  Use: A.  Meaning:  Actual.",
+      "column_order": 16
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: request ID of the job that created or last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "ENCUMBRANCE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 18
+    },
+    {
+      "name": "BUDGET_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 19
+    },
+    {
+      "name": "CURRENCY_CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date of exchange rate.  Date format:  YYYY/MM/DD.  Required if CURRENCY_CONVERSION_TYPE is  not User.",
+      "column_order": 20
+    },
+    {
+      "name": "CURRENCY_CONVERSION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Currency conversion type. Use Manage Currency Conversion Types task to identify valid values. For Fusion ERP in the Cloud, use USER_CURRENCY_CONVERSION_TYPE instead.",
+      "column_order": 21
+    },
+    {
+      "name": "CURRENCY_CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Foreign currency exchange rate.  Mandatory if CURRENCY_CONVERSION_TYPE is User.",
+      "column_order": 22
+    },
+    {
+      "name": "SEGMENT1",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 23
+    },
+    {
+      "name": "SEGMENT2",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 24
+    },
+    {
+      "name": "SEGMENT3",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 25
+    },
+    {
+      "name": "SEGMENT4",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 26
+    },
+    {
+      "name": "SEGMENT5",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 27
+    },
+    {
+      "name": "SEGMENT6",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 28
+    },
+    {
+      "name": "SEGMENT7",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 29
+    },
+    {
+      "name": "SEGMENT8",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 30
+    },
+    {
+      "name": "SEGMENT9",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 31
+    },
+    {
+      "name": "SEGMENT10",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 32
+    },
+    {
+      "name": "SEGMENT11",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 33
+    },
+    {
+      "name": "SEGMENT12",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 34
+    },
+    {
+      "name": "SEGMENT13",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 35
+    },
+    {
+      "name": "SEGMENT14",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 36
+    },
+    {
+      "name": "SEGMENT15",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 37
+    },
+    {
+      "name": "SEGMENT16",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 38
+    },
+    {
+      "name": "SEGMENT17",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 39
+    },
+    {
+      "name": "SEGMENT18",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 40
+    },
+    {
+      "name": "SEGMENT19",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 41
+    },
+    {
+      "name": "SEGMENT20",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 42
+    },
+    {
+      "name": "SEGMENT21",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 43
+    },
+    {
+      "name": "SEGMENT22",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 44
+    },
+    {
+      "name": "SEGMENT23",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 45
+    },
+    {
+      "name": "SEGMENT24",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 46
+    },
+    {
+      "name": "SEGMENT25",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 47
+    },
+    {
+      "name": "SEGMENT26",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 48
+    },
+    {
+      "name": "SEGMENT27",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 49
+    },
+    {
+      "name": "SEGMENT28",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 50
+    },
+    {
+      "name": "SEGMENT29",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 51
+    },
+    {
+      "name": "SEGMENT30",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Segment of the chart of accounts.  Only use if assigned to the chart of accounts of the ledger.  Validation:  must be a valid value for the chart of accounts.",
+      "column_order": 52
+    },
+    {
+      "name": "ENTERED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction debit amount in the entered currency.",
+      "column_order": 53
+    },
+    {
+      "name": "ENTERED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction credit amount in the entered currency.",
+      "column_order": 54
+    },
+    {
+      "name": "ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Journal debit amount in the ledger currency.",
+      "column_order": 55
+    },
+    {
+      "name": "ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Journal credit amount in the ledger currency.",
+      "column_order": 56
+    },
+    {
+      "name": "TRANSACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Date of transaction.",
+      "column_order": 57
+    },
+    {
+      "name": "REFERENCE1",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Reference column: batch name.  Free text field.  Not validated.",
+      "column_order": 58
+    },
+    {
+      "name": "REFERENCE2",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: batch description.  Free text field.  Not validated.",
+      "column_order": 59
+    },
+    {
+      "name": "REFERENCE3",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 60
+    },
+    {
+      "name": "REFERENCE4",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Reference column: journal entry name.  Free text field.  Not validated.",
+      "column_order": 61
+    },
+    {
+      "name": "REFERENCE5",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal entry description.  Free text field.  Not validated.",
+      "column_order": 62
+    },
+    {
+      "name": "REFERENCE6",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Reference column: journal entry reference. Free text field. Not validated.",
+      "column_order": 63
+    },
+    {
+      "name": "REFERENCE7",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Reference column: journal entry reversal flag.  Valid values:  Y, N.",
+      "column_order": 64
+    },
+    {
+      "name": "REFERENCE8",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Reference column: journal entry reversal period.  Validation:  mandatory if REFERENCE7, journal entry reversal flag, is Y.  If average balance processing is enabled, enter effective date for reversal.  This will be used to determine the GL period.",
+      "column_order": 65
+    },
+    {
+      "name": "REFERENCE9",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Reference column: journal reversal method.  Valid values:  Y, N.  Meanings:  Y changes sign, N switches debits/credits.",
+      "column_order": 66
+    },
+    {
+      "name": "REFERENCE10",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal entry line description.  Free text field.  Not validated.",
+      "column_order": 67
+    },
+    {
+      "name": "REFERENCE11",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 68
+    },
+    {
+      "name": "REFERENCE12",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 69
+    },
+    {
+      "name": "REFERENCE13",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 70
+    },
+    {
+      "name": "REFERENCE14",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 71
+    },
+    {
+      "name": "REFERENCE15",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 72
+    },
+    {
+      "name": "REFERENCE16",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 73
+    },
+    {
+      "name": "REFERENCE17",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 74
+    },
+    {
+      "name": "REFERENCE18",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 75
+    },
+    {
+      "name": "REFERENCE19",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 76
+    },
+    {
+      "name": "REFERENCE20",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 77
+    },
+    {
+      "name": "REFERENCE21",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 78
+    },
+    {
+      "name": "REFERENCE22",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 79
+    },
+    {
+      "name": "REFERENCE23",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 80
+    },
+    {
+      "name": "REFERENCE24",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 81
+    },
+    {
+      "name": "REFERENCE25",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 82
+    },
+    {
+      "name": "REFERENCE26",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 83
+    },
+    {
+      "name": "REFERENCE27",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 84
+    },
+    {
+      "name": "REFERENCE28",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 85
+    },
+    {
+      "name": "REFERENCE29",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 86
+    },
+    {
+      "name": "REFERENCE30",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reference column: journal line.  Free text field.  Not validated.",
+      "column_order": 87
+    },
+    {
+      "name": "INTERFACE_RUN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 88
+    },
+    {
+      "name": "JE_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 89
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Period name.  Use the Manage Accounting Calendars task to identify valid values.",
+      "column_order": 90
+    },
+    {
+      "name": "JE_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 91
+    },
+    {
+      "name": "JE_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 92
+    },
+    {
+      "name": "CHART_OF_ACCOUNTS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only. Chart of accounts identifier.",
+      "column_order": 93
+    },
+    {
+      "name": "FUNCTIONAL_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Oracle internal use only.  Ledger base currency.",
+      "column_order": 94
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Use the Manage Account Combinations task, column Account ID, to find valid values.  Can be used instead of populating the SEGMENT columns individually.  If CODE_COMBINATION_ID and the columns beginning with SEGMENT are populated, the SEGMENT column values take precedence.",
+      "column_order": 95
+    },
+    {
+      "name": "DATE_CREATED_IN_GL",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.  Date journal import created batch.    Populated by the journal import program.",
+      "column_order": 96
+    },
+    {
+      "name": "WARNING_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 97
+    },
+    {
+      "name": "STATUS_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Oracle internal use only.  Journal import status description.  Populated by the journal import program.",
+      "column_order": 98
+    },
+    {
+      "name": "STAT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Statistical amount.",
+      "column_order": 99
+    },
+    {
+      "name": "USER_JE_CATEGORY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "N",
+      "description": "Journal entry category.  Use the Manage Journal Categories task to find valid values.",
+      "column_order": 100
+    },
+    {
+      "name": "USER_JE_SOURCE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "N",
+      "description": "Journal entry source user defined name.  Use the Manage Journal Sources page to find valid values.",
+      "column_order": 101
+    },
+    {
+      "name": "USER_CURRENCY_CONVERSION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of exchange rate.  Use the Manage Conversion Rate Types task to find valid values.  Translated value for CONVERSION_TYPE.  Use either CURRENCY_CONVERSION_TYPE or USER_CURRENCY_CONVERSION_TYPE, but not both.",
+      "column_order": 102
+    },
+    {
+      "name": "GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Groups lines for journals.  Use positive integers.  Lines with the same GROUP_ID are grouped into the same journal.",
+      "column_order": 103
+    },
+    {
+      "name": "SUBLEDGER_DOC_SEQUENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.  Sequential numbering sequence defining column.  Populated by journal import program when journal is sequenced.",
+      "column_order": 104
+    },
+    {
+      "name": "SUBLEDGER_DOC_SEQUENCE_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.  Sequential numbering sequence value.   Populated by journal import program when journal is sequenced.",
+      "column_order": 105
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 112
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 113
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 114
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Lines descriptive flexfield.",
+      "column_order": 115
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 116
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 117
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 118
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 119
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 120
+    },
+    {
+      "name": "ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 121
+    },
+    {
+      "name": "ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 122
+    },
+    {
+      "name": "ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 123
+    },
+    {
+      "name": "ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 124
+    },
+    {
+      "name": "ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Segment value for Journals Captured Information descriptive flexfield.",
+      "column_order": 125
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Context code for Journals Lines descriptive flexfield.  Use the Manage General Ledger Descriptive Flexfields task to identify valid values.  Use ATTRIBUTE1 to ATTRIBUTE10 for the segment values.",
+      "column_order": 126
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Context code for Journals Captured Information descriptive flexfield.  Use the Manage General Ledger Descriptive Flexfields task to identify valid values.  Use ATTRIBUTE11 to ATTRIBUTE20 for the segment values.",
+      "column_order": 127
+    },
+    {
+      "name": "INVOICE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 128
+    },
+    {
+      "name": "TAX_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 129
+    },
+    {
+      "name": "INVOICE_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 130
+    },
+    {
+      "name": "INVOICE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 131
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 132
+    },
+    {
+      "name": "USSGL_TRANSACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Government transaction code.   Oracle internal use only.  Only applicable if Oracle Federal Financials is used.",
+      "column_order": 133
+    },
+    {
+      "name": "DESCR_FLEX_ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 134
+    },
+    {
+      "name": "JGZZ_RECON_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 135
+    },
+    {
+      "name": "AVERAGE_JOURNAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 136
+    },
+    {
+      "name": "GL_SL_LINK_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Link to associated subledger data.  Oracle internal use only.",
+      "column_order": 137
+    },
+    {
+      "name": "GL_SL_LINK_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Table containing associated subledger data.  Oracle internal use only.",
+      "column_order": 138
+    },
+    {
+      "name": "ORIGINATING_BAL_SEG_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Originating balancing segment value for intercompany transaction.  Overrides default balancing segment value. Should be a valid value for value set used for intercompany.",
+      "column_order": 139
+    },
+    {
+      "name": "REFERENCE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reference Date for sequencing to meet statutory requirements in Italy.  Date format:  YYYY/MM/DD.",
+      "column_order": 140
+    },
+    {
+      "name": "SET_OF_BOOKS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 141
+    },
+    {
+      "name": "BALANCING_SEGMENT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 142
+    },
+    {
+      "name": "MANAGEMENT_SEGMENT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 143
+    },
+    {
+      "name": "FUNDS_RESERVED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 144
+    },
+    {
+      "name": "CODE_COMBINATION_ID_INTERIM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 145
+    },
+    {
+      "name": "CURRENCY_CONV_DATE_INTER",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 146
+    },
+    {
+      "name": "CURRENCY_CONV_TYPE_INTER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 147
+    },
+    {
+      "name": "CURRENCY_CONV_RATE_INTER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 148
+    },
+    {
+      "name": "LOAD_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: request ID of the interface load job that created the row.",
+      "column_order": 149
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Legal Entity Identifier. Foreign key to XLE_ENTITY_PROFILES",
+      "column_order": 150
+    },
+    {
+      "name": "LEGAL_ENTITY_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unique number used to identify a legal entity. Foreign key to XLE_ENTITY_PROFILES.LEGAL_ENTITY_IDENTIFIER.",
+      "column_order": 151
+    },
+    {
+      "name": "LEDGER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Ledger name for the journal to be imported. Used in file based data import.",
+      "column_order": 152
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 153
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 154
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 155
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 156
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 157
+    },
+    {
+      "name": "ATTRIBUTE_DATE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 158
+    },
+    {
+      "name": "ATTRIBUTE_DATE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 159
+    },
+    {
+      "name": "ATTRIBUTE_DATE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 160
+    },
+    {
+      "name": "ATTRIBUTE_DATE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 161
+    },
+    {
+      "name": "ATTRIBUTE_DATE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 162
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 163
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 164
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 165
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 166
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 167
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 168
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 169
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 170
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 171
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 172
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: structure definition of the global descriptive flexfield.",
+      "column_order": 173
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 174
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 175
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 176
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 177
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 178
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 179
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 180
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 181
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 182
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 183
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 184
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 185
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 186
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 187
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 188
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 189
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 190
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 191
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 192
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 193
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 194
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 195
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 196
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 197
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 198
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 199
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 200
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 201
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 202
+    },
+    {
+      "name": "GLOBAL_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Global Descriptive Flexfield: segment of the global descriptive flexfield.",
+      "column_order": 203
+    },
+    {
+      "name": "PARTITION_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 204
+    },
+    {
+      "name": "PERIOD_NAME_INTERIM",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 205
+    },
+    {
+      "name": "ACCOUNT_SEGMENT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Natural Account segment value for the journal to be imported. Oracle internal use only.",
+      "column_order": 206
+    }
+  ]
+}

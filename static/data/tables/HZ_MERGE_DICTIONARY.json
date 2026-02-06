@@ -1,0 +1,227 @@
+{
+  "id": 31419,
+  "name": "HZ_MERGE_DICTIONARY",
+  "type": "TABLE",
+  "description": "The HZ_MERGE_DICTIONARY table stores information about the tables affected by a party merge. This table is used by the party merge concurrent program.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/hzmergedictionary-23467.html#hzmergedictionary-23467",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "MERGE_DICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Sequence generated id to uniquely identify a record in the Dictionary",
+      "column_order": 1
+    },
+    {
+      "name": "APPLICATION_USAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "This column is to store usage information. Usage is a layer that ties the objects with same business context together. The objects that have the same usage will be processed in the same transaction. To ensure uniqueness, consuming teams need to prefix usage names with <ProductCode>_<LBA>",
+      "column_order": 2
+    },
+    {
+      "name": "FETCH_RECORD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "This column is used to indicate if consumer wants TCH PL/SQL runtime to query its table and pass the records to its routine or not. If this flag set to Y, TCH PL/SQL runtime will query the records from consumer's table based on the information specified in the HZ_MERGE_DICTIONARY and pass the record one by one to consumer routine. If this flag set to N, TCH PL/SQL runtime will not query the records from consumer's table. Consuming team's routine has full control of doing merge/transfer/other actions on their entity, including using bulk mode. The default behavior for this column is Y.",
+      "column_order": 3
+    },
+    {
+      "name": "RULE_SET_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the Rule Set. This will be seeded name for  Rel 1.  Users cannot alter the rule set value or create a new one.",
+      "column_order": 4
+    },
+    {
+      "name": "ENTITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the entity",
+      "column_order": 5
+    },
+    {
+      "name": "PARENT_ENTITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Name of the parent entity",
+      "column_order": 6
+    },
+    {
+      "name": "PK_COLUMN_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the Primary Key Column  for the entity",
+      "column_order": 7
+    },
+    {
+      "name": "FK_COLUMN_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Name of the Foreign Key Column  which links the entity to the parent",
+      "column_order": 8
+    },
+    {
+      "name": "DESC_COLUMN_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "The name of the columns that will be used in generating a description for the record. Used in generating reports and logs. Eg: PARTY_NAME for HZ_PARTIESCould also be a complex concatenation or decode statement.",
+      "column_order": 9
+    },
+    {
+      "name": "PROCEDURE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Procedure Type.  Values allowed : BC4J, PL/SQL",
+      "column_order": 10
+    },
+    {
+      "name": "PROCEDURE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "N",
+      "description": "Name of the Merge Procedure",
+      "column_order": 11
+    },
+    {
+      "name": "JOIN_CLAUSE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Where Clause to related parent and child entity",
+      "column_order": 12
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Short descriptive name for the entity. EG: 'Party' for HZ_PARTIES",
+      "column_order": 13
+    },
+    {
+      "name": "DICT_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Dictionary application identifier",
+      "column_order": 14
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 18
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "SEQUENCE_NO",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sequence of the entity for merge.",
+      "column_order": 20
+    },
+    {
+      "name": "BULK_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the records in this table are being handled in bulk by the merge procedure. 'Y' for tables where merge is handled in bulk. 'N' for others.",
+      "column_order": 21
+    },
+    {
+      "name": "FK_DATA_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Foreign key data type",
+      "column_order": 22
+    },
+    {
+      "name": "BATCH_MERGE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether merge procedure should be executed only once for a batch",
+      "column_order": 23
+    },
+    {
+      "name": "VALIDATE_PURGE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether purge validation should be skipped for an entity in the HZ Purge program.",
+      "column_order": 24
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 25
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 26
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 27
+    }
+  ]
+}

@@ -1,0 +1,795 @@
+{
+  "id": 27254,
+  "name": "FLA_SCHEDULE_HEADERS",
+  "type": "TABLE",
+  "description": "FLA_SCHEDULE_HEADERS contains schedule information at payment line and regime level for each transaction. Transactions can be BOOKING, REVISION, TERMINATION and EXPIRY.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flascheduleheaders-4493.html#flascheduleheaders-4493",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SCHEDULE_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "SCHEDULE_HEADER_ID. This is primary key for the table.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "LEASE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease detail identifier. It is referenced from FLA_LEASE_DETAILS table.",
+      "column_order": 3
+    },
+    {
+      "name": "VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Version number of the lease as captured in FLA_LEASE_DETAILS.",
+      "column_order": 4
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease identifier. It is referenced from FLA_LEASES_ALL table to indicate that the schedules header is pertaining to specific lease.",
+      "column_order": 5
+    },
+    {
+      "name": "PAYMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment number. Schedules are generated for this Payment Header.",
+      "column_order": 6
+    },
+    {
+      "name": "REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Regime code. This drives the accounting model and reporting for the lease.",
+      "column_order": 7
+    },
+    {
+      "name": "AMORTIZATION_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date from which the amortization schedule starts.",
+      "column_order": 8
+    },
+    {
+      "name": "AMORTIZATION_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date when the amortization schedule ends.",
+      "column_order": 9
+    },
+    {
+      "name": "NUMBER_OF_AMORTIZATION_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Number of days between Amortization start and end dates",
+      "column_order": 10
+    },
+    {
+      "name": "INTEREST_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Interest rate . It is derived from Discount rate index selected at lease level. This will be the interest rate for the regime.",
+      "column_order": 11
+    },
+    {
+      "name": "ADDER_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adder rate defined at lease level. This will be the adder rate set for the regime at Lease level.",
+      "column_order": 12
+    },
+    {
+      "name": "DAILY_COMPOUNDING_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Daily compounding interest rate for the Lease.",
+      "column_order": 13
+    },
+    {
+      "name": "LEASE_EXPENSE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "It contains one day expense rate in case of daily and one month rate in case of periodic.",
+      "column_order": 14
+    },
+    {
+      "name": "AMORTIZATION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "It contains one day amortization rate in case of daily and one month rate in case of periodic.",
+      "column_order": 15
+    },
+    {
+      "name": "FORECASTED_LIABILITY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Forecasted Liability Amount for the Payment.",
+      "column_order": 16
+    },
+    {
+      "name": "FORECASTED_FIN_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Forecasted Financial ROU Amount for the Payment Term.",
+      "column_order": 17
+    },
+    {
+      "name": "FORECASTED_OPER_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Forecasted Operating ROU Amount for the Payment Term.",
+      "column_order": 18
+    },
+    {
+      "name": "FORECASTED_RESERVE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Forecasted Reserve Amount for the Payment Term.",
+      "column_order": 19
+    },
+    {
+      "name": "FORECASTED_PAYMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Forecasted Payment Amount for the Payment Term.",
+      "column_order": 20
+    },
+    {
+      "name": "FORECASTED_INTEREST_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Forecasted Interest amount for the Payment Term.",
+      "column_order": 21
+    },
+    {
+      "name": "CLOSING_LIABILITY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Closing liability till amendement commencement date.",
+      "column_order": 22
+    },
+    {
+      "name": "CLOSING_FIN_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Closing Financial ROU till amendement commencement date.",
+      "column_order": 23
+    },
+    {
+      "name": "CLOSING_OPER_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Closing Operating ROU till amendement commencement date.",
+      "column_order": 24
+    },
+    {
+      "name": "CLOSING_PAYMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Closing payment till amendement commencement date.",
+      "column_order": 25
+    },
+    {
+      "name": "CLOSING_INTEREST_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Closing interest till amendement commencement date.",
+      "column_order": 26
+    },
+    {
+      "name": "ADJUSTED_LIABILITY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted liability as on amendement commencement date.",
+      "column_order": 27
+    },
+    {
+      "name": "ADJUSTED_FIN_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted Financial ROU as on amendement commencement date.",
+      "column_order": 28
+    },
+    {
+      "name": "ADJUSTED_OPER_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted Operating ROU as on amendement commencement date.",
+      "column_order": 29
+    },
+    {
+      "name": "ADJUSTED_RESERVE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted reserve amount for the payment term.",
+      "column_order": 30
+    },
+    {
+      "name": "GAIN_LOSS_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Calculated Gain or Loss as on amendment commencement date.",
+      "column_order": 31
+    },
+    {
+      "name": "CLOSING_EXPENSE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Closing lease expense amount till amendment commencement date.",
+      "column_order": 32
+    },
+    {
+      "name": "PRIOR_LIABILITY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Pre-amendment liability amount for the payment term.",
+      "column_order": 33
+    },
+    {
+      "name": "PRIOR_FIN_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Pre-amendment financial ROU amount for the payment term.",
+      "column_order": 34
+    },
+    {
+      "name": "PRIOR_OPER_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Pre-amendment operating ROU amount for the payment term.",
+      "column_order": 35
+    },
+    {
+      "name": "PRIOR_PAYMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Pre-amedment payment amount for the payment term.",
+      "column_order": 36
+    },
+    {
+      "name": "PRIOR_INTEREST_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Pre-amendment interest amount for the payment term.",
+      "column_order": 37
+    },
+    {
+      "name": "PRIOR_EXPENSE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Pre-amendment lease expense amount for the payment term.",
+      "column_order": 38
+    },
+    {
+      "name": "REDUCED_LIABILITY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reduction in liability amount due to scope reduction.",
+      "column_order": 39
+    },
+    {
+      "name": "REDUCED_FIN_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reduction in financial ROU amount due to scope reduction.",
+      "column_order": 40
+    },
+    {
+      "name": "REDUCED_OPER_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reduction in operating ROU amount due to scope reduction.",
+      "column_order": 41
+    },
+    {
+      "name": "REDUCED_PAYMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reduction in payment amount due to scope reduction.",
+      "column_order": 42
+    },
+    {
+      "name": "REDUCED_INTEREST_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reduction in interest amount due to scope reduction.",
+      "column_order": 43
+    },
+    {
+      "name": "REDUCED_EXPENSE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reduction in lease expense amount due to scope reduction.",
+      "column_order": 44
+    },
+    {
+      "name": "PERCENTAGE_OF_REDUCTION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reduction in ROU or Liability. This would be based on reduction in time, usage or liability.",
+      "column_order": 45
+    },
+    {
+      "name": "TRANSACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Transaction type. Possible values are BOOKING,REVISION or TERMINATION.",
+      "column_order": 46
+    },
+    {
+      "name": "TRANSACTION_SUBTYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Transaction sub type. Possible values are SCOPE_INCREASE, SCOPE_DECREASE, SCOPE_NO_CHANGE, EDIT and so forth for a REVISION transaction type.",
+      "column_order": 47
+    },
+    {
+      "name": "REVERSAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Reversal flag which indicates if the transaction is reversed or pending for reversal.",
+      "column_order": 48
+    },
+    {
+      "name": "LEASE_CLASSIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the lease classification. Possible values are Finance Lease, Operating Lease.",
+      "column_order": 49
+    },
+    {
+      "name": "ADJUSTMENT_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates start date of the amendment entries.",
+      "column_order": 50
+    },
+    {
+      "name": "TRANSACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates the Transaction date. This will be used to derive the Catchup amounts.",
+      "column_order": 51
+    },
+    {
+      "name": "ACCOUNTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate that the accounting is processed.",
+      "column_order": 52
+    },
+    {
+      "name": "ACTIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Active flag. Tells if the schedule header is active or not.",
+      "column_order": 53
+    },
+    {
+      "name": "PARENT_RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "It contains parent booking or amendement schedule header primary key.",
+      "column_order": 54
+    },
+    {
+      "name": "REGENERATE_SCHEDULES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Regenerate schedules flag. If the flag is set then the schedules need to be regenerated.",
+      "column_order": 55
+    },
+    {
+      "name": "AMORTIZATION_PRORATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Proration method to identify the number of days to consider per month to prorate the amount",
+      "column_order": 56
+    },
+    {
+      "name": "LAST_ACCRUED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date till which the last accrual was run.",
+      "column_order": 57
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 58
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 59
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 60
+    },
+    {
+      "name": "FINAL_FIN_ACCRUED_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Final financial Right of use accrued amount as of closing.",
+      "column_order": 61
+    },
+    {
+      "name": "FINAL_OPER_ACCRUED_ROU_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Final operating Right of use accrued amount as of closing.",
+      "column_order": 62
+    },
+    {
+      "name": "TRANSFER_BALANCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Transfer balance flag indicates if the payment balance or option balance has been transferred to the linked payment.",
+      "column_order": 63
+    },
+    {
+      "name": "END_OF_TERM_TRANSFER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "End of term transfer flag indicates if the transfer of balance is at the end of the payment or option term.",
+      "column_order": 64
+    },
+    {
+      "name": "PARENT_TRANSFER_RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This stores the parent payment or option record from which transfer of balance was processed.",
+      "column_order": 65
+    },
+    {
+      "name": "EXPIRATION_TRANSACTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Expiration transaction flag indicates if the termination transaction is during an expiration of lease or asset.",
+      "column_order": 66
+    },
+    {
+      "name": "HEADER_BALANCE_SYNC_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the schedule balances were synced up.",
+      "column_order": 67
+    },
+    {
+      "name": "LAST_PAYMENT_SYNC_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the last payment was synced up.",
+      "column_order": 68
+    },
+    {
+      "name": "LAST_ACCRUAL_SYNC_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the last accrual was synced up.",
+      "column_order": 69
+    },
+    {
+      "name": "CONTINGENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Contingent amount captured for the payment.",
+      "column_order": 70
+    },
+    {
+      "name": "CONTINGENT_ONLY_IMPACT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates contingent amount is impacted.",
+      "column_order": 71
+    },
+    {
+      "name": "SCHEDULING_VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Version of the schedule generation.",
+      "column_order": 72
+    },
+    {
+      "name": "TOT_FORECAST_LIABILITY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total forecasted liability amount. This is the unrounded amount.",
+      "column_order": 73
+    },
+    {
+      "name": "LAST_RECLASS_ACCRUED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Attribute indicating date till which the last liability reclassification was run.",
+      "column_order": 74
+    },
+    {
+      "name": "VENDOR_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Attribute indicating the Supplier site identifier.",
+      "column_order": 75
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Attribute indicating payment currency code.",
+      "column_order": 76
+    },
+    {
+      "name": "REVENUE_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the method for spread of generated revenue, valid values are lease revenue and non lease revenue.",
+      "column_order": 77
+    },
+    {
+      "name": "SCHEDULE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates the type of schedule, valid values are PAYMENT and BILLING.",
+      "column_order": 78
+    },
+    {
+      "name": "BILL_TO_CUSTOMER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill to customer identifier for the billing.",
+      "column_order": 79
+    },
+    {
+      "name": "BILL_TO_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill to customer site use identifier.",
+      "column_order": 80
+    },
+    {
+      "name": "SHIP_TO_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ship to customer site use identifier.",
+      "column_order": 81
+    },
+    {
+      "name": "SCOPE_CHANGE_BASIS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Scope change method for the lease. Values can be Unit based percentage and Liability based percentage.",
+      "column_order": 82
+    },
+    {
+      "name": "UNITS_CONSUMED",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Number of units of the asset being considered on lease.",
+      "column_order": 83
+    },
+    {
+      "name": "UNIT_OF_MEASURE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Attribute indicating unit of measure used for the asset.",
+      "column_order": 84
+    },
+    {
+      "name": "LAST_PAYMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last date of the payment. This is derived based on the payment lines.",
+      "column_order": 85
+    },
+    {
+      "name": "END_OF_DAY_PAYMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates the present value to be calculated at the end of the day for the payment.",
+      "column_order": 86
+    },
+    {
+      "name": "INTEREST_COMPOUNDING_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Number of interest compounding days.",
+      "column_order": 87
+    },
+    {
+      "name": "SIMPLE_INTEREST_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Simple interest rate derived based on discount rate provided.",
+      "column_order": 88
+    },
+    {
+      "name": "INTEREST_COMPOUNDING_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Interest compounding method. Possible values are DAILY and MONTHLY.",
+      "column_order": 89
+    },
+    {
+      "name": "FIN_ROU_GROSS_BALANCE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Finance right of use gross balance amount for migrated leases.",
+      "column_order": 90
+    },
+    {
+      "name": "OPER_ROU_GROSS_BALANCE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Operating right of use gross balance amount for migrated leases.",
+      "column_order": 91
+    },
+    {
+      "name": "FINANCE_ACCUM_AMORT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Finance right of use accumulated amortization amount for migrated leases.",
+      "column_order": 92
+    },
+    {
+      "name": "OPERATING_ACCUM_AMORT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Operating right of use accumulated amortization amount for migrated leases.",
+      "column_order": 93
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 94
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 95
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 96
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 97
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 98
+    }
+  ]
+}

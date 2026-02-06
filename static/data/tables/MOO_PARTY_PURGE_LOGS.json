@@ -1,0 +1,99 @@
+{
+  "id": 32954,
+  "name": "MOO_PARTY_PURGE_LOGS",
+  "type": "TABLE",
+  "description": "After GDPR uptake, ESS purge job will be removing all the references of purged accounts and contacts from the transaction table of Opportunity, Lead, Sales Order, Activities and Notes.\n\nWe need to maintain a traceability to understand which all records in our tables had undergone an update during Account or Contact purge. This will help us to debug any issue that the customer reports, if they see that any contact/account that was associated to the consuming object has been wiped off.\n\nTo maintain traceability, this table is introduced, which will just record the details/primary key of the transaction record that has underwent the change",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/moopartypurgelogs-7191.html#moopartypurgelogs-7191",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PARTY_PURGE_LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique primary key identifier for the party purge log records.",
+      "column_order": 1
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 2
+    },
+    {
+      "name": "OBJECT_TABLE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "N",
+      "description": "Indicates the table name of the object getting updated during party purge process. eg: MOO_OPTY.",
+      "column_order": 3
+    },
+    {
+      "name": "OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of the object that's being updated during party purge. eg: OPTY_ID.",
+      "column_order": 4
+    },
+    {
+      "name": "PURGE_OBJECT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "Indicates the party type that is getting updated during purge. It can have two values ORA_ACCOUNTS, ORA_CONTACTS.",
+      "column_order": 5
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 11
+    }
+  ]
+}

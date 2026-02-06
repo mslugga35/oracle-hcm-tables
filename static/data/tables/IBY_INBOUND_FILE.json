@@ -1,0 +1,219 @@
+{
+  "id": 28915,
+  "name": "IBY_INBOUND_FILE",
+  "type": "TABLE",
+  "description": "Stores files received from external payment systems such as payment acknowledgments or bank statements.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibyinboundfile-30056.html#ibyinboundfile-30056",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INBOUND_FILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System-generated primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "INBOUND_FILE",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Inbound file contents as a BLOB. In encrypted form if encryption is turned on.",
+      "column_order": 2
+    },
+    {
+      "name": "PROCESSING_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Processing status for the inbound file. Values taken from lookup: IBY_INB_FILE_PROC_STATUS",
+      "column_order": 3
+    },
+    {
+      "name": "FORMAT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Format type of the inbound file.",
+      "column_order": 4
+    },
+    {
+      "name": "FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Format of the inbound file.",
+      "column_order": 5
+    },
+    {
+      "name": "BEPID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment system that the inbound file is pulled from.",
+      "column_order": 6
+    },
+    {
+      "name": "TRANSMIT_CONFIG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transmission configuration used for retrieving or receiving the file from the payment system.",
+      "column_order": 7
+    },
+    {
+      "name": "TRADING_PARTNER_FILE_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "String identifier assigned by the payment system to uniquely identify an inbound file for a time period. For payment acknowledgment this maps to MessageIdentification field in ISO PaymentStatusReportV02.",
+      "column_order": 8
+    },
+    {
+      "name": "TRADING_PARTNER_FILE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date/Time stamped on the inbound file by the trading partner.",
+      "column_order": 9
+    },
+    {
+      "name": "FILE_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "File path on remote system for FTP protocol family or file path on local file system for local file.  This is not the user-entered parameter, but the actual evaluated value used by the communication component to retrieve the file.",
+      "column_order": 10
+    },
+    {
+      "name": "FILE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Electronic bank statement file name.",
+      "column_order": 11
+    },
+    {
+      "name": "FILE_LENGTH",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Length of the file.",
+      "column_order": 12
+    },
+    {
+      "name": "ENCRYPTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if payload is encrypted.",
+      "column_order": 13
+    },
+    {
+      "name": "COMPRESSED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if payload is compressed",
+      "column_order": 14
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 15
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 18
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 20
+    },
+    {
+      "name": "ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Error message.",
+      "column_order": 21
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "CES_FLOW_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Code of the flow identified by Oracle Connected Partners.",
+      "column_order": 23
+    },
+    {
+      "name": "CES_SUBFLOW_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Code of the sub flow identified by Oracle Connected Partners.",
+      "column_order": 24
+    },
+    {
+      "name": "CES_VENDOR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Code of the partner stored within Oracle Connected Partners.",
+      "column_order": 25
+    },
+    {
+      "name": "UCM_DOC_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Identifier of the document uploaded within Oracle Universal Content Management.",
+      "column_order": 26
+    }
+  ]
+}

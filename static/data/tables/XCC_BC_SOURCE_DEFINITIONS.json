@@ -1,0 +1,251 @@
+{
+  "id": 26763,
+  "name": "XCC_BC_SOURCE_DEFINITIONS",
+  "type": "TABLE",
+  "description": "This table stores the configuration of how transaction types, actions affect budgetary control balances",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/xccbcsourcedefinitions-16893.html#xccbcsourcedefinitions-16893",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TRANSACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Transaction type defined for budgetary control",
+      "column_order": 1
+    },
+    {
+      "name": "SOURCE_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Represents an action performed on a Transaction (e.g. Approve).",
+      "column_order": 2
+    },
+    {
+      "name": "RESERVATION_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The reservation category used for that specific action and transaction type. It is the same as the column name in the balances table. It refers to a lookup that would provide a label for reporting.",
+      "column_order": 3
+    },
+    {
+      "name": "BUSINESS_FLOW_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Represents the Business Flow such as Ledger, Procure To Pay, Project Portfolio Management.",
+      "column_order": 4
+    },
+    {
+      "name": "BUSINESS_FUNCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Represents a Business Function.",
+      "column_order": 5
+    },
+    {
+      "name": "BC_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Budgetary control action such as reserve or check.",
+      "column_order": 6
+    },
+    {
+      "name": "BUCKET_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bucket code to which the resulting budgetary action will post the amount to. It has the same name as the column name in the balances table and it refers to a lookup which can then be used as a reporting label.",
+      "column_order": 7
+    },
+    {
+      "name": "FORCE_PASS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes/No Flag to indicate whether or not to run that budgetary control action in force pass mode (i.e. won't block even if there isn't enough Funds available).",
+      "column_order": 8
+    },
+    {
+      "name": "EXTRACT_VIEW_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the database view that is used to extract the transaction information needed to budgetary control a transaction.",
+      "column_order": 9
+    },
+    {
+      "name": "BURDENING_EXTRACT_VIEW_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Name of the database view that is used to extract the burdening information needed to budgetary control a project transaction.",
+      "column_order": 10
+    },
+    {
+      "name": "REVERSE_SIGN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether or not we need to flip the amount sign.It is a Yes/No flag.",
+      "column_order": 11
+    },
+    {
+      "name": "BACKING_TRANSACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code of the backing transaction type.",
+      "column_order": 12
+    },
+    {
+      "name": "LIQUIDATION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code indicating the type of liquidation (e.g. None, Full or Safe liquidation).",
+      "column_order": 13
+    },
+    {
+      "name": "RELEASE_UNLIQUIDATED_AMT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes/No flag for non liquidated amount processing.",
+      "column_order": 14
+    },
+    {
+      "name": "MULTI_BU_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Multi Business Unit indicator. It is a Yes/No flag.",
+      "column_order": 15
+    },
+    {
+      "name": "USE_BUDGET_DATE_FOR_UNDO_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Code to indicate whether or not to use the budget date for undo processing. It is a Yes/No flag.",
+      "column_order": 16
+    },
+    {
+      "name": "PRE_BC_HOOK_API_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 61,
+      "nullable": "Y",
+      "description": "Name of the API to be called by the Budgetary Control Engine prior to perform any action.",
+      "column_order": 17
+    },
+    {
+      "name": "POST_BC_HOOK_API_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 61,
+      "nullable": "Y",
+      "description": "Name of the API to be called by the Budgetary Control Engine after performing the requested action.",
+      "column_order": 18
+    },
+    {
+      "name": "FAILURE_BC_HOOK_API_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 61,
+      "nullable": "Y",
+      "description": "Name of the API to be called by the Budgetary Control Engine in case of failure.",
+      "column_order": 19
+    },
+    {
+      "name": "REPROCESS_POST_HOOK_API_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 61,
+      "nullable": "Y",
+      "description": "Name of API to be called by the budgetary control engine after reprocessing.",
+      "column_order": 20
+    },
+    {
+      "name": "FAIL_UPON_CLOSE_PENDING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the budgetary control should fail when the control budget's period status is Close Pending.",
+      "column_order": 21
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 22
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 23
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 27
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 28
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 29
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 30
+    }
+  ]
+}

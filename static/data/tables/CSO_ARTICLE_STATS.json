@@ -1,0 +1,211 @@
+{
+  "id": 32244,
+  "name": "CSO_ARTICLE_STATS",
+  "type": "TABLE",
+  "description": "This table will be populated hourly and daily from cso_stg_article_view. In the future we plan to add counts from ratings and recommendations. Hourly rollup will be deleted at the end of every day once the day ends. At the end of every month, older daily rollup data will be purged.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/csoarticlestats-10006.html#csoarticlestats-10006",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ARTICLE_STATS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key of the table. Populated by sequence number.",
+      "column_order": 1
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 2
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 7
+    },
+    {
+      "name": "INTERFACE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique ID for the interface. Will be used to identify an HR view from a Service view.",
+      "column_order": 8
+    },
+    {
+      "name": "ANSWER_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "A way to uniquely identify an article by locale ID and content ID.",
+      "column_order": 9
+    },
+    {
+      "name": "ARTICLE_VIEW_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article view count based on answer ID.",
+      "column_order": 10
+    },
+    {
+      "name": "CASELINK_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The number of caselinks based on answer ID.",
+      "column_order": 11
+    },
+    {
+      "name": "PUBLISHED_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The number of articles published based on answer ID.",
+      "column_order": 12
+    },
+    {
+      "name": "RATING_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating count based on answer ID.",
+      "column_order": 13
+    },
+    {
+      "name": "RATING_01_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating count with a value of one based on answer ID.",
+      "column_order": 14
+    },
+    {
+      "name": "RATING_02_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating count with a value of two based on answer ID.",
+      "column_order": 15
+    },
+    {
+      "name": "RATING_03_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating count with a value of three based on answer ID.",
+      "column_order": 16
+    },
+    {
+      "name": "RATING_04_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating count with a value of four based on answer ID.",
+      "column_order": 17
+    },
+    {
+      "name": "RATING_05_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating count with a value of five based on answer ID.",
+      "column_order": 18
+    },
+    {
+      "name": "THUMBS_UP_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating count with a value of thumbs up based on answer ID.",
+      "column_order": 19
+    },
+    {
+      "name": "THUMBS_DOWN_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating count with a value of thumbs down based on answer ID.",
+      "column_order": 20
+    },
+    {
+      "name": "RATING_SUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The article rating sum based on answer ID.",
+      "column_order": 21
+    },
+    {
+      "name": "VERSION_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The number of versions based on answer ID.",
+      "column_order": 22
+    },
+    {
+      "name": "STAT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The date the stats occurred in DDMMYYYY format.",
+      "column_order": 23
+    },
+    {
+      "name": "STAT_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Applicable for window=1 and represents the HOUR of the DAY for which the data belongs to.",
+      "column_order": 24
+    },
+    {
+      "name": "WINDOW",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "1-hourly, 2-daily, 3-monthly (rollup strategy).",
+      "column_order": 25
+    }
+  ]
+}

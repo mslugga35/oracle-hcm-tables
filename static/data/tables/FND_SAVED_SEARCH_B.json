@@ -1,0 +1,219 @@
+{
+  "id": 35451,
+  "name": "FND_SAVED_SEARCH_B",
+  "type": "TABLE",
+  "description": "The primary table for storing Saved Searches.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/fndsavedsearchb-4731.html#fndsavedsearchb-4731",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SAVED_SEARCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "SAVED_SEARCH_ID - Unique internal id for primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "SAVED_SEARCH_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "SAVED_SEARCH_CODE - A Unique code for the saved searches.",
+      "column_order": 2
+    },
+    {
+      "name": "SEARCH_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "SEARCH_TYPE: The type of saved search.  Values 'SAVED' and 'RECENT'.",
+      "column_order": 3
+    },
+    {
+      "name": "VERSION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "VERSION - Semantic version of the saved search object.",
+      "column_order": 4
+    },
+    {
+      "name": "CONTEXT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "CONTEXT_CODE - A striping attribute that keeps one set of saved searches distinct from another.\n\nExample: 'CRM', 'HCM'",
+      "column_order": 5
+    },
+    {
+      "name": "OBJECT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "OBJECT_TYPE - a sub classification of CONTEXT_CODE for striping saved searches.",
+      "column_order": 6
+    },
+    {
+      "name": "APPLIED_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "APPLIED_TYPE - The level the saved search will be applied to - one of:\nUSER - a USER Saved Search.  The username will be in the APPLIED_NAME field.\nROLE - a Saved search for users with a given Role.  The role will be in he APPLIED_NAME field.\nSYSTEM - a system saved search, all users will see it.  The APPLIED_NAME field will contain 'SYSTEM'.",
+      "column_order": 7
+    },
+    {
+      "name": "APPLIED_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "N",
+      "description": "APPLIED_NAME - Who saved search be applied to - dependent on the APPLIED_TYPE.",
+      "column_order": 8
+    },
+    {
+      "name": "OWNER_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "OWNER_TYPE - The owner type of the saved search - one of:\nUSER - a USER Saved Search.  The username will be in the OWNER_NAME field.\nROLE - a Saved search for users with a given Role.  The role will be in he OWNER_NAME field.\nSYSTEM - a system saved search, all users will see it.  The OWNER_NAME field will contain 'SYSTEM'.",
+      "column_order": 9
+    },
+    {
+      "name": "OWNER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "N",
+      "description": "OWNER_NAME - dependent on the OWNER_TYPE.",
+      "column_order": 10
+    },
+    {
+      "name": "ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "ENABLED_FLAG - Is this saved search enabled (Y/N).",
+      "column_order": 11
+    },
+    {
+      "name": "DEFAULT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "DEFAULT_FLAG - Is this the default Saved Search?  The USER saved search will be run in preference to a default ROLE or SYSTEM saved search.",
+      "column_order": 12
+    },
+    {
+      "name": "VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "VISIBLE_FLAG - Is the Saved Search shown in UI to users?",
+      "column_order": 13
+    },
+    {
+      "name": "AUTO_RUN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "AUTO_RUN_FLAG - Is the Saved Search automatically executed?  Some saved searches should not be run blind and require users to provide keywords before execution.",
+      "column_order": 14
+    },
+    {
+      "name": "SAVED_SEARCH",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "N",
+      "description": "SAVED_SEARCH - A CLOB of data representing the saved search.",
+      "column_order": 15
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 16
+    },
+    {
+      "name": "USER_DATA",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "USER_DATA - Provides optional ability to store additional user data about the saved search.",
+      "column_order": 17
+    },
+    {
+      "name": "MODULE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Seed Data Framework: indicates the module that owns the row. A module is an entry in Application Taxonomy such as a Logical Business Area. When the MODULE_ID column exists and the owner of the row is not specified, then the Seed Data Framework will not extract the row as seed data.",
+      "column_order": 18
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 19
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 20
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 21
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Seed data file from which the row originates.",
+      "column_order": 24
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 25
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 26
+    }
+  ]
+}

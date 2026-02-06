@@ -1,0 +1,171 @@
+{
+  "id": 26434,
+  "name": "IEX_DUN_CONF_DETAILS_",
+  "type": "TABLE",
+  "description": "Stores dunning configuration details.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/iexdunconfdetails-11535.html#iexdunconfdetails-11535",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DUNNING_CONF_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "TEMPLATE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "The template name of the dunning letter.",
+      "column_order": 2
+    },
+    {
+      "name": "DUNNING_PLAN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to IEX_DUNNING_PLANS.\nWhich dunning plan this detail belongs to.",
+      "column_order": 3
+    },
+    {
+      "name": "XDO_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to XDO_TEMPLATES.\nWhat letter template is used by this plan detail.",
+      "column_order": 4
+    },
+    {
+      "name": "AGING_BUCKET_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to AR_AGING_BUCKET_LINES\nThis column is mutually exclusive with column stage_number. Only one will have a value, the other will be null.\nThis represents what aging bucket this dunning detail is used against. If the oldest invoice of a customer falls in this aging bucket then the dunning letter stored here will be sent.",
+      "column_order": 5
+    },
+    {
+      "name": "STAGE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to AR_AGING_BUCKET_LINES\nThis column is mutually exclusive with column aging_bucket_line_id. Only one will have a value, the other will be null.\nThis represents the stage of the customer's delinquencies, a stage is kept for every delinquent payment schedule, if the oldest invoice of a custemer is on the stage then the letter template stored here will be sent to the customer.",
+      "column_order": 6
+    },
+    {
+      "name": "CALLBACK_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Valid values are 'Y' and 'N' and null, null means 'N'.\nThis indicates if a follow up call should be automatically created by the application if the delinquency is not cured after the letter is received.",
+      "column_order": 7
+    },
+    {
+      "name": "CALLBACK_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Number of days to wait before creating a follow up call for a collector to call a delinquent customer.",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 14
+    },
+    {
+      "name": "SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies a set of reference data shared across business units and other entities. Also known as Reference Data Sets, they are used to filter reference data in transactional UIs.",
+      "column_order": 15
+    },
+    {
+      "name": "WAIT_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of days to wait before the system sends the next set of dunning letters.",
+      "column_order": 16
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 17
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 18
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 19
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 20
+    }
+  ]
+}

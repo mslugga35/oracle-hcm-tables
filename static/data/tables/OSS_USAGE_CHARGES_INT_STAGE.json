@@ -1,0 +1,819 @@
+{
+  "id": 34132,
+  "name": "OSS_USAGE_CHARGES_INT_STAGE",
+  "type": "TABLE",
+  "description": "This table is used as a template for the stage table for importing usage charges.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ossusagechargesintstage-22488.html#ossusagechargesintstage-22488",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Import Batch Id, every batch of data being imported should be assigned a batch id.",
+      "column_order": 1
+    },
+    {
+      "name": "EVENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Event number to capture PUID of usage event.",
+      "column_order": 2
+    },
+    {
+      "name": "INTERFACE_ROW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for a record within a batch, source system should populate this.",
+      "column_order": 3
+    },
+    {
+      "name": "IMPORT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of row in the interface table, source system should leave this as null.",
+      "column_order": 4
+    },
+    {
+      "name": "FILE_RECORD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Used by import utility to relate the record in interface table to the file row.",
+      "column_order": 5
+    },
+    {
+      "name": "ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code specifying the action for the import for e.g., INSERT, UPDATE or NULL.",
+      "column_order": 6
+    },
+    {
+      "name": "INTERNAL_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Used internally by the bulk import ODI program.",
+      "column_order": 7
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 8
+    },
+    {
+      "name": "FILE_NAME_SYSTASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Save the individual sys task id for each input csv file.",
+      "column_order": 9
+    },
+    {
+      "name": "ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "This column would be populated when there is any error.",
+      "column_order": 10
+    },
+    {
+      "name": "USAGE_CHARGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for usage charge.",
+      "column_order": 11
+    },
+    {
+      "name": "USAGE_CHARGE_PUID",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Alternate identifier for usage charge.",
+      "column_order": 12
+    },
+    {
+      "name": "PARTITION_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "Identifier for the partition in the usage charge table.",
+      "column_order": 13
+    },
+    {
+      "name": "USAGE_EVENT_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tracks the batch id for given usage charge.",
+      "column_order": 14
+    },
+    {
+      "name": "EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field  used to capture, primary key of usage event.",
+      "column_order": 15
+    },
+    {
+      "name": "SUBSCRIPTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Usage chages for source subscription.",
+      "column_order": 16
+    },
+    {
+      "name": "SUBSCRIPTION_PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Usage charges for source subscription product.",
+      "column_order": 17
+    },
+    {
+      "name": "CHARGE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Field used to capture subscription product charge id.",
+      "column_order": 18
+    },
+    {
+      "name": "BILL_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of bill line Id for usage changes.",
+      "column_order": 19
+    },
+    {
+      "name": "SEQUENCE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "source system price sequence number of usage charge.",
+      "column_order": 20
+    },
+    {
+      "name": "CHARGE_DEFINITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source system Usage chage source identifier.",
+      "column_order": 21
+    },
+    {
+      "name": "CHARGE_DEFINITION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source system charge definition of usage charge.",
+      "column_order": 22
+    },
+    {
+      "name": "CHARGE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "source system charge name of usage charge.",
+      "column_order": 23
+    },
+    {
+      "name": "CHARGE_CURRENCY",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Source system charge currency of usage charge.",
+      "column_order": 24
+    },
+    {
+      "name": "PARENT_ENTITY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source system parent entity of usage charge.",
+      "column_order": 25
+    },
+    {
+      "name": "PARENT_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source system parent entity id of usage charge.",
+      "column_order": 26
+    },
+    {
+      "name": "PRICED_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Field  used to capture, price quantity of usage charge.",
+      "column_order": 27
+    },
+    {
+      "name": "PRICED_QUANTITY_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "price quantity uom of usage charge.",
+      "column_order": 28
+    },
+    {
+      "name": "UNIT_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This field tracks the unit price of usage charge.",
+      "column_order": 29
+    },
+    {
+      "name": "EXTENDED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "calculated charge amount of usage charge.",
+      "column_order": 30
+    },
+    {
+      "name": "BALANCE_PROFILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field used to capture balance profile id.",
+      "column_order": 31
+    },
+    {
+      "name": "BALANCE_REGISTER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field used to capture balance register.",
+      "column_order": 32
+    },
+    {
+      "name": "BALANCE_REGISTER_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field used to capture balance register period.",
+      "column_order": 33
+    },
+    {
+      "name": "BALANCE_CODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field used to capture balance code.",
+      "column_order": 34
+    },
+    {
+      "name": "REPORTED_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Field used to capture reported quantity.",
+      "column_order": 35
+    },
+    {
+      "name": "ROUNDED_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Field used to capture rounded quantity.",
+      "column_order": 36
+    },
+    {
+      "name": "USAGE_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Field used to capture usage quantity.",
+      "column_order": 37
+    },
+    {
+      "name": "ALLOWANCE_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Field used to capture allowance quantity.",
+      "column_order": 38
+    },
+    {
+      "name": "USAGE_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Field used to capture usage usint of measure.",
+      "column_order": 39
+    },
+    {
+      "name": "CHARGE_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field used to capture balance charge line.",
+      "column_order": 40
+    },
+    {
+      "name": "ALLOWANCE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Field used to capture allowance amount.",
+      "column_order": 41
+    },
+    {
+      "name": "BILLED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Field used to capture billed amount.",
+      "column_order": 42
+    },
+    {
+      "name": "AMOUNT_BALANCE_CODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field used to capture amount balance code id.",
+      "column_order": 43
+    },
+    {
+      "name": "BALANCE_ESTIMATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field used to capture balance estimated id.",
+      "column_order": 44
+    },
+    {
+      "name": "BALANCE_COMMITMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Field used to capture balance commitment id.",
+      "column_order": 45
+    },
+    {
+      "name": "ADJUSTED_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "It records the adjusted quantity for the given usage charge.",
+      "column_order": 46
+    },
+    {
+      "name": "ADJUSTED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "It records the adjusted amount for the given usage charge.",
+      "column_order": 47
+    },
+    {
+      "name": "RATING_MODEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "This column indicates the rating model used for the given usage charge.",
+      "column_order": 48
+    },
+    {
+      "name": "AMOUNT_BALANCE_ESTIMATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Captures the identifier of the estimate line of type amount.",
+      "column_order": 49
+    },
+    {
+      "name": "AMOUNT_BALANCE_COMMITMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Captures the identifier of the commitment line of type amount.",
+      "column_order": 50
+    },
+    {
+      "name": "CAN_ADJUST_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to denote whether adjustment can be done or not.",
+      "column_order": 51
+    },
+    {
+      "name": "CHARGE_APPLIES_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type to which charge is applied.",
+      "column_order": 52
+    },
+    {
+      "name": "CHARGE_SUBTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Subtype corresponding to charges.",
+      "column_order": 53
+    },
+    {
+      "name": "CHARGE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type corresponding to charges.",
+      "column_order": 54
+    },
+    {
+      "name": "REC_PRICE_PERIODICITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Price Periodicity for recurring charge return by pst.",
+      "column_order": 55
+    },
+    {
+      "name": "PRICE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type corresponding to the price.",
+      "column_order": 56
+    },
+    {
+      "name": "ROLLUP_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to denote whether amount roll up needs to be done or not.",
+      "column_order": 57
+    },
+    {
+      "name": "PRIMARY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to denote if charge is primary charge or not.",
+      "column_order": 58
+    },
+    {
+      "name": "CHARGE_PERIOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Field used to capture charge period code.",
+      "column_order": 59
+    },
+    {
+      "name": "PERIODIC_BILLING_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Enable Periodic Billing For OneTime Charges.",
+      "column_order": 60
+    },
+    {
+      "name": "PERIODIC_RECOGNITION_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Enable Periodic Recognition of One-Time Charges.",
+      "column_order": 61
+    },
+    {
+      "name": "USER_REPORTED_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "To specify the unit of measurement used by a user when reporting data, ensuring accurate interpretation and processing of the reported information.",
+      "column_order": 62
+    },
+    {
+      "name": "USER_REPORTED_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "To record the specific amount or count of an item, usage, or activity as reported by the user.",
+      "column_order": 63
+    },
+    {
+      "name": "CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "To provide a multiplier for converting a quantity from one unit of measure to another.",
+      "column_order": 64
+    },
+    {
+      "name": "CHARGE_DETERMINANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This field tracks the identifier of charge determinant for usage charge.",
+      "column_order": 65
+    },
+    {
+      "name": "DETERMINANT_BALANCE_CODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This field tracks the identifier of charge determinant balance code for usage charge.",
+      "column_order": 66
+    },
+    {
+      "name": "VOL_AGGR_BALANCE_CODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This field tracks the identifier of balance code which is setup for aggregated summarized volume rating.",
+      "column_order": 67
+    },
+    {
+      "name": "VOL_ELIGIBLE_BALANCE_CODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This field tracks the identifier of balance code which is eligible for volume rating.",
+      "column_order": 68
+    },
+    {
+      "name": "RATING_CHARGE_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "This field tracks the identifier of rating charge line associated with the usage charge.",
+      "column_order": 69
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 70
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 71
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 72
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 73
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 74
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 75
+    },
+    {
+      "name": "BATCH_TAG",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "User defined value which determines whether the record is in inconsistent state and has to be rectified.",
+      "column_order": 76
+    },
+    {
+      "name": "ERROR_TXT_01",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 77
+    },
+    {
+      "name": "ERROR_TXT_02",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 78
+    },
+    {
+      "name": "ERROR_TXT_03",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 79
+    },
+    {
+      "name": "ERROR_TXT_04",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 80
+    },
+    {
+      "name": "ERROR_TXT_05",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 81
+    },
+    {
+      "name": "ERROR_TXT_06",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 82
+    },
+    {
+      "name": "ERROR_TXT_07",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 83
+    },
+    {
+      "name": "ERROR_TXT_08",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 84
+    },
+    {
+      "name": "ERROR_TXT_09",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 85
+    },
+    {
+      "name": "ERROR_TXT_10",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 86
+    },
+    {
+      "name": "ERROR_TXT_11",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 87
+    },
+    {
+      "name": "ERROR_TXT_12",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 88
+    },
+    {
+      "name": "ERROR_TXT_13",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 89
+    },
+    {
+      "name": "ERROR_TXT_14",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 90
+    },
+    {
+      "name": "ERROR_TXT_15",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 91
+    },
+    {
+      "name": "ERROR_TXT_16",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 92
+    },
+    {
+      "name": "ERROR_TXT_17",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 93
+    },
+    {
+      "name": "ERROR_TXT_18",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 94
+    },
+    {
+      "name": "ERROR_TXT_19",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 95
+    },
+    {
+      "name": "ERROR_TXT_20",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 96
+    },
+    {
+      "name": "ERROR_TXT_21",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 97
+    },
+    {
+      "name": "ERROR_TXT_22",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 98
+    },
+    {
+      "name": "ERROR_TXT_23",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 99
+    },
+    {
+      "name": "ERROR_TXT_24",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 100
+    },
+    {
+      "name": "ERROR_TXT_25",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Column reserved for storing errors.",
+      "column_order": 101
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": 33520,
+  "name": "ZOE_OL_SSS_REQUESTS",
+  "type": "TABLE",
+  "description": "This table stores the snapshots created for 'requestSnapshot' calls and returns the saved snapshots for every 'querySnapshot' call.\nFor a given 'requestSnapshot' call, it may create multiple snapshot records and the snapshots are maintained using the same Guid but with different sequence numbers. \nThe status, write and read positions of each 'requestSnapshot' call are maintained in a special row called base row of the table for which the sequence=-1  \nThe snaphots are maintained in this table only for the life time of a snapshot request-response(one requestSnapshot call and many querySnapshot calls).\nAll the snapshot entries for a given 'requestSnapshot' call would be removed once all the snapshots are read/retrived using the 'querySnapshot' calls.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zoeolsssrequests-9744.html#zoeolsssrequests-9744",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SNAPSHOT_GUID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Guid of the requested snapshot file.\nForms composite primary key of the table along with SNAPSHOT_SEQUENCE column. The value of Guid would be the same for the snapshots created for a single 'requestSnapshot' call. There may be multiple snapshot records with the same Guid, but the value of SNAPSHOT_SEQUENCE would be different.",
+      "column_order": 1
+    },
+    {
+      "name": "SNAPSHOT_SEQUENCE",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Sequence of the requested snapshot files.\nForms composite primary key of the table along with SNAPSHOT_GUID column. The value of Guid would be the same for the snapshots created for a single 'requestSnapshot' call. There may be multiple snapshot records with the same Guid, but the value of Sequence would be different.",
+      "column_order": 2
+    },
+    {
+      "name": "SNAPSHOT_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of the snapshot request. For a single 'requestSnapshot' call, there would be multiple snapshot records created, status of the given snapshot request is stored in the base row (row with sequence = -1 )",
+      "column_order": 3
+    },
+    {
+      "name": "SNAPSHOT_DATA",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Stores the snapshot in BLOB form.",
+      "column_order": 4
+    },
+    {
+      "name": "SNAPSHOT_WRITE_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Write position indicates the position of snapshots created for a given 'requestSnapshot' call, the value starts from 0 and is stored in the base row. Every time a new snapshot is created for a 'requestSnapshot' call, it increment the write position by one and uses that as the sequence for the current snapshot row.",
+      "column_order": 5
+    },
+    {
+      "name": "SNAPSHOT_READ_POSITION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Read position indicates the position of snapshots already retrieved using the 'querySnapshot' calls, the value starts from 0 and is stored in the base row. For a given 'requestSnapshot' call, it might create multiple snapshot records.\nEvery time a snapshot is requested using 'querySnapshot' call, it increment the read position by one and returns the snpashot stored at snapshot_sequence= incremented_read_position.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 12
+    }
+  ]
+}

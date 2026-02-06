@@ -1,0 +1,179 @@
+{
+  "id": 28908,
+  "name": "IBY_FORMAT_TYPES_B",
+  "type": "TABLE",
+  "description": "Stores all format types in Oracle Payments",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibyformattypesb-16250.html#ibyformattypesb-16250",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "FORMAT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Format type code",
+      "column_order": 1
+    },
+    {
+      "name": "MESSAGE_DIRECTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Whether the format type is for\n                                               inbound or outbound. Inbound\n                                               means the format is used to parse\n                                               a file send from a trading\n                                               partner to be consumed by the\n                                               system; outbound means the system\n                                               will generate an output file with\n                                               the format.",
+      "column_order": 2
+    },
+    {
+      "name": "XML_SCHEMA_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "XML schema code",
+      "column_order": 3
+    },
+    {
+      "name": "XML_SCHEMA_XDB_URL",
+      "data_type": "VARCHAR2",
+      "data_length": 700,
+      "nullable": "Y",
+      "description": "XML schema XDB URL",
+      "column_order": 4
+    },
+    {
+      "name": "LOADER_SERVICE_INTERFACE_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 230,
+      "nullable": "Y",
+      "description": "Full class name of the Loader SDO\n                                               web service java client proxy\n                                               interface. Product teams must\n                                               provide a composite SDO which\n                                               will be used by the framework to\n                                               shred the interface XML to\n                                               persistent storage (staging\n                                               tables). Further they must\n                                               provide a java client proxy for\n                                               the SDO. The system will rely on\n                                               the proxy to interact with the\n                                               SDO.",
+      "column_order": 5
+    },
+    {
+      "name": "LOADER_SDO",
+      "data_type": "VARCHAR2",
+      "data_length": 230,
+      "nullable": "Y",
+      "description": "Top level SDO name.",
+      "column_order": 6
+    },
+    {
+      "name": "LOADER_SDO_MERGE_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 230,
+      "nullable": "Y",
+      "description": "The merge method of the SDO.\n                                               Since the top level object which\n                                               is the inbound file already\n                                               exists in the database, this\n                                               method will create the composite\n                                               children only. The method should\n                                               take only one parameter which is\n                                               the SDO. It may return any java\n                                               object as the result which is\n                                               simply discarded. It should throw\n                                               a java Exception in case of error\n                                               such as insufficient table space.",
+      "column_order": 7
+    },
+    {
+      "name": "IMPORTER_SRVC_INTERFACE_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 230,
+      "nullable": "Y",
+      "description": "Full class name of the Importer\n                                               web service java client proxy\n                                               interface. Product teams must\n                                               provide a web service as the\n                                               importer code entry point.\n                                               Further they must provide a java\n                                               client proxy for the web service.\n                                               The system will rely on the proxy\n                                               to interact with the web service.",
+      "column_order": 8
+    },
+    {
+      "name": "IMPORT_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 230,
+      "nullable": "Y",
+      "description": "The import method. The method\n                                               should take only one parameter\n                                               which is the inbound file ID.\n                                               Nothing should be returned i.e.,\n                                               return is void in java. It should\n                                               throw a java Exception in case of\n                                               error such as insufficient table\n                                               space.",
+      "column_order": 9
+    },
+    {
+      "name": "LOAD_PROGRAM_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Program type for the inbound loader. Supported values are EJB_RMI and ADFBC",
+      "column_order": 10
+    },
+    {
+      "name": "EXTRACT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Extract for format.",
+      "column_order": 11
+    },
+    {
+      "name": "BIP_CATALOG_REPORT_ABS_PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 1024,
+      "nullable": "Y",
+      "description": "Stores the absolute path from the root to the xdo file for a report. E.g., /Payment Settlement/Disbursements/Outbound Payment Files/Printed Formats/Printed Formats.xdo.\nPayments seed one BIP report per format type. The different formats for a format type will be stored as templates under the BIP report.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 18
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 19
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 20
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 21
+    }
+  ]
+}

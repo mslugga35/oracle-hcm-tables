@@ -1,0 +1,867 @@
+{
+  "id": 29024,
+  "name": "IBY_TRXN_SUMMARIES_ALL",
+  "type": "TABLE",
+  "description": "IBY_TRXN_SUMMARIES_ALL stores information about each payment request. This table is used for both online and offline payment transactions. The information contained in this table is generic in nature to cover the various payment instruments and the operations on them. The specific details are stored in other detail tables such as IBY_TRXN_CORE, IBY_TRXN_EXTENDED, and IBY_TRXN_FI, based on the type of operation and the payment instrument used for payment.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibytrxnsummariesall-18509.html#ibytrxnsummariesall-18509",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TRXNMID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System-generated Identifier",
+      "column_order": 1
+    },
+    {
+      "name": "INITIATOR_EXTENSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Initiating transaction extension identifier.",
+      "column_order": 2
+    },
+    {
+      "name": "TRANSACTIONID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier generated for each payment request, or orapmtreq, and passed back to electronic commerce application",
+      "column_order": 3
+    },
+    {
+      "name": "TANGIBLEID",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Bill or order Identifier",
+      "column_order": 4
+    },
+    {
+      "name": "PAYEEID",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Identifier of the payee passed by electronic commerce application",
+      "column_order": 5
+    },
+    {
+      "name": "BEPID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment system Identifier",
+      "column_order": 6
+    },
+    {
+      "name": "MPAYEEID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payee Identifier",
+      "column_order": 7
+    },
+    {
+      "name": "ECAPPID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Electronic commerce application Identifier",
+      "column_order": 8
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 9
+    },
+    {
+      "name": "PAYMENTMETHODNAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Payment method name",
+      "column_order": 10
+    },
+    {
+      "name": "MTANGIBLEID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Master identifier that points to IBY_TANGIBLE table for additional information about orders",
+      "column_order": 11
+    },
+    {
+      "name": "PAYEEINSTRID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Instrument Identifier for the payee",
+      "column_order": 12
+    },
+    {
+      "name": "PAYERID",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Payer Identifier",
+      "column_order": 13
+    },
+    {
+      "name": "PAYERINSTRID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Instrument Identifier for the payer",
+      "column_order": 14
+    },
+    {
+      "name": "DETAILLOOKUP",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup column for CORE, EXTENDED, or FI transactions",
+      "column_order": 15
+    },
+    {
+      "name": "AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount",
+      "column_order": 16
+    },
+    {
+      "name": "INSTRNUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Instrument number can be credit card number for 11i in case of unregistered instruments.",
+      "column_order": 17
+    },
+    {
+      "name": "CURRENCYNAMECODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Currency code",
+      "column_order": 18
+    },
+    {
+      "name": "STATUS",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Status of the transaction from lookup type IBY_TRANSACTION_STATUS",
+      "column_order": 19
+    },
+    {
+      "name": "UPDATEDATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date that scheduled payment is updated",
+      "column_order": 20
+    },
+    {
+      "name": "TRXNTYPEID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "From lookup type IBY_TRXNTYPES",
+      "column_order": 21
+    },
+    {
+      "name": "ERRORLOCATION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Identifies the location of error",
+      "column_order": 22
+    },
+    {
+      "name": "BEPCODE",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Error code from payment system",
+      "column_order": 23
+    },
+    {
+      "name": "BEPMESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Error message from payment system",
+      "column_order": 24
+    },
+    {
+      "name": "BATCHID",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Batch Identifier provided by electronic commerce application",
+      "column_order": 25
+    },
+    {
+      "name": "SETTLEDATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Scheduled date for the bill or order used for offline payments only",
+      "column_order": 26
+    },
+    {
+      "name": "MBATCHID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Batch Identifier",
+      "column_order": 27
+    },
+    {
+      "name": "REQDATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the batch operation request is received",
+      "column_order": 28
+    },
+    {
+      "name": "REQTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Type of request such as closebatch, purgebatch, or openbatch",
+      "column_order": 29
+    },
+    {
+      "name": "REQSEQ",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Request sequence",
+      "column_order": 30
+    },
+    {
+      "name": "DESTURL",
+      "data_type": "VARCHAR2",
+      "data_length": 1024,
+      "nullable": "Y",
+      "description": "Payment system URL constructed during schedule of payments",
+      "column_order": 31
+    },
+    {
+      "name": "NLSLANG",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "NLS language",
+      "column_order": 32
+    },
+    {
+      "name": "NEEDSUPDT",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Y or N flag indicating that the row has changed status",
+      "column_order": 33
+    },
+    {
+      "name": "OVERALL_SCORE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Overall risk score",
+      "column_order": 34
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 38
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "INSTRTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Instrument type",
+      "column_order": 41
+    },
+    {
+      "name": "SECURITY_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Used in hosted environments",
+      "column_order": 42
+    },
+    {
+      "name": "SALES_REP_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party Identifier for the sales representative who initiated the transaction. Foreign key to HZ_PARTIES",
+      "column_order": 43
+    },
+    {
+      "name": "BEPKEY",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Merchant account Identifier used with this transaction",
+      "column_order": 44
+    },
+    {
+      "name": "CUST_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Customer account for which the payment transaction is being processed. Foreign key to HZ_CUST_ACCOUNTS",
+      "column_order": 45
+    },
+    {
+      "name": "INSTRSUBTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Holds the instrument subtype for the payment transaction",
+      "column_order": 46
+    },
+    {
+      "name": "ECBATCHID",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Used for AR bills receivable integration. RA_BATCHES_ALL.BATCH_ID",
+      "column_order": 47
+    },
+    {
+      "name": "SUB_KEY_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Oracle internal use only, reserved for future use",
+      "column_order": 48
+    },
+    {
+      "name": "TRXNREF",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Optional, secondary transaction Identifier to be passed by source application. Useful in distinguishing transactions when the tangible or order ID must be shared",
+      "column_order": 49
+    },
+    {
+      "name": "PROCESS_PROFILE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Funds capture process profile",
+      "column_order": 50
+    },
+    {
+      "name": "ORG_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Organization type from lookup type IBY_ORGANIZATION_TYPES",
+      "column_order": 51
+    },
+    {
+      "name": "PAYMENT_CHANNEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment method",
+      "column_order": 52
+    },
+    {
+      "name": "PROC_REFERENCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Payment processor reference code",
+      "column_order": 53
+    },
+    {
+      "name": "PROC_REFERENCE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Payment processor reference amount",
+      "column_order": 54
+    },
+    {
+      "name": "INSTRNUM_HASH",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Hash value of the transaction payment instrument number",
+      "column_order": 55
+    },
+    {
+      "name": "INSTRNUM_LENGTH",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Length of the transaction payment instrument",
+      "column_order": 56
+    },
+    {
+      "name": "INSTRNUM_SEC_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the security segment holding the encrypted payment instrument number",
+      "column_order": 57
+    },
+    {
+      "name": "CC_ISSUER_RANGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the credit card number range the payment instrument number belongs to",
+      "column_order": 58
+    },
+    {
+      "name": "SETTLEMENT_CUSTOMER_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Settlement customer reference",
+      "column_order": 59
+    },
+    {
+      "name": "ACCT_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Account site use identifier",
+      "column_order": 60
+    },
+    {
+      "name": "ACCT_SITE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the account site for a funds capture transaction",
+      "column_order": 61
+    },
+    {
+      "name": "FIRST_TRXN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag",
+      "column_order": 62
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Legal entity identifier",
+      "column_order": 63
+    },
+    {
+      "name": "BILL_TO_ADDRESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the bill-to address",
+      "column_order": 64
+    },
+    {
+      "name": "FACTORED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag that indicates if this payment comes from a third party on behalf of the ultimate payer",
+      "column_order": 65
+    },
+    {
+      "name": "BR_MATURITY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bills receivable maturity date",
+      "column_order": 66
+    },
+    {
+      "name": "SETTLEMENT_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Settlement due date",
+      "column_order": 67
+    },
+    {
+      "name": "CALL_APP_SERVICE_REQ_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "External application request set identifier",
+      "column_order": 68
+    },
+    {
+      "name": "BANK_CHARGE_BEARER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Bank charge bearer",
+      "column_order": 69
+    },
+    {
+      "name": "DIRDEB_INSTRUCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Direct debit instruction code",
+      "column_order": 70
+    },
+    {
+      "name": "DEBIT_ADVICE_DELIVERY_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Default delivery method set on the payer level for debit notification",
+      "column_order": 71
+    },
+    {
+      "name": "DEBIT_ADVICE_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Debit notification email address",
+      "column_order": 72
+    },
+    {
+      "name": "DEBIT_ADVICE_FAX",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Debit notification fax number",
+      "column_order": 73
+    },
+    {
+      "name": "PAYER_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payer TCA party identifier",
+      "column_order": 74
+    },
+    {
+      "name": "DEBIT_AUTH_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Debit authorization flag",
+      "column_order": 75
+    },
+    {
+      "name": "DEBIT_AUTH_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Debit authorization method",
+      "column_order": 76
+    },
+    {
+      "name": "DEBIT_AUTH_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Debit authorization reference",
+      "column_order": 77
+    },
+    {
+      "name": "PAYER_INSTR_ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Instrument assignment identifier for the payer instrument",
+      "column_order": 78
+    },
+    {
+      "name": "PAYER_NOTIFICATION_REQUIRED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether payer notification is created for this transaction if it is a settlement",
+      "column_order": 79
+    },
+    {
+      "name": "PAYER_NOTIFICATION_CREATED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether payer notification is created for this transaction if it is a settlement",
+      "column_order": 80
+    },
+    {
+      "name": "AR_RECEIPT_METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle Receivables receipt method",
+      "column_order": 81
+    },
+    {
+      "name": "BR_DRAWEE_ISSUED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag that indicates if the the drawee issues the bill receivable",
+      "column_order": 82
+    },
+    {
+      "name": "BR_SIGNED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag that indicates if the drawee needs to accept the bill receivable",
+      "column_order": 83
+    },
+    {
+      "name": "SALT_VERSION",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Salt version",
+      "column_order": 84
+    },
+    {
+      "name": "DEBIT_AUTHORIZATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Debit authorization identifier",
+      "column_order": 85
+    },
+    {
+      "name": "PAYMENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment type code",
+      "column_order": 86
+    },
+    {
+      "name": "LOGICAL_GROUP_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Logical group reference",
+      "column_order": 87
+    },
+    {
+      "name": "LOCALINSTR",
+      "data_type": "VARCHAR2",
+      "data_length": 35,
+      "nullable": "Y",
+      "description": "Direct debit local instrument.",
+      "column_order": 88
+    },
+    {
+      "name": "SERVICE_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 35,
+      "nullable": "Y",
+      "description": "Direct debit service level.",
+      "column_order": 89
+    },
+    {
+      "name": "PURPOSE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment purpose codes as defined in the ISO20022 external code list.",
+      "column_order": 90
+    },
+    {
+      "name": "SEQ_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment sequence type.",
+      "column_order": 91
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Id to support multi-tenancy",
+      "column_order": 92
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 93
+    },
+    {
+      "name": "STRUCTURED_PAYMENT_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "An industry standard reference on receivables transactions composed of letters, check digits, and transaction information that is used to identify the transaction, transaction lines, and its payments to the customer and bank.",
+      "column_order": 94
+    },
+    {
+      "name": "EXTERNAL_SETTLEMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether or not payment is externally settled. Possible values are Y or N.",
+      "column_order": 95
+    },
+    {
+      "name": "TRXN_REQUEST_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Message format for creating outbound authorization, capture, or refund request.",
+      "column_order": 96
+    },
+    {
+      "name": "TRXN_RESPONSE_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Message format for reading and processing inbound response received from payment gateway for authorization, capture, or refund request.",
+      "column_order": 97
+    },
+    {
+      "name": "TRXN_REQUEST_ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Error raised while initiating outbound request for authorization, capture, or refund request.",
+      "column_order": 98
+    },
+    {
+      "name": "TRXN_RESPONSE_ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Error raised while reading and processing inbound response received from payment gateway for authorization, capture, or refund request.",
+      "column_order": 99
+    },
+    {
+      "name": "QUERY_REQUEST_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Message format for creating outbound request to query the payment gateway.",
+      "column_order": 100
+    },
+    {
+      "name": "QUERY_RESPONSE_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Message format for reading and processing inbound response received from payment gateway for transaction query.",
+      "column_order": 101
+    },
+    {
+      "name": "QUERY_REQUEST_ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Error raised while initiating outbound request to query the payment gateway.",
+      "column_order": 102
+    },
+    {
+      "name": "QUERY_RESPONSE_ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Error raised while reading and processing inbound response received from payment gateway for payment query.",
+      "column_order": 103
+    },
+    {
+      "name": "OAUTH_PERFORMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the transaction supports Oauth.",
+      "column_order": 104
+    },
+    {
+      "name": "INBOUND_FILE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The identifier of the inbound acknowledgment file.",
+      "column_order": 105
+    },
+    {
+      "name": "ACKNOWLEDGMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date when the acknowledgment is processed.",
+      "column_order": 106
+    },
+    {
+      "name": "BEP_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of the transaction returned by the bank or payment system.",
+      "column_order": 107
+    }
+  ]
+}

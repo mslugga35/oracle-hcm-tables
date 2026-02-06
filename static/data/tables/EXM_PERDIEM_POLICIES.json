@@ -1,0 +1,923 @@
+{
+  "id": 27130,
+  "name": "EXM_PERDIEM_POLICIES",
+  "type": "TABLE",
+  "description": "This table contains information about per diem policies, including fixed rate rules and rates.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/exmperdiempolicies-25637.html#exmperdiempolicies-25637",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PERDIEM_POLICY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of per diem policy.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "POLICY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "N",
+      "description": "Name of a per diem policy.",
+      "column_order": 3
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description of a per diem policy.",
+      "column_order": 4
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status of a per diem policy.Values are from the lookup EXM_POLICY_STATUS.",
+      "column_order": 5
+    },
+    {
+      "name": "RATES_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates if the policy is created based on rates entered by the user or from rates uploaded from a Conus or OConus file.",
+      "column_order": 6
+    },
+    {
+      "name": "MEALS_RATE_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Rates that are based on local rates or proportional rates.",
+      "column_order": 7
+    },
+    {
+      "name": "FREE_MEAL_DEDUCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of deduction, by meal type and amount or by meal type and amount with percentage deductions over a specified limit.",
+      "column_order": 8
+    },
+    {
+      "name": "MEALS_AMOUNT_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount limit to determine deduction for free meal.",
+      "column_order": 9
+    },
+    {
+      "name": "DAY_TRAVEL_ELIGIB_HOURS",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Indicates the minimum hours of travel to be eligible for same day travel.",
+      "column_order": 10
+    },
+    {
+      "name": "ALLOW_ACTUAL_EXPENSE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if actual expenses are allowed instead of per diem.",
+      "column_order": 11
+    },
+    {
+      "name": "PERDIEM_POLICY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of travel for which a per diem policy is applicable, such as Generic, Domestic, or Foreign. Values are from the lookup ORA_EXM_PERDIEM_POLICY_TYPE.",
+      "column_order": 12
+    },
+    {
+      "name": "TIME_BASED_RATE_MODEL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Reserved for future use. Indicates whether per diem policy rates vary based on travel time for each rate time period.",
+      "column_order": 13
+    },
+    {
+      "name": "RATE_FORMULA_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Formula calculation method for per diem allowance, such as Daily Rate, Sum Up Separate Rate Allowances, Daily Time Based Rate, or Sum Up Separate Rates -Time Based. Values are from the lookup ORA_EXM_RATE_FORMULA_METHOD.",
+      "column_order": 14
+    },
+    {
+      "name": "CURRENCY_OPTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Currency option code indicating whether per diem policy rates in a policy are defined in a single currency or in a currency specific to locations.",
+      "column_order": 15
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Three-letter ISO currency code for the single currency in which rates for the policy are defined.",
+      "column_order": 16
+    },
+    {
+      "name": "ALLOW_RATE_CONVERSION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether a per diem policy allows the single currency rates defined in a policy to be converted to a different reimbursement currency.",
+      "column_order": 17
+    },
+    {
+      "name": "RATE_MULTIPLIER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code that indicates whether the rate multiplier is number of days or nights when the per diem policy calculation method is set to Daily Rate. Values are from the lookup ORA_EXM_PERDIEM_MULTIPLIER.",
+      "column_order": 18
+    },
+    {
+      "name": "RATE_INCLUDE_MEALS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the per diem allowance defined for the policy includes meals.",
+      "column_order": 19
+    },
+    {
+      "name": "RATE_INCLUDE_ACCOM_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the per diem reimbursement defined for the policy includes accommodations.",
+      "column_order": 20
+    },
+    {
+      "name": "RATE_INCLUDE_OTHER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the per diem reimbursement defined for the policy includes other expenses.",
+      "column_order": 21
+    },
+    {
+      "name": "MEAL_RATE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code indicating meal allowance type for a policy, such as Daily Rate, Rates By Meal Type or Rates by Number of Meals. Values are from the lookup ORA_EXM_PERDIEM_MEAL_RATE.",
+      "column_order": 22
+    },
+    {
+      "name": "MEAL_INCL_INCIDENTAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the meals allowance also includes incidental expense charges.",
+      "column_order": 23
+    },
+    {
+      "name": "MEAL_DEDUCTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that the per diem policy deducts free meals from the calculated meals allowance.",
+      "column_order": 24
+    },
+    {
+      "name": "ACCOM_DEDUCTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this per diem policy deducts free accommodations from the calculated accommodation allowance.",
+      "column_order": 25
+    },
+    {
+      "name": "ACCOM_FREE_ONLY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that the per diem policy permits free accommodations only allowance.",
+      "column_order": 26
+    },
+    {
+      "name": "ACCOM_MIN_NIGHT_HOURS_STAY",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Minimum number of hours of stay to qualify for accommodations allowance.",
+      "column_order": 27
+    },
+    {
+      "name": "ENABLED_LOCATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether per diem policy rates vary by location type, such as geographical location or zone.",
+      "column_order": 28
+    },
+    {
+      "name": "LOCATION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup type that indicates policy rates vary by geographical locations.",
+      "column_order": 29
+    },
+    {
+      "name": "ZONE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup type that indicates policy rates vary by zones.",
+      "column_order": 30
+    },
+    {
+      "name": "ENABLED_ROLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether per diem allowances vary based on a role type such as, job management level or salary threshold.",
+      "column_order": 31
+    },
+    {
+      "name": "ROLE_CALC_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for role based allowances for a per diem policy, such as Rate, Percentage, or Spreadsheet. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 32
+    },
+    {
+      "name": "POLICY_ROLE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Role type by which per diem allowances vary, such as job management level or salary.",
+      "column_order": 33
+    },
+    {
+      "name": "ENABLED_SEASON_RATE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether accommodation rates vary by season when accommodations are included in per diem.",
+      "column_order": 34
+    },
+    {
+      "name": "ENABLED_ACCOM_TYPE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether per diem policy rates vary by type of accommodation.",
+      "column_order": 35
+    },
+    {
+      "name": "ENABLED_LONG_TERM_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether per diem policy has rules or rates defined for long-term travel.",
+      "column_order": 36
+    },
+    {
+      "name": "ENABLED_WEEKEND_HOLID_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether per diem policy has rules or rates defined for weekend and holiday travel.",
+      "column_order": 37
+    },
+    {
+      "name": "MIN_TRIP_DURAT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this policy has a minimum trip duration for per diem eligibility.",
+      "column_order": 38
+    },
+    {
+      "name": "MIN_DURATION_HOURS",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Minimum travel time hours to qualify for per diem or meals rate.",
+      "column_order": 39
+    },
+    {
+      "name": "MIN_DURATION_MINUTES",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Minimum travel time minutes to qualify for per diem or meals rate.",
+      "column_order": 40
+    },
+    {
+      "name": "MIN_DISTANCE_FROM_HOME",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Minimum travel distance from home to qualify for per diem rate.",
+      "column_order": 41
+    },
+    {
+      "name": "MIN_DISTANCE_FROM_OFFICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Minimum travel distance from office to qualify for per diem rate.",
+      "column_order": 42
+    },
+    {
+      "name": "WITHIN_EMPLOYEE_CITY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether a policy allows travel within the employee's home city to qualify for per diem or meals allowance.",
+      "column_order": 43
+    },
+    {
+      "name": "MEALS_CALC_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for per diem or meals allowances, such as Rate, Percentage, or Spreadsheet. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 44
+    },
+    {
+      "name": "MEALS_DEDUCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code indicating meals deduction type for a per diem policy, such as Daily Meals Deduction, Deduction by Meal Type, or Deductions by Number of Meals. Values are from the lookup ORA_EXM_PERDIEM_MEAL_DEDUCTION.",
+      "column_order": 45
+    },
+    {
+      "name": "MEALS_DEDUCT_CALC_METH_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for meals deductions, such as Rate, Percentage, or Spreadsheet. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 46
+    },
+    {
+      "name": "BREAKFAST_ELIG_START_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Starting time hour for breakfast to qualify for a breakfast allowance.",
+      "column_order": 47
+    },
+    {
+      "name": "BREAKFAST_ELIG_START_MINUTE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Starting time minutes for breakfast to qualify for a breakfast allowance.",
+      "column_order": 48
+    },
+    {
+      "name": "BREAKFAST_ELIG_END_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Ending time hour for breakfast to qualify for a breakfast allowance.",
+      "column_order": 49
+    },
+    {
+      "name": "BREAKFAST_ELIG_END_MINUTE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Ending time minute for breakfast to qualify for a breakfast allowance.",
+      "column_order": 50
+    },
+    {
+      "name": "LUNCH_ELIG_START_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Starting time hours for lunch to qualify for a lunch allowance.",
+      "column_order": 51
+    },
+    {
+      "name": "LUNCH_ELIG_START_MINUTE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Starting time minutes for lunch to qualify for a lunch allowance.",
+      "column_order": 52
+    },
+    {
+      "name": "LUNCH_ELIG_END_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Ending time hour for lunch to qualify for a lunch allowance.",
+      "column_order": 53
+    },
+    {
+      "name": "LUNCH_ELIG_END_MINUTE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Ending time minutes for lunch to qualify for a lunch allowance.",
+      "column_order": 54
+    },
+    {
+      "name": "DINNER_ELIG_START_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Starting time hours for dinner to qualify for a dinner allowance.",
+      "column_order": 55
+    },
+    {
+      "name": "DINNER_ELIG_START_MINUTE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Starting time minutes for dinner to qualify for a dinner allowance.",
+      "column_order": 56
+    },
+    {
+      "name": "DINNER_ELIG_END_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Ending time hours for dinner to qualify for a dinner allowance.",
+      "column_order": 57
+    },
+    {
+      "name": "DINNER_ELIG_END_MINUTE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Ending time minutes for dinner to qualify for a dinner allowance.",
+      "column_order": 58
+    },
+    {
+      "name": "MINIMUM_REIMBURSEMENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Minimum per diem or meals allowance that overrides meals deduction rules to ensure employees are guaranteed a minimum reimbursement amount after deductions.",
+      "column_order": 59
+    },
+    {
+      "name": "ACCOM_REQ_MEALS_ELIGIB_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether a per diem policy requires an employee to meet the meals allowance criteria before he is eligible for an accommodations allowance.",
+      "column_order": 60
+    },
+    {
+      "name": "ACCOM_RATE_CALC_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for accommodations allowance, such as Rate, Percentage, or Spreadsheet. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 61
+    },
+    {
+      "name": "ACCOM_DEDUCT_CALC_METH_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for accommodations deduction, such as Rate, Percentage, or Spreadsheet. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 62
+    },
+    {
+      "name": "ACCOM_MIN_TRIP_DURAT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether there is a minimum trip duration requirement before an employee is eligible for an accommodations allowance.",
+      "column_order": 63
+    },
+    {
+      "name": "ACCOM_MIN_DURATION_HOURS",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Minimum travel time hours for trip to qualify for an accommodations allowance.",
+      "column_order": 64
+    },
+    {
+      "name": "ACCOM_MIN_DURATION_MINUTES",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Minimum travel time minutes for trip to qualify for an accommodations allowance.",
+      "column_order": 65
+    },
+    {
+      "name": "ACCOM_ELIGIB_START_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Starting night time hour for trip to qualify for an accommodations allowance.",
+      "column_order": 66
+    },
+    {
+      "name": "ACCOM_ELIGIB_START_MINUTE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Starting night time minutes for trip to qualify for an accommodations allowance.",
+      "column_order": 67
+    },
+    {
+      "name": "ACCOM_ELIGIB_END_HOUR",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Ending night time hours for trip to qualify for an accommodations allowance.",
+      "column_order": 68
+    },
+    {
+      "name": "ACCOM_ELIGIB_END_MINUTE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Ending night time minutes for trip to qualify for an accommodations allowance.",
+      "column_order": 69
+    },
+    {
+      "name": "OTHERS_ELIGIB_CRITERIA_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Eligibility criteria for receiving an incidental allowance, such as None, Meets Meals Eligibility, or Meets Meals and Accommodations Eligibility. Values are from the lookup ORA_EXM_PERDIEM_ELIG_CRITERIA.",
+      "column_order": 70
+    },
+    {
+      "name": "OTHERS_CALC_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for an incidental allowance, such as Rate, Percentage, or Spreadsheet. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 71
+    },
+    {
+      "name": "HOLIDAY_CALC_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for weekend and holiday allowances, such as Rate or Percentage. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 72
+    },
+    {
+      "name": "WEEKEND_DAY1_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code that indicates the first weekend day for a specific geographic region. For example, the first weekend day for a specific geographic region may not be Saturday as it is in the United States.",
+      "column_order": 73
+    },
+    {
+      "name": "WEEKEND_DAY2_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code that indicates the second weekend day for a specific geographic region. For example, the first weekend day for a specific geographic region may not be Sunday as it is in the United States.",
+      "column_order": 74
+    },
+    {
+      "name": "LONG_TERM_CALC_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for long-term travel allowances. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 75
+    },
+    {
+      "name": "SPECIFIC_FIRST_LAST_DAY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether a per diem policy has specific rates for first day and last day.",
+      "column_order": 76
+    },
+    {
+      "name": "TIME_PERIOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code that indicates time period boundaries for a per diem day, such as Midnight to Midnight or Start Time Plus 24 Hours. Values are from the lookup ORA_EXM_PERDIEM_TIME_PERIOD.",
+      "column_order": 77
+    },
+    {
+      "name": "TIME_CALC_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for time threshold allowances, such as Rate, Percentage, or Spreadsheet. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 78
+    },
+    {
+      "name": "TIME_ALLOW_SAME_DAY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether this per diem policy will allow same day trip.",
+      "column_order": 79
+    },
+    {
+      "name": "TIME_SAME_DAY_RULE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code that indicates whether specific same day travel rates are applicable to trips less than 24 hours or to trips without an overnight. Values are from the lookup ORA_EXM_PERDIEM_SAME_DAY_RULE.",
+      "column_order": 80
+    },
+    {
+      "name": "TIME_SAME_DAY_CALC_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation method for same day travel time threshold allowances, such as Rate, Percentage, or Spreadsheet. Values are from the lookup ORA_EXM_PERDIEM_CALCMETH.",
+      "column_order": 81
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE_CHAR11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE_CHAR12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE_CHAR13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE_CHAR14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE_CHAR15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "ATTRIBUTE_DATETIME1",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "ATTRIBUTE_DATETIME2",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 110
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 111
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 112
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 113
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 114
+    }
+  ]
+}

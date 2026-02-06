@@ -1,0 +1,203 @@
+{
+  "id": 28960,
+  "name": "IBY_PMT_CREATION_RULES",
+  "type": "TABLE",
+  "description": "IBY_PMT_CREATION_RULES specifies how documents payable are grouped into payments. Creation rules are determined by payment process profiles. This table corresponds to the Payment Creation tab of the Update Payment Process Profile page.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibypmtcreationrules-9770.html#ibypmtcreationrules-9770",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SYSTEM_PROFILE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Unique primary key",
+      "column_order": 1
+    },
+    {
+      "name": "GROUP_BY_ULTIMATE_DEBTOR",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for ultimate debtor.",
+      "column_order": 2
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 3
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 8
+    },
+    {
+      "name": "GROUP_BY_PAYMENT_DETAILS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for payment details.",
+      "column_order": 9
+    },
+    {
+      "name": "GROUP_BY_BANK_CHARGE_BEARER",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for bank charge bearer.",
+      "column_order": 10
+    },
+    {
+      "name": "GROUP_BY_DELIVERY_CHANNEL",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for delivery channel.",
+      "column_order": 11
+    },
+    {
+      "name": "GROUP_BY_REMITTANCE_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for remittance message.",
+      "column_order": 12
+    },
+    {
+      "name": "GROUP_BY_MAX_DOCUMENTS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether there is a limit on the number of documents payable that can be grouped into one payment.",
+      "column_order": 13
+    },
+    {
+      "name": "GROUP_BY_UNIQUE_REMIT_ID_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for unique remittance identifier.",
+      "column_order": 14
+    },
+    {
+      "name": "GROUP_BY_SETTLE_PRIORITY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for settlement priority.",
+      "column_order": 15
+    },
+    {
+      "name": "GROUP_BY_PAYMENT_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for payment reason.",
+      "column_order": 16
+    },
+    {
+      "name": "GROUP_BY_DUE_DATE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for due date.",
+      "column_order": 17
+    },
+    {
+      "name": "MAX_DOCUMENTS_PER_PAYMENT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Maximum number of documents that can be grouped into a single payment. This value will only be used if GROUP_BY_MAX_DOCUMENTS_FLAG is set to Y.",
+      "column_order": 18
+    },
+    {
+      "name": "PAYMENT_DETAILS_LENGTH_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Maximum length of the payment detail record. Typically, this is a type of description record in a payment format that allows concatenated details of the payment to be included, for example, invoice numbers. If this length is exceeded, then the payment will be split into multiple payments.",
+      "column_order": 19
+    },
+    {
+      "name": "PAYMENT_DETAILS_FORMULA",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "SQL function to be used to concatenate the document attributes into the payment details information",
+      "column_order": 20
+    },
+    {
+      "name": "GROUP_BY_INVOICING_ORG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether documents payable should be built into separate payments when they have different values for invoicing business unit.",
+      "column_order": 21
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 22
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 23
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 24
+    }
+  ]
+}

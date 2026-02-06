@@ -1,0 +1,427 @@
+{
+  "id": 28953,
+  "name": "IBY_PAY_INSTRUCTIONS_H",
+  "type": "TABLE",
+  "description": "IBY_PAY_INSTRUCTIONS_H stores historical snapshots of payment instructions. This table contains denormalized versions of payment instructions from specific points in time, including when the payment instruction was submitted to a payment system. Different snapshots of the same payment instruction can exist in this table. These snapshots are differentiated by the table's primary key and a snapshot date.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibypayinstructionsh-18836.html#ibypayinstructionsh-18836",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PAYMENT_INSTRUCTION_HISTORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payment instruction identifier",
+      "column_order": 1
+    },
+    {
+      "name": "PMT_INSTRUCTION_HISTORY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Payment instruction date",
+      "column_order": 2
+    },
+    {
+      "name": "PAYMENT_INSTRUCTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System-generated primary key.",
+      "column_order": 3
+    },
+    {
+      "name": "PAYMENT_INSTRUCTION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "N",
+      "description": "Payment instruction name",
+      "column_order": 4
+    },
+    {
+      "name": "PAYMENT_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Format used for the payment file.",
+      "column_order": 5
+    },
+    {
+      "name": "BILL_PAYABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether a payment file consists of bills payable.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    },
+    {
+      "name": "BEPID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Payment system that the payment file or positive pay file is transmitted to",
+      "column_order": 12
+    },
+    {
+      "name": "PRINT_INSTRUCTION_IMMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating if the payment file will be printed immediately after formatting, or will wait for user input before initiating printing.",
+      "column_order": 13
+    },
+    {
+      "name": "TRANSMIT_INSTR_IMMED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating if the payment file will be transmitted immediately after formatting, or will wait for user input to initate transmission.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "TRANSMIT_CONFIGURATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Transmission configuration identifier",
+      "column_order": 16
+    },
+    {
+      "name": "SECURITY_CONFIGURATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Security configuration Identifier from the payment process profile",
+      "column_order": 17
+    },
+    {
+      "name": "POSITIVE_PAY_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Code for the format that is used to create a positive pay file for the payment file.",
+      "column_order": 18
+    },
+    {
+      "name": "PROCESS_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies the process by which payments are built into payment files. Values taken from lookup: IBY_PROCESS_TYPES which include STANDARD for payments processed as part of a payment process request, IMMEDIATE for single payments,, and MANUAL for manual payments which are recorded but not processed by Oracle Payments.",
+      "column_order": 19
+    },
+    {
+      "name": "PAYMENT_INSTRUCTION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment file status. Values taken from lookup IBY_PAY_INSTRUCTION_STATUSES.",
+      "column_order": 20
+    },
+    {
+      "name": "PAYMENTS_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y or N flag that indicates if the payments are complete",
+      "column_order": 21
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_ROUTING_NUM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Internal bank account routing number from CE bank accounts",
+      "column_order": 22
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Internal bank account number from CE bank accounts",
+      "column_order": 23
+    },
+    {
+      "name": "INT_BANK_ACCOUNT_IBAN_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Internal bank account IBAN number from CE bank accounts",
+      "column_order": 24
+    },
+    {
+      "name": "SEQUENCE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Sequence number assigned to the payment file.",
+      "column_order": 25
+    },
+    {
+      "name": "PAY_ADMIN_ASSIGNED_REF_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Administrator-assigned reference code",
+      "column_order": 26
+    },
+    {
+      "name": "PAYMENT_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Number of payments comprising this payment file.",
+      "column_order": 27
+    },
+    {
+      "name": "TRANSMISSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date that the payment file is transmitted to the payment system.",
+      "column_order": 28
+    },
+    {
+      "name": "ACKNOWLEDGEMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the acknowledgment is received",
+      "column_order": 29
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Notes entered by the user while submitting Create Payment Files process.",
+      "column_order": 30
+    },
+    {
+      "name": "REMITTANCE_ADVICE_CREATED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether any separate remittance advice documents were created for the payment file. By default, set to No.",
+      "column_order": 31
+    },
+    {
+      "name": "BANK_ASSIGNED_REF_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment system-provided reference code for this payment file",
+      "column_order": 32
+    },
+    {
+      "name": "LEGAL_ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Legal entity identifier of the payment file. Populated only when first party legal entity is specified as a grouping rule for payment file creation.",
+      "column_order": 33
+    },
+    {
+      "name": "PAYMENT_FUNCTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Function or purpose of the payment. Values from the lookup IBY_PAYMENT_FUNCTIONS include SUPPLIER_PAYMENT, CUSTOMER_REFUNDS, and others.",
+      "column_order": 34
+    },
+    {
+      "name": "PRINTER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Name of the printer where the payment file will be printed.",
+      "column_order": 35
+    },
+    {
+      "name": "PAYMENT_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment reason that was used to limit the the payment file creation to a single payment reason.  Populated only when payment reason is specified as a grouping rule.",
+      "column_order": 36
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    }
+  ]
+}

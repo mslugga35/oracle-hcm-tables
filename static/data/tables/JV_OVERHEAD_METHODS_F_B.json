@@ -1,0 +1,475 @@
+{
+  "id": 28256,
+  "name": "JV_OVERHEAD_METHODS_F_B",
+  "type": "TABLE",
+  "description": "This table contains the date effective overhead methods for each joint venture. These methods are used to calculate and generate overhead transactions to charge indirect costs to the joint venture partners.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/jvoverheadmethodsfb-20541.html#jvoverheadmethodsfb-20541",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "OVERHEAD_METHOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for the joint venture overhead method.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "JOINT_VENTURE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of the joint venture that the overhead method is associated to.",
+      "column_order": 3
+    },
+    {
+      "name": "METHOD_SHORT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The short name of the joint venture overhead method that is used as an identifier across effective dates for the joint venture.",
+      "column_order": 4
+    },
+    {
+      "name": "METHOD_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The type of overhead method used to determine how to calculate the overhead amount. It is based on the ORA_JV_OVERHEAD_METHOD_TYPE lookup codes such as percentage of cost.",
+      "column_order": 5
+    },
+    {
+      "name": "EFFECTIVE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the date at the beginning of the date range within which the row is effective.",
+      "column_order": 6
+    },
+    {
+      "name": "EFFECTIVE_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date Effective Entity: indicates the date at the end of the date range within which the row is effective.",
+      "column_order": 7
+    },
+    {
+      "name": "BASIS_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The source that the overhead calculation is based on. It is based on the ORA_JV_OVERHEAD_SOURCE lookup codes such as billed joint venture transactions.",
+      "column_order": 8
+    },
+    {
+      "name": "METHOD_PERCENTAGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The percentage in the overhead method that is used to calculate the overhead amount.",
+      "column_order": 9
+    },
+    {
+      "name": "FIXED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The fixed amount applied to the joint venture as overhead.",
+      "column_order": 10
+    },
+    {
+      "name": "METHOD_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The status code of the joint venture overhead method. It is based on the ORA_JV_OVERHEAD_METHOD_STATUS lookup codes such as pending, active, inactive, or other user defined values.",
+      "column_order": 11
+    },
+    {
+      "name": "STRUCTURE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the structure associated with the account segment assigned to the overhead method. This is used to get the account name and segment value description.",
+      "column_order": 12
+    },
+    {
+      "name": "SEGMENT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifies which segment in the chart of accounts is used to select joint venture transactions for overhead calculations.",
+      "column_order": 13
+    },
+    {
+      "name": "SEGMENT_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 25,
+      "nullable": "Y",
+      "description": "Identifies the segment value used to select joint venture transactions for overhead calculations.",
+      "column_order": 14
+    },
+    {
+      "name": "OWNERSHIP_PERCENT_SHORT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The ownership definition short name to be used when splitting the calculated overhead amount for distribution to the stakeholders.",
+      "column_order": 15
+    },
+    {
+      "name": "DISTRIBUTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The distribution type that is passed into the joint venture invoice for the distributed overhead transactions to be used for account mapping to assign the receivable offset account to the invoice line. It is based on the ORA_JV_METHOD_DIST_TYPE lookup codes such as overhead or fees.",
+      "column_order": 16
+    },
+    {
+      "name": "MINIMUM_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The minimum debit amount for an overhead accounts receivable line. This amount will be used instead of the calculated overhead debit amount if the calculated amount is less than the minimum. If the calculated overhead amount results in a credit, this amount is ignored.",
+      "column_order": 17
+    },
+    {
+      "name": "TRANSACTION_DATE_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The source of the transaction date in a transaction with the calculated overhead amount. It is based on the ORA_JV_TRANSACTION_DATE_SOURCE lookup codes such as last day of the period or system date.",
+      "column_order": 18
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Key flexfield combination defining column that will be used as the receivable offset account in invoicing.",
+      "column_order": 19
+    },
+    {
+      "name": "PERIOD_BASIS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Determines how the overhead calculation basis is derived. It is based on the ORA_JV_OVERHEAD_PERIOD lookup codes such as period, year to period, or inception to period.",
+      "column_order": 20
+    },
+    {
+      "name": "CALENDAR_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The type of calendar being used when calculating overhead. It is based on the ORA_JV_CALENDAR_TYPE lookup codes such as standard or fiscal.",
+      "column_order": 21
+    },
+    {
+      "name": "MAXIMUM_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The maximum overhead amount allowed to be billed.",
+      "column_order": 22
+    },
+    {
+      "name": "SOURCE_ACCOUNT_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The account set used to select GL and SLA transactions for the overhead calculation.",
+      "column_order": 23
+    },
+    {
+      "name": "SOURCE_CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The account used to select GL and SLA transactions for the overhead calculation.",
+      "column_order": 24
+    },
+    {
+      "name": "SOURCE_LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The ledger used to select GL and SLA transactions for the overhead calculation.",
+      "column_order": 25
+    },
+    {
+      "name": "STAKEHOLDER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for the stakeholder that is to be directly billed for the transaction. This can be overridden from what was originally assigned.",
+      "column_order": 26
+    },
+    {
+      "name": "SLIDING_SCALE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the overhead method will use a sliding scale.",
+      "column_order": 27
+    },
+    {
+      "name": "METHOD_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The rate in the overhead method that is used to calculate the overhead amount.",
+      "column_order": 28
+    },
+    {
+      "name": "ADJUSTMENT_FACTOR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the periodic adjustment factor that the overhead method is associated with.",
+      "column_order": 29
+    },
+    {
+      "name": "LAST_ADJUSTMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date that the overhead method was last adjusted.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_FACTOR_VALUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date of the last adjustment factor value used to adjust the overhead method.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_FACTOR_VALUE_PERCENTAGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The percentage of the last adjustment factor value used to adjust the overhead method.",
+      "column_order": 32
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 33
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 35
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 36
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 37
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 38
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 39
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 40
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 41
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    }
+  ]
+}

@@ -1,0 +1,211 @@
+{
+  "id": 34858,
+  "name": "ATK_QB_CONTEXTS_ALL_B",
+  "type": "TABLE",
+  "description": "Base table for all context objects, which can be either Rule Context or Query Context.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/atkqbcontextsallb-16588.html#atkqbcontextsallb-16588",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CONTEXT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key of the table.",
+      "column_order": 1
+    },
+    {
+      "name": "APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Represents the application to which the context object belongs to.",
+      "column_order": 2
+    },
+    {
+      "name": "CONTEXT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "Name of the context object. This name is used for fetching queries, fetching the rule results etc.",
+      "column_order": 3
+    },
+    {
+      "name": "MULTI_VALUE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Represents whether there is conditional dependency among the results that are to be returned when a rule matches.",
+      "column_order": 4
+    },
+    {
+      "name": "MULTI_RULE_RESULT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Represents whether to return the result of first matching rule or the results of all the matching rules",
+      "column_order": 5
+    },
+    {
+      "name": "CONTEXT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "This column is used to identify whether the context object is used for creating the rules or setting up queries. The current values to be assigned are \"RULES\" and \"QUERY\"",
+      "column_order": 6
+    },
+    {
+      "name": "FLEX_FIELD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "If one result value depends on another value then we use the DFF. This field represents the name of the DFF.",
+      "column_order": 7
+    },
+    {
+      "name": "FLEX_FIELD_APP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Represents the application to which the DFF belongs to.",
+      "column_order": 8
+    },
+    {
+      "name": "USE_DEFAULT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Determines whether to use the default result if no rule matches.",
+      "column_order": 9
+    },
+    {
+      "name": "IS_DEFAULT_REQUIRED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Determines whether the default value is mandatory or not.",
+      "column_order": 10
+    },
+    {
+      "name": "CONTEXT_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "This column is used to prevent the context name clashes.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 17
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 18
+    },
+    {
+      "name": "IS_QUERY_USER_NAME_UNIQUE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to restrict the user to create rules or queries with unique user name under a rule or query group.",
+      "column_order": 19
+    },
+    {
+      "name": "UNIQUE_QRY_USER_NAME_REQ_MSG",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Error message raised when creating query or rule with existing user name under a query group or rule group.",
+      "column_order": 20
+    },
+    {
+      "name": "IS_QRY_CRITERIA_REQ",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to restrict the user to create rules with atleast one criteria or condition.",
+      "column_order": 21
+    },
+    {
+      "name": "QRY_CRITERIA_REQ_MSG",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Error message raised when trying to create query or rule without condition or criteria.",
+      "column_order": 22
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 23
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 24
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 25
+    }
+  ]
+}

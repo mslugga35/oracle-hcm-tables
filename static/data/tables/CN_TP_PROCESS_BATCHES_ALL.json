@@ -1,0 +1,227 @@
+{
+  "id": 34715,
+  "name": "CN_TP_PROCESS_BATCHES_ALL",
+  "type": "TABLE",
+  "description": "CN_PROCESS_BATCHES is an internal table used to manage the  calculation process.  The table is automatically populated and updated during calculation. No attempt must be made to insert or  modify rows in this table. . You need one row for each salesperson's period (CN_SRP_PERIODS) that will be calculated.  . LOGICAL_BATCH_ID is a unique identifier assigned to all  CN_SRP_PERIODS in a single calculation run. . PHYSICAL_BATCH_ID is a non-unique identifier assigned  to each group of CN_SRP_PERIODS within the logical batch depending upon the number of transactions in each of these  CN_SRP_PERIODS references.  Each physical batch is a separate commit unit. . STATUS_CODE indicates whether the batch has been processed: 'IN_USE' indicates that the batch is ready for processing, 'VOID' indicates that the batch has been processed and can be purged. . PROCESS_BATCH_TYPE indicates whether this salesperson period belongs to the direct or credited salesperson.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/cntpprocessbatchesall-20626.html#cntpprocessbatchesall-20626",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PROCESS_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LOGICAL_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Logical batch unique identifier",
+      "column_order": 4
+    },
+    {
+      "name": "PHYSICAL_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Physical batch unique identifier",
+      "column_order": 5
+    },
+    {
+      "name": "SRP_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Period Identifier",
+      "column_order": 6
+    },
+    {
+      "name": "PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Period Identifier",
+      "column_order": 7
+    },
+    {
+      "name": "PARTICIPANT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Points to hz_parties.party_id",
+      "column_order": 8
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "START DATE",
+      "column_order": 9
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "END DATE",
+      "column_order": 10
+    },
+    {
+      "name": "START_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Period-id of start_date",
+      "column_order": 11
+    },
+    {
+      "name": "END_PERIOD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Period_id of end_date",
+      "column_order": 12
+    },
+    {
+      "name": "PROCESS_BATCH_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Process Batch Type",
+      "column_order": 13
+    },
+    {
+      "name": "SALES_LINE_TOTAL",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total Number of Transaction Lines",
+      "column_order": 14
+    },
+    {
+      "name": "RECORD_CNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of records to be processed for the participant",
+      "column_order": 15
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Batch status",
+      "column_order": 19
+    },
+    {
+      "name": "CURRENT_PHASE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the current phase of the batch",
+      "column_order": 20
+    },
+    {
+      "name": "CALC_COMP_PLANS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag that indicates if the compensation plans were already calculated for the participant",
+      "column_order": 21
+    },
+    {
+      "name": "SIMULATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the calculation simulation that will be executed in this batch",
+      "column_order": 22
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 23
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 27
+    }
+  ]
+}

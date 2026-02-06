@@ -1,0 +1,155 @@
+{
+  "id": 28867,
+  "name": "IBY_EXT_PARTY_PMT_MTHDS",
+  "type": "TABLE",
+  "description": "IBY_EXT_PARTY_PMT_MTHDS stores payment method applicability driven by the preferences of the external party. A payment method is applicable to a party and payment function combination and, optionally and additionally, to a party site and/or organization. This table is shared by funds capture and fund disbursement flows.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibyextpartypmtmthds-17452.html#ibyextpartypmtmthds-17452",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "EXT_PARTY_PMT_MTHD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System-generated primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "PAYMENT_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Payment method Identifier",
+      "column_order": 2
+    },
+    {
+      "name": "PAYMENT_FLOW",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies funds capture or disbursement flow.  Values taken from lookup: IBY_PAYMENT_FLOW",
+      "column_order": 3
+    },
+    {
+      "name": "EXT_PMT_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "External party Identifier, either a payee or payer, depending on the payment flow",
+      "column_order": 4
+    },
+    {
+      "name": "PAYMENT_FUNCTION",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Function or purpose of the payment. Values from the lookup IBY_PAYMENT_FUNCTIONS include SUPPLIER_PAYMENT, CUSTOMER_REFUNDS, and others.",
+      "column_order": 5
+    },
+    {
+      "name": "PRIMARY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates if payment method is primary. Y for Yes, N otherwise.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 12
+    },
+    {
+      "name": "INACTIVE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "interface.",
+      "column_order": 13
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date when an explicit assignment of a payment method to an external payee becomes active.",
+      "column_order": 14
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date when an explicit assignment of a payment method to an external payee becomes inactive.",
+      "column_order": 15
+    },
+    {
+      "name": "ENTERPRISE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise identifier to support multi-tenancy.",
+      "column_order": 16
+    },
+    {
+      "name": "OVERRIDE_PAYMENT_TERM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Overriding payment term. Foreign key to the AP_TERMS_B table.",
+      "column_order": 17
+    },
+    {
+      "name": "BACKUP_PAYMENT_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Backup payment method. Foreign key to the IBY_PAYMENT_METHODS_B table.",
+      "column_order": 18
+    }
+  ]
+}

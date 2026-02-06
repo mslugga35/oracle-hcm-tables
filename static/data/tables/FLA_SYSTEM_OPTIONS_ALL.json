@@ -1,0 +1,651 @@
+{
+  "id": 27256,
+  "name": "FLA_SYSTEM_OPTIONS_ALL",
+  "type": "TABLE",
+  "description": "FLA_SYSTEM_OPTIONS_ALL contains setup options at the operating unit level. There is one row for each operating unit. It retains information such as the operating unit's ledger, interest calculation method, and inventory item master org and so on.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flasystemoptionsall-15826.html#flasystemoptionsall-15826",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SYSTEM_OPTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System setup option identifier. This is the primary key of the table.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 3
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Ledger identifier as defined in general ledger.",
+      "column_order": 4
+    },
+    {
+      "name": "PRIMARY_REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Primary regime code. This drives the accounting model and reporting for the lease in the primary ledger.",
+      "column_order": 5
+    },
+    {
+      "name": "SECONDARY_REGIME_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Optional secondary regime code. The value selected should be different from what is selected as primary regime code.",
+      "column_order": 6
+    },
+    {
+      "name": "CALENDAR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Calendar identifier from General Ledger Calendars. This is used for schedules calculations purpose.",
+      "column_order": 7
+    },
+    {
+      "name": "DEFAULT_CURRENCY_CONV_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Default currency conversion type which should be used for the leases.",
+      "column_order": 8
+    },
+    {
+      "name": "INTEREST_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Interest method. Possible values are DAILY COMPOUND, LINEAR COMPOUND, or SIMPLE INTEREST.",
+      "column_order": 9
+    },
+    {
+      "name": "AMORTIZATION_FREQUENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Frequency at which the amortization is calculated. Possible values are DAILY and PERIODICALLY.",
+      "column_order": 10
+    },
+    {
+      "name": "INVENTORY_MASTER_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Inventory item master operating unit identifier.",
+      "column_order": 11
+    },
+    {
+      "name": "AUTO_LEASE_NUMBER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Indicates whether the lease number is automatically generated or not.",
+      "column_order": 12
+    },
+    {
+      "name": "AUTO_ASSET_NUMBER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the asset number is automatically generated or not.",
+      "column_order": 13
+    },
+    {
+      "name": "AUTO_PAYMENT_TERM_NUMBER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the payment term number is automatically generated or not.",
+      "column_order": 14
+    },
+    {
+      "name": "AUTO_OPTION_NUMBER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the options number is automatically generated or not.",
+      "column_order": 15
+    },
+    {
+      "name": "CONSOLIDATE_ADJ_ITEMS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the adjustments should be consolidated into one item or not.",
+      "column_order": 16
+    },
+    {
+      "name": "SECONDARY_LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger identification as defined in general ledger. This will carry the Secondary Ledger and used for secondary regime accounting.",
+      "column_order": 17
+    },
+    {
+      "name": "AP_INTEGRATION_ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the integration to Oracle Payables is enabled for the Business unit or not.",
+      "column_order": 18
+    },
+    {
+      "name": "LEASE_TRX_APPROVAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the lease approval is enabled for the business unit.",
+      "column_order": 19
+    },
+    {
+      "name": "LEASE_IMPORT_APPROVAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the option for approval during import of lease data.",
+      "column_order": 20
+    },
+    {
+      "name": "ALLOW_PROPERTY_DEFINITION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the property definition is allowed for the leases.",
+      "column_order": 21
+    },
+    {
+      "name": "LIABILITY_RECLASS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "The flag indicates whether reclassification of liability needs to be done.",
+      "column_order": 22
+    },
+    {
+      "name": "LIABILITY_RECLASS_FROM_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date from which the liability reclassification is processed.",
+      "column_order": 23
+    },
+    {
+      "name": "ENABLE_REVENUE_LEASES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates revenue leases are enabled for the business unit.",
+      "column_order": 24
+    },
+    {
+      "name": "ENABLE_OPTIONS_REV_AMORT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates the revenue amortization is applicable for options.",
+      "column_order": 25
+    },
+    {
+      "name": "AR_INTEGRATION_ENABLED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates the integration to Oracle Receivables is enabled for the Business unit.",
+      "column_order": 26
+    },
+    {
+      "name": "ENABLE_EXP_PROPERTY_VAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates the property validations need to be executed when the expense lease is validated.",
+      "column_order": 27
+    },
+    {
+      "name": "ENABLE_REV_PROPERTY_VAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates the property validations need to be executed when the revenue lease is validated.",
+      "column_order": 28
+    },
+    {
+      "name": "PRIM_PROP_SCOPE_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Scope change method for leases with asset classification as property in primary accounting standard. Values can be Unit based percentage and Liability based percentage.",
+      "column_order": 29
+    },
+    {
+      "name": "SECD_PROP_SCOPE_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Scope change method for leases with asset classification as property in secondary accounting standard. Values can be Unit based percentage and Liability based percentage.",
+      "column_order": 30
+    },
+    {
+      "name": "PRIM_EQUIP_SCOPE_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Scope change method for leases with asset classification as equipment in primary accounting standard. Values can be Unit based percentage and Liability based percentage.",
+      "column_order": 31
+    },
+    {
+      "name": "SECD_EQUIP_SCOPE_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Scope change method for leases with asset classification as equipment in secondary accounting standard. Values can be Unit based percentage and Liability based percentage.",
+      "column_order": 32
+    },
+    {
+      "name": "LIABILITY_RECLASS_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Liability reclassification method. Values can be long term liability balance and long term liability balance and present value of payments.",
+      "column_order": 33
+    },
+    {
+      "name": "REQUIRE_PROPERTY_DEFN_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates if the property association for expense leases is mandatory at the business unit level. Possible values are Mandatory and Optional.",
+      "column_order": 34
+    },
+    {
+      "name": "TAX_CLASSIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax Driver: Tax classification code for payment term.",
+      "column_order": 35
+    },
+    {
+      "name": "PRIMARY_INTENDED_USE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax Driver: The purpose for which a product may be used. The actual use is stored at the distribution level.",
+      "column_order": 36
+    },
+    {
+      "name": "PRODUCT_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Identifies the taxable nature of a noninventory based item for tax determination or tax reporting.",
+      "column_order": 37
+    },
+    {
+      "name": "PRODUCT_FISCAL_CLASSIFICATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Product fiscal classification",
+      "column_order": 38
+    },
+    {
+      "name": "PRODUCT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Type of product. Possible values are Goods and Services. This value defaults from Inventory Item attributes or is entered by the user.",
+      "column_order": 39
+    },
+    {
+      "name": "TRX_BUSINESS_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Transactions category assigned by user.",
+      "column_order": 40
+    },
+    {
+      "name": "USER_DEFINED_FISCAL_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Fiscal Classification.",
+      "column_order": 41
+    },
+    {
+      "name": "WITHHOLDING_TAX_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax Driver: Withholding tax group identifier.",
+      "column_order": 42
+    },
+    {
+      "name": "DOCUMENT_SUB_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax Driver: Classification used by a tax authority to categorize a document associated with a transaction for a tax.",
+      "column_order": 43
+    },
+    {
+      "name": "FIRST_PTY_REG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax Driver: Deploying company's Tax Registration number",
+      "column_order": 44
+    },
+    {
+      "name": "THIRD_PTY_REG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax Driver: Bill-to Customer Tax Registration Number",
+      "column_order": 45
+    },
+    {
+      "name": "TAX_INCLUDED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether tax is included or not.",
+      "column_order": 46
+    },
+    {
+      "name": "UPFRONT_TAX_APPLICABLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether upfront tax is applicable or not.",
+      "column_order": 47
+    },
+    {
+      "name": "ENABLE_SUBLEASES_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether subleases are allowed or not.",
+      "column_order": 48
+    },
+    {
+      "name": "ARREARS_PAY_DT_TREATMENT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates whether the payment due date is included in day count calculation for the present value derivation when the payment is in arrears. Possible values are Beginning of the day and End of the day.",
+      "column_order": 49
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 50
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 51
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 52
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 53
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 64
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 65
+    },
+    {
+      "name": "ATTRIBUTE_CHAR11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 66
+    },
+    {
+      "name": "ATTRIBUTE_CHAR12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 67
+    },
+    {
+      "name": "ATTRIBUTE_CHAR13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 68
+    },
+    {
+      "name": "ATTRIBUTE_CHAR14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 69
+    },
+    {
+      "name": "ATTRIBUTE_CHAR15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 70
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 71
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 72
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 73
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 74
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 75
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 76
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 77
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 78
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 79
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 80
+    }
+  ]
+}

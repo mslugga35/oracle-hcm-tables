@@ -1,0 +1,163 @@
+{
+  "id": 30542,
+  "name": "QSC_PROD_GRP_DENM_DETS",
+  "type": "TABLE",
+  "description": "This table is the child of the product group denorm table QSC_PROD_GRP_DENORM and stores further denorm path details. The data in this table is a further decomposition of the path into fragments. It stores all the partial paths for a given path with the same start product group.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/qscprodgrpdenmdets-7048.html#qscprodgrpdenmdets-7048",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PROD_GRP_DENM_DETS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Product Group denorm path details identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "DESC_PATH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Stores the descendant path node. Logically refers to the PATH_ID column in the table QSC_PROD_GRP_DENORM table.",
+      "column_order": 3
+    },
+    {
+      "name": "DESC_PROD_GRP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Descendant product group identifier.",
+      "column_order": 4
+    },
+    {
+      "name": "DESC_DISTANCE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Distance between start and end nodes of the product group in the descendant path.",
+      "column_order": 5
+    },
+    {
+      "name": "ANC_PATH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores the ancestor path node. Logically refers to the PATH_ID column in the table QSC_PROD_GRP_DENORM table.",
+      "column_order": 6
+    },
+    {
+      "name": "ANC_PROD_GRP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Reference to a ancestor product group identifier.",
+      "column_order": 7
+    },
+    {
+      "name": "ANC_DISTANCE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Distance between start and end nodes of the product group in an ancestor path.",
+      "column_order": 8
+    },
+    {
+      "name": "PRIMARY_PATH_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate a primary path. Only one record with the same ANCESTOR_PATH_ID can be marked as a primary.",
+      "column_order": 9
+    },
+    {
+      "name": "RELATIVE_DISTANCE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Distance between ancestor path end node and descendant path end node.",
+      "column_order": 10
+    },
+    {
+      "name": "RUNTIME_STATUS_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Column for internal use. Used to store runtime status codes.",
+      "column_order": 11
+    },
+    {
+      "name": "ADMIN_STATUS_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Column for internal use. Used to store admin time status codes.",
+      "column_order": 12
+    },
+    {
+      "name": "BATCH_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "Y",
+      "description": "Column for internal use. Used to store transient information about the batch process that is updating denormalization data based on the value in a group.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 17
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 18
+    },
+    {
+      "name": "USER_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Disconnected Mobile: indicates the date and time of the last update of the row. This value is different from LAST_UPDATE_DATE if the update originally happened in a different database (i.e. a different mobile database or the server).",
+      "column_order": 19
+    }
+  ]
+}

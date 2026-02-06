@@ -1,0 +1,435 @@
+{
+  "id": 31904,
+  "name": "FFS_ACTIVITY_TMPL_LOG",
+  "type": "TABLE",
+  "description": "Used to store modification history for shift/mass/repeating activities.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffsactivitytmpllog-3778.html#ffsactivitytmpllog-3778",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 19,
+      "nullable": "N",
+      "description": "Unique identifier of the log record.",
+      "column_order": 1
+    },
+    {
+      "name": "ACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 19,
+      "nullable": "Y",
+      "description": "Unique identifier of the corresponding action.",
+      "column_order": 2
+    },
+    {
+      "name": "TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Unique identifier of this repeating/mass/shift activity log.",
+      "column_order": 3
+    },
+    {
+      "name": "USER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the user who created this activity template.",
+      "column_order": 4
+    },
+    {
+      "name": "CREATED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time when the activity was created.",
+      "column_order": 5
+    },
+    {
+      "name": "PARENT_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Reference to an previous activity template log record.",
+      "column_order": 6
+    },
+    {
+      "name": "MASTER_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "It is a reference to an initial template record.",
+      "column_order": 7
+    },
+    {
+      "name": "TEAM_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Activity Team holder resource reference. Used for teamwork activities.",
+      "column_order": 8
+    },
+    {
+      "name": "SHIFT_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Reference to shift which activity template log belongs.",
+      "column_order": 9
+    },
+    {
+      "name": "TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Reference to Activity template log Work Type List.",
+      "column_order": 10
+    },
+    {
+      "name": "WORK_ZONE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Activity template log work zone reference . It is a read-only field that is automatically assigned to an activity, based on the company setting 'work zone key' and the activity properties.",
+      "column_order": 11
+    },
+    {
+      "name": "DURATION",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Activity template log duration in minutes. Fills with actual duration after activity start.",
+      "column_order": 12
+    },
+    {
+      "name": "TIME_SLOT_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Reference to time slot during which the activity template log is completed. The time slot also indicates the service window for the activity. This time is displayed in the time zone of the resource to which the activity is assigned.",
+      "column_order": 13
+    },
+    {
+      "name": "SERVICE_WINDOW_START",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Activity template log Service window start time. Service window is returned in the time zone of the resource to which the activity is currently assigned.",
+      "column_order": 14
+    },
+    {
+      "name": "SERVICE_WINDOW_END",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Activity template log Service window end time. Service window is returned in the time zone of the resource to which the activity is currently assigned.",
+      "column_order": 15
+    },
+    {
+      "name": "ACTIVITY_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "Identifier of the activity template log in the origin system. The value can be empty.",
+      "column_order": 16
+    },
+    {
+      "name": "CUSTOMER_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "Activity template log account number of the customer. This field is used by integrations as a placeholder for the external identifier of the Account ID in the application. This parameter has no business significance in Oracle Field Service and can be left empty. Maximum field length is 40.",
+      "column_order": 17
+    },
+    {
+      "name": "CUSTOMER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 1680,
+      "nullable": "Y",
+      "description": "Activity template log name of the customer. Maximum field length is 420.Encrypted.",
+      "column_order": 18
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated. Will be removed soon.",
+      "column_order": 19
+    },
+    {
+      "name": "STREET_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 960,
+      "nullable": "Y",
+      "description": "Activity template log street address of the customer. This field is used for geocoding and must contain a valid address. Maximum field length is 240. Encrypted.",
+      "column_order": 20
+    },
+    {
+      "name": "CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Activity template log city of the customer where the activity is scheduled. Maximum field length is 60.",
+      "column_order": 21
+    },
+    {
+      "name": "POSTAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Activity template log ZIP code of the customer where the activity is scheduled.",
+      "column_order": 22
+    },
+    {
+      "name": "STATE_PROVINCE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Activity template log state of the customer where the activity is scheduled. Maximum field length is 60.",
+      "column_order": 23
+    },
+    {
+      "name": "CUSTOMER_PHONE",
+      "data_type": "VARCHAR2",
+      "data_length": 960,
+      "nullable": "Y",
+      "description": "Activity template log regular (land) phone number of the customer. . Encrypted.",
+      "column_order": 24
+    },
+    {
+      "name": "CUSTOMER_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 1280,
+      "nullable": "Y",
+      "description": "Activity template log email address of the customer. Maximum field length is 320.Encrypted.",
+      "column_order": 25
+    },
+    {
+      "name": "CUSTOMER_CELL",
+      "data_type": "VARCHAR2",
+      "data_length": 960,
+      "nullable": "Y",
+      "description": "Activity template log cell phone number of the customer. Encrypted.",
+      "column_order": 26
+    },
+    {
+      "name": "LANGUAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Activity template log language. Reference to Language.Lid.",
+      "column_order": 27
+    },
+    {
+      "name": "REMINDER_TIME",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Number of minutes before the activity template log start time the customer must be notified of the activity.",
+      "column_order": 28
+    },
+    {
+      "name": "TIME_ZONE_ID",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Activity template log Time Zone. Reference to Time_Zone.Zid.",
+      "column_order": 29
+    },
+    {
+      "name": "TRAVEL_AREA_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Reference to Travel Area to which actvity template log activity work zone is assigned.",
+      "column_order": 30
+    },
+    {
+      "name": "TRAVEL_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Activity template log travel key. Fills automatically based on Travel key field set on Business Rules screen.",
+      "column_order": 31
+    },
+    {
+      "name": "DURATION_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Activity template log duration key. Fills automatically based on Duration key field set on Business Rules screen.",
+      "column_order": 32
+    },
+    {
+      "name": "COORD_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Activity template log coordinates found staues: 'Is Found', 'Not_Found'.",
+      "column_order": 33
+    },
+    {
+      "name": "COORD_ACCURACY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Activity template log accuracy Level Of Geocoding Coordinates Not Valid - -1 Undefined - 0 Country - 1 State - 2 County - 3 City - 4 Zip - 5 Route - 6 Street - 7 Intersection - 8 Address - 9.",
+      "column_order": 34
+    },
+    {
+      "name": "COORD_X",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Geographic coordinates that specify the location of the activity template log.",
+      "column_order": 35
+    },
+    {
+      "name": "COORD_Y",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Geographic coordinates that specify the location of the activity template log.",
+      "column_order": 36
+    },
+    {
+      "name": "OPTIONS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Bitmask. Set of options defining a behaviour of this activity.",
+      "column_order": 37
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start date this activity takes effect from.",
+      "column_order": 38
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last date until which this activity takes place. Optional.",
+      "column_order": 39
+    },
+    {
+      "name": "RECURRENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "Activity template repeating/mass activity recurrence.",
+      "column_order": 40
+    },
+    {
+      "name": "WEEKDAYS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Bitmask. Defines days of week this activity takes place.",
+      "column_order": 41
+    },
+    {
+      "name": "RECUR_EVERY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Time between each recurrence of the assignment. Depending on the value selected for 'recurrence', the value of the parameter indicates the time between recurrence in days or weeks.",
+      "column_order": 42
+    },
+    {
+      "name": "SLA_START",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time when the service level agreement (SLA) window starts. SLA window is returned in the time zone of the resource to which the activity template log is currently assigned.",
+      "column_order": 43
+    },
+    {
+      "name": "SLA_END",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time when the service level agreement (SLA) window ends. The time is displayed in 'YYYY-MM-DD HH:MM:SS' format. SLA window is returned in the time zone of the resource to which the activity template log is currently assigned.",
+      "column_order": 44
+    },
+    {
+      "name": "FEATURES",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Bitmask field that defines active features for this activity template log. This value is copied from a selected activity type on Create/Update actions.",
+      "column_order": 45
+    },
+    {
+      "name": "POINTS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Number of Points that represent efforts required to perform this activity template log.",
+      "column_order": 46
+    },
+    {
+      "name": "TIME_OF_BOOKING",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time when the customer booked the activity template log. The time is displayed in the time zone of the customer.",
+      "column_order": 47
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 48
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 49
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 50
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 51
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 52
+    },
+    {
+      "name": "COORD_VIEWPORT_RADIUS",
+      "data_type": "NUMBER",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "Radius of activity location viewport returned by geoprovider in meters.",
+      "column_order": 53
+    }
+  ]
+}

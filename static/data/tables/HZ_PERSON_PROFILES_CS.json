@@ -1,0 +1,99 @@
+{
+  "id": 31706,
+  "name": "HZ_PERSON_PROFILES_CS",
+  "type": "TABLE",
+  "description": "The profile staging table collects value change and source\ninformation for profile records being created, updated or removed based on source\nrecords received from an external system. This information is calculated by the\nimport process after source data has been received and stored. Later, the import\nprocess uses this information to update the profile table and the history table.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/hzpersonprofilescs-16658.html#hzpersonprofilescs-16658",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The action performed on the profile record, for example INSERT, UPDATE or DELETE.",
+      "column_order": 1
+    },
+    {
+      "name": "PROCESS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The process performing an action on the profile record, for example HZ_IMPORT.",
+      "column_order": 2
+    },
+    {
+      "name": "PROCESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The process instance performing an action on the profile record, for example BATCH_ID for HZ_IMPORT.",
+      "column_order": 3
+    },
+    {
+      "name": "RECORD_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last update of an existing profile record being updated or removed. NULL for a new profile record being created.",
+      "column_order": 4
+    },
+    {
+      "name": "RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of an existing profile record being updated or removed. NULL for a new profile record being created.",
+      "column_order": 5
+    },
+    {
+      "name": "RECORD_VERSION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Version of an existing profile record being updated or removed. NULL for a new profile record being created.",
+      "column_order": 6
+    },
+    {
+      "name": "SOURCE_RECORD_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last update of the source record which is used to create a new profile record or update an existing profile record. NULL if the source record cannot be updated.",
+      "column_order": 7
+    },
+    {
+      "name": "SOURCE_RECORD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the source record which is used to create a new profile record or update an existing profile record.",
+      "column_order": 8
+    },
+    {
+      "name": "SOURCE_RECORD_VERSION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Version of the source record which is used to create a new profile record or update an existing profile record. NULL if the source record cannot be updated.",
+      "column_order": 9
+    },
+    {
+      "name": "VALUE_CHANGE",
+      "data_type": "VARCHAR2",
+      "data_length": 3000,
+      "nullable": "Y",
+      "description": "Indicates the profile values being changed. NULL if the value changes are undetermined, for example when updating a profile record that does not exist.",
+      "column_order": 10
+    },
+    {
+      "name": "VALUE_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the source of the profile values being changed. NULL if the value changes are undetermined, for example when updating a profile record that does not exist.",
+      "column_order": 11
+    }
+  ]
+}

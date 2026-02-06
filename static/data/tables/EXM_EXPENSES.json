@@ -1,0 +1,1403 @@
+{
+  "id": 27077,
+  "name": "EXM_EXPENSES",
+  "type": "TABLE",
+  "description": "EXM_EXPENSES stores detailed information about expense items for individual expense reports\n         you enter.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/exmexpenses-11247.html#u30258496",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of a specific expense item.",
+      "column_order": 1
+    },
+    {
+      "name": "CARD_USAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Card usage identifier that is associated with an existing\n                        card usage",
+      "column_order": 2
+    },
+    {
+      "name": "RCPT_MISSING_THRESHOLD_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the expense item receipt amount is below a\n                        specific threshold percentage.",
+      "column_order": 3
+    },
+    {
+      "name": "VALIDATION_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Types of exceptions for an expense item. Possible values are\n                        NULL for old expenses that need to be revalidated, E for expenses with at\n                        least one error, W for expenses that have no errors but have warnings, and C\n                        for expenses without any errors or warnings.",
+      "column_order": 4
+    },
+    {
+      "name": "TRXN_AVAILABLE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when a corporate card transaction is available for\n                        inclusion in an expense report.",
+      "column_order": 5
+    },
+    {
+      "name": "CARD_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a specific corporate card.",
+      "column_order": 6
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Person identifier of the individual on the corporate\n                        card.",
+      "column_order": 7
+    },
+    {
+      "name": "ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Assignment identifier of the individual on the corporate\n                        card.",
+      "column_order": 8
+    },
+    {
+      "name": "EXPENSE_REPORT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a specific expense report.",
+      "column_order": 9
+    },
+    {
+      "name": "ITEMIZATION_PARENT_EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the parent expense of an itemized\n                        expense item. Possible values are NULL indicating that the expense is not\n                        itemized, -1 indicating that the expense is a parent line with itemization,\n                        and greater than 0 indicating that the expense is an itemized child line and\n                        the value is the parent line's identifier.",
+      "column_order": 10
+    },
+    {
+      "name": "SEQUENCE_NUM",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Sequence in which expenses items are entered into an expense\n                        report.",
+      "column_order": 11
+    },
+    {
+      "name": "REIMBURSABLE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount to be reimbursed to the individual in reimbursable\n                        currency for this expense.",
+      "column_order": 12
+    },
+    {
+      "name": "ORIG_REIMBURSABLE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Original amount to be reimbursed to the individual for this\n                        expense.",
+      "column_order": 13
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description of an expense item.",
+      "column_order": 14
+    },
+    {
+      "name": "JUSTIFICATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reason an expense was incurred.",
+      "column_order": 15
+    },
+    {
+      "name": "MERGED_PARENT_EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the expense to which the duplicate expenses are\n                        merged.",
+      "column_order": 16
+    },
+    {
+      "name": "VISITED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the user has confirmed the\n                        expense.",
+      "column_order": 17
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the expense occurred or the calculated value of\n                        the start date of an expense that spans multiple days.",
+      "column_order": 18
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last date of an expense that spans multiple days. For\n                        expenses paid using a corporate card, this is the date when the transaction\n                        occurred.",
+      "column_order": 19
+    },
+    {
+      "name": "RECEIPT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the expense occurred.",
+      "column_order": 20
+    },
+    {
+      "name": "CC_PAYMENT_DUE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the corporate credit card amount needs to be\n                        paid.",
+      "column_order": 21
+    },
+    {
+      "name": "RECEIPT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Receipt currency of an expense item.",
+      "column_order": 22
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate that represents the amount one currency can be\n                        exchanged for another at a specific point in time.",
+      "column_order": 23
+    },
+    {
+      "name": "RECEIPT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of the receipt in the receipt currency.",
+      "column_order": 24
+    },
+    {
+      "name": "DAILY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount consumed in a day for the expense.",
+      "column_order": 25
+    },
+    {
+      "name": "TIP_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of tip given in the transaction. This helps to manage\n                        cases where receipts have different amount because of the tips\n                        involved.",
+      "column_order": 26
+    },
+    {
+      "name": "EXPENSE_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source of an expense item, such as cash or corporate\n                        card.",
+      "column_order": 27
+    },
+    {
+      "name": "EXPENSE_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a specific expense template.",
+      "column_order": 28
+    },
+    {
+      "name": "EXPENSE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for a specific expense type.",
+      "column_order": 29
+    },
+    {
+      "name": "EXPENSE_TYPE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Grouping of expense types and additional data fields that\n                        are relevant for a particular grouping of expenses. An example is airfare.\n                        This grouping allows expense types to include information such as class of\n                        fare, merchant, ticket number, location from, and location to.",
+      "column_order": 30
+    },
+    {
+      "name": "FUNC_CURRENCY_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount to be reimbursed to the individual in functional\n                        currency for expenses incurred.",
+      "column_order": 31
+    },
+    {
+      "name": "CREDIT_CARD_TRXN_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a specific corporate card\n                        transaction.",
+      "column_order": 32
+    },
+    {
+      "name": "RECEIPT_REQUIRED_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount above which receipt is required for the expense\n                        item.",
+      "column_order": 33
+    },
+    {
+      "name": "CC_PREPAID_INVOICE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the payment request generated to reimburse the\n                        individual.",
+      "column_order": 34
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a specific location.",
+      "column_order": 35
+    },
+    {
+      "name": "NUMBER_OF_ATTENDEES",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of people that attended the event for which an\n                        expense was incurred. For example, the number of people that attended a\n                        business dinner or an entertainment event.",
+      "column_order": 36
+    },
+    {
+      "name": "MERCHANT_DOCUMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Receipt number on the receipt issued by the\n                        merchant.",
+      "column_order": 37
+    },
+    {
+      "name": "MERCHANT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of the merchant where the expense was incurred.",
+      "column_order": 38
+    },
+    {
+      "name": "MERCHANT_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Purchase identification of a transaction provided by the\n                        merchant at the point of sale.",
+      "column_order": 39
+    },
+    {
+      "name": "MERCHANT_TAX_REG_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Unique sequence of letters and/or numbers assigned to a\n                        party or party site, by a tax authority, when it is registered and by which\n                        the party or party site registration will be identified.",
+      "column_order": 40
+    },
+    {
+      "name": "MERCHANT_TAXPAYER_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Tax payer identifier of the merchant.",
+      "column_order": 41
+    },
+    {
+      "name": "COUNTRY_OF_SUPPLY",
+      "data_type": "VARCHAR2",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Country where the supplier resides.",
+      "column_order": 42
+    },
+    {
+      "name": "VEHICLE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Grouping of vehicle types such as, company, private, or\n                        rental.",
+      "column_order": 43
+    },
+    {
+      "name": "VEHICLE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Types of vehicles for which mileage reimbursement is\n                        permitted such as, car, motorcycle, and van.",
+      "column_order": 44
+    },
+    {
+      "name": "FUEL_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Types of fuel for which fuel charge reimbursement is\n                        permitted.",
+      "column_order": 45
+    },
+    {
+      "name": "NUMBER_PEOPLE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of passengers in the vehicle.",
+      "column_order": 46
+    },
+    {
+      "name": "DAILY_DISTANCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Distance traveled in a day for business.",
+      "column_order": 47
+    },
+    {
+      "name": "DISTANCE_UNIT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Unit of the distance traveled, such as kilometer and\n                        mile.",
+      "column_order": 48
+    },
+    {
+      "name": "AVG_MILEAGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Average mileage rate including additional applicable rates\n                        such as passenger rates and rates for hauling a trailer.",
+      "column_order": 49
+    },
+    {
+      "name": "DESTINATION_FROM",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Starting or departure location of the trip.",
+      "column_order": 50
+    },
+    {
+      "name": "DESTINATION_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Ending or arrival location of the trip.",
+      "column_order": 51
+    },
+    {
+      "name": "DISPLAYED_FROM_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Full address of the starting or departure location of the\n                        trip.",
+      "column_order": 52
+    },
+    {
+      "name": "DISPLAYED_TO_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Full address of the ending or arrival location of the\n                        trip.",
+      "column_order": 53
+    },
+    {
+      "name": "TO_ADDRESS_CITY",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "City of the ending or arrival location of the trip.",
+      "column_order": 54
+    },
+    {
+      "name": "ROUND_TRIP_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the trip is a round trip.",
+      "column_order": 55
+    },
+    {
+      "name": "TRIP_DISTANCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total distance traveled during a business trip for which\n                        mileage reimbursement is requested.",
+      "column_order": 56
+    },
+    {
+      "name": "LICENSE_PLATE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "License plate number of the vehicle.",
+      "column_order": 57
+    },
+    {
+      "name": "MILEAGE_RATE_ADJUSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether the mileage rate was adjusted after\n                        expense report approval.",
+      "column_order": 58
+    },
+    {
+      "name": "TRAVEL_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicator of whether a flight is domestic or\n                        international.",
+      "column_order": 59
+    },
+    {
+      "name": "TICKET_CLASS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Cabin class of a flight or ship, for example business or\n                        economy.",
+      "column_order": 60
+    },
+    {
+      "name": "TICKET_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Airline ticket number.",
+      "column_order": 61
+    },
+    {
+      "name": "FLIGHT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Airline flight number.",
+      "column_order": 62
+    },
+    {
+      "name": "DEPARTURE_LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the departure location.",
+      "column_order": 63
+    },
+    {
+      "name": "RATE_PER_PASSENGER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Applicable mileage rate per passenger for this\n                        expense.",
+      "column_order": 64
+    },
+    {
+      "name": "PASSENGER_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Passenger rate type used for mileage reimbursement for this\n                        expense.",
+      "column_order": 65
+    },
+    {
+      "name": "PASSENGER_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Total reimbursement for carrying passengers in the\n                        vehicle.",
+      "column_order": 66
+    },
+    {
+      "name": "RANGE_LOW",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Lower limit of the distance threshold range used in mileage\n                        rate calculation.",
+      "column_order": 67
+    },
+    {
+      "name": "RANGE_HIGH",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Higher limit of the distance threshold range used in mileage\n                        rate calculation.",
+      "column_order": 68
+    },
+    {
+      "name": "UOM_DAYS",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of per diem expense days calculated based on the unit\n                        of measure.",
+      "column_order": 69
+    },
+    {
+      "name": "ALLOCATION_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reason for updating allocations for this report\n                        line.",
+      "column_order": 70
+    },
+    {
+      "name": "ALLOCATION_SPLIT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicator of how this expense line is split. A null value\n                        indicates that the line is not split.",
+      "column_order": 71
+    },
+    {
+      "name": "TAX_CLASSIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Tax code applicable to the expense item.",
+      "column_order": 72
+    },
+    {
+      "name": "AWT_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Alternate tax withholding group identifier.",
+      "column_order": 73
+    },
+    {
+      "name": "AUDIT_ADJUSTMENT_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason code for reimbursable amount to the individual during\n                        audit.",
+      "column_order": 74
+    },
+    {
+      "name": "AUDIT_ADJUSTMENT_REASON",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Reason for adjusting the reimbursable amount to the\n                        individual during audit.",
+      "column_order": 75
+    },
+    {
+      "name": "POLICY_VIOLATED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether the expense violated company\n                        policies.",
+      "column_order": 76
+    },
+    {
+      "name": "POLICY_SHORTPAY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether the expense is short paid due to policy\n                        noncompliance.",
+      "column_order": 77
+    },
+    {
+      "name": "RECEIPT_VERIFIED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether the auditor verified the receipt for\n                        this expense.",
+      "column_order": 78
+    },
+    {
+      "name": "RECEIPT_REQUIRED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether this expense requires a\n                        receipt.",
+      "column_order": 79
+    },
+    {
+      "name": "RECEIPT_MISSING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether the receipts are missing for this\n                        expense.",
+      "column_order": 80
+    },
+    {
+      "name": "DAILY_LIMIT_POLICY_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the daily limit policy associated to the\n                        row.",
+      "column_order": 81
+    },
+    {
+      "name": "JUSTIFICATION_REQUIRED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether the expense requires\n                        justification.",
+      "column_order": 82
+    },
+    {
+      "name": "ITINERARY_RESERVATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Travel reservation for which expense was created.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user\n                        descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE_CHAR11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE_CHAR12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE_CHAR13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE_CHAR14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE_CHAR15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 106
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 107
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 108
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 109
+    },
+    {
+      "name": "ATTRIBUTE_DATETIME1",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 110
+    },
+    {
+      "name": "ATTRIBUTE_DATETIME2",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive\n                        flexfield.",
+      "column_order": 111
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to\n                        the row.",
+      "column_order": 112
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is\n                        incremented every time that the row is updated. The number is compared at\n                        the start and end of a transaction to detect whether another session has\n                        updated the row since it was queried.",
+      "column_order": 113
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of\n                        the row.",
+      "column_order": 114
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 115
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update\n                        of the row.",
+      "column_order": 116
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the\n                        row.",
+      "column_order": 117
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the\n                        user who last updated the row.",
+      "column_order": 118
+    },
+    {
+      "name": "RECEIPT_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date and time of the transaction. This helps to\n                        differentiate transactions made on same day by their accounting\n                        time.",
+      "column_order": 119
+    },
+    {
+      "name": "EXPENSE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Classification of an expense item such as business or\n                        personal.",
+      "column_order": 120
+    },
+    {
+      "name": "LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Location where the expense was incurred.",
+      "column_order": 121
+    },
+    {
+      "name": "REIMBURSEMENT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Currency of the amount to be reimbursed to the individual\n                        for expenses incurred.",
+      "column_order": 122
+    },
+    {
+      "name": "INACTIVE_EMP_PROCESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Request identifier of the job that processes the expenses of\n                        inactive employees. Applicable only if the expense is processed after the\n                        employee is terminated.",
+      "column_order": 123
+    },
+    {
+      "name": "PREPARER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the person who created the expense.",
+      "column_order": 124
+    },
+    {
+      "name": "CHECKOUT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when a person departs a place associated with an\n                        accommodation expense category.",
+      "column_order": 125
+    },
+    {
+      "name": "CC_PREPAID_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Request identifier of the job that processes a corporate\n                        card transaction for reimbursement to corporate card issuer. Applicable only\n                        when payment liability is company pay.",
+      "column_order": 126
+    },
+    {
+      "name": "EMP_DEFAULT_COST_CENTER",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Default cost center assigned to an individual.",
+      "column_order": 127
+    },
+    {
+      "name": "ORIG_RECEIPT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Original amount of the receipt for this expense.",
+      "column_order": 128
+    },
+    {
+      "name": "ORIG_EXPENSE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Expense type of this expense before it was changed.",
+      "column_order": 129
+    },
+    {
+      "name": "ORIG_EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Exchange rate of the expense before it was changed.",
+      "column_order": 130
+    },
+    {
+      "name": "IMG_RECEIPT_REQUIRED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether this expense requires an imaged\n                        receipt.",
+      "column_order": 131
+    },
+    {
+      "name": "PERSONAL_RECEIPT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of the expense that is marked as personal.",
+      "column_order": 132
+    },
+    {
+      "name": "PERSONAL_AMT_PAID_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the personal amount is paid by the\n                        user.",
+      "column_order": 133
+    },
+    {
+      "name": "RECEIPT_MISSING_DEC_REQ_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether an expense item with missing receipts\n                        is required to submit missing receipts declaration.",
+      "column_order": 134
+    },
+    {
+      "name": "MOBILE_EXPENSE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicator of whether the expense item was created from a\n                        mobile device.",
+      "column_order": 135
+    },
+    {
+      "name": "MASKED_CC_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Masked corporate card number that is obtained by scanning a\n                        transaction receipt for a cash expense.",
+      "column_order": 136
+    },
+    {
+      "name": "ZONE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Zone code of a zone type that is referred by this\n                        expense.",
+      "column_order": 137
+    },
+    {
+      "name": "START_ODOMETER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Mileage Start Odometer reading.",
+      "column_order": 138
+    },
+    {
+      "name": "END_ODOMETER",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Mileage End Odometer reading.",
+      "column_order": 139
+    },
+    {
+      "name": "AGENCY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Name of agency where car rental expense incurred.",
+      "column_order": 140
+    },
+    {
+      "name": "PASSENGER_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Name of airline flight passenger.",
+      "column_order": 141
+    },
+    {
+      "name": "FLIGHT_DURATION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Airline flight duration in hours.",
+      "column_order": 142
+    },
+    {
+      "name": "EXPENSE_CREATION_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Method of expense item creation, such as mobile iOS device\n                        or mobile Android device.",
+      "column_order": 143
+    },
+    {
+      "name": "ACCOM_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of accommodation used during a trip.",
+      "column_order": 144
+    },
+    {
+      "name": "LONG_TERM_TRIP_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if trip is a long term trip.",
+      "column_order": 145
+    },
+    {
+      "name": "LONG_TERM_TRIP_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when long term trip started.",
+      "column_order": 146
+    },
+    {
+      "name": "MULTI_DESTINATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if trip contains multiple destinations.",
+      "column_order": 147
+    },
+    {
+      "name": "PREPAID_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the expense is prepaid.",
+      "column_order": 148
+    },
+    {
+      "name": "TRAVEL_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Method of travel used during a trip.",
+      "column_order": 149
+    },
+    {
+      "name": "POLICY_WARNING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the expense item is marked with a\n                        warning.",
+      "column_order": 150
+    },
+    {
+      "name": "POLICY_WARNING_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason code for a warning that an expense auditor applies to\n                        an expense item. Values are from the lookup ORA_EXM_WARNING_REASON.",
+      "column_order": 151
+    },
+    {
+      "name": "SPEND_AUTH_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Spend authorization expense line identifier.",
+      "column_order": 152
+    },
+    {
+      "name": "AUTH_TRXN_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "The credit card transaction authorization code. The value is\n                        obtained from the credit card charge.",
+      "column_order": 153
+    },
+    {
+      "name": "DEDUCT_COMMUTE_DISTANCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether commute distance is deducted when\n                        calculating trip distance.",
+      "column_order": 154
+    },
+    {
+      "name": "DEDUCT_ROUND_TRIP_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether round trip commute distance is deducted\n                        when calculating trip distance.",
+      "column_order": 155
+    },
+    {
+      "name": "COMMUTE_DISTANCE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Commute distance during business trip for which mileage\n                        reimbursement is requested.",
+      "column_order": 156
+    },
+    {
+      "name": "CALCULATED_TRIP_DISTANCE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether trip distance is calculated by Google\n                        Maps.",
+      "column_order": 157
+    },
+    {
+      "name": "SPLIT_ALLOCATION_SET_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Specific split allocation set identifier.",
+      "column_order": 158
+    },
+    {
+      "name": "AUTO_SUBMIT_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date on which the expense is added to a report and submitted\n                        by the Automatically Submit Expense Reports process. A null value indicates\n                        that the expense is not yet ready to be picked up by the process.",
+      "column_order": 159
+    },
+    {
+      "name": "TAX_PRODUCT_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Tax product category assigned to expense item to determine\n                        the recoverable tax for an expense.",
+      "column_order": 160
+    },
+    {
+      "name": "CC_AUTHORIZATION_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Unique identifier that maps authorization requests to credit\n                        card transactions in the transaction files when the files are uploaded to\n                        Expenses. The identifier links the original authorization data to all\n                        related transactions, such as reversals, adjustments, confirmations and\n                        chargebacks.",
+      "column_order": 161
+    },
+    {
+      "name": "GEOCODE_FROM",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Latitude and longitude values of the starting location for\n                        mileage expenses in JSON format.",
+      "column_order": 162
+    },
+    {
+      "name": "GEOCODE_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Latitude and longitude values of the destination for mileage\n                        expenses in JSON format.",
+      "column_order": 163
+    },
+    {
+      "name": "YEARLY_LIMIT_POLICY_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the yearly limit policy line.",
+      "column_order": 164
+    },
+    {
+      "name": "DAILY_LIMIT_ATTEND_POLICY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the daily limit attendee policy\n                        line.",
+      "column_order": 165
+    },
+    {
+      "name": "YEARLY_LIMIT_ATTEND_POLICY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the yearly limit attendee policy\n                        line.",
+      "column_order": 166
+    },
+    {
+      "name": "AUTO_PERSONAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "An indicator of whether an expense is automatically\n                        categorized as personal based on the derived expense type.",
+      "column_order": 167
+    },
+    {
+      "name": "CC_NETWORK_REFERENCE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Unique identifier generated by the payment network for each\n                        corporate card authorization request.",
+      "column_order": 168
+    },
+    {
+      "name": "CC_MERCHANT_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code assigned to the merchant by the credit card company to\n                        classify the type of business.",
+      "column_order": 169
+    },
+    {
+      "name": "APPROVAL_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the automatic approval status of the\n                        expense.",
+      "column_order": 170
+    },
+    {
+      "name": "VENDOR_EXPENSE_REFERENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unique identifier of an expense used for grouping similar\n                        expenses.",
+      "column_order": 171
+    },
+    {
+      "name": "AUDITOR_REJECTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the expense got rejected by the\n                        auditor.",
+      "column_order": 172
+    },
+    {
+      "name": "AUDITOR_REJECTION_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the auditor's reason for rejection.",
+      "column_order": 173
+    },
+    {
+      "name": "CHECKIN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date used as the check-in date for accommodation and the\n                        rental start date for car rentals.",
+      "column_order": 174
+    }
+  ]
+}

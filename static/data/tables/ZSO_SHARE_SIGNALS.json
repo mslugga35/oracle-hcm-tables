@@ -1,0 +1,139 @@
+{
+  "id": 30435,
+  "name": "ZSO_SHARE_SIGNALS",
+  "type": "TABLE",
+  "description": "This table is used to collect different categories of signals which are saved to record the act of viewing or sharing a document or a document page, or adding one of those objects to a users cart.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zsosharesignals-23875.html#zsosharesignals-23875",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SHARE_SIGNALS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "ID column: the uniquely identifying surrogate key value",
+      "column_order": 1
+    },
+    {
+      "name": "SHARE_DOC_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Document for which the signal has been generated",
+      "column_order": 2
+    },
+    {
+      "name": "SHARE_DOC_REVISION",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Document Revision for which the signal has been generated, if appropriate.  Document Versions are stored in WebCenter Content (UCM).",
+      "column_order": 3
+    },
+    {
+      "name": "PAGE_SEQUENCE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Document Page (possibly within a Document Revision) for which the signal has been generated, if appropriate.",
+      "column_order": 4
+    },
+    {
+      "name": "CONTENT_ITEM_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "N",
+      "description": "The Content Id (in WebCenter Content) for which the signal was generated (may be either a Document or Document Page id, depending on the type of signal).",
+      "column_order": 5
+    },
+    {
+      "name": "SIGNAL_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The Signal Category to which the signal belongs.  Initial available values are 'USE', 'VIEW' and 'SHARE'.",
+      "column_order": 6
+    },
+    {
+      "name": "SIGNAL_SUBJECT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The specific type of signal, effectively a discriminator for interpreting the SIGNAL_SUBJECT_IDENTIFIER value.",
+      "column_order": 7
+    },
+    {
+      "name": "SIGNAL_SUBJECT_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "The ID of the associated object specific to this kind of signal. Polymorphic value that may represent the ID for a Business Object for which the document signal is being generated (where the destination join is a NUMBER(18) ID or a VARCHAR2(64) value), e.g. Opportunity ID, Customer ID; or a Name (in the case of an OSN Discussion); or a URL (for an external/prospect share).",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "USER_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The party id of the user initiating the signal event.",
+      "column_order": 14
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 15
+    },
+    {
+      "name": "SIGNAL_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "SIGNAL_DATE",
+      "column_order": 16
+    }
+  ]
+}

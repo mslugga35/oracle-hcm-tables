@@ -1,0 +1,179 @@
+{
+  "id": 34241,
+  "name": "MOT_TERR_DIM_MEM_FLAG_STAGING",
+  "type": "TABLE",
+  "description": "Staging table used to store user initiated flagging changes that will impact large number of rows in the MOT_TERR_DIM_MEM_FLAGS table. The rows in this table will be consumed by an ESS job that will in-turn update the MOT_TERR_DIM_MEM_FLAGS table with the changes and then delete the contents once the updates are successful.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/motterrdimmemflagstaging-23597.html#motterrdimmemflagstaging-23597",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TERR_DIM_MEM_FLAG_STAGING_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key of the staging table. Will be auto generated.",
+      "column_order": 1
+    },
+    {
+      "name": "SEQUENCE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Order in which the operation in this staging table should be processed in the Flagging table.",
+      "column_order": 2
+    },
+    {
+      "name": "DIMENSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Dimension id for the member. This will help in grouping requests together so that all requests corresponding to one Dimension will be done in one job.",
+      "column_order": 3
+    },
+    {
+      "name": "PARTITION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Partition that the member belongs to. Will be the ID of the flagging partition.",
+      "column_order": 4
+    },
+    {
+      "name": "TERR_DIM_MEM_FLAG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Reference to the row in the Flagging table in which this operation was performed.",
+      "column_order": 5
+    },
+    {
+      "name": "EXPLICIT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "E / I (based on the operation).",
+      "column_order": 6
+    },
+    {
+      "name": "ENABLE_UNSPEC_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y / N (based on the operation).",
+      "column_order": 7
+    },
+    {
+      "name": "WORKER_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Future use. In case there are multiple workers, identifies which rows are to be processed by which worker.",
+      "column_order": 8
+    },
+    {
+      "name": "UI_OPERATION",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "N",
+      "description": "Could be one of the operations that the user performs on the Tree Table.",
+      "column_order": 9
+    },
+    {
+      "name": "SEQUENCE_LOW",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Denormalized from the Dimension Member table.",
+      "column_order": 10
+    },
+    {
+      "name": "SEQUENCE_HIGH",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Denormalized from the Dimension Member table.",
+      "column_order": 11
+    },
+    {
+      "name": "LEVEL_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Denormalized from the Dimension Member table.",
+      "column_order": 12
+    },
+    {
+      "name": "LEAF_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Denormalized from the Dimension Member table.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "CONFLICT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Disconnected Mobile: this value is used to guarantee the uniqueness of the row when duplicates are created in different databases (i.e. mobile databases or the server).",
+      "column_order": 18
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 19
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 20
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 21
+    }
+  ]
+}

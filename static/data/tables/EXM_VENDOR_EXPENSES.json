@@ -1,0 +1,819 @@
+{
+  "id": 27167,
+  "name": "EXM_VENDOR_EXPENSES",
+  "type": "TABLE",
+  "description": "The table stores expense data from various vendor integration points.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/exmvendorexpenses-22565.html#exmvendorexpenses-22565",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "VENDOR_EXPENSE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of an expense from a vendor.",
+      "column_order": 1
+    },
+    {
+      "name": "PERSON_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Alphanumeric identifier that uniquely identifies an employee within a company.",
+      "column_order": 2
+    },
+    {
+      "name": "PERSON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Person identifier of the individual on the corporate card.",
+      "column_order": 3
+    },
+    {
+      "name": "PREPARER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the person who created the expense.",
+      "column_order": 4
+    },
+    {
+      "name": "BUSINESS_UNIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 5
+    },
+    {
+      "name": "ASSIGNMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Assignment identifier of the individual on the corporate card.",
+      "column_order": 6
+    },
+    {
+      "name": "VENDOR_EXPENSE_REFERENCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of an expense that identifies and groups similar expenses.",
+      "column_order": 7
+    },
+    {
+      "name": "STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Processing status of a record.",
+      "column_order": 8
+    },
+    {
+      "name": "SOURCE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifier of the integration source providing expense data.",
+      "column_order": 9
+    },
+    {
+      "name": "PROVIDER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifier of the vendor providing expense data.",
+      "column_order": 10
+    },
+    {
+      "name": "RAW_EXPENSE_DATA",
+      "data_type": "BLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Raw incoming JSON payload from vendor integration points.",
+      "column_order": 11
+    },
+    {
+      "name": "TRANSACTION_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "TImeStamp in UTC. This timestamp would be coming from the vendor for example authorization Timestamp.",
+      "column_order": 12
+    },
+    {
+      "name": "RECEIPT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of the receipt in the receipt currency.",
+      "column_order": 13
+    },
+    {
+      "name": "TIP_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of tip given in the transaction. This helps to manage cases where receipts have different amount because of the tips involved.",
+      "column_order": 14
+    },
+    {
+      "name": "PERSONAL_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount of the expense that is marked as personal.",
+      "column_order": 15
+    },
+    {
+      "name": "MERCHANT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Name of the merchant where the expense was incurred.",
+      "column_order": 16
+    },
+    {
+      "name": "MERCHANT_ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Address of the merchant present in the incurred expense.",
+      "column_order": 17
+    },
+    {
+      "name": "MERCHANT_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Identifier of the merchant where the authorization originated.",
+      "column_order": 18
+    },
+    {
+      "name": "MERCHANT_COUNTRY",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Country where the merchant is located.",
+      "column_order": 19
+    },
+    {
+      "name": "MERCHANT_CITY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "City where the merchant is located.",
+      "column_order": 20
+    },
+    {
+      "name": "MERCHANT_STATE_PROVINCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "State or province code where the merchant is located.",
+      "column_order": 21
+    },
+    {
+      "name": "MERCHANT_POSTAL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Zip or postal code where the merchant is located.",
+      "column_order": 22
+    },
+    {
+      "name": "CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Rate that represents the amount one currency can be exchanged for another at a specific point in time.",
+      "column_order": 23
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the expense occurred or the first day of an expense that spans multiple days.",
+      "column_order": 24
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Last day of an expense that spans multiple days.",
+      "column_order": 25
+    },
+    {
+      "name": "CHECKOUT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when a person departs a place associated with an accommodation expense category.",
+      "column_order": 26
+    },
+    {
+      "name": "CHECKIN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Checkin date at the hotel or the scheduled arrival date in case of a no show.",
+      "column_order": 27
+    },
+    {
+      "name": "AUTO_PERSONAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "An indicator of whether an expense is automatically categorized as personal based on the derived expense type.",
+      "column_order": 28
+    },
+    {
+      "name": "EXPENSE_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Source of an expense item, such as cash or corporate card.",
+      "column_order": 29
+    },
+    {
+      "name": "EXPENSE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Classification of an expense item such as business or personal.",
+      "column_order": 30
+    },
+    {
+      "name": "EXPENSE_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a specific expense template.",
+      "column_order": 31
+    },
+    {
+      "name": "EXPENSE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for a specific expense type.",
+      "column_order": 32
+    },
+    {
+      "name": "EXPENSE_TYPE_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Grouping of expense types and additional data fields that are relevant for a particular grouping of expenses. An example is airfare. This grouping allows expense types to include information such as class of fare, merchant, ticket number, location from, and location to.",
+      "column_order": 33
+    },
+    {
+      "name": "LOCATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a specific location.",
+      "column_order": 34
+    },
+    {
+      "name": "LOCATION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Location where the expense was incurred.",
+      "column_order": 35
+    },
+    {
+      "name": "RECEIPT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Receipt currency of an expense item.",
+      "column_order": 36
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Description of an expense item.",
+      "column_order": 37
+    },
+    {
+      "name": "MERCHANT_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Code assigned to the merchant by the corporte card provider to classify the type of business.",
+      "column_order": 38
+    },
+    {
+      "name": "NOTIFICATION_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Timestamp in UTC when the notification to the user was sent.",
+      "column_order": 39
+    },
+    {
+      "name": "FILE_HASH",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Unique identifier to prevent duplicates by ensuring each file is processed only once.",
+      "column_order": 40
+    },
+    {
+      "name": "VENDOR_UNIQUE_IDENTIFIER1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Unique identifier sent by the vendor.",
+      "column_order": 41
+    },
+    {
+      "name": "VENDOR_UNIQUE_IDENTIFIER2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Additional Unique identifier sent by the vendor.",
+      "column_order": 42
+    },
+    {
+      "name": "VENDOR_UNIQUE_IDENTIFIER3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Additional Unique identifier sent by the vendor.",
+      "column_order": 43
+    },
+    {
+      "name": "VENDOR_UNIQUE_IDENTIFIER4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Additional Unique identifier sent by the vendor.",
+      "column_order": 44
+    },
+    {
+      "name": "VENDOR_UNIQUE_IDENTIFIER5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Additional Unique identifier sent by the vendor.",
+      "column_order": 45
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE1",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 46
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE2",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 47
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE3",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 48
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE4",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 49
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE5",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 50
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE6",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 51
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE7",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 52
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE8",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 53
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE9",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 54
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE10",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 55
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE11",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 56
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE12",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 57
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE13",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 58
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE14",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 59
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE15",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 60
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE16",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 61
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE17",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 62
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE18",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 63
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE19",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 64
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE20",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 65
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE21",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 66
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE22",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 67
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE23",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 68
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE24",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 69
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE25",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 70
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE26",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 71
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE27",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 72
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE28",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 73
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE29",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 74
+    },
+    {
+      "name": "VENDOR_CHAR_ATTRIBUTE30",
+      "data_type": "VARCHAR2",
+      "data_length": 600,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 75
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 76
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 77
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 78
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 79
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 80
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE6",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 81
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE7",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 82
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE8",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 83
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE9",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 84
+    },
+    {
+      "name": "VENDOR_NUMBER_ATTRIBUTE10",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 85
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 86
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 87
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 88
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 89
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 90
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE6",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 91
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE7",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 92
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE8",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 93
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE9",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 94
+    },
+    {
+      "name": "VENDOR_DATE_ATTRIBUTE10",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Additional attribute holders needed to store vendor data.",
+      "column_order": 95
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 96
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 97
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 98
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 99
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 100
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 101
+    }
+  ]
+}

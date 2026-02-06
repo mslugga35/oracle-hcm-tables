@@ -1,0 +1,171 @@
+{
+  "id": 31606,
+  "name": "HZ_IMP_GEO_STRUCTURE_LEVELS",
+  "type": "TABLE",
+  "description": "HZ_IMP_GEO_STRUCTURE_LEVELS is an interface table to load country structure data to TCA geography tables such as HZ_GEO_STRUCTURE_LEVELS, HZ_RELATIONSHIP_TYPES, HZ_GEOGRAPHY_TYPES_B, and HZ_GEOGRAPHY_TYPES_TL.  The program orders data by BATCH_ID, COUNTRY_CODE, and LEVEL_NUMBER to identify a country structure, and LEVEL_NUMBER must start from 1 which is COUNTRY.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/hzimpgeostructurelevels-17333.html#hzimpgeostructurelevels-17333",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INTERFACE_ROW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for this interface record. (internal use only)",
+      "column_order": 1
+    },
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for a geography import batch in HZ_IMP_BATCH_SUMMARY.",
+      "column_order": 2
+    },
+    {
+      "name": "COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "Code of country to which the geography belongs.",
+      "column_order": 3
+    },
+    {
+      "name": "GEOGRAPHY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Unique Identifier Code for the geography type.",
+      "column_order": 4
+    },
+    {
+      "name": "GEOGRAPHY_TYPE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Unique Identifier Code for the geography type.",
+      "column_order": 5
+    },
+    {
+      "name": "LEVEL_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "Level number of a geography type within a country structure. (i.e. For United States, COUNTRY is 1 and STATE is 2.)",
+      "column_order": 6
+    },
+    {
+      "name": "PARENT_GEOGRAPHY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Parent of the geography type (internal use only).",
+      "column_order": 7
+    },
+    {
+      "name": "ADDR_VAL_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Address validation level for a country.",
+      "column_order": 8
+    },
+    {
+      "name": "COUNTRY_GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Geography identifier of country which  the geography belongs (Internal use only).",
+      "column_order": 9
+    },
+    {
+      "name": "GEOGRAPHY_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of geography type (Internal use only).",
+      "column_order": 10
+    },
+    {
+      "name": "FORWARD_REL_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Forward relationship type identifier of this geography type and its parent geography type in HZ_RELATIONSHIP_TYPES table (internal use only).",
+      "column_order": 11
+    },
+    {
+      "name": "BACKWARD_REL_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Backward relationship type identifier of this geography type and its parent geography type in HZ_RELATIONSHIP_TYPES table (internal use only).",
+      "column_order": 12
+    },
+    {
+      "name": "GEO_STRUCTURE_LEVEL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique geography structure identifier in HZ_GEO_STRUCTURE_LEVELS (Internal use only).",
+      "column_order": 13
+    },
+    {
+      "name": "INSERT_GEO_TYPE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that a new geography needs to be inserted into HZ_GEOGRAPHY_TYPES_B and HZ_GEOGRAPHY_TYPES_TL if it is 'I' (Internal use only).",
+      "column_order": 14
+    },
+    {
+      "name": "INSERT_REL_TYPE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that a new relationship type needs to be inserted into HZ_RELATIONSHIP_TYPES if it is 'I' (Internal use only).",
+      "column_order": 15
+    },
+    {
+      "name": "INSERT_STRUCT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates that a new country structure needs to be inserted into HZ_GEO_STRUCTURE_LEVELS if it is 'I' (Internal use only).",
+      "column_order": 16
+    },
+    {
+      "name": "ERROR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Error ID in HZ_IMP_ERRORS. (internal use only)",
+      "column_order": 17
+    },
+    {
+      "name": "FILE_RECORD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "File import wizard uses this column to relate records in this interface table to rows in a file. (internal use only)",
+      "column_order": 18
+    },
+    {
+      "name": "IMPORT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "File import wizard status: I – In Progress,  O – Obsolete(This would be the status of all the interface table records that were run before),  E - Errored, S - Successful (internal use only)",
+      "column_order": 19
+    },
+    {
+      "name": "ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "File Import Uses this column to identify whether Delete support is needed for the Import.",
+      "column_order": 20
+    }
+  ]
+}

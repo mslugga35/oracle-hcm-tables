@@ -1,0 +1,243 @@
+{
+  "id": 30889,
+  "name": "ZCA_ROLLUPS_SNAPSHOT",
+  "type": "TABLE",
+  "description": "This is a temporary dynamic table that stores the snapshot of the eligible rollups from ZCA_ROLLUPS_B table that needs to be processed by data refresh job.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zcarollupssnapshot-28245.html#zcarollupssnapshot-28245",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ROLLUP_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "The unique identifier for the rollup. Copied from ZCA_ROLLUPS_B table.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the source object. Copied from ZCA_ROLLUPS_B table.",
+      "column_order": 2
+    },
+    {
+      "name": "OBJECT_ROLLUP_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Name of the table where calculated rollup data of the source object would be stored. Copied from ZCA_ROLLUPS_B table.",
+      "column_order": 3
+    },
+    {
+      "name": "OBJECT_PK_COLUMN",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Database column name of the source object's primary key.",
+      "column_order": 4
+    },
+    {
+      "name": "ATTR_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Rollup attribute type. Supported values are NUMBER and TIMESTAMP. Copied from ZCA_ROLLUPS_B table.",
+      "column_order": 5
+    },
+    {
+      "name": "ATTR_DB_COLUMN",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Rollup attribute database column name.",
+      "column_order": 6
+    },
+    {
+      "name": "REFRESH_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Stores current rollup refresh type Full,Incremental,Hierarchy",
+      "column_order": 7
+    },
+    {
+      "name": "HIERARCHY_ATTR_DB_COLUMN",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Hierarchy attribute database column name.",
+      "column_order": 8
+    },
+    {
+      "name": "AGGREGATE_DB_COLUMN",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Dynamically assigned database column from ZCA_ROLLUP_CALCULATION table.",
+      "column_order": 9
+    },
+    {
+      "name": "FUNCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Aggregation function code that would be used to calculate the rollup data. Copied from ZCA_ROLLUPS_B table.",
+      "column_order": 10
+    },
+    {
+      "name": "COMPILED_SOURCE_AMT_CONV",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Generated expression to convert the amount field value to corporate currency. Copied from ZCA_ROLLUPS_B table.",
+      "column_order": 11
+    },
+    {
+      "name": "COMPILED_SQL",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Generated refresh SQL that would be used to calculate the rollup values. Copied from ZCA_ROLLUPS_B table.",
+      "column_order": 12
+    },
+    {
+      "name": "CAL_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Calculation batch identifier.",
+      "column_order": 13
+    },
+    {
+      "name": "CAL_START_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Calculation process start time.",
+      "column_order": 14
+    },
+    {
+      "name": "CAL_PHASE1_END_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Phase 1 calculation process end time.",
+      "column_order": 15
+    },
+    {
+      "name": "CAL_PHASE2_END_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Phase 2 calculation process end time.",
+      "column_order": 16
+    },
+    {
+      "name": "CAL_ROW_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 12,
+      "nullable": "Y",
+      "description": "Number of rows created by calculation process.",
+      "column_order": 17
+    },
+    {
+      "name": "CAL_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Calculation process status.",
+      "column_order": 18
+    },
+    {
+      "name": "NUM_OF_UPDATE_BATCH",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of update batches.",
+      "column_order": 19
+    },
+    {
+      "name": "NUM_OF_UPDATE_BATCH_LEFT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Count of update batches left to be processed.",
+      "column_order": 20
+    },
+    {
+      "name": "UPDATE_START_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Update process start time.",
+      "column_order": 21
+    },
+    {
+      "name": "UPDATE_END_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Update process end time.",
+      "column_order": 22
+    },
+    {
+      "name": "UPDATE_ROW_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of rows updated by the update process.",
+      "column_order": 23
+    },
+    {
+      "name": "UPDATE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Update process status.",
+      "column_order": 24
+    },
+    {
+      "name": "HIER_UPDATE_START_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Hierarchy update process start time.",
+      "column_order": 25
+    },
+    {
+      "name": "HIER_UPDATE_END_TIME",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Hierarchy update process end time.",
+      "column_order": 26
+    },
+    {
+      "name": "HIER_UPDATE_ROW_COUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of rows updated by the hierarchy update process.",
+      "column_order": 27
+    },
+    {
+      "name": "HIER_UPDATE_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Hierarchy update process status.",
+      "column_order": 28
+    },
+    {
+      "name": "ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "The error message returned during the process.",
+      "column_order": 29
+    }
+  ]
+}

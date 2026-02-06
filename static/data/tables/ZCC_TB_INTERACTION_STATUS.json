@@ -1,0 +1,347 @@
+{
+  "id": 31074,
+  "name": "ZCC_TB_INTERACTION_STATUS",
+  "type": "TABLE",
+  "description": "This table stores toolbar interaction region ui state.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zcctbinteractionstatus-27037.html#zcctbinteractionstatus-27037",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TB_INTERACTION_STATUS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key",
+      "column_order": 1
+    },
+    {
+      "name": "AGENT_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "PartyId for the loggedin agent.",
+      "column_order": 2
+    },
+    {
+      "name": "AGENT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "AGENT_NAME",
+      "column_order": 3
+    },
+    {
+      "name": "SLOT_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "UI Slot number for the current Interaction (needed for multi-interaction support)",
+      "column_order": 4
+    },
+    {
+      "name": "IS_ACTIVE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Determines if this slot is currently active (in focus). Y or N default null means N)",
+      "column_order": 5
+    },
+    {
+      "name": "SESSION_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Fnd Session Id for Agent.",
+      "column_order": 6
+    },
+    {
+      "name": "CURRENT_STATE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Current Interaction state (Delivered/Established etc).",
+      "column_order": 7
+    },
+    {
+      "name": "INTERACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Current Interaction Id.",
+      "column_order": 8
+    },
+    {
+      "name": "INTERACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Interaction Type for current interaction. Received by toolbar on Delivered Event.  Eg. Inbound Call/Outbound Call etc. Set in toolbar as part of Delivered/Established event from connector.",
+      "column_order": 9
+    },
+    {
+      "name": "DEVICE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Unique identifier for device. Can be an ID or Name. Set in toolbar as part of Delivered/Established event from connector.",
+      "column_order": 10
+    },
+    {
+      "name": "MEDIA_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for each media item. for eg. CallId in Inbound call scenario. Set in toolbar as part of Delivered/Established event from connector.",
+      "column_order": 11
+    },
+    {
+      "name": "MEDIA_ITEM_ID_1",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for 2nd call associated with Interaction (if present)",
+      "column_order": 12
+    },
+    {
+      "name": "MEDIA_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Media Type for Current Interaction. Set in toolbar as part of Delivered/Established Event from connector.",
+      "column_order": 13
+    },
+    {
+      "name": "MEDIA_DIRECTION",
+      "data_type": "VARCHAR2",
+      "data_length": 20,
+      "nullable": "Y",
+      "description": "Direction for media item. Set in toolbar as part of Delivered/Established event from connector.",
+      "column_order": 14
+    },
+    {
+      "name": "RECORD_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Party Id for Interaction record.",
+      "column_order": 15
+    },
+    {
+      "name": "RECORD_ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Organization Id for Interaction record.",
+      "column_order": 16
+    },
+    {
+      "name": "RECORD_RELATIONSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Relationship Id for Interaction record.",
+      "column_order": 17
+    },
+    {
+      "name": "DISPLAY_ATTRIBUTE_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 1024,
+      "nullable": "Y",
+      "description": "The string representing the interaction record displayed on the toolbar. This is based on ANI for inbound call.",
+      "column_order": 18
+    },
+    {
+      "name": "INTERACTION_START_TIME_CLIENT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time on client desktop when interaction was started. Can be used to set timer correctly if page is refreshed.",
+      "column_order": 19
+    },
+    {
+      "name": "CURR_STATE_START_TIME_CLIENT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Time n agent desktop when current state was started. Can be used to set timer correctly when page is refreshed.",
+      "column_order": 20
+    },
+    {
+      "name": "ACCEPT_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Accept Toolbar button is visible.",
+      "column_order": 21
+    },
+    {
+      "name": "IGNORE_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Ignore Toolbar button is visible.",
+      "column_order": 22
+    },
+    {
+      "name": "ON_HOLD_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if On Hold Toolbar button is visible.",
+      "column_order": 23
+    },
+    {
+      "name": "OFF_HOLD_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "OFF_HOLD_VISIBLE_FLAG",
+      "column_order": 24
+    },
+    {
+      "name": "TRANSFER_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Transfer Toolbar button is visible.",
+      "column_order": 25
+    },
+    {
+      "name": "CONF_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Conference Toolbar button is visible.",
+      "column_order": 26
+    },
+    {
+      "name": "WARM_TRANSFER_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Warm Transfer Toolbar button is visible.",
+      "column_order": 27
+    },
+    {
+      "name": "RELEASE_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Release Toolbar button is visible.",
+      "column_order": 28
+    },
+    {
+      "name": "END_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if End Interaction Toolbar button is visible.",
+      "column_order": 29
+    },
+    {
+      "name": "COMPLETE_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Complete Toolbar button is visible.",
+      "column_order": 30
+    },
+    {
+      "name": "CANCEL_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Cancel Toolbar button is visible.",
+      "column_order": 31
+    },
+    {
+      "name": "TIMER_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if Timer on toolbar is visible for the current interaction state.",
+      "column_order": 32
+    },
+    {
+      "name": "STYLE_PANEL_VISIBLE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag indicating if the Style Panel (displaying interaction controls and display string) is visible.",
+      "column_order": 33
+    },
+    {
+      "name": "STYLE_PANEL_INLINE_STYLE",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "Inline style for displaying style panel.",
+      "column_order": 34
+    },
+    {
+      "name": "OTHER_PARTY_PHONE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "The phone number of the person with whom the agent talked. (The phone number from which the person called the agent, or the phone number the agent dialed)",
+      "column_order": 35
+    },
+    {
+      "name": "SWITCH_CALL_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "The handle which uniquely identifies the call in the CTI system.  It will be used by customers and vendor to tie an interaction in fusion back to the record in the telephony system.",
+      "column_order": 36
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 38
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 40
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 41
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 42
+    }
+  ]
+}

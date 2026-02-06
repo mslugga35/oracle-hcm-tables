@@ -1,0 +1,507 @@
+{
+  "id": 28687,
+  "name": "AP_PAYMENT_HISTORY_ALL",
+  "type": "TABLE",
+  "description": "AP_PAYMENT_HISTORY_ALL stores the clearing/unclearing history for payments. It also stores the maturity history for future dated payments. The table contains a row for each future dated payment, once the future dated payment matures, i.e. becomes negotiable.  Any time a payment is cleared or uncleared, a row is inserted into this table for the payment. The values for TRANSACTION_TYPE can be PAYMENT MATURITY, PAYMENT CLEARING, or PAYMENT UNCLEARING. Each row in this table also has the accounting status for the maturity, clearing or unclearing event.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/appaymenthistoryall-12150.html#appaymenthistoryall-12150",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PAYMENT_HISTORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the history of payment event.",
+      "column_order": 1
+    },
+    {
+      "name": "CHECK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier of the payment document.",
+      "column_order": 2
+    },
+    {
+      "name": "TRANSACTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction date in the payment history.",
+      "column_order": 3
+    },
+    {
+      "name": "TRANSACTION_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Transaction amount in the payment history.",
+      "column_order": 4
+    },
+    {
+      "name": "TRANSACTION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Transaction type - value can be PAYMENT MATURITY, PAYMENT CLEARING, or PAYMENT UNCLEARING",
+      "column_order": 5
+    },
+    {
+      "name": "POSTED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate whether the maturity, clearing or unclearing transaction has been accounted (Y or N)",
+      "column_order": 6
+    },
+    {
+      "name": "ERROR_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Error amount on the reconciled payment.",
+      "column_order": 7
+    },
+    {
+      "name": "CHARGE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank charge amount on the reconciled payment.",
+      "column_order": 8
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Ledger currency code in the payment history.",
+      "column_order": 9
+    },
+    {
+      "name": "MATCHED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate whether the payment is matched to a bank statement line (Y or N). If yes, then the payment will be reconciled, else it will be cleared",
+      "column_order": 10
+    },
+    {
+      "name": "ACCOUNTING_EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the accounting event.",
+      "column_order": 11
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "PROGRAM_UPDATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - date when a program last updated this row).",
+      "column_order": 18
+    },
+    {
+      "name": "PROGRAM_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - application id of the program that last updated this row (foreign key to FND_APPLICATION.APPLICATION_ID).",
+      "column_order": 19
+    },
+    {
+      "name": "PROGRAM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Concurrent Program who column - program id of the program that last updated this row (foreign key to FND_CONCURRENT_PROGRAM.CONCURRENT_PROGRAM_ID).",
+      "column_order": 20
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 21
+    },
+    {
+      "name": "ACCOUNTING_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Accounting date for accounting entries for this transaction",
+      "column_order": 22
+    },
+    {
+      "name": "MRC_EXCHANGE_RATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only:",
+      "column_order": 23
+    },
+    {
+      "name": "MRC_EXCHANGE_RATE_DATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only:",
+      "column_order": 24
+    },
+    {
+      "name": "MRC_EXCHANGE_RATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only:",
+      "column_order": 25
+    },
+    {
+      "name": "REV_PMT_HIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Payment history identifier of the reversed payment history transaction",
+      "column_order": 26
+    },
+    {
+      "name": "TRX_BANK_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount to clear including charges and errors in the bank account currency",
+      "column_order": 27
+    },
+    {
+      "name": "ERRORS_BANK_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reconciliation error amount in the bank account currency",
+      "column_order": 28
+    },
+    {
+      "name": "CHARGES_BANK_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank charges amount in the bank account currency",
+      "column_order": 29
+    },
+    {
+      "name": "TRX_PMT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Amount to clear including charges and errors in the payment currency",
+      "column_order": 30
+    },
+    {
+      "name": "ERRORS_PMT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reconciliation error amount in the payment currency",
+      "column_order": 31
+    },
+    {
+      "name": "CHARGES_PMT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank charges amount in the payment currency",
+      "column_order": 32
+    },
+    {
+      "name": "TRX_BASE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount to clear including charges and errors in the base currency",
+      "column_order": 33
+    },
+    {
+      "name": "ERRORS_BASE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reconciliation error amount in the base  currency",
+      "column_order": 34
+    },
+    {
+      "name": "CHARGES_BASE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Bank charges amount in the base currency",
+      "column_order": 35
+    },
+    {
+      "name": "BANK_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Currency code of bank account used for payment.",
+      "column_order": 36
+    },
+    {
+      "name": "BANK_TO_BASE_XRATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Exchange rate type for bank account currency to base currency exchange rate",
+      "column_order": 37
+    },
+    {
+      "name": "BANK_TO_BASE_XRATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date currency conversion rate is effective for bank account currency to base currency",
+      "column_order": 38
+    },
+    {
+      "name": "BANK_TO_BASE_XRATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Exchange rate from bank account currency to base currency",
+      "column_order": 39
+    },
+    {
+      "name": "PMT_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Currency code of payment in payment history.",
+      "column_order": 40
+    },
+    {
+      "name": "PMT_TO_BASE_XRATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Exchange rate type for payment currency to base currency exchange rate",
+      "column_order": 41
+    },
+    {
+      "name": "PMT_TO_BASE_XRATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date currency conversion rate is effective for payment currency to base currency",
+      "column_order": 42
+    },
+    {
+      "name": "PMT_TO_BASE_XRATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Exchange rate from payment currency to base currency",
+      "column_order": 43
+    },
+    {
+      "name": "MRC_PMT_TO_BASE_XRATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only: Concatenated string of reporting set of books id and currency conversion rate type for payment currency to base currency conversion rate pairs",
+      "column_order": 44
+    },
+    {
+      "name": "MRC_PMT_TO_BASE_XRATE_DATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only: Concatenated string of reporting set of books id and date currency conversion rate is effective for payment currency to base currency pairs",
+      "column_order": 45
+    },
+    {
+      "name": "MRC_PMT_TO_BASE_XRATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only: Concatenated string of reporting set of books id and currency conversion rate from payment currency to base currency pairs",
+      "column_order": 46
+    },
+    {
+      "name": "MRC_BANK_TO_BASE_XRATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only: Concatenated string of reporting set of books id and currency conversion rate type for bank account currency to base currency conversion rate pairs",
+      "column_order": 47
+    },
+    {
+      "name": "MRC_BANK_TO_BASE_XRATE_DATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple reporting currencies only: Concatenated string of reporting set of books id and currency conversion rate date from bank account currency to base currency conversion date pairs",
+      "column_order": 48
+    },
+    {
+      "name": "MRC_BANK_TO_BASE_XRATE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only: Concatenated string of reporting set of books id and currency conversion rate from bank account currency to base currency pairs",
+      "column_order": 49
+    },
+    {
+      "name": "MRC_TRX_BASE_AMOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only: Concatenated string of reporting set of books id and amount to clear including charges and errors pairs",
+      "column_order": 50
+    },
+    {
+      "name": "MRC_ERRORS_BASE_AMOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only: Concatenated string of reporting set of books id and reconciliation error amount in the base currency pairs",
+      "column_order": 51
+    },
+    {
+      "name": "MRC_CHARGES_BASE_AMOUNT",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "Multiple Reporting Currencies only: Concatenated string of reporting set of books id and bank charges in the base currency pairs",
+      "column_order": 52
+    },
+    {
+      "name": "RELATED_EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Originating transaction event id",
+      "column_order": 53
+    },
+    {
+      "name": "HISTORICAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate whether the payment transaction is a result of upgraded data",
+      "column_order": 54
+    },
+    {
+      "name": "INVOICE_ADJUSTMENT_EVENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Related adjusted invoice that resulted in a cascade event",
+      "column_order": 55
+    },
+    {
+      "name": "GAIN_LOSS_INDICATOR",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether the payment related transaction resulted in gain or loss (G or L)",
+      "column_order": 56
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 57
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 58
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 59
+    },
+    {
+      "name": "PMT_TO_BANK_XRATE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of exchange rate used to convert payment to disbursement bank account currency.",
+      "column_order": 60
+    },
+    {
+      "name": "PMT_TO_BANK_XRATE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the payment is converted to disbursement bank account currency.",
+      "column_order": 61
+    },
+    {
+      "name": "PMT_TO_BANK_XRATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Exchange rate used to convert payment to disbursement bank account currency.",
+      "column_order": 62
+    }
+  ]
+}

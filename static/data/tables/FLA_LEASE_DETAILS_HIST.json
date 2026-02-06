@@ -1,0 +1,859 @@
+{
+  "id": 27212,
+  "name": "FLA_LEASE_DETAILS_HIST",
+  "type": "TABLE",
+  "description": "FLA_LEASE_DETAILS_HIST contains the history of FLA_LEASE_DETAILS.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/flaleasedetailshist-17577.html#flaleasedetailshist-17577",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LEASE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease detail history identifier. This is the primary key of the table.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "VERSION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Version type code. Any lease would have a minimum of one and a maximum of two versions. Possible values are \"D\" for Draft version, \"F\" for Final version and \"H\" for History version.",
+      "column_order": 3
+    },
+    {
+      "name": "VERSION_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Version number of the lease. This indicates the number of versions the lease has undergone.",
+      "column_order": 4
+    },
+    {
+      "name": "LEASE_VERSION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 50,
+      "nullable": "N",
+      "description": "Lease version name, It is a short identifier of the version.",
+      "column_order": 5
+    },
+    {
+      "name": "AMORTIZATION_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date till which the amortization has to be considered.",
+      "column_order": 6
+    },
+    {
+      "name": "LEASE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Lease identifier. It references the primary key of the FLA_LEASES_ALL table.",
+      "column_order": 7
+    },
+    {
+      "name": "DATA_SOURCE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Feeder system from which lease data was created.",
+      "column_order": 8
+    },
+    {
+      "name": "COMMENCEMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date from which the lease commenced or amendment commenced.",
+      "column_order": 9
+    },
+    {
+      "name": "TERMINATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date from which the lease is inactive.",
+      "column_order": 10
+    },
+    {
+      "name": "LEASE_CLASSIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates the lease version. Possible values are Finance Lease, Operating Lease or Exempt Lease.",
+      "column_order": 11
+    },
+    {
+      "name": "LEASE_VERSION_DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Lease version description on what changes or amendments has been brought into the lease.",
+      "column_order": 12
+    },
+    {
+      "name": "APPROVAL_COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Comments or details provided by the user who has approved the lease version.",
+      "column_order": 13
+    },
+    {
+      "name": "APPROVAL_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lease approval status. A draft lease or an amendment goes through different statuses before being finalized.",
+      "column_order": 14
+    },
+    {
+      "name": "APPROVED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Name of the user who has approved the lease draft or Amendment to mark it as final.",
+      "column_order": 15
+    },
+    {
+      "name": "APPROVED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date from which the lease or amendment was approved.",
+      "column_order": 16
+    },
+    {
+      "name": "EXECUTION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date from which the transaction is booked. It indicates the day on which the lease is being executed.",
+      "column_order": 17
+    },
+    {
+      "name": "PRIM_REGIME_ADDER_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adder rate which is used for the primary regime.",
+      "column_order": 18
+    },
+    {
+      "name": "PRIM_REGIME_DISC_RATE_INDEX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Discount rate index that is used for the primary regime.",
+      "column_order": 19
+    },
+    {
+      "name": "PRIM_REGIME_INTEREST_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Discount rate index value that is used for the primary regime.",
+      "column_order": 20
+    },
+    {
+      "name": "RESPONSIBLE_USER",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Name of the user responsible for the lease creation.",
+      "column_order": 21
+    },
+    {
+      "name": "SECD_REGIME_ADDER_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adder rate which is used for the secondary regime.",
+      "column_order": 22
+    },
+    {
+      "name": "SECD_REGIME_DISC_RATE_INDEX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Discount rate index that is used for the secondary regime.",
+      "column_order": 23
+    },
+    {
+      "name": "SECD_REGIME_INTEREST_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Discount rate index value that is used for the Secondary regime.",
+      "column_order": 24
+    },
+    {
+      "name": "SYSTEM_ORIGIN_REFERENCE_1",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System reference column to maintain the key of source system from which lease is being imported",
+      "column_order": 25
+    },
+    {
+      "name": "SYSTEM_ORIGIN_REFERENCE_2",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "System reference column to maintain the key of source system from which lease is being imported",
+      "column_order": 26
+    },
+    {
+      "name": "GENERATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Name of the user who has generated the schedules and payments.",
+      "column_order": 27
+    },
+    {
+      "name": "GENERATED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the schedules and payments were generated.",
+      "column_order": 28
+    },
+    {
+      "name": "VALIDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Name of the user who has validated the lease.",
+      "column_order": 29
+    },
+    {
+      "name": "VALIDATED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the lease was validated.",
+      "column_order": 30
+    },
+    {
+      "name": "SUBMITTED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Name of the user who has submitted the lease for approval.",
+      "column_order": 31
+    },
+    {
+      "name": "SUBMITTED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the lease was submitted for approval.",
+      "column_order": 32
+    },
+    {
+      "name": "TRANSACTION_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Transaction type which identifies which transaction is being executed. Various values could be BOOKING, TERMINATION, AMEND, RESCIND",
+      "column_order": 33
+    },
+    {
+      "name": "TRANSACTION_SUBTYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Transaction sub type. Possible values are SCOPE_INCREASE, SCOPE_DECREASE, SCOPE_NO_CHANGE, EDIT and so forth for a REVISION transaction type.",
+      "column_order": 34
+    },
+    {
+      "name": "PERCENTAGE_OF_REDUCTION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reduction in ROU or Liability. This would be based on reduction in time, usage or liability.",
+      "column_order": 35
+    },
+    {
+      "name": "VERSION_PREPARED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Name of the user who has prepared the version.",
+      "column_order": 36
+    },
+    {
+      "name": "VERSION_SIGNED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the version is signed on during an amend.",
+      "column_order": 37
+    },
+    {
+      "name": "VERSION_INITIATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Name of the user who has initiated the version.",
+      "column_order": 38
+    },
+    {
+      "name": "VERSION_INITIATED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the version was initiated.",
+      "column_order": 39
+    },
+    {
+      "name": "SCHEDULES_REFRESH_NEEDED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate if the schedules need to be refreshed or not.",
+      "column_order": 40
+    },
+    {
+      "name": "LEASE_AMENDMENT_NOTES",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Notes captured as part of amendment.",
+      "column_order": 41
+    },
+    {
+      "name": "FINAL_LEASE_DETAIL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Final lease detail record identifier. This identifies the final record from the main table for this record.",
+      "column_order": 42
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 43
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 44
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 45
+    },
+    {
+      "name": "REPORT_JOB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Report request identifier of the job that created or last updated the row.",
+      "column_order": 46
+    },
+    {
+      "name": "REPORT_JOB_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Indicates the name of the job that created or last updated the row.",
+      "column_order": 47
+    },
+    {
+      "name": "REPORT_JOB_RUN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the report job was launched.",
+      "column_order": 48
+    },
+    {
+      "name": "QUARTZ_RUN_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the quartz process started the scheduling.",
+      "column_order": 49
+    },
+    {
+      "name": "QUARTZ_JOB_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "Functional name of the quartz job.",
+      "column_order": 50
+    },
+    {
+      "name": "QUARTZ_JOB_GROUP",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Group associated with quartz job.",
+      "column_order": 51
+    },
+    {
+      "name": "PROCESS_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle Enterprise Scheduler: request identifier of the job that created or last updated the row.",
+      "column_order": 52
+    },
+    {
+      "name": "PROCESS_JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 53
+    },
+    {
+      "name": "PROCESS_JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 54
+    },
+    {
+      "name": "OPTION_TRANSACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Option type selected during an amendment in case the amendment is for exercise or cancel of an option.",
+      "column_order": 55
+    },
+    {
+      "name": "TERMINATION_TRANSACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Termination type selected during termination. Value could be ASSET or LEASE.",
+      "column_order": 56
+    },
+    {
+      "name": "APPROVAL_SUB_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Approval sub status indicates the lease version sub status when the version is in working status.",
+      "column_order": 57
+    },
+    {
+      "name": "LEASE_TERMINATION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the lease is getting terminated or not.",
+      "column_order": 58
+    },
+    {
+      "name": "AUTO_FINALIZE_VERSION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the lease should be auto finalized along with validation and generation of schedules.",
+      "column_order": 59
+    },
+    {
+      "name": "INCREASE_ACCOUNTING_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the contingent increase amount accounting treatment for the amendment. Possible value would be Contingent Increase and Non Contingent Increase.",
+      "column_order": 60
+    },
+    {
+      "name": "INCREASE_IMPACT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the lease is impacted by payment increase agreement.",
+      "column_order": 61
+    },
+    {
+      "name": "INCREASE_GENERATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Name of the user who has submitted the generate payment increase action.",
+      "column_order": 62
+    },
+    {
+      "name": "INCREASE_GENERATED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date when the lease was submitted for generate payment increase action.",
+      "column_order": 63
+    },
+    {
+      "name": "BALANCE_SYNC_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Oracle Enterprise Scheduler: request identifier of the job that created or last updated the row. This is used for request created for the purpose of lease balances.",
+      "column_order": 64
+    },
+    {
+      "name": "BALANCE_SYNC_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates if the balances were synced for this lease.",
+      "column_order": 65
+    },
+    {
+      "name": "LEASE_TRX_APPROVAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the lease approval is enabled for the lease version.",
+      "column_order": 66
+    },
+    {
+      "name": "PROCESS_REQUEST_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Captures the request details executed on the lease.",
+      "column_order": 67
+    },
+    {
+      "name": "AMEND_FOR_INDEX_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if the amendment is for finalization of assessments which are for index based agreements.",
+      "column_order": 68
+    },
+    {
+      "name": "PRIM_REGIME_SCOPE_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Scope change method for leases in primary accounting standard. Values can be Unit based percentage and Liability based percentage.",
+      "column_order": 69
+    },
+    {
+      "name": "SECD_REGIME_SCOPE_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Scope change method for leases in secondary accounting standard. Values can be Unit based percentage and Liability based percentage.",
+      "column_order": 70
+    },
+    {
+      "name": "LEASE_SECONDARY_CLASSIF_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the secondary classification of the lease. Possible values are Finance, Operating and Exempt.",
+      "column_order": 71
+    },
+    {
+      "name": "REQUIRE_PROPERTY_DEFN_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to Indicate if a property is required for the assets on the expense lease.",
+      "column_order": 72
+    },
+    {
+      "name": "INTEREST_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Interest method. Possible values are DAILY and PERIODIC COMPOUND.",
+      "column_order": 73
+    },
+    {
+      "name": "ARREARS_PAY_DT_TREATMENT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Indicates whether the payment due date is included in day count calculation for the present value derivation when the payment is in arrears. Possible values are Beginning of the day and End of the day.",
+      "column_order": 74
+    },
+    {
+      "name": "APPROVAL_TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the transaction identifier generated for lease approvals.",
+      "column_order": 75
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 76
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 77
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 78
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 79
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 80
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 81
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 82
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 83
+    },
+    {
+      "name": "ATTRIBUTE_CHAR11",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 84
+    },
+    {
+      "name": "ATTRIBUTE_CHAR12",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 85
+    },
+    {
+      "name": "ATTRIBUTE_CHAR13",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 86
+    },
+    {
+      "name": "ATTRIBUTE_CHAR14",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 87
+    },
+    {
+      "name": "ATTRIBUTE_CHAR15",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 88
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 89
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 90
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 91
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 92
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 93
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 94
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 95
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 96
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 97
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 98
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 99
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 100
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 101
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 102
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 103
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 104
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 105
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 106
+    }
+  ]
+}

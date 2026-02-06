@@ -1,0 +1,371 @@
+{
+  "id": 33566,
+  "name": "SVC_BI_AUDIT_SR",
+  "type": "TABLE",
+  "description": "Captures SR audit data from the SR shadow table (SVC_SERVICE_REQUESTS_), adding useful attributes needed for BI reporting, for a select set of SR attributes that BI wants to report on.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/svcbiauditsr-8207.html#svcbiauditsr-8207",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "AUDIT_SR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Auto-generated number and primary key for this table.",
+      "column_order": 1
+    },
+    {
+      "name": "SR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key that references SVC_SERVICE_REQUESTS.SR_ID, the SR that the audit data belongs to.",
+      "column_order": 2
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 3
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 8
+    },
+    {
+      "name": "AUDIT_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Orders the audit records for a specific SR, with the first audit record having a value of 1, the next 2, etc.",
+      "column_order": 9
+    },
+    {
+      "name": "AUDIT_START_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "The first date that the combined values of audited columns are valid from.",
+      "column_order": 10
+    },
+    {
+      "name": "AUDIT_END_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The last date that the combined values of audited columns are valid up to, but not including.",
+      "column_order": 11
+    },
+    {
+      "name": "AUDIT_DURATION_MS",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The difference between Audit_end_date and Audit_start_date in milliseconds, the duration of time the combined values of audited columns are valid; excluding the audit_end_date itself.",
+      "column_order": 12
+    },
+    {
+      "name": "LATEST_AUDIT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Identifies the latest audit record for an SR, a value of 'Y' for the record holding the current values of all audited columns, a value of 'N' for all other records.",
+      "column_order": 13
+    },
+    {
+      "name": "AUDIT_HISTORY_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Identifies SRs created after Auditing went live.  SRs created before this date will not have a complete history of audit data (N), while those created after will (Y).  Customers may want to filter out SRs with incomplete audit history.",
+      "column_order": 14
+    },
+    {
+      "name": "AUDIT_PURGE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Reserved for future use, when purging of audit data is implemented.",
+      "column_order": 15
+    },
+    {
+      "name": "OLD_STATUS_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Previous audited value from SVC_SERVICE_REQUESTS_.STATUS_CD.",
+      "column_order": 16
+    },
+    {
+      "name": "STATUS_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Audited value from SVC_SERVICE_REQUESTS_.STATUS_CD.",
+      "column_order": 17
+    },
+    {
+      "name": "OLD_STATUS_TYPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Previous audited value from SVC_SERVICE_REQUESTS_.STATUS_TYPE_CD.",
+      "column_order": 18
+    },
+    {
+      "name": "STATUS_TYPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Audited value from SVC_SERVICE_REQUESTS_.STATUS_TYPE_CD.",
+      "column_order": 19
+    },
+    {
+      "name": "OLD_SEVERITY_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Previous audited value from SVC_SERVICE_REQUESTS_.SEVERITY_CD.",
+      "column_order": 20
+    },
+    {
+      "name": "SEVERITY_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Audited value from SVC_SERVICE_REQUESTS_.SEVERITY_CD.",
+      "column_order": 21
+    },
+    {
+      "name": "OLD_ASSIGNEE_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Previous audited value from SVC_SERVICE_REQUESTS_.ASSIGNEE_RESOURCE_ID.",
+      "column_order": 22
+    },
+    {
+      "name": "ASSIGNEE_RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Audited value from SVC_SERVICE_REQUESTS_.ASSIGNEE_RESOURCE_ID.",
+      "column_order": 23
+    },
+    {
+      "name": "OLD_QUEUE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Previous audited value from SVC_SERVICE_REQUESTS_.QUEUE_ID.",
+      "column_order": 24
+    },
+    {
+      "name": "QUEUE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Audited value from SVC_SERVICE_REQUESTS_.QUEUE_ID.",
+      "column_order": 25
+    },
+    {
+      "name": "STATUS_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Orders the status code changes (including changes to null) for a specific SR, with the first audit record having a value of 1, the next audit record with a status code change has a value of 2, etc.",
+      "column_order": 26
+    },
+    {
+      "name": "STATUS_TYPE_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Orders the status type code changes (including changes to null) for a specific SR, with the first audit record having a value of 1, the next audit record with a status type code change has a value of 2, etc.",
+      "column_order": 27
+    },
+    {
+      "name": "SEVERITY_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Orders the severity code changes (including changes to null) for a specific SR, with the first audit record having a value of 1, the next audit record with a severity code change has a value of 2, etc.",
+      "column_order": 28
+    },
+    {
+      "name": "ASSIGNEE_RESOURCE_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Orders the assignee resource id changes (including changes to null) for a specific SR, with the first audit record having a value of 1, the next audit record with an assignee resource id change has a value of 2, etc.",
+      "column_order": 29
+    },
+    {
+      "name": "QUEUE_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Orders the queue id changes (including changes to null) for a specific SR, with the first audit record having a value of 1, the next audit record with a queue id change has a value of 2, etc.",
+      "column_order": 30
+    },
+    {
+      "name": "REOPEN_EVENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Identifies if the SR has been reopened in this audited SR change ('Y' if yes, Null if no).",
+      "column_order": 31
+    },
+    {
+      "name": "SR_LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Copied from SVC_SERVICE_REQUESTS_.LAST_UPDATE_DATE.  For internal use only.",
+      "column_order": 32
+    },
+    {
+      "name": "CAT_PROD_HISTORY_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Identifies SRs created after Auditing of Category and Product went live.  SRs created before this date will not have a complete history of Category or Product audit data (N), while those created after will (Y).  Customers may want to filter out SRs with incomplete audit history when reporting on Category and/or Product changes.",
+      "column_order": 33
+    },
+    {
+      "name": "OLD_CATEGORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Previous audited value from SVC_SERVICE_REQUESTS_.CATEGORY_ID.",
+      "column_order": 34
+    },
+    {
+      "name": "CATEGORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Audited value from SVC_SERVICE_REQUESTS_.CATEGORY_ID.",
+      "column_order": 35
+    },
+    {
+      "name": "CATEGORY_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Orders the category id changes (including changes to null) for a specific SR, with the first audit record having a value of 1, the next audit record with a category id change has a value of 2, etc.",
+      "column_order": 36
+    },
+    {
+      "name": "OLD_PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Previous audited value from SVC_SERVICE_REQUESTS_, derived as NVL(INVENTORY_ITEM_ID, PROD_GROUP_ID).",
+      "column_order": 37
+    },
+    {
+      "name": "PRODUCT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Audited value from SVC_SERVICE_REQUESTS_, derived as NVL(INVENTORY_ITEM_ID, PROD_GROUP_ID).",
+      "column_order": 38
+    },
+    {
+      "name": "PRODUCT_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Orders the product id changes (including changes to null) for a specific SR, with the first audit record having a value of 1, the next audit record with a product id change has a value of 2, etc.",
+      "column_order": 39
+    },
+    {
+      "name": "SCHEDULE_HISTORY_COMPLETE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Identifies SRs created after Auditing of schedules went live.  SRs created before this date will not have a complete history of working duration audit data (N), while those created after will (Y).  Customers may want to filter out SRs with incomplete audit history when reporting on working durations.",
+      "column_order": 40
+    },
+    {
+      "name": "OLD_SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Previous audited value from SVC_SERVICE_REQUESTS_.SCHEDULE_ID.",
+      "column_order": 41
+    },
+    {
+      "name": "SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Audited value from SVC_SERVICE_REQUESTS_.SCHEDULE_ID.",
+      "column_order": 42
+    },
+    {
+      "name": "WORK_DURATION_MS",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The time in milliseconds that the agent was available to work on the service request between audit_start_date and audit_end_date, as determined by the associated schedule_id. If audit_end_date is null, then work_duration_ms will also be null as it is only populated once an end date is determined.",
+      "column_order": 43
+    },
+    {
+      "name": "SCHEDULE_SEQ_NO",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Orders schedule id changes (including changes to null) for a specific SR, with the first audit record having a value of 1, the next audit record with a schedule id change has a value of 2, etc.",
+      "column_order": 44
+    },
+    {
+      "name": "SCHEDULE_ASSIGNEE_SR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Returns NULL if both SCHEDULE_ID and ASSIGNEE_RESOURCE_ID are null, otherwise returns SR_ID. This is intended to be used for Assignee related Schedule metrics.",
+      "column_order": 45
+    }
+  ]
+}

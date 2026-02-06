@@ -1,0 +1,235 @@
+{
+  "id": 34870,
+  "name": "ATK_QB_QRY_CRITERIA",
+  "type": "TABLE",
+  "description": "table for rule criterias defined based on which the Rule's/Query's sqlQuery is created",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/atkqbqrycriteria-10673.html#atkqbqrycriteria-10673",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CRITERIA_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key of this table.",
+      "column_order": 1
+    },
+    {
+      "name": "SEQUENCE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The criteria of a particular parent have to be evaluated in a particular order. This ordering can be achieved using this sequnce number.",
+      "column_order": 2
+    },
+    {
+      "name": "CRITERIA_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "A Criteria can be one of the two types 'GROUP', or 'ITEM'. This column represents the type of the criteria.",
+      "column_order": 3
+    },
+    {
+      "name": "PARENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Every criteria does have a parent. The parent can be a query or another criteria of type 'GROUP'. This column identifies the parent.",
+      "column_order": 4
+    },
+    {
+      "name": "PARENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "N",
+      "description": "Every criteria does have a parent. The parent can be a query or another criteria of type 'GROUP'. This column identifies the type of the parent. The valid values are QUERY or GROUP.",
+      "column_order": 5
+    },
+    {
+      "name": "CONJUNCTION_OPERATOR",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "The criteria which are logical expressions are generally sepereated by operators like 'AND', 'OR' etc. This column represents this conjucntion operator.",
+      "column_order": 6
+    },
+    {
+      "name": "LEFT_HAND_EXP_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "The product teams can have either an expression or an attribute on the left hand side of the expression. This column represents what is present on the left hand side of the criteria.",
+      "column_order": 7
+    },
+    {
+      "name": "OPERATION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Defines the operation on Left hand side operands",
+      "column_order": 8
+    },
+    {
+      "name": "LHSLEFT_OPERAND_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 480,
+      "nullable": "Y",
+      "description": "The identification number of the left operand in the left hand side expression.",
+      "column_order": 9
+    },
+    {
+      "name": "LHSLEFT_OPERAND_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "The data type  of the left operand in the left hand side expression.",
+      "column_order": 10
+    },
+    {
+      "name": "LHSLEFT_OPERAND_VS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "This field is used to determine whether the left hand operand is associated to a valueset of not. If the value is 'Y' then the operand is associated to a valueset. If the value is 'N' the operand is not assocaited to a valueset.",
+      "column_order": 11
+    },
+    {
+      "name": "LHSRGHT_OPERAND_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 480,
+      "nullable": "Y",
+      "description": "The identification number of the right operand in the left hand side expression.",
+      "column_order": 12
+    },
+    {
+      "name": "OPERATOR_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Represents the operator used in the expression.",
+      "column_order": 13
+    },
+    {
+      "name": "RHS_OPERAND_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "The right hand side of the expression can be either an 'OPERAND' or a 'LITERAL'. This column is used to identify the type of the right hand side of the expression.",
+      "column_order": 14
+    },
+    {
+      "name": "RHS_LITERAL_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "Y",
+      "description": "The literal value used in the right hand side of the expression.",
+      "column_order": 15
+    },
+    {
+      "name": "RHS_DATE_LITERAL_VALUE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This holds a literal date value on the right hand side of the criteria.",
+      "column_order": 16
+    },
+    {
+      "name": "RHS_VALUESET_LITERAL_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 480,
+      "nullable": "Y",
+      "description": "This column stores the literal value that the user has selected from the value set associated with the LHS left operand.",
+      "column_order": 17
+    },
+    {
+      "name": "RHS_VALUESET_NUMBER_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column stores the value that the user has selected from the value set of type number associated with the LHS left operand.",
+      "column_order": 18
+    },
+    {
+      "name": "RHS_VALUESET_DATE_VALUE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This column stores the value that the user has selected from the value set of type date associated with the LHS left operand.",
+      "column_order": 19
+    },
+    {
+      "name": "RHS_NUMBER_LITERAL_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This holds a literal number value on the right hand side of the criteria.",
+      "column_order": 20
+    },
+    {
+      "name": "RHS_OPERAND_IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 480,
+      "nullable": "Y",
+      "description": "The identification number of the operand in the right hand side expression.",
+      "column_order": 21
+    },
+    {
+      "name": "CASE_SENSITIVE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "This column is used only when we are dealing with the operands of STRING type. If the value of this column is 'Y' then the operation should not take case into consideration. Otherwise the comparision should be case sensitive.",
+      "column_order": 22
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 23
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 26
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 27
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 28
+    }
+  ]
+}

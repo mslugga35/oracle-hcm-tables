@@ -1,0 +1,163 @@
+{
+  "id": 28976,
+  "name": "IBY_REMIT_ADVICE_SETUP_",
+  "type": "TABLE",
+  "description": "IBY_REMIT_ADVICE_SETUP stores information on creating and delivering remittance information, or remittance advice, for a payee separately from the payment itself. Remittance advice setup is organized by payment process profile. Each payment process profile for which remittance advice is required has a row in this table, which specifies how the remittance advice is to be created and delivered to the payer. This table corresponds to the Separate Remittance Advice region on the Payment Process Profiles pages.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibyremitadvicesetup-27998.html#ibyremitadvicesetup-27998",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SYSTEM_PROFILE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Unique primary key",
+      "column_order": 1
+    },
+    {
+      "name": "DOCUMENT_COUNT_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "This number acts as a rule for inclusion of a payment in a remittance advice. If the number of documents within a payment exceeds this number, then the payment is included in a remittance advice.",
+      "column_order": 2
+    },
+    {
+      "name": "ALLOW_MULTIPLE_COPY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag indicating whether multiple copies of the remittance advice can be created for payments in the payment file.",
+      "column_order": 3
+    },
+    {
+      "name": "SEEDED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag controlling updatability of records. Y indicates record was seeded by Oracle and may have user updates limited.",
+      "column_order": 4
+    },
+    {
+      "name": "PAYMENT_DETAILS_LENGTH_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Maximum length of the payment detail record. Typically this is a type of description record in a payment format that allows concatenated details of the payment to be included, for example, invoices paid. If the length is exceeded, then the payment is included in a remittance advice.",
+      "column_order": 5
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    },
+    {
+      "name": "REMITTANCE_ADVICE_FORMAT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Remittance format code",
+      "column_order": 12
+    },
+    {
+      "name": "SRA_OVERRIDE_PAYEE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether the delivery method preference in the payment process profile overrides the setting at the payee level. Y to override, N otherwise.",
+      "column_order": 13
+    },
+    {
+      "name": "REMIT_ADVICE_DELIVERY_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Remittance advice delivery method. Values from the lookup IBY_DELIVERY_METHODS include EMAIL, FAX, and PRINTED.",
+      "column_order": 14
+    },
+    {
+      "name": "AUTOMATIC_SRA_SUBMIT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Y or N flag indicating whether the remittance advice should be submitted automatically at payment completion point.",
+      "column_order": 15
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 16
+    },
+    {
+      "name": "AUDIT_ACTION_TYPE_",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Action Type - have values like INSERT, UPDATE and DELETE.",
+      "column_order": 17
+    },
+    {
+      "name": "AUDIT_CHANGE_BIT_MAP_",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Used to store a bit map of 1s and 0s for each column in the table.",
+      "column_order": 18
+    },
+    {
+      "name": "AUDIT_IMPERSONATOR_",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Original Impersonator User.",
+      "column_order": 19
+    }
+  ]
+}

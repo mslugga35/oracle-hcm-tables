@@ -1,0 +1,339 @@
+{
+  "id": 32023,
+  "name": "FFS_MESSAGE_LOG",
+  "type": "TABLE",
+  "description": "Used to store Outbound API message modification history.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffsmessagelog-18272.html#ffsmessagelog-18272",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LOG_ID",
+      "data_type": "NUMBER",
+      "data_length": 19,
+      "nullable": "N",
+      "description": "Unique identifier of the Message Log record.",
+      "column_order": 1
+    },
+    {
+      "name": "MESSAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to the record in FFS_MESSAGE_QUEUE->MESSAGE_ID.",
+      "column_order": 2
+    },
+    {
+      "name": "ACTIVITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Identifier of the activity the message is related to.",
+      "column_order": 3
+    },
+    {
+      "name": "VISIT_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_VISIT record related to the message.",
+      "column_order": 4
+    },
+    {
+      "name": "INVENTORY_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Reference to the related inventory ID - FFS_INVENTORY->INVENTORY_ID.",
+      "column_order": 5
+    },
+    {
+      "name": "ROUTE_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Reference to the unique route ID -> FFS_ROUTE -> ROUTE_ID.",
+      "column_order": 6
+    },
+    {
+      "name": "RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Link to the related resource ID - FFS_RESOURCE->RESOURCE_ID.",
+      "column_order": 7
+    },
+    {
+      "name": "SERVICE_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "ID of the related support request. Reference to the FFS_SERVICE_REQUEST -> SERVICE_REQUEST_ID.",
+      "column_order": 8
+    },
+    {
+      "name": "USER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Link to the record in FFS_USER->USER_ID.",
+      "column_order": 9
+    },
+    {
+      "name": "FLOW_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to the unique identifier of the notification scenario (ffs_message_flow->flow_id).",
+      "column_order": 10
+    },
+    {
+      "name": "STEP_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to the record in FFS_MESSAGE_STEP->STEP_ID.",
+      "column_order": 11
+    },
+    {
+      "name": "PREV_MESSAGE_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Link to the record in FFS_MESSAGE_QUEUE->MESSAGE_ID.",
+      "column_order": 12
+    },
+    {
+      "name": "MESSAGE_TRIGGER",
+      "data_type": "VARCHAR2",
+      "data_length": 24,
+      "nullable": "Y",
+      "description": "Identifier of the launch condition that triggered the scenario which created the message.",
+      "column_order": 13
+    },
+    {
+      "name": "METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Identifier of message method which is used to process the message..",
+      "column_order": 14
+    },
+    {
+      "name": "SUBMETHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 40,
+      "nullable": "Y",
+      "description": "Additional identifier for message method 'external_system'.",
+      "column_order": 15
+    },
+    {
+      "name": "SEND_FROM",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Specifies starting time of the message time range for sending the message.",
+      "column_order": 16
+    },
+    {
+      "name": "SEND_TO",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Specifies ending time of the message time range for sending the message.",
+      "column_order": 17
+    },
+    {
+      "name": "GMT_SHIFT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Time Zone Difference. Value in minutes starting from the Midnight. Example: 120, -240.",
+      "column_order": 18
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 11,
+      "nullable": "Y",
+      "description": "Notification Status. Values: 'obsolete', 'falsemethod', 'delivered', 'sent', 'failed'.",
+      "column_order": 19
+    },
+    {
+      "name": "DESCRIPTION",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Extended notification status description.",
+      "column_order": 20
+    },
+    {
+      "name": "DATA",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Information delivered from external system(customer wants to change phone to #).",
+      "column_order": 21
+    },
+    {
+      "name": "EXTERNAL_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 160,
+      "nullable": "Y",
+      "description": "Sent message external system identifier.",
+      "column_order": 22
+    },
+    {
+      "name": "FAULT_RETRIES",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Total attempts quantity on notification sent failure.",
+      "column_order": 23
+    },
+    {
+      "name": "FAULT_ATTEMPT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Rest of attempts quantity on notification sent failure.",
+      "column_order": 24
+    },
+    {
+      "name": "FAULT_INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Interval before next notification attempt on notification sent failure.",
+      "column_order": 25
+    },
+    {
+      "name": "SENT_ATTEMPT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Rest of attempts quantity on notification sent.",
+      "column_order": 26
+    },
+    {
+      "name": "SENT_INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Interval before next notification attempt on notification sent.",
+      "column_order": 27
+    },
+    {
+      "name": "SENT",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Specifies time of sending the message.",
+      "column_order": 28
+    },
+    {
+      "name": "TIME_DELIVERED_START",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Specifies the activity communicated window time start.",
+      "column_order": 29
+    },
+    {
+      "name": "TIME_DELIVERED_END",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Specifies the activity communicated window time end.",
+      "column_order": 30
+    },
+    {
+      "name": "DURATION",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Step Duration Time. Calculated field.",
+      "column_order": 31
+    },
+    {
+      "name": "CREATED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Notification Message Creation Time.",
+      "column_order": 32
+    },
+    {
+      "name": "UPDATED",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Notification Message Last Update Time.",
+      "column_order": 33
+    },
+    {
+      "name": "STOPPED",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "It's a bitmap mask which identifies message's further steps.",
+      "column_order": 34
+    },
+    {
+      "name": "SURVEY_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "This field is not used and can be removed.",
+      "column_order": 35
+    },
+    {
+      "name": "ADDRESS",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Notification Address which was used for the action.",
+      "column_order": 36
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 38
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 40
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 41
+    }
+  ]
+}

@@ -1,0 +1,219 @@
+{
+  "id": 32788,
+  "name": "MKT_IMP_CALL_LST_CON_T",
+  "type": "TABLE",
+  "description": "The Import Interface table to populate MKT_CALL_LST_CON: This table stores references to the customers  targetted when the list is used during a campaign launch process. A marketing  list will typically have many list contacts (members).",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/mktimpcalllstcont-27107.html#mktimpcalllstcont-27107",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "IMPORT_JOB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Import Job Identifier, no longer part of Primary Key",
+      "column_order": 1
+    },
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key - Batch Identifier that groups data into a batch",
+      "column_order": 2
+    },
+    {
+      "name": "INTERFACE_ROW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary Key - Interface Row ID. Used to link this record with the error record.",
+      "column_order": 3
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 4
+    },
+    {
+      "name": "IMPORT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status flag - similar to IMPORT_STATUS_CODE",
+      "column_order": 5
+    },
+    {
+      "name": "ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Action Code to indicate Insert or Update action",
+      "column_order": 6
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "CALL_LST_CON_T_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Alternate Key. Interface Row Id. Will be used to link this row with rows in the error table.",
+      "column_order": 8
+    },
+    {
+      "name": "CALL_LST_CON_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Call list contact id. Fusion Primary key.",
+      "column_order": 9
+    },
+    {
+      "name": "CALL_LST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Call List Identifier to the Call List table",
+      "column_order": 10
+    },
+    {
+      "name": "CON_PER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Contact Person Identifier to the Person table",
+      "column_order": 11
+    },
+    {
+      "name": "RELATIONSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "TCA Relationship Identifier of the call list for this record",
+      "column_order": 12
+    },
+    {
+      "name": "VALID_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Valid Flag indicates call list validity for this record",
+      "column_order": 13
+    },
+    {
+      "name": "ERROR_MESSAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Call List Error Message for this record",
+      "column_order": 14
+    },
+    {
+      "name": "PARTY_ORIG_SYSTEM",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Party Original System. Stores a unique identifier for the party in the source system. Used to lookup CON_PER_ID.",
+      "column_order": 15
+    },
+    {
+      "name": "PARTY_ORIG_SYSTEM_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Party Original System Reference. Stores a unique identifier for the party reference in the source system. Used to lookup CON_PER_ID.",
+      "column_order": 16
+    },
+    {
+      "name": "ORG_PARTY_ORIG_SYS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Org Party Original System. Stores a unique identifier for the Organization party in the source system. Used to lookup ORG_PARTY_ID.",
+      "column_order": 17
+    },
+    {
+      "name": "ORG_PARTY_ORIG_SYS_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Org Party Original System Reference. Stores a unique identifier for the Organization party in the source system. Used to lookup ORG_PARTY_ID.",
+      "column_order": 18
+    },
+    {
+      "name": "ORG_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Org Party Identifier. Stores a unique identifier for the Organization party in the source system. Used as OBJECT_ID to lookup RELATIONSHIP_ID from HZ_ORIG_SYS_REFERENCES.",
+      "column_order": 19
+    },
+    {
+      "name": "LIST_EXT_REF",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "List External Reference. Stores a unique identifier of the list/segment proxy in the source system. Used to lookup CALL_LST_ID.",
+      "column_order": 20
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 21
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 25
+    },
+    {
+      "name": "FILE_RECORD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "File record indicator in the file.",
+      "column_order": 26
+    }
+  ]
+}

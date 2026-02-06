@@ -1,0 +1,211 @@
+{
+  "id": 28934,
+  "name": "IBY_INTERNAL_PAYERS_ALL",
+  "type": "TABLE",
+  "description": "IBY_INTERNAL_PAYERS_ALL stores payment-related attributes for the funds disbursement payment process for all first party payers. These attributes control the flow of payments.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibyinternalpayersall-31451.html#ibyinternalpayersall-31451",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INT_PAYER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "System-generated primary key.",
+      "column_order": 1
+    },
+    {
+      "name": "PAYMENT_METHOD_AT_PAYEE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Stores the Allow Payee Override system option. This is a Y or N flag indicating whether defaults for the payment method attribute can be set at the payee or payee site levels. The defaults at payee or payee site levels override the ones set by defaulting rules. If set to N, any defaults previously set at the payee or payee site levels are ignored. There will be no override and the defaults are determined by the defaulting rules only.",
+      "column_order": 2
+    },
+    {
+      "name": "DOCUMENT_REJECTION_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies what is rejected if a document payable fails validation. Values from the IBY_DOCUMENT_REJECTION_LEVELS lookup include REQUEST, PAYEE, and DOCUMENT.",
+      "column_order": 3
+    },
+    {
+      "name": "PAYMENT_REJECTION_LEVEL_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Specifies how much of a payment process request is rejected if a payment fails validation. Values from the IBY_PAYMENT_REJECTION_LEVELS lookup include REQUEST, PAYMENT, and NONE.",
+      "column_order": 4
+    },
+    {
+      "name": "REQUIRE_PROP_PMTS_REVIEW_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag indicating whether Payments should stop the payment creation flow to allow an administrator to review and modify proposed payments before grouping them into payment instructions. Values from the lookup IBY_PROPOSED_PMTS_REVIEW_CODES include Y and N.",
+      "column_order": 5
+    },
+    {
+      "name": "ALLOW_EXT_ACCT_OVERRIDE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag indicating whether the external bank account can be overridden.",
+      "column_order": 6
+    },
+    {
+      "name": "EXCLUSIVE_PAYMENT_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Yes or No flag that will default to new payees indicating whether documents payable should be prevented from being grouped with other like documents payable for payment.",
+      "column_order": 7
+    },
+    {
+      "name": "SAVE_PAYMENT_FILE_IN_DB",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Y or N flag indicating whether Oracle Payments saves a copy of the formatted payment instruction file in the database",
+      "column_order": 8
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 14
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 15
+    },
+    {
+      "name": "ORG_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Organization type, such as business unit. Values taken from lookup: IBY_ORGANIZATION_TYPES",
+      "column_order": 16
+    },
+    {
+      "name": "BANK_CHARGE_BEARER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Party that is responsible for paying regular or express bank charges, such as Payee or Payer. Values taken from lookup: IBY_BANK_CHARGE_BEARER",
+      "column_order": 17
+    },
+    {
+      "name": "PPR_REPORT_FORMAT",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Format to be used for the Payment Process Request Status Report.  Set in the Disbursement System Options user interface page",
+      "column_order": 18
+    },
+    {
+      "name": "AUTOMATIC_PPR_REPORT_SUBMIT",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Yes or No flag represented by the automatically submit option for the  Payment Process Request Status Report on the Disbursement System Options user interface page",
+      "column_order": 19
+    },
+    {
+      "name": "SRA_SEND_FROM",
+      "data_type": "VARCHAR2",
+      "data_length": 1024,
+      "nullable": "Y",
+      "description": "Send from email address for Separate Remittance Advice",
+      "column_order": 20
+    },
+    {
+      "name": "SRA_EMAIL_SUBJECT",
+      "data_type": "VARCHAR2",
+      "data_length": 1024,
+      "nullable": "Y",
+      "description": "Email subject line for Separate Remittance Advice",
+      "column_order": 21
+    },
+    {
+      "name": "PAYMENTS_APPROVAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether payments go through the approval process at the batch level. Possible values are Y or N.",
+      "column_order": 22
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 23
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 24
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 25
+    }
+  ]
+}

@@ -1,0 +1,259 @@
+{
+  "id": 31257,
+  "name": "OKC_PRICING_TERMS_H",
+  "type": "TABLE",
+  "description": "Base table for storing pricing terms for parent entities such as Sales Agreements, Promotions or Discount Lists.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/okcpricingtermsh-19595.html#okcpricingtermsh-19595",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PRICING_TERM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "PRICING_TERM_ID",
+      "column_order": 1
+    },
+    {
+      "name": "PRICING_TERM_PUID",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "PRICING_TERM_PUID",
+      "column_order": 2
+    },
+    {
+      "name": "DNZ_CHR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "DNZ_CHR_ID",
+      "column_order": 3
+    },
+    {
+      "name": "CLE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "CLE_ID",
+      "column_order": 4
+    },
+    {
+      "name": "MAJOR_VERSION",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "MAJOR_VERSION",
+      "column_order": 5
+    },
+    {
+      "name": "VERSION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "VERSION_TYPE",
+      "column_order": 6
+    },
+    {
+      "name": "PRICE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates if the price adjustment is of price types one time,recurring,usuage or ALL. Based on the lookup type QP_PRICE_TYPES.",
+      "column_order": 7
+    },
+    {
+      "name": "PRICE_PERIODICITY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Relevant when price type is Recurring. Mutually exclusive with Usage UOM. E.g. Possible values are Monthly (MONTHLY), Weekly (WEEKLY), yearly (YEARLY), etc.",
+      "column_order": 8
+    },
+    {
+      "name": "ADJUSTMENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "e.g. %Discount, %Markup, etc. Based on a lookup type OKC_SAGR_ADJ_TYPES",
+      "column_order": 9
+    },
+    {
+      "name": "ADJUSTMENT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjustment numeric value associated with the Adjustment Type.",
+      "column_order": 10
+    },
+    {
+      "name": "ADJUSTMENT_BASIS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the basis for calculating a % based adjustment.When adjustment is at line level, Benefit Type is Coverage Price Adjustment, Price Adjustment or Price List Based Adjustment and Adjustment Type is Discount % or Markup %, the list of values for this field are Pricing Basis (setup separately as named entities) of type Adjustment Basis.  The Pricing Basis of type Adjustment Basis will only have a single price element associated. Price Type, Charge Type, Subtype for calculation purposes are to be same as price type, charge type, subtype to which the term is applied.When adjustment is at line level, Benefit Type is Coverage Price Adjustment and Adjustment Type is Covered Product Percent Price  (applicable only when the item on the pricing term is a coverage/warranty item) then the list of values are Pricing Basis of type Coverage Basis. The Pricing Basis of type Coverage Basis will have one or more combinations of price element, price type, charge type and charge subtype associated.",
+      "column_order": 11
+    },
+    {
+      "name": "LIST_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "LIST_PRICE",
+      "column_order": 12
+    },
+    {
+      "name": "FLOOR_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "FLOOR_PRICE",
+      "column_order": 13
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "PERIOD_NAME",
+      "column_order": 14
+    },
+    {
+      "name": "ALLOW_CUSTOM_ADJUSTMENTS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "For use by QOC/Contracts to prevent manual adjustments to the adjustment. Possible values are Y or N. Based lookup type YES_NO.",
+      "column_order": 15
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start date for the Term.This date does not contribute to uniqueness of Terms just date enablement.",
+      "column_order": 16
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End date for the Term.This date does not contribute to uniqueness of Terms just date enablement.",
+      "column_order": 17
+    },
+    {
+      "name": "ORIG_SYSTEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Pricing Term Id of source when this pricing term is copied from another pricing term.",
+      "column_order": 18
+    },
+    {
+      "name": "TIERED_YN",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "TIERED_YN",
+      "column_order": 19
+    },
+    {
+      "name": "TIER_BASIS_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "TIER_BASIS_TYPE_CODE",
+      "column_order": 20
+    },
+    {
+      "name": "TIER_BASIS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "TIER_BASIS_CODE",
+      "column_order": 21
+    },
+    {
+      "name": "AGGREGATION_METHOD_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "AGGREGATION_METHOD_CODE",
+      "column_order": 22
+    },
+    {
+      "name": "GRADUATED_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "GRADUATED_CODE",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 25
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 26
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 27
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 28
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 29
+    },
+    {
+      "name": "EXTERNAL_KEY1",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "External key that uniquely identifies a record",
+      "column_order": 30
+    },
+    {
+      "name": "EXTERNAL_KEY2",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Additional attribute to qualify external key",
+      "column_order": 31
+    }
+  ]
+}

@@ -1,0 +1,107 @@
+{
+  "id": 30436,
+  "name": "ZSO_USER_SHARE_DOCS",
+  "type": "TABLE",
+  "description": "This table is an association table that represents the \"shared\" relationship between a user and a document.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/zsousersharedocs-26740.html#zsousersharedocs-26740",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "SHARE_DOC_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "The ID of the Document that is being shared.",
+      "column_order": 1
+    },
+    {
+      "name": "USER_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "The Party ID of the person with whom a document shared.  Expected to be compared with current user's Party Id (from session context) to filter \"My Documents\" and \"All Shared Documents\".",
+      "column_order": 2
+    },
+    {
+      "name": "SHARE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Discriminator column: indicates the type of User Share that the record represents. Valid values are \"DOC\" for Document and \"CS\" for Content Set.",
+      "column_order": 3
+    },
+    {
+      "name": "DOC_OWNER_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Document Owner boolean value indicator.  'Y' to indicate that the Party with whom the document is shared has Ownership privileges.",
+      "column_order": 4
+    },
+    {
+      "name": "KEY_PAGE_SEQUENCE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "Y",
+      "description": "Shared user's preferred Key Page indicator for a page-specific thumbnail that represents that individual user's preferred thumbnail page. If null, use the Document's Default Key Page Sequence Number.",
+      "column_order": 5
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 9
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 10
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 11
+    },
+    {
+      "name": "SHARED_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date or timestamp value for document shared.",
+      "column_order": 12
+    }
+  ]
+}

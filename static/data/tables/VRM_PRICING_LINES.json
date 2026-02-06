@@ -1,0 +1,755 @@
+{
+  "id": 29828,
+  "name": "VRM_PRICING_LINES",
+  "type": "TABLE",
+  "description": "This is an extension object to document lines  that store the processing results of Dimension Value Assignment Process i.e. Pricing_Combination_Id and Line Grouping i.e. Line_Group_Number.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/vrmpricinglines-26203.html#vrmpricinglines-26203",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "DOCUMENT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Internal unique identifier of a source document line.",
+      "column_order": 1
+    },
+    {
+      "name": "DOCUMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of a source document.",
+      "column_order": 2
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Price basis line status. Values derived from the lookup type VSOE_PBL_STATUS.",
+      "column_order": 3
+    },
+    {
+      "name": "GROUP_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal unique identifier of a line group.",
+      "column_order": 4
+    },
+    {
+      "name": "GROUPING_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Reason code for a line grouping.",
+      "column_order": 5
+    },
+    {
+      "name": "PRICING_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the pricing dimension combination.",
+      "column_order": 6
+    },
+    {
+      "name": "ITEM_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of an item group.",
+      "column_order": 7
+    },
+    {
+      "name": "TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal Identifier of the FMV template.",
+      "column_order": 8
+    },
+    {
+      "name": "DOCUMENT_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Date of source document.",
+      "column_order": 9
+    },
+    {
+      "name": "DIMENSION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag that indicates whether pricing combination is successfully derived for the given document line.",
+      "column_order": 10
+    },
+    {
+      "name": "MEA_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "A flag to indicates whether the source document line belong to a MEA or not.",
+      "column_order": 11
+    },
+    {
+      "name": "EXCLUDED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag that indicates if standalone sales has been excluded from VSOE price calculation.",
+      "column_order": 12
+    },
+    {
+      "name": "EXCLUSION_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Exclusion reason to exclude a line from VSOE price calculation. Values are from the lookup VSOE_PBL_EXCLUDING_REASON.",
+      "column_order": 13
+    },
+    {
+      "name": "EXCLUSION_REVIEW_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Flag that indicates if a revenue analyst or manager has reviewed the line marked as excluded by the system.",
+      "column_order": 14
+    },
+    {
+      "name": "EXCEPTION_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag that indicates if VSOE price has an exception.",
+      "column_order": 15
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 16
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 17
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 18
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 19
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 20
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 21
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 22
+    },
+    {
+      "name": "REVENUE_DOCUMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of a revenue document.",
+      "column_order": 23
+    },
+    {
+      "name": "REV_PROGRAM_CONTROL_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal Identifier of the revenue program run.",
+      "column_order": 24
+    },
+    {
+      "name": "WORKER_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Number of parallel processes for a concurrent process.",
+      "column_order": 25
+    },
+    {
+      "name": "PREV_DOCUMENT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Reference document line internal identifier.",
+      "column_order": 26
+    },
+    {
+      "name": "NET_LINE_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Line amount after adjusting return amount.",
+      "column_order": 27
+    },
+    {
+      "name": "NET_UNIT_SALES_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unit selling price after adjusting return amount.",
+      "column_order": 28
+    },
+    {
+      "name": "NET_UNIT_SALES_PCT_BASE_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Unit sales percent base price after adjusting return amount.",
+      "column_order": 29
+    },
+    {
+      "name": "NET_DISCOUNT_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Discount percentage after adjusting return amount.",
+      "column_order": 30
+    },
+    {
+      "name": "REVISED_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted cost of sale after the document is revised.",
+      "column_order": 31
+    },
+    {
+      "name": "REVISED_GROSS_MARGIN_PERCENT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Adjusted gross margin of sales after the document is revised.",
+      "column_order": 32
+    },
+    {
+      "name": "CONCATENATED_SEGMENTS",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The concatenated pricing dimension flexfield.",
+      "column_order": 33
+    },
+    {
+      "name": "DISPLAY_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether to display the FMV for the line. Possible values are Yes or No.",
+      "column_order": 34
+    },
+    {
+      "name": "ITEM_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Indicates the type of a source document items. Possible values are ITEM, MEMO_LINE and ITEM_GROUP.",
+      "column_order": 35
+    },
+    {
+      "name": "ITEM_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Item type unique identifier.",
+      "column_order": 36
+    },
+    {
+      "name": "NET_QUANTITY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Net quantity of a transaction line.",
+      "column_order": 37
+    },
+    {
+      "name": "UPDATE_FMV_REP_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates whether to allow updates on Base Price Percentage or Cost or not. Possible values are Yes or No.",
+      "column_order": 38
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Comments entered for MEA or standalone sales.",
+      "column_order": 39
+    },
+    {
+      "name": "REVISED_UOM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Revised unit of measure code.",
+      "column_order": 40
+    },
+    {
+      "name": "NET_DISCOUNT_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Net discount amount of the original line.",
+      "column_order": 41
+    },
+    {
+      "name": "REV_REC_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "Status of a document line to indicate whether line is processed by revenue.",
+      "column_order": 42
+    },
+    {
+      "name": "ELEMENT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Element is a deliverable or separate unit of accounting. Used to group element types for FMV sets. Values are from the lookup VRM_ELEMENT_TYPE.",
+      "column_order": 43
+    },
+    {
+      "name": "NET_UNIT_LIST_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Net unit list price discount used to validate VSOE value of a MEA line.",
+      "column_order": 44
+    },
+    {
+      "name": "NET_BASE_PRICE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Net base price used to validate VSOE value of a MEA line.",
+      "column_order": 45
+    },
+    {
+      "name": "DELIVERED_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Fulfillment date of a source document line.",
+      "column_order": 46
+    },
+    {
+      "name": "RECONCILIATION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 60,
+      "nullable": "Y",
+      "description": "The billing and revenue reconciliation status for a revenue line.",
+      "column_order": 47
+    },
+    {
+      "name": "RECONCILIATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the revenue line is reconciled.",
+      "column_order": 48
+    },
+    {
+      "name": "BILLED_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Line amount of the transaction line. Tax amount is excluded.",
+      "column_order": 49
+    },
+    {
+      "name": "DELIVERY_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Fulfillment date of a source document line.",
+      "column_order": 50
+    },
+    {
+      "name": "DELIVERY_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Delivery status of a source document. Values are from the lookup VRM_MEA_LINE_DELIVERY_STATUS.",
+      "column_order": 51
+    },
+    {
+      "name": "RECONCILIATION_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Request with the updated reconciliation information on the pricing line.",
+      "column_order": 52
+    },
+    {
+      "name": "RECONCILIATION_BATCH_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the batch to be processed for a reconciliation request.",
+      "column_order": 53
+    },
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ledger unique identifier.",
+      "column_order": 54
+    },
+    {
+      "name": "CUST_CONTRACT_CREATION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Status used to track whether this line is included in a performance obligation line of a contract.",
+      "column_order": 55
+    },
+    {
+      "name": "CUST_CONTRACT_REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created a customer contract using this row.",
+      "column_order": 56
+    },
+    {
+      "name": "SATISFACTION_MEASUREMENT_MODEL",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies how satisfaction will be measured and recorded for a performance obligation line. Values are from the lookup type ORA_VRM_SATIS_MEAS_MODEL.",
+      "column_order": 57
+    },
+    {
+      "name": "REVENUE_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Revenue scheduling rule unique identifier.",
+      "column_order": 58
+    },
+    {
+      "name": "REVENUE_RULE_DURATION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Number of periods in which revenue of this  performance obligation line is to be recognized.",
+      "column_order": 59
+    },
+    {
+      "name": "CONTRACT_UPDATE_TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Revenue contract update template identifier.",
+      "column_order": 60
+    },
+    {
+      "name": "INITIAL_DOCUMENT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Reference key that identifies the parent source document line for the current line.",
+      "column_order": 61
+    },
+    {
+      "name": "ADD_TO_CONTRACT_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies how a new line from the source system should be processed. Values are derived from the lookup type ORA_ADD_TO_CONTRACT_ACTION. Blank is equivalent to ORA_ADD_TO_EXISTING_PO.",
+      "column_order": 62
+    },
+    {
+      "name": "DOCUMENT_LINE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies the type of line sent from the source system. Values are derived from the lookup type ORA_VRM_DOCUMENT_LINE_TYPE. Blank is equivalent to ORA_NEW_LINE.",
+      "column_order": 63
+    },
+    {
+      "name": "TOP_PARENT_DOCUMENT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Reference key that identifies the top most parent document line for the current line.",
+      "column_order": 64
+    },
+    {
+      "name": "REVISION_INTENT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Revision intent for the source document revision line. Values are from the lookup type ORA_VRM_REVISION_INTENT_TYPE.",
+      "column_order": 65
+    },
+    {
+      "name": "WARNING_MESSAGE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies message name for warning line.",
+      "column_order": 66
+    },
+    {
+      "name": "CONTRACT_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Internal identifier of the customer contract identification rule.",
+      "column_order": 67
+    },
+    {
+      "name": "CONTRACT_HASH_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 550,
+      "nullable": "Y",
+      "description": "Contract processing unique identifier.",
+      "column_order": 68
+    },
+    {
+      "name": "CONTRACT_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "User entered contract reference or grouping attribute values used to identify the contract as derived by enabling the Copy to Reference option in the Contract Identification rule.",
+      "column_order": 69
+    },
+    {
+      "name": "CONTRACT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 70
+    },
+    {
+      "name": "CONTRACT_CLASSIFICATION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Classification code of a contract. Values are derived from lookup type ORA_VRM_CONTRACT_CLASSIF_CODE.",
+      "column_order": 71
+    },
+    {
+      "name": "IMMATERIAL_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Immaterial change type for this line. Valid values are from the lookup type ORA_IMMATERIAL_CHANGE_TYPE.",
+      "column_order": 72
+    },
+    {
+      "name": "CONTRACT_MODIFICATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date on which the revenue contract was modified.",
+      "column_order": 73
+    },
+    {
+      "name": "LATEST_IMMATERIAL_CHANGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Latest immaterial change type for this line. Valid values are from the lookup type ORA_IMMATERIAL_CHANGE_TYPE.",
+      "column_order": 74
+    },
+    {
+      "name": "LATEST_CONTRACT_MOD_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Latest date on which the revenue contract was modified.",
+      "column_order": 75
+    },
+    {
+      "name": "REVISED_RECURRING_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Revised indicator specifying that the line will recur on the line's satisfaction plan end date. Valid values are from the lookup type VRM_YES/NO.",
+      "column_order": 76
+    },
+    {
+      "name": "REVISED_RECURRING_FREQUENCY",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revised frequency number of the recurring pattern.",
+      "column_order": 77
+    },
+    {
+      "name": "REVISED_RECUR_PATTERN_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Revised recurring frequency of the line. Valid values are from the lookup type VRM_RECUR_PATTERN_CODE.",
+      "column_order": 78
+    },
+    {
+      "name": "REVISED_TERMINATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revised termination date, which is the date the line was terminated and will no longer recur automatically.",
+      "column_order": 79
+    },
+    {
+      "name": "REVISED_RECURRING_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revised selling amount per frequency for the recurring line.",
+      "column_order": 80
+    },
+    {
+      "name": "REVISED_RULE_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revised revenue recoginition end date for the revenue scheduling rule.",
+      "column_order": 81
+    },
+    {
+      "name": "REVISED_RULE_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revised revenue recoginition start date for the revenue scheduling rule.",
+      "column_order": 82
+    },
+    {
+      "name": "REVISED_ACCOUNTING_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Revised revenue scheduling rule identifier.",
+      "column_order": 83
+    },
+    {
+      "name": "DOCUMENT_GROUP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Source document group identifier used to group the initial recurring source document header and system-generated recurring source document headers. Value is the source document identifier for the original source document.",
+      "column_order": 84
+    },
+    {
+      "name": "ORIGINAL_DOCUMENT_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Original source document line identifier used to create the recurring source document line.",
+      "column_order": 85
+    },
+    {
+      "name": "RECUR_LINE_PROCESSED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates the line was processed for the period. Valid values are from the lookup type VRM_YES/NO.",
+      "column_order": 86
+    },
+    {
+      "name": "TERMINATION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The date on which the revenue line was terminated.",
+      "column_order": 87
+    },
+    {
+      "name": "NET_UNIT_SSP",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Net unit standalone selling price of the item or memo line.",
+      "column_order": 88
+    },
+    {
+      "name": "LATEST_PERIOD_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Latest satisfaction period action that was processed on this document line. Valid values are from the lookup type ORA_VRM_PERIOD_SUBLINE_ACTION.",
+      "column_order": 89
+    },
+    {
+      "name": "TOTAL_REVERSAL_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Total number of days the service was suspended. This value is calculated based on the number of days between the effective dates of all reversals and their corresponding reinstatements.",
+      "column_order": 90
+    },
+    {
+      "name": "LATEST_REVERSAL_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Number of days since the latest suspension of service. This value is calculated based on the the number of days between the effective plan end date of the promised detail and the recently processed reversal subline.",
+      "column_order": 91
+    },
+    {
+      "name": "REVISED_SERVICE_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Revised unit of measure of the service item on the source document line. Valid values are from the Price Periodicity UOM Class defined in Oracle Fusion Pricing.",
+      "column_order": 92
+    },
+    {
+      "name": "REVISED_SERVICE_DURATION",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Revised duration of the service item in terms of the service unit of measure.",
+      "column_order": 93
+    }
+  ]
+}

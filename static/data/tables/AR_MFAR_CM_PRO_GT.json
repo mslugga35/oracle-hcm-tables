@@ -1,0 +1,267 @@
+{
+  "id": 29360,
+  "name": "AR_MFAR_CM_PRO_GT",
+  "type": "TABLE",
+  "description": "AR_MFAR_CM_PRO_GT is a temporary table that contains multi-fund proration accounting data for credit memos. This table is truncated on commit.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/armfarcmprogt-30234.html#armfarcmprogt-30234",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ENTITY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Entity identifier.",
+      "column_order": 1
+    },
+    {
+      "name": "RECEIVABLE_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Receivable application identifier.",
+      "column_order": 2
+    },
+    {
+      "name": "LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for rows in table AR_DISTRIBUTIONS_ALL - primarily when these rows are passed to general ledger.",
+      "column_order": 3
+    },
+    {
+      "name": "AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount in the entered currency.",
+      "column_order": 4
+    },
+    {
+      "name": "ACCTD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Amount in the ledger currency.",
+      "column_order": 5
+    },
+    {
+      "name": "FROM_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Distribution amount in the entered currency.",
+      "column_order": 6
+    },
+    {
+      "name": "FROM_ACCTD_AMOUNT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Distribution amount in the ledger currency.",
+      "column_order": 7
+    },
+    {
+      "name": "THIRD_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill-to customer identifier for transactions; paid-from customer ID for receipts.",
+      "column_order": 8
+    },
+    {
+      "name": "THIRD_PARTY_SUB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill-to site use identifier for transactions; customer site use ID for receipts.",
+      "column_order": 9
+    },
+    {
+      "name": "THIRD_PARTY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Third party classification code.",
+      "column_order": 10
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Currency code.",
+      "column_order": 11
+    },
+    {
+      "name": "EXCHANGE_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion rate used to convert foreign currency amounts to the ledger currency.",
+      "column_order": 12
+    },
+    {
+      "name": "EXCHANGE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Conversion rate type.",
+      "column_order": 13
+    },
+    {
+      "name": "EXCHANGE_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion rate date.",
+      "column_order": 14
+    },
+    {
+      "name": "REF_CUSTOMER_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transaction line identifier.",
+      "column_order": 15
+    },
+    {
+      "name": "REF_CUST_TRX_LINE_GL_DIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transaction line distribution identifier.",
+      "column_order": 16
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "General ledger account identifier.",
+      "column_order": 17
+    },
+    {
+      "name": "REF_DIST_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Account code combination identifier at the time of application. Optimizes performance when CCID comes from a distribution outside Receivables.",
+      "column_order": 18
+    },
+    {
+      "name": "ACTIVITY_BUCKET",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Activity associated to this distribution.",
+      "column_order": 19
+    },
+    {
+      "name": "SOURCE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Account type of the transaction for which the distribution is posted.",
+      "column_order": 20
+    },
+    {
+      "name": "SOURCE_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Identifier of the source table. Valid values are CRH for the AR_CASH_RECEIPT_HISTORY_ALL table, RA for the AR_RECEIVABLE_APPLICATIONS_ALL table, ADJ for the AR_ADJUSTMENTS_ALL table, MCD for the AR_MISC_CASH_DISTRIBUTIONS_ALL table, or TH for the AR_TRANSACTION_HISTORY_ALL table.",
+      "column_order": 21
+    },
+    {
+      "name": "RA_POST_INDICATOR",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Receivables posting batch identifier. Valid values are Y for posted and N for not posted.",
+      "column_order": 22
+    },
+    {
+      "name": "CUSTOMER_TRX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifier of the debit item or credit memo being applied.",
+      "column_order": 23
+    },
+    {
+      "name": "INVENTORY_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Inventory item identifier.",
+      "column_order": 24
+    },
+    {
+      "name": "SALES_TAX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Sales tax identifier.",
+      "column_order": 25
+    },
+    {
+      "name": "TAX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax line identifier.",
+      "column_order": 26
+    },
+    {
+      "name": "BILL_TO_CUSTOMER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill to customer identifier.",
+      "column_order": 27
+    },
+    {
+      "name": "BILL_TO_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill-to customer account site use identifier.",
+      "column_order": 28
+    },
+    {
+      "name": "SOLD_TO_CUSTOMER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Sold to customer identifier.",
+      "column_order": 29
+    },
+    {
+      "name": "SOLD_TO_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Sold-to customer account site use identifier.",
+      "column_order": 30
+    },
+    {
+      "name": "SHIP_TO_CUSTOMER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ship to customer identifier.",
+      "column_order": 31
+    },
+    {
+      "name": "SHIP_TO_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Ship-to customer account site use identifier.",
+      "column_order": 32
+    }
+  ]
+}

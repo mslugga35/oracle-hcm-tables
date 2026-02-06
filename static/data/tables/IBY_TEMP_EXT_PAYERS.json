@@ -1,0 +1,219 @@
+{
+  "id": 28999,
+  "name": "IBY_TEMP_EXT_PAYERS",
+  "type": "TABLE",
+  "description": "IBY_TEMP_EXT_PAYERS is the interface table corresponding to IBY_EXTERNAL_PAYERS_ALL",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ibytempextpayers-6674.html#ibytempextpayers-6674",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "TEMP_EXT_PAYER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Primary key for this table. For Fusion, the value should come from Fusion common sequence - S_ROW_ID_SEQ",
+      "column_order": 1
+    },
+    {
+      "name": "STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Status of the interface record.  Values are NEW, PROCESSED and REJECTED",
+      "column_order": 2
+    },
+    {
+      "name": "PAYMENT_FUNCTION",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "N",
+      "description": "Payment function from IBY_PAYMENT_FUNCTIONS lookup, i.e., CUSTOMER_PAYMENT",
+      "column_order": 3
+    },
+    {
+      "name": "PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to party at HZ_PARTIES_ALL.PARTY_ID.",
+      "column_order": 4
+    },
+    {
+      "name": "ORG_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Organization type, such as business unit. Values taken from lookup: IBY_ORGANIZATION_TYPES",
+      "column_order": 5
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 6
+    },
+    {
+      "name": "CUST_ACCOUNT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "TCA Customer account ID",
+      "column_order": 7
+    },
+    {
+      "name": "ACCT_SITE_USE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "TCA customer account site use identifier",
+      "column_order": 8
+    },
+    {
+      "name": "BANK_CHARGE_BEARER_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Party that is responsible for paying regular or express bank charges, such as Payee or Payer. Values taken from lookup: IBY_BANK_CHARGE_BEARER",
+      "column_order": 9
+    },
+    {
+      "name": "DIRDEB_INSTRUCTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Direct debit instruction code",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 16
+    },
+    {
+      "name": "DEBIT_ADVICE_DELIVERY_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Used in upgrade.",
+      "column_order": 17
+    },
+    {
+      "name": "DEBIT_ADVICE_EMAIL",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Used in upgrade.",
+      "column_order": 18
+    },
+    {
+      "name": "DEBIT_ADVICE_FAX",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Used in upgrade.",
+      "column_order": 19
+    },
+    {
+      "name": "DEFAULT_PAYMENT_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Default payment method code; foreign key to IBY_FNDCPT_PMT_CHNNLS_B",
+      "column_order": 20
+    },
+    {
+      "name": "FEEDER_IMPORT_BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Feeder system assigned id for controlling the import process",
+      "column_order": 21
+    },
+    {
+      "name": "ORIG_SYSTEM",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "Y",
+      "description": "Original system for external payer",
+      "column_order": 22
+    },
+    {
+      "name": "ORIG_SYSTEM_REFERENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Original system reference for external payer",
+      "column_order": 23
+    },
+    {
+      "name": "SERVICE_LEVEL",
+      "data_type": "VARCHAR2",
+      "data_length": 35,
+      "nullable": "Y",
+      "description": "Service level codes as prescribed by ISO20022 standards.",
+      "column_order": 24
+    },
+    {
+      "name": "LOCALINSTR",
+      "data_type": "VARCHAR2",
+      "data_length": 35,
+      "nullable": "Y",
+      "description": "Local instrument codes as prescribed by ISO20022 standards.",
+      "column_order": 25
+    },
+    {
+      "name": "PURPOSE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Payment purpose codes as defined in the ISO20022 external code list.",
+      "column_order": 26
+    }
+  ]
+}

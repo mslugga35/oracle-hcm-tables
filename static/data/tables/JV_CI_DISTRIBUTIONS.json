@@ -1,0 +1,515 @@
+{
+  "id": 28219,
+  "name": "JV_CI_DISTRIBUTIONS",
+  "type": "TABLE",
+  "description": "This table contains the tracking distributions for carried interest agreements.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/jvcidistributions-9220.html#jvcidistributions-9220",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CI_DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for a carried interest distribution.",
+      "column_order": 1
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 2
+    },
+    {
+      "name": "TRANSACTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for the joint venture transaction that the carried interest distribution was created from.",
+      "column_order": 3
+    },
+    {
+      "name": "AGREEMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for the carried interest agreement.",
+      "column_order": 4
+    },
+    {
+      "name": "CONSENTING_STAKEHOLDER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of the joint venture stakeholder that is the consenting partner assuming the share for the non-consenting partner.",
+      "column_order": 5
+    },
+    {
+      "name": "NON_CONSENTING_STAKEHOLDER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier of the joint venture stakeholder that is a non-consenting partner in the carried interest agreement.",
+      "column_order": 6
+    },
+    {
+      "name": "CONSENTING_PERCENTAGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The percent of the non-consenting stakeholder's share that the consenting stakeholder is assuming.",
+      "column_order": 7
+    },
+    {
+      "name": "NON_CONSENTING_PERCENTAGE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The percent of the non-consenting stakeholder's original ownership percent.",
+      "column_order": 8
+    },
+    {
+      "name": "NCS_DISTRIBUTED_ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The distribution debit amount for the non-consenting stakeholder in the accounting currency.",
+      "column_order": 9
+    },
+    {
+      "name": "NCS_DISTRIBUTED_ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The distribution credit amount for the non-consenting stakeholder in the accounting currency.",
+      "column_order": 10
+    },
+    {
+      "name": "DISTRIBUTED_ACCOUNTED_DEBIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The carried debit amount of the carried interest distribution in the accounting currency.",
+      "column_order": 11
+    },
+    {
+      "name": "DISTRIBUTED_ACCOUNTED_CREDIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The carried credit amount of the carried interest distribution in the accounting currency.",
+      "column_order": 12
+    },
+    {
+      "name": "ACCOUNTED_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The currency code of the source joint venture transaction.",
+      "column_order": 13
+    },
+    {
+      "name": "NCS_DISTRIBUTED_ENTERED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The distribution debit amount for the non-consenting stakeholder in the entered currency.",
+      "column_order": 14
+    },
+    {
+      "name": "NCS_DISTRIBUTED_ENTERED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The distribution credit amount for the non-consenting stakeholder in the entered currency.",
+      "column_order": 15
+    },
+    {
+      "name": "DISTRIBUTED_ENTERED_DEBIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The carried debit amount of the carried interest distribution in the entered currency.",
+      "column_order": 16
+    },
+    {
+      "name": "DISTRIBUTED_ENTERED_CREDIT",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "The carried credit amount of the carried interest distribution in the entered currency.",
+      "column_order": 17
+    },
+    {
+      "name": "ENTERED_CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "The currency code entered on the original transaction.",
+      "column_order": 18
+    },
+    {
+      "name": "CI_DISTRIBUTION_LINE_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The code that indicates the type of carried interest distribution line. It is based on ORA_JV_CI_DISTR_LINE_TYPE lookup codes such as Original, Reversed, and so forth.",
+      "column_order": 19
+    },
+    {
+      "name": "CI_DISTRIBUTION_LINE_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Line number used when a carried interest distribution record is reversed, reassigned, or redistributed.",
+      "column_order": 20
+    },
+    {
+      "name": "ORIGINAL_CI_DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the original carried interest distribution line. This is populated on a reversed and reassigned carried interest distribution line.",
+      "column_order": 21
+    },
+    {
+      "name": "CI_OWNERSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the carried interest ownership definition used to distribute the joint venture transaction.",
+      "column_order": 22
+    },
+    {
+      "name": "CI_OWNERSHIP_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective start date of the carried interest ownership definition that was used to distribute a joint venture transaction.",
+      "column_order": 23
+    },
+    {
+      "name": "CI_OWNERSHIP_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective end date of the carried interest ownership definition that was used to distribute a joint venture transaction.",
+      "column_order": 24
+    },
+    {
+      "name": "SOURCE_OWNERSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier of the ownership definition that is the source of the carried interest ownership definition.",
+      "column_order": 25
+    },
+    {
+      "name": "SOURCE_OWNERSHIP_START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective start date of the ownership definition that is the source of the carried interest ownership definition.",
+      "column_order": 26
+    },
+    {
+      "name": "SOURCE_OWNERSHIP_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Effective end date of the ownership definition that is the source of the carried interest ownership definition.",
+      "column_order": 27
+    },
+    {
+      "name": "ORIG_CONSENTING_STAKEHOLDER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the joint venture stakeholder that was the original consenting partner assuming the share for the non-consenting partner on the distribution line.",
+      "column_order": 28
+    },
+    {
+      "name": "ACCOUNT_TYPE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the type of transaction the distribution represents, such as Expense, Revenue, and so forth.",
+      "column_order": 29
+    },
+    {
+      "name": "CI_DISTRIBUTION_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "The status code to identify the accounting status of the carried interest distribution associated with the joint venture transaction. It is based on the ORA_JV_CI_DISTRIBUTION_STATUS lookup codes such as Available to Process, Process Complete, and so forth.",
+      "column_order": 30
+    },
+    {
+      "name": "ACCOUNTING_HEADER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Identifies the transaction ID of the carried interest journal created for the carried interest distribution.",
+      "column_order": 31
+    },
+    {
+      "name": "CHANGE_REASON_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "The code that indicates the reason for changing the carried interest distribution line. It is based on ORA_JV_CHANGE_REASON_CODE lookup codes such as Incorrect ownership percentage, Change in joint operating agreement, and so forth.",
+      "column_order": 32
+    },
+    {
+      "name": "CHANGE_REASON_ADDITIONAL_TEXT",
+      "data_type": "VARCHAR2",
+      "data_length": 240,
+      "nullable": "Y",
+      "description": "Additional information describing the reason for changing the carried interest distribution line.",
+      "column_order": 33
+    },
+    {
+      "name": "JV_DISTRIBUTION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the joint venture distribution line associated with this carried interest distribution.",
+      "column_order": 34
+    },
+    {
+      "name": "REQUEST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the request ID of the job that created or last updated the row.",
+      "column_order": 35
+    },
+    {
+      "name": "JOB_DEFINITION_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the name of the job that created or last updated the row.",
+      "column_order": 36
+    },
+    {
+      "name": "JOB_DEFINITION_PACKAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 900,
+      "nullable": "Y",
+      "description": "Enterprise Service Scheduler: indicates the package name of the job that created or last updated the row.",
+      "column_order": 37
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 38
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 39
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 40
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 41
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 42
+    },
+    {
+      "name": "ATTRIBUTE_CATEGORY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: structure definition of the user descriptive flexfield.",
+      "column_order": 43
+    },
+    {
+      "name": "ATTRIBUTE_CHAR1",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 44
+    },
+    {
+      "name": "ATTRIBUTE_CHAR2",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 45
+    },
+    {
+      "name": "ATTRIBUTE_CHAR3",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 46
+    },
+    {
+      "name": "ATTRIBUTE_CHAR4",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 47
+    },
+    {
+      "name": "ATTRIBUTE_CHAR5",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 48
+    },
+    {
+      "name": "ATTRIBUTE_CHAR6",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 49
+    },
+    {
+      "name": "ATTRIBUTE_CHAR7",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 50
+    },
+    {
+      "name": "ATTRIBUTE_CHAR8",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 51
+    },
+    {
+      "name": "ATTRIBUTE_CHAR9",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 52
+    },
+    {
+      "name": "ATTRIBUTE_CHAR10",
+      "data_type": "VARCHAR2",
+      "data_length": 150,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 53
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER1",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 54
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER2",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 55
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER3",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 56
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER4",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 57
+    },
+    {
+      "name": "ATTRIBUTE_NUMBER5",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 58
+    },
+    {
+      "name": "ATTRIBUTE_DATE1",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 59
+    },
+    {
+      "name": "ATTRIBUTE_DATE2",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 60
+    },
+    {
+      "name": "ATTRIBUTE_DATE3",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 61
+    },
+    {
+      "name": "ATTRIBUTE_DATE4",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 62
+    },
+    {
+      "name": "ATTRIBUTE_DATE5",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Descriptive Flexfield: segment of the user descriptive flexfield.",
+      "column_order": 63
+    }
+  ]
+}

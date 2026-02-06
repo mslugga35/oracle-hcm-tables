@@ -1,0 +1,91 @@
+{
+  "id": 33569,
+  "name": "SVC_BI_JOB_PROCESS_LISTS",
+  "type": "TABLE",
+  "description": "This table is intended to be used for preparing the set of chunks for a parallel processing task.  Any number of lists may be created simultaneously in this table, and each list will be deleted upon completion of the task.  If the task is not successful, the associated list will be deleted after 24 hours.  The data created will be used by the dbms_parallel_execute.create_chunks_by_sql API to define the set of chunks.  This table is intended only for internal use, and the data should be considered to be temporary.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/svcbijobprocesslists-9216.html#svcbijobprocesslists-9216",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "JOB_PROCESS_LIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Auto-generated number and primary key for this table.",
+      "column_order": 1
+    },
+    {
+      "name": "LIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique Id to distinguish lists from each other.",
+      "column_order": 2
+    },
+    {
+      "name": "OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Id of an object to be sorted and grouped into chunks for parallel processing.  For example, an SR_ID.",
+      "column_order": 3
+    },
+    {
+      "name": "PROCESS_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "A sequential (ascending) order of the OBJECT_IDs within a list, starts with 1 and ends with the size of the list.",
+      "column_order": 4
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 5
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 8
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 9
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 10
+    }
+  ]
+}

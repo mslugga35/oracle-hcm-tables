@@ -1,0 +1,323 @@
+{
+  "id": 27950,
+  "name": "GL_BALANCES",
+  "type": "TABLE",
+  "description": "GL_BALANCES contains actual, budget, and encumbrance balances for detail and summary\n         accounts. This table stores ledger currency, foreign currency, and statistical balances for\n         each accounting period that has ever been opened. ACTUAL_FLAG is either 'A', 'B', or 'E'\n         for actual, budget, or encumbrance balances, respectively. If ACTUAL_FLAG is 'E', then\n         ENCUMBRANCE_TYPE_ID is required. GL_BALANCES stores period activity for an account in the\n         PERIOD_NET_DR and PERIOD_NET_CR columns. The table stores the period beginning balances in\n         BEGIN_BALANCE_DR and BEGIN_BALANCE_CR. An account's year-to-date balance is calculated as\n         BEGIN_BALANCE_DR - BEGIN_BALANCE_CR + PERIOD_NET_DR - PERIOD_NET_CR. Detail and summary\n         foreign currency balances that are the result of posted foreign currency journal entries\n         have TRANSLATED_FLAG set to 'R', to indicate that the row is a candidate for revaluation.\n         For foreign currency rows, the begin balance and period net columns contain the foreign\n         currency balance, while the begin balance and period net (_BEQ) columns contain the\n         converted ledger currency balance. Detail foreign currency balances that are the result of\n         foreign currency translation have TRANSLATED_FLAG set to 'Y' or 'N'. 'N' indicates that the\n         translation is out of date (i.e., the account needs to be re-translated). 'Y' indicates\n         that the translation is current. Summary foreign currency balances that are the result of\n         foreign currency translation have TRANSLATED_FLAG set to NULL. All summary account balances\n         have TEMPLATE_ID not NULL. The columns that end in _ADB are not used. Also, the\n         REVALUATION_STATUS column is not used.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/glbalances-24796.html#u30260646",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LEDGER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Ledger identifier of Oracle Fusion General Ledger\n                        balance.",
+      "column_order": 1
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Key flexfield combination identifier.",
+      "column_order": 2
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Currency code of Oracle Fusion General Ledger\n                        balance.",
+      "column_order": 3
+    },
+    {
+      "name": "PERIOD_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "N",
+      "description": "Accounting period name code of Oracle Fusion General Ledger\n                        balance.",
+      "column_order": 4
+    },
+    {
+      "name": "ACTUAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Balance type (Actual, Budget, or Encumbrance).",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update\n                        of the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the\n                        row.",
+      "column_order": 7
+    },
+    {
+      "name": "BUDGET_VERSION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 8
+    },
+    {
+      "name": "ENCUMBRANCE_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Encumbrance type defining column.",
+      "column_order": 9
+    },
+    {
+      "name": "TRANSLATED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Translation status of the balance.",
+      "column_order": 10
+    },
+    {
+      "name": "REVALUATION_STATUS",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 11
+    },
+    {
+      "name": "PERIOD_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Accounting period type code of Oracle Fusion General Ledger\n                        balance.",
+      "column_order": 12
+    },
+    {
+      "name": "PERIOD_YEAR",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting period year code of Oracle Fusion General Ledger\n                        balance.",
+      "column_order": 13
+    },
+    {
+      "name": "PERIOD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Accounting period number code of Oracle Fusion General\n                        Ledger balance.",
+      "column_order": 14
+    },
+    {
+      "name": "PERIOD_NET_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounting period net debit balance.",
+      "column_order": 15
+    },
+    {
+      "name": "PERIOD_NET_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounting period net credit balance.",
+      "column_order": 16
+    },
+    {
+      "name": "PERIOD_TO_DATE_ADB",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 17
+    },
+    {
+      "name": "QUARTER_TO_DATE_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quarter to date period debit balance.",
+      "column_order": 18
+    },
+    {
+      "name": "QUARTER_TO_DATE_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quarter to date period credit balance.",
+      "column_order": 19
+    },
+    {
+      "name": "QUARTER_TO_DATE_ADB",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 20
+    },
+    {
+      "name": "YEAR_TO_DATE_ADB",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 21
+    },
+    {
+      "name": "PROJECT_TO_DATE_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accumulated project debit balance (life to date\n                        balance).",
+      "column_order": 22
+    },
+    {
+      "name": "PROJECT_TO_DATE_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accumulated project credit balance.",
+      "column_order": 23
+    },
+    {
+      "name": "PROJECT_TO_DATE_ADB",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 24
+    },
+    {
+      "name": "BEGIN_BALANCE_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Beginning period debit balance.",
+      "column_order": 25
+    },
+    {
+      "name": "BEGIN_BALANCE_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Beginning period credit balance.",
+      "column_order": 26
+    },
+    {
+      "name": "PERIOD_NET_DR_BEQ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Period net debit balance in base currency.",
+      "column_order": 27
+    },
+    {
+      "name": "PERIOD_NET_CR_BEQ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Period net credit balance in base currency.",
+      "column_order": 28
+    },
+    {
+      "name": "QUARTER_TO_DATE_DR_BEQ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quarter to date debit balance in base currency.",
+      "column_order": 29
+    },
+    {
+      "name": "QUARTER_TO_DATE_CR_BEQ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Quarter to date credit balance in base currency.",
+      "column_order": 30
+    },
+    {
+      "name": "PROJECT_TO_DATE_DR_BEQ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accumulated project debit balance (life to date balance) in\n                        base currency.",
+      "column_order": 31
+    },
+    {
+      "name": "PROJECT_TO_DATE_CR_BEQ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accumulated project credit balance (life to date balance) in\n                        base currency.",
+      "column_order": 32
+    },
+    {
+      "name": "BEGIN_BALANCE_DR_BEQ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Beginning debit balancein base currency.",
+      "column_order": 33
+    },
+    {
+      "name": "BEGIN_BALANCE_CR_BEQ",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Beginning credit balance in base currency.",
+      "column_order": 34
+    },
+    {
+      "name": "TEMPLATE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Summary template identifier.",
+      "column_order": 35
+    },
+    {
+      "name": "ENCUMBRANCE_DOC_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 36
+    },
+    {
+      "name": "ENCUMBRANCE_LINE_NUM",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Not currently used.",
+      "column_order": 37
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is\n                        incremented every time that the row is updated. The number is compared at\n                        the start and end of a transaction to detect whether another session has\n                        updated the row since it was queried.",
+      "column_order": 38
+    },
+    {
+      "name": "PARTITION_GROUP_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Partition grouping information which when combined with the\n                        period, determines the database partition in which this balance will be\n                        stored.",
+      "column_order": 39
+    }
+  ]
+}

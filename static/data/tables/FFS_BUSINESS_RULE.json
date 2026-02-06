@@ -1,0 +1,1803 @@
+{
+  "id": 31920,
+  "name": "FFS_BUSINESS_RULE",
+  "type": "TABLE",
+  "description": "Stores most of single-value parameters configured on company level.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffsbusinessrule-24234.html#ffsbusinessrule-24234",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "IDENTIFIER",
+      "data_type": "VARCHAR2",
+      "data_length": 256,
+      "nullable": "Y",
+      "description": "Unique string used to identify company. If it is found in URL, it is assumed that user belongs to this company.",
+      "column_order": 1
+    },
+    {
+      "name": "POPTIONS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Binary shift options: [bit0]: Notify Setup [1]:Notify 24h [2]:Notify 60 [3]:Notify30 [5]: Manual queue assignment [6]:All-day jobs [8]:Customer has guaranteed service window [9]: Automatic provider assignment 1- feature is enabled, 0 disabled [11] 'Break'.",
+      "column_order": 2
+    },
+    {
+      "name": "DEFAULT_LANGUAGE",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "ID of the company default language.",
+      "column_order": 3
+    },
+    {
+      "name": "DEFAULT_THEME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "ID of the company default theme.",
+      "column_order": 4
+    },
+    {
+      "name": "DELAY_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "System will email alert to dispatcher's email, if technician reports delay greater than this value.",
+      "column_order": 5
+    },
+    {
+      "name": "REPLY_TO",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "The default value for the company email. Used as an senders address.",
+      "column_order": 6
+    },
+    {
+      "name": "SW_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Alert parent provider if appt was not started service_window_threshold before its availability_window_end. If 0 - feature is disabled. If set corresponding message (.",
+      "column_order": 7
+    },
+    {
+      "name": "SLA_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "It is the SLA Warning alert parameter.",
+      "column_order": 8
+    },
+    {
+      "name": "NOT_STARTED_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Alert settings for 'Activity Has Not Been Started after ETA'. Value in minutes..",
+      "column_order": 9
+    },
+    {
+      "name": "NOT_ACTIVATED_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Alert settings for 'Route Has Not Been Started After the Start Time of Resource Day'. Value in minutes.",
+      "column_order": 10
+    },
+    {
+      "name": "DEFAULT_DURATION_AVG",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Default appointment duration length. Used when there is no statistics stored for the worktype.",
+      "column_order": 11
+    },
+    {
+      "name": "DEFAULT_TRAVEL_AVG",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Default travel length. Used when there is no available statistics for the pair zip from-zip to.",
+      "column_order": 12
+    },
+    {
+      "name": "DELIVERY_WINDOW_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Factor that is used to multiply deviation to get delivery window.",
+      "column_order": 13
+    },
+    {
+      "name": "DELIVERY_WINDOW_GRANULARITY",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes, value should be rounded to. 0/1 - don't round, 5 - round to 5 minutes, 10 - round to 10 minutes, 15 - round to quarters, 30 - round to half an hours, 60 - round to full hours.",
+      "column_order": 14
+    },
+    {
+      "name": "DELIVERY_WINDOW_MINIMAL_SIZE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Defines the number of minutes to which Delivery Window values will be rounded. Value in minutes.",
+      "column_order": 15
+    },
+    {
+      "name": "DELIVERY_WINDOW_MAXIMAL_SIZE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Defines the number of minutes to which Delivery Window values will be rounded. Value in minutes.",
+      "column_order": 16
+    },
+    {
+      "name": "DELIVERY_WINDOW_START_CONSTR",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Delivery window should not start earlier than ### minutes prior to start of service or SLA window.",
+      "column_order": 17
+    },
+    {
+      "name": "STATS_TRAVEL_MIN_VALUE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Lower threshold of stats travel values (minutes).",
+      "column_order": 18
+    },
+    {
+      "name": "STATS_TRAVEL_MAX_VALUE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Upper threshold of stats travel values (minutes).",
+      "column_order": 19
+    },
+    {
+      "name": "TRAVEL_KEY_AVG_MIN_ACTY_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Minimum number of travel records to use average calculated on the travel key level.",
+      "column_order": 20
+    },
+    {
+      "name": "TRAVEL_KEY_AVG_MIN_USED_KEYS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Minimum percent of unique origin travel keys to use average calculated on the travel key level.",
+      "column_order": 21
+    },
+    {
+      "name": "STATS_AIRLINE_DIST_MIN_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Lower threshold of stats stdairline_distance values (degrees).",
+      "column_order": 22
+    },
+    {
+      "name": "STATS_AIRLINE_DIST_MAX_VALUE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Upper threshold of stats stdairline_distance values (degrees).",
+      "column_order": 23
+    },
+    {
+      "name": "STATS_DURATION_MIN_VALUE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Lower threshold of stats duration values (minutes).",
+      "column_order": 24
+    },
+    {
+      "name": "STATS_DURATION_MAX_VALUE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Upper threshold of stats duration values (minutes).",
+      "column_order": 25
+    },
+    {
+      "name": "STATS_GROUP_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Numeric value of the Group Factor. Default value is 2.",
+      "column_order": 26
+    },
+    {
+      "name": "STATS_CUTTING_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Numeric value of the Statistic Cutting Factor. Default value is 0.3.",
+      "column_order": 27
+    },
+    {
+      "name": "STATS_DEVIATION_COEFFICIENT",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Numeric value of the Statistic Deviation Coefficient. Default value is 0.30.",
+      "column_order": 28
+    },
+    {
+      "name": "STATS_DURATION_CURRENT_METHOD",
+      "data_type": "VARCHAR2",
+      "data_length": 16,
+      "nullable": "Y",
+      "description": "Use statistics generated by this method.",
+      "column_order": 29
+    },
+    {
+      "name": "STATS_DURATION_NL_CORR_FACTOR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Correction factor for stats duration natural learning method.",
+      "column_order": 30
+    },
+    {
+      "name": "STATS_DURATION_NL_CORR_MAX",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Max correction for stats duration natural learning method.",
+      "column_order": 31
+    },
+    {
+      "name": "STATS_DURATION_VERSION_STAMP",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Stats duration statistics calculation version.",
+      "column_order": 32
+    },
+    {
+      "name": "STATS_TRAVEL_VERSION_STAMP",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Stats travel statistics calculation version.",
+      "column_order": 33
+    },
+    {
+      "name": "STATS_STARTTIME_VERSION_STAMP",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Version of start-time statistics.",
+      "column_order": 34
+    },
+    {
+      "name": "STATS_STARTTIME_MIN_ACT_NUM",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Minimum number of activities per statistical record.",
+      "column_order": 35
+    },
+    {
+      "name": "NOTIFY30_60",
+      "data_type": "VARCHAR2",
+      "data_length": 21,
+      "nullable": "Y",
+      "description": "Notification base time for calculation time ranges for 'Remainder' and 'Today' messages.",
+      "column_order": 36
+    },
+    {
+      "name": "ZIP_FORMAT_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Zip Format ID value. Deprecated parameter.",
+      "column_order": 37
+    },
+    {
+      "name": "STATE_FORMAT_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "State Format ID value. Deprecated parameter.",
+      "column_order": 38
+    },
+    {
+      "name": "REMINDER_SILENT_INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Configuration parameter for the 'Reminder' launch condition. Number of minutes before or after reminder time when 'Change' notifications are not sent.",
+      "column_order": 39
+    },
+    {
+      "name": "REMINDER_INTERVAL_LIST",
+      "data_type": "VARCHAR2",
+      "data_length": 120,
+      "nullable": "Y",
+      "description": "Configuration parameter for the 'Reminder' launch condition. Lists of allowed values for reminder time in minutes separated by comma.",
+      "column_order": 40
+    },
+    {
+      "name": "FLOW_ID_REMINDER",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Reminder' launch condition.",
+      "column_order": 41
+    },
+    {
+      "name": "FLOW_ID_TODAY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Change 1' launch condition.",
+      "column_order": 42
+    },
+    {
+      "name": "FLOW_ID_TODAY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Change 2' launch condition.",
+      "column_order": 43
+    },
+    {
+      "name": "FLOW_ID_TODAY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Change 3' launch condition.",
+      "column_order": 44
+    },
+    {
+      "name": "FLOW_ID_TODAY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Change 4' launch condition.",
+      "column_order": 45
+    },
+    {
+      "name": "FLOW_ID_TODAY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Change 5' launch condition.",
+      "column_order": 46
+    },
+    {
+      "name": "FLOW_ID_DAY_BEFORE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Day before' launch condition.",
+      "column_order": 47
+    },
+    {
+      "name": "FLOW_ID_ACTIVATE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Route is activated' launch condition.",
+      "column_order": 48
+    },
+    {
+      "name": "FLOW_ID_DEACTIVATE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Route is deactivated' launch condition.",
+      "column_order": 49
+    },
+    {
+      "name": "FLOW_ID_REACTIVATE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Route is reactivated' launch condition.",
+      "column_order": 50
+    },
+    {
+      "name": "FLOW_ID_ADD",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Add' launch condition.",
+      "column_order": 51
+    },
+    {
+      "name": "FLOW_ID_COMPLETE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Activity is completed' launch condition.",
+      "column_order": 52
+    },
+    {
+      "name": "FLOW_ID_CANCEL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Activity is canceled' launch condition.",
+      "column_order": 53
+    },
+    {
+      "name": "FLOW_ID_NOTDONE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Activity is not done' launch condition.",
+      "column_order": 54
+    },
+    {
+      "name": "FLOW_ID_DELAY",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Activity is delayed' launch condition.",
+      "column_order": 55
+    },
+    {
+      "name": "FLOW_ID_SUSPEND",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Activity is suspended' launch condition.",
+      "column_order": 56
+    },
+    {
+      "name": "FLOW_ID_START_WARNING",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated field, can be removed.",
+      "column_order": 57
+    },
+    {
+      "name": "FLOW_ID_MANUAL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Manual' launch condition.",
+      "column_order": 58
+    },
+    {
+      "name": "FLOW_ID_CALL_AHEAD",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Call ahead' launch condition.",
+      "column_order": 59
+    },
+    {
+      "name": "FLOW_ID_NOT_STARTED_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Not started 1' launch condition.",
+      "column_order": 60
+    },
+    {
+      "name": "FLOW_ID_NOT_STARTED_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Not started 2' launch condition.",
+      "column_order": 61
+    },
+    {
+      "name": "FLOW_ID_SW_WARNING",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Service window warning' launch condition.",
+      "column_order": 62
+    },
+    {
+      "name": "FLOW_ID_SLA_WARNING",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'SLA warning' launch condition.",
+      "column_order": 63
+    },
+    {
+      "name": "FLOW_ID_IVR",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated field, can be removed.",
+      "column_order": 64
+    },
+    {
+      "name": "FLOW_ID_INSTALL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Install inventory' launch condition.",
+      "column_order": 65
+    },
+    {
+      "name": "FLOW_ID_DEINSTALL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Deinstall inventory' launch condition.",
+      "column_order": 66
+    },
+    {
+      "name": "FLOW_ID_EXCHANGE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Exchange inventory' launch condition.",
+      "column_order": 67
+    },
+    {
+      "name": "FLOW_ID_UNDO_INSTALL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Undo install inventory' launch condition.",
+      "column_order": 68
+    },
+    {
+      "name": "FLOW_ID_UNDO_DEINSTALL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Undo deinstall inventory' launch condition.",
+      "column_order": 69
+    },
+    {
+      "name": "FLOW_ID_MOVE_ACTIVITY",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Activity is moved' launch condition.",
+      "column_order": 70
+    },
+    {
+      "name": "FLOW_ID_START",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Activity is started' launch condition.",
+      "column_order": 71
+    },
+    {
+      "name": "FLOW_ID_MOVE_INVENTORY",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Move inventory' launch condition.",
+      "column_order": 72
+    },
+    {
+      "name": "START_TODAY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the 'Change 1' launch condition.",
+      "column_order": 73
+    },
+    {
+      "name": "END_TODAY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the 'Change 1' launch condition.",
+      "column_order": 74
+    },
+    {
+      "name": "THRESHOLD_TODAY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the 'Change 1' launch condition.",
+      "column_order": 75
+    },
+    {
+      "name": "START_TODAY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the 'Change 2' launch condition.",
+      "column_order": 76
+    },
+    {
+      "name": "END_TODAY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the 'Change 2' launch condition.",
+      "column_order": 77
+    },
+    {
+      "name": "THRESHOLD_TODAY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the 'Change 2' launch condition.",
+      "column_order": 78
+    },
+    {
+      "name": "START_TODAY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the 'Change 3' launch condition.",
+      "column_order": 79
+    },
+    {
+      "name": "END_TODAY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the 'Change 3' launch condition.",
+      "column_order": 80
+    },
+    {
+      "name": "THRESHOLD_TODAY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the 'Change 3' launch condition.",
+      "column_order": 81
+    },
+    {
+      "name": "START_TODAY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the 'Change 4' launch condition.",
+      "column_order": 82
+    },
+    {
+      "name": "END_TODAY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the 'Change 4' launch condition.",
+      "column_order": 83
+    },
+    {
+      "name": "THRESHOLD_TODAY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the 'Change 4' launch condition.",
+      "column_order": 84
+    },
+    {
+      "name": "START_TODAY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the 'Change 5' launch condition.",
+      "column_order": 85
+    },
+    {
+      "name": "END_TODAY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the 'Change 5' launch condition.",
+      "column_order": 86
+    },
+    {
+      "name": "THRESHOLD_TODAY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the 'Change 5' launch condition.",
+      "column_order": 87
+    },
+    {
+      "name": "NOT_STARTED_1_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Threshold for the 'Not started 1' launch condition. Contains time in minutes after estimated activity start to launch the scenario if activity has not been started.",
+      "column_order": 88
+    },
+    {
+      "name": "NOT_STARTED_2_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Threshold for the 'Not started 2' launch condition. Contains time in minutes after estimated activity start to launch the scenario if activity has not been started.",
+      "column_order": 89
+    },
+    {
+      "name": "SW_WARNING_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Threshold for the 'Service window warning' launch condition. Contains time in minutes before the service window start of an activaty to launch the scenario if the activity has not been started.",
+      "column_order": 90
+    },
+    {
+      "name": "SLA_WARNING_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Threshold for the 'SLA warning' launch condition. Contains time in minutes before the SLA end of an activaty to launch the scenario if the activity has not been completed.",
+      "column_order": 91
+    },
+    {
+      "name": "MOBILE_RESOURCE_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Limit for the Number of Resources per Page.",
+      "column_order": 92
+    },
+    {
+      "name": "MOBILE_ACTIVITY_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Limit for the Number of Activities per Page.",
+      "column_order": 93
+    },
+    {
+      "name": "MOBILE_INVENTORY_COUNT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Limit for the Number of Equipment per Page.",
+      "column_order": 94
+    },
+    {
+      "name": "MOBILE_TEXTAREA_COLS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 95
+    },
+    {
+      "name": "CUT_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Cut limit for History DB. Value in days.",
+      "column_order": 96
+    },
+    {
+      "name": "MAP_COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Default country name. Global default value for geocoding.",
+      "column_order": 97
+    },
+    {
+      "name": "DEFAULT_CODEPAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Default codepage identifier. Example: ISO-8859-1.",
+      "column_order": 98
+    },
+    {
+      "name": "ACTIONS_LINKS_NUM",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Deprecated. Will be removed soon.",
+      "column_order": 99
+    },
+    {
+      "name": "GPS_RESOURCE_IDENTIFY",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Resource identifier for GPS SOAP API enum: ('0','external_id').",
+      "column_order": 100
+    },
+    {
+      "name": "GEO_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Geocoding Type. Values: 'disabled', 'on_request', 'automatic'. Default value is 'automatic'.",
+      "column_order": 101
+    },
+    {
+      "name": "GEO_FROM",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Geocoding service parameter. From Time.",
+      "column_order": 102
+    },
+    {
+      "name": "GEO_TO",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Geocoding service parameter. To Time.",
+      "column_order": 103
+    },
+    {
+      "name": "GEO_INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Geocoding parameter. Execution interval.",
+      "column_order": 104
+    },
+    {
+      "name": "WEEK_START",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "First Day of the Week. Numeric value. 0 - Sunday.",
+      "column_order": 105
+    },
+    {
+      "name": "AIRLINE_DIST_WEIGHT",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Weight coefficient from 0 to 1 that points at the part of the airline distance method in the travel time estimation.",
+      "column_order": 106
+    },
+    {
+      "name": "AIRLINE_DIST_SPEED",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Speed that is actually used to calculate the travel time, based on the straight line distance between the locations with coordinates, km/h. It is a configurable parameter.",
+      "column_order": 107
+    },
+    {
+      "name": "AIRLINE_DIST_SPEED_RECOMM",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Speed that is recommended for use to calculate airline travel time, km/h. The parameter is calculated on the basis of reported data.",
+      "column_order": 108
+    },
+    {
+      "name": "DISTANCE_UNITS",
+      "data_type": "VARCHAR2",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Distance units. Values: 'miles', 'km'.",
+      "column_order": 109
+    },
+    {
+      "name": "DURATION_DEV_LIMIT_DOWN",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Lower limit of personal ratio for duration calculation.",
+      "column_order": 110
+    },
+    {
+      "name": "DURATION_DEV_LIMIT_UP",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Upper limit of personal ratio for duration calculation.",
+      "column_order": 111
+    },
+    {
+      "name": "MOBILE_CALENDAR_FUTURE_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of Future Days to View in My Route and Activity List.",
+      "column_order": 112
+    },
+    {
+      "name": "FLOW_ID_VISIT_REMINDER",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Visit reminder' launch condition.",
+      "column_order": 113
+    },
+    {
+      "name": "VISIT_REMINDER_INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Configuration parameter for the 'Visit reminder' launch condition. Specifies the value for reminder time in minutes.",
+      "column_order": 114
+    },
+    {
+      "name": "VISIT_REMINDER_SILENT_INTERVAL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Configuration parameter for the 'Visit reminder' launch condition. Number of minutes before or after the reminder time when 'Visit change' notifications are not sent.",
+      "column_order": 115
+    },
+    {
+      "name": "FLOW_ID_VISIT_TODAY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the Visit Reminder Event 'Change 1'.",
+      "column_order": 116
+    },
+    {
+      "name": "START_VISIT_TODAY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the Visit Reminder Event 'Change 1'.",
+      "column_order": 117
+    },
+    {
+      "name": "END_VISIT_TODAY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the Visit Reminder Event 'Change 1'.",
+      "column_order": 118
+    },
+    {
+      "name": "THRESHOLD_VISIT_TODAY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the Visit Reminder Event 'Change 1'.",
+      "column_order": 119
+    },
+    {
+      "name": "FLOW_ID_VISIT_TODAY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the Visit Reminder Event 'Change 2'.",
+      "column_order": 120
+    },
+    {
+      "name": "START_VISIT_TODAY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the Visit Reminder Event 'Change 2'.",
+      "column_order": 121
+    },
+    {
+      "name": "END_VISIT_TODAY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the Visit Reminder Event 'Change 2'.",
+      "column_order": 122
+    },
+    {
+      "name": "THRESHOLD_VISIT_TODAY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the Visit Reminder Event 'Change 2'.",
+      "column_order": 123
+    },
+    {
+      "name": "FLOW_ID_VISIT_TODAY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the Visit Reminder Event 'Change 3'.",
+      "column_order": 124
+    },
+    {
+      "name": "START_VISIT_TODAY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the Visit Reminder Event 'Change 3'.",
+      "column_order": 125
+    },
+    {
+      "name": "END_VISIT_TODAY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the Visit Reminder Event 'Change 3'.",
+      "column_order": 126
+    },
+    {
+      "name": "THRESHOLD_VISIT_TODAY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the Visit Reminder Event 'Change 3'.",
+      "column_order": 127
+    },
+    {
+      "name": "FLOW_ID_VISIT_TODAY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the Visit Reminder Event 'Change 4'.",
+      "column_order": 128
+    },
+    {
+      "name": "START_VISIT_TODAY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the Visit Reminder Event 'Change 4'.",
+      "column_order": 129
+    },
+    {
+      "name": "END_VISIT_TODAY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the Visit Reminder Event 'Change 5'.",
+      "column_order": 130
+    },
+    {
+      "name": "THRESHOLD_VISIT_TODAY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the Visit Reminder Event 'Change 4'.",
+      "column_order": 131
+    },
+    {
+      "name": "FLOW_ID_VISIT_TODAY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the Visit Reminder Event 'Change 5'.",
+      "column_order": 132
+    },
+    {
+      "name": "START_VISIT_TODAY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and begining of the Visit Reminder Event 'Change 5'.",
+      "column_order": 133
+    },
+    {
+      "name": "END_VISIT_TODAY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes between activity estimated start time and ending of the Visit Reminder Event 'Change 5'.",
+      "column_order": 134
+    },
+    {
+      "name": "THRESHOLD_VISIT_TODAY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Notification threshold for the Visit Reminder Event 'Change 5'.",
+      "column_order": 135
+    },
+    {
+      "name": "FLOW_ID_VISIT_DAY_BEFORE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Visit reminder event for 'day before'. Link to the unique identifier of the notification scenario (ffs_message_flow->flow_id).",
+      "column_order": 136
+    },
+    {
+      "name": "FLOW_ID_VISIT_CANCEL",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Event for 'cancel' visit event. Link to the unique identifier of the notification scenario (ffs_message_flow->flow_id).",
+      "column_order": 137
+    },
+    {
+      "name": "FLOW_ID_VISIT_COMPLETE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Event for 'visit complete' event. Link to the unique identifier of the notification scenario (ffs_message_flow->flow_id).",
+      "column_order": 138
+    },
+    {
+      "name": "VISIT_NOTIFICATION_BASE",
+      "data_type": "VARCHAR2",
+      "data_length": 21,
+      "nullable": "Y",
+      "description": "Describes the attribute of activity which is used as the notification base time for the Visit related launch conditions.",
+      "column_order": 139
+    },
+    {
+      "name": "FLOW_ID_NOT_ACTIVATED",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Link to FFS_MESSAGE_FLOW->FLOW_ID. Specifies which notification scenario is used by the 'Not activated' launch condition.",
+      "column_order": 140
+    },
+    {
+      "name": "NOT_ACTIVATED_TIME",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Number of minutes after the planned start of the working day after which the 'Not activated' launch condition is triggered for not activated routes.",
+      "column_order": 141
+    },
+    {
+      "name": "WORKING_TIME_SINCE_MIDNIGHT",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Overnight work. Working time in hours since midnight.",
+      "column_order": 142
+    },
+    {
+      "name": "TIME_ZONE_ID",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Customer Time Zone. Reference to the ffs_time_zone->TIME_ZONE_ID.",
+      "column_order": 143
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ACTIVITY_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 144
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ACTIVITY_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 145
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ACTIVITY_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 146
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ACTIVITY_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 147
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ACTIVITY_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 148
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ROUTE_1",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 149
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ROUTE_2",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 150
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ROUTE_3",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 151
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ROUTE_4",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 152
+    },
+    {
+      "name": "FLOW_ID_UPDATE_ROUTE_5",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Deprecated, Will be removed soon.",
+      "column_order": 153
+    },
+    {
+      "name": "QTS_OVERLOAD_THRESHOLD_1",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Percent of used capacity that is considered as major capacity usage.",
+      "column_order": 154
+    },
+    {
+      "name": "QTS_OVERLOAD_THRESHOLD_2",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Percent of used capacity that is considered as critical capacity usage.",
+      "column_order": 155
+    },
+    {
+      "name": "EMAIL_REGEX",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Regular expression to validate email addresses.",
+      "column_order": 156
+    },
+    {
+      "name": "PHONE_REGEX",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Regular expression to validate phone numbers.",
+      "column_order": 157
+    },
+    {
+      "name": "SOFT_SKILL_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "It defines when an activity work skill should be used as a restriction on assignment.",
+      "column_order": 158
+    },
+    {
+      "name": "DEPARTURE_PARKING_TIME",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Time In Minutes To Be Added To A Travel Time Calculated By Airline Distance Method.",
+      "column_order": 159
+    },
+    {
+      "name": "DEPARTURE_PARKING_TIME_RECOMM",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Recommended Value of The Departure_Parking_Time, minutes. It is calculated on the basis of the reported data.",
+      "column_order": 160
+    },
+    {
+      "name": "CURRENT_STARTUP_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "ID of a previous app server startup.",
+      "column_order": 161
+    },
+    {
+      "name": "TRAVEL_TIME_COLOR",
+      "data_type": "VARCHAR2",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "It is a value of color for a travel time bar on Time View.",
+      "column_order": 162
+    },
+    {
+      "name": "SMARTGPS_START_END_RADIUS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Determines alerting functionality for start/end activity radius (meters). Works per session.",
+      "column_order": 163
+    },
+    {
+      "name": "SMARTGPS_IDLE_RADIUS",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Determines alerting functionality for idle radius (meters). Works per session.",
+      "column_order": 164
+    },
+    {
+      "name": "SMARTGPS_IDLE_TIMEOUT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Determines alerting functionality for idle timeout (minutes). Works per session.",
+      "column_order": 165
+    },
+    {
+      "name": "MAP_FADE_RES_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Time in minutes after which a resource icon on a map has to be faded.",
+      "column_order": 166
+    },
+    {
+      "name": "MAP_HIDE_RES_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Time in minutes after which a resource icon on a map has to be hidden.",
+      "column_order": 167
+    },
+    {
+      "name": "HISTORY_USER_TYPE_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "History User Type. The user type to be used to build the identifiers of objects (activities, inventory, and service requests) that are to be logged into the history.. Reference to the ffs_utype->TYPE_ID.",
+      "column_order": 168
+    },
+    {
+      "name": "QTS_DAY_COLUMNS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Quota view: full ordered list of columns that can be shown (day level).",
+      "column_order": 169
+    },
+    {
+      "name": "QTS_DAY_DEFAULT_COLUMNS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Quota view: default columns (day level).",
+      "column_order": 170
+    },
+    {
+      "name": "QTS_TS_COLUMNS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Quota view: full ordered list of columns that can be shown (time slot level).",
+      "column_order": 171
+    },
+    {
+      "name": "QTS_TS_DEFAULT_COLUMNS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Quota view: default columns (time slot level).",
+      "column_order": 172
+    },
+    {
+      "name": "QTS_CATEGORY_COLUMNS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Quota view: full ordered list of columns that can be shown (category level).",
+      "column_order": 173
+    },
+    {
+      "name": "QTS_CATEGORY_DEFAULT_COLUMNS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Quota view: default columns (category level).",
+      "column_order": 174
+    },
+    {
+      "name": "QUOTA_RECALC_START_DAY",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Start day for the automatic recalculation of available capacity and quota.",
+      "column_order": 175
+    },
+    {
+      "name": "QUOTA_RECALC_TIME",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Minutes; delay between two consequent automatic recalculations of available capacity and quota.",
+      "column_order": 176
+    },
+    {
+      "name": "QUOTA_RECALC_PERIOD",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Number of future days or calendar weeks the capacity/quota should be recalculated for.",
+      "column_order": 177
+    },
+    {
+      "name": "QUOTA_RECALC_PERIOD_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 14,
+      "nullable": "Y",
+      "description": "Units of measurement the recalculation period is defined in.",
+      "column_order": 178
+    },
+    {
+      "name": "QUOTA_UOM",
+      "data_type": "VARCHAR2",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Units of measurement to show the quota/used values in.",
+      "column_order": 179
+    },
+    {
+      "name": "QUOTA_HOURS_PER_FTE",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Number of working hours per man-day.",
+      "column_order": 180
+    },
+    {
+      "name": "STATS_STARTTIME_ETA_WEIGHT",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Business rules weight of starttime ETA statistics.",
+      "column_order": 181
+    },
+    {
+      "name": "STATS_STARTTIME_SW_WGHT",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Weight of service window statistics.",
+      "column_order": 182
+    },
+    {
+      "name": "STATS_STARTTIME_SLA_WGHT",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Business rules weight of starttime ETA statistics.",
+      "column_order": 183
+    },
+    {
+      "name": "REOPT_MIN_LATE_ARRIV_PENALTY",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "High level of Late Arrival Penalty for Reoptimization.",
+      "column_order": 184
+    },
+    {
+      "name": "REOPT_MIN_NON_ASSIGN_COST",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "High level of Non Assignment Cost for Reoptimization.",
+      "column_order": 185
+    },
+    {
+      "name": "FUTURE_DAYS_LIMIT",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Maximum number of future days available in GUI and API.",
+      "column_order": 186
+    },
+    {
+      "name": "BOOKING_NUM_OF_AVAIL_DAYS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Number of days to be checked/returned for quota based booking.",
+      "column_order": 187
+    },
+    {
+      "name": "BOOKING_MIN_TIME_TO_TS_END",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Minimum required time that should be remain till end of a time slot that is available for booking.",
+      "column_order": 188
+    },
+    {
+      "name": "IDLE_TIME_DISPLAY_THRESHOLD",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Threshold to display idle time (minutes).",
+      "column_order": 189
+    },
+    {
+      "name": "OUTBOUND_CONFIGURATION_STATUS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Outbound configuration status for all message agents.",
+      "column_order": 190
+    },
+    {
+      "name": "FTE_DURATION",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Full-time equivalent. Value in hours.",
+      "column_order": 191
+    },
+    {
+      "name": "STATS_TRAVEL_SLT_DATA_WGHT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Default weight value for records added to the stats_travel_street_level_data table.",
+      "column_order": 192
+    },
+    {
+      "name": "POST_CODE_LEVEL_TRAVEL_WGHT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Weight of postcode-postcide street level routing results.",
+      "column_order": 193
+    },
+    {
+      "name": "STATS_TRAVEL_MAX_PATCH_SIZE",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Maximum number of records in stats_travel_matrix_data_patch table.",
+      "column_order": 194
+    },
+    {
+      "name": "ACTIVITY_URGENT_PROP_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "It is a appointment priority property name.",
+      "column_order": 195
+    },
+    {
+      "name": "ACTIVITY_URGENT_PROP_VALUES",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "It is a appointment priority property hot list for urgent assignment.",
+      "column_order": 196
+    },
+    {
+      "name": "ACTIVITY_NORMAL_PROP_VALUES",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "It is a appointment priority property hot list for usual assignment.",
+      "column_order": 197
+    },
+    {
+      "name": "STATS_DURATION_NL_RECALC",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Run duration with recalc first time after Upgrade.",
+      "column_order": 198
+    },
+    {
+      "name": "QBI_BOOKING_STATUS_INTERVALS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Comma-separated list. This value is used to show Available capacity and Max available resources and also as the default value for Booking intervals (if not altered via area configuration).",
+      "column_order": 199
+    },
+    {
+      "name": "QBI_MAX_AVAILABLE_INTERVALS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Comma-separated list of time-intervals.",
+      "column_order": 200
+    },
+    {
+      "name": "QBI_AVAILABLE_INTERVALS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Comma-separated list of time intervals.",
+      "column_order": 201
+    },
+    {
+      "name": "FIELD_RESOURCE_LANDING_PAGE",
+      "data_type": "VARCHAR2",
+      "data_length": 13,
+      "nullable": "Y",
+      "description": "Field Resource Landing Page. The page that must be displayed to field resources, when they log in to the installed app.",
+      "column_order": 202
+    },
+    {
+      "name": "SLR_PARKING_TIME",
+      "data_type": "NUMBER",
+      "data_length": 12,
+      "nullable": "N",
+      "description": "Departure/parking Time Constant that is calculated on the basis of SLT-sourced data.",
+      "column_order": 203
+    },
+    {
+      "name": "SLR_SPEED_INV",
+      "data_type": "NUMBER",
+      "data_length": 12,
+      "nullable": "N",
+      "description": "Inverted Speed of travel based on the straight line distance between the locations with coordinates. The parameter is calculated on the basis of SLT-sourced data.",
+      "column_order": 204
+    },
+    {
+      "name": "REPORTED_PARKING_TIME",
+      "data_type": "NUMBER",
+      "data_length": 12,
+      "nullable": "N",
+      "description": "Parking time constant found from technician-reported data.",
+      "column_order": 205
+    },
+    {
+      "name": "REPORTED_SPEED_INV",
+      "data_type": "NUMBER",
+      "data_length": 12,
+      "nullable": "N",
+      "description": "Speed constant found from technician-reported data.",
+      "column_order": 206
+    },
+    {
+      "name": "REPORTED_PARKING_TIME_SHORT",
+      "data_type": "NUMBER",
+      "data_length": 12,
+      "nullable": "N",
+      "description": "Parking time constant found from technician-reported data for small range.",
+      "column_order": 207
+    },
+    {
+      "name": "REPORTED_SPEED_INV_SHORT",
+      "data_type": "NUMBER",
+      "data_length": 12,
+      "nullable": "N",
+      "description": "Speed constant found from technician-reported data for small range.",
+      "column_order": 208
+    },
+    {
+      "name": "STATS_TRAVEL_UPGRADE",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Upgrade status of travel script.",
+      "column_order": 209
+    },
+    {
+      "name": "USER_EMAIL_PROPERTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Property ID contains user email.",
+      "column_order": 210
+    },
+    {
+      "name": "RESET_PASSWORD_ENABLED",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Enablement for reset password functionality.",
+      "column_order": 211
+    },
+    {
+      "name": "INSTANT_MASS_DAY_ACTIVITY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Contains number of days for automatic exposing mass and repeating activities in API. If value is 0: activities will appear only when necessary. Maximum value: 30 days.",
+      "column_order": 212
+    },
+    {
+      "name": "USE_SPEED_PARKING_TIME",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to use travel key level speed and parking time.",
+      "column_order": 213
+    },
+    {
+      "name": "NEARBY_RADIUS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Nearby Radius. Value in kilometres.",
+      "column_order": 214
+    },
+    {
+      "name": "NEARBY_SLA",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Business Rules 'Nearby SLA' flag.",
+      "column_order": 215
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 216
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 217
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 218
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 219
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 220
+    },
+    {
+      "name": "BUSINESS_RULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Contains unique identifier of the row. System generated.",
+      "column_order": 221
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 222
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 223
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 224
+    }
+  ]
+}

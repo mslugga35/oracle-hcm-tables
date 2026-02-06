@@ -1,0 +1,219 @@
+{
+  "id": 33523,
+  "name": "SVC_AI_ENGAGEMENT_METRICS",
+  "type": "TABLE",
+  "description": "This table stores the AI agent-related events, focusing on agent engagements and associated object details. This table will serve as a foundation for feedback collection.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/svcaiengagementmetrics-28781.html#svcaiengagementmetrics-28781",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "ENGAGEMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Auto-generated number and primary key for this table.",
+      "column_order": 1
+    },
+    {
+      "name": "ENGAGEMENT_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Public unique identifier for the AI agent engagement.",
+      "column_order": 2
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 3
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 4
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 5
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 6
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 7
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 8
+    },
+    {
+      "name": "AGENT_TEAM_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "N",
+      "description": "Agent team code from FAI_WORKFLOW_B.WORKFLOW_CODE.",
+      "column_order": 9
+    },
+    {
+      "name": "AGENT_TEAM_VERSION",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Agent team version from FAI_WORKFLOW_B.WORKFLOW_VERSION.",
+      "column_order": 10
+    },
+    {
+      "name": "AGENT_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "Y",
+      "description": "Agent code of the Gen AI agent from HR_GEN_AI_AGENTS_B.AGENT_CODE.",
+      "column_order": 11
+    },
+    {
+      "name": "AGENT_VERSION",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Agent version of the Gen AI agent from HR_GEN_AI_AGENTS_B.VERSION.",
+      "column_order": 12
+    },
+    {
+      "name": "SERVICE_WORKFLOW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key that references SVC_AP_ACTION_PLANS.ACTION_PLAN_ID, the workflow ID if the agent is generated through workflow.",
+      "column_order": 13
+    },
+    {
+      "name": "OBJECT_REFERENCE_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Public unique identifier of the object that this engagement was created for.",
+      "column_order": 14
+    },
+    {
+      "name": "OBJECT_TYPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code that indicates the object type of OBJECT_REFERENCE_NUMBER, such as Service Request, Chat, Work Order, Email, etc.",
+      "column_order": 15
+    },
+    {
+      "name": "JOB_EXECUTION_NUMBER",
+      "data_type": "VARCHAR2",
+      "data_length": 200,
+      "nullable": "N",
+      "description": "Job execution number from FAI_WORKFLOW_EXECUTIONS.EXECUTION_GROUP_NUMBER that corresponds to Agent Run to track FAI platform.",
+      "column_order": 16
+    },
+    {
+      "name": "HUMAN_IN_LOOP_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate whether a human was expected to review/act (vs. silent/fully automated AI invocation).",
+      "column_order": 17
+    },
+    {
+      "name": "RECOMMENDATION_DISPLAYED_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Flag to indicate whether the AI Agent's output or recommendation was displayed to the human (agent or end-user).",
+      "column_order": 18
+    },
+    {
+      "name": "USER_DECISION_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code that indicates Accepted, Rejected, Modified, Reviewed, Not Applicable.",
+      "column_order": 19
+    },
+    {
+      "name": "CONFIDENCE_SCORE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code that indicates the confidence score, if programmatic comparison tools were used, to be denormalized to accommodate different score types.",
+      "column_order": 20
+    },
+    {
+      "name": "CONFIDENCE_SCORE",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Score value related to the confidence score type selected on CONFIDENCE_SCORE_CD.",
+      "column_order": 21
+    },
+    {
+      "name": "USER_FEEDBACK_RATING",
+      "data_type": "NUMBER",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Optional feedback rating from the user (1-5).",
+      "column_order": 22
+    },
+    {
+      "name": "USER_FEEDBACK_COMMENT",
+      "data_type": "VARCHAR2",
+      "data_length": 1000,
+      "nullable": "Y",
+      "description": "Free-form text field to capture any comments from user.",
+      "column_order": 23
+    },
+    {
+      "name": "USER_FEEDBACK_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code that stores the feedback from the human user, such as Accurate, Helpful, Needs Improvement, Not Relevant, Incorrect.",
+      "column_order": 24
+    },
+    {
+      "name": "OUTCOME_TYPE_CD",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Lookup code that identifies the type of outcome generated by the AI agent. Some of the possible values are \"SR Message\", \"Action Plan Action\", \"SR Severity Update\", \"SR Category Update\" and so on.",
+      "column_order": 25
+    },
+    {
+      "name": "OUTCOME_OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The unique identifier of the object that was created as an outcome by the AI agent.",
+      "column_order": 26
+    }
+  ]
+}

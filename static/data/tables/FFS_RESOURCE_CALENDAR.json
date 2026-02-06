@@ -1,0 +1,211 @@
+{
+  "id": 32101,
+  "name": "FFS_RESOURCE_CALENDAR",
+  "type": "TABLE",
+  "description": "Contains calendar records configured on the resource level.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffsresourcecalendar-22562.html#ffsresourcecalendar-22562",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "CALENDAR_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Unique identifier of the record.",
+      "column_order": 1
+    },
+    {
+      "name": "RESOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "N",
+      "description": "Unique identifier of a resource.",
+      "column_order": 2
+    },
+    {
+      "name": "RECORD_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 13,
+      "nullable": "Y",
+      "description": "Type of resource calendar record. Available values: 'schedule', 'shift', 'extra_shift', 'working', 'extra_working', 'non-working'.",
+      "column_order": 3
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Indicates date since when this record is active.",
+      "column_order": 4
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates date until which this record is active. If empty - the calendar record is considered as infinite.",
+      "column_order": 5
+    },
+    {
+      "name": "PARENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Reference to a parent record which represents a work schedule (with RECORD_TYPE = 'schedule'). This field is only assigned if this record is added as a part of the schedule (RECORD_TYPE='schedule').",
+      "column_order": 6
+    },
+    {
+      "name": "SCHEDULE_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Unique identifier of a work schedule. This field is assigned only if RECORD_TYPE = 'schedule'.",
+      "column_order": 7
+    },
+    {
+      "name": "SCHEDULE_ITEM_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Unique identifier of a work schedule item. This field is assigned only if this record is added as a part of the schedule (RECORD_TYPE = 'schedule' and PARENT_ID is non empty).",
+      "column_order": 8
+    },
+    {
+      "name": "SHIFT_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Unique identifier of a work shift. This field is assigned only if RECORD_TYPE = 'shift'.",
+      "column_order": 9
+    },
+    {
+      "name": "SHIFT_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 7,
+      "nullable": "Y",
+      "description": "Work shift type. Available values: 'regular', 'on-call'. This field is assigned only if RECORD_TYPE in 'working', 'extra_working' or 'non-working'.",
+      "column_order": 10
+    },
+    {
+      "name": "NON_WORKING_REASON_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Unique identifier of a lookup (with FFS_LOOKUP.LOOKUP_TYPE = 7) representing a non working reason. This field is only assigned if RECORD_TYPE = 'non-working'.",
+      "column_order": 11
+    },
+    {
+      "name": "TIME_FROM",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Indicates time since when the record is active. Represented in minutes since midnight in resource's time zone. This field is assigned only if RECORD_TYPE in 'Working' or 'Extra_Working'.",
+      "column_order": 12
+    },
+    {
+      "name": "TIME_TO",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Indicates time until which the record is active. Represented in minutes since midnight in resource's time zone. This field is assigned only if RECORD_TYPE in 'Working' or 'Extra_Working'.",
+      "column_order": 13
+    },
+    {
+      "name": "POINTS",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "It is a number of available points for this shift. This field is assigned only if RECORD_TYPE in 'working' or 'extra_working'.",
+      "column_order": 14
+    },
+    {
+      "name": "RECURRENCE",
+      "data_type": "VARCHAR2",
+      "data_length": 6,
+      "nullable": "Y",
+      "description": "Calendar recurrence type. Available values: 'none', 'daily', 'weekly', 'yearly'.",
+      "column_order": 15
+    },
+    {
+      "name": "WEEKDAYS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Bit mask which defines the days of week to be selected. This field is assigned only if RECURRENCE = 'weekly'. Values: 1 - Sun, 2 - Mon, 4 - Tue, 8 - Wed, 16 - Thu, 32 - Fri, 64 - Sun.",
+      "column_order": 16
+    },
+    {
+      "name": "RECUR_EVERY",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Defines number of days (if RECURRENCE = Daily) or weeks (if RECURRENCE = weekly) to skip. This field is assigned only if RECURRENCE in 'daily' or 'weekly'.",
+      "column_order": 17
+    },
+    {
+      "name": "FROM_DAY",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates date since when the period is active. This field is assigned only if RECURRENCE = 'yearly'.",
+      "column_order": 18
+    },
+    {
+      "name": "TO_DAY",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Indicates date until which the period is active. This field is assigned only if RECURRENCE = 'yearly'.",
+      "column_order": 19
+    },
+    {
+      "name": "COMMENTS",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Contains meaningfull text description of the calendar record.",
+      "column_order": 20
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 21
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 24
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 25
+    }
+  ]
+}

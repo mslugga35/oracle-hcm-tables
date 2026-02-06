@@ -1,0 +1,179 @@
+{
+  "id": 34897,
+  "name": "ATK_WATCHLIST_CATEGORIES",
+  "type": "TABLE",
+  "description": "Watchlist Category Seed Data Table: each category will be created by the owning product team as a lookup type in \"Standard\" lookups (VIEW_APPLICATION_ID = 0 and SET_ID = 0). The watchlist items belonging to each category will be created as lookup values in these lookup types.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/applications-common/25a/oedma/atkwatchlistcategories-17482.html#atkwatchlistcategories-17482",
+  "module": "Common Features",
+  "category": "General",
+  "columns": [
+    {
+      "name": "WATCHLIST_CATEGORY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 100,
+      "nullable": "N",
+      "description": "Watchlist Category Code: unique code based on LBA Prefix.",
+      "column_order": 1
+    },
+    {
+      "name": "MODULE_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Seed Data Framework: indicates the module that owns the row. A module is an entry in Application Taxonomy such as a Logical Business Area. When the MODULE_ID column exists and the owner of the row is not specified, then the Seed Data Framework will not extract the row as seed data.",
+      "column_order": 2
+    },
+    {
+      "name": "CATEGORY_LOOKUP_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Category Lookup Type: reference to FND_STANDARD_LOOKUP_TYPES.LOOKUP_TYPE based on the seeded lookup type with meaning for category (VIEW_APPLICATION_ID = 0 and SET_ID = 0). The translated lookup type meaning is shown in the watchlist UI for category.",
+      "column_order": 3
+    },
+    {
+      "name": "OWNING_MODULE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "N",
+      "description": "Owning Module Name: reference to FND_APPL_TAXONOMY.MODULE_NAME for the owning product/module. This is used for seed data purposes.",
+      "column_order": 4
+    },
+    {
+      "name": "OWNING_APPLICATION_ID",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Owning Application Identifier: reference to FND_APPL_TAXONOMY.ALTERNATIVE_ID\nfor the owning product/module. This is used for seed data purposes.",
+      "column_order": 5
+    },
+    {
+      "name": "SECURITY_POLICY_STRIPE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Indicates the security policy stripe for the owning application. Valid values are fscm, hcm, crm",
+      "column_order": 6
+    },
+    {
+      "name": "REFRESH_SERVICE_ENDPOINT_KEY",
+      "data_type": "VARCHAR2",
+      "data_length": 80,
+      "nullable": "N",
+      "description": "Refresh Service Endpoint: indicates the key to determine the host, port, context root, etc. to construct the url for service endpoint (wsdl location). Reference to FND_DEPLOYMENTS.DEPLOYMENT_NAME .\nThis is used for the applcore lookup api that will be used for determining the end point.",
+      "column_order": 7
+    },
+    {
+      "name": "REFRESH_SERVICE_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "N",
+      "description": "Refresh Service Name: indicates the service that needs to be invoked for count calculation (for refreshing the items in this category).",
+      "column_order": 8
+    },
+    {
+      "name": "REFRESH_SERVICE_NAMESPACE",
+      "data_type": "VARCHAR2",
+      "data_length": 2000,
+      "nullable": "N",
+      "description": "Refresh Service Namespace: indicates the target namespace from the wsdl for the service that needs to be invoked for count calculation (for refreshing the items in this category).",
+      "column_order": 9
+    },
+    {
+      "name": "ENABLED",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Enabled Flag: indicates if this watchlist category is enabled/active.",
+      "column_order": 10
+    },
+    {
+      "name": "SHOW_STALE_COUNTS_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Flag to indicate whether watchlist item counts ar shown to the user for this category when counts are considered stale(age of the count is more than the twice of the refresh age). By default, counts are always shown. This flag is set to N for external users.",
+      "column_order": 11
+    },
+    {
+      "name": "REFRESH_SERVICE_PORT_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 400,
+      "nullable": "Y",
+      "description": "Refresh Service Port Name: indicates the name of the service port that is invoked. This name can be obtained from the port name present in the WSDL of the service being invoked. If no port name is specified, then the port name is considered as \"<Refresh Service Name>SoapHttpPort\" where \"<Refresh Service Name>\" is the name of the service as seeded in the column REFRESH_SERVICE_NAME of this table.",
+      "column_order": 12
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 13
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 14
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 15
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 16
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 17
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 18
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 19
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 20
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 21
+    }
+  ]
+}

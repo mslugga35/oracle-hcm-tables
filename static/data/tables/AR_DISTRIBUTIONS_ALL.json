@@ -1,0 +1,395 @@
+{
+  "id": 29317,
+  "name": "AR_DISTRIBUTIONS_ALL",
+  "type": "TABLE",
+  "description": "The AR_DISTRIBUTIONS_ALL table stores the accounting distributions for cash receipts, miscellaneous receipts, adjustments, credit memo applications, cash receipt applications, and bills receivable transactions. The records are joined to the AR_CASH_RECEIPT_HISTORY_ALL, AR_MISC_CASH_DISTRIBUTIONS_ALL, AR_ADJUSTMENTS, AR_RECEIVABLE_APPLICATIONS_ALL, and AR_TRANSACTION_HISTORY_ALL tables.  . For cash receipt headers, the SOURCE_TABLE is CRH and the SOURCE_ID is AR_CASH_RECEIPT_HISTORY_ALL.CASH_RECEIPT_HISTORY_ID. The SOURCE_TYPE can be: CONFIRMATION, REMITTANCE, CASH, FACTOR, SHORT_TERM_DEBT and BANK_CHARGES. For receivable applications records, the SOURCE_TABLE is RA and the SOURCE_ID is AR_RECEIVABLE_APPLICATIONS_ALL.RECEIVABLE_APPLICATION_ID. The SOURCE_TYPE can be: REC for receivable accounts, EDISC for earned discounts, UNEDISC for unearned discounts, TAX for collectable tax, DEFERRED_TAX for deferred tax, EDISC_NON_REC for nonrecoverable earned discounts, UNEDISC_NON_REC for nonrecoverable unearned discounts, EXCH_GAIN for exchange gain, EXCH_LOSS for exchange loss and CURR_ROUND for currency rounding. For adjustment records, the SOURCE_TABLE is ADJ and the SOURCE_ID is AR_ADJUSTMENTS_ALL.ADJUSTMENT_ID. The SOURCE_TYPE can be: REC for receivable accounts, ADJ for adjustment accounts, FINCHRG for finance charges, ADJ_NON_REC for non-recoverable adjustments and FINCHRG_NON_REC for nonrecoverable finance charges. For miscellaneous receipt records, the SOURCE_TABLE is MCD and the  SOURCE_ID is AR_MISC_CASH_DISTRIBUTIONS_ALL.MISC_CASH_DISTRIBUTIONS_ID. The SOURCE_TYPE can be MISCCASH for cash accounts and TAX for tax. For bills receivable records, the SOURCE_TABLE is TH and the SOURCE_ID is AR_TRANSACTION_HISTORY_ALL.TRANSACTION_HISTORY_ID. The SOURCE_TYPE can be DEFERRED_TAX for deferred tax, FACTOR for factor, REC for receivable, REMITTANCE for remittance, TAX for tax, and UNPAIDREC for unpaid bills. The primary keys for this table are SOURCE_ID, SOURCE_TABLE, and SOURCE_TYPE.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/financials/25c/oedmf/ardistributionsall-18849.html#ardistributionsall-18849",
+  "module": "Financials",
+  "category": "General",
+  "columns": [
+    {
+      "name": "LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Uniquely identifier for rows in this table - primarily when these rows are passed to General Ledger",
+      "column_order": 1
+    },
+    {
+      "name": "SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Identifier for record in SOURCE_TABLE that created this distribution.",
+      "column_order": 2
+    },
+    {
+      "name": "SOURCE_TABLE",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "N",
+      "description": "Possible values are CRH for the AR_CASH_RECEIPT_HISTORY_ALL table, RA for the AR_RECEIVABLE_APPLICATIONS_ALL table, ADJ for the AR_ADJUSTMENTS_ALL table, MCD for the AR_MISC_CASH_DISTRIBUTIONS_ALL table, or TH for the AR_TRANSACTION_HISTORY_ALL table.",
+      "column_order": 3
+    },
+    {
+      "name": "SOURCE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "N",
+      "description": "Account type of transaction for which distribution is posted.",
+      "column_order": 4
+    },
+    {
+      "name": "CODE_COMBINATION_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Foreign key to GL_CODE_COMBINATIONS.CODE_COMBINATION_ID.  It is the account to create the journals for.",
+      "column_order": 5
+    },
+    {
+      "name": "AMOUNT_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Distribution accounted debit amount.",
+      "column_order": 6
+    },
+    {
+      "name": "AMOUNT_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Distribution accounted credit amount.",
+      "column_order": 7
+    },
+    {
+      "name": "ACCTD_AMOUNT_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Journal entry accounted debit amount",
+      "column_order": 8
+    },
+    {
+      "name": "ACCTD_AMOUNT_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Journal entry accounted credit amount",
+      "column_order": 9
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 10
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 11
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 12
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 13
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 14
+    },
+    {
+      "name": "ORG_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Indicates the identifier of the business unit associated to the row.",
+      "column_order": 15
+    },
+    {
+      "name": "SOURCE_TABLE_SECONDARY",
+      "data_type": "VARCHAR2",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Abbreviation that represents another table",
+      "column_order": 16
+    },
+    {
+      "name": "SOURCE_ID_SECONDARY",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key for entity in the SOURCE_TABLE_SECONDARY column",
+      "column_order": 17
+    },
+    {
+      "name": "CURRENCY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Code defined for a currency",
+      "column_order": 18
+    },
+    {
+      "name": "CURRENCY_CONVERSION_RATE",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Conversion rate.",
+      "column_order": 19
+    },
+    {
+      "name": "CURRENCY_CONVERSION_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Supports multiple currency exchange rates for the same date",
+      "column_order": 20
+    },
+    {
+      "name": "CURRENCY_CONVERSION_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date the currency was converted using the given exchange rate",
+      "column_order": 21
+    },
+    {
+      "name": "TAX_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Tax identifier.",
+      "column_order": 22
+    },
+    {
+      "name": "TAXABLE_ENTERED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Taxable debit that lines of type Tax apply to",
+      "column_order": 23
+    },
+    {
+      "name": "TAXABLE_ENTERED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Taxable credit that lines of type Tax apply to",
+      "column_order": 24
+    },
+    {
+      "name": "TAXABLE_ACCOUNTED_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounted taxable debit amount",
+      "column_order": 25
+    },
+    {
+      "name": "TAXABLE_ACCOUNTED_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Accounted taxable credit amount",
+      "column_order": 26
+    },
+    {
+      "name": "TAX_LINK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Links tax and taxable lines within the AR_DISTRIBUTIONS table",
+      "column_order": 27
+    },
+    {
+      "name": "REVERSAL_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 28
+    },
+    {
+      "name": "THIRD_PARTY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill-to customer ID for transactions, paid-from customer ID for receipts",
+      "column_order": 29
+    },
+    {
+      "name": "THIRD_PARTY_SUB_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Bill-to site use ID for transactions, customer site use ID for receipts",
+      "column_order": 30
+    },
+    {
+      "name": "REVERSED_SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "The source ID that the reversal record was created from. Used for receipt application (APP) records to get the debit/credit for the gain/loss account.",
+      "column_order": 31
+    },
+    {
+      "name": "TAX_CODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the AR_VAT_TAX table",
+      "column_order": 32
+    },
+    {
+      "name": "LOCATION_SEGMENT_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the AR_LOCATION_VALUES table",
+      "column_order": 33
+    },
+    {
+      "name": "SOURCE_TYPE_SECONDARY",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Oracle internal use only.",
+      "column_order": 34
+    },
+    {
+      "name": "TAX_GROUP_CODE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Foreign key to the AR_TAX_GROUP_CODES table to identify the tax code's tax group",
+      "column_order": 35
+    },
+    {
+      "name": "REF_CUSTOMER_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transaction line identifier.",
+      "column_order": 36
+    },
+    {
+      "name": "REF_CUST_TRX_LINE_GL_DIST_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Transaction line distribution identifier.",
+      "column_order": 37
+    },
+    {
+      "name": "REF_ACCOUNT_CLASS",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Account Class to each this distribution is affected",
+      "column_order": 38
+    },
+    {
+      "name": "ACTIVITY_BUCKET",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Amount bucket to each this distribution is associated",
+      "column_order": 39
+    },
+    {
+      "name": "REF_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Reference to another distribution created via an adjustment",
+      "column_order": 40
+    },
+    {
+      "name": "FROM_AMOUNT_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Debit amount in the currency of the cash receipt",
+      "column_order": 41
+    },
+    {
+      "name": "FROM_AMOUNT_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "credit amount in the currency of the cash receipt",
+      "column_order": 42
+    },
+    {
+      "name": "FROM_ACCTD_AMOUNT_DR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "debit amount in the functional currency based on the receipt",
+      "column_order": 43
+    },
+    {
+      "name": "FROM_ACCTD_AMOUNT_CR",
+      "data_type": "NUMBER",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "credit amount in the functional currency based on the receipt",
+      "column_order": 44
+    },
+    {
+      "name": "REF_MF_DIST_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicate if the distribution is created based on a Public Sector Financials distribution",
+      "column_order": 45
+    },
+    {
+      "name": "REF_DIST_CCID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Maintains accounting code combination ID at time of application. Optimizes performance when code combination ID comes from distribution outside Receivables.",
+      "column_order": 46
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 47
+    },
+    {
+      "name": "REF_PREV_CUST_TRX_LINE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Invoice line indentifier of credit memo",
+      "column_order": 48
+    }
+  ]
+}

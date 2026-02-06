@@ -1,0 +1,331 @@
+{
+  "id": 31559,
+  "name": "HZ_GEOGRAPHIES_INT",
+  "type": "TABLE",
+  "description": "HZ_GEOGRAPHIES_INT is an interface table to load data to TCA geography tables such as HZ_GEOGRAPHIES, HZ_GEOGRAPHY_IDENTIFIERS, HZ_RELATIONSHIPS, and HZ_HIERARCHY_NODES. \n\nSOURCE_ID and PARENT_SOURCE_ID are arbitrary user-provided numbers to connect a geography and its parent within a job id of this interface table. For example, if United States has a SOURCE_ID 1, all states under it should have the PARENT_SOURCE_ID 1.  All counties under California must have a PARENT_SOURCE_ID 22 if SOURCE_ID of California is 22.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/hzgeographiesint-17763.html#hzgeographiesint-17763",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "INTERFACE_ROW_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for this interface record. (internal use only)",
+      "column_order": 1
+    },
+    {
+      "name": "BATCH_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "N",
+      "description": "Unique identifier for a geography import batch in HZ_IMP_BATCH_SUMMARY.",
+      "column_order": 2
+    },
+    {
+      "name": "RECORD_TYPE_CODE",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "Specifies what data needs to be created.",
+      "column_order": 3
+    },
+    {
+      "name": "GEOGRAPHY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of geography.",
+      "column_order": 4
+    },
+    {
+      "name": "PRIMARY_GEOGRAPHY_NAME",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Primary name of the geography.",
+      "column_order": 5
+    },
+    {
+      "name": "PRIMARY_GEOGRAPHY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary code of the geography.",
+      "column_order": 6
+    },
+    {
+      "name": "PRIMARY_GEOGRAPHY_CODE_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Primary code type of the geography.",
+      "column_order": 7
+    },
+    {
+      "name": "COUNTRY_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 2,
+      "nullable": "N",
+      "description": "Code of the Country to which the Geography belongs.",
+      "column_order": 8
+    },
+    {
+      "name": "LEVEL_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 2,
+      "nullable": "Y",
+      "description": "Country structure level number.",
+      "column_order": 9
+    },
+    {
+      "name": "SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "User identifier of this geography.",
+      "column_order": 10
+    },
+    {
+      "name": "PARENT_SOURCE_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "User identifier of parent geography.",
+      "column_order": 11
+    },
+    {
+      "name": "GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique geography identifier used in TCA geography tables (internal use only).",
+      "column_order": 12
+    },
+    {
+      "name": "PARENT_GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique geography identifier of the parent used in TCA geography tables (internal use only).",
+      "column_order": 13
+    },
+    {
+      "name": "PARENT_GEOGRAPHY_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Type of parent geography (internal use only).",
+      "column_order": 14
+    },
+    {
+      "name": "RELATIONSHIP_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Relationship identifier for this geography and its parent in HZ_RELATIONSHIPS table (internal use only).",
+      "column_order": 15
+    },
+    {
+      "name": "START_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Start date from which this geography is valid for use.",
+      "column_order": 16
+    },
+    {
+      "name": "END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Date from which this geography is no longer valid.",
+      "column_order": 17
+    },
+    {
+      "name": "GEO_DATA_PROVIDER",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Name of the data source provider.",
+      "column_order": 18
+    },
+    {
+      "name": "PROVIDER_GEO_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Identifier provided by the geography data provider.",
+      "column_order": 19
+    },
+    {
+      "name": "PARENT_PROVIDER_GEO_ID",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Identifier of the parent provided by the geography data provider.",
+      "column_order": 20
+    },
+    {
+      "name": "LANGUAGE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 4,
+      "nullable": "Y",
+      "description": "Stores the language in which identifier_value is stored. (Foreign key to FND_ LANGUAGES.LANGUAGE_CODE)",
+      "column_order": 21
+    },
+    {
+      "name": "TIMEZONE_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Time zone of the geography (Foreign key to FND_TIMEZONES_B.TIMZONE_CODE)",
+      "column_order": 22
+    },
+    {
+      "name": "IDENTIFIER_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies whether the value in identifier_value is a code or a name .",
+      "column_order": 23
+    },
+    {
+      "name": "IDENTIFIER_SUBTYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Specifies the type of a code or a name.",
+      "column_order": 24
+    },
+    {
+      "name": "IDENTIFIER_VALUE",
+      "data_type": "VARCHAR2",
+      "data_length": 360,
+      "nullable": "Y",
+      "description": "Stores the value of the identifier type.",
+      "column_order": 25
+    },
+    {
+      "name": "INSERT_UPDATE_FLAG",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "Y",
+      "description": "Indicates if a record should be explicitly inserted or updated (internal use only).",
+      "column_order": 26
+    },
+    {
+      "name": "ERROR_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Error ID in HZ_IMP_ERRORS. (internal use only)",
+      "column_order": 27
+    },
+    {
+      "name": "FILE_RECORD_NUM",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "File import wizard uses this column to relate records in this interface table to rows in a file. (internal use only)",
+      "column_order": 28
+    },
+    {
+      "name": "IMPORT_STATUS_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "File import wizard status: I - In Progress,  O - Obsolete(This would be the status of all the interface table records that were run before),  E - Errored, S - Successful (internal use only)",
+      "column_order": 29
+    },
+    {
+      "name": "INTERNAL_ACTION_CODE",
+      "data_type": "VARCHAR2",
+      "data_length": 30,
+      "nullable": "Y",
+      "description": "Indicates the action of insert(I), move(M), delete(D) or update(U) for internal use.",
+      "column_order": 30
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 31
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 32
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 33
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "Y",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 34
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 35
+    },
+    {
+      "name": "OBJECT_VERSION_NUMBER",
+      "data_type": "NUMBER",
+      "data_length": 9,
+      "nullable": "N",
+      "description": "Used to implement optimistic locking. This number is incremented every time that the row is updated. The number is compared at the start and end of a transaction to detect whether another session has updated the row since it was queried.",
+      "column_order": 36
+    },
+    {
+      "name": "FILE_NAME_SYSTASK_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Stores systask id for each import csv file.",
+      "column_order": 37
+    },
+    {
+      "name": "GEOGRAPHY_IDENTIFIER_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Unique identifier for a geography in HZ_GEOGRAPHY_IDENTIFIERS table (internal use only), used as primary key for master geography export",
+      "column_order": 38
+    },
+    {
+      "name": "PREV_GEOGRAPHY_ID",
+      "data_type": "NUMBER",
+      "data_length": 18,
+      "nullable": "Y",
+      "description": "Previous geography identifier of existing geography for move use case (internal use only).",
+      "column_order": 39
+    },
+    {
+      "name": "PREV_END_DATE",
+      "data_type": "DATE",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "End date of geography before move operation. This will be used to restore the end date if Incremental Geography Import fails during move operation.",
+      "column_order": 40
+    }
+  ]
+}

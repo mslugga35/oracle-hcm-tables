@@ -1,0 +1,219 @@
+{
+  "id": 32039,
+  "name": "FFS_PLUGIN",
+  "type": "TABLE",
+  "description": "Contains a list of plugins configured in the system.",
+  "source_url": "https://docs.oracle.com/en/cloud/saas/sales/oedms/ffsplugin-22514.html#ffsplugin-22514",
+  "module": "CX Sales & Service",
+  "category": "General",
+  "columns": [
+    {
+      "name": "PLUGIN_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "N",
+      "description": "Unique identifier of Plugin, automatically populated by the system.",
+      "column_order": 1
+    },
+    {
+      "name": "LABEL",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "Legacy column, is not used. Removed in 24C.",
+      "column_order": 2
+    },
+    {
+      "name": "TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 15,
+      "nullable": "Y",
+      "description": "Type defines attributes and functionality available to plugin. Possible options: 'addon' - plugin that utilizes the field service plugin framework; 'external' - external application opened as a web link; 'external_native' - external application opened as another application on the same device; 'internal' - reserved legacy option, is not used.",
+      "column_order": 3
+    },
+    {
+      "name": "PATH",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Url of the main page of plugin. Does not contain scheme and domain part for plugins hosted internally by Field Service (Plugin Archive, Standard Plugin). May does not contain scheme and domain part for External Applications (TYPE is 'external_native').",
+      "column_order": 4
+    },
+    {
+      "name": "POST_DATA",
+      "data_type": "VARCHAR2",
+      "data_length": 4000,
+      "nullable": "Y",
+      "description": "Data sent in the body of post request for External Applications. Fields separated by new line character.",
+      "column_order": 5
+    },
+    {
+      "name": "PRIVILEGE_OBJECT_ID",
+      "data_type": "NUMBER",
+      "data_length": 8,
+      "nullable": "Y",
+      "description": "Relation to FFS_PRIVILEGE_OBJECT.PRIVILEGE_OBJECT_ID value.",
+      "column_order": 6
+    },
+    {
+      "name": "WIDTH",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Dialog width in pixels for External Application opened as web link (applicable when TYPE is 'external').",
+      "column_order": 7
+    },
+    {
+      "name": "HEIGHT",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Dialog height in pixels for External Application opened as web link (applicable when TYPE is 'external').",
+      "column_order": 8
+    },
+    {
+      "name": "OPTIONS",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "Y",
+      "description": "Bit mask represents plugin attributes. 1 - plugin_option_tab_layout, 2 - plugin_option_scrollbars - applicable only if TYPE is 'external_native', 4 - plugin_option_is_online - Whether to show the plugin in offline or not, 8 - plugin_option_is_server_script - Reserved legacy option. Has no effect, 16 - plugin_option_menu_item, 32 - plugin_option_property_config - Reserved legacy option. Has no effect since 20c, 64 - plugin_option_standard_plugin - plugin is a Standard Plugin.",
+      "column_order": 9
+    },
+    {
+      "name": "USER_AGENT_MASK",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "Regular expression. Field service sorts all records that have the same ACTION_LINK_ID by sort_order and opens as another application path of the first record whose USER_AGENT_MASK matches the browser's user agent string (applicable only if TYPE is 'external_native').",
+      "column_order": 10
+    },
+    {
+      "name": "SORT_ORDER",
+      "data_type": "NUMBER",
+      "data_length": 3,
+      "nullable": "N",
+      "description": "Order position used to determine the priority of the USER_AGENT_MASK to be applied first (applicable only if TYPE is 'external_native').",
+      "column_order": 11
+    },
+    {
+      "name": "NATIVE_APP_LABEL",
+      "data_type": "VARCHAR2",
+      "data_length": 128,
+      "nullable": "Y",
+      "description": "External Application label (applicable only if TYPE is 'external_native').",
+      "column_order": 12
+    },
+    {
+      "name": "ACTION_LINK_ID",
+      "data_type": "NUMBER",
+      "data_length": 10,
+      "nullable": "Y",
+      "description": "Relation to FFS_ACTION_LINK.ACTION_LINK_ID value. Action Link ID that the plugin is associated with. One plugin associated with one Action Link ID.",
+      "column_order": 13
+    },
+    {
+      "name": "AUTH_TYPE",
+      "data_type": "VARCHAR2",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Type of authentication used by the external server hosting the plug-in source to verify access to the plug-in. Possible options: 'basic', 'hmac'.",
+      "column_order": 14
+    },
+    {
+      "name": "AUTH_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 1020,
+      "nullable": "Y",
+      "description": "User name to log in to the plug-in. Applicable only if AUTH_TYPE is 'basic'.",
+      "column_order": 15
+    },
+    {
+      "name": "AUTH_PASSWORD",
+      "data_type": "VARCHAR2",
+      "data_length": 255,
+      "nullable": "Y",
+      "description": "Password to log in to the plug-in. Applicable only if AUTH_TYPE is 'basic'.",
+      "column_order": 16
+    },
+    {
+      "name": "PLUGIN_HOSTED_ID",
+      "data_type": "NUMBER",
+      "data_length": 5,
+      "nullable": "Y",
+      "description": "Relation to FFS_PLUGIN_HOSTED.PLUGIN_HOSTED_ID VALUE. If it contains some value means that plugin is hosted internally by Field Service (Plugin Archive).",
+      "column_order": 17
+    },
+    {
+      "name": "SECURED_DATA",
+      "data_type": "CLOB",
+      "data_length": null,
+      "nullable": "Y",
+      "description": "Data of plugin parameters. Applicable only if TYPE is 'addon'.",
+      "column_order": 18
+    },
+    {
+      "name": "CREATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who created the row.",
+      "column_order": 19
+    },
+    {
+      "name": "CREATION_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the creation of the row.",
+      "column_order": 20
+    },
+    {
+      "name": "LAST_UPDATED_BY",
+      "data_type": "VARCHAR2",
+      "data_length": 64,
+      "nullable": "N",
+      "description": "Who column: indicates the user who last updated the row.",
+      "column_order": 21
+    },
+    {
+      "name": "LAST_UPDATE_DATE",
+      "data_type": "TIMESTAMP",
+      "data_length": null,
+      "nullable": "N",
+      "description": "Who column: indicates the date and time of the last update of the row.",
+      "column_order": 22
+    },
+    {
+      "name": "LAST_UPDATE_LOGIN",
+      "data_type": "VARCHAR2",
+      "data_length": 32,
+      "nullable": "Y",
+      "description": "Who column: indicates the session login associated to the user who last updated the row.",
+      "column_order": 23
+    },
+    {
+      "name": "SEED_DATA_SOURCE",
+      "data_type": "VARCHAR2",
+      "data_length": 512,
+      "nullable": "Y",
+      "description": "Source of seed data record. A value of 'BULK_SEED_DATA_SCRIPT' indicates that record was bulk loaded. Otherwise, specifies the name of the seed data file.",
+      "column_order": 24
+    },
+    {
+      "name": "ORA_SEED_SET1",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET1. Context values are Y or N.",
+      "column_order": 25
+    },
+    {
+      "name": "ORA_SEED_SET2",
+      "data_type": "VARCHAR2",
+      "data_length": 1,
+      "nullable": "N",
+      "description": "Oracle internal use only. Indicates the edition-based redefinition (EBR) context of the row for SET2. Context values are Y or N.",
+      "column_order": 26
+    }
+  ]
+}
