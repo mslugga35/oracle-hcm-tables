@@ -1,0 +1,1324 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle Recruiting Cloud Tables and Data Model Complete Guide | HCM Tables</title>
+  <meta name="title" content="Oracle Recruiting Cloud Tables and Data Model Complete Guide | HCM Tables">
+  <meta name="description" content="Master Oracle Recruiting Cloud (ORC) tables and data model. Learn requisitions, candidates, applications, interviews with practical SQL examples and reporting queries.">
+  <meta name="keywords" content="Oracle Recruiting Cloud tables, ORC data model, IRC_REQUISITIONS, IRC_CANDIDATES, IRC_APPLICATIONS, Oracle recruiting database, talent acquisition tables, recruiting analytics">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/oracle-recruiting-cloud-tables-data-model">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/oracle-recruiting-cloud-tables-data-model">
+  <meta property="og:title" content="Oracle Recruiting Cloud Tables and Data Model Complete Guide">
+  <meta property="og:description" content="Master Oracle Recruiting Cloud tables and data model with practical SQL examples and reporting queries.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-recruiting-cloud-tables-data-model">
+  <meta property="twitter:title" content="Oracle Recruiting Cloud Tables and Data Model Complete Guide">
+  <meta property="twitter:description" content="Learn Oracle Recruiting Cloud database structure with practical examples.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle Recruiting Cloud Tables and Data Model Complete Guide",
+    "description": "Master Oracle Recruiting Cloud (ORC) tables and data model. Learn requisitions, candidates, applications, interviews with practical SQL examples and reporting queries.",
+    "url": "https://hcm-tables.com/blog/oracle-recruiting-cloud-tables-data-model",
+    "datePublished": "2026-02-10",
+    "dateModified": "2026-02-10",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/oracle-recruiting-cloud-tables-data-model"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* Article Layout */
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header {
+      margin-bottom: 3rem;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content */
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-secondary);
+    }
+
+    .article-content th, .article-content td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-content th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .article-content td {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .article-content .mono {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    /* Callout boxes */
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .callout p {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Related tables/links */
+    .related-tables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .table-link {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--blue);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .table-link:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Data Flow Diagram */
+    .data-flow {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .flow-step {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin: 1rem;
+      display: inline-block;
+      min-width: 120px;
+      position: relative;
+    }
+
+    .flow-step.highlight {
+      border-color: var(--accent);
+      background: var(--bg-primary);
+    }
+
+    .flow-title {
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .flow-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .flow-arrow {
+      font-size: 1.5rem;
+      color: var(--blue);
+      margin: 0 0.5rem;
+    }
+
+    /* Footer */
+    .article-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 3rem;
+    }
+
+    .related-articles h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .related-list {
+      list-style: none;
+      margin: 0;
+    }
+
+    .related-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .related-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .related-list a:hover {
+      color: var(--blue);
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .article-container {
+        padding: 2rem 1rem 3rem;
+      }
+
+      .related-tables {
+        flex-direction: column;
+      }
+
+      .data-flow {
+        padding: 1rem;
+      }
+
+      .flow-step {
+        display: block;
+        margin: 1rem auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about">About</a>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <div class="article-container">
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Oracle Recruiting Cloud Tables and Data Model
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">Talent Acquisition</div>
+      <h1>Oracle Recruiting Cloud Tables and Data Model Complete Guide</h1>
+      <div class="article-meta">
+        Published February 10, 2026 • 16 min read
+      </div>
+    </header>
+
+    <div class="article-content">
+      <p>Oracle Recruiting Cloud (ORC), also known as Internet Recruiting Cloud (IRC), provides a comprehensive talent acquisition platform within Oracle Fusion HCM. Understanding the underlying database structure is essential for building reports, integrations, and analytics that support your recruiting operations.</p>
+
+      <p>This guide covers the core Oracle Recruiting Cloud tables, their relationships, and practical SQL examples for common recruiting scenarios. Whether you're building recruiting dashboards, analyzing time-to-hire metrics, or integrating with external systems, mastering the ORC data model will enhance your talent acquisition capabilities.</p>
+
+      <h2>Oracle Recruiting Cloud Data Model Overview</h2>
+
+      <p>The Oracle Recruiting Cloud data model centers around the candidate journey from job posting to hiring. The core entities represent the recruiting lifecycle:</p>
+
+      <div class="data-flow">
+        <div class="flow-step">
+          <div class="flow-title">Job Requisition</div>
+          <div class="flow-subtitle">Open positions</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step highlight">
+          <div class="flow-title">Candidate</div>
+          <div class="flow-subtitle">Talent pool</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-title">Application</div>
+          <div class="flow-subtitle">Job applications</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-title">Interview</div>
+          <div class="flow-subtitle">Selection process</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-title">Offer</div>
+          <div class="flow-subtitle">Job offers</div>
+        </div>
+      </div>
+
+      <p>Each stage in this journey corresponds to specific tables and data structures in Oracle Recruiting Cloud, allowing for comprehensive tracking of recruiting metrics and candidate experiences.</p>
+
+      <h2>Core Recruiting Tables</h2>
+
+      <h3>IRC_REQUISITIONS - Job Requisitions</h3>
+
+      <p>The <code>IRC_REQUISITIONS</code> table stores information about job openings, including position details, approval workflow, and hiring requirements. This is the starting point for all recruiting activities.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">REQUISITION_ID</td>
+              <td>Unique requisition identifier</td>
+              <td>Primary key for joining to other tables</td>
+            </tr>
+            <tr>
+              <td class="mono">REQUISITION_NUMBER</td>
+              <td>Human-readable requisition number</td>
+              <td>User-friendly identifier for reporting</td>
+            </tr>
+            <tr>
+              <td class="mono">JOB_TITLE</td>
+              <td>Position title</td>
+              <td>Display in job postings and reports</td>
+            </tr>
+            <tr>
+              <td class="mono">HIRING_MANAGER_ID</td>
+              <td>Manager responsible for hiring</td>
+              <td>Link to PER_ALL_PEOPLE_F for manager details</td>
+            </tr>
+            <tr>
+              <td class="mono">DEPARTMENT_NAME</td>
+              <td>Hiring department</td>
+              <td>Organizational reporting and analysis</td>
+            </tr>
+            <tr>
+              <td class="mono">CURRENT_STATE</td>
+              <td>Requisition status (Draft, Open, Filled, etc.)</td>
+              <td>Workflow tracking and filtering</td>
+            </tr>
+            <tr>
+              <td class="mono">CURRENT_PHASE</td>
+              <td>Current phase in approval process</td>
+              <td>Workflow tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">POSTED_DATE</td>
+              <td>When requisition was posted</td>
+              <td>Time-to-fill calculations</td>
+            </tr>
+            <tr>
+              <td class="mono">TARGET_HIRE_DATE</td>
+              <td>Desired hire date</td>
+              <td>Urgency tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">NUMBER_OF_OPENINGS</td>
+              <td>Total positions to fill</td>
+              <td>Bulk hiring tracking</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Open Requisitions Report</h3>
+
+      <pre><code>-- Active requisitions with hiring manager details
+SELECT 
+    r.REQUISITION_NUMBER,
+    r.JOB_TITLE,
+    r.DEPARTMENT_NAME,
+    r.NUMBER_OF_OPENINGS,
+    r.POSTED_DATE,
+    r.TARGET_HIRE_DATE,
+    p.DISPLAY_NAME as HIRING_MANAGER,
+    r.CURRENT_STATE,
+    TRUNC(SYSDATE) - TRUNC(r.POSTED_DATE) as DAYS_OPEN
+FROM IRC_REQUISITIONS r
+LEFT JOIN PER_ALL_PEOPLE_F p 
+  ON r.HIRING_MANAGER_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+WHERE r.CURRENT_STATE IN ('Open', 'In Progress')
+ORDER BY r.POSTED_DATE DESC;</code></pre>
+
+      <h3>IRC_CANDIDATES - Candidate Information</h3>
+
+      <p>The <code>IRC_CANDIDATES</code> table contains candidate profiles, including contact information, work experience, and skills. This table serves as the central repository for all candidate data across multiple job applications.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">CANDIDATE_ID</td>
+              <td>Unique candidate identifier</td>
+              <td>Primary key, links to applications</td>
+            </tr>
+            <tr>
+              <td class="mono">CANDIDATE_NUMBER</td>
+              <td>Human-readable candidate number</td>
+              <td>User-friendly identifier</td>
+            </tr>
+            <tr>
+              <td class="mono">FIRST_NAME / LAST_NAME</td>
+              <td>Candidate name</td>
+              <td>Display and communication</td>
+            </tr>
+            <tr>
+              <td class="mono">EMAIL_ADDRESS</td>
+              <td>Primary email contact</td>
+              <td>Communication and duplicate detection</td>
+            </tr>
+            <tr>
+              <td class="mono">PHONE_NUMBER</td>
+              <td>Primary phone contact</td>
+              <td>Communication</td>
+            </tr>
+            <tr>
+              <td class="mono">CURRENT_JOB_TITLE</td>
+              <td>Current position title</td>
+              <td>Skills and experience assessment</td>
+            </tr>
+            <tr>
+              <td class="mono">CURRENT_EMPLOYER</td>
+              <td>Current company</td>
+              <td>Background and experience</td>
+            </tr>
+            <tr>
+              <td class="mono">REGISTRATION_DATE</td>
+              <td>When candidate joined talent pool</td>
+              <td>Talent pipeline analysis</td>
+            </tr>
+            <tr>
+              <td class="mono">SOURCE_TYPE</td>
+              <td>How candidate was sourced</td>
+              <td>Source effectiveness analysis</td>
+            </tr>
+            <tr>
+              <td class="mono">CANDIDATE_TYPE</td>
+              <td>Internal/External classification</td>
+              <td>Internal mobility tracking</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Candidate Source Analysis</h3>
+
+      <pre><code>-- Candidate source effectiveness over last 6 months
+SELECT 
+    c.SOURCE_TYPE,
+    COUNT(*) as CANDIDATE_COUNT,
+    COUNT(CASE WHEN a.CURRENT_STATE = 'Hired' THEN 1 END) as HIRED_COUNT,
+    ROUND(
+        COUNT(CASE WHEN a.CURRENT_STATE = 'Hired' THEN 1 END) / COUNT(*) * 100, 2
+    ) as HIRE_RATE_PCT
+FROM IRC_CANDIDATES c
+LEFT JOIN IRC_APPLICATIONS a ON c.CANDIDATE_ID = a.CANDIDATE_ID
+WHERE c.REGISTRATION_DATE >= ADD_MONTHS(TRUNC(SYSDATE), -6)
+  AND c.SOURCE_TYPE IS NOT NULL
+GROUP BY c.SOURCE_TYPE
+ORDER BY HIRED_COUNT DESC;</code></pre>
+
+      <h3>IRC_APPLICATIONS - Job Applications</h3>
+
+      <p>The <code>IRC_APPLICATIONS</code> table represents the many-to-many relationship between candidates and requisitions. A single candidate can apply to multiple positions, and each application goes through its own workflow.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">APPLICATION_ID</td>
+              <td>Unique application identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">CANDIDATE_ID</td>
+              <td>Links to candidate</td>
+              <td>Foreign key to IRC_CANDIDATES</td>
+            </tr>
+            <tr>
+              <td class="mono">REQUISITION_ID</td>
+              <td>Links to job requisition</td>
+              <td>Foreign key to IRC_REQUISITIONS</td>
+            </tr>
+            <tr>
+              <td class="mono">APPLICATION_DATE</td>
+              <td>When application was submitted</td>
+              <td>Time-to-hire calculations</td>
+            </tr>
+            <tr>
+              <td class="mono">CURRENT_STATE</td>
+              <td>Application status (New, Under Review, Hired, etc.)</td>
+              <td>Pipeline tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">CURRENT_PHASE</td>
+              <td>Current step in selection process</td>
+              <td>Workflow tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">RECRUITER_ID</td>
+              <td>Assigned recruiter</td>
+              <td>Workload distribution</td>
+            </tr>
+            <tr>
+              <td class="mono">RATING</td>
+              <td>Overall candidate rating</td>
+              <td>Quality assessment</td>
+            </tr>
+            <tr>
+              <td class="mono">HIRE_DATE</td>
+              <td>Actual hire date (if hired)</td>
+              <td>Time-to-hire calculations</td>
+            </tr>
+            <tr>
+              <td class="mono">WITHDRAWAL_REASON</td>
+              <td>Why application was withdrawn</td>
+              <td>Process improvement analysis</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Recruiting Pipeline Report</h3>
+
+      <pre><code>-- Current recruiting pipeline by requisition
+SELECT 
+    r.REQUISITION_NUMBER,
+    r.JOB_TITLE,
+    r.DEPARTMENT_NAME,
+    COUNT(a.APPLICATION_ID) as TOTAL_APPLICATIONS,
+    COUNT(CASE WHEN a.CURRENT_STATE = 'New' THEN 1 END) as NEW_APPLICATIONS,
+    COUNT(CASE WHEN a.CURRENT_STATE = 'Under Review' THEN 1 END) as UNDER_REVIEW,
+    COUNT(CASE WHEN a.CURRENT_STATE = 'Interview' THEN 1 END) as IN_INTERVIEW,
+    COUNT(CASE WHEN a.CURRENT_STATE = 'Offer' THEN 1 END) as OFFER_STAGE,
+    COUNT(CASE WHEN a.CURRENT_STATE = 'Hired' THEN 1 END) as HIRED,
+    COUNT(CASE WHEN a.CURRENT_STATE IN ('Rejected', 'Withdrawn') THEN 1 END) as CLOSED
+FROM IRC_REQUISITIONS r
+LEFT JOIN IRC_APPLICATIONS a ON r.REQUISITION_ID = a.REQUISITION_ID
+WHERE r.CURRENT_STATE IN ('Open', 'In Progress')
+GROUP BY r.REQUISITION_ID, r.REQUISITION_NUMBER, r.JOB_TITLE, r.DEPARTMENT_NAME
+ORDER BY r.REQUISITION_NUMBER;</code></pre>
+
+      <h3>IRC_INTERVIEWS - Interview Management</h3>
+
+      <p>The <code>IRC_INTERVIEWS</code> table tracks interview sessions, including scheduling, participants, and feedback. This table is crucial for managing the interview process and ensuring compliance with hiring practices.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">INTERVIEW_ID</td>
+              <td>Unique interview identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">APPLICATION_ID</td>
+              <td>Links to application</td>
+              <td>Foreign key to IRC_APPLICATIONS</td>
+            </tr>
+            <tr>
+              <td class="mono">INTERVIEW_TYPE</td>
+              <td>Type of interview (Phone, In-Person, Video, etc.)</td>
+              <td>Interview method tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">SCHEDULED_DATE</td>
+              <td>Planned interview date and time</td>
+              <td>Calendar scheduling</td>
+            </tr>
+            <tr>
+              <td class="mono">ACTUAL_DATE</td>
+              <td>When interview actually occurred</td>
+              <td>Completion tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">DURATION</td>
+              <td>Interview length in minutes</td>
+              <td>Time investment analysis</td>
+            </tr>
+            <tr>
+              <td class="mono">INTERVIEWER_ID</td>
+              <td>Primary interviewer</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+            <tr>
+              <td class="mono">INTERVIEW_STATUS</td>
+              <td>Status (Scheduled, Completed, Cancelled)</td>
+              <td>Process tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">OVERALL_RATING</td>
+              <td>Interview outcome rating</td>
+              <td>Decision tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">COMMENTS</td>
+              <td>Interview feedback and notes</td>
+              <td>Decision documentation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Interview Metrics</h3>
+
+      <pre><code>-- Interview completion rates and timings by interviewer
+SELECT 
+    p.DISPLAY_NAME as INTERVIEWER,
+    COUNT(i.INTERVIEW_ID) as TOTAL_INTERVIEWS,
+    COUNT(CASE WHEN i.INTERVIEW_STATUS = 'Completed' THEN 1 END) as COMPLETED,
+    COUNT(CASE WHEN i.INTERVIEW_STATUS = 'Cancelled' THEN 1 END) as CANCELLED,
+    ROUND(
+        COUNT(CASE WHEN i.INTERVIEW_STATUS = 'Completed' THEN 1 END) / 
+        COUNT(i.INTERVIEW_ID) * 100, 2
+    ) as COMPLETION_RATE_PCT,
+    ROUND(AVG(i.DURATION), 0) as AVG_DURATION_MIN
+FROM IRC_INTERVIEWS i
+JOIN PER_ALL_PEOPLE_F p 
+  ON i.INTERVIEWER_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+WHERE i.SCHEDULED_DATE >= TRUNC(SYSDATE) - 90  -- Last 90 days
+GROUP BY p.PERSON_ID, p.DISPLAY_NAME
+HAVING COUNT(i.INTERVIEW_ID) >= 5  -- Minimum 5 interviews
+ORDER BY COMPLETION_RATE_PCT DESC;</code></pre>
+
+      <h2>Secondary Tables and Relationships</h2>
+
+      <h3>IRC_OFFERS - Job Offers</h3>
+
+      <p>The <code>IRC_OFFERS</code> table manages job offers extended to candidates, including compensation details, approval workflow, and acceptance tracking.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Business Use</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">OFFER_ID</td>
+              <td>Unique offer identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">APPLICATION_ID</td>
+              <td>Links to application</td>
+              <td>Candidate-offer relationship</td>
+            </tr>
+            <tr>
+              <td class="mono">OFFER_DATE</td>
+              <td>When offer was extended</td>
+              <td>Time-to-offer tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">OFFER_STATUS</td>
+              <td>Current offer status</td>
+              <td>Acceptance tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">SALARY_AMOUNT</td>
+              <td>Offered salary</td>
+              <td>Compensation analysis</td>
+            </tr>
+            <tr>
+              <td class="mono">CURRENCY_CODE</td>
+              <td>Salary currency</td>
+              <td>Multi-currency support</td>
+            </tr>
+            <tr>
+              <td class="mono">START_DATE</td>
+              <td>Proposed start date</td>
+              <td>Onboarding planning</td>
+            </tr>
+            <tr>
+              <td class="mono">RESPONSE_DATE</td>
+              <td>When candidate responded</td>
+              <td>Response time tracking</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>IRC_CANDIDATE_SKILLS - Skills and Qualifications</h3>
+
+      <p>This table stores candidate skills, certifications, and qualifications, enabling skills-based matching and talent pool analysis.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">CANDIDATE_ID</td>
+              <td>Links to candidate</td>
+              <td>Foreign key relationship</td>
+            </tr>
+            <tr>
+              <td class="mono">SKILL_NAME</td>
+              <td>Skill or qualification name</td>
+              <td>Skills matching</td>
+            </tr>
+            <tr>
+              <td class="mono">PROFICIENCY_LEVEL</td>
+              <td>Skill level (Beginner, Expert, etc.)</td>
+              <td>Capability assessment</td>
+            </tr>
+            <tr>
+              <td class="mono">YEARS_OF_EXPERIENCE</td>
+              <td>Experience with this skill</td>
+              <td>Experience evaluation</td>
+            </tr>
+            <tr>
+              <td class="mono">CERTIFIED_FLAG</td>
+              <td>Whether skill is certified</td>
+              <td>Qualification verification</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>IRC_JOB_REQUIREMENTS - Requisition Requirements</h3>
+
+      <p>This table defines the skills, experience, and qualifications required for each job requisition, enabling automated candidate matching.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">REQUISITION_ID</td>
+              <td>Links to requisition</td>
+              <td>Job requirements definition</td>
+            </tr>
+            <tr>
+              <td class="mono">SKILL_NAME</td>
+              <td>Required skill</td>
+              <td>Matching criteria</td>
+            </tr>
+            <tr>
+              <td class="mono">IMPORTANCE</td>
+              <td>Requirement priority (Must Have, Nice to Have)</td>
+              <td>Candidate ranking</td>
+            </tr>
+            <tr>
+              <td class="mono">MINIMUM_EXPERIENCE</td>
+              <td>Minimum years required</td>
+              <td>Filtering criteria</td>
+            </tr>
+            <tr>
+              <td class="mono">PREFERRED_LEVEL</td>
+              <td>Desired proficiency level</td>
+              <td>Candidate evaluation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Common Recruiting Queries and Reports</h2>
+
+      <h3>Time-to-Fill Analysis</h3>
+
+      <p>Understanding how long it takes to fill positions is crucial for recruiting efficiency:</p>
+
+      <pre><code>-- Average time-to-fill by department and job title
+SELECT 
+    r.DEPARTMENT_NAME,
+    r.JOB_TITLE,
+    COUNT(*) as FILLED_POSITIONS,
+    ROUND(AVG(a.HIRE_DATE - r.POSTED_DATE), 1) as AVG_DAYS_TO_FILL,
+    MIN(a.HIRE_DATE - r.POSTED_DATE) as MIN_DAYS,
+    MAX(a.HIRE_DATE - r.POSTED_DATE) as MAX_DAYS
+FROM IRC_REQUISITIONS r
+JOIN IRC_APPLICATIONS a 
+  ON r.REQUISITION_ID = a.REQUISITION_ID
+  AND a.CURRENT_STATE = 'Hired'
+WHERE a.HIRE_DATE >= TRUNC(SYSDATE) - 365  -- Last year
+  AND r.POSTED_DATE IS NOT NULL
+  AND a.HIRE_DATE IS NOT NULL
+GROUP BY r.DEPARTMENT_NAME, r.JOB_TITLE
+HAVING COUNT(*) >= 3  -- Minimum sample size
+ORDER BY AVG_DAYS_TO_FILL DESC;</code></pre>
+
+      <h3>Recruiter Performance Dashboard</h3>
+
+      <p>Tracking recruiter effectiveness across multiple metrics:</p>
+
+      <pre><code>-- Recruiter performance metrics
+WITH recruiter_stats AS (
+    SELECT 
+        a.RECRUITER_ID,
+        p.DISPLAY_NAME as RECRUITER_NAME,
+        COUNT(a.APPLICATION_ID) as TOTAL_APPLICATIONS,
+        COUNT(CASE WHEN a.CURRENT_STATE = 'Hired' THEN 1 END) as HIRES,
+        AVG(CASE WHEN a.HIRE_DATE IS NOT NULL 
+            THEN a.HIRE_DATE - a.APPLICATION_DATE END) as AVG_TIME_TO_HIRE,
+        COUNT(DISTINCT a.REQUISITION_ID) as REQUISITIONS_WORKED
+    FROM IRC_APPLICATIONS a
+    JOIN PER_ALL_PEOPLE_F p 
+      ON a.RECRUITER_ID = p.PERSON_ID
+      AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                              AND p.EFFECTIVE_END_DATE
+    WHERE a.APPLICATION_DATE >= TRUNC(SYSDATE) - 90  -- Last quarter
+      AND a.RECRUITER_ID IS NOT NULL
+    GROUP BY a.RECRUITER_ID, p.DISPLAY_NAME
+)
+SELECT 
+    RECRUITER_NAME,
+    TOTAL_APPLICATIONS,
+    HIRES,
+    ROUND((HIRES / TOTAL_APPLICATIONS) * 100, 2) as HIRE_RATE_PCT,
+    ROUND(AVG_TIME_TO_HIRE, 1) as AVG_DAYS_TO_HIRE,
+    REQUISITIONS_WORKED,
+    ROUND(TOTAL_APPLICATIONS / REQUISITIONS_WORKED, 1) as AVG_APPS_PER_REQ
+FROM recruiter_stats
+WHERE TOTAL_APPLICATIONS >= 10  -- Minimum activity level
+ORDER BY HIRE_RATE_PCT DESC;</code></pre>
+
+      <h3>Candidate Conversion Funnel</h3>
+
+      <p>Analyzing drop-off rates at each stage of the recruiting process:</p>
+
+      <pre><code>-- Recruiting funnel analysis
+SELECT 
+    'Applications Received' as STAGE,
+    COUNT(*) as CANDIDATE_COUNT,
+    100.0 as CONVERSION_RATE
+FROM IRC_APPLICATIONS 
+WHERE APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+
+UNION ALL
+
+SELECT 
+    'Passed Initial Screening',
+    COUNT(*),
+    ROUND((COUNT(*) / (
+        SELECT COUNT(*) FROM IRC_APPLICATIONS 
+        WHERE APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+    )) * 100, 2)
+FROM IRC_APPLICATIONS 
+WHERE CURRENT_PHASE NOT IN ('New', 'Rejected')
+  AND APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+
+UNION ALL
+
+SELECT 
+    'Interviewed',
+    COUNT(DISTINCT a.APPLICATION_ID),
+    ROUND((COUNT(DISTINCT a.APPLICATION_ID) / (
+        SELECT COUNT(*) FROM IRC_APPLICATIONS 
+        WHERE APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+    )) * 100, 2)
+FROM IRC_APPLICATIONS a
+JOIN IRC_INTERVIEWS i ON a.APPLICATION_ID = i.APPLICATION_ID
+WHERE a.APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+  AND i.INTERVIEW_STATUS = 'Completed'
+
+UNION ALL
+
+SELECT 
+    'Received Offer',
+    COUNT(DISTINCT a.APPLICATION_ID),
+    ROUND((COUNT(DISTINCT a.APPLICATION_ID) / (
+        SELECT COUNT(*) FROM IRC_APPLICATIONS 
+        WHERE APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+    )) * 100, 2)
+FROM IRC_APPLICATIONS a
+JOIN IRC_OFFERS o ON a.APPLICATION_ID = o.APPLICATION_ID
+WHERE a.APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+
+UNION ALL
+
+SELECT 
+    'Hired',
+    COUNT(*),
+    ROUND((COUNT(*) / (
+        SELECT COUNT(*) FROM IRC_APPLICATIONS 
+        WHERE APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+    )) * 100, 2)
+FROM IRC_APPLICATIONS 
+WHERE CURRENT_STATE = 'Hired'
+  AND APPLICATION_DATE >= TRUNC(SYSDATE) - 90
+
+ORDER BY CONVERSION_RATE DESC;</code></pre>
+
+      <h2>Advanced Analytics and Integrations</h2>
+
+      <h3>Skills Gap Analysis</h3>
+
+      <p>Identifying skill shortages in your candidate pipeline:</p>
+
+      <pre><code>-- Skills gap analysis: Required vs Available
+WITH required_skills AS (
+    SELECT 
+        jr.SKILL_NAME,
+        COUNT(DISTINCT r.REQUISITION_ID) as OPEN_POSITIONS,
+        AVG(CASE WHEN jr.IMPORTANCE = 'Must Have' THEN 1 ELSE 0 END) as CRITICAL_SKILL_PCT
+    FROM IRC_JOB_REQUIREMENTS jr
+    JOIN IRC_REQUISITIONS r ON jr.REQUISITION_ID = r.REQUISITION_ID
+    WHERE r.CURRENT_STATE IN ('Open', 'In Progress')
+    GROUP BY jr.SKILL_NAME
+),
+available_skills AS (
+    SELECT 
+        cs.SKILL_NAME,
+        COUNT(DISTINCT c.CANDIDATE_ID) as CANDIDATE_COUNT,
+        AVG(CASE WHEN cs.PROFICIENCY_LEVEL IN ('Expert', 'Advanced') 
+            THEN 1 ELSE 0 END) as HIGH_PROFICIENCY_PCT
+    FROM IRC_CANDIDATE_SKILLS cs
+    JOIN IRC_CANDIDATES c ON cs.CANDIDATE_ID = c.CANDIDATE_ID
+    WHERE c.REGISTRATION_DATE >= TRUNC(SYSDATE) - 365  -- Active candidates
+    GROUP BY cs.SKILL_NAME
+)
+SELECT 
+    COALESCE(rs.SKILL_NAME, as_skill.SKILL_NAME) as SKILL,
+    NVL(rs.OPEN_POSITIONS, 0) as DEMAND,
+    NVL(as_skill.CANDIDATE_COUNT, 0) as SUPPLY,
+    CASE 
+        WHEN NVL(as_skill.CANDIDATE_COUNT, 0) = 0 THEN 'Critical Shortage'
+        WHEN rs.OPEN_POSITIONS > as_skill.CANDIDATE_COUNT THEN 'Shortage'
+        WHEN rs.OPEN_POSITIONS * 2 < as_skill.CANDIDATE_COUNT THEN 'Surplus'
+        ELSE 'Balanced'
+    END as SUPPLY_STATUS,
+    ROUND(NVL(rs.CRITICAL_SKILL_PCT, 0) * 100, 1) as CRITICAL_IMPORTANCE_PCT
+FROM required_skills rs
+FULL OUTER JOIN available_skills as_skill 
+  ON rs.SKILL_NAME = as_skill.SKILL_NAME
+WHERE NVL(rs.OPEN_POSITIONS, 0) > 0 OR NVL(as_skill.CANDIDATE_COUNT, 0) > 0
+ORDER BY NVL(rs.OPEN_POSITIONS, 0) DESC, as_skill.CANDIDATE_COUNT ASC;</code></pre>
+
+      <h3>Diversity Recruiting Metrics</h3>
+
+      <p>Tracking diversity at each stage of the recruiting process:</p>
+
+      <pre><code>-- Diversity funnel analysis (assuming diversity data is captured)
+WITH diversity_funnel AS (
+    SELECT 
+        c.GENDER,
+        c.ETHNICITY,
+        COUNT(DISTINCT a.APPLICATION_ID) as APPLICATIONS,
+        COUNT(DISTINCT CASE WHEN i.INTERVIEW_STATUS = 'Completed' 
+              THEN a.APPLICATION_ID END) as INTERVIEWED,
+        COUNT(DISTINCT CASE WHEN o.OFFER_STATUS = 'Extended' 
+              THEN a.APPLICATION_ID END) as OFFERS,
+        COUNT(DISTINCT CASE WHEN a.CURRENT_STATE = 'Hired' 
+              THEN a.APPLICATION_ID END) as HIRES
+    FROM IRC_CANDIDATES c
+    JOIN IRC_APPLICATIONS a ON c.CANDIDATE_ID = a.CANDIDATE_ID
+    LEFT JOIN IRC_INTERVIEWS i ON a.APPLICATION_ID = i.APPLICATION_ID
+    LEFT JOIN IRC_OFFERS o ON a.APPLICATION_ID = o.APPLICATION_ID
+    WHERE a.APPLICATION_DATE >= TRUNC(SYSDATE) - 180  -- Last 6 months
+      AND c.GENDER IS NOT NULL
+      AND c.ETHNICITY IS NOT NULL
+    GROUP BY c.GENDER, c.ETHNICITY
+)
+SELECT 
+    GENDER,
+    ETHNICITY,
+    APPLICATIONS,
+    INTERVIEWED,
+    ROUND((INTERVIEWED / APPLICATIONS) * 100, 2) as INTERVIEW_RATE_PCT,
+    OFFERS,
+    ROUND((OFFERS / APPLICATIONS) * 100, 2) as OFFER_RATE_PCT,
+    HIRES,
+    ROUND((HIRES / APPLICATIONS) * 100, 2) as HIRE_RATE_PCT
+FROM diversity_funnel
+WHERE APPLICATIONS >= 5  -- Minimum sample size
+ORDER BY APPLICATIONS DESC;</code></pre>
+
+      <h2>Integration Considerations</h2>
+
+      <p>When building integrations with Oracle Recruiting Cloud data, consider these important aspects:</p>
+
+      <h3>Data Security and Privacy</h3>
+
+      <div class="callout">
+        <p><strong>Privacy Compliance:</strong> Recruiting data contains sensitive personal information. Ensure your queries and integrations comply with GDPR, CCPA, and other privacy regulations. Implement appropriate data masking for non-production environments.</p>
+      </div>
+
+      <h3>Performance Optimization</h3>
+
+      <p>Recruiting tables can grow large over time. Use these optimization strategies:</p>
+
+      <ul>
+        <li><strong>Date range filtering:</strong> Always include date filters in your queries</li>
+        <li><strong>Status filtering:</strong> Filter on active/relevant statuses early</li>
+        <li><strong>Appropriate indexes:</strong> Leverage Oracle's indexes on key columns</li>
+        <li><strong>Bulk operations:</strong> Use bulk insert/update for data loads</li>
+      </ul>
+
+      <h3>Change Data Capture</h3>
+
+      <p>For real-time integrations, consider implementing change detection:</p>
+
+      <pre><code>-- Identifying recent changes for incremental sync
+SELECT 
+    a.APPLICATION_ID,
+    a.CANDIDATE_ID,
+    a.REQUISITION_ID,
+    a.CURRENT_STATE,
+    a.LAST_UPDATE_DATE,
+    'APPLICATION' as RECORD_TYPE
+FROM IRC_APPLICATIONS a
+WHERE a.LAST_UPDATE_DATE >= :last_sync_timestamp
+
+UNION ALL
+
+SELECT 
+    c.CANDIDATE_ID,
+    NULL,
+    NULL,
+    NULL,
+    c.LAST_UPDATE_DATE,
+    'CANDIDATE'
+FROM IRC_CANDIDATES c
+WHERE c.LAST_UPDATE_DATE >= :last_sync_timestamp
+
+ORDER BY LAST_UPDATE_DATE;</code></pre>
+
+      <h2>Best Practices for Recruiting Analytics</h2>
+
+      <h3>1. Establish Clear Metrics</h3>
+
+      <p>Define key performance indicators (KPIs) that align with business objectives:</p>
+      <ul>
+        <li><strong>Time-to-fill:</strong> Average days from requisition posting to hire</li>
+        <li><strong>Cost-per-hire:</strong> Total recruiting costs divided by number of hires</li>
+        <li><strong>Quality-of-hire:</strong> Performance ratings of new hires after 90 days</li>
+        <li><strong>Source effectiveness:</strong> Hire rates by recruiting source</li>
+        <li><strong>Candidate experience:</strong> Survey scores and completion rates</li>
+      </ul>
+
+      <h3>2. Implement Data Quality Checks</h3>
+
+      <pre><code>-- Data quality validation queries
+-- Check for missing critical data
+SELECT 
+    'Missing Requisition Hiring Manager' as ISSUE,
+    COUNT(*) as ISSUE_COUNT
+FROM IRC_REQUISITIONS 
+WHERE CURRENT_STATE IN ('Open', 'In Progress')
+  AND HIRING_MANAGER_ID IS NULL
+
+UNION ALL
+
+SELECT 
+    'Applications Missing Recruiter',
+    COUNT(*)
+FROM IRC_APPLICATIONS 
+WHERE CURRENT_STATE NOT IN ('Hired', 'Rejected', 'Withdrawn')
+  AND RECRUITER_ID IS NULL
+
+UNION ALL
+
+SELECT 
+    'Interviews Missing Feedback',
+    COUNT(*)
+FROM IRC_INTERVIEWS 
+WHERE INTERVIEW_STATUS = 'Completed'
+  AND OVERALL_RATING IS NULL
+  AND SCHEDULED_DATE >= TRUNC(SYSDATE) - 30;</code></pre>
+
+      <h3>3. Regular Reporting Cadence</h3>
+
+      <p>Establish regular reporting schedules:</p>
+      <ul>
+        <li><strong>Daily:</strong> New applications, interview schedules, urgent requisitions</li>
+        <li><strong>Weekly:</strong> Pipeline status, recruiter activity, hiring manager updates</li>
+        <li><strong>Monthly:</strong> Time-to-fill trends, source effectiveness, diversity metrics</li>
+        <li><strong>Quarterly:</strong> Strategic metrics, ROI analysis, process improvements</li>
+      </ul>
+
+      <div class="related-tables">
+        <a href="/table/PER_ALL_PEOPLE_F" class="table-link">PER_ALL_PEOPLE_F</a>
+        <a href="/table/PER_ALL_ASSIGNMENTS_F" class="table-link">PER_ALL_ASSIGNMENTS_F</a>
+        <a href="/table/HR_ALL_ORGANIZATION_UNITS" class="table-link">HR_ALL_ORGANIZATION_UNITS</a>
+        <a href="/table/PER_JOBS_F" class="table-link">PER_JOBS_F</a>
+        <a href="/table/HR_LOCATIONS_ALL" class="table-link">HR_LOCATIONS_ALL</a>
+      </div>
+
+      <p>Mastering Oracle Recruiting Cloud's data model enables powerful talent acquisition analytics and reporting. Whether you're tracking recruiting efficiency, analyzing candidate quality, or optimizing your hiring process, understanding these core tables and relationships is essential.</p>
+
+      <p>Combine recruiting data with <a href="/blog/person-assignment-work-relationship-data-model-explained">core HCM entities</a> for comprehensive workforce analytics, and leverage <a href="/blog/oracle-hcm-rest-api-integration-guide">REST APIs</a> for real-time integrations with external recruiting tools and platforms.</p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="related-articles">
+        <h3>Related Articles</h3>
+        <ul class="related-list">
+          <li><a href="/blog/person-assignment-work-relationship-data-model-explained">Person vs Assignment vs Work Relationship Data Model</a></li>
+          <li><a href="/blog/oracle-hcm-rest-api-integration-guide">Oracle HCM REST API Integration Guide</a></li>
+          <li><a href="/blog/sql-query-library">Oracle HCM SQL Query Library & Examples</a></li>
+          <li><a href="/blog/otbi-subject-area-guide">Oracle HCM OTBI Subject Areas Guide</a></li>
+          <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Oracle Fusion HCM Tables</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

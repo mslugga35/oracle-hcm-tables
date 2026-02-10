@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle HCM Person vs Assignment vs Work Relationship Data Model Explained | HCM Tables</title>
+  <meta name="title" content="Oracle HCM Person vs Assignment vs Work Relationship Data Model Explained | HCM Tables">
+  <meta name="description" content="Master Oracle Fusion HCM's core data model: Person, Assignment, and Work Relationship entities. Learn the differences, relationships, and when to use each table with practical SQL examples.">
+  <meta name="keywords" content="Oracle HCM data model, Person Assignment Work Relationship, PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_F, PER_WORK_RELATIONSHIPS, Oracle HCM entities, worker data model">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/person-assignment-work-relationship-data-model-explained">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/person-assignment-work-relationship-data-model-explained">
+  <meta property="og:title" content="Oracle HCM Person vs Assignment vs Work Relationship Data Model Explained">
+  <meta property="og:description" content="Master Oracle Fusion HCM's core data model: Person, Assignment, and Work Relationship entities with practical examples.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/person-assignment-work-relationship-data-model-explained">
+  <meta property="twitter:title" content="Oracle HCM Person vs Assignment vs Work Relationship Data Model Explained">
+  <meta property="twitter:description" content="Learn Oracle HCM's core data model with practical SQL examples and use cases.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle HCM Person vs Assignment vs Work Relationship Data Model Explained",
+    "description": "Master Oracle Fusion HCM's core data model: Person, Assignment, and Work Relationship entities. Learn the differences, relationships, and when to use each table with practical SQL examples.",
+    "url": "https://hcm-tables.com/blog/person-assignment-work-relationship-data-model-explained",
+    "datePublished": "2026-02-10",
+    "dateModified": "2026-02-10",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/person-assignment-work-relationship-data-model-explained"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* Article Layout */
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header {
+      margin-bottom: 3rem;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content */
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-secondary);
+    }
+
+    .article-content th, .article-content td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-content th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .article-content td {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .article-content .mono {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    /* Callout boxes */
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .callout p {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Related tables/links */
+    .related-tables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .table-link {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--blue);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .table-link:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Data Model Diagram */
+    .data-model {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .entity-box {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin: 1rem;
+      display: inline-block;
+      min-width: 150px;
+    }
+
+    .entity-title {
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .entity-subtitle {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+
+    .relationship-arrow {
+      font-size: 1.5rem;
+      color: var(--accent);
+      margin: 0 1rem;
+    }
+
+    /* Footer */
+    .article-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 3rem;
+    }
+
+    .related-articles h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .related-list {
+      list-style: none;
+      margin: 0;
+    }
+
+    .related-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .related-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .related-list a:hover {
+      color: var(--blue);
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .article-container {
+        padding: 2rem 1rem 3rem;
+      }
+
+      .related-tables {
+        flex-direction: column;
+      }
+
+      .data-model {
+        padding: 1rem;
+      }
+
+      .entity-box {
+        display: block;
+        margin: 1rem auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about">About</a>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <div class="article-container">
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Person vs Assignment vs Work Relationship Data Model
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">Data Architecture</div>
+      <h1>Oracle HCM Person vs Assignment vs Work Relationship Data Model Explained</h1>
+      <div class="article-meta">
+        Published February 10, 2026 • 18 min read
+      </div>
+    </header>
+
+    <div class="article-content">
+      <p>Understanding Oracle Fusion HCM's core data model is fundamental for any HCM consultant, developer, or analyst. The three foundational entities—Person, Assignment, and Work Relationship—form the backbone of how Oracle stores and manages worker information. This comprehensive guide explains the differences, relationships, and practical usage patterns for each entity.</p>
+
+      <p>Many HCM professionals struggle with when to query <a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a> versus <a href="/table/PER_ALL_ASSIGNMENTS_F">PER_ALL_ASSIGNMENTS_F</a> versus <a href="/table/PER_WORK_RELATIONSHIPS">PER_WORK_RELATIONSHIPS</a>. Each table serves distinct purposes and contains different types of information, making the choice critical for accurate reporting and data analysis.</p>
+
+      <h2>Core Data Model Overview</h2>
+
+      <p>Oracle HCM's worker data model is built on three primary entities that work together to provide a complete view of an individual's employment relationship:</p>
+
+      <div class="data-model">
+        <div class="entity-box">
+          <div class="entity-title">PERSON</div>
+          <div class="entity-subtitle">Who they are</div>
+        </div>
+        <span class="relationship-arrow">→</span>
+        <div class="entity-box">
+          <div class="entity-title">WORK RELATIONSHIP</div>
+          <div class="entity-subtitle">Employment contract</div>
+        </div>
+        <span class="relationship-arrow">→</span>
+        <div class="entity-box">
+          <div class="entity-title">ASSIGNMENT</div>
+          <div class="entity-subtitle">What they do</div>
+        </div>
+      </div>
+
+      <p>This hierarchical relationship reflects real-world employment scenarios:</p>
+      <ul>
+        <li>A <strong>Person</strong> represents an individual's identity and personal information</li>
+        <li>A <strong>Work Relationship</strong> represents the legal employment contract with the organization</li>
+        <li>An <strong>Assignment</strong> represents the specific job, role, and organizational position</li>
+      </ul>
+
+      <h2>Person Entity (PER_ALL_PEOPLE_F)</h2>
+
+      <p>The Person entity represents the individual as a human being, independent of their employment status. It contains biographical information, personal details, and characteristics that remain consistent across employment relationships.</p>
+
+      <h3>What's Stored in PER_ALL_PEOPLE_F</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Data Category</th>
+              <th>Key Columns</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Identity</strong></td>
+              <td>PERSON_ID, PERSON_NUMBER</td>
+              <td>Unique identifiers for the person</td>
+            </tr>
+            <tr>
+              <td><strong>Name Information</strong></td>
+              <td>FIRST_NAME, LAST_NAME, MIDDLE_NAMES</td>
+              <td>Legal and display names</td>
+            </tr>
+            <tr>
+              <td><strong>Demographics</strong></td>
+              <td>DATE_OF_BIRTH, GENDER, ETHNICITY</td>
+              <td>Personal characteristics</td>
+            </tr>
+            <tr>
+              <td><strong>Documentation</strong></td>
+              <td>NATIONAL_IDENTIFIER, PASSPORT_NUMBER</td>
+              <td>Government identification</td>
+            </tr>
+            <tr>
+              <td><strong>Contact</strong></td>
+              <td>EMAIL_ADDRESS, PHONE_NUMBER</td>
+              <td>Communication details</td>
+            </tr>
+            <tr>
+              <td><strong>Status</strong></td>
+              <td>CURRENT_EMPLOYEE_FLAG, CURRENT_NPW_FLAG</td>
+              <td>Current employment status</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>When to Use PER_ALL_PEOPLE_F</h3>
+
+      <p>Query the Person entity when you need:</p>
+      <ul>
+        <li><strong>Employee directory information</strong> - Names, contact details, photos</li>
+        <li><strong>Demographic reporting</strong> - Age, gender, ethnicity analysis</li>
+        <li><strong>Compliance reporting</strong> - EEO, diversity metrics</li>
+        <li><strong>Person-centric views</strong> - One row per individual regardless of assignments</li>
+        <li><strong>Historical person data</strong> - Name changes, address history</li>
+      </ul>
+
+      <h3>Sample Query: Employee Directory</h3>
+
+      <pre><code>-- Get active employee directory with contact information
+SELECT 
+    p.PERSON_NUMBER,
+    p.FIRST_NAME,
+    p.LAST_NAME,
+    p.DISPLAY_NAME,
+    p.EMAIL_ADDRESS,
+    p.PHONE_NUMBER,
+    p.DATE_OF_BIRTH,
+    p.GENDER
+FROM PER_ALL_PEOPLE_F p
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+ORDER BY p.LAST_NAME, p.FIRST_NAME;</code></pre>
+
+      <h3>Key Considerations for Person Data</h3>
+
+      <div class="callout">
+        <p><strong>Date-Effective Behavior:</strong> PER_ALL_PEOPLE_F is date-effective, meaning person information changes over time create new rows. Always include the date filter unless you specifically need historical data.</p>
+      </div>
+
+      <p>Important points about Person entity:</p>
+      <ul>
+        <li><strong>One person, multiple relationships:</strong> A person can have multiple work relationships (rehires, concurrent employment)</li>
+        <li><strong>Persistent identity:</strong> PERSON_ID remains constant across all employment relationships</li>
+        <li><strong>Personal data privacy:</strong> Access may be restricted based on data security roles</li>
+        <li><strong>Global identifier:</strong> PERSON_NUMBER is often used as the employee ID visible to end users</li>
+      </ul>
+
+      <h2>Work Relationship Entity (PER_WORK_RELATIONSHIPS)</h2>
+
+      <p>The Work Relationship entity represents the legal employment contract between an individual and the organization. It defines the terms and conditions of employment, including start date, employment category, and termination details.</p>
+
+      <h3>What's Stored in PER_WORK_RELATIONSHIPS</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Data Category</th>
+              <th>Key Columns</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Identity</strong></td>
+              <td>WORK_RELATIONSHIP_ID, PERSON_ID</td>
+              <td>Unique identifiers linking to person</td>
+            </tr>
+            <tr>
+              <td><strong>Employment Dates</strong></td>
+              <td>START_DATE, TERMINATION_DATE</td>
+              <td>Contract period</td>
+            </tr>
+            <tr>
+              <td><strong>Employment Terms</strong></td>
+              <td>WORKER_TYPE, LEGAL_EMPLOYER_NAME</td>
+              <td>Contract classification</td>
+            </tr>
+            <tr>
+              <td><strong>Status</strong></td>
+              <td>PRIMARY_FLAG, SUSPENDED_FLAG</td>
+              <td>Relationship status indicators</td>
+            </tr>
+            <tr>
+              <td><strong>Business Context</strong></td>
+              <td>ENTERPRISE_NAME, LEGISLATION_CODE</td>
+              <td>Legal and business entity information</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>When to Use PER_WORK_RELATIONSHIPS</h3>
+
+      <p>Query the Work Relationship entity when you need:</p>
+      <ul>
+        <li><strong>Employment history</strong> - Hire dates, termination dates, rehire analysis</li>
+        <li><strong>Worker type reporting</strong> - Employee vs contractor classification</li>
+        <li><strong>Legal employer analysis</strong> - Multi-entity organizations</li>
+        <li><strong>Contract-level information</strong> - One row per employment contract</li>
+        <li><strong>Workforce planning</strong> - Headcount by legal entity</li>
+      </ul>
+
+      <h3>Sample Query: Employment History</h3>
+
+      <pre><code>-- Get employment history with work relationship details
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    wr.WORK_RELATIONSHIP_ID,
+    wr.START_DATE,
+    wr.TERMINATION_DATE,
+    wr.WORKER_TYPE,
+    wr.LEGAL_EMPLOYER_NAME,
+    wr.PRIMARY_FLAG,
+    CASE 
+        WHEN wr.TERMINATION_DATE IS NULL THEN 'Active'
+        ELSE 'Terminated'
+    END as EMPLOYMENT_STATUS
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_WORK_RELATIONSHIPS wr 
+  ON p.PERSON_ID = wr.PERSON_ID
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+ORDER BY p.PERSON_NUMBER, wr.START_DATE;</code></pre>
+
+      <h3>Work Relationship Patterns</h3>
+
+      <p>Understanding common work relationship patterns is crucial for accurate reporting:</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Person Rows</th>
+              <th>Work Relationship Rows</th>
+              <th>Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Standard Employee</strong></td>
+              <td>1</td>
+              <td>1</td>
+              <td>Regular full-time employee</td>
+            </tr>
+            <tr>
+              <td><strong>Rehire</strong></td>
+              <td>1</td>
+              <td>2+</td>
+              <td>Employee who left and returned</td>
+            </tr>
+            <tr>
+              <td><strong>Concurrent Employment</strong></td>
+              <td>1</td>
+              <td>2+</td>
+              <td>Working for multiple legal entities</td>
+            </tr>
+            <tr>
+              <td><strong>Contractor to Employee</strong></td>
+              <td>1</td>
+              <td>2</td>
+              <td>Conversion from contractor to FTE</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p><strong>Important:</strong> PER_WORK_RELATIONSHIPS is NOT date-effective. Each work relationship is a separate row with distinct start and end dates. This differs from the date-effective pattern used in Person and Assignment tables.</p>
+      </div>
+
+      <h2>Assignment Entity (PER_ALL_ASSIGNMENTS_F)</h2>
+
+      <p>The Assignment entity represents the specific job, role, and organizational position within a work relationship. It contains operational details about what the person does, where they work, and how they're positioned in the organization.</p>
+
+      <h3>What's Stored in PER_ALL_ASSIGNMENTS_F</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Data Category</th>
+              <th>Key Columns</th>
+              <th>Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Identity</strong></td>
+              <td>ASSIGNMENT_ID, ASSIGNMENT_NUMBER</td>
+              <td>Unique assignment identifiers</td>
+            </tr>
+            <tr>
+              <td><strong>Job Information</strong></td>
+              <td>JOB_ID, JOB_CODE, POSITION_ID</td>
+              <td>Role and position details</td>
+            </tr>
+            <tr>
+              <td><strong>Organization</strong></td>
+              <td>ORGANIZATION_ID, DEPARTMENT_ID</td>
+              <td>Reporting structure</td>
+            </tr>
+            <tr>
+              <td><strong>Management</strong></td>
+              <td>MANAGER_ID, SUPERVISOR_ID</td>
+              <td>Reporting relationships</td>
+            </tr>
+            <tr>
+              <td><strong>Location</strong></td>
+              <td>LOCATION_ID, WORK_AT_HOME_FLAG</td>
+              <td>Work location details</td>
+            </tr>
+            <tr>
+              <td><strong>Employment Terms</strong></td>
+              <td>EMPLOYMENT_CATEGORY, FTE</td>
+              <td>Work arrangement details</td>
+            </tr>
+            <tr>
+              <td><strong>Compensation</strong></td>
+              <td>PAYROLL_ID, SALARY_BASIS_ID</td>
+              <td>Pay processing information</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>When to Use PER_ALL_ASSIGNMENTS_F</h3>
+
+      <p>Query the Assignment entity when you need:</p>
+      <ul>
+        <li><strong>Organizational reporting</strong> - Who reports to whom, org charts</li>
+        <li><strong>Job and position analysis</strong> - Role distribution, career progression</li>
+        <li><strong>Department/location reporting</strong> - Headcount by location or department</li>
+        <li><strong>Management hierarchy</strong> - Manager-employee relationships</li>
+        <li><strong>Operational HR reports</strong> - Most day-to-day HR reporting needs</li>
+      </ul>
+
+      <h3>Sample Query: Current Assignments with Hierarchy</h3>
+
+      <pre><code>-- Get current assignments with manager and organizational details
+SELECT 
+    p.PERSON_NUMBER as EMPLOYEE_NUMBER,
+    p.DISPLAY_NAME as EMPLOYEE_NAME,
+    a.ASSIGNMENT_NUMBER,
+    j.JOB_CODE,
+    j.NAME as JOB_TITLE,
+    d.NAME as DEPARTMENT_NAME,
+    l.LOCATION_NAME,
+    mgr.DISPLAY_NAME as MANAGER_NAME,
+    a.EMPLOYMENT_CATEGORY,
+    a.ASSIGNMENT_STATUS_TYPE
+FROM PER_ALL_ASSIGNMENTS_F a
+JOIN PER_ALL_PEOPLE_F p 
+  ON a.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+LEFT JOIN PER_JOBS j 
+  ON a.JOB_ID = j.JOB_ID
+  AND TRUNC(SYSDATE) BETWEEN j.EFFECTIVE_START_DATE 
+                          AND j.EFFECTIVE_END_DATE
+LEFT JOIN HR_ALL_ORGANIZATION_UNITS d 
+  ON a.ORGANIZATION_ID = d.ORGANIZATION_ID
+LEFT JOIN HR_LOCATIONS_ALL l 
+  ON a.LOCATION_ID = l.LOCATION_ID
+LEFT JOIN PER_ALL_PEOPLE_F mgr 
+  ON a.MANAGER_ID = mgr.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN mgr.EFFECTIVE_START_DATE 
+                          AND mgr.EFFECTIVE_END_DATE
+WHERE a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE'
+  AND a.PRIMARY_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE 
+                          AND a.EFFECTIVE_END_DATE
+ORDER BY d.NAME, p.LAST_NAME;</code></pre>
+
+      <h3>Assignment Types and Patterns</h3>
+
+      <p>Assignments can have various patterns based on organizational needs:</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Assignment Type</th>
+              <th>Description</th>
+              <th>Use Case</th>
+              <th>PRIMARY_FLAG</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Primary Assignment</strong></td>
+              <td>Main job responsibility</td>
+              <td>Regular employment</td>
+              <td>Y</td>
+            </tr>
+            <tr>
+              <td><strong>Secondary Assignment</strong></td>
+              <td>Additional responsibilities</td>
+              <td>Matrix management, special projects</td>
+              <td>N</td>
+            </tr>
+            <tr>
+              <td><strong>Global Assignment</strong></td>
+              <td>International assignment</td>
+              <td>Expatriate assignments</td>
+              <td>Varies</td>
+            </tr>
+            <tr>
+              <td><strong>Temporary Assignment</strong></td>
+              <td>Short-term role change</td>
+              <td>Coverage, special projects</td>
+              <td>N</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Entity Relationships and Data Integrity</h2>
+
+      <p>Understanding the relationships between these entities is crucial for accurate data queries and reporting:</p>
+
+      <h3>Cardinality Rules</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Relationship</th>
+              <th>Cardinality</th>
+              <th>Description</th>
+              <th>Business Example</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Person → Work Relationship</td>
+              <td>1 : Many</td>
+              <td>One person can have multiple employment contracts</td>
+              <td>Rehires, concurrent employment</td>
+            </tr>
+            <tr>
+              <td>Work Relationship → Assignment</td>
+              <td>1 : Many</td>
+              <td>One contract can have multiple assignments</td>
+              <td>Primary + secondary assignments</td>
+            </tr>
+            <tr>
+              <td>Person → Assignment</td>
+              <td>1 : Many</td>
+              <td>One person can have multiple assignments across relationships</td>
+              <td>Complex organizational structures</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Common Join Patterns</h3>
+
+      <p>Here are the most frequently used join patterns when working with these entities:</p>
+
+      <pre><code>-- Pattern 1: Person + Current Primary Assignment (Most Common)
+SELECT p.*, a.*
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON p.PERSON_ID = a.PERSON_ID
+  AND a.PRIMARY_FLAG = 'Y'
+  AND a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE'
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE;
+
+-- Pattern 2: Full Three-Entity Join
+SELECT p.*, wr.*, a.*
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_WORK_RELATIONSHIPS wr 
+  ON p.PERSON_ID = wr.PERSON_ID
+  AND wr.PRIMARY_FLAG = 'Y'
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON wr.WORK_RELATIONSHIP_ID = a.WORK_RELATIONSHIP_ID
+  AND a.PRIMARY_FLAG = 'Y'
+  AND a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE'
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE;
+
+-- Pattern 3: Person with All Work Relationships (Historical View)
+SELECT p.*, wr.*, 
+       CASE WHEN wr.TERMINATION_DATE IS NULL THEN 'Active' ELSE 'Terminated' END
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_WORK_RELATIONSHIPS wr 
+  ON p.PERSON_ID = wr.PERSON_ID
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+ORDER BY p.PERSON_NUMBER, wr.START_DATE;</code></pre>
+
+      <div class="callout">
+        <p><strong>Performance Tip:</strong> When joining these large tables, always include appropriate date filters and consider using indexes on PERSON_ID, ASSIGNMENT_STATUS_TYPE, and PRIMARY_FLAG columns.</p>
+      </div>
+
+      <h2>Practical Usage Scenarios</h2>
+
+      <p>Let's explore common business scenarios and which entity to use for each:</p>
+
+      <h3>Scenario 1: Employee Headcount Report</h3>
+
+      <p><strong>Requirement:</strong> Count of active employees by department</p>
+      <p><strong>Best Entity:</strong> Assignment (PER_ALL_ASSIGNMENTS_F)</p>
+      <p><strong>Rationale:</strong> Department is an assignment-level attribute</p>
+
+      <pre><code>-- Employee headcount by department
+SELECT 
+    org.NAME as DEPARTMENT,
+    COUNT(*) as EMPLOYEE_COUNT
+FROM PER_ALL_ASSIGNMENTS_F a
+JOIN HR_ALL_ORGANIZATION_UNITS org 
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+WHERE a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE'
+  AND a.PRIMARY_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE
+GROUP BY org.NAME
+ORDER BY org.NAME;</code></pre>
+
+      <h3>Scenario 2: Diversity Demographics</h3>
+
+      <p><strong>Requirement:</strong> Gender and ethnicity breakdown</p>
+      <p><strong>Best Entity:</strong> Person (PER_ALL_PEOPLE_F)</p>
+      <p><strong>Rationale:</strong> Demographics are person-level attributes</p>
+
+      <pre><code>-- Gender and ethnicity breakdown for active employees
+SELECT 
+    p.GENDER,
+    p.ETHNICITY,
+    COUNT(*) as EMPLOYEE_COUNT
+FROM PER_ALL_PEOPLE_F p
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+GROUP BY p.GENDER, p.ETHNICITY
+ORDER BY p.GENDER, p.ETHNICITY;</code></pre>
+
+      <h3>Scenario 3: Turnover Analysis</h3>
+
+      <p><strong>Requirement:</strong> Employees who terminated in the last year</p>
+      <p><strong>Best Entity:</strong> Work Relationship (PER_WORK_RELATIONSHIPS)</p>
+      <p><strong>Rationale:</strong> Termination dates are stored at the work relationship level</p>
+
+      <pre><code>-- Turnover analysis - employees terminated in last 12 months
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    wr.START_DATE,
+    wr.TERMINATION_DATE,
+    wr.LEGAL_EMPLOYER_NAME,
+    ROUND((wr.TERMINATION_DATE - wr.START_DATE) / 365, 2) as TENURE_YEARS
+FROM PER_WORK_RELATIONSHIPS wr
+JOIN PER_ALL_PEOPLE_F p 
+  ON wr.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+WHERE wr.TERMINATION_DATE BETWEEN ADD_MONTHS(TRUNC(SYSDATE), -12) AND TRUNC(SYSDATE)
+  AND wr.PRIMARY_FLAG = 'Y'
+ORDER BY wr.TERMINATION_DATE DESC;</code></pre>
+
+      <h3>Scenario 4: Manager-Employee Relationships</h3>
+
+      <p><strong>Requirement:</strong> Current reporting structure</p>
+      <p><strong>Best Entity:</strong> Assignment (PER_ALL_ASSIGNMENTS_F)</p>
+      <p><strong>Rationale:</strong> Manager relationships are assignment-specific</p>
+
+      <pre><code>-- Current manager-employee relationships
+SELECT 
+    emp.PERSON_NUMBER as EMPLOYEE_NUMBER,
+    emp.DISPLAY_NAME as EMPLOYEE_NAME,
+    mgr.PERSON_NUMBER as MANAGER_NUMBER,
+    mgr.DISPLAY_NAME as MANAGER_NAME,
+    j.NAME as JOB_TITLE,
+    org.NAME as DEPARTMENT
+FROM PER_ALL_ASSIGNMENTS_F a
+JOIN PER_ALL_PEOPLE_F emp 
+  ON a.PERSON_ID = emp.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN emp.EFFECTIVE_START_DATE AND emp.EFFECTIVE_END_DATE
+LEFT JOIN PER_ALL_PEOPLE_F mgr 
+  ON a.MANAGER_ID = mgr.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN mgr.EFFECTIVE_START_DATE AND mgr.EFFECTIVE_END_DATE
+LEFT JOIN PER_JOBS j 
+  ON a.JOB_ID = j.JOB_ID
+  AND TRUNC(SYSDATE) BETWEEN j.EFFECTIVE_START_DATE AND j.EFFECTIVE_END_DATE
+LEFT JOIN HR_ALL_ORGANIZATION_UNITS org 
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+WHERE a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE'
+  AND a.PRIMARY_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE
+ORDER BY org.NAME, mgr.DISPLAY_NAME, emp.DISPLAY_NAME;</code></pre>
+
+      <h2>Date-Effective vs Non Date-Effective</h2>
+
+      <p>Understanding the date-effective pattern differences is crucial:</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Entity</th>
+              <th>Date-Effective?</th>
+              <th>Date Columns</th>
+              <th>Data Pattern</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Person</strong></td>
+              <td>✅ Yes</td>
+              <td>EFFECTIVE_START_DATE, EFFECTIVE_END_DATE</td>
+              <td>Multiple rows for historical changes</td>
+            </tr>
+            <tr>
+              <td><strong>Work Relationship</strong></td>
+              <td>❌ No</td>
+              <td>START_DATE, TERMINATION_DATE</td>
+              <td>One row per employment contract</td>
+            </tr>
+            <tr>
+              <td><strong>Assignment</strong></td>
+              <td>✅ Yes</td>
+              <td>EFFECTIVE_START_DATE, EFFECTIVE_END_DATE</td>
+              <td>Multiple rows for historical changes</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="callout">
+        <p><strong>Critical:</strong> Always include date filters for Person and Assignment queries. Work Relationship queries should filter on START_DATE and TERMINATION_DATE based on your specific needs.</p>
+      </div>
+
+      <h2>Performance Considerations</h2>
+
+      <p>When working with these large tables, consider these performance optimization strategies:</p>
+
+      <h3>Indexing Strategy</h3>
+
+      <p>Oracle HCM provides standard indexes on these key columns:</p>
+      <ul>
+        <li><strong>Primary keys:</strong> PERSON_ID, ASSIGNMENT_ID, WORK_RELATIONSHIP_ID</li>
+        <li><strong>Date filters:</strong> EFFECTIVE_START_DATE, EFFECTIVE_END_DATE</li>
+        <li><strong>Status flags:</strong> PRIMARY_FLAG, CURRENT_EMPLOYEE_FLAG, ASSIGNMENT_STATUS_TYPE</li>
+        <li><strong>Lookup columns:</strong> ORGANIZATION_ID, JOB_ID, LOCATION_ID</li>
+      </ul>
+
+      <h3>Query Optimization Tips</h3>
+
+      <pre><code>-- Good: Filter early and use specific criteria
+SELECT p.PERSON_NUMBER, a.ASSIGNMENT_NUMBER
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON p.PERSON_ID = a.PERSON_ID
+  AND a.PRIMARY_FLAG = 'Y'                    -- Filter in JOIN
+  AND a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE'     -- Filter in JOIN
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'          -- Filter early
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE;
+
+-- Bad: Filter after joining large result sets
+SELECT p.PERSON_NUMBER, a.ASSIGNMENT_NUMBER
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON p.PERSON_ID = a.PERSON_ID
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND a.PRIMARY_FLAG = 'Y'                    -- Filter in WHERE (late)
+  AND a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE'     -- Filter in WHERE (late)
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE;</code></pre>
+
+      <h2>Common Data Model Pitfalls</h2>
+
+      <p>Avoid these common mistakes when working with Oracle HCM's data model:</p>
+
+      <h3>1. Forgetting Date-Effective Filters</h3>
+
+      <pre><code>-- Wrong: Missing date filters (returns historical data)
+SELECT COUNT(*) FROM PER_ALL_PEOPLE_F WHERE CURRENT_EMPLOYEE_FLAG = 'Y';
+
+-- Correct: Include date filters for current data
+SELECT COUNT(*) 
+FROM PER_ALL_PEOPLE_F 
+WHERE CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE;</code></pre>
+
+      <h3>2. Mixing Entity Levels</h3>
+
+      <pre><code>-- Wrong: Trying to get department from Person table
+SELECT p.PERSON_NUMBER, p.DEPARTMENT_NAME  -- DEPARTMENT_NAME not in Person!
+FROM PER_ALL_PEOPLE_F p;
+
+-- Correct: Get department from Assignment
+SELECT p.PERSON_NUMBER, org.NAME as DEPARTMENT_NAME
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_F a ON p.PERSON_ID = a.PERSON_ID
+JOIN HR_ALL_ORGANIZATION_UNITS org ON a.ORGANIZATION_ID = org.ORGANIZATION_ID;</code></pre>
+
+      <h3>3. Incorrect Primary Assignment Logic</h3>
+
+      <pre><code>-- Wrong: Not filtering for primary assignments
+SELECT p.PERSON_NUMBER, COUNT(a.ASSIGNMENT_ID) as ASSIGNMENT_COUNT
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_F a ON p.PERSON_ID = a.PERSON_ID
+GROUP BY p.PERSON_NUMBER;  -- May return multiple assignments per person
+
+-- Correct: Focus on primary assignments for headcount
+SELECT p.PERSON_NUMBER, a.ASSIGNMENT_NUMBER
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON p.PERSON_ID = a.PERSON_ID
+  AND a.PRIMARY_FLAG = 'Y';</code></pre>
+
+      <h2>Best Practices Summary</h2>
+
+      <p>Follow these best practices when working with Oracle HCM's core data model:</p>
+
+      <ul>
+        <li><strong>Always include date filters</strong> for Person and Assignment tables</li>
+        <li><strong>Use PRIMARY_FLAG = 'Y'</strong> to get the main assignment for each work relationship</li>
+        <li><strong>Choose the right entity</strong> based on what data you need:
+          <ul>
+            <li>Person-level attributes → PER_ALL_PEOPLE_F</li>
+            <li>Employment contracts → PER_WORK_RELATIONSHIPS</li>
+            <li>Job/organizational data → PER_ALL_ASSIGNMENTS_F</li>
+          </ul>
+        </li>
+        <li><strong>Understand cardinality</strong> - a person can have multiple work relationships and assignments</li>
+        <li><strong>Join efficiently</strong> by including filters in the JOIN conditions</li>
+        <li><strong>Test your queries</strong> with known data to verify accuracy</li>
+      </ul>
+
+      <div class="related-tables">
+        <a href="/table/PER_ALL_PEOPLE_F" class="table-link">PER_ALL_PEOPLE_F</a>
+        <a href="/table/PER_ALL_ASSIGNMENTS_F" class="table-link">PER_ALL_ASSIGNMENTS_F</a>
+        <a href="/table/PER_WORK_RELATIONSHIPS" class="table-link">PER_WORK_RELATIONSHIPS</a>
+        <a href="/table/HR_ALL_ORGANIZATION_UNITS" class="table-link">HR_ALL_ORGANIZATION_UNITS</a>
+        <a href="/table/PER_JOBS_F" class="table-link">PER_JOBS_F</a>
+        <a href="/table/PER_POSITIONS_F" class="table-link">PER_POSITIONS_F</a>
+      </div>
+
+      <p>Mastering these three core entities is fundamental to successful Oracle HCM development and reporting. Whether you're building <a href="/blog/oracle-hcm-rest-api-integration-guide">REST API integrations</a>, creating <a href="/blog/otbi-subject-area-guide">OTBI reports</a>, or writing <a href="/blog/sql-query-library">custom SQL queries</a>, understanding the Person-Work Relationship-Assignment model will make your work more accurate and efficient.</p>
+
+      <p>Remember that this data model reflects real-world employment complexity—people can be rehired, hold multiple positions, and change roles over time. The three-entity model provides the flexibility to handle these scenarios while maintaining data integrity and auditability.</p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="related-articles">
+        <h3>Related Articles</h3>
+        <ul class="related-list">
+          <li><a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)</a></li>
+          <li><a href="/blog/sql-query-library">Oracle HCM SQL Query Library & Examples</a></li>
+          <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Oracle Fusion HCM Tables Every Consultant Should Know</a></li>
+          <li><a href="/blog/oracle-hcm-rest-api-integration-guide">Oracle HCM REST API Integration Guide</a></li>
+          <li><a href="/blog/hdl-data-loader-guide">Oracle HCM HDL Data Loader Complete Guide</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle HCM REST API Integration Guide: Authentication, Endpoints & Examples | HCM Tables</title>
+  <meta name="title" content="Oracle HCM REST API Integration Guide: Authentication, Endpoints & Examples | HCM Tables">
+  <meta name="description" content="Complete guide to Oracle Fusion HCM REST API integration. Learn authentication, endpoints, error handling, and practical code examples for CRUD operations on HCM data.">
+  <meta name="keywords" content="Oracle HCM REST API, Oracle Fusion API authentication, HCM Cloud API endpoints, Oracle HCM integration guide, REST API examples, OAuth Oracle HCM, SCIM API Oracle">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-rest-api-integration-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-rest-api-integration-guide">
+  <meta property="og:title" content="Oracle HCM REST API Integration Guide: Authentication, Endpoints & Examples">
+  <meta property="og:description" content="Complete guide to Oracle Fusion HCM REST API integration with authentication, endpoints, and practical examples.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-hcm-rest-api-integration-guide">
+  <meta property="twitter:title" content="Oracle HCM REST API Integration Guide: Authentication, Endpoints & Examples">
+  <meta property="twitter:description" content="Learn Oracle Fusion HCM REST API integration with authentication, endpoints, and code examples.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle HCM REST API Integration Guide: Authentication, Endpoints & Examples",
+    "description": "Complete guide to Oracle Fusion HCM REST API integration. Learn authentication, endpoints, error handling, and practical code examples for CRUD operations on HCM data.",
+    "url": "https://hcm-tables.com/blog/oracle-hcm-rest-api-integration-guide",
+    "datePublished": "2026-02-10",
+    "dateModified": "2026-02-10",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/oracle-hcm-rest-api-integration-guide"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* Article Layout */
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header {
+      margin-bottom: 3rem;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content */
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-secondary);
+    }
+
+    .article-content th, .article-content td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-content th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .article-content td {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .article-content .mono {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    /* Callout boxes */
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .callout p {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Related tables/links */
+    .related-tables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .table-link {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--blue);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .table-link:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Footer */
+    .article-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 3rem;
+    }
+
+    .related-articles h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .related-list {
+      list-style: none;
+      margin: 0;
+    }
+
+    .related-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .related-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .related-list a:hover {
+      color: var(--blue);
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .article-container {
+        padding: 2rem 1rem 3rem;
+      }
+
+      .related-tables {
+        flex-direction: column;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about">About</a>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <div class="article-container">
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Oracle HCM REST API Integration Guide
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">API Integration</div>
+      <h1>Oracle HCM REST API Integration Guide: Authentication, Endpoints & Examples</h1>
+      <div class="article-meta">
+        Published February 10, 2026 • 15 min read
+      </div>
+    </header>
+
+    <div class="article-content">
+      <p>Oracle Fusion HCM Cloud provides comprehensive REST APIs that enable developers to integrate HCM data with external systems, build custom applications, and automate business processes. This guide covers everything you need to know about Oracle HCM REST API integration, from authentication to practical implementation examples.</p>
+
+      <p>The Oracle HCM REST APIs are built on industry standards (REST, JSON, OAuth 2.0) and provide access to all major HCM functional areas including Core HR, Talent Management, Payroll, Benefits, and Time & Labor. Whether you're building a custom HRIS portal, syncing data with third-party systems, or creating mobile apps, the HCM REST APIs provide the foundation for robust integrations.</p>
+
+      <h2>API Architecture Overview</h2>
+
+      <p>Oracle HCM Cloud exposes several categories of REST APIs, each designed for specific use cases:</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>API Category</th>
+              <th>Base URL Pattern</th>
+              <th>Primary Use Case</th>
+              <th>Authentication</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Core HR APIs</strong></td>
+              <td>/hcmRestApi/resources/</td>
+              <td>Person, assignment, organization data</td>
+              <td>Basic Auth / OAuth</td>
+            </tr>
+            <tr>
+              <td><strong>SCIM APIs</strong></td>
+              <td>/hcmRestApi/scim/</td>
+              <td>User provisioning, identity management</td>
+              <td>OAuth 2.0</td>
+            </tr>
+            <tr>
+              <td><strong>Talent APIs</strong></td>
+              <td>/hcmRestApi/resources/</td>
+              <td>Performance, goals, recruiting</td>
+              <td>Basic Auth / OAuth</td>
+            </tr>
+            <tr>
+              <td><strong>Payroll APIs</strong></td>
+              <td>/hcmRestApi/resources/</td>
+              <td>Pay runs, elements, balances</td>
+              <td>Basic Auth / OAuth</td>
+            </tr>
+            <tr>
+              <td><strong>Time & Labor APIs</strong></td>
+              <td>/hcmRestApi/resources/</td>
+              <td>Time cards, schedules, approvals</td>
+              <td>Basic Auth / OAuth</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Authentication Methods</h2>
+
+      <p>Oracle HCM Cloud supports multiple authentication methods. Choose the appropriate method based on your integration type and security requirements.</p>
+
+      <h3>Basic Authentication</h3>
+
+      <p>Basic authentication uses a username and password combination. While simple to implement, it's less secure than OAuth and should only be used for server-to-server integrations where credentials can be securely stored.</p>
+
+      <pre><code># Basic Auth Example (using cURL)
+curl -X GET \
+  https://your-hcm-instance.oraclecloud.com/hcmRestApi/resources/11.13.18.05/workers \
+  -H "Authorization: Basic $(echo -n 'username:password' | base64)" \
+  -H "Content-Type: application/json"</code></pre>
+
+      <h3>OAuth 2.0 (Recommended)</h3>
+
+      <p>OAuth 2.0 provides token-based authentication with better security and granular access control. Oracle HCM supports the Client Credentials grant type for machine-to-machine authentication.</p>
+
+      <p><strong>Step 1:</strong> Obtain Access Token</p>
+
+      <pre><code># Get OAuth Token
+curl -X POST \
+  https://your-hcm-instance.oraclecloud.com/oauth/v1/token \
+  -H "Content-Type: application/x-www-form-urlencoded" \
+  -H "Authorization: Basic $(echo -n 'client_id:client_secret' | base64)" \
+  -d "grant_type=client_credentials&scope=urn:opc:hcm:hcmapi:read,urn:opc:hcm:hcmapi:write"</code></pre>
+
+      <p><strong>Step 2:</strong> Use Access Token</p>
+
+      <pre><code># Use OAuth Token
+curl -X GET \
+  https://your-hcm-instance.oraclecloud.com/hcmRestApi/resources/11.13.18.05/workers \
+  -H "Authorization: Bearer your_access_token_here" \
+  -H "Content-Type: application/json"</code></pre>
+
+      <div class="callout">
+        <p><strong>Security Best Practice:</strong> Always use OAuth 2.0 for production integrations. Store client credentials securely and implement token refresh logic to handle expired tokens gracefully.</p>
+      </div>
+
+      <h2>Core API Endpoints</h2>
+
+      <p>Oracle HCM provides hundreds of REST endpoints. Here are the most commonly used endpoints organized by functional area:</p>
+
+      <h3>Person and Worker Management</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Endpoint</th>
+              <th>Method</th>
+              <th>Description</th>
+              <th>Key Parameters</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">/workers</td>
+              <td>GET</td>
+              <td>Get all active workers</td>
+              <td>q, limit, offset, fields</td>
+            </tr>
+            <tr>
+              <td class="mono">/workers/{WorkerId}</td>
+              <td>GET</td>
+              <td>Get specific worker details</td>
+              <td>expand, fields</td>
+            </tr>
+            <tr>
+              <td class="mono">/workers</td>
+              <td>POST</td>
+              <td>Create new worker</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td class="mono">/workers/{WorkerId}</td>
+              <td>PATCH</td>
+              <td>Update worker information</td>
+              <td>-</td>
+            </tr>
+            <tr>
+              <td class="mono">/persons</td>
+              <td>GET</td>
+              <td>Get person records</td>
+              <td>q, limit, offset</td>
+            </tr>
+            <tr>
+              <td class="mono">/workRelationships</td>
+              <td>GET</td>
+              <td>Get employment relationships</td>
+              <td>q, expand</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Assignment and Job Information</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Endpoint</th>
+              <th>Method</th>
+              <th>Description</th>
+              <th>Key Use Cases</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">/assignments</td>
+              <td>GET</td>
+              <td>Get worker assignments</td>
+              <td>Org structure, reporting lines</td>
+            </tr>
+            <tr>
+              <td class="mono">/jobs</td>
+              <td>GET</td>
+              <td>Get job definitions</td>
+              <td>Job catalog, requirements</td>
+            </tr>
+            <tr>
+              <td class="mono">/positions</td>
+              <td>GET</td>
+              <td>Get position information</td>
+              <td>Position-based org structures</td>
+            </tr>
+            <tr>
+              <td class="mono">/departments</td>
+              <td>GET</td>
+              <td>Get department hierarchy</td>
+              <td>Org charts, reporting</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Practical Integration Examples</h2>
+
+      <p>Let's explore practical examples of common HCM API integration scenarios.</p>
+
+      <h3>Example 1: Getting All Active Employees</h3>
+
+      <p>This example demonstrates how to retrieve all active employees with their basic information:</p>
+
+      <pre><code>import requests
+import json
+from base64 import b64encode
+
+class OracleHCMAPI:
+    def __init__(self, base_url, username, password):
+        self.base_url = base_url
+        self.auth_header = self._create_auth_header(username, password)
+    
+    def _create_auth_header(self, username, password):
+        credentials = f"{username}:{password}"
+        encoded = b64encode(credentials.encode()).decode()
+        return f"Basic {encoded}"
+    
+    def get_active_workers(self, limit=100):
+        """
+        Get all active workers with basic information
+        """
+        endpoint = f"{self.base_url}/hcmRestApi/resources/11.13.18.05/workers"
+        
+        headers = {
+            "Authorization": self.auth_header,
+            "Content-Type": "application/json"
+        }
+        
+        params = {
+            "q": "WorkTermsAssignment.AssignmentStatus='ACTIVE'",
+            "limit": limit,
+            "fields": "PersonNumber,DisplayName,FirstName,LastName,StartDate,BusinessUnitName"
+        }
+        
+        response = requests.get(endpoint, headers=headers, params=params)
+        
+        if response.status_code == 200:
+            return response.json()
+        else:
+            raise Exception(f"API Error: {response.status_code} - {response.text}")
+
+# Usage
+api = OracleHCMAPI(
+    base_url="https://your-instance.oraclecloud.com",
+    username="your_username",
+    password="your_password"
+)
+
+try:
+    workers = api.get_active_workers()
+    print(f"Found {workers['count']} active workers")
+    
+    for worker in workers['items']:
+        print(f"Employee: {worker['DisplayName']} ({worker['PersonNumber']})")
+        
+except Exception as e:
+    print(f"Error: {e}")</code></pre>
+
+      <h3>Example 2: Creating a New Employee</h3>
+
+      <p>This example shows how to create a new employee record with basic assignment information:</p>
+
+      <pre><code>def create_employee(self, employee_data):
+    """
+    Create a new employee with assignment
+    """
+    endpoint = f"{self.base_url}/hcmRestApi/resources/11.13.18.05/workers"
+    
+    headers = {
+        "Authorization": self.auth_header,
+        "Content-Type": "application/json"
+    }
+    
+    # Sample payload structure
+    payload = {
+        "FirstName": employee_data["first_name"],
+        "LastName": employee_data["last_name"],
+        "StartDate": employee_data["start_date"],  # YYYY-MM-DD format
+        "LegalEmployerName": employee_data["legal_employer"],
+        "BusinessUnitName": employee_data["business_unit"],
+        "PersonTypeCode": "EMP",  # Employee
+        "WorkerType": "E",  # Employee
+        "WorkTermsAssignment": [
+            {
+                "AssignmentName": "Primary Assignment",
+                "AssignmentType": "E",  # Employee
+                "WorkerType": "E",
+                "PrimaryFlag": True,
+                "AssignmentStatus": "ACTIVE",
+                "StartDate": employee_data["start_date"],
+                "JobCode": employee_data.get("job_code", "DEFAULT_JOB"),
+                "DepartmentName": employee_data.get("department"),
+                "LocationName": employee_data.get("location")
+            }
+        ]
+    }
+    
+    response = requests.post(endpoint, headers=headers, json=payload)
+    
+    if response.status_code == 201:
+        return response.json()
+    else:
+        raise Exception(f"Failed to create employee: {response.status_code} - {response.text}")
+
+# Example usage
+new_employee = {
+    "first_name": "John",
+    "last_name": "Doe",
+    "start_date": "2026-02-15",
+    "legal_employer": "ACME Corporation",
+    "business_unit": "HR Shared Services",
+    "job_code": "HR_ANALYST",
+    "department": "Human Resources",
+    "location": "New York Office"
+}
+
+try:
+    result = api.create_employee(new_employee)
+    print(f"Successfully created employee: {result['PersonNumber']}")
+except Exception as e:
+    print(f"Error creating employee: {e}")</code></pre>
+
+      <h3>Example 3: Bulk Data Synchronization</h3>
+
+      <p>For large-scale integrations, you'll often need to synchronize data between Oracle HCM and external systems. This example demonstrates a bulk sync pattern:</p>
+
+      <pre><code>import time
+from datetime import datetime, timedelta
+
+class HCMBulkSync:
+    def __init__(self, api_client):
+        self.api = api_client
+        
+    def sync_employee_changes(self, last_sync_date):
+        """
+        Sync all employee changes since last sync date
+        """
+        # Get all workers modified since last sync
+        query = f"LastUpdateDate >= '{last_sync_date}'"
+        
+        endpoint = f"{self.api.base_url}/hcmRestApi/resources/11.13.18.05/workers"
+        
+        headers = {
+            "Authorization": self.api.auth_header,
+            "Content-Type": "application/json"
+        }
+        
+        all_changes = []
+        offset = 0
+        limit = 100
+        
+        while True:
+            params = {
+                "q": query,
+                "limit": limit,
+                "offset": offset,
+                "fields": "PersonId,PersonNumber,DisplayName,LastUpdateDate,WorkTermsAssignment",
+                "expand": "WorkTermsAssignment"
+            }
+            
+            response = requests.get(endpoint, headers=headers, params=params)
+            
+            if response.status_code != 200:
+                raise Exception(f"Sync failed: {response.status_code} - {response.text}")
+            
+            data = response.json()
+            items = data.get('items', [])
+            
+            if not items:
+                break
+                
+            all_changes.extend(items)
+            
+            # Rate limiting - Oracle recommends max 300 requests per minute
+            time.sleep(0.2)
+            
+            offset += limit
+            
+            # Check if we have more data
+            if len(items) < limit:
+                break
+        
+        return all_changes
+    
+    def process_employee_updates(self, changes):
+        """
+        Process the changes and update external system
+        """
+        for employee in changes:
+            try:
+                # Transform Oracle data to external system format
+                external_data = self.transform_employee_data(employee)
+                
+                # Update external system (placeholder)
+                self.update_external_system(external_data)
+                
+                print(f"Synced: {employee['DisplayName']} ({employee['PersonNumber']})")
+                
+            except Exception as e:
+                print(f"Failed to sync {employee['PersonNumber']}: {e}")
+                continue
+    
+    def transform_employee_data(self, oracle_employee):
+        """
+        Transform Oracle HCM data structure to external system format
+        """
+        assignment = oracle_employee.get('WorkTermsAssignment', [{}])[0]
+        
+        return {
+            "employee_id": oracle_employee['PersonNumber'],
+            "full_name": oracle_employee['DisplayName'],
+            "department": assignment.get('DepartmentName'),
+            "job_title": assignment.get('JobName'),
+            "status": assignment.get('AssignmentStatus'),
+            "last_modified": oracle_employee['LastUpdateDate']
+        }
+    
+    def update_external_system(self, employee_data):
+        """
+        Update external system with employee data
+        Implement your external system API calls here
+        """
+        # Placeholder for external system update
+        pass
+
+# Usage
+sync_manager = HCMBulkSync(api)
+
+# Sync changes from last 24 hours
+last_sync = (datetime.now() - timedelta(days=1)).strftime('%Y-%m-%d')
+changes = sync_manager.sync_employee_changes(last_sync)
+print(f"Found {len(changes)} employee changes since {last_sync}")
+
+sync_manager.process_employee_updates(changes)</code></pre>
+
+      <h2>Error Handling and Best Practices</h2>
+
+      <p>Robust error handling is crucial for production API integrations. Oracle HCM APIs return standard HTTP status codes along with detailed error messages.</p>
+
+      <h3>Common HTTP Status Codes</h3>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Status Code</th>
+              <th>Meaning</th>
+              <th>Common Causes</th>
+              <th>Recommended Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>200</td>
+              <td>Success</td>
+              <td>Request processed successfully</td>
+              <td>Continue processing</td>
+            </tr>
+            <tr>
+              <td>201</td>
+              <td>Created</td>
+              <td>Resource created successfully</td>
+              <td>Continue processing</td>
+            </tr>
+            <tr>
+              <td>400</td>
+              <td>Bad Request</td>
+              <td>Invalid payload, missing required fields</td>
+              <td>Check request format and data</td>
+            </tr>
+            <tr>
+              <td>401</td>
+              <td>Unauthorized</td>
+              <td>Invalid credentials, expired token</td>
+              <td>Refresh authentication</td>
+            </tr>
+            <tr>
+              <td>403</td>
+              <td>Forbidden</td>
+              <td>Insufficient privileges</td>
+              <td>Check user roles and permissions</td>
+            </tr>
+            <tr>
+              <td>404</td>
+              <td>Not Found</td>
+              <td>Resource doesn't exist</td>
+              <td>Verify resource ID and endpoint</td>
+            </tr>
+            <tr>
+              <td>429</td>
+              <td>Rate Limited</td>
+              <td>Too many requests</td>
+              <td>Implement backoff and retry</td>
+            </tr>
+            <tr>
+              <td>500</td>
+              <td>Server Error</td>
+              <td>Internal Oracle server error</td>
+              <td>Retry after delay, contact support</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Implementing Robust Error Handling</h3>
+
+      <pre><code>import time
+import random
+from requests.exceptions import RequestException
+
+class OracleHCMAPIWithRetry:
+    def __init__(self, base_url, username, password, max_retries=3):
+        self.base_url = base_url
+        self.auth_header = self._create_auth_header(username, password)
+        self.max_retries = max_retries
+    
+    def _create_auth_header(self, username, password):
+        credentials = f"{username}:{password}"
+        encoded = b64encode(credentials.encode()).decode()
+        return f"Basic {encoded}"
+    
+    def _make_request_with_retry(self, method, endpoint, **kwargs):
+        """
+        Make HTTP request with exponential backoff retry logic
+        """
+        for attempt in range(self.max_retries + 1):
+            try:
+                response = requests.request(method, endpoint, **kwargs)
+                
+                if response.status_code == 429:  # Rate limited
+                    if attempt < self.max_retries:
+                        wait_time = (2 ** attempt) + random.uniform(0, 1)
+                        print(f"Rate limited. Waiting {wait_time:.2f} seconds...")
+                        time.sleep(wait_time)
+                        continue
+                    else:
+                        raise Exception("Max retries reached due to rate limiting")
+                
+                elif response.status_code >= 500:  # Server error
+                    if attempt < self.max_retries:
+                        wait_time = (2 ** attempt) + random.uniform(0, 1)
+                        print(f"Server error {response.status_code}. Retrying in {wait_time:.2f} seconds...")
+                        time.sleep(wait_time)
+                        continue
+                    else:
+                        raise Exception(f"Server error {response.status_code}: {response.text}")
+                
+                elif response.status_code == 401:  # Unauthorized
+                    raise Exception("Authentication failed. Check credentials.")
+                
+                elif response.status_code == 403:  # Forbidden
+                    raise Exception("Access denied. Check user permissions.")
+                
+                elif 400 <= response.status_code < 500:  # Client error
+                    error_detail = response.json() if response.content else response.text
+                    raise Exception(f"Client error {response.status_code}: {error_detail}")
+                
+                return response
+                
+            except RequestException as e:
+                if attempt < self.max_retries:
+                    wait_time = (2 ** attempt) + random.uniform(0, 1)
+                    print(f"Network error: {e}. Retrying in {wait_time:.2f} seconds...")
+                    time.sleep(wait_time)
+                    continue
+                else:
+                    raise Exception(f"Network error after {self.max_retries} retries: {e}")
+        
+        raise Exception(f"Max retries ({self.max_retries}) exceeded")
+    
+    def get_workers_safe(self, **params):
+        """
+        Get workers with comprehensive error handling
+        """
+        endpoint = f"{self.base_url}/hcmRestApi/resources/11.13.18.05/workers"
+        
+        headers = {
+            "Authorization": self.auth_header,
+            "Content-Type": "application/json"
+        }
+        
+        try:
+            response = self._make_request_with_retry("GET", endpoint, 
+                                                   headers=headers, 
+                                                   params=params)
+            
+            if response.status_code == 200:
+                return response.json()
+            else:
+                raise Exception(f"Unexpected status code: {response.status_code}")
+                
+        except Exception as e:
+            print(f"Error retrieving workers: {e}")
+            raise</code></pre>
+
+      <h2>Performance Optimization</h2>
+
+      <p>When working with Oracle HCM APIs at scale, performance optimization becomes critical. Here are key strategies:</p>
+
+      <h3>Pagination and Limiting</h3>
+
+      <p>Always use pagination to avoid timeouts and reduce memory usage:</p>
+
+      <pre><code># Good - Use pagination
+params = {
+    "limit": 100,      # Reasonable page size
+    "offset": 0,       # Start position
+    "fields": "PersonNumber,DisplayName,LastUpdateDate"  # Only needed fields
+}
+
+# Bad - Requesting all data at once
+params = {
+    "limit": 10000     # Too large, may cause timeout
+}</code></pre>
+
+      <h3>Field Selection</h3>
+
+      <p>Use the <code>fields</code> parameter to retrieve only required data:</p>
+
+      <pre><code># Good - Selective fields
+"fields": "PersonNumber,FirstName,LastName,WorkTermsAssignment.JobName"
+
+# Bad - All fields (default)
+# No fields parameter = all fields returned</code></pre>
+
+      <h3>Query Optimization</h3>
+
+      <p>Use efficient query patterns with indexed fields when possible:</p>
+
+      <pre><code># Good - Query on indexed fields
+"q": "PersonNumber='12345'"
+"q": "LastUpdateDate >= '2026-01-01'"
+
+# Less efficient - Query on non-indexed fields
+"q": "DisplayName LIKE 'John%'"</code></pre>
+
+      <h2>SCIM API for User Provisioning</h2>
+
+      <p>Oracle HCM also provides SCIM (System for Cross-domain Identity Management) APIs specifically designed for user provisioning and identity management scenarios:</p>
+
+      <pre><code># SCIM User Creation Example
+def create_scim_user(self, user_data):
+    """
+    Create user using SCIM API
+    """
+    endpoint = f"{self.base_url}/hcmRestApi/scim/Users"
+    
+    headers = {
+        "Authorization": self.auth_header,
+        "Content-Type": "application/scim+json"
+    }
+    
+    payload = {
+        "schemas": ["urn:ietf:params:scim:schemas:core:2.0:User"],
+        "userName": user_data["username"],
+        "name": {
+            "givenName": user_data["first_name"],
+            "familyName": user_data["last_name"],
+            "formatted": f"{user_data['first_name']} {user_data['last_name']}"
+        },
+        "emails": [
+            {
+                "value": user_data["email"],
+                "type": "work",
+                "primary": True
+            }
+        ],
+        "active": True
+    }
+    
+    response = requests.post(endpoint, headers=headers, json=payload)
+    return response.json()</code></pre>
+
+      <h2>Integration with Oracle HCM Tables</h2>
+
+      <p>The REST APIs provide a complementary approach to direct database access. While <a href="/blog/sql-query-library">SQL queries</a> give you full access to the underlying <a href="/blog/top-50-oracle-fusion-hcm-tables">Oracle HCM tables</a>, REST APIs provide:</p>
+
+      <ul>
+        <li><strong>Business logic validation</strong> - APIs enforce business rules and validations</li>
+        <li><strong>Security controls</strong> - APIs respect role-based access controls</li>
+        <li><strong>Audit trails</strong> - API operations are automatically logged</li>
+        <li><strong>Version compatibility</strong> - APIs provide stable interfaces across Oracle updates</li>
+      </ul>
+
+      <p>For reporting and analytics, you might query tables like <a href="/table/PER_ALL_PEOPLE_F">PER_ALL_PEOPLE_F</a> directly. For transactional operations (creating, updating workers), use the REST APIs to ensure data integrity and compliance.</p>
+
+      <div class="callout">
+        <p><strong>Integration Strategy:</strong> Use REST APIs for transactional operations (CRUD) and direct table access for complex reporting queries. This hybrid approach maximizes both performance and data integrity.</p>
+      </div>
+
+      <h2>Troubleshooting Common Issues</h2>
+
+      <h3>Authentication Failures</h3>
+
+      <p>If you're experiencing 401 errors, verify:</p>
+      <ul>
+        <li>Username and password are correct</li>
+        <li>User has the required roles (HCM Application Developer, Integration Specialist)</li>
+        <li>OAuth client is properly configured with correct scopes</li>
+        <li>Token hasn't expired (OAuth tokens typically expire in 1 hour)</li>
+      </ul>
+
+      <h3>Data Validation Errors</h3>
+
+      <p>For 400 errors during data creation/updates:</p>
+      <ul>
+        <li>Check required fields are included</li>
+        <li>Verify date formats (use YYYY-MM-DD)</li>
+        <li>Ensure lookup values exist (job codes, location names, etc.)</li>
+        <li>Review <a href="/blog/lookup-codes-reference">Oracle HCM lookup codes</a> for valid values</li>
+      </ul>
+
+      <h3>Performance Issues</h3>
+
+      <p>If API calls are slow or timing out:</p>
+      <ul>
+        <li>Reduce page size (limit parameter)</li>
+        <li>Use field selection to minimize data transfer</li>
+        <li>Implement proper pagination logic</li>
+        <li>Consider async processing for large data sets</li>
+      </ul>
+
+      <h2>Related Resources</h2>
+
+      <div class="related-tables">
+        <a href="/table/PER_ALL_PEOPLE_F" class="table-link">PER_ALL_PEOPLE_F</a>
+        <a href="/table/PER_ALL_ASSIGNMENTS_F" class="table-link">PER_ALL_ASSIGNMENTS_F</a>
+        <a href="/table/PER_WORK_RELATIONSHIPS" class="table-link">PER_WORK_RELATIONSHIPS</a>
+        <a href="/table/HR_ALL_ORGANIZATION_UNITS" class="table-link">HR_ALL_ORGANIZATION_UNITS</a>
+        <a href="/table/PER_JOBS_F" class="table-link">PER_JOBS_F</a>
+        <a href="/table/PER_POSITIONS_F" class="table-link">PER_POSITIONS_F</a>
+      </div>
+
+      <p>Oracle HCM REST APIs provide powerful integration capabilities when implemented correctly. Start with simple read operations to familiarize yourself with the data structures, then gradually implement more complex scenarios like bulk data synchronization and user provisioning. Always test thoroughly in a development environment before deploying to production.</p>
+
+      <p>For more advanced integration scenarios, explore combining REST APIs with <a href="/blog/hdl-data-loader-guide">HDL data loading</a> for bulk operations and <a href="/blog/fast-formula-examples">Fast Formulas</a> for custom business logic implementation.</p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="related-articles">
+        <h3>Related Articles</h3>
+        <ul class="related-list">
+          <li><a href="/blog/hdl-data-loader-guide">Oracle HCM HDL Data Loader Complete Guide</a></li>
+          <li><a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)</a></li>
+          <li><a href="/blog/sql-query-library">Oracle HCM SQL Query Library & Examples</a></li>
+          <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Oracle Fusion HCM Tables Every Consultant Should Know</a></li>
+          <li><a href="/blog/lookup-codes-reference">Oracle HCM Lookup Codes Reference Guide</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

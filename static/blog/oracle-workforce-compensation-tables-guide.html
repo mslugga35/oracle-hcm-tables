@@ -1,0 +1,1487 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle Workforce Compensation Tables Complete Guide | HCM Tables</title>
+  <meta name="title" content="Oracle Workforce Compensation Tables Complete Guide | HCM Tables">
+  <meta name="description" content="Master Oracle HCM Workforce Compensation tables: salary management, compensation plans, merit increases, equity awards with practical SQL examples and reporting queries.">
+  <meta name="keywords" content="Oracle compensation tables, CMP tables Oracle, salary management Oracle HCM, compensation plans, merit increases, equity compensation, Oracle workforce compensation database">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/oracle-workforce-compensation-tables-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/oracle-workforce-compensation-tables-guide">
+  <meta property="og:title" content="Oracle Workforce Compensation Tables Complete Guide">
+  <meta property="og:description" content="Master Oracle HCM Workforce Compensation tables with practical SQL examples and reporting queries.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-workforce-compensation-tables-guide">
+  <meta property="twitter:title" content="Oracle Workforce Compensation Tables Complete Guide">
+  <meta property="twitter:description" content="Learn Oracle Workforce Compensation database structure with practical examples.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle Workforce Compensation Tables Complete Guide",
+    "description": "Master Oracle HCM Workforce Compensation tables: salary management, compensation plans, merit increases, equity awards with practical SQL examples and reporting queries.",
+    "url": "https://hcm-tables.com/blog/oracle-workforce-compensation-tables-guide",
+    "datePublished": "2026-02-10",
+    "dateModified": "2026-02-10",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/oracle-workforce-compensation-tables-guide"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* Article Layout */
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header {
+      margin-bottom: 3rem;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content */
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-secondary);
+    }
+
+    .article-content th, .article-content td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-content th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .article-content td {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .article-content .mono {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    /* Callout boxes */
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .callout p {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    .callout.security {
+      border-left-color: var(--yellow);
+    }
+
+    /* Related tables/links */
+    .related-tables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .table-link {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--blue);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .table-link:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Compensation Flow */
+    .comp-flow {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .comp-step {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--green);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin: 1rem;
+      display: inline-block;
+      min-width: 130px;
+      text-align: center;
+    }
+
+    .comp-title {
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .comp-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .comp-arrow {
+      font-size: 1.2rem;
+      color: var(--green);
+      margin: 0 0.5rem;
+    }
+
+    /* Footer */
+    .article-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 3rem;
+    }
+
+    .related-articles h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .related-list {
+      list-style: none;
+      margin: 0;
+    }
+
+    .related-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .related-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .related-list a:hover {
+      color: var(--blue);
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .article-container {
+        padding: 2rem 1rem 3rem;
+      }
+
+      .related-tables {
+        flex-direction: column;
+      }
+
+      .comp-flow {
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .comp-step {
+        display: block;
+        margin: 1rem auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about">About</a>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <div class="article-container">
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Oracle Workforce Compensation Tables Guide
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">Compensation Management</div>
+      <h1>Oracle Workforce Compensation Tables Complete Guide</h1>
+      <div class="article-meta">
+        Published February 10, 2026 • 19 min read
+      </div>
+    </header>
+
+    <div class="article-content">
+      <p>Oracle Fusion HCM's Workforce Compensation module provides comprehensive salary management, merit planning, and equity compensation capabilities. Understanding the underlying database structure is essential for compensation analysts, HR professionals, and developers who need to create custom reports, analyze pay equity, or integrate with external compensation systems.</p>
+
+      <p>This guide covers the core compensation tables, their relationships, and practical SQL examples for common compensation scenarios. From basic salary reporting to complex merit increase calculations and equity grant tracking, you'll learn how to leverage Oracle's compensation data model effectively.</p>
+
+      <h2>Compensation Data Model Overview</h2>
+
+      <p>Oracle's Workforce Compensation follows a flexible data model that supports various compensation components including base salary, variable pay, bonuses, stock options, and benefits. The model accommodates complex compensation structures while maintaining historical accuracy and audit trails.</p>
+
+      <div class="comp-flow">
+        <div class="comp-step">
+          <div class="comp-title">Compensation Plans</div>
+          <div class="comp-subtitle">Plan structure</div>
+        </div>
+        <span class="comp-arrow">→</span>
+        <div class="comp-step">
+          <div class="comp-title">Eligibility</div>
+          <div class="comp-subtitle">Employee access</div>
+        </div>
+        <span class="comp-arrow">→</span>
+        <div class="comp-step">
+          <div class="comp-title">Components</div>
+          <div class="comp-subtitle">Salary elements</div>
+        </div>
+        <span class="comp-arrow">→</span>
+        <div class="comp-step">
+          <div class="comp-title">Awards</div>
+          <div class="comp-subtitle">Individual grants</div>
+        </div>
+        <span class="comp-arrow">→</span>
+        <div class="comp-step">
+          <div class="comp-title">Payments</div>
+          <div class="comp-subtitle">Payroll impact</div>
+        </div>
+      </div>
+
+      <p>This architecture supports diverse compensation strategies while ensuring compliance with local regulations and providing the flexibility needed for global organizations.</p>
+
+      <h2>Core Compensation Tables</h2>
+
+      <h3>CMP_SALARY - Current Salary Information</h3>
+
+      <p>The <code>CMP_SALARY</code> table stores current base salary information for employees. This is the primary table for salary-related reporting and analysis.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">SALARY_ID</td>
+              <td>Unique salary record identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td>Employee identifier</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+            <tr>
+              <td class="mono">ASSIGNMENT_ID</td>
+              <td>Assignment context</td>
+              <td>Links to PER_ALL_ASSIGNMENTS_F</td>
+            </tr>
+            <tr>
+              <td class="mono">SALARY_BASIS_ID</td>
+              <td>Salary frequency/basis</td>
+              <td>Links to PER_SALARY_BASIS</td>
+            </tr>
+            <tr>
+              <td class="mono">SALARY_AMOUNT</td>
+              <td>Base salary amount</td>
+              <td>Primary compensation value</td>
+            </tr>
+            <tr>
+              <td class="mono">CURRENCY_CODE</td>
+              <td>Salary currency</td>
+              <td>Multi-currency support</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_START_DATE</td>
+              <td>When salary became effective</td>
+              <td>Date-effective tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_END_DATE</td>
+              <td>When salary expires/changed</td>
+              <td>Date-effective tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">CHANGE_REASON</td>
+              <td>Reason for salary change</td>
+              <td>Audit trail and reporting</td>
+            </tr>
+            <tr>
+              <td class="mono">MULTIPLE</td>
+              <td>Multiplier for salary basis</td>
+              <td>Calculation factor</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Current Salary Summary</h3>
+
+      <pre><code>-- Current salary information with employee details
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    a.ASSIGNMENT_NUMBER,
+    s.SALARY_AMOUNT,
+    s.CURRENCY_CODE,
+    sb.NAME as SALARY_BASIS,
+    s.EFFECTIVE_START_DATE,
+    s.CHANGE_REASON,
+    org.NAME as DEPARTMENT,
+    j.NAME as JOB_TITLE
+FROM CMP_SALARY s
+JOIN PER_ALL_PEOPLE_F p 
+  ON s.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON s.ASSIGNMENT_ID = a.ASSIGNMENT_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE 
+                          AND a.EFFECTIVE_END_DATE
+LEFT JOIN PER_SALARY_BASIS sb 
+  ON s.SALARY_BASIS_ID = sb.SALARY_BASIS_ID
+LEFT JOIN HR_ALL_ORGANIZATION_UNITS org 
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+LEFT JOIN PER_JOBS j 
+  ON a.JOB_ID = j.JOB_ID
+  AND TRUNC(SYSDATE) BETWEEN j.EFFECTIVE_START_DATE 
+                          AND j.EFFECTIVE_END_DATE
+WHERE TRUNC(SYSDATE) BETWEEN s.EFFECTIVE_START_DATE 
+                          AND s.EFFECTIVE_END_DATE
+  AND p.CURRENT_EMPLOYEE_FLAG = 'Y'
+ORDER BY p.PERSON_NUMBER;</code></pre>
+
+      <h3>CMP_COMPENSATION_PLANS - Plan Configuration</h3>
+
+      <p>This table defines compensation plans including eligibility rules, budget allocations, and plan parameters used for merit increases, bonuses, and other compensation activities.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">PLAN_ID</td>
+              <td>Unique plan identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">PLAN_NAME</td>
+              <td>Compensation plan name</td>
+              <td>User-friendly identification</td>
+            </tr>
+            <tr>
+              <td class="mono">PLAN_TYPE_CODE</td>
+              <td>Type of compensation plan</td>
+              <td>MERIT, BONUS, EQUITY, etc.</td>
+            </tr>
+            <tr>
+              <td class="mono">PLAN_PERIOD_START</td>
+              <td>Plan effective start date</td>
+              <td>Planning cycle definition</td>
+            </tr>
+            <tr>
+              <td class="mono">PLAN_PERIOD_END</td>
+              <td>Plan effective end date</td>
+              <td>Planning cycle definition</td>
+            </tr>
+            <tr>
+              <td class="mono">BUDGET_AMOUNT</td>
+              <td>Total plan budget</td>
+              <td>Budget management</td>
+            </tr>
+            <tr>
+              <td class="mono">BUDGET_CURRENCY</td>
+              <td>Budget currency</td>
+              <td>Multi-currency support</td>
+            </tr>
+            <tr>
+              <td class="mono">STATUS</td>
+              <td>Plan status</td>
+              <td>ACTIVE, CLOSED, DRAFT</td>
+            </tr>
+            <tr>
+              <td class="mono">AUTO_APPROVE_FLAG</td>
+              <td>Automatic approval setting</td>
+              <td>Workflow configuration</td>
+            </tr>
+            <tr>
+              <td class="mono">PRORATING_ENABLED</td>
+              <td>Allow prorated awards</td>
+              <td>Partial period handling</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Active Compensation Plans</h3>
+
+      <pre><code>-- Active compensation plans with budget utilization
+WITH plan_usage AS (
+    SELECT 
+        ca.PLAN_ID,
+        COUNT(*) as TOTAL_AWARDS,
+        SUM(ca.AWARD_AMOUNT) as TOTAL_AWARDED,
+        AVG(ca.AWARD_AMOUNT) as AVERAGE_AWARD
+    FROM CMP_COMPENSATION_AWARDS ca
+    WHERE ca.STATUS IN ('APPROVED', 'PROCESSED')
+    GROUP BY ca.PLAN_ID
+)
+SELECT 
+    cp.PLAN_NAME,
+    cp.PLAN_TYPE_CODE,
+    cp.PLAN_PERIOD_START,
+    cp.PLAN_PERIOD_END,
+    cp.BUDGET_AMOUNT,
+    cp.BUDGET_CURRENCY,
+    NVL(pu.TOTAL_AWARDED, 0) as AMOUNT_AWARDED,
+    cp.BUDGET_AMOUNT - NVL(pu.TOTAL_AWARDED, 0) as REMAINING_BUDGET,
+    ROUND((NVL(pu.TOTAL_AWARDED, 0) / cp.BUDGET_AMOUNT) * 100, 2) as BUDGET_UTILIZED_PCT,
+    NVL(pu.TOTAL_AWARDS, 0) as NUMBER_OF_AWARDS,
+    ROUND(NVL(pu.AVERAGE_AWARD, 0), 2) as AVERAGE_AWARD_AMOUNT
+FROM CMP_COMPENSATION_PLANS cp
+LEFT JOIN plan_usage pu ON cp.PLAN_ID = pu.PLAN_ID
+WHERE cp.STATUS = 'ACTIVE'
+  AND TRUNC(SYSDATE) BETWEEN cp.PLAN_PERIOD_START 
+                          AND cp.PLAN_PERIOD_END
+ORDER BY cp.PLAN_TYPE_CODE, cp.PLAN_NAME;</code></pre>
+
+      <h3>CMP_COMPENSATION_AWARDS - Individual Awards</h3>
+
+      <p>This table stores individual compensation awards including merit increases, bonuses, stock options, and other variable compensation components granted to employees.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">AWARD_ID</td>
+              <td>Unique award identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td>Award recipient</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+            <tr>
+              <td class="mono">PLAN_ID</td>
+              <td>Compensation plan</td>
+              <td>Foreign key to CMP_COMPENSATION_PLANS</td>
+            </tr>
+            <tr>
+              <td class="mono">COMPONENT_ID</td>
+              <td>Compensation component</td>
+              <td>Links to CMP_SALARY_COMPONENTS</td>
+            </tr>
+            <tr>
+              <td class="mono">AWARD_AMOUNT</td>
+              <td>Monetary value of award</td>
+              <td>Compensation value</td>
+            </tr>
+            <tr>
+              <td class="mono">AWARD_CURRENCY</td>
+              <td>Award currency</td>
+              <td>Multi-currency support</td>
+            </tr>
+            <tr>
+              <td class="mono">AWARD_DATE</td>
+              <td>When award was granted</td>
+              <td>Grant date tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_DATE</td>
+              <td>When award becomes effective</td>
+              <td>Implementation timing</td>
+            </tr>
+            <tr>
+              <td class="mono">STATUS</td>
+              <td>Award status</td>
+              <td>PENDING, APPROVED, PROCESSED</td>
+            </tr>
+            <tr>
+              <td class="mono">PERCENTAGE_INCREASE</td>
+              <td>Percentage increase (for merits)</td>
+              <td>Increase calculation</td>
+            </tr>
+            <tr>
+              <td class="mono">JUSTIFICATION</td>
+              <td>Award rationale</td>
+              <td>Documentation</td>
+            </tr>
+            <tr>
+              <td class="mono">MANAGER_ID</td>
+              <td>Recommending manager</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Merit Increase Analysis</h3>
+
+      <pre><code>-- Merit increase analysis by department and performance rating
+WITH performance_data AS (
+    SELECT 
+        ca.PERSON_ID,
+        ca.AWARD_AMOUNT,
+        ca.PERCENTAGE_INCREASE,
+        -- Assuming performance rating is stored in a related table
+        -- or captured in justification/comments
+        CASE 
+            WHEN UPPER(ca.JUSTIFICATION) LIKE '%EXCEED%' THEN 'Exceeds Expectations'
+            WHEN UPPER(ca.JUSTIFICATION) LIKE '%MEETS%' THEN 'Meets Expectations'
+            WHEN UPPER(ca.JUSTIFICATION) LIKE '%BELOW%' THEN 'Below Expectations'
+            ELSE 'Not Rated'
+        END as PERFORMANCE_RATING
+    FROM CMP_COMPENSATION_AWARDS ca
+    JOIN CMP_COMPENSATION_PLANS cp ON ca.PLAN_ID = cp.PLAN_ID
+    WHERE cp.PLAN_TYPE_CODE = 'MERIT'
+      AND ca.STATUS = 'APPROVED'
+      AND ca.EFFECTIVE_DATE >= TRUNC(SYSDATE, 'YYYY')  -- Current year
+)
+SELECT 
+    org.NAME as DEPARTMENT,
+    pd.PERFORMANCE_RATING,
+    COUNT(*) as EMPLOYEE_COUNT,
+    ROUND(AVG(pd.PERCENTAGE_INCREASE), 2) as AVG_INCREASE_PCT,
+    ROUND(MIN(pd.PERCENTAGE_INCREASE), 2) as MIN_INCREASE_PCT,
+    ROUND(MAX(pd.PERCENTAGE_INCREASE), 2) as MAX_INCREASE_PCT,
+    ROUND(AVG(pd.AWARD_AMOUNT), 0) as AVG_INCREASE_AMOUNT
+FROM performance_data pd
+JOIN PER_ALL_PEOPLE_F p 
+  ON pd.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON p.PERSON_ID = a.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE 
+                          AND a.EFFECTIVE_END_DATE
+  AND a.PRIMARY_FLAG = 'Y'
+JOIN HR_ALL_ORGANIZATION_UNITS org 
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+GROUP BY org.NAME, pd.PERFORMANCE_RATING
+ORDER BY org.NAME, pd.PERFORMANCE_RATING;</code></pre>
+
+      <h3>CMP_SALARY_COMPONENTS - Compensation Components</h3>
+
+      <p>This table defines the various compensation components such as base salary, bonuses, allowances, and benefits that can be included in compensation plans.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">COMPONENT_ID</td>
+              <td>Unique component identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">COMPONENT_NAME</td>
+              <td>Component name</td>
+              <td>User-friendly identification</td>
+            </tr>
+            <tr>
+              <td class="mono">COMPONENT_TYPE</td>
+              <td>Type classification</td>
+              <td>BASE_SALARY, BONUS, ALLOWANCE, etc.</td>
+            </tr>
+            <tr>
+              <td class="mono">CALCULATION_METHOD</td>
+              <td>How component is calculated</td>
+              <td>FIXED, PERCENTAGE, FORMULA</td>
+            </tr>
+            <tr>
+              <td class="mono">PAYROLL_ELEMENT_TYPE_ID</td>
+              <td>Links to payroll elements</td>
+              <td>Payroll integration</td>
+            </tr>
+            <tr>
+              <td class="mono">TAXABLE_FLAG</td>
+              <td>Subject to taxation</td>
+              <td>Tax reporting</td>
+            </tr>
+            <tr>
+              <td class="mono">CONTRIBUTION_FLAG</td>
+              <td>Counts toward benefit calculations</td>
+              <td>Benefits integration</td>
+            </tr>
+            <tr>
+              <td class="mono">PRORATION_GROUP</td>
+              <td>Prorating behavior group</td>
+              <td>Partial period handling</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Equity and Long-Term Incentives</h2>
+
+      <h3>CMP_STOCK_PLANS - Stock Compensation Plans</h3>
+
+      <p>For organizations offering equity compensation, this table manages stock option plans, restricted stock units (RSUs), and other equity-based awards.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">STOCK_PLAN_ID</td>
+              <td>Unique stock plan identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">PLAN_NAME</td>
+              <td>Stock plan name</td>
+              <td>Plan identification</td>
+            </tr>
+            <tr>
+              <td class="mono">STOCK_PLAN_TYPE</td>
+              <td>Type of equity plan</td>
+              <td>ISO, NQO, RSU, ESPP</td>
+            </tr>
+            <tr>
+              <td class="mono">GRANT_FREQUENCY</td>
+              <td>How often grants are made</td>
+              <td>ANNUAL, QUARTERLY, AD_HOC</td>
+            </tr>
+            <tr>
+              <td class="mono">VESTING_SCHEDULE_ID</td>
+              <td>Default vesting schedule</td>
+              <td>Links to vesting configuration</td>
+            </tr>
+            <tr>
+              <td class="mono">EXERCISE_PRICE_METHOD</td>
+              <td>How exercise price is determined</td>
+              <td>MARKET_PRICE, FIXED, FORMULA</td>
+            </tr>
+            <tr>
+              <td class="mono">TAX_TREATMENT_CODE</td>
+              <td>Tax classification</td>
+              <td>Tax reporting requirements</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>CMP_STOCK_GRANTS - Individual Equity Awards</h3>
+
+      <p>This table tracks individual equity grants including options, RSUs, and other stock-based compensation awards.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">GRANT_ID</td>
+              <td>Unique grant identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td>Grant recipient</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+            <tr>
+              <td class="mono">STOCK_PLAN_ID</td>
+              <td>Equity plan</td>
+              <td>Foreign key to CMP_STOCK_PLANS</td>
+            </tr>
+            <tr>
+              <td class="mono">GRANT_DATE</td>
+              <td>When grant was awarded</td>
+              <td>Grant date tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">SHARES_GRANTED</td>
+              <td>Number of shares/options</td>
+              <td>Grant quantity</td>
+            </tr>
+            <tr>
+              <td class="mono">EXERCISE_PRICE</td>
+              <td>Strike price (for options)</td>
+              <td>Option exercise calculation</td>
+            </tr>
+            <tr>
+              <td class="mono">FAIR_VALUE</td>
+              <td>Fair value at grant</td>
+              <td>Accounting valuation</td>
+            </tr>
+            <tr>
+              <td class="mono">VESTING_START_DATE</td>
+              <td>When vesting begins</td>
+              <td>Vesting calculation</td>
+            </tr>
+            <tr>
+              <td class="mono">EXPIRATION_DATE</td>
+              <td>When grant expires</td>
+              <td>Expiration tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">STATUS</td>
+              <td>Grant status</td>
+              <td>ACTIVE, EXERCISED, FORFEITED</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Stock Grant Portfolio</h3>
+
+      <pre><code>-- Employee stock grant portfolio with vesting status
+WITH vesting_calc AS (
+    SELECT 
+        sg.GRANT_ID,
+        sg.PERSON_ID,
+        sg.SHARES_GRANTED,
+        sg.EXERCISE_PRICE,
+        sg.FAIR_VALUE,
+        sg.GRANT_DATE,
+        sg.VESTING_START_DATE,
+        sg.EXPIRATION_DATE,
+        sp.PLAN_NAME,
+        sp.STOCK_PLAN_TYPE,
+        -- Simplified vesting calculation (assume 4-year monthly vesting)
+        CASE 
+            WHEN TRUNC(SYSDATE) < sg.VESTING_START_DATE THEN 0
+            WHEN MONTHS_BETWEEN(TRUNC(SYSDATE), sg.VESTING_START_DATE) >= 48 
+            THEN sg.SHARES_GRANTED
+            ELSE FLOOR(sg.SHARES_GRANTED * 
+                      (MONTHS_BETWEEN(TRUNC(SYSDATE), sg.VESTING_START_DATE) / 48))
+        END as VESTED_SHARES,
+        sg.SHARES_GRANTED - 
+        CASE 
+            WHEN TRUNC(SYSDATE) < sg.VESTING_START_DATE THEN 0
+            WHEN MONTHS_BETWEEN(TRUNC(SYSDATE), sg.VESTING_START_DATE) >= 48 
+            THEN sg.SHARES_GRANTED
+            ELSE FLOOR(sg.SHARES_GRANTED * 
+                      (MONTHS_BETWEEN(TRUNC(SYSDATE), sg.VESTING_START_DATE) / 48))
+        END as UNVESTED_SHARES
+    FROM CMP_STOCK_GRANTS sg
+    JOIN CMP_STOCK_PLANS sp ON sg.STOCK_PLAN_ID = sp.STOCK_PLAN_ID
+    WHERE sg.STATUS = 'ACTIVE'
+)
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    vc.PLAN_NAME,
+    vc.STOCK_PLAN_TYPE,
+    vc.GRANT_DATE,
+    vc.SHARES_GRANTED as TOTAL_SHARES,
+    vc.VESTED_SHARES,
+    vc.UNVESTED_SHARES,
+    vc.EXERCISE_PRICE,
+    vc.FAIR_VALUE as GRANT_VALUE,
+    vc.EXPIRATION_DATE,
+    ROUND((vc.VESTED_SHARES / vc.SHARES_GRANTED) * 100, 2) as VESTING_PCT_COMPLETE
+FROM vesting_calc vc
+JOIN PER_ALL_PEOPLE_F p 
+  ON vc.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+ORDER BY p.PERSON_NUMBER, vc.GRANT_DATE;</code></pre>
+
+      <h2>Compensation Analytics and Reporting</h2>
+
+      <h3>Pay Equity Analysis</h3>
+
+      <p>One of the most critical applications of compensation data is pay equity analysis:</p>
+
+      <pre><code>-- Pay equity analysis by job, gender, and tenure
+WITH compensation_summary AS (
+    SELECT 
+        p.PERSON_ID,
+        p.DISPLAY_NAME,
+        p.GENDER,
+        j.JOB_CODE,
+        j.NAME as JOB_TITLE,
+        org.NAME as DEPARTMENT,
+        s.SALARY_AMOUNT,
+        s.CURRENCY_CODE,
+        wr.START_DATE as HIRE_DATE,
+        FLOOR(MONTHS_BETWEEN(TRUNC(SYSDATE), wr.START_DATE) / 12) as TENURE_YEARS,
+        -- Normalize to annual salary
+        CASE 
+            WHEN sb.NAME = 'Monthly' THEN s.SALARY_AMOUNT * 12
+            WHEN sb.NAME = 'Weekly' THEN s.SALARY_AMOUNT * 52
+            WHEN sb.NAME = 'Hourly' THEN s.SALARY_AMOUNT * 2080  -- 40hrs * 52 weeks
+            ELSE s.SALARY_AMOUNT  -- Assume annual
+        END as ANNUAL_SALARY
+    FROM PER_ALL_PEOPLE_F p
+    JOIN CMP_SALARY s 
+      ON p.PERSON_ID = s.PERSON_ID
+      AND TRUNC(SYSDATE) BETWEEN s.EFFECTIVE_START_DATE 
+                              AND s.EFFECTIVE_END_DATE
+    JOIN PER_ALL_ASSIGNMENTS_F a 
+      ON p.PERSON_ID = a.PERSON_ID
+      AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE 
+                              AND a.EFFECTIVE_END_DATE
+      AND a.PRIMARY_FLAG = 'Y'
+    JOIN PER_JOBS j 
+      ON a.JOB_ID = j.JOB_ID
+      AND TRUNC(SYSDATE) BETWEEN j.EFFECTIVE_START_DATE 
+                              AND j.EFFECTIVE_END_DATE
+    JOIN HR_ALL_ORGANIZATION_UNITS org 
+      ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+    JOIN PER_WORK_RELATIONSHIPS wr 
+      ON p.PERSON_ID = wr.PERSON_ID
+      AND wr.PRIMARY_FLAG = 'Y'
+    LEFT JOIN PER_SALARY_BASIS sb 
+      ON s.SALARY_BASIS_ID = sb.SALARY_BASIS_ID
+    WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+      AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                              AND p.EFFECTIVE_END_DATE
+      AND s.CURRENCY_CODE = 'USD'  -- Filter to single currency
+)
+SELECT 
+    JOB_CODE,
+    JOB_TITLE,
+    DEPARTMENT,
+    GENDER,
+    COUNT(*) as EMPLOYEE_COUNT,
+    ROUND(AVG(ANNUAL_SALARY), 0) as AVG_SALARY,
+    ROUND(MIN(ANNUAL_SALARY), 0) as MIN_SALARY,
+    ROUND(MAX(ANNUAL_SALARY), 0) as MAX_SALARY,
+    ROUND(STDDEV(ANNUAL_SALARY), 0) as SALARY_STDDEV,
+    ROUND(AVG(TENURE_YEARS), 1) as AVG_TENURE_YEARS
+FROM compensation_summary
+WHERE ANNUAL_SALARY > 0
+GROUP BY JOB_CODE, JOB_TITLE, DEPARTMENT, GENDER
+HAVING COUNT(*) >= 3  -- Minimum sample size for privacy
+ORDER BY JOB_CODE, DEPARTMENT, GENDER;</code></pre>
+
+      <h3>Salary Range Compliance</h3>
+
+      <p>Monitoring salary ranges and ensuring employees are positioned appropriately within established bands:</p>
+
+      <pre><code>-- Salary range compliance analysis
+WITH grade_ranges AS (
+    -- This assumes grade range tables exist
+    -- Structure may vary based on implementation
+    SELECT 
+        gr.GRADE_ID,
+        gr.CURRENCY_CODE,
+        gr.MIN_SALARY,
+        gr.MID_SALARY,
+        gr.MAX_SALARY
+    FROM PER_GRADE_RANGES gr
+    WHERE gr.CURRENCY_CODE = 'USD'
+      AND TRUNC(SYSDATE) BETWEEN gr.EFFECTIVE_START_DATE 
+                              AND gr.EFFECTIVE_END_DATE
+)
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    j.NAME as JOB_TITLE,
+    g.NAME as GRADE,
+    s.SALARY_AMOUNT,
+    gr.MIN_SALARY as RANGE_MIN,
+    gr.MID_SALARY as RANGE_MID,
+    gr.MAX_SALARY as RANGE_MAX,
+    ROUND(((s.SALARY_AMOUNT - gr.MIN_SALARY) / 
+           (gr.MAX_SALARY - gr.MIN_SALARY)) * 100, 1) as POSITION_IN_RANGE_PCT,
+    CASE 
+        WHEN s.SALARY_AMOUNT < gr.MIN_SALARY THEN 'Below Range'
+        WHEN s.SALARY_AMOUNT > gr.MAX_SALARY THEN 'Above Range'
+        WHEN s.SALARY_AMOUNT BETWEEN gr.MIN_SALARY AND gr.MID_SALARY THEN 'Lower Half'
+        ELSE 'Upper Half'
+    END as RANGE_POSITION
+FROM CMP_SALARY s
+JOIN PER_ALL_PEOPLE_F p 
+  ON s.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON s.ASSIGNMENT_ID = a.ASSIGNMENT_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE 
+                          AND a.EFFECTIVE_END_DATE
+JOIN PER_JOBS j 
+  ON a.JOB_ID = j.JOB_ID
+  AND TRUNC(SYSDATE) BETWEEN j.EFFECTIVE_START_DATE 
+                          AND j.EFFECTIVE_END_DATE
+JOIN PER_GRADES g 
+  ON a.GRADE_ID = g.GRADE_ID
+  AND TRUNC(SYSDATE) BETWEEN g.EFFECTIVE_START_DATE 
+                          AND g.EFFECTIVE_END_DATE
+LEFT JOIN grade_ranges gr 
+  ON a.GRADE_ID = gr.GRADE_ID
+  AND s.CURRENCY_CODE = gr.CURRENCY_CODE
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN s.EFFECTIVE_START_DATE 
+                          AND s.EFFECTIVE_END_DATE
+ORDER BY RANGE_POSITION DESC, POSITION_IN_RANGE_PCT;</code></pre>
+
+      <h3>Total Compensation Analysis</h3>
+
+      <p>Calculating total compensation including base salary, bonuses, and equity value:</p>
+
+      <pre><code>-- Total compensation analysis including all components
+WITH base_compensation AS (
+    SELECT 
+        s.PERSON_ID,
+        s.ASSIGNMENT_ID,
+        s.SALARY_AMOUNT as BASE_SALARY,
+        s.CURRENCY_CODE
+    FROM CMP_SALARY s
+    WHERE TRUNC(SYSDATE) BETWEEN s.EFFECTIVE_START_DATE 
+                              AND s.EFFECTIVE_END_DATE
+),
+bonus_awards AS (
+    SELECT 
+        ca.PERSON_ID,
+        SUM(ca.AWARD_AMOUNT) as ANNUAL_BONUS
+    FROM CMP_COMPENSATION_AWARDS ca
+    JOIN CMP_COMPENSATION_PLANS cp ON ca.PLAN_ID = cp.PLAN_ID
+    WHERE cp.PLAN_TYPE_CODE = 'BONUS'
+      AND ca.STATUS = 'APPROVED'
+      AND ca.EFFECTIVE_DATE >= TRUNC(SYSDATE, 'YYYY')  -- Current year
+      AND ca.EFFECTIVE_DATE < ADD_MONTHS(TRUNC(SYSDATE, 'YYYY'), 12)
+    GROUP BY ca.PERSON_ID
+),
+equity_value AS (
+    SELECT 
+        sg.PERSON_ID,
+        SUM(sg.FAIR_VALUE) as ANNUAL_EQUITY_VALUE
+    FROM CMP_STOCK_GRANTS sg
+    WHERE sg.GRANT_DATE >= TRUNC(SYSDATE, 'YYYY')  -- Current year grants
+      AND sg.GRANT_DATE < ADD_MONTHS(TRUNC(SYSDATE, 'YYYY'), 12)
+      AND sg.STATUS = 'ACTIVE'
+    GROUP BY sg.PERSON_ID
+)
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    j.NAME as JOB_TITLE,
+    org.NAME as DEPARTMENT,
+    bc.BASE_SALARY,
+    NVL(ba.ANNUAL_BONUS, 0) as ANNUAL_BONUS,
+    NVL(ev.ANNUAL_EQUITY_VALUE, 0) as ANNUAL_EQUITY_VALUE,
+    bc.BASE_SALARY + 
+    NVL(ba.ANNUAL_BONUS, 0) + 
+    NVL(ev.ANNUAL_EQUITY_VALUE, 0) as TOTAL_COMPENSATION,
+    ROUND((NVL(ba.ANNUAL_BONUS, 0) / bc.BASE_SALARY) * 100, 1) as BONUS_AS_PCT_BASE,
+    ROUND((NVL(ev.ANNUAL_EQUITY_VALUE, 0) / bc.BASE_SALARY) * 100, 1) as EQUITY_AS_PCT_BASE
+FROM base_compensation bc
+JOIN PER_ALL_PEOPLE_F p 
+  ON bc.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON bc.ASSIGNMENT_ID = a.ASSIGNMENT_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE 
+                          AND a.EFFECTIVE_END_DATE
+JOIN PER_JOBS j 
+  ON a.JOB_ID = j.JOB_ID
+  AND TRUNC(SYSDATE) BETWEEN j.EFFECTIVE_START_DATE 
+                          AND j.EFFECTIVE_END_DATE
+JOIN HR_ALL_ORGANIZATION_UNITS org 
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+LEFT JOIN bonus_awards ba ON bc.PERSON_ID = ba.PERSON_ID
+LEFT JOIN equity_value ev ON bc.PERSON_ID = ev.PERSON_ID
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+ORDER BY TOTAL_COMPENSATION DESC;</code></pre>
+
+      <h2>Advanced Compensation Scenarios</h2>
+
+      <h3>Multi-Currency Compensation</h3>
+
+      <p>For global organizations, managing compensation across multiple currencies is essential:</p>
+
+      <pre><code>-- Multi-currency compensation summary with USD conversion
+WITH exchange_rates AS (
+    -- This would typically come from a currency exchange rates table
+    -- Using static rates for example - in practice, use current rates
+    SELECT 'EUR' as CURRENCY_CODE, 1.10 as USD_CONVERSION_RATE FROM DUAL
+    UNION ALL
+    SELECT 'GBP', 1.25 FROM DUAL
+    UNION ALL
+    SELECT 'CAD', 0.75 FROM DUAL
+    UNION ALL
+    SELECT 'USD', 1.00 FROM DUAL
+)
+SELECT 
+    org.NAME as DEPARTMENT,
+    s.CURRENCY_CODE,
+    COUNT(*) as EMPLOYEE_COUNT,
+    ROUND(AVG(s.SALARY_AMOUNT), 0) as AVG_SALARY_LOCAL,
+    ROUND(MIN(s.SALARY_AMOUNT), 0) as MIN_SALARY_LOCAL,
+    ROUND(MAX(s.SALARY_AMOUNT), 0) as MAX_SALARY_LOCAL,
+    ROUND(AVG(s.SALARY_AMOUNT * er.USD_CONVERSION_RATE), 0) as AVG_SALARY_USD,
+    ROUND(MIN(s.SALARY_AMOUNT * er.USD_CONVERSION_RATE), 0) as MIN_SALARY_USD,
+    ROUND(MAX(s.SALARY_AMOUNT * er.USD_CONVERSION_RATE), 0) as MAX_SALARY_USD
+FROM CMP_SALARY s
+JOIN PER_ALL_PEOPLE_F p 
+  ON s.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON s.ASSIGNMENT_ID = a.ASSIGNMENT_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE 
+                          AND a.EFFECTIVE_END_DATE
+  AND a.PRIMARY_FLAG = 'Y'
+JOIN HR_ALL_ORGANIZATION_UNITS org 
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+LEFT JOIN exchange_rates er 
+  ON s.CURRENCY_CODE = er.CURRENCY_CODE
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN s.EFFECTIVE_START_DATE 
+                          AND s.EFFECTIVE_END_DATE
+GROUP BY org.NAME, s.CURRENCY_CODE
+ORDER BY org.NAME, s.CURRENCY_CODE;</code></pre>
+
+      <h3>Compensation Budget Management</h3>
+
+      <p>Tracking compensation budget utilization across departments and plans:</p>
+
+      <pre><code>-- Compensation budget utilization by department
+WITH dept_budgets AS (
+    SELECT 
+        a.ORGANIZATION_ID,
+        cp.PLAN_ID,
+        cp.PLAN_NAME,
+        cp.PLAN_TYPE_CODE,
+        cp.BUDGET_AMOUNT
+    FROM CMP_COMPENSATION_PLANS cp
+    CROSS JOIN (
+        SELECT DISTINCT ORGANIZATION_ID 
+        FROM PER_ALL_ASSIGNMENTS_F 
+        WHERE TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+    ) a
+    WHERE cp.STATUS = 'ACTIVE'
+      AND TRUNC(SYSDATE) BETWEEN cp.PLAN_PERIOD_START 
+                              AND cp.PLAN_PERIOD_END
+),
+dept_spending AS (
+    SELECT 
+        a.ORGANIZATION_ID,
+        ca.PLAN_ID,
+        SUM(ca.AWARD_AMOUNT) as TOTAL_AWARDED,
+        COUNT(*) as AWARD_COUNT
+    FROM CMP_COMPENSATION_AWARDS ca
+    JOIN PER_ALL_ASSIGNMENTS_F a 
+      ON ca.PERSON_ID = a.PERSON_ID
+      AND ca.EFFECTIVE_DATE BETWEEN a.EFFECTIVE_START_DATE 
+                                AND a.EFFECTIVE_END_DATE
+      AND a.PRIMARY_FLAG = 'Y'
+    WHERE ca.STATUS IN ('APPROVED', 'PROCESSED')
+    GROUP BY a.ORGANIZATION_ID, ca.PLAN_ID
+)
+SELECT 
+    org.NAME as DEPARTMENT,
+    db.PLAN_NAME,
+    db.PLAN_TYPE_CODE,
+    db.BUDGET_AMOUNT,
+    NVL(ds.TOTAL_AWARDED, 0) as AMOUNT_SPENT,
+    db.BUDGET_AMOUNT - NVL(ds.TOTAL_AWARDED, 0) as REMAINING_BUDGET,
+    ROUND((NVL(ds.TOTAL_AWARDED, 0) / db.BUDGET_AMOUNT) * 100, 2) as UTILIZATION_PCT,
+    NVL(ds.AWARD_COUNT, 0) as AWARDS_GRANTED
+FROM dept_budgets db
+JOIN HR_ALL_ORGANIZATION_UNITS org 
+  ON db.ORGANIZATION_ID = org.ORGANIZATION_ID
+LEFT JOIN dept_spending ds 
+  ON db.ORGANIZATION_ID = ds.ORGANIZATION_ID
+  AND db.PLAN_ID = ds.PLAN_ID
+ORDER BY org.NAME, db.PLAN_TYPE_CODE, UTILIZATION_PCT DESC;</code></pre>
+
+      <h2>Security and Compliance Considerations</h2>
+
+      <h3>Data Security</h3>
+
+      <div class="callout security">
+        <p><strong>Sensitive Data:</strong> Compensation data is highly sensitive and regulated. Ensure your queries comply with data protection regulations (GDPR, CCPA) and company policies. Implement appropriate access controls and audit trails for all compensation data access.</p>
+      </div>
+
+      <h3>Audit Trail Queries</h3>
+
+      <p>Maintaining comprehensive audit trails for compensation changes:</p>
+
+      <pre><code>-- Compensation change audit trail
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    s.EFFECTIVE_START_DATE,
+    s.EFFECTIVE_END_DATE,
+    s.SALARY_AMOUNT,
+    s.CURRENCY_CODE,
+    s.CHANGE_REASON,
+    LAG(s.SALARY_AMOUNT) OVER (
+        PARTITION BY s.PERSON_ID 
+        ORDER BY s.EFFECTIVE_START_DATE
+    ) as PREVIOUS_SALARY,
+    s.SALARY_AMOUNT - LAG(s.SALARY_AMOUNT) OVER (
+        PARTITION BY s.PERSON_ID 
+        ORDER BY s.EFFECTIVE_START_DATE
+    ) as SALARY_CHANGE_AMOUNT,
+    ROUND(
+        (s.SALARY_AMOUNT - LAG(s.SALARY_AMOUNT) OVER (
+            PARTITION BY s.PERSON_ID 
+            ORDER BY s.EFFECTIVE_START_DATE
+        )) / LAG(s.SALARY_AMOUNT) OVER (
+            PARTITION BY s.PERSON_ID 
+            ORDER BY s.EFFECTIVE_START_DATE
+        ) * 100, 2
+    ) as SALARY_CHANGE_PCT,
+    s.LAST_UPDATE_DATE,
+    s.LAST_UPDATED_BY
+FROM CMP_SALARY s
+JOIN PER_ALL_PEOPLE_F p 
+  ON s.PERSON_ID = p.PERSON_ID
+  AND s.EFFECTIVE_START_DATE BETWEEN p.EFFECTIVE_START_DATE 
+                                 AND p.EFFECTIVE_END_DATE
+WHERE s.EFFECTIVE_START_DATE >= TRUNC(SYSDATE) - 365  -- Last year
+ORDER BY s.PERSON_ID, s.EFFECTIVE_START_DATE DESC;</code></pre>
+
+      <h2>Best Practices for Compensation Data Management</h2>
+
+      <h3>1. Regular Data Validation</h3>
+
+      <pre><code>-- Compensation data quality checks
+SELECT 
+    'Employees without current salary' as ISSUE_TYPE,
+    COUNT(*) as ISSUE_COUNT
+FROM PER_ALL_PEOPLE_F p
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+  AND NOT EXISTS (
+      SELECT 1 FROM CMP_SALARY s
+      WHERE s.PERSON_ID = p.PERSON_ID
+        AND TRUNC(SYSDATE) BETWEEN s.EFFECTIVE_START_DATE 
+                                AND s.EFFECTIVE_END_DATE
+  )
+
+UNION ALL
+
+SELECT 
+    'Salaries with missing currency',
+    COUNT(*)
+FROM CMP_SALARY s
+WHERE s.CURRENCY_CODE IS NULL
+  AND TRUNC(SYSDATE) BETWEEN s.EFFECTIVE_START_DATE 
+                          AND s.EFFECTIVE_END_DATE
+
+UNION ALL
+
+SELECT 
+    'Compensation awards without plan',
+    COUNT(*)
+FROM CMP_COMPENSATION_AWARDS ca
+WHERE NOT EXISTS (
+    SELECT 1 FROM CMP_COMPENSATION_PLANS cp
+    WHERE cp.PLAN_ID = ca.PLAN_ID
+  );</code></pre>
+
+      <h3>2. Performance Optimization</h3>
+
+      <ul>
+        <li><strong>Index strategy:</strong> Ensure proper indexing on PERSON_ID, EFFECTIVE_START_DATE, and status columns</li>
+        <li><strong>Date filtering:</strong> Always include appropriate date filters in queries</li>
+        <li><strong>Batch processing:</strong> Use bulk operations for mass salary updates</li>
+        <li><strong>Partitioning:</strong> Consider table partitioning for large datasets with historical data</li>
+      </ul>
+
+      <h3>3. Integration Considerations</h3>
+
+      <p>When integrating compensation data with external systems:</p>
+      <ul>
+        <li><strong>Payroll integration:</strong> Ensure compensation changes flow to payroll systems appropriately</li>
+        <li><strong>Benefits integration:</strong> Coordinate with benefits calculations that depend on salary</li>
+        <li><strong>Reporting tools:</strong> Provide appropriate data aggregation for BI tools</li>
+        <li><strong>Mobile applications:</strong> Consider data volume and sensitivity for mobile access</li>
+      </ul>
+
+      <div class="related-tables">
+        <a href="/table/PER_ALL_PEOPLE_F" class="table-link">PER_ALL_PEOPLE_F</a>
+        <a href="/table/PER_ALL_ASSIGNMENTS_F" class="table-link">PER_ALL_ASSIGNMENTS_F</a>
+        <a href="/table/PER_JOBS_F" class="table-link">PER_JOBS_F</a>
+        <a href="/table/PER_GRADES_F" class="table-link">PER_GRADES_F</a>
+        <a href="/table/HR_ALL_ORGANIZATION_UNITS" class="table-link">HR_ALL_ORGANIZATION_UNITS</a>
+      </div>
+
+      <p>Mastering Oracle's Workforce Compensation tables enables sophisticated compensation management, pay equity analysis, and strategic workforce planning. The flexible data model supports complex compensation structures while maintaining the audit trails and security controls required for effective governance.</p>
+
+      <p>Whether you're implementing merit increase processes, analyzing pay equity, managing stock option plans, or integrating with payroll systems, understanding these core tables and their relationships is essential. Combine compensation data with <a href="/blog/person-assignment-work-relationship-data-model-explained">core HCM entities</a> for comprehensive workforce analytics, and leverage <a href="/blog/oracle-hcm-rest-api-integration-guide">REST APIs</a> for real-time integrations with external compensation and benefits platforms.</p>
+
+      <p>Remember that compensation data directly impacts payroll processing and should be integrated with your broader HCM strategy, including <a href="/blog/oracle-absence-management-tables-configuration-guide">absence management</a> and performance management systems for maximum effectiveness.</p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="related-articles">
+        <h3>Related Articles</h3>
+        <ul class="related-list">
+          <li><a href="/blog/person-assignment-work-relationship-data-model-explained">Person vs Assignment vs Work Relationship Data Model</a></li>
+          <li><a href="/blog/oracle-hcm-rest-api-integration-guide">Oracle HCM REST API Integration Guide</a></li>
+          <li><a href="/blog/oracle-absence-management-tables-configuration-guide">Oracle Absence Management Tables & Configuration Guide</a></li>
+          <li><a href="/blog/sql-query-library">Oracle HCM SQL Query Library & Examples</a></li>
+          <li><a href="/blog/fast-formula-examples">Oracle HCM Fast Formula Examples & Guide</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>

@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle Absence Management Tables & Configuration Guide | HCM Tables</title>
+  <meta name="title" content="Oracle Absence Management Tables & Configuration Guide | HCM Tables">
+  <meta name="description" content="Complete guide to Oracle Fusion HCM Absence Management tables, configuration, and SQL queries. Master absence plans, entitlements, accruals with practical examples.">
+  <meta name="keywords" content="Oracle Absence Management tables, ANC tables Oracle, absence accruals, absence entitlements, absence plans Oracle HCM, time off tracking, leave management database">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/oracle-absence-management-tables-configuration-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/oracle-absence-management-tables-configuration-guide">
+  <meta property="og:title" content="Oracle Absence Management Tables & Configuration Guide">
+  <meta property="og:description" content="Master Oracle Absence Management tables and configuration with practical SQL examples and reporting queries.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-absence-management-tables-configuration-guide">
+  <meta property="twitter:title" content="Oracle Absence Management Tables & Configuration Guide">
+  <meta property="twitter:description" content="Learn Oracle Absence Management database structure with practical examples.">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle Absence Management Tables & Configuration Guide",
+    "description": "Complete guide to Oracle Fusion HCM Absence Management tables, configuration, and SQL queries. Master absence plans, entitlements, accruals with practical examples.",
+    "url": "https://hcm-tables.com/blog/oracle-absence-management-tables-configuration-guide",
+    "datePublished": "2026-02-10",
+    "dateModified": "2026-02-10",
+    "author": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/oracle-absence-management-tables-configuration-guide"
+    }
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* Article Layout */
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header {
+      margin-bottom: 3rem;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content */
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+    }
+
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-secondary);
+    }
+
+    .article-content th, .article-content td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-content th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .article-content td {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .article-content .mono {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    /* Callout boxes */
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .callout p {
+      color: var(--text-primary);
+      margin-bottom: 0;
+    }
+
+    .callout p:last-child {
+      margin-bottom: 0;
+    }
+
+    .callout.warning {
+      border-left-color: var(--yellow);
+    }
+
+    /* Related tables/links */
+    .related-tables {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.75rem;
+      margin: 1.5rem 0;
+    }
+
+    .table-link {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 0.5rem 1rem;
+      border-radius: var(--radius-sm);
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--blue);
+      text-decoration: none;
+      transition: all 0.15s;
+    }
+
+    .table-link:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--accent);
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    /* Process Flow */
+    .process-flow {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+    }
+
+    .flow-step {
+      background: var(--bg-tertiary);
+      border: 2px solid var(--purple);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      margin: 1rem;
+      display: inline-block;
+      min-width: 140px;
+      text-align: center;
+    }
+
+    .flow-title {
+      font-weight: 700;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    .flow-subtitle {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+    }
+
+    .flow-arrow {
+      font-size: 1.2rem;
+      color: var(--purple);
+      margin: 0 0.5rem;
+    }
+
+    /* Footer */
+    .article-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 3rem;
+    }
+
+    .related-articles h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .related-list {
+      list-style: none;
+      margin: 0;
+    }
+
+    .related-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .related-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .related-list a:hover {
+      color: var(--blue);
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .article-container {
+        padding: 2rem 1rem 3rem;
+      }
+
+      .related-tables {
+        flex-direction: column;
+      }
+
+      .process-flow {
+        padding: 1rem;
+        text-align: center;
+      }
+
+      .flow-step {
+        display: block;
+        margin: 1rem auto;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about">About</a>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <div class="article-container">
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Oracle Absence Management Tables & Configuration Guide
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">Absence Management</div>
+      <h1>Oracle Absence Management Tables & Configuration Guide</h1>
+      <div class="article-meta">
+        Published February 10, 2026 • 17 min read
+      </div>
+    </header>
+
+    <div class="article-content">
+      <p>Oracle Fusion HCM's Absence Management module provides comprehensive leave and time-off tracking capabilities. Understanding the underlying database structure is essential for HR analysts, developers, and consultants who need to create custom reports, integrate with external systems, or troubleshoot absence-related issues.</p>
+
+      <p>This comprehensive guide covers the core absence management tables, their relationships, configuration patterns, and practical SQL examples for common absence tracking scenarios. From simple vacation balance queries to complex accrual calculations, you'll learn how to leverage Oracle's absence data model effectively.</p>
+
+      <h2>Absence Management Data Model Overview</h2>
+
+      <p>Oracle's Absence Management follows a hierarchical data model that supports complex leave policies, accrual rules, and approval workflows. The core concept revolves around absence plans that define leave types, entitlements that grant employees access to leave, and absence records that track actual time off.</p>
+
+      <div class="process-flow">
+        <div class="flow-step">
+          <div class="flow-title">Absence Plan</div>
+          <div class="flow-subtitle">Leave policy</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-title">Entitlement</div>
+          <div class="flow-subtitle">Employee allocation</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-title">Accrual</div>
+          <div class="flow-subtitle">Balance calculation</div>
+        </div>
+        <span class="flow-arrow">→</span>
+        <div class="flow-step">
+          <div class="flow-title">Absence</div>
+          <div class="flow-subtitle">Time off request</div>
+        </div>
+      </div>
+
+      <p>This model supports various absence scenarios including vacation, sick leave, personal time, sabbaticals, and complex regional leave types mandated by local legislation.</p>
+
+      <h2>Core Absence Tables</h2>
+
+      <h3>ANC_ABSENCE_PLANS - Absence Plan Configuration</h3>
+
+      <p>The <code>ANC_ABSENCE_PLANS</code> table defines leave policies and their associated rules. This is where absence types, accrual methods, carryover rules, and plan parameters are configured.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">ABSENCE_PLAN_ID</td>
+              <td>Unique plan identifier</td>
+              <td>Primary key, links to entitlements</td>
+            </tr>
+            <tr>
+              <td class="mono">PLAN_NAME</td>
+              <td>Leave plan name (e.g., "Annual Leave")</td>
+              <td>User-friendly identification</td>
+            </tr>
+            <tr>
+              <td class="mono">ABSENCE_TYPE_CODE</td>
+              <td>Type classification (VACATION, SICK, etc.)</td>
+              <td>Categorization for reporting</td>
+            </tr>
+            <tr>
+              <td class="mono">PLAN_UOM</td>
+              <td>Unit of measure (Days, Hours)</td>
+              <td>Calculation basis</td>
+            </tr>
+            <tr>
+              <td class="mono">ACCRUAL_METHOD</td>
+              <td>How leave accrues (Annual, Monthly, etc.)</td>
+              <td>Balance calculation rules</td>
+            </tr>
+            <tr>
+              <td class="mono">CARRYOVER_LIMIT</td>
+              <td>Maximum carryover to next period</td>
+              <td>Year-end processing</td>
+            </tr>
+            <tr>
+              <td class="mono">NEGATIVE_BALANCE_ALLOWED</td>
+              <td>Allow negative balances</td>
+              <td>Advance leave policy</td>
+            </tr>
+            <tr>
+              <td class="mono">APPROVAL_REQUIRED</td>
+              <td>Requires manager approval</td>
+              <td>Workflow configuration</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_START_DATE</td>
+              <td>Plan effective start date</td>
+              <td>Date-effective tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_END_DATE</td>
+              <td>Plan effective end date</td>
+              <td>Date-effective tracking</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Active Absence Plans</h3>
+
+      <pre><code>-- Get all active absence plans with their configuration
+SELECT 
+    ap.PLAN_NAME,
+    ap.ABSENCE_TYPE_CODE,
+    ap.PLAN_UOM,
+    ap.ACCRUAL_METHOD,
+    ap.CARRYOVER_LIMIT,
+    CASE WHEN ap.NEGATIVE_BALANCE_ALLOWED = 'Y' 
+         THEN 'Yes' ELSE 'No' END as ALLOWS_NEGATIVE_BALANCE,
+    CASE WHEN ap.APPROVAL_REQUIRED = 'Y' 
+         THEN 'Yes' ELSE 'No' END as REQUIRES_APPROVAL,
+    ap.EFFECTIVE_START_DATE,
+    ap.EFFECTIVE_END_DATE
+FROM ANC_ABSENCE_PLANS ap
+WHERE TRUNC(SYSDATE) BETWEEN ap.EFFECTIVE_START_DATE 
+                          AND NVL(ap.EFFECTIVE_END_DATE, TO_DATE('4712-12-31', 'YYYY-MM-DD'))
+ORDER BY ap.ABSENCE_TYPE_CODE, ap.PLAN_NAME;</code></pre>
+
+      <h3>ANC_PER_ABSENCE_ENTITLEMENTS - Employee Entitlements</h3>
+
+      <p>This table links employees to absence plans and defines their specific entitlements, including annual allocations, start dates, and plan-specific parameters.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">ENTITLEMENT_ID</td>
+              <td>Unique entitlement identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td>Employee identifier</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+            <tr>
+              <td class="mono">ABSENCE_PLAN_ID</td>
+              <td>Links to absence plan</td>
+              <td>Foreign key to ANC_ABSENCE_PLANS</td>
+            </tr>
+            <tr>
+              <td class="mono">START_DATE</td>
+              <td>When entitlement begins</td>
+              <td>Eligibility tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">END_DATE</td>
+              <td>When entitlement ends</td>
+              <td>Eligibility tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">ANNUAL_ENTITLEMENT</td>
+              <td>Total yearly allocation</td>
+              <td>Balance calculations</td>
+            </tr>
+            <tr>
+              <td class="mono">ENTITLEMENT_UOM</td>
+              <td>Unit of measure override</td>
+              <td>Person-specific settings</td>
+            </tr>
+            <tr>
+              <td class="mono">PRORATION_METHOD</td>
+              <td>How to prorate partial periods</td>
+              <td>Mid-year adjustments</td>
+            </tr>
+            <tr>
+              <td class="mono">CALCULATION_BASIS</td>
+              <td>Basis for accrual calculation</td>
+              <td>Payroll integration</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Employee Entitlements Summary</h3>
+
+      <pre><code>-- Employee entitlements with plan details
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    ap.PLAN_NAME,
+    ap.ABSENCE_TYPE_CODE,
+    e.ANNUAL_ENTITLEMENT,
+    ap.PLAN_UOM,
+    e.START_DATE,
+    e.END_DATE,
+    CASE WHEN e.END_DATE IS NULL OR e.END_DATE > TRUNC(SYSDATE) 
+         THEN 'Active' ELSE 'Expired' END as ENTITLEMENT_STATUS
+FROM ANC_PER_ABSENCE_ENTITLEMENTS e
+JOIN PER_ALL_PEOPLE_F p 
+  ON e.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN ANC_ABSENCE_PLANS ap 
+  ON e.ABSENCE_PLAN_ID = ap.ABSENCE_PLAN_ID
+  AND TRUNC(SYSDATE) BETWEEN ap.EFFECTIVE_START_DATE 
+                          AND NVL(ap.EFFECTIVE_END_DATE, TO_DATE('4712-12-31', 'YYYY-MM-DD'))
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND (e.END_DATE IS NULL OR e.END_DATE >= TRUNC(SYSDATE))
+ORDER BY p.PERSON_NUMBER, ap.ABSENCE_TYPE_CODE;</code></pre>
+
+      <h3>ANC_PER_ABS_ENTRIES - Absence Records</h3>
+
+      <p>This table stores individual absence records - the actual time off requests and approvals. Each row represents a specific absence period with dates, duration, status, and approval information.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">ABSENCE_ATTENDANCE_ID</td>
+              <td>Unique absence record ID</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td>Employee taking absence</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+            <tr>
+              <td class="mono">ABSENCE_PLAN_ID</td>
+              <td>Type of leave taken</td>
+              <td>Foreign key to ANC_ABSENCE_PLANS</td>
+            </tr>
+            <tr>
+              <td class="mono">START_DATE</td>
+              <td>First day of absence</td>
+              <td>Leave period definition</td>
+            </tr>
+            <tr>
+              <td class="mono">END_DATE</td>
+              <td>Last day of absence</td>
+              <td>Leave period definition</td>
+            </tr>
+            <tr>
+              <td class="mono">DURATION</td>
+              <td>Total leave duration</td>
+              <td>Balance impact calculation</td>
+            </tr>
+            <tr>
+              <td class="mono">DURATION_UOM</td>
+              <td>Unit of measure (Days/Hours)</td>
+              <td>Duration interpretation</td>
+            </tr>
+            <tr>
+              <td class="mono">APPROVAL_STATUS</td>
+              <td>Current approval state</td>
+              <td>Workflow tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">APPROVED_BY</td>
+              <td>Manager who approved</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+            <tr>
+              <td class="mono">SUBMITTED_DATE</td>
+              <td>When request was submitted</td>
+              <td>Process timing</td>
+            </tr>
+            <tr>
+              <td class="mono">COMMENTS</td>
+              <td>Absence reason/comments</td>
+              <td>Documentation</td>
+            </tr>
+            <tr>
+              <td class="mono">ABSENCE_REASON_CODE</td>
+              <td>Standardized reason code</td>
+              <td>Reporting categorization</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Recent Absence Requests</h3>
+
+      <pre><code>-- Recent absence requests with approval status
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME as EMPLOYEE_NAME,
+    ap.PLAN_NAME,
+    ae.START_DATE,
+    ae.END_DATE,
+    ae.DURATION,
+    ae.DURATION_UOM,
+    ae.APPROVAL_STATUS,
+    mgr.DISPLAY_NAME as APPROVED_BY,
+    ae.SUBMITTED_DATE,
+    ae.COMMENTS
+FROM ANC_PER_ABS_ENTRIES ae
+JOIN PER_ALL_PEOPLE_F p 
+  ON ae.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN ANC_ABSENCE_PLANS ap 
+  ON ae.ABSENCE_PLAN_ID = ap.ABSENCE_PLAN_ID
+LEFT JOIN PER_ALL_PEOPLE_F mgr 
+  ON ae.APPROVED_BY = mgr.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN mgr.EFFECTIVE_START_DATE 
+                          AND mgr.EFFECTIVE_END_DATE
+WHERE ae.SUBMITTED_DATE >= TRUNC(SYSDATE) - 30  -- Last 30 days
+ORDER BY ae.SUBMITTED_DATE DESC;</code></pre>
+
+      <h3>ANC_PER_ABSENCE_ENTRIES - Balance Transactions</h3>
+
+      <p>This table tracks all balance movements including accruals, deductions, adjustments, and carryovers. It provides a complete audit trail of how absence balances change over time.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">ABSENCE_ENTRY_ID</td>
+              <td>Unique transaction identifier</td>
+              <td>Primary key</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td>Employee affected</td>
+              <td>Links to PER_ALL_PEOPLE_F</td>
+            </tr>
+            <tr>
+              <td class="mono">ABSENCE_PLAN_ID</td>
+              <td>Leave plan affected</td>
+              <td>Foreign key to ANC_ABSENCE_PLANS</td>
+            </tr>
+            <tr>
+              <td class="mono">TRANSACTION_TYPE</td>
+              <td>Type of balance change</td>
+              <td>ACCRUAL, DEDUCTION, ADJUSTMENT, CARRYOVER</td>
+            </tr>
+            <tr>
+              <td class="mono">TRANSACTION_DATE</td>
+              <td>When change occurred</td>
+              <td>Chronological tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">QUANTITY</td>
+              <td>Amount of change</td>
+              <td>Balance calculation</td>
+            </tr>
+            <tr>
+              <td class="mono">UNIT_OF_MEASURE</td>
+              <td>Days, hours, etc.</td>
+              <td>Quantity interpretation</td>
+            </tr>
+            <tr>
+              <td class="mono">RUNNING_BALANCE</td>
+              <td>Balance after this transaction</td>
+              <td>Current balance tracking</td>
+            </tr>
+            <tr>
+              <td class="mono">SOURCE_REFERENCE</td>
+              <td>Reference to source record</td>
+              <td>Audit trail</td>
+            </tr>
+            <tr>
+              <td class="mono">COMMENTS</td>
+              <td>Transaction description</td>
+              <td>Explanation</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>Sample Query: Balance Movement History</h3>
+
+      <pre><code>-- Employee balance movement history
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    ap.PLAN_NAME,
+    ae.TRANSACTION_DATE,
+    ae.TRANSACTION_TYPE,
+    ae.QUANTITY,
+    ae.UNIT_OF_MEASURE,
+    ae.RUNNING_BALANCE,
+    ae.COMMENTS
+FROM ANC_PER_ABSENCE_ENTRIES ae
+JOIN PER_ALL_PEOPLE_F p 
+  ON ae.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN ANC_ABSENCE_PLANS ap 
+  ON ae.ABSENCE_PLAN_ID = ap.ABSENCE_PLAN_ID
+WHERE p.PERSON_NUMBER = :employee_number  -- Specific employee
+  AND ae.TRANSACTION_DATE >= TRUNC(SYSDATE, 'YYYY')  -- Current year
+ORDER BY ae.TRANSACTION_DATE DESC, ae.ABSENCE_ENTRY_ID DESC;</code></pre>
+
+      <h2>Key Configuration Tables</h2>
+
+      <h3>ANC_ACCRUAL_PLANS - Accrual Configuration</h3>
+
+      <p>Accrual plans define how leave balances accumulate over time. This includes accrual rates, frequencies, and calculation rules.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Configuration Impact</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">ACCRUAL_PLAN_ID</td>
+              <td>Unique accrual plan identifier</td>
+              <td>Links to absence plans</td>
+            </tr>
+            <tr>
+              <td class="mono">ACCRUAL_RATE</td>
+              <td>Rate of accrual per period</td>
+              <td>Calculation basis</td>
+            </tr>
+            <tr>
+              <td class="mono">ACCRUAL_FREQUENCY</td>
+              <td>How often accrual occurs</td>
+              <td>MONTHLY, WEEKLY, DAILY, etc.</td>
+            </tr>
+            <tr>
+              <td class="mono">MAXIMUM_ACCRUAL</td>
+              <td>Cap on total accrued balance</td>
+              <td>Use-it-or-lose-it policies</td>
+            </tr>
+            <tr>
+              <td class="mono">PRORATION_RULE</td>
+              <td>How to handle partial periods</td>
+              <td>Mid-period start/termination</td>
+            </tr>
+            <tr>
+              <td class="mono">WAITING_PERIOD</td>
+              <td>Service time before eligibility</td>
+              <td>New hire restrictions</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>ANC_ABSENCE_CALENDARS - Working Calendar Integration</h3>
+
+      <p>This table manages the relationship between absence plans and working calendars, defining which days count as working days for absence calculations.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Key Columns</th>
+              <th>Description</th>
+              <th>Usage</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">ABSENCE_PLAN_ID</td>
+              <td>Links to absence plan</td>
+              <td>Plan-specific calendar rules</td>
+            </tr>
+            <tr>
+              <td class="mono">CALENDAR_ID</td>
+              <td>Working calendar identifier</td>
+              <td>Links to HXT_WORKING_TIME_CALENDARS</td>
+            </tr>
+            <tr>
+              <td class="mono">INCLUDE_HOLIDAYS</td>
+              <td>Count holidays as absence</td>
+              <td>Duration calculation rules</td>
+            </tr>
+            <tr>
+              <td class="mono">INCLUDE_WEEKENDS</td>
+              <td>Count weekends as absence</td>
+              <td>Duration calculation rules</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2>Common Absence Management Queries</h2>
+
+      <h3>Employee Balance Summary</h3>
+
+      <p>One of the most common requirements is to show current absence balances for employees:</p>
+
+      <pre><code>-- Current absence balances for all active employees
+WITH current_balances AS (
+    SELECT 
+        ae.PERSON_ID,
+        ae.ABSENCE_PLAN_ID,
+        ae.RUNNING_BALANCE
+    FROM ANC_PER_ABSENCE_ENTRIES ae
+    INNER JOIN (
+        SELECT 
+            PERSON_ID,
+            ABSENCE_PLAN_ID,
+            MAX(TRANSACTION_DATE) as MAX_TRANSACTION_DATE
+        FROM ANC_PER_ABSENCE_ENTRIES
+        GROUP BY PERSON_ID, ABSENCE_PLAN_ID
+    ) latest ON ae.PERSON_ID = latest.PERSON_ID
+                AND ae.ABSENCE_PLAN_ID = latest.ABSENCE_PLAN_ID
+                AND ae.TRANSACTION_DATE = latest.MAX_TRANSACTION_DATE
+)
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    ap.PLAN_NAME,
+    ap.ABSENCE_TYPE_CODE,
+    ent.ANNUAL_ENTITLEMENT,
+    NVL(cb.RUNNING_BALANCE, 0) as CURRENT_BALANCE,
+    ap.PLAN_UOM,
+    CASE 
+        WHEN NVL(cb.RUNNING_BALANCE, 0) < 0 THEN 'Negative'
+        WHEN NVL(cb.RUNNING_BALANCE, 0) = 0 THEN 'Zero'
+        WHEN NVL(cb.RUNNING_BALANCE, 0) > ent.ANNUAL_ENTITLEMENT THEN 'Over Entitlement'
+        ELSE 'Normal'
+    END as BALANCE_STATUS
+FROM PER_ALL_PEOPLE_F p
+JOIN ANC_PER_ABSENCE_ENTITLEMENTS ent 
+  ON p.PERSON_ID = ent.PERSON_ID
+  AND (ent.END_DATE IS NULL OR ent.END_DATE >= TRUNC(SYSDATE))
+JOIN ANC_ABSENCE_PLANS ap 
+  ON ent.ABSENCE_PLAN_ID = ap.ABSENCE_PLAN_ID
+  AND TRUNC(SYSDATE) BETWEEN ap.EFFECTIVE_START_DATE 
+                          AND NVL(ap.EFFECTIVE_END_DATE, TO_DATE('4712-12-31', 'YYYY-MM-DD'))
+LEFT JOIN current_balances cb 
+  ON p.PERSON_ID = cb.PERSON_ID 
+  AND ent.ABSENCE_PLAN_ID = cb.ABSENCE_PLAN_ID
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+ORDER BY p.PERSON_NUMBER, ap.ABSENCE_TYPE_CODE;</code></pre>
+
+      <h3>Absence Usage Analytics</h3>
+
+      <p>Analyzing absence patterns and usage trends:</p>
+
+      <pre><code>-- Absence usage analysis by department and leave type
+SELECT 
+    org.NAME as DEPARTMENT,
+    ap.PLAN_NAME,
+    ap.ABSENCE_TYPE_CODE,
+    COUNT(ae.ABSENCE_ATTENDANCE_ID) as TOTAL_ABSENCES,
+    SUM(ae.DURATION) as TOTAL_DAYS_TAKEN,
+    AVG(ae.DURATION) as AVERAGE_ABSENCE_LENGTH,
+    COUNT(DISTINCT ae.PERSON_ID) as EMPLOYEES_USING_LEAVE,
+    ROUND(AVG(ae.DURATION), 2) as AVG_DURATION
+FROM ANC_PER_ABS_ENTRIES ae
+JOIN PER_ALL_PEOPLE_F p 
+  ON ae.PERSON_ID = p.PERSON_ID
+  AND ae.START_DATE BETWEEN p.EFFECTIVE_START_DATE 
+                         AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON p.PERSON_ID = a.PERSON_ID
+  AND ae.START_DATE BETWEEN a.EFFECTIVE_START_DATE 
+                         AND a.EFFECTIVE_END_DATE
+  AND a.PRIMARY_FLAG = 'Y'
+JOIN HR_ALL_ORGANIZATION_UNITS org 
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+JOIN ANC_ABSENCE_PLANS ap 
+  ON ae.ABSENCE_PLAN_ID = ap.ABSENCE_PLAN_ID
+WHERE ae.APPROVAL_STATUS = 'APPROVED'
+  AND ae.START_DATE >= TRUNC(SYSDATE, 'YYYY')  -- Current year
+  AND ae.DURATION_UOM = 'Days'
+GROUP BY org.NAME, ap.PLAN_NAME, ap.ABSENCE_TYPE_CODE
+HAVING COUNT(ae.ABSENCE_ATTENDANCE_ID) >= 3  -- Minimum sample size
+ORDER BY org.NAME, TOTAL_DAYS_TAKEN DESC;</code></pre>
+
+      <h3>Pending Approvals Report</h3>
+
+      <p>Critical for managers to track requests requiring approval:</p>
+
+      <pre><code>-- Pending absence approvals by manager
+SELECT 
+    mgr.DISPLAY_NAME as MANAGER,
+    COUNT(*) as PENDING_REQUESTS,
+    MIN(ae.SUBMITTED_DATE) as OLDEST_REQUEST,
+    MAX(ae.SUBMITTED_DATE) as NEWEST_REQUEST,
+    SUM(ae.DURATION) as TOTAL_DAYS_PENDING
+FROM ANC_PER_ABS_ENTRIES ae
+JOIN PER_ALL_PEOPLE_F emp 
+  ON ae.PERSON_ID = emp.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN emp.EFFECTIVE_START_DATE 
+                          AND emp.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a 
+  ON emp.PERSON_ID = a.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE 
+                          AND a.EFFECTIVE_END_DATE
+  AND a.PRIMARY_FLAG = 'Y'
+JOIN PER_ALL_PEOPLE_F mgr 
+  ON a.MANAGER_ID = mgr.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN mgr.EFFECTIVE_START_DATE 
+                          AND mgr.EFFECTIVE_END_DATE
+WHERE ae.APPROVAL_STATUS IN ('PENDING', 'SUBMITTED')
+GROUP BY mgr.PERSON_ID, mgr.DISPLAY_NAME
+ORDER BY PENDING_REQUESTS DESC;</code></pre>
+
+      <h2>Advanced Configuration Scenarios</h2>
+
+      <h3>Complex Accrual Rules</h3>
+
+      <p>Oracle Absence Management supports sophisticated accrual patterns. Here's how to query employees with different accrual rates based on service length:</p>
+
+      <pre><code>-- Accrual rates based on years of service
+WITH service_years AS (
+    SELECT 
+        p.PERSON_ID,
+        p.PERSON_NUMBER,
+        p.DISPLAY_NAME,
+        wr.START_DATE,
+        FLOOR(MONTHS_BETWEEN(TRUNC(SYSDATE), wr.START_DATE) / 12) as YEARS_OF_SERVICE
+    FROM PER_ALL_PEOPLE_F p
+    JOIN PER_WORK_RELATIONSHIPS wr 
+      ON p.PERSON_ID = wr.PERSON_ID
+      AND wr.PRIMARY_FLAG = 'Y'
+      AND wr.TERMINATION_DATE IS NULL
+    WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+      AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                              AND p.EFFECTIVE_END_DATE
+)
+SELECT 
+    sy.PERSON_NUMBER,
+    sy.DISPLAY_NAME,
+    sy.YEARS_OF_SERVICE,
+    ap.PLAN_NAME,
+    ent.ANNUAL_ENTITLEMENT,
+    CASE 
+        WHEN sy.YEARS_OF_SERVICE < 1 THEN 'Probationary (10 days)'
+        WHEN sy.YEARS_OF_SERVICE < 5 THEN 'Standard (15 days)'
+        WHEN sy.YEARS_OF_SERVICE < 10 THEN 'Senior (20 days)'
+        ELSE 'Veteran (25 days)'
+    END as SERVICE_TIER
+FROM service_years sy
+JOIN ANC_PER_ABSENCE_ENTITLEMENTS ent 
+  ON sy.PERSON_ID = ent.PERSON_ID
+  AND (ent.END_DATE IS NULL OR ent.END_DATE >= TRUNC(SYSDATE))
+JOIN ANC_ABSENCE_PLANS ap 
+  ON ent.ABSENCE_PLAN_ID = ap.ABSENCE_PLAN_ID
+  AND ap.ABSENCE_TYPE_CODE = 'VACATION'
+ORDER BY sy.YEARS_OF_SERVICE, sy.PERSON_NUMBER;</code></pre>
+
+      <h3>Year-End Carryover Processing</h3>
+
+      <p>Managing year-end carryover is a critical process. Here's how to identify employees with carryover scenarios:</p>
+
+      <pre><code>-- Year-end carryover analysis
+WITH current_balances AS (
+    SELECT 
+        ae.PERSON_ID,
+        ae.ABSENCE_PLAN_ID,
+        ae.RUNNING_BALANCE
+    FROM ANC_PER_ABSENCE_ENTRIES ae
+    INNER JOIN (
+        SELECT 
+            PERSON_ID,
+            ABSENCE_PLAN_ID,
+            MAX(TRANSACTION_DATE) as MAX_DATE
+        FROM ANC_PER_ABSENCE_ENTRIES
+        WHERE TRANSACTION_DATE <= TO_DATE('31-DEC-' || TO_CHAR(SYSDATE, 'YYYY'), 'DD-MON-YYYY')
+        GROUP BY PERSON_ID, ABSENCE_PLAN_ID
+    ) latest ON ae.PERSON_ID = latest.PERSON_ID
+                AND ae.ABSENCE_PLAN_ID = latest.ABSENCE_PLAN_ID
+                AND ae.TRANSACTION_DATE = latest.MAX_DATE
+)
+SELECT 
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    ap.PLAN_NAME,
+    cb.RUNNING_BALANCE as YEAR_END_BALANCE,
+    ap.CARRYOVER_LIMIT,
+    CASE 
+        WHEN cb.RUNNING_BALANCE <= ap.CARRYOVER_LIMIT THEN cb.RUNNING_BALANCE
+        ELSE ap.CARRYOVER_LIMIT
+    END as CARRYOVER_AMOUNT,
+    CASE 
+        WHEN cb.RUNNING_BALANCE > ap.CARRYOVER_LIMIT 
+        THEN cb.RUNNING_BALANCE - ap.CARRYOVER_LIMIT
+        ELSE 0
+    END as FORFEIT_AMOUNT
+FROM current_balances cb
+JOIN PER_ALL_PEOPLE_F p 
+  ON cb.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+JOIN ANC_ABSENCE_PLANS ap 
+  ON cb.ABSENCE_PLAN_ID = ap.ABSENCE_PLAN_ID
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND ap.CARRYOVER_LIMIT > 0
+  AND cb.RUNNING_BALANCE > 0
+ORDER BY FORFEIT_AMOUNT DESC;</code></pre>
+
+      <h2>Integration and Data Quality Considerations</h2>
+
+      <h3>Data Validation Queries</h3>
+
+      <p>Ensuring data integrity in absence management is crucial for accurate reporting and compliance:</p>
+
+      <pre><code>-- Data quality checks for absence management
+-- Check 1: Employees without entitlements
+SELECT 
+    'Employees without vacation entitlements' as ISSUE,
+    COUNT(*) as ISSUE_COUNT
+FROM PER_ALL_PEOPLE_F p
+WHERE p.CURRENT_EMPLOYEE_FLAG = 'Y'
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE 
+                          AND p.EFFECTIVE_END_DATE
+  AND NOT EXISTS (
+      SELECT 1 FROM ANC_PER_ABSENCE_ENTITLEMENTS e
+      JOIN ANC_ABSENCE_PLANS ap ON e.ABSENCE_PLAN_ID = ap.ABSENCE_PLAN_ID
+      WHERE e.PERSON_ID = p.PERSON_ID
+        AND ap.ABSENCE_TYPE_CODE = 'VACATION'
+        AND (e.END_DATE IS NULL OR e.END_DATE >= TRUNC(SYSDATE))
+  )
+
+UNION ALL
+
+-- Check 2: Absences without corresponding entitlements  
+SELECT 
+    'Absences without entitlements',
+    COUNT(*)
+FROM ANC_PER_ABS_ENTRIES ae
+WHERE NOT EXISTS (
+    SELECT 1 FROM ANC_PER_ABSENCE_ENTITLEMENTS e
+    WHERE e.PERSON_ID = ae.PERSON_ID
+      AND e.ABSENCE_PLAN_ID = ae.ABSENCE_PLAN_ID
+      AND ae.START_DATE BETWEEN e.START_DATE 
+                            AND NVL(e.END_DATE, TO_DATE('4712-12-31', 'YYYY-MM-DD'))
+  )
+
+UNION ALL
+
+-- Check 3: Overlapping absence periods
+SELECT 
+    'Overlapping absence periods',
+    COUNT(*)
+FROM ANC_PER_ABS_ENTRIES a1
+WHERE EXISTS (
+    SELECT 1 FROM ANC_PER_ABS_ENTRIES a2
+    WHERE a1.PERSON_ID = a2.PERSON_ID
+      AND a1.ABSENCE_ATTENDANCE_ID != a2.ABSENCE_ATTENDANCE_ID
+      AND a1.APPROVAL_STATUS = 'APPROVED'
+      AND a2.APPROVAL_STATUS = 'APPROVED'
+      AND (a1.START_DATE BETWEEN a2.START_DATE AND a2.END_DATE
+           OR a1.END_DATE BETWEEN a2.START_DATE AND a2.END_DATE
+           OR (a1.START_DATE <= a2.START_DATE AND a1.END_DATE >= a2.END_DATE))
+  );</code></pre>
+
+      <h3>Performance Optimization</h3>
+
+      <div class="callout">
+        <p><strong>Performance Tips:</strong> Absence tables can grow large over time. Always include date filters in your queries, especially when looking at historical data. Consider partitioning strategies for large deployments and use appropriate indexes on PERSON_ID, ABSENCE_PLAN_ID, and date columns.</p>
+      </div>
+
+      <h3>Security Considerations</h3>
+
+      <div class="callout warning">
+        <p><strong>Data Security:</strong> Absence data contains sensitive employee information including medical leave details. Ensure your queries respect Oracle's data security framework and only expose data that users are authorized to see. Consider using VPD (Virtual Private Database) policies where appropriate.</p>
+      </div>
+
+      <h2>Best Practices for Absence Management Reporting</h2>
+
+      <h3>1. Establish Clear Metrics</h3>
+
+      <ul>
+        <li><strong>Utilization rates:</strong> Percentage of entitlement used by plan type</li>
+        <li><strong>Pattern analysis:</strong> Peak absence periods, seasonal trends</li>
+        <li><strong>Compliance monitoring:</strong> Approval timeframes, policy adherence</li>
+        <li><strong>Balance accuracy:</strong> Regular reconciliation of calculated vs. system balances</li>
+      </ul>
+
+      <h3>2. Regular Data Maintenance</h3>
+
+      <pre><code>-- Monthly data maintenance checklist query
+SELECT 
+    CHECK_TYPE,
+    RESULT_COUNT,
+    CASE WHEN RESULT_COUNT > 0 THEN 'Action Required' ELSE 'OK' END as STATUS
+FROM (
+    SELECT 'Expired Entitlements Not Closed' as CHECK_TYPE,
+           COUNT(*) as RESULT_COUNT
+    FROM ANC_PER_ABSENCE_ENTITLEMENTS 
+    WHERE END_DATE < TRUNC(SYSDATE) - 90
+      AND END_DATE IS NOT NULL
+      
+    UNION ALL
+    
+    SELECT 'Future-Dated Approved Absences',
+           COUNT(*)
+    FROM ANC_PER_ABS_ENTRIES 
+    WHERE APPROVAL_STATUS = 'APPROVED'
+      AND START_DATE > ADD_MONTHS(TRUNC(SYSDATE), 12)
+      
+    UNION ALL
+    
+    SELECT 'Long Pending Approvals',
+           COUNT(*)
+    FROM ANC_PER_ABS_ENTRIES 
+    WHERE APPROVAL_STATUS IN ('PENDING', 'SUBMITTED')
+      AND SUBMITTED_DATE < TRUNC(SYSDATE) - 30
+);</code></pre>
+
+      <h3>3. Automated Monitoring</h3>
+
+      <p>Set up automated monitoring for:</p>
+      <ul>
+        <li>Negative balances beyond policy limits</li>
+        <li>Long-pending approval requests</li>
+        <li>Unusual absence patterns that might indicate data issues</li>
+        <li>Accrual calculation discrepancies</li>
+      </ul>
+
+      <div class="related-tables">
+        <a href="/table/PER_ALL_PEOPLE_F" class="table-link">PER_ALL_PEOPLE_F</a>
+        <a href="/table/PER_ALL_ASSIGNMENTS_F" class="table-link">PER_ALL_ASSIGNMENTS_F</a>
+        <a href="/table/HR_ALL_ORGANIZATION_UNITS" class="table-link">HR_ALL_ORGANIZATION_UNITS</a>
+        <a href="/table/PER_WORK_RELATIONSHIPS" class="table-link">PER_WORK_RELATIONSHIPS</a>
+      </div>
+
+      <p>Mastering Oracle's Absence Management tables enables sophisticated leave tracking, compliance reporting, and workforce analytics. The hierarchical model supports complex business rules while maintaining data integrity and auditability.</p>
+
+      <p>Whether you're implementing new absence policies, troubleshooting balance issues, or building comprehensive absence analytics, understanding these core tables and their relationships is essential. Combine absence data with <a href="/blog/person-assignment-work-relationship-data-model-explained">core HCM entities</a> for comprehensive workforce reporting, and leverage <a href="/blog/oracle-hcm-rest-api-integration-guide">REST APIs</a> for real-time integrations with time tracking and payroll systems.</p>
+
+      <p>Remember that absence management directly impacts <a href="/blog/fast-formula-examples">payroll calculations</a> and should be integrated with your broader HCM reporting strategy for maximum effectiveness.</p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="related-articles">
+        <h3>Related Articles</h3>
+        <ul class="related-list">
+          <li><a href="/blog/person-assignment-work-relationship-data-model-explained">Person vs Assignment vs Work Relationship Data Model</a></li>
+          <li><a href="/blog/oracle-hcm-rest-api-integration-guide">Oracle HCM REST API Integration Guide</a></li>
+          <li><a href="/blog/fast-formula-examples">Oracle HCM Fast Formula Examples & Guide</a></li>
+          <li><a href="/blog/sql-query-library">Oracle HCM SQL Query Library & Examples</a></li>
+          <li><a href="/blog/top-50-oracle-fusion-hcm-tables">Top 50 Oracle Fusion HCM Tables</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+</body>
+</html>
