@@ -1,6 +1,6 @@
 /**
  * Generate sitemap.xml for hcm-tables.com
- * Creates URLs ONLY for tables that have JSON data files
+ * Creates URLs for tables that have JSON data files, blog pages, and static pages
  */
 
 const fs = require('fs');
@@ -17,8 +17,15 @@ const tableNames = files.map(f => f.replace('.json', ''));
 // Filter out tables with trailing underscore (duplicates/variants)
 const uniqueTables = tableNames.filter(name => !name.endsWith('_'));
 
+// Get list of blog posts (all .html files in static/blog/ except index.html)
+const blogDir = path.join(__dirname, 'static', 'blog');
+const blogFiles = fs.readdirSync(blogDir)
+  .filter(f => f.endsWith('.html') && f !== 'index.html');
+const blogSlugs = blogFiles.map(f => f.replace('.html', ''));
+
 console.log(`Total JSON files: ${files.length}`);
 console.log(`Unique tables (excluding _ suffix): ${uniqueTables.length}`);
+console.log(`Blog posts: ${blogSlugs.length}`);
 
 // Generate sitemap XML
 let xml = `<?xml version="1.0" encoding="UTF-8"?>
@@ -37,7 +44,38 @@ let xml = `<?xml version="1.0" encoding="UTF-8"?>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
+  <!-- Static pages -->
+  <url>
+    <loc>${SITE_URL}/privacy</loc>
+    <lastmod>${TODAY}</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <url>
+    <loc>${SITE_URL}/terms</loc>
+    <lastmod>${TODAY}</lastmod>
+    <changefreq>yearly</changefreq>
+    <priority>0.3</priority>
+  </url>
+  <!-- Blog index -->
+  <url>
+    <loc>${SITE_URL}/blog/</loc>
+    <lastmod>${TODAY}</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
 `;
+
+// Add each blog post
+for (const slug of blogSlugs.sort()) {
+  xml += `  <url>
+    <loc>${SITE_URL}/blog/${slug}</loc>
+    <lastmod>${TODAY}</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+`;
+}
 
 // Add each table page that has actual data
 for (const name of uniqueTables.sort()) {
@@ -57,6 +95,7 @@ const sitemapPath = path.join(__dirname, 'static', 'sitemap.xml');
 fs.writeFileSync(sitemapPath, xml);
 
 const stats = fs.statSync(sitemapPath);
+const totalUrls = uniqueTables.length + blogSlugs.length + 5; // tables + blog posts + homepage + search + blog index + privacy + terms
 console.log(`\nSitemap generated: ${sitemapPath}`);
-console.log(`Total URLs in sitemap: ${uniqueTables.length + 2}`);
+console.log(`Total URLs in sitemap: ${totalUrls}`);
 console.log(`File size: ${(stats.size / 1024).toFixed(1)} KB`);
