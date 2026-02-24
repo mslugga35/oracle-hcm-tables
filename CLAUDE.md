@@ -1,5 +1,5 @@
 # Oracle HCM Tables
-> Last verified: 2026-02-09
+> Last verified: 2026-02-24
 
 ## Project
 - **Repo:** `github.com/mslugga35/oracle-hcm-tables` (branch: `master`)
@@ -14,7 +14,7 @@
 - **Join path finder:** generate SQL joins between any two tables with date-effective filters
 - **JS data:** MODULE_PREFIXES (28), FK_MAP (16 FK columns), SUFFIX_INFO (7 suffixes)
 
-## Blog Pages (8 total in static/blog/)
+## Blog Pages (13 total in static/blog/)
 | # | File | Topic |
 |---|------|-------|
 | 1 | oracle-hcm-table-suffixes-explained.html | _F, _TL, _VL suffix guide |
@@ -25,6 +25,15 @@
 | 6 | hdl-data-loader-guide.html | HDL .dat templates + troubleshooting |
 | 7 | lookup-codes-reference.html | 16+ lookup types with all values |
 | 8 | sql-query-library.html | 7 production SQL queries |
+| 9 | oracle-absence-management-tables-configuration-guide.html | Absence management tables + SQL |
+| 10 | oracle-hcm-rest-api-integration-guide.html | REST API auth, endpoints, examples |
+| 11 | oracle-recruiting-cloud-tables-data-model.html | ORC tables + data model |
+| 12 | oracle-workforce-compensation-tables-guide.html | Compensation tables + SQL |
+| 13 | person-assignment-work-relationship-data-model-explained.html | Core data model explained |
+
+## Static Legal Pages
+- `static/privacy.html` — Privacy Policy (GA4 G-NSN2JWG98H, Plausible, AdSense ca-pub-4971966903803570, Stripe, Vercel)
+- `static/terms.html` — Terms of Service
 
 ## SEO & Indexing
 - **GSC:** Domain property `sc-domain:hcm-tables.com`, sitemap submitted

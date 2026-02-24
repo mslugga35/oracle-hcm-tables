@@ -17,6 +17,23 @@ const tableNames = files.map(f => f.replace('.json', ''));
 // Filter out tables with trailing underscore (duplicates/variants)
 const uniqueTables = tableNames.filter(name => !name.endsWith('_'));
 
+// Known publish dates for blog posts — update when adding new posts
+const BLOG_PUBLISH_DATES = {
+  'oracle-hcm-table-suffixes-explained': '2026-02-06',
+  'per-all-people-f-complete-guide': '2026-02-06',
+  'top-50-oracle-fusion-hcm-tables': '2026-02-06',
+  'otbi-subject-area-guide': '2026-02-06',
+  'fast-formula-examples': '2026-02-06',
+  'hdl-data-loader-guide': '2026-02-06',
+  'lookup-codes-reference': '2026-02-06',
+  'sql-query-library': '2026-02-06',
+  'oracle-absence-management-tables-configuration-guide': '2026-02-10',
+  'oracle-hcm-rest-api-integration-guide': '2026-02-10',
+  'oracle-recruiting-cloud-tables-data-model': '2026-02-10',
+  'oracle-workforce-compensation-tables-guide': '2026-02-10',
+  'person-assignment-work-relationship-data-model-explained': '2026-02-10',
+};
+
 // Get list of blog posts (all .html files in static/blog/ except index.html)
 const blogDir = path.join(__dirname, 'static', 'blog');
 const blogFiles = fs.readdirSync(blogDir)
@@ -66,11 +83,13 @@ let xml = `<?xml version="1.0" encoding="UTF-8"?>
   </url>
 `;
 
-// Add each blog post
+// Add each blog post (use known publish date if available, else TODAY)
+xml += `  <!-- Blog posts -->\n`;
 for (const slug of blogSlugs.sort()) {
+  const lastmod = BLOG_PUBLISH_DATES[slug] || TODAY;
   xml += `  <url>
     <loc>${SITE_URL}/blog/${slug}</loc>
-    <lastmod>${TODAY}</lastmod>
+    <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
