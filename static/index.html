@@ -1532,14 +1532,15 @@
       try {
         const [statsRes, tablesRes] = await Promise.all([
           fetch('data/stats.json'),
-          fetch('data/tables.json')
+          fetch('data/tables-search.json')
         ]);
 
         if (!statsRes.ok) throw new Error('stats.json HTTP ' + statsRes.status);
-        if (!tablesRes.ok) throw new Error('tables.json HTTP ' + tablesRes.status);
+        if (!tablesRes.ok) throw new Error('tables-search.json HTTP ' + tablesRes.status);
 
         const stats = await statsRes.json();
-        tablesData = await tablesRes.json();
+        // Expand compact format: {n: name, y: type, m: module} → {name, type, module}
+        tablesData = (await tablesRes.json()).map(t => ({ name: t.n, type: t.y, module: t.m }));
         
         // Count tables vs views
         const tableCount = tablesData.filter(t => t.type === 'TABLE').length;
@@ -1647,8 +1648,10 @@
     // Populate datalist for join path autocomplete
     function populateJoinDatalist() {
       const list = document.getElementById('join-tables-list');
-      const popular = Object.values(FK_MAP).flat();
-      const unique = [...new Set(popular)].sort();
+      // Start with FK_MAP tables (most useful for joins), then add all table names
+      const fkTables = new Set(Object.values(FK_MAP).flat());
+      const allNames = tablesData ? tablesData.map(t => t.name) : [];
+      const unique = [...new Set([...fkTables, ...allNames])].sort();
       list.innerHTML = unique.map(t => `<option value="${escapeAttr(t)}">`).join('');
     }
 
@@ -1931,21 +1934,29 @@
       document.getElementById('paywall-modal').classList.remove('active');
     }
 
-    // Hash-based code validation (codes not stored in plaintext)
-    const VALID_HASHES = ['61688882', '5f77fb97'];
-    function hashCode(str) {
-      return Array.from(str).reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0).toString(16).slice(-8);
-    }
+    // Server-side code validation — codes are never exposed in client JS
 
-    function unlockAccess() {
-      const code = document.getElementById('unlock-code').value.trim().toUpperCase();
-      if (VALID_HASHES.includes(hashCode(code))) {
-        localStorage.setItem('hcm_unlocked', 'true');
-        closePaywall();
-        updateSearchCounter();
-        alert('Access unlocked! Enjoy unlimited searches.');
-      } else {
-        alert('Invalid code. Please complete payment to get your unlock code.');
+    async function unlockAccess() {
+      const code = document.getElementById('unlock-code').value.trim();
+      if (!code) return;
+      try {
+        const res = await fetch('/api/unlock', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ code })
+        });
+        const data = await res.json();
+        if (data.valid && data.token) {
+          localStorage.setItem('hcm_unlock_token', data.token);
+          localStorage.setItem('hcm_unlocked', 'true');
+          closePaywall();
+          updateSearchCounter();
+          alert('Access unlocked! Enjoy unlimited searches.');
+        } else {
+          alert('Invalid code. Please complete payment to get your unlock code.');
+        }
+      } catch (e) {
+        alert('Verification failed. Please try again.');
       }
     }
 
@@ -1981,13 +1992,24 @@
     }
 
     // Auto-unlock from redirect URL
-    function checkUnlockParam() {
+    async function checkUnlockParam() {
       const params = new URLSearchParams(window.location.search);
       const code = params.get('unlocked');
-      if (code && VALID_HASHES.includes(hashCode(code.toUpperCase()))) {
-        localStorage.setItem('hcm_unlocked', 'true');
+      if (code) {
+        try {
+          const res = await fetch('/api/unlock', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code })
+          });
+          const data = await res.json();
+          if (data.valid && data.token) {
+            localStorage.setItem('hcm_unlock_token', data.token);
+            localStorage.setItem('hcm_unlocked', 'true');
+            updateSearchCounter();
+          }
+        } catch (e) { /* silent fail for redirect unlock */ }
         window.history.replaceState({}, '', window.location.pathname);
-        alert('Access unlocked! Thank you for your support.');
       }
     }
 
