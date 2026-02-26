@@ -73,7 +73,7 @@ module.exports = (req, res) => {
     // Parse query parameters
     const query = (req.query.q || '').trim().toUpperCase();
     const module = req.query.module ? req.query.module.toUpperCase() : null;
-    const limit = Math.min(parseInt(req.query.limit) || 20, 10); // Free tier max 10
+    const limit = Math.min(parseInt(req.query.limit) || 10, 10); // Free tier max 10
     const offset = parseInt(req.query.offset) || 0;
 
     let results = tables;

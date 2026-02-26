@@ -93,27 +93,18 @@ module.exports = (req, res) => {
       });
     }
 
-    // Find all columns for this table
+    // Single pass: collect columns and related tables simultaneously
     const tableColumns = [];
+    const relatedTables = new Map();
+
     for (const col of columnsData) {
       if (col.t.includes(tableName)) {
         tableColumns.push({
           name: col.n,
           type: col.d || 'UNKNOWN',
-          nullable: true, // We don't have nullable data in our current format
-          description: '' // We don't have column descriptions in our current format
+          nullable: true,
+          description: ''
         });
-      }
-    }
-
-    // Sort columns by name for consistency
-    tableColumns.sort((a, b) => a.name.localeCompare(b.name));
-
-    // Find related tables (tables that share many columns)
-    const relatedTables = new Map();
-    
-    for (const col of columnsData) {
-      if (col.t.includes(tableName)) {
         for (const relatedTable of col.t) {
           if (relatedTable !== tableName) {
             relatedTables.set(relatedTable, (relatedTables.get(relatedTable) || 0) + 1);
@@ -121,6 +112,8 @@ module.exports = (req, res) => {
         }
       }
     }
+
+    tableColumns.sort((a, b) => a.name.localeCompare(b.name));
 
     // Get top 5 related tables by shared column count
     const topRelated = Array.from(relatedTables.entries())

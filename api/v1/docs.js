@@ -1,29 +1,3 @@
-// Rate limiting
-const rateLimits = new Map();
-const RATE_LIMIT_FREE = 50;
-const RATE_LIMIT_WINDOW = 24 * 60 * 60 * 1000;
-
-function checkRateLimit(ip) {
-  const now = Date.now();
-  const key = `${ip}:${Math.floor(now / RATE_LIMIT_WINDOW)}`;
-  
-  const current = rateLimits.get(key) || 0;
-  if (current >= RATE_LIMIT_FREE) {
-    return { allowed: false, remaining: 0, limit: RATE_LIMIT_FREE };
-  }
-  
-  rateLimits.set(key, current + 1);
-  return { allowed: true, remaining: RATE_LIMIT_FREE - current - 1, limit: RATE_LIMIT_FREE };
-}
-
-function getClientIP(req) {
-  return req.headers['x-forwarded-for'] || 
-         req.headers['x-real-ip'] || 
-         req.connection.remoteAddress || 
-         req.socket.remoteAddress || 
-         '127.0.0.1';
-}
-
 const apiDoc = {
   "openapi": "3.0.0",
   "info": {
@@ -40,7 +14,7 @@ const apiDoc = {
   },
   "servers": [
     {
-      "url": "https://oracle-hcm-tables.vercel.app/api/v1",
+      "url": "https://hcm-tables.com/api/v1",
       "description": "Production API"
     }
   ],
@@ -370,20 +344,6 @@ module.exports = (req, res) => {
 
   if (req.method !== 'GET') {
     return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  // Rate limiting
-  const clientIP = getClientIP(req);
-  const rateCheck = checkRateLimit(clientIP);
-  
-  res.setHeader('X-RateLimit-Limit', rateCheck.limit);
-  res.setHeader('X-RateLimit-Remaining', rateCheck.remaining);
-  
-  if (!rateCheck.allowed) {
-    return res.status(429).json({ 
-      error: 'Rate limit exceeded', 
-      message: 'Free tier allows 50 requests per day. Upgrade to API key tier for higher limits.' 
-    });
   }
 
   return res.status(200).json(apiDoc);

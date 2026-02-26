@@ -1,13 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 
-// Cache data at module level
+// Cache data and file mtime at module level (constant per deployment)
 let statsData = null;
+let lastUpdated = null;
 
 function loadStatsData() {
   if (!statsData) {
     const statsPath = path.join(__dirname, '..', '..', 'static', 'data', 'stats.json');
     statsData = JSON.parse(fs.readFileSync(statsPath, 'utf8'));
+
+    const tablesPath = path.join(__dirname, '..', '..', 'static', 'data', 'tables.json');
+    lastUpdated = fs.statSync(tablesPath).mtime.toISOString().split('T')[0];
   }
   return statsData;
 }
@@ -69,11 +73,6 @@ module.exports = (req, res) => {
 
   try {
     const stats = loadStatsData();
-    
-    // Get file modification time as last_updated
-    const tablesPath = path.join(__dirname, '..', '..', 'static', 'data', 'tables.json');
-    const fileStats = fs.statSync(tablesPath);
-    const lastUpdated = fileStats.mtime.toISOString().split('T')[0]; // YYYY-MM-DD format
 
     return res.status(200).json({
       total_tables: stats.tables + (stats.views || 0), // Include views in total
