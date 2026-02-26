@@ -1508,7 +1508,7 @@
 
     /** Escape string for safe use in HTML attributes (onclick, etc.) */
     function escapeAttr(str) {
-      return str.replace(/[&'"<>]/g, c => ({'&':'&amp;',"'":'&#39;','"':'&quot;','<':'&lt;','>':'&gt;'}[c]));
+      return str.replace(/[&'"<>`]/g, c => ({'&':'&amp;',"'":'&#39;','"':'&quot;','<':'&lt;','>':'&gt;','`':'&#96;'}[c]));
     }
 
     // === INITIALIZATION ===
@@ -1950,12 +1950,12 @@
     }
 
     // Paywall gate - checks access before allowing action
-    function paywallGate(action) {
-      if (hasUnlockedAccess()) { action(); return; }
+    async function paywallGate(action) {
+      if (hasUnlockedAccess()) { await action(); return; }
       const count = getSearchCount();
       if (count >= FREE_SEARCHES) { showPaywall(); return; }
+      await action();
       incrementSearch();
-      action();
     }
 
     // Wrap original doSearch (async — paywallGate calls it, errors handled inside)
@@ -1998,15 +1998,15 @@
     // === DEEP LINK ROUTING ===
     // Handle direct URLs like /table/TABLE_NAME and /search?q=QUERY
     async function handleRoute() {
-      const path = window.location.pathname;
+      const pathname = window.location.pathname;
       const params = new URLSearchParams(window.location.search);
-      
+
       // Handle /table/TABLE_NAME
-      if (path.startsWith('/table/')) {
-        const tableName = decodeURIComponent(path.replace('/table/', ''));
+      if (pathname.startsWith('/table/')) {
+        const tableName = decodeURIComponent(pathname.replace('/table/', ''));
         if (tableName) {
           await init();
-          showTable(tableName);
+          _originalShowTable(tableName);
           return;
         }
       }
@@ -2016,10 +2016,10 @@
       if (query) {
         await init();
         document.getElementById('search').value = query;
-        doSearch();
+        _originalSearch();
         return;
       }
-      
+
       // Default: just init normally
       init();
     }
