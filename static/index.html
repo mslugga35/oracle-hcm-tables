@@ -1772,7 +1772,11 @@
         if (canonical) {
           canonical.href = `https://hcm-tables.com/table/${table.name}`;
         }
-        
+        const ogUrl = document.querySelector('meta[property="og:url"]');
+        if (ogUrl) ogUrl.content = `https://hcm-tables.com/table/${table.name}`;
+        const ogTitle = document.querySelector('meta[property="og:title"]');
+        if (ogTitle) ogTitle.content = `${table.name} - Oracle HCM Table | HCM Tables`;
+
         // Determine suffix badge
         const suffixBadge = (() => {
           for (const [sfx, info] of Object.entries(SUFFIX_INFO)) {
