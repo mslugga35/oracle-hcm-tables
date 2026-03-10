@@ -1235,9 +1235,10 @@
       <p class="modules">HCM • Financials • SCM • CX Sales • Common Features</p>
       
       <div class="search-container">
+        <label for="search" style="display:none">Search Oracle tables and columns</label>
         <div class="search-box">
-          <input type="text" id="search" placeholder="Search tables, views, or columns..." autocomplete="off">
-          <button onclick="doSearch()">
+          <input type="text" id="search" placeholder="Search tables, views, or columns..." autocomplete="off" aria-label="Search Oracle tables and columns">
+          <button onclick="doSearch()" aria-label="Submit search">
             <i data-lucide="search" style="width:18px;height:18px"></i>
             Search
           </button>
@@ -1251,16 +1252,16 @@
   <!-- Paywall Modal -->
   <div id="paywall-modal" class="paywall-modal">
     <div class="paywall-content">
-      <button class="paywall-close" onclick="closePaywall()">&times;</button>
+      <button class="paywall-close" onclick="closePaywall()" aria-label="Close payment modal">&times;</button>
       <div class="paywall-icon">🔒</div>
       <h2>You've used your 3 free searches</h2>
       <p>Support this project to unlock unlimited access. Pay what you want - minimum $1.50.</p>
 
       <div class="pwyw-box">
-        <div class="pwyw-label">MINIMUM $1.50</div>
+        <label for="pwyw-amount" class="pwyw-label">MINIMUM $1.50</label>
         <div class="pwyw-input-wrap">
           <span class="pwyw-currency">$</span>
-          <input type="number" id="pwyw-amount" class="pwyw-input" placeholder="Enter amount" min="1.50" step="0.50" value="3.00" />
+          <input type="number" id="pwyw-amount" class="pwyw-input" placeholder="Enter amount" min="1.50" step="0.50" value="3.00" aria-label="Payment amount in USD"/>
           <span class="pwyw-usd">USD</span>
         </div>
         <button class="pwyw-btn" onclick="processPayment()">CONTINUE</button>
@@ -1271,7 +1272,8 @@
       </div>
 
       <div class="paywall-code-form">
-        <input type="text" id="unlock-code" placeholder="Enter unlock code" />
+        <label for="unlock-code" style="display:none">Unlock code</label>
+        <input type="text" id="unlock-code" placeholder="Enter unlock code" aria-label="Unlock code from payment confirmation email"/>
         <button onclick="unlockAccess()">Unlock</button>
       </div>
       <p class="paywall-note">You'll receive an unlock code after payment</p>
@@ -1363,10 +1365,12 @@
       <div class="join-box">
         <p style="color:var(--text-secondary);font-size:0.9rem;margin-bottom:1rem">Enter two table names to find the JOIN columns between them.</p>
         <div class="join-inputs">
-          <input type="text" class="join-input" id="join-table-1" placeholder="e.g. PER_ALL_PEOPLE_F" autocomplete="off" list="join-tables-list">
+          <label for="join-table-1" style="display:none">First table name</label>
+          <input type="text" class="join-input" id="join-table-1" placeholder="e.g. PER_ALL_PEOPLE_F" autocomplete="off" list="join-tables-list" aria-label="First table name for JOIN path finder">
           <span class="join-arrow">&harr;</span>
-          <input type="text" class="join-input" id="join-table-2" placeholder="e.g. PER_ALL_ASSIGNMENTS_M" autocomplete="off" list="join-tables-list">
-          <button class="join-btn" onclick="findJoinPath()">Find JOIN</button>
+          <label for="join-table-2" style="display:none">Second table name</label>
+          <input type="text" class="join-input" id="join-table-2" placeholder="e.g. PER_ALL_ASSIGNMENTS_M" autocomplete="off" list="join-tables-list" aria-label="Second table name for JOIN path finder">
+          <button class="join-btn" onclick="findJoinPath()" aria-label="Find JOIN path between tables">Find JOIN</button>
         </div>
         <datalist id="join-tables-list"></datalist>
         <div class="join-result" id="join-result">
