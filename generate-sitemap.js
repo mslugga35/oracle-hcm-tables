@@ -32,6 +32,12 @@ const BLOG_PUBLISH_DATES = {
   'oracle-recruiting-cloud-tables-data-model': '2026-02-10',
   'oracle-workforce-compensation-tables-guide': '2026-02-10',
   'person-assignment-work-relationship-data-model-explained': '2026-02-10',
+  'oracle-hcm-payroll-tables-complete-guide': '2026-02-12',
+  'oracle-hcm-time-labor-tables-guide': '2026-02-14',
+  'oracle-hcm-benefits-tables-complete-guide': '2026-02-18',
+  'oracle-hcm-learning-cloud-tables-guide': '2026-02-23',
+  'oracle-hcm-organization-department-tables-guide': '2026-02-26',
+  'obiee-assertion-failure-fix': '2026-03-07',
 };
 
 // Get list of blog posts (all .html files in static/blog/ except index.html)

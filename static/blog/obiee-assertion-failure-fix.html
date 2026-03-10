@@ -1,0 +1,1015 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>OBIEE/OTBI Assertion Failure Errors — Causes, Fixes &amp; SQL Examples | HCM Tables</title>
+  <meta name="title" content="OBIEE/OTBI Assertion Failure Errors — Causes, Fixes &amp; SQL Examples | HCM Tables">
+  <meta name="description" content="Fix OBIEE and OTBI assertion failure errors fast. Covers nQSError 10058, nQSError 27002, column not found, syntax errors, and comma-join mistakes with copy-paste SQL fixes.">
+  <meta name="keywords" content="OBIEE assertion failure, nQSError 10058, OTBI assertion failure, nQSError 27002, OBIEE SQL error fix, Oracle BI assertion failure, OTBI column not found, OBIEE logical SQL error, Oracle BI nQSError, OBIEE fix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/obiee-assertion-failure-fix">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/obiee-assertion-failure-fix">
+  <meta property="og:title" content="OBIEE/OTBI Assertion Failure Errors — Causes, Fixes &amp; SQL Examples">
+  <meta property="og:description" content="Fix nQSError 10058, nQSError 27002, and all common OBIEE/OTBI assertion failure errors with copy-paste SQL corrections and root cause explanations.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/obiee-assertion-failure-fix">
+  <meta property="twitter:title" content="OBIEE/OTBI Assertion Failure Errors — Causes, Fixes &amp; SQL Examples">
+  <meta property="twitter:description" content="Fix nQSError 10058, nQSError 27002, and all common OBIEE/OTBI assertion failure errors with copy-paste SQL corrections.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OBIEE/OTBI Assertion Failure Errors — Causes, Fixes & SQL Examples",
+    "description": "Fix OBIEE and OTBI assertion failure errors fast. Covers nQSError 10058, nQSError 27002, column not found, syntax errors, and comma-join mistakes with copy-paste SQL fixes.",
+    "url": "https://hcm-tables.com/blog/obiee-assertion-failure-fix",
+    "datePublished": "2026-03-07",
+    "dateModified": "2026-03-07",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/obiee-assertion-failure-fix"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OBIEE/OTBI Assertion Failure Errors — Causes, Fixes & SQL Examples","item":"https://hcm-tables.com/blog/obiee-assertion-failure-fix"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema (boosts featured snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What causes OBIEE nQSError 10058 assertion failure?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "nQSError 10058 is a general BI Server error that wraps a deeper error code. The most common causes are: invalid logical SQL syntax (comma-separated FROM clause instead of JOIN), referencing a column that does not exist in the selected subject area, a missing or mismatched subject area name, and circular join definitions in the RPD/metadata repository."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is nQSError 27002 in OBIEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "nQSError 27002 means 'Near <token>: Syntax error [at line X]'. It indicates the BI Server encountered an unexpected token while parsing your logical SQL. The most common trigger is using ANSI physical SQL syntax (like comma-separated tables, subqueries without aliases, or SQL-specific functions) instead of OBIEE logical SQL syntax."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix 'Column not found in subject area' in OTBI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "This error means the column path in your logical SQL does not match the exact folder and column name in the OTBI subject area. Check: 1) The subject area name matches exactly including spaces, 2) The presentation folder name is correct, 3) The column name is spelled correctly and matches the case used in OTBI. Use the OTBI column browser to copy the exact path."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google tag (gtag.js) — GA4 analytics, tracking ID G-NSN2JWG98H -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    .error-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-card .error-code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-card .error-msg {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .fix-card {
+      background: oklch(0.16 0.02 145 / 0.3);
+      border: 1px solid oklch(0.70 0.18 145 / 0.4);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fix-card .fix-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .fix-card p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .callout p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout strong { color: var(--text-primary); }
+
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .toc a { color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); text-decoration: none; }
+
+    .quick-ref {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .quick-ref table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .quick-ref th {
+      background: var(--bg-tertiary);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .quick-ref td {
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .quick-ref td:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .quick-ref td:nth-child(3) {
+      color: var(--green);
+      font-size: 0.88rem;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, oklch(0.18 0.03 260) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary) !important;
+      margin-top: 0 !important;
+    }
+
+    .cta-box p {
+      color: var(--text-secondary);
+      font-size: 1rem !important;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: oklch(0.98 0 0);
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.85; text-decoration: none; color: oklch(0.98 0 0); }
+
+    .related-posts {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-posts h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      transition: border-color 0.15s;
+    }
+
+    .related-card:hover { border-color: var(--text-muted); }
+
+    .related-card .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .related-card a:hover { color: var(--accent); text-decoration: none; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer a { color: var(--blue); }
+    .footer a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <main class="article-container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; OBIEE/OTBI Assertion Failure Errors
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <span class="article-tag">OTBI Reporting</span>
+      <h1>OBIEE/OTBI Assertion Failure Errors &mdash; Causes, Fixes &amp; SQL Examples</h1>
+      <p class="article-meta">March 7, 2026 &middot; 14 min read</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h4>In this article</h4>
+      <ol>
+        <li><a href="#quick-ref">Error Quick Reference</a></li>
+        <li><a href="#nqserror-10058">nQSError: 10058 — A general error has occurred</a></li>
+        <li><a href="#nqserror-27002">nQSError: 27002 — Near &lt;token&gt;: Syntax error</a></li>
+        <li><a href="#column-not-found">Column Not Found in Subject Area</a></li>
+        <li><a href="#comma-join">Comma-Join Assertion Failure</a></li>
+        <li><a href="#init-block">Initialization Block Query Failed</a></li>
+        <li><a href="#circular-join">Circular Join / Multiple Paths</a></li>
+        <li><a href="#otbi-differences">OBIEE vs OTBI: Key Differences</a></li>
+        <li><a href="#validator">Paste Your Error for AI Diagnosis</a></li>
+      </ol>
+    </nav>
+
+    <!-- Article Content -->
+    <article class="article-content">
+
+      <p>
+        OBIEE and OTBI assertion failure errors are some of the most frustrating in Oracle reporting — the error messages are terse, the ODBC state codes are generic, and the BI Server rarely tells you exactly which token it choked on. This guide covers every common assertion failure pattern with the root cause and a copy-paste fix.
+      </p>
+
+      <div class="callout">
+        <p><strong>OBIEE vs OTBI:</strong> OBIEE is the on-premises Oracle Business Intelligence stack. OTBI (Oracle Transactional Business Intelligence) is the Fusion Cloud equivalent built on the same BI Server engine. Most nQSError codes and logical SQL syntax rules apply to both. Where they differ, this guide notes it.</p>
+      </div>
+
+      <!-- Quick Reference -->
+      <h2 id="quick-ref">Error Quick Reference</h2>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Error Code</th>
+              <th>Meaning</th>
+              <th>Most Common Cause</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>nQSError: 10058</td>
+              <td>General BI Server error (wrapper)</td>
+              <td>Invalid logical SQL syntax or missing subject area</td>
+            </tr>
+            <tr>
+              <td>nQSError: 27002</td>
+              <td>Near &lt;token&gt;: Syntax error</td>
+              <td>Physical SQL syntax used in logical SQL context</td>
+            </tr>
+            <tr>
+              <td>nQSError: 14025</td>
+              <td>No fact table exists at requested level</td>
+              <td>Mixing grain levels across incompatible subject areas</td>
+            </tr>
+            <tr>
+              <td>nQSError: 22024</td>
+              <td>Column not found</td>
+              <td>Column path mismatch — wrong folder, typo, or wrong subject area</td>
+            </tr>
+            <tr>
+              <td>nQSError: 13011</td>
+              <td>Query for initialization block failed</td>
+              <td>Init block SQL error or session variable not set</td>
+            </tr>
+            <tr>
+              <td>nQSError: 46008</td>
+              <td>Internal assertion triggered</td>
+              <td>Circular join definition in RPD (OBIEE) or corrupt query state</td>
+            </tr>
+            <tr>
+              <td>nQSError: 96015</td>
+              <td>Function called with wrong number of arguments</td>
+              <td>Wrong argument count in EVALUATE, CAST, or IFNULL</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- nQSError 10058 -->
+      <h2 id="nqserror-10058">nQSError: 10058 &mdash; A General Error Has Occurred</h2>
+
+      <p>
+        This is the most common wrapper error. The BI Server uses <code>10058</code> as the outer envelope and nests the real error code inside. Always read past the first line to find the inner error.
+      </p>
+
+      <div class="error-card">
+        <div class="error-code">ODBC State: HY000 Code: 10058</div>
+        <div class="error-msg">[NQODBC] [SQL_STATE: HY000] [nQSError: 10058] A general error has occurred.
+[nQSError: 27002] Near &lt;,&gt;: Syntax error [nQSError: 26012]</div>
+      </div>
+
+      <p>The inner code <code>27002</code> here is the actionable error — it's a syntax error near a comma. The fix depends on which inner code is nested inside 10058:</p>
+
+      <ul>
+        <li><strong>27002 nested inside 10058</strong> → Syntax error (see section below)</li>
+        <li><strong>22024 nested inside 10058</strong> → Column not found (see section below)</li>
+        <li><strong>14025 nested inside 10058</strong> → Grain mismatch — you're pulling incompatible measures</li>
+        <li><strong>46008 nested inside 10058</strong> → Internal assertion — likely a circular join or RPD bug</li>
+      </ul>
+
+      <div class="fix-card">
+        <div class="fix-label">How to diagnose</div>
+        <p>Copy the full error stack. The second line always contains the real error code. Search for that inner code (e.g., <code>nQSError: 27002</code>) — that's the one to fix. The 10058 wrapper is noise.</p>
+      </div>
+
+      <!-- nQSError 27002 -->
+      <h2 id="nqserror-27002">nQSError: 27002 &mdash; Near &lt;token&gt;: Syntax Error</h2>
+
+      <p>
+        This is the most actionable assertion failure. The BI Server parsed your logical SQL and hit an unexpected token. The error tells you <em>near what</em> the failure occurred — use that as your starting point.
+      </p>
+
+      <h3>Cause 1: Comma-separated FROM clause</h3>
+
+      <p>The most common trigger. Physical SQL allows <code>FROM TableA, TableB WHERE A.id = B.id</code>. Logical SQL does not — you must use explicit <code>JOIN</code> syntax.</p>
+
+      <div class="error-card">
+        <div class="error-code">Error triggered by this logical SQL:</div>
+        <div class="error-msg">SELECT "Worker"."Full Name", "Department"."Department Name"
+FROM "Workforce Management - Worker Assignment Real Time",
+     "Workforce Management - Workforce Gains and Losses Real Time"
+WHERE ...</div>
+      </div>
+
+      <div class="fix-card">
+        <div class="fix-label">Fix — use one subject area per query</div>
+        <p>OTBI logical SQL is issued against <em>one subject area</em>. You cannot comma-join subject areas. Pick the subject area that contains all columns you need, or run two separate queries and join them in BI Publisher / a dashboard prompt.</p>
+      </div>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Correct: single subject area, all columns from one SA
+SELECT
+  "Worker"."Full Name",
+  "Worker"."Person Number",
+  "Job"."Job Name",
+  "Department"."Department Name"
+FROM "Workforce Management - Worker Assignment Real Time"
+WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'</pre>
+      </div>
+
+      <h3>Cause 2: Subquery without alias</h3>
+
+      <p>OBIEE logical SQL requires all subqueries in the FROM clause to have an alias. Missing the alias triggers a <code>27002</code> near the closing parenthesis.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: subquery with no alias
+SELECT * FROM (SELECT "Worker"."Full Name" FROM "Workforce Management - Worker Assignment Real Time")
+
+-- CORRECT: alias required
+SELECT * FROM (SELECT "Worker"."Full Name" FROM "Workforce Management - Worker Assignment Real Time") sub1</pre>
+      </div>
+
+      <h3>Cause 3: SQL-specific functions in logical SQL</h3>
+
+      <p>Functions like <code>NVL()</code>, <code>DECODE()</code>, <code>TRUNC(date)</code> are physical SQL (Oracle DB dialect). Logical SQL uses its own function set.</p>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Physical SQL (wrong)</th>
+              <th>Logical SQL equivalent (correct)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>NVL(col, 'value')</code></td>
+              <td><code>IFNULL(col, 'value')</code></td>
+            </tr>
+            <tr>
+              <td><code>DECODE(col, a, b, c)</code></td>
+              <td><code>CASE col WHEN a THEN b ELSE c END</code></td>
+            </tr>
+            <tr>
+              <td><code>TRUNC(date_col)</code></td>
+              <td><code>CAST(date_col AS DATE)</code></td>
+            </tr>
+            <tr>
+              <td><code>TO_CHAR(col, 'YYYY-MM-DD')</code></td>
+              <td><code>CAST(col AS CHAR)</code></td>
+            </tr>
+            <tr>
+              <td><code>SYSDATE</code></td>
+              <td><code>CURRENT_DATE</code></td>
+            </tr>
+            <tr>
+              <td><code>ROWNUM</code></td>
+              <td>Not supported — use FETCH FIRST n ROWS</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Column Not Found -->
+      <h2 id="column-not-found">Column Not Found in Subject Area (nQSError: 22024)</h2>
+
+      <p>This error fires when a column path in your logical SQL does not exactly match the presentation layer in the RPD or OTBI metadata.</p>
+
+      <div class="error-card">
+        <div class="error-code">nQSError: 22024</div>
+        <div class="error-msg">The column '"Worker Details"."Employee Number"' could not be found in the subject area.</div>
+      </div>
+
+      <p>The three most common root causes and fixes:</p>
+
+      <h3>1. Wrong folder name</h3>
+      <p>OTBI presentation folder names change between releases. In older releases the folder was <code>"Worker"</code>; newer releases use <code>"Worker Details"</code>. Always verify against the live column browser.</p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Common column path changes across Fusion releases:
+-- Old: "Worker"."Employee Number"
+-- New: "Worker Details"."Person Number"
+
+-- Verify by running this in OTBI:
+SELECT "Worker Details"."Person Number"
+FROM "Workforce Management - Worker Assignment Real Time"
+FETCH FIRST 1 ROWS ONLY</pre>
+      </div>
+
+      <h3>2. Using a column from the wrong subject area</h3>
+      <p>Every column belongs to exactly one subject area. If you are querying <code>Workforce Management - Worker Assignment Real Time</code> but referencing a column that only exists in <code>Workforce Management - Workforce Gains and Losses Real Time</code>, you will get 22024.</p>
+
+      <div class="fix-card">
+        <div class="fix-label">Fix</div>
+        <p>In OTBI: open the subject area in the column browser (Analysis &rarr; Subject Area panel). Expand each folder and confirm the column exists before writing SQL against it. Do not guess column names.</p>
+      </div>
+
+      <h3>3. Case sensitivity in column paths</h3>
+      <p>Logical SQL column paths are case-sensitive in most OBIEE/OTBI configurations. <code>"worker details"."person number"</code> will fail if the metadata uses <code>"Worker Details"."Person Number"</code>. Always copy-paste from the column browser rather than hand-typing.</p>
+
+      <!-- Comma Join -->
+      <h2 id="comma-join">The Comma-Join Assertion Failure (Deep Dive)</h2>
+
+      <p>
+        This deserves its own section because it's the single most common cause of assertion failures from developers who come from a SQL background. The confusion: OBIEE/OTBI looks like SQL and accepts logical SQL syntax, so people write physical SQL by muscle memory and wonder why it blows up.
+      </p>
+
+      <p>The BI Server's logical SQL engine does not know what tables are involved — it only knows subject areas, presentation folders, and presentation columns. When you type a comma-separated FROM clause referencing two subject area names, the parser hits the comma after the first subject area name and throws:</p>
+
+      <div class="error-card">
+        <div class="error-code">nQSError: 10058 wrapping nQSError: 27002</div>
+        <div class="error-msg">Near &lt;,&gt;: Syntax error [at line 3, near char 68]</div>
+      </div>
+
+      <h3>Pattern: Combining data from two subject areas</h3>
+      <p>If you genuinely need data from two separate subject areas, your options are:</p>
+
+      <ol>
+        <li><strong>Use a subject area that already spans both</strong> — Oracle often provides a combined SA (e.g., <code>Workforce Management - Worker Assignment Real Time</code> covers most Core HR needs across multiple fact grains).</li>
+        <li><strong>Use a BI Publisher data model</strong> — run two separate OTBI logical SQL queries as separate data sets, then join them in the BIP data model on a common key like <code>Person Number</code>.</li>
+        <li><strong>Use EVALUATE_AGGR with a database function</strong> — only available when direct database access is enabled (uncommon in cloud tenants).</li>
+      </ol>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- BI Publisher data model approach (two separate OTBI queries, joined in BIP):
+
+-- Query 1: Worker details
+SELECT
+  "Worker Details"."Person Number"     AS person_number,
+  "Worker"."Full Name"                 AS full_name,
+  "Department"."Department Name"       AS department
+FROM "Workforce Management - Worker Assignment Real Time"
+WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+
+-- Query 2: Absence balances (different subject area)
+SELECT
+  "Worker"."Person Number"             AS person_number,
+  "Absence Plan"."Absence Plan Name"   AS plan_name,
+  "Balance"."Balance in Days"          AS balance_days
+FROM "Workforce Management - Accrual Real Time"
+
+-- Join on person_number in BIP data model using a group link</pre>
+      </div>
+
+      <!-- Init Block -->
+      <h2 id="init-block">Initialization Block Query Failed (nQSError: 13011)</h2>
+
+      <p>
+        Initialization blocks run SQL to populate session variables (like <code>USER</code>, <code>ROLES</code>, or custom row-level security variables) at session start. If the init block SQL fails, you get:
+      </p>
+
+      <div class="error-card">
+        <div class="error-code">nQSError: 13011</div>
+        <div class="error-msg">Query for initialization block 'HR_SECURITY_INIT' has failed.
+[nQSError: 17001] Oracle Error code: 904, message: ORA-00904: "PERSON_ID": invalid identifier</div>
+      </div>
+
+      <h3>Common causes</h3>
+      <ul>
+        <li>Init block references a column that was renamed or dropped in the database</li>
+        <li>Init block uses a DB link or synonym that is unavailable</li>
+        <li>Row-level security filter references a session variable that hasn't been populated yet (order-of-execution issue)</li>
+        <li>The init block's connection pool user lacks SELECT privileges on the queried table</li>
+      </ul>
+
+      <div class="fix-card">
+        <div class="fix-label">Diagnosis steps</div>
+        <p>1. Extract the init block SQL from the RPD (Administration Tool &rarr; Manage &rarr; Variables &rarr; Session &rarr; Initialization Blocks). 2. Run it manually against the connection pool database as the connection pool user. 3. If it fails, that's your root cause. Fix the SQL or the permissions, not the OBIEE layer.</p>
+      </div>
+
+      <!-- Circular Join -->
+      <h2 id="circular-join">Circular Join / Multiple Join Paths (nQSError: 46008)</h2>
+
+      <p>
+        nQSError: 46008 indicates an internal assertion failure inside the BI Server query planner — usually triggered when the physical layer of the RPD has multiple join paths between two tables and the server cannot resolve which path to use, resulting in a circular reference loop.
+      </p>
+
+      <div class="error-card">
+        <div class="error-code">nQSError: 46008</div>
+        <div class="error-msg">Internal assertion triggered at line NNN in file BI\Server\Source\NQQuery.cpp</div>
+      </div>
+
+      <h3>How to identify circular joins in OBIEE</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- In Administration Tool: Tools menu &rarr; Check Global Consistency
+-- Look for warnings like:
+-- [WARNING] [39056] Multiple join paths exist between...
+-- [ERROR] [39008] Circular join path detected between...
+
+-- To isolate which report triggers it:
+-- 1. Simplify the OTBI report to 1-2 columns
+-- 2. Add columns back one at a time until the error returns
+-- 3. The column that reintroduces the error belongs to the problematic join path</pre>
+      </div>
+
+      <p>In OTBI (cloud), you cannot modify the RPD. If you encounter nQSError: 46008 on an out-of-box subject area, open a Service Request with Oracle Support — it indicates a metadata regression in the latest Fusion update.</p>
+
+      <!-- OBIEE vs OTBI -->
+      <h2 id="obiee-differences">OBIEE vs OTBI: Key Differences for Assertion Failures</h2>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Aspect</th>
+              <th>OBIEE (on-prem)</th>
+              <th>OTBI (Fusion Cloud)</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>RPD access</td>
+              <td>Full access — can edit physical layer, joins, init blocks</td>
+              <td>No access — metadata is Oracle-managed</td>
+            </tr>
+            <tr>
+              <td>Logical SQL</td>
+              <td>Same engine, same error codes</td>
+              <td>Same engine, same error codes</td>
+            </tr>
+            <tr>
+              <td>nQSError: 46008</td>
+              <td>Fix in RPD physical layer (Administration Tool)</td>
+              <td>File SR with Oracle Support</td>
+            </tr>
+            <tr>
+              <td>nQSError: 13011</td>
+              <td>Fix init block SQL in RPD</td>
+              <td>Not exposed — file SR with Oracle Support</td>
+            </tr>
+            <tr>
+              <td>nQSError: 22024</td>
+              <td>Fix column path or check presentation layer</td>
+              <td>Verify against OTBI column browser; check if subject area was retired in latest update</td>
+            </tr>
+            <tr>
+              <td>nQSError: 27002</td>
+              <td>Fix logical SQL syntax</td>
+              <td>Fix logical SQL syntax (identical fix)</td>
+            </tr>
+            <tr>
+              <td>Direct DB functions</td>
+              <td>EVALUATE() to push SQL to physical layer</td>
+              <td>EVALUATE() generally disabled for security</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- Validator CTA -->
+      <h2 id="validator">Paste Your OBIEE/OTBI Error for AI Diagnosis</h2>
+
+      <p>
+        Still stuck? The OBIEE SQL Validator on this site lets you paste your full error message and the logical SQL that triggered it. It uses AI to identify the root cause and suggests a corrected query — no signup required.
+      </p>
+
+      <div class="cta-box">
+        <h3>OBIEE/OTBI SQL Validator</h3>
+        <p>Paste your error message + query. Get a diagnosis and corrected SQL in seconds.</p>
+        <a href="/obiee-sql-validator" class="cta-btn">Open SQL Validator &rarr;</a>
+      </div>
+
+      <h2>Quick Diagnostic Checklist</h2>
+
+      <p>When you hit any OBIEE/OTBI assertion failure, run through this in order:</p>
+
+      <ol>
+        <li><strong>Find the inner error code</strong> — ignore 10058, read the next line</li>
+        <li><strong>27002?</strong> — Look at what token the error says is "near". Usually a comma, a closing paren, or a physical SQL function name</li>
+        <li><strong>22024?</strong> — Open the OTBI column browser and verify the exact folder/column path, character by character</li>
+        <li><strong>14025?</strong> — You're combining incompatible grain levels. Separate into two queries or find a single SA that spans what you need</li>
+        <li><strong>46008?</strong> — On OBIEE: run Global Consistency Check. On OTBI: file an SR</li>
+        <li><strong>13011?</strong> — Extract the init block SQL, run it manually as the connection pool user</li>
+        <li><strong>Still stuck?</strong> — Enable BI Server query logging (log level 3), run the report, find the generated physical SQL in the log, and test it directly in SQL*Plus</li>
+      </ol>
+
+    </article>
+
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h3>Related guides</h3>
+      <div class="related-grid">
+        <div class="related-card">
+          <div class="tag">OTBI Reporting</div>
+          <a href="/blog/otbi-subject-area-guide">OTBI Subject Areas &mdash; Complete Guide with Decision Tree</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">SQL</div>
+          <a href="/blog/sql-query-library">SQL Query Library &mdash; 7 Production-Ready Queries</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">Schema Basics</div>
+          <a href="/blog/oracle-hcm-table-suffixes-explained">Oracle HCM Table Suffixes Explained (_F, _TL, _VL)</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">Data Model</div>
+          <a href="/blog/person-assignment-work-relationship-data-model-explained">Person vs Assignment vs Work Relationship</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p>
+        <a href="/">Search 35,000+ Oracle Tables</a> &middot;
+        <a href="/privacy">Privacy Policy</a> &middot;
+        <a href="/terms">Terms of Service</a> &middot;
+        <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      navigator.clipboard.writeText(pre.textContent).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
