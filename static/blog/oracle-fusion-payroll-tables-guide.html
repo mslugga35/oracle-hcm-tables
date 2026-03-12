@@ -1,0 +1,470 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle Fusion Payroll Tables Complete Guide &mdash; PAY_ Schema &amp; SQL | HCM Tables</title>
+<meta name="description" content="Complete guide to Oracle Fusion Cloud Payroll tables. Covers PAY_PAYROLL_ACTIONS, PAY_ASSIGNMENT_ACTIONS, PAY_RUN_RESULTS, element entries, balances, and 8 production SQL queries.">
+<meta name="keywords" content="Oracle Fusion Payroll tables, PAY_PAYROLL_ACTIONS, PAY_RUN_RESULTS, PAY_ASSIGNMENT_ACTIONS, Oracle Payroll schema, Oracle Cloud payroll SQL, PAY_ELEMENT_ENTRIES_F, PAY_RUN_RESULT_VALUES, Oracle payroll reporting queries">
+<meta name="robots" content="index, follow">
+<meta name="author" content="HCM Tables">
+<link rel="canonical" href="https://hcm-tables.com/blog/oracle-fusion-payroll-tables-guide">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hcm-tables.com/blog/oracle-fusion-payroll-tables-guide">
+<meta property="og:title" content="Oracle Fusion Payroll Tables Complete Guide">
+<meta property="og:description" content="Master Oracle Fusion Cloud Payroll tables: payroll actions, run results, element entries, balances, cost allocations with SQL examples.">
+<meta property="og:site_name" content="HCM Tables">
+<meta property="og:image" content="https://hcm-tables.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Oracle Fusion Payroll Tables Complete Guide","description":"Complete guide to Oracle Fusion Cloud Payroll tables.","url":"https://hcm-tables.com/blog/oracle-fusion-payroll-tables-guide","datePublished":"2026-03-11","dateModified":"2026-03-11","author":{"@type":"Person","name":"Matt Morales"},"publisher":{"@type":"Organization","name":"HCM Tables","url":"https://hcm-tables.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://hcm-tables.com/blog/oracle-fusion-payroll-tables-guide"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"Oracle Fusion Payroll Tables Guide","item":"https://hcm-tables.com/blog/oracle-fusion-payroll-tables-guide"}]}</script>
+<script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head><body>
+<style>
+:root{--bg:#0f1117;--bg2:#141720;--bg3:#1a1e2e;--fg:#f8f9fa;--fg2:#a0a8c0;--fg3:#606880;--bd:#2a2e42;--ac:#e05a2b;--ac2:rgba(224,90,43,.25);--bl:#5b8dee;--gn:#4caf82;--yw:#d4b44a;--fn:Inter,system-ui,sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+a{color:var(--bl);text-decoration:none;transition:color .15s}a:hover{color:var(--ac);text-decoration:underline}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+.nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+.nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}.nl a.active{color:var(--ac)}
+.hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:900px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:400px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+.hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+.toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+.toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+.toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+.ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+.ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+.ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+.ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+.ab strong{color:var(--fg);font-weight:600}
+.ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+.cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+.cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}.cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}.cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}
+.cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}.cl p{color:var(--fg2);margin:0;font-size:.95rem}.cl strong{color:var(--fg)}
+.tw{overflow-x:auto;margin:1.5rem 0;border-radius:var(--rs);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{padding:.75rem 1rem;text-align:left;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--bd)}
+td{padding:.75rem 1rem;color:var(--fg2);border-bottom:1px solid var(--bd);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--bg3)}
+td code{font-size:.8rem}
+.sql{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs);padding:1.5rem;margin:1.5rem 0;overflow-x:auto}
+.sql-hd{display:flex;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bd)}
+.sql-ti{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.sql pre{font-family:var(--fm);font-size:.82rem;color:var(--fg2);white-space:pre;line-height:1.65}
+.kw{color:var(--bl);font-weight:600}.cm{color:var(--fg3);font-style:italic}.fn{color:var(--gn)}.st{color:#88c0a0}.nm{color:var(--yw)}
+.footer{padding:2rem 1.5rem;border-top:1px solid var(--bd);text-align:center}
+.footer p{color:var(--fg3);font-size:.85rem;margin-bottom:.5rem}
+.footer a{color:var(--bl)}.footer a:hover{color:var(--ac);text-decoration:underline}
+@media(max-width:640px){.hero{padding:2.5rem 1rem 2rem}.nav{padding:1rem}.nl{gap:1rem}}
+</style>
+<nav class="nav">
+  <a href="/" class="nb">HCM Tables</a>
+  <div class="nl"><a href="/">Search</a><a href="/blog/" class="active">Blog</a></div>
+</nav>
+<section class="hero">
+  <span class="tag">Payroll</span>
+  <h1>Oracle Fusion Payroll Tables Complete Guide</h1>
+  <p style="position:relative;color:var(--fg2);font-size:1.05rem;max-width:620px;margin:.5rem auto 0">Master the PAY_ schema: payroll actions, run results, element entries, balances, and cost allocations &mdash; with 8 copy-paste SQL queries.</p>
+  <div class="meta"><span>Mar 11, 2026</span><span>&middot;</span><span>20 min read</span><span>&middot;</span><a href="/">Search 35K+ Tables &rarr;</a></div>
+</section><div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#overview">Payroll Module Overview</a></li>
+    <li><a href="#core-tables">Core PAY_ Tables Reference</a></li>
+    <li><a href="#processing-flow">Payroll Processing Flow</a></li>
+    <li><a href="#element-entries">Element Entries &amp; Run Results</a></li>
+    <li><a href="#balances">Payroll Balances</a></li>
+    <li><a href="#sql-queries">8 Production SQL Queries</a></li>
+    <li><a href="#costing">Cost Allocation Tables</a></li>
+    <li><a href="#tips">Reporting Tips &amp; Gotchas</a></li>
+  </ol>
+</div>
+<div class="ab">
+<h2 id="overview">1. Payroll Module Overview</h2>
+<p>Oracle Fusion Cloud Payroll uses the <strong>PAY_ prefix</strong> for its core tables. Unlike the Core HR tables (PER_) which are date-effective with <code>_F</code> suffixes, payroll tables use an <strong>action-based architecture</strong>: every payroll event (a payroll run, a QuickPay, a reversal, a balance adjustment) is recorded as a <em>payroll action</em>, and each person's slice of that action is an <em>assignment action</em>.</p>
+<p>There are over 400 PAY_ tables in Oracle Fusion. This guide covers the 15 most important ones — the ones you'll query constantly for payroll reports, integrations, and troubleshooting.</p>
+<div class="cl cl-i"><span class="cl-icon">&#x2139;&#xFE0F;</span><p><strong>Access note:</strong> In Oracle Fusion Cloud, you typically query payroll data through OTBI subject areas (like <em>Payroll &mdash; Payroll Run Results Real Time</em>) rather than direct SQL. Direct SQL access requires Oracle BI Publisher data models or HCM Extracts with the appropriate roles.</p></div>
+
+<h2 id="core-tables">2. Core PAY_ Tables Reference</h2>
+<p>Here are the 15 most important payroll tables, grouped by function:</p>
+<div class="tw"><table>
+<tr><th>Table</th><th>Purpose</th><th>Key Columns</th></tr>
+<tr><td><code>PAY_PAYROLL_ACTIONS</code></td><td>One row per payroll event (run, QuickPay, reversal, balance adj.)</td><td>PAYROLL_ACTION_ID, ACTION_TYPE, ACTION_STATUS, EFFECTIVE_DATE, DATE_EARNED, PAYROLL_ID</td></tr>
+<tr><td><code>PAY_ASSIGNMENT_ACTIONS</code></td><td>One row per person per payroll action; links assignment to payroll event</td><td>ASSIGNMENT_ACTION_ID, PAYROLL_ACTION_ID, ASSIGNMENT_ID, ACTION_STATUS, CHUNK_NUMBER</td></tr>
+<tr><td><code>PAY_RUN_RESULTS</code></td><td>Stores the result of each element processed during a payroll run</td><td>RUN_RESULT_ID, ASSIGNMENT_ACTION_ID, ELEMENT_TYPE_ID, STATUS, ENTRY_TYPE</td></tr>
+<tr><td><code>PAY_RUN_RESULT_VALUES</code></td><td>Individual input/output values for each run result (the actual dollar amounts)</td><td>RUN_RESULT_ID, INPUT_VALUE_ID, RESULT_VALUE</td></tr>
+<tr><td><code>PAY_ELEMENT_ENTRIES_F</code></td><td>Date-effective element assignments for each person (what they should be paid)</td><td>ELEMENT_ENTRY_ID, ASSIGNMENT_ID, ELEMENT_TYPE_ID, EFFECTIVE_START_DATE, EFFECTIVE_END_DATE, CREATOR_TYPE</td></tr>
+<tr><td><code>PAY_ELEMENT_ENTRY_VALUES_F</code></td><td>Input values for each element entry (salary amount, hours, rate)</td><td>ELEMENT_ENTRY_VALUE_ID, ELEMENT_ENTRY_ID, INPUT_VALUE_ID, SCREEN_ENTRY_VALUE</td></tr>
+<tr><td><code>PAY_ELEMENT_TYPES_F</code></td><td>Element definitions (Regular Salary, Overtime, Bonus, etc.)</td><td>ELEMENT_TYPE_ID, ELEMENT_NAME, CLASSIFICATION_ID, PROCESSING_TYPE, EFFECTIVE_START_DATE</td></tr>
+<tr><td><code>PAY_INPUT_VALUES_F</code></td><td>Defines the inputs each element accepts (Pay Value, Hours, Rate)</td><td>INPUT_VALUE_ID, ELEMENT_TYPE_ID, NAME, UOM, EFFECTIVE_START_DATE</td></tr>
+<tr><td><code>PAY_PAYROLLS_F</code></td><td>Payroll definitions (Weekly US Payroll, Monthly Salaried, etc.)</td><td>PAYROLL_ID, PAYROLL_NAME, PERIOD_TYPE, CUT_OFF_DATE_OFFSET, EFFECTIVE_START_DATE</td></tr>
+<tr><td><code>PAY_TIME_PERIODS</code></td><td>Payroll periods (start/end dates for each pay cycle)</td><td>TIME_PERIOD_ID, PAYROLL_ID, START_DATE, END_DATE, PERIOD_NAME, PERIOD_NUM</td></tr>
+<tr><td><code>PAY_BALANCE_TYPES</code></td><td>Balance definitions (Gross Earnings YTD, Federal Tax Withheld, etc.)</td><td>BALANCE_TYPE_ID, BALANCE_NAME, ASSIGNMENT_REMUNERATION_FLAG, CURRENCY_CODE</td></tr>
+<tr><td><code>PAY_BALANCE_DIMENSIONS</code></td><td>Dimensions for balance reporting (YTD, QTD, MTD, Run)</td><td>BALANCE_DIMENSION_ID, DIMENSION_NAME, DATABASE_ITEM_SUFFIX, PERIOD_TYPE</td></tr>
+<tr><td><code>PAY_ASSIGNMENT_LATEST_BALANCES</code></td><td>Cached balance values per assignment (fastest way to get balances)</td><td>ASSIGNMENT_ACTION_ID, DEFINED_BALANCE_ID, VALUE</td></tr>
+<tr><td><code>PAY_COSTS</code></td><td>Cost distribution lines for each payroll run result</td><td>COST_ID, ASSIGNMENT_ACTION_ID, RUN_RESULT_ID, COST_VALUE, CREDIT_OR_DEBIT</td></tr>
+<tr><td><code>PAY_COST_ALLOCATIONS_F</code></td><td>Date-effective GL cost allocation overrides at the assignment or element level</td><td>COST_ALLOCATION_ID, ASSIGNMENT_ID, ELEMENT_TYPE_ID, EFFECTIVE_START_DATE</td></tr>
+<tr><td><code>PAY_ELEMENT_CLASSIFICATIONS</code></td><td>Element classification groups (Earnings, Deductions, Employer Charges, Taxes)</td><td>CLASSIFICATION_ID, CLASSIFICATION_NAME, LEGISLATION_CODE</td></tr>
+</table></div>
+
+<h2 id="processing-flow">3. Payroll Processing Flow</h2>
+<p>Understanding how Oracle processes a payroll run maps directly to how the tables are populated. Each step creates records in specific tables:</p>
+<div style="display:flex;flex-direction:column;gap:0;margin:1.5rem 0">
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs) var(--rs) 0 0;border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">1</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Submit Payroll Run</strong><span style="color:var(--fg2);font-size:.875rem">Creates 1 row in <code>PAY_PAYROLL_ACTIONS</code> with ACTION_TYPE = <code>'R'</code> (Run) and ACTION_STATUS = <code>'U'</code> (Unprocessed).</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">2</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Identify Assignments</strong><span style="color:var(--fg2);font-size:.875rem">Oracle creates 1 row per eligible employee in <code>PAY_ASSIGNMENT_ACTIONS</code>, linking each assignment to the payroll action.</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">3</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Process Elements</strong><span style="color:var(--fg2);font-size:.875rem">For each element entry in <code>PAY_ELEMENT_ENTRIES_F</code>, Oracle evaluates Fast Formulas and creates rows in <code>PAY_RUN_RESULTS</code> and <code>PAY_RUN_RESULT_VALUES</code> with the computed amounts.</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">4</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Update Balances</strong><span style="color:var(--fg2);font-size:.875rem">Oracle accumulates run results into balances, updating <code>PAY_ASSIGNMENT_LATEST_BALANCES</code> with YTD/QTD/MTD totals.</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">5</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Cost Distribution</strong><span style="color:var(--fg2);font-size:.875rem">If costing is enabled, Oracle generates GL entries in <code>PAY_COSTS</code>, splitting earnings across cost centers per <code>PAY_COST_ALLOCATIONS_F</code>.</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-radius:0 0 var(--rs) var(--rs)">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">6</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Mark Complete</strong><span style="color:var(--fg2);font-size:.875rem">ACTION_STATUS in <code>PAY_PAYROLL_ACTIONS</code> and <code>PAY_ASSIGNMENT_ACTIONS</code> is updated to <code>'C'</code> (Complete). Pre-payments and archiving follow.</span></div>
+</div>
+</div>
+
+<h2 id="element-entries">4. Element Entries &amp; Run Results</h2>
+<p>The most common payroll reporting join is <strong>element entries → run results → run result values</strong>. Here's how they relate:</p>
+<ul>
+  <li><code>PAY_ELEMENT_ENTRIES_F</code> answers: <em>"What should this person be paid?"</em> — it holds the standing instruction</li>
+  <li><code>PAY_RUN_RESULTS</code> answers: <em>"What was actually processed in this run?"</em> — one row per element per run</li>
+  <li><code>PAY_RUN_RESULT_VALUES</code> answers: <em>"What was the actual dollar amount?"</em> — the RESULT_VALUE column holds the computed value</li>
+</ul>
+<div class="cl cl-w"><span class="cl-icon">&#x26A0;&#xFE0F;</span><p><strong>ENTRY_TYPE matters:</strong> In PAY_RUN_RESULTS, filter on ENTRY_TYPE = <code>'E'</code> (normal element entries) to exclude override entries (<code>'D'</code>) and additional entries (<code>'A'</code>) unless you specifically need them.</p></div>
+<p>The <strong>Pay Value</strong> (the actual dollar output) is almost always the input value named <code>'Pay Value'</code> in <code>PAY_INPUT_VALUES_F</code>. For most earnings elements, you join RRV.INPUT_VALUE_ID to the Pay Value input to get the gross amount.</p>
+
+<h2 id="balances">5. Payroll Balances</h2>
+<p>Oracle Payroll has two ways to get balance values:</p>
+<h3>Route 1: PAY_ASSIGNMENT_LATEST_BALANCES (Fast, cached)</h3>
+<p>The <code>PAY_ASSIGNMENT_LATEST_BALANCES</code> table stores the most recent balance value for each assignment + defined balance combination. It's populated after every payroll run and is the fastest way to report current balances. Join it to <code>PAY_DEFINED_BALANCES</code> to decode what balance/dimension it represents.</p>
+<h3>Route 2: Summarize PAY_RUN_RESULT_VALUES (Accurate for historical)</h3>
+<p>For historical period analysis (e.g., "what was this person's gross earnings in Q2?"), sum RUN_RESULT_VALUES filtered by the relevant payroll actions and date range. This is slower but gives you point-in-time accuracy regardless of any retroactive adjustments.</p>
+<div class="cl cl-t"><span class="cl-icon">&#x1F4A1;</span><p><strong>Tip:</strong> Always filter <code>PAY_PAYROLL_ACTIONS</code> on <code>ACTION_STATUS = 'C'</code> (Complete) and <code>ACTION_TYPE IN ('R', 'Q', 'B')</code> (Run, QuickPay, Balance Adjustment) to exclude incomplete or reversed runs from your totals.</p></div><h2 id="sql-queries">6. Eight Production SQL Queries</h2>
+<p>All queries use the action-based architecture described above. Filter <code>action_status = 'C'</code> to include only completed runs.</p>
+
+<h3>Query 1: Payroll Register</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Payroll Register — Earnings by Employee</span></div><pre>
+<span class="kw">SELECT</span> pap.full_name,
+       pa.assignment_number,
+       pet.element_name,
+       rrv.result_value     <span class="cm">AS amount</span>,
+       ppa.effective_date   <span class="cm">AS pay_date</span>
+<span class="kw">FROM</span>  pay_payroll_actions      ppa
+<span class="kw">JOIN</span>  pay_assignment_actions  paa  <span class="kw">ON</span> paa.payroll_action_id  = ppa.payroll_action_id
+<span class="kw">JOIN</span>  per_all_assignments_m   pa   <span class="kw">ON</span> pa.assignment_id       = paa.assignment_id
+<span class="kw">JOIN</span>  per_all_people_f        pap  <span class="kw">ON</span> pap.person_id          = pa.person_id
+<span class="kw">JOIN</span>  pay_run_results         rr   <span class="kw">ON</span> rr.assignment_action_id = paa.assignment_action_id
+<span class="kw">JOIN</span>  pay_run_result_values   rrv  <span class="kw">ON</span> rrv.run_result_id       = rr.run_result_id
+<span class="kw">JOIN</span>  pay_element_types_f     pet  <span class="kw">ON</span> pet.element_type_id    = rr.element_type_id
+<span class="kw">JOIN</span>  pay_input_values_f      piv  <span class="kw">ON</span> piv.input_value_id     = rrv.input_value_id
+<span class="kw">WHERE</span> ppa.action_type IN (<span class="st">'R'</span>,<span class="st">'Q'</span>) <span class="kw">AND</span> ppa.action_status = <span class="st">'C'</span>
+  <span class="kw">AND</span> ppa.effective_date <span class="kw">BETWEEN</span> <span class="nm">:start_date</span> <span class="kw">AND</span> <span class="nm">:end_date</span>
+  <span class="kw">AND</span> rr.entry_type = <span class="st">'E'</span> <span class="kw">AND</span> piv.name = <span class="st">'Pay Value'</span>
+  <span class="kw">AND</span> pap.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pap.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_end_date   &gt;= ppa.effective_date
+<span class="kw">ORDER BY</span> pap.full_name, pet.element_name;
+</pre></div>
+
+<h3>Query 2: Earnings by Classification</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Earnings vs Deductions vs Taxes Summary</span></div><pre>
+<span class="kw">SELECT</span> pec.classification_name,
+       pet.element_name,
+       <span class="fn">SUM</span>(<span class="fn">TO_NUMBER</span>(rrv.result_value))   <span class="cm">AS total_amount</span>,
+       <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> paa.assignment_id)  <span class="cm">AS employee_count</span>
+<span class="kw">FROM</span>  pay_payroll_actions      ppa
+<span class="kw">JOIN</span>  pay_assignment_actions  paa  <span class="kw">ON</span> paa.payroll_action_id  = ppa.payroll_action_id
+<span class="kw">JOIN</span>  pay_run_results         rr   <span class="kw">ON</span> rr.assignment_action_id = paa.assignment_action_id
+<span class="kw">JOIN</span>  pay_run_result_values   rrv  <span class="kw">ON</span> rrv.run_result_id       = rr.run_result_id
+<span class="kw">JOIN</span>  pay_element_types_f     pet  <span class="kw">ON</span> pet.element_type_id    = rr.element_type_id
+<span class="kw">JOIN</span>  pay_input_values_f      piv  <span class="kw">ON</span> piv.input_value_id     = rrv.input_value_id
+<span class="kw">JOIN</span>  pay_element_classifications pec <span class="kw">ON</span> pec.classification_id = pet.classification_id
+<span class="kw">WHERE</span> ppa.action_type IN (<span class="st">'R'</span>,<span class="st">'Q'</span>) <span class="kw">AND</span> ppa.action_status = <span class="st">'C'</span>
+  <span class="kw">AND</span> ppa.effective_date <span class="kw">BETWEEN</span> <span class="nm">:start_date</span> <span class="kw">AND</span> <span class="nm">:end_date</span>
+  <span class="kw">AND</span> piv.name = <span class="st">'Pay Value'</span> <span class="kw">AND</span> rr.entry_type = <span class="st">'E'</span>
+  <span class="kw">AND</span> pet.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_end_date   &gt;= ppa.effective_date
+<span class="kw">GROUP BY</span> pec.classification_name, pet.element_name
+<span class="kw">ORDER BY</span> pec.classification_name, total_amount <span class="kw">DESC</span>;
+</pre></div>
+
+<h3>Query 3: Active Element Entries (Current Pay Setup)</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Current Element Entries per Employee</span></div><pre>
+<span class="kw">SELECT</span> pap.full_name, pa.assignment_number,
+       pet.element_name, pec.classification_name,
+       piv.name <span class="cm">AS input_name</span>, peev.screen_entry_value,
+       pee.effective_start_date, pee.effective_end_date
+<span class="kw">FROM</span>  pay_element_entries_f      pee
+<span class="kw">JOIN</span>  pay_element_entry_values_f peev <span class="kw">ON</span> peev.element_entry_id  = pee.element_entry_id
+<span class="kw">JOIN</span>  per_all_assignments_m      pa   <span class="kw">ON</span> pa.assignment_id       = pee.assignment_id
+<span class="kw">JOIN</span>  per_all_people_f           pap  <span class="kw">ON</span> pap.person_id          = pa.person_id
+<span class="kw">JOIN</span>  pay_element_types_f        pet  <span class="kw">ON</span> pet.element_type_id    = pee.element_type_id
+<span class="kw">JOIN</span>  pay_input_values_f         piv  <span class="kw">ON</span> piv.input_value_id     = peev.input_value_id
+<span class="kw">JOIN</span>  pay_element_classifications pec <span class="kw">ON</span> pec.classification_id  = pet.classification_id
+<span class="kw">WHERE</span> SYSDATE <span class="kw">BETWEEN</span> pee.effective_start_date <span class="kw">AND</span> pee.effective_end_date
+  <span class="kw">AND</span> SYSDATE <span class="kw">BETWEEN</span> peev.effective_start_date <span class="kw">AND</span> peev.effective_end_date
+  <span class="kw">AND</span> SYSDATE <span class="kw">BETWEEN</span> pet.effective_start_date <span class="kw">AND</span> pet.effective_end_date
+  <span class="kw">AND</span> SYSDATE <span class="kw">BETWEEN</span> piv.effective_start_date <span class="kw">AND</span> piv.effective_end_date
+  <span class="kw">AND</span> SYSDATE <span class="kw">BETWEEN</span> pap.effective_start_date <span class="kw">AND</span> pap.effective_end_date
+  <span class="kw">AND</span> pa.primary_flag = <span class="st">'Y'</span>
+<span class="kw">ORDER BY</span> pap.full_name, pet.element_name;
+</pre></div>
+
+<h3>Query 4: Payroll Period Summary</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Completed Payroll Runs with Headcount and Total Gross</span></div><pre>
+<span class="kw">SELECT</span> ppf.payroll_name, ptp.period_name,
+       ptp.start_date, ptp.end_date,
+       ppa.effective_date <span class="cm">AS pay_date</span>,
+       <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> paa.assignment_id)   <span class="cm">AS employee_count</span>,
+       <span class="fn">SUM</span>(<span class="fn">TO_NUMBER</span>(rrv.result_value))    <span class="cm">AS total_gross</span>
+<span class="kw">FROM</span>  pay_payroll_actions      ppa
+<span class="kw">JOIN</span>  pay_payrolls_f           ppf <span class="kw">ON</span> ppf.payroll_id         = ppa.payroll_id
+<span class="kw">JOIN</span>  pay_time_periods         ptp <span class="kw">ON</span> ptp.time_period_id     = ppa.time_period_id
+<span class="kw">JOIN</span>  pay_assignment_actions  paa  <span class="kw">ON</span> paa.payroll_action_id  = ppa.payroll_action_id
+<span class="kw">JOIN</span>  pay_run_results         rr   <span class="kw">ON</span> rr.assignment_action_id = paa.assignment_action_id
+<span class="kw">JOIN</span>  pay_run_result_values   rrv  <span class="kw">ON</span> rrv.run_result_id       = rr.run_result_id
+<span class="kw">JOIN</span>  pay_input_values_f      piv  <span class="kw">ON</span> piv.input_value_id     = rrv.input_value_id
+<span class="kw">JOIN</span>  pay_element_types_f     pet  <span class="kw">ON</span> pet.element_type_id    = rr.element_type_id
+<span class="kw">JOIN</span>  pay_element_classifications pec <span class="kw">ON</span> pec.classification_id = pet.classification_id
+<span class="kw">WHERE</span> ppa.action_type = <span class="st">'R'</span> <span class="kw">AND</span> ppa.action_status = <span class="st">'C'</span>
+  <span class="kw">AND</span> pec.classification_name = <span class="st">'Earnings'</span>
+  <span class="kw">AND</span> piv.name = <span class="st">'Pay Value'</span> <span class="kw">AND</span> rr.entry_type = <span class="st">'E'</span>
+  <span class="kw">AND</span> ppf.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> ppf.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_end_date   &gt;= ppa.effective_date
+<span class="kw">GROUP BY</span> ppf.payroll_name, ptp.period_name, ptp.start_date,
+         ptp.end_date, ppa.effective_date
+<span class="kw">ORDER BY</span> ptp.start_date <span class="kw">DESC</span>;
+</pre></div><h3>Query 5: Retro Pay Runs</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Identify Retro Pay Actions and Amounts</span></div><pre>
+<span class="kw">SELECT</span> pap.full_name, pa.assignment_number,
+       ppa.effective_date  <span class="cm">AS retro_pay_date</span>,
+       ppa.date_earned     <span class="cm">AS original_period_date</span>,
+       pet.element_name,
+       rrv.result_value    <span class="cm">AS retro_amount</span>
+<span class="kw">FROM</span>  pay_payroll_actions      ppa
+<span class="kw">JOIN</span>  pay_assignment_actions  paa <span class="kw">ON</span> paa.payroll_action_id  = ppa.payroll_action_id
+<span class="kw">JOIN</span>  per_all_assignments_m   pa  <span class="kw">ON</span> pa.assignment_id       = paa.assignment_id
+<span class="kw">JOIN</span>  per_all_people_f        pap <span class="kw">ON</span> pap.person_id          = pa.person_id
+<span class="kw">JOIN</span>  pay_run_results         rr  <span class="kw">ON</span> rr.assignment_action_id = paa.assignment_action_id
+<span class="kw">JOIN</span>  pay_run_result_values   rrv <span class="kw">ON</span> rrv.run_result_id       = rr.run_result_id
+<span class="kw">JOIN</span>  pay_element_types_f     pet <span class="kw">ON</span> pet.element_type_id    = rr.element_type_id
+<span class="kw">JOIN</span>  pay_input_values_f      piv <span class="kw">ON</span> piv.input_value_id     = rrv.input_value_id
+<span class="kw">WHERE</span> ppa.action_type = <span class="st">'L'</span>           <span class="cm">-- 'L' = Retro Pay</span>
+  <span class="kw">AND</span> ppa.action_status = <span class="st">'C'</span>
+  <span class="kw">AND</span> ppa.effective_date <span class="kw">BETWEEN</span> <span class="nm">:start_date</span> <span class="kw">AND</span> <span class="nm">:end_date</span>
+  <span class="kw">AND</span> piv.name = <span class="st">'Pay Value'</span>
+  <span class="kw">AND</span> pap.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pap.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_end_date   &gt;= ppa.effective_date
+<span class="kw">ORDER BY</span> pap.full_name, ppa.effective_date;
+</pre></div>
+
+<h3>Query 6: Reversals and Voids</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Find Reversed Assignment Actions</span></div><pre>
+<span class="cm">-- Reversals create negative run results to back out a prior run</span>
+<span class="kw">SELECT</span> pap.full_name, pa.assignment_number,
+       ppa.effective_date  <span class="cm">AS reversal_date</span>,
+       pet.element_name,
+       rrv.result_value    <span class="cm">AS reversed_amount</span>
+<span class="kw">FROM</span>  pay_payroll_actions      ppa
+<span class="kw">JOIN</span>  pay_assignment_actions  paa <span class="kw">ON</span> paa.payroll_action_id  = ppa.payroll_action_id
+<span class="kw">JOIN</span>  per_all_assignments_m   pa  <span class="kw">ON</span> pa.assignment_id       = paa.assignment_id
+<span class="kw">JOIN</span>  per_all_people_f        pap <span class="kw">ON</span> pap.person_id          = pa.person_id
+<span class="kw">JOIN</span>  pay_run_results         rr  <span class="kw">ON</span> rr.assignment_action_id = paa.assignment_action_id
+<span class="kw">JOIN</span>  pay_run_result_values   rrv <span class="kw">ON</span> rrv.run_result_id       = rr.run_result_id
+<span class="kw">JOIN</span>  pay_element_types_f     pet <span class="kw">ON</span> pet.element_type_id    = rr.element_type_id
+<span class="kw">JOIN</span>  pay_input_values_f      piv <span class="kw">ON</span> piv.input_value_id     = rrv.input_value_id
+<span class="kw">WHERE</span> ppa.action_type = <span class="st">'V'</span>           <span class="cm">-- 'V' = Reversal</span>
+  <span class="kw">AND</span> ppa.action_status = <span class="st">'C'</span>
+  <span class="kw">AND</span> ppa.effective_date <span class="kw">BETWEEN</span> <span class="nm">:start_date</span> <span class="kw">AND</span> <span class="nm">:end_date</span>
+  <span class="kw">AND</span> piv.name = <span class="st">'Pay Value'</span>
+  <span class="kw">AND</span> pet.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> piv.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> pap.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pap.effective_end_date   &gt;= ppa.effective_date
+<span class="kw">ORDER BY</span> ppa.effective_date <span class="kw">DESC</span>;
+</pre></div>
+
+<h3>Query 7: Cost Allocation — GL Distribution</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Payroll Cost Lines by Cost Center</span></div><pre>
+<span class="cm">-- Show how payroll costs are distributed to GL segments</span>
+<span class="kw">SELECT</span> pap.full_name,
+       pa.assignment_number,
+       pet.element_name,
+       pec.classification_name,
+       pc.cost_value,
+       pc.credit_or_debit,
+       <span class="cm">/* cost_allocation_keyflex columns vary by chart of accounts */</span>
+       pc.segment1  <span class="cm">AS company</span>,
+       pc.segment2  <span class="cm">AS department</span>,
+       pc.segment3  <span class="cm">AS account</span>
+<span class="kw">FROM</span>  pay_payroll_actions      ppa
+<span class="kw">JOIN</span>  pay_assignment_actions  paa <span class="kw">ON</span> paa.payroll_action_id  = ppa.payroll_action_id
+<span class="kw">JOIN</span>  per_all_assignments_m   pa  <span class="kw">ON</span> pa.assignment_id       = paa.assignment_id
+<span class="kw">JOIN</span>  per_all_people_f        pap <span class="kw">ON</span> pap.person_id          = pa.person_id
+<span class="kw">JOIN</span>  pay_costs               pc  <span class="kw">ON</span> pc.assignment_action_id = paa.assignment_action_id
+<span class="kw">JOIN</span>  pay_run_results         rr  <span class="kw">ON</span> rr.run_result_id       = pc.run_result_id
+<span class="kw">JOIN</span>  pay_element_types_f     pet <span class="kw">ON</span> pet.element_type_id    = rr.element_type_id
+<span class="kw">JOIN</span>  pay_element_classifications pec <span class="kw">ON</span> pec.classification_id = pet.classification_id
+<span class="kw">WHERE</span> ppa.action_type IN (<span class="st">'R'</span>,<span class="st">'Q'</span>)
+  <span class="kw">AND</span> ppa.action_status = <span class="st">'C'</span>
+  <span class="kw">AND</span> ppa.effective_date <span class="kw">BETWEEN</span> <span class="nm">:start_date</span> <span class="kw">AND</span> <span class="nm">:end_date</span>
+  <span class="kw">AND</span> pap.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pap.effective_end_date   &gt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> pet.effective_end_date   &gt;= ppa.effective_date
+<span class="kw">ORDER BY</span> pap.full_name, pc.segment2, pet.element_name;
+</pre></div>
+
+<h3>Query 8: Payroll Action Status Dashboard</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">All Payroll Actions — Status Overview for a Date Range</span></div><pre>
+<span class="cm">-- Quick audit of all payroll actions in a period: useful for month-end checks</span>
+<span class="kw">SELECT</span> ppf.payroll_name,
+       ppa.action_type,
+       <span class="kw">CASE</span> ppa.action_type
+         <span class="kw">WHEN</span> <span class="st">'R'</span> <span class="kw">THEN</span> <span class="st">'Payroll Run'</span>
+         <span class="kw">WHEN</span> <span class="st">'Q'</span> <span class="kw">THEN</span> <span class="st">'QuickPay'</span>
+         <span class="kw">WHEN</span> <span class="st">'V'</span> <span class="kw">THEN</span> <span class="st">'Reversal'</span>
+         <span class="kw">WHEN</span> <span class="st">'B'</span> <span class="kw">THEN</span> <span class="st">'Balance Adjustment'</span>
+         <span class="kw">WHEN</span> <span class="st">'L'</span> <span class="kw">THEN</span> <span class="st">'Retro Pay'</span>
+         <span class="kw">WHEN</span> <span class="st">'P'</span> <span class="kw">THEN</span> <span class="st">'Pre-Payments'</span>
+         <span class="kw">WHEN</span> <span class="st">'A'</span> <span class="kw">THEN</span> <span class="st">'Archive'</span>
+         <span class="kw">ELSE</span> ppa.action_type
+       <span class="kw">END</span>                         <span class="cm">AS action_description</span>,
+       ppa.action_status,
+       ppa.effective_date,
+       <span class="fn">COUNT</span>(paa.assignment_action_id) <span class="cm">AS action_count</span>
+<span class="kw">FROM</span>  pay_payroll_actions      ppa
+<span class="kw">JOIN</span>  pay_payrolls_f           ppf <span class="kw">ON</span> ppf.payroll_id         = ppa.payroll_id
+<span class="kw">LEFT</span> <span class="kw">JOIN</span> pay_assignment_actions paa <span class="kw">ON</span> paa.payroll_action_id = ppa.payroll_action_id
+<span class="kw">WHERE</span> ppa.effective_date <span class="kw">BETWEEN</span> <span class="nm">:start_date</span> <span class="kw">AND</span> <span class="nm">:end_date</span>
+  <span class="kw">AND</span> ppf.effective_start_date &lt;= ppa.effective_date
+  <span class="kw">AND</span> ppf.effective_end_date   &gt;= ppa.effective_date
+<span class="kw">GROUP BY</span> ppf.payroll_name, ppa.action_type, ppa.action_status, ppa.effective_date
+<span class="kw">ORDER BY</span> ppa.effective_date <span class="kw">DESC</span>, ppf.payroll_name;
+</pre></div><h2 id="costing">7. Cost Allocation Tables</h2>
+<p>Payroll cost allocation in Oracle Fusion determines which GL cost centers and accounts absorb payroll expenses. The key tables are:</p>
+<ul>
+  <li><strong>PAY_COSTS</strong> — One row per GL debit/credit line per run result. Columns include <code>COST_VALUE</code>, <code>CREDIT_OR_DEBIT</code> ('C' or 'D'), and up to 30 <code>SEGMENT_n</code> columns matching your chart of accounts.</li>
+  <li><strong>PAY_COST_ALLOCATIONS_F</strong> — Date-effective overrides at the assignment or element level. When an employee's costing differs from the default, this table stores the override segments. Joins to <code>PAY_COST_ALLOCATION_KEYFLEX</code> for the GL string.</li>
+  <li><strong>PAY_COST_ALLOCATION_KEYFLEX</strong> — Stores unique combinations of GL segments. Each row is a distinct cost center/account combination referenced by multiple cost allocation records.</li>
+</ul>
+<div class="cl cl-w"><span class="cl-icon">&#x26A0;&#xFE0F;</span><p><strong>Segment naming varies:</strong> The SEGMENT_1 through SEGMENT_30 columns in PAY_COSTS map to your specific GL chart of accounts structure. Common mappings are Company (SEG1), Cost Center (SEG2), Account (SEG3), but this is implementation-specific. Check your chart of accounts setup to know which segment is which.</p></div>
+
+<h2 id="tips">8. Reporting Tips &amp; Gotchas</h2>
+<h3>Always filter ACTION_STATUS</h3>
+<p>The most common payroll report mistake is forgetting to filter on <code>ACTION_STATUS = 'C'</code>. An in-progress run (<code>'U'</code> = Unprocessed) or a failed run (<code>'E'</code> = Error) will have partial run results that inflate your totals. Always filter on Complete status.</p>
+
+<h3>ACTION_TYPE Codes Cheat Sheet</h3>
+<div class="tw"><table>
+<tr><th>Code</th><th>Action</th><th>Common Use</th></tr>
+<tr><td><code>R</code></td><td>Payroll Run</td><td>Regular scheduled payroll processing</td></tr>
+<tr><td><code>Q</code></td><td>QuickPay</td><td>Off-cycle single employee payment</td></tr>
+<tr><td><code>V</code></td><td>Reversal</td><td>Back out a prior payroll run (creates negative entries)</td></tr>
+<tr><td><code>B</code></td><td>Balance Adjustment</td><td>Correct YTD balances without re-running</td></tr>
+<tr><td><code>L</code></td><td>Retro Pay</td><td>Retroactive pay corrections</td></tr>
+<tr><td><code>P</code></td><td>Pre-Payments</td><td>Calculates payment method splits (direct deposit, check)</td></tr>
+<tr><td><code>A</code></td><td>Archive</td><td>Stores formatted payslip data for employee self-service</td></tr>
+<tr><td><code>H</code></td><td>Costing</td><td>GL cost distribution run</td></tr>
+</table></div>
+
+<h3>Date-Effective Join Pattern</h3>
+<p>The standard date-effective join for payroll reports — filter date-effective tables against <code>ppa.effective_date</code> (not SYSDATE), since you're reporting as of the payment date:</p>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Date-Effective Join Template</span></div><pre>
+<span class="cm">-- Standard pattern: join date-effective tables against the payroll action's effective_date</span>
+<span class="kw">AND</span> pet.effective_start_date <span class="kw">&lt;=</span> ppa.effective_date
+<span class="kw">AND</span> pet.effective_end_date   <span class="kw">&gt;=</span> ppa.effective_date
+<span class="kw">AND</span> piv.effective_start_date <span class="kw">&lt;=</span> ppa.effective_date
+<span class="kw">AND</span> piv.effective_end_date   &gt;= ppa.effective_date
+<span class="cm">-- For person/assignment tables:</span>
+<span class="kw">AND</span> pap.effective_start_date <span class="kw">&lt;=</span> ppa.effective_date
+<span class="kw">AND</span> pap.effective_end_date   <span class="kw">&gt;=</span> ppa.effective_date
+</pre></div>
+
+<h3>ENTRY_TYPE Values in PAY_RUN_RESULTS</h3>
+<p>The <code>ENTRY_TYPE</code> column in <code>PAY_RUN_RESULTS</code> tells you the source of the run result:</p>
+<ul>
+  <li><code>'E'</code> — Normal element entry (use this in most reports)</li>
+  <li><code>'D'</code> — Additional entry (one-time additions)</li>
+  <li><code>'A'</code> — Accrual (absence accrual plans)</li>
+  <li><code>'P'</code> — Pay value (deduction from earnings)</li>
+</ul>
+<p>For a clean payroll register showing regular plus one-time payments, use <code>ENTRY_TYPE IN ('E', 'D')</code>.</p>
+
+<h3>Performance Optimization</h3>
+<p>Payroll tables can be very large (millions of rows for large organizations). Key performance tips:</p>
+<ol>
+  <li>Always filter <code>PAY_PAYROLL_ACTIONS</code> on date range first — this is the most selective filter</li>
+  <li>Use <code>EFFECTIVE_DATE</code> range on the payroll action before joining to run results</li>
+  <li>In OTBI, use the <em>Payroll &mdash; Payroll Run Results Real Time</em> subject area rather than custom SQL when possible</li>
+  <li>For balance queries, prefer <code>PAY_ASSIGNMENT_LATEST_BALANCES</code> over summing run result values</li>
+</ol>
+
+<div class="cl cl-t"><span class="cl-icon">&#x1F517;</span><p><strong>Related guides:</strong> <a href="/blog/fast-formula-examples">Fast Formula Examples</a> covers payroll formulas that control element processing. <a href="/blog/oracle-workforce-compensation-tables-guide">Compensation Tables Guide</a> covers salary management upstream of payroll.</p></div>
+
+<h2>Related Oracle Payroll Resources</h2>
+<ul>
+  <li><a href="https://docs.oracle.com/en/cloud/saas/human-resources/26a/fampl/index.html" target="_blank" rel="noopener">Oracle Payroll Administration Guide (Oracle Docs) &rarr;</a></li>
+  <li><a href="/blog/fast-formula-examples">Fast Formula Examples &mdash; Payroll Skip Rules, Earnings &amp; Deductions</a></li>
+  <li><a href="/blog/oracle-workforce-compensation-tables-guide">Oracle Workforce Compensation Tables Guide</a></li>
+  <li><a href="/blog/sql-query-library">SQL Query Library &mdash; Core HR Queries</a></li>
+  <li><a href="/">Search 35,000+ Oracle HCM Tables &rarr;</a></li>
+</ul>
+</div>
+<footer class="footer">
+  <div style="max-width:1100px;margin:0 auto">
+    <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+    <p>
+      <a href="/">Search 35,000+ Oracle Tables</a> &middot;
+      <a href="/blog/">Blog</a> &middot;
+      <a href="/privacy">Privacy Policy</a> &middot;
+      <a href="/terms">Terms of Service</a> &middot;
+      <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a>
+    </p>
+  </div>
+</footer>
+</body>
+</html>

@@ -14,7 +14,7 @@
 - **Join path finder:** generate SQL joins between any two tables with date-effective filters
 - **JS data:** MODULE_PREFIXES (28), FK_MAP (16 FK columns), SUFFIX_INFO (7 suffixes)
 
-## Blog Pages (13 total in static/blog/)
+## Blog Pages (15 total in static/blog/)
 | # | File | Topic |
 |---|------|-------|
 | 1 | oracle-hcm-table-suffixes-explained.html | _F, _TL, _VL suffix guide |
@@ -30,6 +30,8 @@
 | 11 | oracle-recruiting-cloud-tables-data-model.html | ORC tables + data model |
 | 12 | oracle-workforce-compensation-tables-guide.html | Compensation tables + SQL |
 | 13 | person-assignment-work-relationship-data-model-explained.html | Core data model explained |
+| 14 | obiee-assertion-failure-fix.html | OBIEE/OTBI nQSError fixes (added 2026-03-07) |
+| 15 | oracle-fusion-payroll-tables-guide.html | PAY_ schema + 8 SQL queries (added 2026-03-11) |
 
 ## Static Legal Pages
 - `static/privacy.html` — Privacy Policy (GA4 G-NSN2JWG98H, Plausible, AdSense ca-pub-4971966903803570, Stripe, Vercel)
