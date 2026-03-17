@@ -1,56 +1,44 @@
 /**
- * POST /api/unlock
+ * POST /api/unlock — Validate an unlock code and return a signed token.
+ * GET  /api/unlock?token=X — Verify an existing token.
  *
- * Validates an unlock code server-side and returns a signed token.
- * Replaces client-side hash validation (SEC-1 fix).
- *
- * Body: { "code": "UNLOCK_CODE" }
- * Success: { "token": "<signed_token>", "valid": true }
- * Failure: { "valid": false }
+ * Env vars (required, set in Vercel project settings):
+ *   UNLOCK_CODES  — comma-separated djb2 hashes of valid codes
+ *   UNLOCK_SECRET — HMAC signing secret for tokens
  */
 
-const crypto = require('crypto');
+const { createToken, verifyToken, SIGNING_SECRET } = require('./_lib/token');
 
-// Codes are validated against UNLOCK_CODES env var (comma-separated hashes)
-// No fallback — env vars MUST be set in Vercel project settings
-const VALID_HASHES = process.env.UNLOCK_CODES ? process.env.UNLOCK_CODES.split(',').map(h => h.trim()) : [];
-const SIGNING_SECRET = process.env.UNLOCK_SECRET || '';
+// Comma-separated djb2 hashes — no hardcoded fallback
+const VALID_HASHES = process.env.UNLOCK_CODES
+  ? process.env.UNLOCK_CODES.split(',').map(h => h.trim())
+  : [];
 
+/** djb2 hash → 8-char hex string */
 function hashCode(str) {
-  return Array.from(str).reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0).toString(16).slice(-8);
-}
-
-function createToken() {
-  const payload = Date.now().toString();
-  const hmac = crypto.createHmac('sha256', SIGNING_SECRET).update(payload).digest('hex').slice(0, 16);
-  return `${payload}.${hmac}`;
-}
-
-function verifyToken(token) {
-  if (!token || !token.includes('.')) return false;
-  const [payload, sig] = token.split('.');
-  const expected = crypto.createHmac('sha256', SIGNING_SECRET).update(payload).digest('hex').slice(0, 16);
-  return sig === expected;
+  return Array.from(str)
+    .reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0)
+    .toString(16)
+    .slice(-8);
 }
 
 module.exports = (req, res) => {
   res.setHeader('Access-Control-Allow-Origin', '*');
-  res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
+  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS');
   res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
 
   if (req.method === 'OPTIONS') return res.status(200).end();
 
-  // GET with token param = verify existing token
+  // GET: verify existing token
   if (req.method === 'GET') {
-    if (!SIGNING_SECRET) return res.status(200).json({ valid: false });
-    const token = req.query.token;
-    return res.status(200).json({ valid: verifyToken(token) });
+    return res.status(200).json({ valid: verifyToken(req.query.token) });
   }
 
   if (req.method !== 'POST') {
     return res.status(405).json({ error: 'Method not allowed' });
   }
 
+  // POST: validate unlock code → issue token
   const code = (req.body?.code || '').trim().toUpperCase();
   if (!code) {
     return res.status(400).json({ valid: false, error: 'Code is required' });
@@ -60,8 +48,7 @@ module.exports = (req, res) => {
     return res.status(503).json({ valid: false, error: 'Service not configured' });
   }
 
-  const hash = hashCode(code);
-  if (VALID_HASHES.includes(hash)) {
+  if (VALID_HASHES.includes(hashCode(code))) {
     return res.status(200).json({ valid: true, token: createToken() });
   }
 
