@@ -12,9 +12,9 @@
 const crypto = require('crypto');
 
 // Codes are validated against UNLOCK_CODES env var (comma-separated hashes)
-// Fallback to hardcoded hashes for backwards compat until env var is set
-const VALID_HASHES = (process.env.UNLOCK_CODES || '61688882,5f77fb97').split(',').map(h => h.trim());
-const SIGNING_SECRET = process.env.UNLOCK_SECRET || 'hcm-tables-default-secret-change-me';
+// No fallback — env vars MUST be set in Vercel project settings
+const VALID_HASHES = process.env.UNLOCK_CODES ? process.env.UNLOCK_CODES.split(',').map(h => h.trim()) : [];
+const SIGNING_SECRET = process.env.UNLOCK_SECRET || '';
 
 function hashCode(str) {
   return Array.from(str).reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0).toString(16).slice(-8);
@@ -42,6 +42,7 @@ module.exports = (req, res) => {
 
   // GET with token param = verify existing token
   if (req.method === 'GET') {
+    if (!SIGNING_SECRET) return res.status(200).json({ valid: false });
     const token = req.query.token;
     return res.status(200).json({ valid: verifyToken(token) });
   }
@@ -53,6 +54,10 @@ module.exports = (req, res) => {
   const code = (req.body?.code || '').trim().toUpperCase();
   if (!code) {
     return res.status(400).json({ valid: false, error: 'Code is required' });
+  }
+
+  if (!SIGNING_SECRET || VALID_HASHES.length === 0) {
+    return res.status(503).json({ valid: false, error: 'Service not configured' });
   }
 
   const hash = hashCode(code);

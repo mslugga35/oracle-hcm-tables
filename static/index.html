@@ -1254,8 +1254,8 @@
     <div class="paywall-content">
       <button class="paywall-close" onclick="closePaywall()" aria-label="Close payment modal">&times;</button>
       <div class="paywall-icon">🔒</div>
-      <h2>You've used your 3 free searches</h2>
-      <p>Support this project to unlock unlimited access. Pay what you want - minimum $1.50.</p>
+      <h2>You've used your 5 free searches</h2>
+      <p>Unlock unlimited access to 14,950+ Oracle HCM tables and 1.2M columns. Pay what you want — minimum $1.50.</p>
 
       <div class="pwyw-box">
         <label for="pwyw-amount" class="pwyw-label">MINIMUM $1.50</label>
@@ -1902,36 +1902,30 @@
       if (e.key === 'Enter') doSearch();
     });
 
-    // === PAYWALL LOGIC ===
-    // Stripe Payment Link: "Customer chooses price", min $1.50
-    // After payment, Stripe redirects with ?unlocked=CODE to auto-unlock
+    // === PAYWALL LOGIC (server-backed) ===
+    // Search counting + token verification happen server-side via /api/search-gate
+    // localStorage is only a cache — server is the source of truth
     const STRIPE_LINK = 'https://buy.stripe.com/3cI4gA05G3vidHa8XU3Ru00';
-    const FREE_SEARCHES = 3;
+    const FREE_SEARCHES = 5;
+    let _unlocked = false;
+    let _remaining = FREE_SEARCHES;
 
-    function getSearchCount() {
-      return parseInt(localStorage.getItem('hcm_searches') || '0');
-    }
-
-    function incrementSearch() {
-      const count = getSearchCount() + 1;
-      localStorage.setItem('hcm_searches', count.toString());
-      updateSearchCounter();
-      return count;
+    function getStoredToken() {
+      return localStorage.getItem('hcm_unlock_token') || '';
     }
 
     function hasUnlockedAccess() {
-      return localStorage.getItem('hcm_unlocked') === 'true';
+      return _unlocked;
     }
 
     function updateSearchCounter() {
       const counter = document.getElementById('search-counter');
-      if (hasUnlockedAccess()) {
+      if (_unlocked) {
         counter.style.display = 'none';
         return;
       }
-      const remaining = Math.max(0, FREE_SEARCHES - getSearchCount());
-      if (remaining > 0) {
-        counter.innerHTML = `<span style="color:var(--text-muted)">${remaining} free search${remaining !== 1 ? 'es' : ''} remaining</span>`;
+      if (_remaining > 0) {
+        counter.innerHTML = `<span style="color:var(--text-muted)">${_remaining} free search${_remaining !== 1 ? 'es' : ''} remaining</span>`;
       } else {
         counter.innerHTML = `<span style="color:var(--accent)">Free searches used</span>`;
       }
@@ -1945,8 +1939,29 @@
       document.getElementById('paywall-modal').classList.remove('active');
     }
 
-    // Server-side code validation — codes are never exposed in client JS
+    // Verify token on page load — clears localStorage if token is invalid
+    async function verifyStoredToken() {
+      const token = getStoredToken();
+      if (!token) return;
+      try {
+        const res = await fetch(`/api/unlock?token=${encodeURIComponent(token)}`);
+        const data = await res.json();
+        if (data.valid) {
+          _unlocked = true;
+        } else {
+          // Token is invalid — clear stale localStorage
+          localStorage.removeItem('hcm_unlock_token');
+          localStorage.removeItem('hcm_unlocked');
+          _unlocked = false;
+        }
+      } catch (e) {
+        // Network error — trust localStorage cache as fallback
+        _unlocked = localStorage.getItem('hcm_unlocked') === 'true';
+      }
+      updateSearchCounter();
+    }
 
+    // Server-side code validation — codes are never exposed in client JS
     async function unlockAccess() {
       const code = document.getElementById('unlock-code').value.trim();
       if (!code) return;
@@ -1960,6 +1975,7 @@
         if (data.valid && data.token) {
           localStorage.setItem('hcm_unlock_token', data.token);
           localStorage.setItem('hcm_unlocked', 'true');
+          _unlocked = true;
           closePaywall();
           updateSearchCounter();
           alert('Access unlocked! Enjoy unlimited searches.');
@@ -1971,13 +1987,28 @@
       }
     }
 
-    // Paywall gate - checks access before allowing action
+    // Paywall gate - server-side search counting
     async function paywallGate(action) {
-      if (hasUnlockedAccess()) { await action(); return; }
-      const count = getSearchCount();
-      if (count >= FREE_SEARCHES) { showPaywall(); return; }
-      await action();
-      incrementSearch();
+      if (_unlocked) { await action(); return; }
+      try {
+        const token = getStoredToken();
+        const url = token ? `/api/search-gate?token=${encodeURIComponent(token)}` : '/api/search-gate';
+        const res = await fetch(url);
+        const data = await res.json();
+        if (data.unlocked) {
+          _unlocked = true;
+          updateSearchCounter();
+          await action();
+          return;
+        }
+        _remaining = data.remaining;
+        updateSearchCounter();
+        if (!data.allowed) { showPaywall(); return; }
+        await action();
+      } catch (e) {
+        // Network error — allow action (degrade gracefully)
+        await action();
+      }
     }
 
     // Wrap original doSearch (async — paywallGate calls it, errors handled inside)
@@ -2017,6 +2048,7 @@
           if (data.valid && data.token) {
             localStorage.setItem('hcm_unlock_token', data.token);
             localStorage.setItem('hcm_unlocked', 'true');
+            _unlocked = true;
             updateSearchCounter();
           }
         } catch (e) { /* silent fail for redirect unlock */ }
@@ -2024,9 +2056,10 @@
       }
     }
 
-    // Init counter on load
-    setTimeout(updateSearchCounter, 100);
+    // Init: verify token, check URL params, update counter
+    verifyStoredToken();
     checkUnlockParam();
+    setTimeout(updateSearchCounter, 100);
 
     // === DEEP LINK ROUTING ===
     // Handle direct URLs like /table/TABLE_NAME and /search?q=QUERY
