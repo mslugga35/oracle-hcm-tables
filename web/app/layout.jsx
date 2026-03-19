@@ -49,11 +49,7 @@ export default function RootLayout({ children }) {
       <head>
         <link rel="canonical" href="https://hcm-tables.com" />
         {/* Harbor AI SEO — auto-optimizes meta tags, descriptions, and schema */}
-        <Script
-          data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w"
-          src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w"
-          strategy="afterInteractive"
-        />
+        <script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
       </head>
       <body className="bg-gray-950 text-white antialiased">{children}</body>
     </html>
