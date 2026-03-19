@@ -1,3 +1,4 @@
+import Script from 'next/script';
 import './globals.css';
 
 export const metadata = {
@@ -47,7 +48,12 @@ export default function RootLayout({ children }) {
     <html lang="en">
       <head>
         <link rel="canonical" href="https://hcm-tables.com" />
-        <script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+        {/* Harbor AI SEO — auto-optimizes meta tags, descriptions, and schema */}
+        <Script
+          data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w"
+          src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w"
+          strategy="afterInteractive"
+        />
       </head>
       <body className="bg-gray-950 text-white antialiased">{children}</body>
     </html>
