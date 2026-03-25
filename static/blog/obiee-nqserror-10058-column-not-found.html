@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>OBIEE nQSError 10058 — Column Not Found Fix | HCM Tables</title>
+  <meta name="title" content="OBIEE nQSError 10058 — Column Not Found Fix | HCM Tables">
+  <meta name="description" content="Fix OBIEE nQSError 10058 'Column not found' error in OTBI and BI Publisher. Step-by-step guide with SQL examples, subject area validation, and debugging tips for Oracle HCM.">
+  <meta name="keywords" content="OBIEE nQSError 10058, column not found OBIEE, OTBI nQSError 10058, OBIEE column not found fix, OTBI subject area error, Oracle BI column error, nQSError 10058 OTBI, OBIEE logical SQL error">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/obiee-nqserror-10058-column-not-found">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/obiee-nqserror-10058-column-not-found">
+  <meta property="og:title" content="OBIEE nQSError 10058 — Column Not Found Fix">
+  <meta property="og:description" content="Fix OBIEE nQSError 10058 'Column not found' with step-by-step guide, SQL validation, and OTBI troubleshooting for Oracle HCM developers.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/obiee-nqserror-10058-column-not-found">
+  <meta property="twitter:title" content="OBIEE nQSError 10058 — Column Not Found Fix">
+  <meta property="twitter:description" content="Fix 'Column not found' errors in OBIEE and OTBI with validation steps and SQL examples.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OBIEE nQSError 10058 — Column Not Found Fix",
+    "description": "Fix OBIEE nQSError 10058 'Column not found' error in OTBI and BI Publisher. Step-by-step guide with SQL examples, subject area validation, and debugging tips for Oracle HCM.",
+    "url": "https://hcm-tables.com/blog/obiee-nqserror-10058-column-not-found",
+    "datePublished": "2026-03-25",
+    "dateModified": "2026-03-25",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/obiee-nqserror-10058-column-not-found"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OBIEE nQSError 10058 — Column Not Found Fix","item":"https://hcm-tables.com/blog/obiee-nqserror-10058-column-not-found"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What causes OBIEE nQSError 10058 'column not found'?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "nQSError 10058 'column not found' occurs when your logical SQL references a column that doesn't exist in the selected subject area. This can happen due to: incorrect column name spelling, referencing a column from a different subject area, the column was removed in a metadata update, or using physical table names instead of presentation folder names."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I debug OBIEE column not found errors?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Debug by: 1) Checking the exact error message for the column name, 2) Opening OBIEE Answer Editor and browsing the subject area to verify the column exists, 3) Comparing your column path against what's shown in the browser, 4) Checking for typos and case sensitivity, 5) Verifying the subject area name is correct."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my OTBI report show 'column not found'?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In OTBI, this means the presentation column path in your query doesn't match the RPD metadata. Verify the subject area name (case-sensitive), the presentation folder name, and the column name all match exactly. Use the OTBI column browser to copy the correct path directly into your logical SQL."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I fix column not found by querying the database directly?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "No. OBIEE doesn't query the database directly — it uses logical SQL that gets translated to physical SQL through the RPD (repository metadata). Even if a column exists in the database, if it's not mapped in the RPD or subject area, OBIEE won't find it. Always work within the subject area definitions."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .article-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .article-body h2 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-body h3 {
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-body p {
+      margin-bottom: 1.25rem;
+    }
+
+    .article-body ul, .article-body ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .success-box {
+      background: rgba(112, 168, 102, 0.1);
+      border-left: 4px solid var(--green);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .error-box {
+      background: rgba(200, 100, 100, 0.1);
+      border-left: 4px solid var(--red);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .tip-box {
+      background: rgba(100, 150, 200, 0.1);
+      border-left: 4px solid var(--blue);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    table th, table td {
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+    }
+
+    .cta-box {
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      margin-bottom: 1rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .cta-button:hover {
+      opacity: 0.9;
+      text-decoration: none;
+    }
+
+    .nav-skip { display: none; }
+  </style>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/blog/">Blog</a> / OBIEE nQSError 10058
+    </div>
+
+    <article class="article-header">
+      <div class="article-tag">OBIEE / SQL</div>
+      <h1>OBIEE nQSError 10058 — Column Not Found: Complete Fix Guide</h1>
+      <div class="article-meta">
+        <span>March 25, 2026</span>
+        <span>·</span>
+        <span>1,100 words</span>
+      </div>
+    </article>
+
+    <div class="article-body">
+      <p>If you're building OTBI reports or Oracle BI Publisher extracts in Oracle HCM, you've probably seen this error:</p>
+
+      <div class="error-box">
+        <strong>nQSError: 10058</strong><br/>
+        "[Column] not found in subject area"
+      </div>
+
+      <p>This error stops your report cold. The frustrating part? The column exists in your database. The fix is usually simple, but the root cause isn't always obvious.</p>
+
+      <p>In this guide, I'll walk you through exactly what causes this error, how to diagnose it, and the fastest way to fix it.</p>
+
+      <h2>What Causes nQSError 10058?</h2>
+
+      <p>OBIEE uses <strong>logical SQL</strong, not physical SQL. Your query references columns through the presentation layer (subject areas), not the database tables directly.</p>
+
+      <p>nQSError 10058 means: "I looked for this column in the subject area metadata, and it doesn't exist there."</p>
+
+      <p>Common causes:</p>
+
+      <ul>
+        <li><strong>Typo in column name</strong> — "PERSON_I" instead of "PERSON_ID"</li>
+        <li><strong>Wrong subject area</strong> — Referencing a column from HCM General Ledger when you're querying Payroll</li>
+        <li><strong>Column was removed</strong> — In a recent RPD (metadata repository) refresh</li>
+        <li><strong>Case sensitivity</strong> — Using "person_id" instead of "PERSON_ID"</li>
+        <li><strong>Using physical table names</strong> — Querying "PER_ALL_PEOPLE_F" instead of the presentation layer</li>
+        <li><strong>Incorrect folder path</strong> — Missing the presentation folder hierarchy</li>
+      </ul>
+
+      <p>Here's the key difference: If the column exists in the database but not in the OBIEE subject area, OBIEE will never find it. You're not querying the database directly — you're querying the metadata layer.</p>
+
+      <h2>How to Fix nQSError 10058 (Step-by-Step)</h2>
+
+      <h3>Step 1: Identify the Exact Column Name from the Error</h3>
+
+      <p>The error message typically shows the column name. For example:</p>
+
+      <div class="code-block">
+nQSError: 10058
+[PERSON_I] not found in subject area
+      </div>
+
+      <p>In this case, the column referenced is "PERSON_I" (which is a typo). The correct name is "PERSON_ID".</p>
+
+      <h3>Step 2: Open the OBIEE Answer Editor and Browse the Subject Area</h3>
+
+      <p>In OTBI or OBIEE:</p>
+
+      <ol>
+        <li>Click <strong>New > Answer</strong></li>
+        <li>Select your <strong>subject area</strong> from the dropdown</li>
+        <li>Look at the available columns in the left panel</li>
+        <li>Search for the column you referenced — does it exist?</li>
+        <li>If it exists, note the exact spelling and case</li>
+      </ol>
+
+      <div class="tip-box">
+        <strong>Pro Tip:</strong> Copy the column name directly from the Answer Editor and paste it into your SQL. This avoids typos completely.
+      </div>
+
+      <h3>Step 3: Verify the Subject Area Name</h3>
+
+      <p>Subject area names are case-sensitive in OBIEE. Make sure you're using the exact name:</p>
+
+      <div class="code-block">
+-- Correct:
+SELECT "Employees"."PERSON_ID" FROM "Employees"
+
+-- Wrong:
+SELECT "Employees"."person_id" FROM "Employees"  -- case mismatch
+      </div>
+
+      <h3>Step 4: Check for Path Issues</h3>
+
+      <p>Some subject areas have nested folder structures. Your column reference should include the full path:</p>
+
+      <div class="code-block">
+-- If the column is in a folder:
+SELECT "HCM"."Compensation"."SALARY_AMOUNT"
+FROM "HCM"
+
+-- Not:
+SELECT "SALARY_AMOUNT" FROM "HCM"  -- Will fail if it's in a nested folder
+      </div>
+
+      <h3>Step 5: Verify the Subject Area Still Exists</h3>
+
+      <p>If your BI environment was recently updated, the subject area might have been renamed or consolidated. Check:</p>
+
+      <ul>
+        <li>The subject area name in your report</li>
+        <li>The list of available subject areas in Answer Editor</li>
+        <li>The RPD (repository metadata) version in your environment</li>
+      </ul>
+
+      <h2>Common Examples & Fixes</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Error</th>
+            <th>Root Cause</th>
+            <th>Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>"PERSON_I" not found</td>
+            <td>Typo (missing "D")</td>
+            <td>Change to "PERSON_ID"</td>
+          </tr>
+          <tr>
+            <td>"salary" not found</td>
+            <td>Case sensitivity</td>
+            <td>Change to "SALARY" or correct case</td>
+          </tr>
+          <tr>
+            <td>"PER_ALL_PEOPLE_F"."PERSON_ID" not found</td>
+            <td>Using physical table name instead of presentation layer</td>
+            <td>Use subject area name instead</td>
+          </tr>
+          <tr>
+            <td>"Employees"."SALARY" not found</td>
+            <td>Column moved or removed in recent update</td>
+            <td>Check Answer Editor for available columns</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Advanced Debugging: When the Simple Fixes Don't Work</h2>
+
+      <p>If you've checked spelling, case, and subject area names but still get the error:</p>
+
+      <ol>
+        <li><strong>Clear your cache:</strong> In OBIEE, go to Administration > Manage Sessions > Clear Cache</li>
+        <li><strong>Check the RPD version:</strong> Ensure your BI environment is using the latest metadata</li>
+        <li><strong>Verify column permissions:</strong> Your user role might not have access to the column</li>
+        <li><strong>Check subject area filters:</strong> Some columns are hidden behind row-level security filters</li>
+        <li><strong>Restart OBIEE:</strong> As a last resort, restart the BI Server</li>
+      </ol>
+
+      <h2>Why This Matters for HCM Developers</h2>
+
+      <p>In Oracle HCM, you often need to pull data from multiple subject areas (Payroll, Compensation, Absence Management, etc.). Each subject area has its own column definitions, and they're not always consistent across modules.</p>
+
+      <p>For example:</p>
+
+      <ul>
+        <li><strong>Payroll subject area:</strong> Uses "PAYROLL_RUN_ID"</li>
+        <li><strong>Compensation subject area:</strong> Uses "COMP_RUN_ID"</li>
+      </ul>
+
+      <p>If you try to join these directly, you'll get column not found errors. The key is understanding which columns live in which subject area.</p>
+
+      <h2>Prevention: Best Practices</h2>
+
+      <ul>
+        <li><strong>Always use the Answer Editor column browser</strong> — Copy column names directly; don't type them</li>
+        <li><strong>Test in Dev first</strong> — Validate your logical SQL before pushing to Production</li>
+        <li><strong>Document subject area structure</strong> — Keep a reference of which columns belong to which subject areas</li>
+        <li><strong>Monitor RPD updates</strong> — When your BI environment is patched, test existing reports</li>
+        <li><strong>Use aliases for clarity</strong> — Makes debugging easier when columns have similar names</li>
+      </ul>
+
+      <div class="cta-box">
+        <h3>Need Help with Oracle HCM Queries?</h3>
+        <p>Search our database of 35,000+ Oracle Fusion Cloud tables and 1.2M+ columns. Find the exact table structure and column definitions for your HCM queries.</p>
+        <a href="/" class="cta-button">Search Oracle HCM Tables →</a>
+      </div>
+
+      <h2>Summary</h2>
+
+      <p>nQSError 10058 "column not found" is usually fixed by:</p>
+
+      <ol>
+        <li>Checking spelling and case sensitivity</li>
+        <li>Using the Answer Editor to browse available columns</li>
+        <li>Verifying the correct subject area name</li>
+        <li>Ensuring the full column path is correct</li>
+      </ol>
+
+      <p>The most common cause is a simple typo or case mismatch. Always copy column names directly from the Answer Editor to avoid these errors.</p>
+    </div>
+  </div>
+</body>
+</html>
