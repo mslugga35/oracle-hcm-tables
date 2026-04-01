@@ -34,6 +34,9 @@
 | 15 | oracle-fusion-payroll-tables-guide.html | PAY_ schema + 8 SQL queries (added 2026-03-11) |
 | 16 | obiee-nqserror-27002-syntax-error-fix.html | nQSError 27002 logical vs physical SQL (added 2026-03-25) |
 | 17 | obiee-nqserror-10058-column-not-found.html | nQSError 10058 column not found fix (added 2026-03-25) |
+| 18 | hdl-error-worker-assignment-not-found.html | HDL Worker assignment not found — root cause + fix (added 2026-03-28) |
+| 19 | obiee-assertion-failure-pcriteria.html | OBIEE pCriteria assertion failure — filter syntax errors (added 2026-03-28) |
+| 20 | per-all-assignments-m-multiple-rows.html | PER_ALL_ASSIGNMENTS_M multiple rows per employee fix (added 2026-03-28) |
 
 ## Static Legal Pages
 - `static/privacy.html` — Privacy Policy (GA4 G-NSN2JWG98H, Plausible, AdSense ca-pub-4971966903803570, Stripe, Vercel)
