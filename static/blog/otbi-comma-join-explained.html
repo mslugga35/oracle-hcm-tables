@@ -1,0 +1,384 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>OTBI Comma Join Explained: Why Your Oracle Reports Return Too Many Rows | HCM Tables</title>
+  <meta name="title" content="OTBI Comma Join Explained: Why Your Oracle Reports Return Too Many Rows | HCM Tables">
+  <meta name="description" content="The OTBI comma join is the #1 cause of inflated row counts in Oracle HCM reports. Learn what it is, why it happens, and the exact Logical SQL fix with before/after examples.">
+  <meta name="keywords" content="OTBI comma join, Oracle OTBI too many rows, OTBI cartesian product, OTBI logical SQL fix, Oracle BI Server comma join, OTBI duplicate rows, nQSError comma join, Oracle HCM report duplicates, OTBI cross join fix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/otbi-comma-join-explained">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/otbi-comma-join-explained">
+  <meta property="og:title" content="OTBI Comma Join Explained: Why Your Oracle Reports Return Too Many Rows">
+  <meta property="og:description" content="The OTBI comma join is the #1 cause of inflated row counts in Oracle HCM reports. Learn what it is, why it happens, and the exact Logical SQL fix.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/otbi-comma-join-explained">
+  <meta property="twitter:title" content="OTBI Comma Join Explained: Why Your Oracle Reports Return Too Many Rows">
+  <meta property="twitter:description" content="The OTBI comma join is the #1 cause of inflated row counts in Oracle HCM reports. Learn the exact Logical SQL fix.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OTBI Comma Join Explained: Why Your Oracle Reports Return Too Many Rows",
+    "description": "The OTBI comma join is the #1 cause of inflated row counts in Oracle HCM reports. Learn what it is, why it happens, and the exact Logical SQL fix.",
+    "url": "https://hcm-tables.com/blog/otbi-comma-join-explained",
+    "datePublished": "2026-04-11",
+    "dateModified": "2026-04-11",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/otbi-comma-join-explained"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OTBI Comma Join Explained","item":"https://hcm-tables.com/blog/otbi-comma-join-explained"}
+  ]}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the OTBI comma join problem?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The OTBI comma join problem occurs when Oracle BI Server generates a cross join (Cartesian product) between two subject areas instead of a proper JOIN. It happens when you select columns from multiple subject areas without a shared joining column, or when your Logical SQL uses a comma-separated FROM clause without explicit JOIN conditions. The result is row counts equal to the product of both sets — e.g., 1,000 employees × 12 months = 12,000 rows instead of 1,000."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix a comma join in OTBI Logical SQL?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Replace the comma-separated FROM clause with explicit JOIN syntax. Instead of: SELECT ... FROM \"Subject Area A\", \"Subject Area B\" WHERE ..., use: SELECT ... FROM \"Subject Area A\" JOIN \"Subject Area B\" ON (\"Subject Area A\".\"Person ID\" = \"Subject Area B\".\"Person ID\"). Also ensure you have a shared grain column (e.g., Person ID, Assignment ID) to anchor the join correctly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my OTBI headcount report show inflated numbers?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Inflated headcount in OTBI is almost always caused by a comma join between two subject areas that lack a shared grain. Common culprits: mixing 'Workforce Management - Worker Assignment Real Time' with 'Payroll - Payroll Real Time' without joining on Assignment ID, or pulling from both 'Core HR' and 'Benefits' subject areas without a Person ID join. Add the common key column to your report to confirm whether a cross join is occurring."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    :root{--primary:#ff4d3d;--text:#fcfcfc;--bg:#111317;--header-bg:#1a1d24;--border:#2a2d35;--muted:#888;--font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--font);line-height:1.7;color:var(--text);background:var(--bg)}
+    a{color:var(--primary);text-decoration:none}
+    a:hover{text-decoration:underline}
+    .container{max-width:720px;margin:0 auto;padding:0 1.5rem}
+    header{background:var(--header-bg);border-bottom:1px solid var(--border);padding:1rem 0;position:sticky;top:0;z-index:10}
+    header .container{display:flex;align-items:center;justify-content:space-between}
+    .logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--text);font-weight:700;font-size:1.1rem}
+    header nav a{color:#aaa;text-decoration:none;font-size:.9rem;font-weight:500}
+    header nav a:hover{color:var(--text)}
+    main{padding:3rem 0 5rem}
+    .post-meta{color:var(--muted);font-size:.85rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--border)}
+    h1{font-size:2rem;line-height:1.25;margin-bottom:1rem}
+    h2{font-size:1.4rem;margin:2.5rem 0 1rem;color:var(--text)}
+    h3{font-size:1.1rem;margin:2rem 0 .75rem;color:var(--text)}
+    p{margin-bottom:1.25rem;color:#ccc}
+    ul,ol{margin-bottom:1.25rem;padding-left:1.5rem;color:#ccc}
+    li{margin-bottom:.5rem}
+    code{background:#1e2128;border:1px solid var(--border);border-radius:4px;padding:.15em .4em;font-size:.875em;font-family:'Courier New',Courier,monospace;color:#e8a87c}
+    pre{background:#1e2128;border:1px solid var(--border);border-radius:8px;padding:1.25rem;overflow-x:auto;margin-bottom:1.5rem}
+    pre code{background:none;border:none;padding:0;font-size:.85em;color:#abb2bf;line-height:1.6}
+    .callout{background:#1e2128;border-left:4px solid var(--primary);border-radius:0 8px 8px 0;padding:1rem 1.25rem;margin-bottom:1.5rem}
+    .callout p{margin:0;color:#ddd}
+    .callout-title{font-weight:700;color:var(--primary);margin-bottom:.35rem;font-size:.9rem;text-transform:uppercase;letter-spacing:.05em}
+    .warning{border-left-color:#f0a500}
+    .warning .callout-title{color:#f0a500}
+    .success{border-left-color:#4caf50}
+    .success .callout-title{color:#4caf50}
+    table{width:100%;border-collapse:collapse;margin-bottom:1.5rem;font-size:.9rem}
+    th{background:#1e2128;padding:.75rem 1rem;text-align:left;border-bottom:2px solid var(--border);color:#ddd;font-weight:600}
+    td{padding:.65rem 1rem;border-bottom:1px solid var(--border);color:#ccc}
+    tr:hover td{background:#1a1d24}
+    .toc{background:#1e2128;border:1px solid var(--border);border-radius:8px;padding:1.25rem 1.5rem;margin-bottom:2rem}
+    .toc h2{font-size:1rem;margin:0 0 .75rem;color:#ddd;text-transform:uppercase;letter-spacing:.05em}
+    .toc ol{margin:0;padding-left:1.25rem}
+    .toc li{margin-bottom:.35rem;font-size:.9rem}
+    .toc a{color:#aaa}
+    .toc a:hover{color:var(--text)}
+    .back-link{margin-bottom:2rem;display:block;color:var(--muted);font-size:.9rem}
+    footer{border-top:1px solid var(--border);padding:2rem 0;text-align:center;color:#666;font-size:.85rem}
+    @media(max-width:640px){h1{font-size:1.5rem}.container{padding:0 1rem}}
+  </style>
+</head>
+<body>
+  <header>
+    <div class="container">
+      <a href="/" class="logo">Oracle HCM Tables</a>
+      <nav><a href="/blog/">Blog</a></nav>
+    </div>
+  </header>
+
+  <main class="container">
+    <a href="/blog/" class="back-link">← All Articles</a>
+
+    <h1>OTBI Comma Join Explained: Why Your Oracle Reports Return Too Many Rows</h1>
+    <div class="post-meta">April 11, 2026 &nbsp;·&nbsp; 2,400 words &nbsp;·&nbsp; Oracle HCM / OTBI</div>
+
+    <nav class="toc">
+      <h2>Contents</h2>
+      <ol>
+        <li><a href="#what-is-comma-join">What Is the Comma Join Problem?</a></li>
+        <li><a href="#how-it-happens">How It Happens in Practice</a></li>
+        <li><a href="#spotting-it">How to Spot a Comma Join</a></li>
+        <li><a href="#broken-sql">The Broken Logical SQL</a></li>
+        <li><a href="#fixed-sql">The Fixed Logical SQL</a></li>
+        <li><a href="#common-scenarios">5 Common Scenarios</a></li>
+        <li><a href="#primary-flag-trap">The PRIMARY_FLAG Trap</a></li>
+        <li><a href="#effective-date-trap">The Effective Date Trap</a></li>
+        <li><a href="#prevention">Prevention Checklist</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ol>
+    </nav>
+
+    <p>You run a headcount report in OTBI. It comes back with 47,000 rows. You have 3,900 employees. Something is very wrong.</p>
+    <p>You check the filter. Looks right. You check the subject area. Looks right. You send it to the Oracle support queue and wait two weeks.</p>
+    <p>The answer, almost every time: a comma join.</p>
+    <p>This post explains exactly what the OTBI comma join is, why it destroys your row counts, and how to fix it with working Logical SQL examples.</p>
+
+    <h2 id="what-is-comma-join">What Is the Comma Join Problem?</h2>
+    <p>In Oracle BI Server Logical SQL, a <strong>comma join</strong> is a cross join — a Cartesian product between two sets of rows. Every row from Set A is matched with every row from Set B, producing <code>|A| × |B|</code> total rows.</p>
+    <p>If you have 1,000 employees and 12 pay periods, a comma join between those two sets produces 12,000 rows instead of the 1,000 you wanted.</p>
+
+    <div class="callout warning">
+      <div class="callout-title">Why It's Sneaky</div>
+      <p>OTBI doesn't always throw an error when a comma join occurs. It happily returns millions of rows, and the inflated count looks plausible if you don't know your expected headcount. Many consultants discover comma joins only after a report goes to a business user who says "this can't be right."</p>
+    </div>
+
+    <p>The BI Server generates a comma join when it cannot determine a valid join path between two subject areas — or when your Logical SQL explicitly uses a comma-separated FROM clause without providing explicit JOIN conditions to connect them.</p>
+
+    <h2 id="how-it-happens">How It Happens in Practice</h2>
+    <p>Comma joins in OTBI typically happen in three ways:</p>
+    <ol>
+      <li><strong>Multi-subject-area reports without a shared grain column</strong> — You drag columns from two subject areas into one analysis. OTBI tries to resolve a join path in the RPD, fails to find one, and falls back to a cross join.</li>
+      <li><strong>Hand-written Logical SQL with a comma-separated FROM clause</strong> — You write or paste Logical SQL directly using <code>FROM "Subject Area A", "Subject Area B"</code> instead of explicit <code>JOIN ... ON</code> syntax.</li>
+      <li><strong>Missing conformed dimension</strong> — Two subject areas share a conceptual entity (e.g., Person) but the RPD hasn't mapped a physical join between them in that context, so no join path exists.</li>
+    </ol>
+
+    <h2 id="spotting-it">How to Spot a Comma Join</h2>
+    <p>Signs that your OTBI report has a comma join:</p>
+    <ul>
+      <li>Row count is a round multiple of expected count (e.g., 12× or 52× headcount)</li>
+      <li>Every person appears N times with no variation in the repeated rows except the second dimension's values</li>
+      <li>Adding <code>COUNT(DISTINCT "Person ID")</code> to the report returns the correct headcount, but <code>COUNT(*)</code> is inflated</li>
+      <li>Removing one of the subject areas collapses the count to normal</li>
+    </ul>
+
+    <p>The fastest diagnostic: add a <code>COUNT(*)</code> measure and a <code>COUNT(DISTINCT "Person.Person ID")</code> measure to the report side-by-side. If they differ by a factor of N, you have a cross join with N rows from the second set.</p>
+
+    <h2 id="broken-sql">The Broken Logical SQL</h2>
+    <p>Here is what a comma join looks like in Logical SQL. This query pulls employee names from the Core HR subject area and absence balances from Absence Management — without any shared column linking the two:</p>
+
+    <pre><code>-- BROKEN: Comma join generates a Cartesian product
+SELECT
+  "Workforce Management - Worker Assignment Real Time"."Worker"."Person Full Name",
+  "Workforce Management - Worker Assignment Real Time"."Worker"."Person Number",
+  "Absence Management - Absence Transactions Real Time"."Absence Plan"."Absence Plan Name",
+  "Absence Management - Absence Transactions Real Time"."Absence Balance"."Balance As Of Date Accrual Balance"
+FROM
+  "Workforce Management - Worker Assignment Real Time",
+  "Absence Management - Absence Transactions Real Time"
+WHERE
+  "Workforce Management - Worker Assignment Real Time"."Worker"."Assignment Status Type" = 'ACTIVE'</code></pre>
+
+    <div class="callout warning">
+      <div class="callout-title">What Goes Wrong</div>
+      <p>No join condition exists between the two subject areas in this query. The BI Server cross-joins every active assignment row with every absence transaction row. If you have 5,000 active assignments and 200 absence transactions, you get 1,000,000 rows.</p>
+    </div>
+
+    <h2 id="fixed-sql">The Fixed Logical SQL</h2>
+    <p>The fix is to:</p>
+    <ol>
+      <li>Add the shared grain column (Person ID or Assignment ID) from <strong>both</strong> subject areas to the SELECT</li>
+      <li>Replace the comma-separated FROM with an explicit <code>JOIN ... ON</code></li>
+      <li>Join on the conformed dimension key</li>
+    </ol>
+
+    <pre><code>-- FIXED: Explicit JOIN on Person Number (shared grain)
+SELECT
+  wf."Worker"."Person Full Name",
+  wf."Worker"."Person Number",
+  ab."Absence Plan"."Absence Plan Name",
+  ab."Absence Balance"."Balance As Of Date Accrual Balance"
+FROM
+  "Workforce Management - Worker Assignment Real Time" wf
+  JOIN "Absence Management - Absence Transactions Real Time" ab
+    ON (wf."Worker"."Person Number" = ab."Worker"."Person Number")
+WHERE
+  wf."Worker"."Assignment Status Type" = 'ACTIVE'</code></pre>
+
+    <div class="callout success">
+      <div class="callout-title">Why This Works</div>
+      <p>The explicit <code>JOIN ... ON</code> tells the BI Server exactly how to correlate rows between the two subject areas. Each employee now appears once per distinct absence plan balance, not once per every combination.</p>
+    </div>
+
+    <p>Note: OTBI subject area aliases (<code>wf</code>, <code>ab</code>) are optional but make long queries readable. Use them consistently — mixing aliased and unaliased references in the same query causes <code>nQSError 10058</code>.</p>
+
+    <h2 id="common-scenarios">5 Common Scenarios Where Comma Joins Appear</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>Subject Areas Involved</th>
+          <th>Shared Grain to Join On</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Headcount + Absence Balances</td>
+          <td>Worker Assignment Real Time + Absence Transactions Real Time</td>
+          <td>Person Number</td>
+        </tr>
+        <tr>
+          <td>Employee List + Salary</td>
+          <td>Worker Assignment Real Time + Workforce Compensation Real Time</td>
+          <td>Assignment ID</td>
+        </tr>
+        <tr>
+          <td>Worker Details + Pay Results</td>
+          <td>Worker Assignment Real Time + Payroll Real Time</td>
+          <td>Assignment ID + Payroll Relationship ID</td>
+        </tr>
+        <tr>
+          <td>Applicants + Hired Employees</td>
+          <td>Recruiting Real Time + Worker Assignment Real Time</td>
+          <td>Person Number (post-hire)</td>
+        </tr>
+        <tr>
+          <td>Benefits + Demographics</td>
+          <td>Benefits Real Time + Worker Assignment Real Time</td>
+          <td>Person Number</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h2 id="primary-flag-trap">The PRIMARY_FLAG Trap</h2>
+    <p>Even after fixing the comma join, you may still get duplicate rows. The next most common culprit in Oracle HCM OTBI is <code>PRIMARY_FLAG</code>.</p>
+    <p>Oracle HCM allows multiple assignments per worker. The <code>PRIMARY_FLAG = 'Y'</code> filter identifies the primary assignment. If you forget to include it, each worker appears once per assignment.</p>
+
+    <pre><code>-- Add PRIMARY_FLAG filter to avoid assignment fan-out
+WHERE
+  wf."Worker"."Assignment Status Type" = 'ACTIVE'
+  AND wf."Worker"."Primary Assignment Flag" = 'Y'</code></pre>
+
+    <div class="callout">
+      <div class="callout-title">Rule of Thumb</div>
+      <p>Always add <code>Primary Assignment Flag = 'Y'</code> to any headcount report unless you specifically want multi-assignment workers counted multiple times. This is the single most common source of inflated Oracle HCM headcounts.</p>
+    </div>
+
+    <h2 id="effective-date-trap">The Effective Date Trap</h2>
+    <p>Oracle HCM tables are date-effective: most history tables store multiple rows per person/assignment, one per change. OTBI handles this automatically in most subject areas — but when you write raw Logical SQL or combine subject areas that have different effective date grains, rows multiply.</p>
+    <p>The fix depends on the subject area, but the common patterns are:</p>
+
+    <pre><code>-- Filter to current effective rows using CURRENT_DATE
+WHERE
+  wf."Worker Assignment"."Effective Start Date" &lt;= CURRENT_DATE
+  AND wf."Worker Assignment"."Effective End Date" &gt;= CURRENT_DATE
+
+-- Or use the built-in "As Of" date prompt if the subject area exposes one
+-- (found under the "Common Filters" folder in most HCM subject areas)</code></pre>
+
+    <p>When mixing subject areas with different effective date logic, always verify which date you're slicing on. A join on Person Number without effective date alignment produces one row per person × per date-effective row in the second subject area.</p>
+
+    <h2 id="prevention">Prevention Checklist</h2>
+    <p>Before you publish any multi-subject-area OTBI report:</p>
+    <ul>
+      <li><strong>Grain check</strong> — Add <code>COUNT(*)</code> and <code>COUNT(DISTINCT "Person Number")</code>. They must match if you expect one row per person.</li>
+      <li><strong>Explicit JOIN</strong> — Never use comma-separated FROM in hand-written Logical SQL. Always explicit <code>JOIN ... ON</code>.</li>
+      <li><strong>PRIMARY_FLAG filter</strong> — Add <code>Primary Assignment Flag = 'Y'</code> unless multi-assignment behavior is intentional.</li>
+      <li><strong>Effective date filter</strong> — Confirm which date range you intend. Use <code>Effective Start Date &lt;= CURRENT_DATE AND Effective End Date &gt;= CURRENT_DATE</code> for current-state reports.</li>
+      <li><strong>Shared key column</strong> — Verify the join column exists in <em>both</em> subject areas. If it doesn't, you need a different join strategy or a different subject area combination.</li>
+      <li><strong>Single subject area if possible</strong> — Oracle designed each OTBI subject area to cover a functional area end-to-end. If the columns you need are all available in one subject area, stay in it.</li>
+    </ul>
+
+    <div class="callout">
+      <div class="callout-title">Pro Tip for Consultants</div>
+      <p>The fastest way to check whether two OTBI subject areas can join cleanly is to look for the shared "Worker" or "Person" folder in both. If both subject areas expose a "Person Number" column under a similarly named folder, they're designed to join on that key. If the folder structures are completely different, you're likely heading into cross-join territory.</p>
+    </div>
+
+    <h2 id="faq">FAQ</h2>
+
+    <h3>Does OTBI throw an error for comma joins?</h3>
+    <p>Not always. In some cases, Oracle BI Server will return <code>nQSError 10058</code> or <code>nQSError 27002</code> if the cross join produces a query that violates a physical database constraint. But in many cases — especially on large-memory instances — it silently executes the cross join and returns inflated results. Never assume the absence of an error means the query is correct.</p>
+
+    <h3>Can I join more than two subject areas?</h3>
+    <p>Yes, but each additional subject area increases complexity. Join A to B first, then B (or A) to C. Always verify grain at each step. Three-way cross joins multiply dramatically: 1,000 × 12 × 5 = 60,000 rows from 1,000 employees.</p>
+
+    <h3>Why does Oracle use Logical SQL instead of standard SQL?</h3>
+    <p>Oracle BI Server sits in front of the physical database and translates Logical SQL into physical database SQL based on the RPD metadata layer. This abstraction lets reports work across different database backends. The downside is that Logical SQL has its own quirks — including how it handles multi-subject-area joins — that differ from standard ANSI SQL.</p>
+
+    <h3>My OTBI analysis (not hand-written SQL) has a comma join — how do I fix it?</h3>
+    <p>In the OTBI analysis editor (not Logical SQL mode), the comma join usually appears when you drag columns from two incompatible subject areas into the same analysis. The fix is to either: (1) use only one subject area for the analysis, (2) find a single subject area that covers both sets of columns, or (3) build two separate analyses and join them in a report using a narrative view with matching keys. Oracle does not expose the JOIN syntax in the visual analysis editor — you have to switch to "Advanced" tab and write the Logical SQL directly if you need explicit JOIN control.</p>
+
+    <h3>What's the difference between a comma join and a cross join in Oracle BI?</h3>
+    <p>They're the same thing. "Comma join" refers to the SQL syntax (<code>FROM A, B</code> without a WHERE clause connecting them). "Cross join" describes the relational algebra result (every row from A matched with every row from B). OTBI documentation uses both terms interchangeably.</p>
+
+    <hr style="border-color:var(--border);margin:2.5rem 0">
+
+    <p>More OTBI troubleshooting: <a href="/blog/obiee-assertion-failure-fix">OBIEE/OTBI Assertion Failure Errors — Causes, Fixes &amp; SQL Examples</a></p>
+    <p>Working SQL patterns: <a href="/blog/sql-query-library">Oracle HCM SQL Query Library — 7 Production-Ready Queries</a></p>
+    <p>Subject area reference: <a href="/blog/otbi-subject-area-guide">Oracle Fusion HCM OTBI Subject Areas — Complete Guide</a></p>
+
+    <div style="margin:2.5rem 0;padding:1.5rem;background:oklch(0.18 0.02 145 / 0.25);border:1px solid oklch(0.50 0.15 145 / 0.4);border-radius:12px;">
+      <h3 style="margin-bottom:.5rem">15 Production-Ready OTBI Report Templates</h3>
+      <p style="color:#aaa;margin-bottom:1rem">Skip the trial-and-error. 15 OTBI query patterns — headcount, assignment history, compensation, absence, and recruiting — tested against live Oracle HCM environments.</p>
+      <a href="/otbi-template-pack" style="display:inline-block;padding:.75rem 1.5rem;background:oklch(0.60 0.18 145);color:#fff;border-radius:8px;text-decoration:none;font-weight:600;">Get the OTBI Template Pack →</a>
+    </div>
+  </main>
+
+  <footer>
+    <div class="container">
+      <p>&copy; 2026 Oracle HCM Tables &nbsp;·&nbsp; <a href="/privacy" style="color:inherit">Privacy</a></p>
+    </div>
+  </footer>
+
+  <script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+</body>
+</html>

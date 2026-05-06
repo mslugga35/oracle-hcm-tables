@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle HCM Compliance Audit SQL Queries — 8 Production-Ready Scripts | HCM Tables</title>
+<meta name="description" content="8 production-ready Oracle HCM compliance audit SQL queries: point-in-time headcount, termination reason audit, payroll variance, rehire detection, job change trail, absence balance audit, position audit, and costing distribution.">
+<meta name="keywords" content="Oracle HCM compliance audit SQL, Oracle Fusion headcount audit, Oracle HCM termination report, Oracle payroll variance query, rehire detection Oracle, Oracle HCM job change audit, Oracle absence accrual audit, Oracle HCM costing audit SQL">
+<meta name="robots" content="index, follow">
+<meta name="author" content="HCM Tables">
+<link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-compliance-audit-sql-queries">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-compliance-audit-sql-queries">
+<meta property="og:title" content="Oracle HCM Compliance Audit SQL Queries — 8 Production-Ready Scripts">
+<meta property="og:description" content="8 canonical compliance audit queries for Oracle Fusion HCM: headcount, terminations, payroll variance, rehire detection, job changes, absence balances, position audit, and costing.">
+<meta property="og:site_name" content="HCM Tables">
+<meta property="og:image" content="https://hcm-tables.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Oracle HCM Compliance Audit SQL Queries — 8 Production-Ready Scripts","description":"8 production-ready Oracle HCM compliance audit SQL queries for headcount, terminations, payroll variance, rehire detection, and more.","url":"https://hcm-tables.com/blog/oracle-hcm-compliance-audit-sql-queries","datePublished":"2026-04-18","dateModified":"2026-04-18","author":{"@type":"Person","name":"Matt Morales"},"publisher":{"@type":"Organization","name":"HCM Tables","url":"https://hcm-tables.com"},"proficiencyLevel":"Expert","dependencies":"Oracle Fusion Cloud HCM"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"Oracle HCM Compliance Audit SQL Queries","item":"https://hcm-tables.com/blog/oracle-hcm-compliance-audit-sql-queries"}]}</script>
+<script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head><body>
+<style>
+:root{--bg:#0f1117;--bg2:#141720;--bg3:#1a1e2e;--fg:#f8f9fa;--fg2:#a0a8c0;--fg3:#606880;--bd:#2a2e42;--ac:#e05a2b;--ac2:rgba(224,90,43,.25);--bl:#5b8dee;--gn:#4caf82;--yw:#d4b44a;--fn:Inter,system-ui,sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+a{color:var(--bl);text-decoration:none;transition:color .15s}a:hover{color:var(--ac);text-decoration:underline}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+.nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+.nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}.nl a.active{color:var(--ac)}
+.hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:900px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:400px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+.hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+.toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+.toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+.toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+.ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+.ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+.ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+.ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+.ab strong{color:var(--fg);font-weight:600}
+.ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+.cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+.cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}.cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}.cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}
+.cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}.cl p{color:var(--fg2);margin:0;font-size:.95rem}.cl strong{color:var(--fg)}
+.tw{overflow-x:auto;margin:1.5rem 0;border-radius:var(--rs);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{padding:.75rem 1rem;text-align:left;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--bd)}
+td{padding:.75rem 1rem;color:var(--fg2);border-bottom:1px solid var(--bd);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--bg3)}
+td code{font-size:.8rem}
+.sql{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs);padding:1.5rem;margin:1.5rem 0;overflow-x:auto}
+.sql-hd{display:flex;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bd)}
+.sql-ti{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.sql pre{font-family:var(--fm);font-size:.82rem;color:var(--fg2);white-space:pre;line-height:1.65}
+.kw{color:var(--bl);font-weight:600}.cm{color:var(--fg3);font-style:italic}.fn{color:var(--gn)}.st{color:#88c0a0}.nm{color:var(--yw)}
+.cta-box{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border:1px solid var(--ac);border-radius:var(--r);padding:2rem;margin:3rem 0;text-align:center}
+.cta-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.cta-box p{color:var(--fg2);margin-bottom:1.25rem;font-size:.95rem}
+.cta-btn{display:inline-block;background:var(--ac);color:#fff;font-weight:700;font-size:.95rem;padding:.75rem 1.75rem;border-radius:var(--rs);text-decoration:none;transition:opacity .15s}
+.cta-btn:hover{opacity:.85;text-decoration:none;color:#fff}
+.footer{padding:2rem 1.5rem;border-top:1px solid var(--bd);text-align:center}
+.footer p{color:var(--fg3);font-size:.85rem;margin-bottom:.5rem}
+.footer a{color:var(--bl)}.footer a:hover{color:var(--ac);text-decoration:underline}
+@media(max-width:640px){.hero{padding:2.5rem 1rem 2rem}.nav{padding:1rem}.nl{gap:1rem}}
+</style>
+<nav class="nav">
+  <a href="/" class="nb">HCM Tables</a>
+  <div class="nl"><a href="/">Search</a><a href="/blog/" class="active">Blog</a></div>
+</nav>
+<section class="hero">
+  <span class="tag">Compliance &amp; Audit</span>
+  <h1>Oracle HCM Compliance Audit SQL Queries</h1>
+  <p style="position:relative;color:var(--fg2);font-size:1.05rem;max-width:640px;margin:.5rem auto 0">8 production-ready SQL scripts that answer every audit question &mdash; point-in-time headcount, termination reasons, payroll variance, rehire detection, and more.</p>
+  <div class="meta"><span>Apr 18, 2026</span><span>&middot;</span><span>22 min read</span><span>&middot;</span><a href="/">Search 35K+ Tables &rarr;</a></div>
+</section>
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#why-audit">Why Oracle HCM Audits Are Hard</a></li>
+    <li><a href="#q1-headcount">Query 1: Point-in-Time Headcount</a></li>
+    <li><a href="#q2-terminations">Query 2: Termination Reason Audit</a></li>
+    <li><a href="#q3-payroll-variance">Query 3: Payroll Variance Detection</a></li>
+    <li><a href="#q4-rehire">Query 4: Rehire Detection</a></li>
+    <li><a href="#q5-job-changes">Query 5: Job Change Audit Trail</a></li>
+    <li><a href="#q6-absence">Query 6: Absence Accrual Balance Audit</a></li>
+    <li><a href="#q7-position">Query 7: Position Change Audit</a></li>
+    <li><a href="#q8-costing">Query 8: Costing Distribution Audit</a></li>
+    <li><a href="#tips">Audit Query Best Practices</a></li>
+  </ol>
+</div>
+<div class="ab">
+
+<h2 id="why-audit">1. Why Oracle HCM Audits Are Hard</h2>
+<p>Oracle Fusion HCM stores data using a <strong>date-effective architecture</strong>: every change to a person, assignment, or position creates a new row rather than overwriting the old one. This is great for history — but it means that naive SQL returns multiple rows per employee, and most audit reports from consultants contain subtle bugs.</p>
+
+<p>The three most common audit failures:</p>
+<ul>
+  <li><strong>Wrong effective date:</strong> Using <code>SYSDATE</code> returns current state. Auditors need state as of a specific date (quarter-end, fiscal year-end, or date of the incident).</li>
+  <li><strong>Missing assignment type filter:</strong> <code>PER_ALL_ASSIGNMENTS_M</code> contains employee, contractor, and applicant rows. Without <code>ASSIGNMENT_TYPE = 'E'</code>, headcount is inflated.</li>
+  <li><strong>Ignoring <code>EFFECTIVE_LATEST_CHANGE</code>:</strong> On <code>_M</code> tables, this flag identifies the most recent effective row for a date range. Omitting it duplicates records.</li>
+</ul>
+
+<div class="cl cl-i">
+  <span class="cl-icon">ℹ️</span>
+  <p>All queries below use <code>:as_of_date</code> bind variables. Substitute <code>DATE '2026-03-31'</code> (or your target date) in any SQL tool. For Oracle OTBI Logical SQL, replace the date filter with subject area date prompts.</p>
+</div>
+
+<h2 id="q1-headcount">2. Query 1: Point-in-Time Headcount</h2>
+<p>The foundational audit query. Returns active headcount as of any date, by legal employer and department. This is what auditors ask for on day one of every HR compliance review.</p>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p><strong>Key tables:</strong> <code>PER_ALL_PEOPLE_F</code>, <code>PER_ALL_ASSIGNMENTS_M</code>, <code>HR_ALL_ORGANIZATION_UNITS_F</code>. The <code>_M</code> suffix is the current-record view that replaces deprecated <code>PER_ALL_ASSIGNMENTS_F</code> in 24B+.</p>
+</div>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 1 — Point-in-Time Headcount by Legal Employer &amp; Department</span></div>
+  <pre><span class="cm">-- Point-in-time active headcount audit</span>
+<span class="cm">-- Replace :as_of_date with your target date, e.g. DATE '2026-03-31'</span>
+<span class="kw">SELECT</span>
+    le.name                                        <span class="kw">AS</span> legal_employer,
+    dept.name                                      <span class="kw">AS</span> department,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> paam.person_id)               <span class="kw">AS</span> headcount
+<span class="kw">FROM</span>
+    per_all_assignments_m      paam
+    <span class="kw">JOIN</span> per_all_people_f       papf  <span class="kw">ON</span>  papf.person_id          = paam.person_id
+                                          <span class="kw">AND</span> :as_of_date           <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                                             <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">JOIN</span> hr_all_organization_units_f le
+                                      <span class="kw">ON</span>  le.organization_id      = paam.legal_entity_id
+                                          <span class="kw">AND</span> :as_of_date           <span class="kw">BETWEEN</span> le.effective_start_date
+                                                                             <span class="kw">AND</span> le.effective_end_date
+    <span class="kw">JOIN</span> hr_all_organization_units_f dept
+                                      <span class="kw">ON</span>  dept.organization_id   = paam.organization_id
+                                          <span class="kw">AND</span> :as_of_date           <span class="kw">BETWEEN</span> dept.effective_start_date
+                                                                             <span class="kw">AND</span> dept.effective_end_date
+<span class="kw">WHERE</span>
+    :as_of_date <span class="kw">BETWEEN</span> paam.effective_start_date <span class="kw">AND</span> paam.effective_end_date
+    <span class="kw">AND</span> paam.assignment_type        = <span class="st">'E'</span>           <span class="cm">-- employees only, not contractors/applicants</span>
+    <span class="kw">AND</span> paam.assignment_status_type = <span class="st">'ACTIVE_ASSIGN'</span>
+    <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>          <span class="cm">-- one row per assignment per date range</span>
+    <span class="kw">AND</span> paam.primary_flag           = <span class="st">'Y'</span>          <span class="cm">-- primary assignment only</span>
+<span class="kw">GROUP BY</span>
+    le.name,
+    dept.name
+<span class="kw">ORDER BY</span>
+    le.name,
+    dept.name;</pre>
+</div>
+
+<h2 id="q2-terminations">3. Query 2: Termination Reason Audit</h2>
+<p>Returns all terminations in a date range with reason codes, manager, and last assignment details. Used by HR auditors to verify voluntary vs. involuntary separation ratios and flag unusual termination patterns.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 2 — Termination Reason Audit</span></div>
+  <pre><span class="cm">-- Terminations with reason codes for a date range</span>
+<span class="cm">-- :start_date and :end_date bound the termination window</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    ppos.actual_termination_date,
+    ppos.notified_termination_date,
+    ppos.last_working_day,
+    flv_action.meaning                             <span class="kw">AS</span> action_name,
+    flv_reason.meaning                             <span class="kw">AS</span> action_reason,
+    ppos.voluntary_flag,
+    dept.name                                      <span class="kw">AS</span> department_at_term,
+    job.name                                       <span class="kw">AS</span> job_at_term,
+    mgr.display_name                               <span class="kw">AS</span> manager_name
+<span class="kw">FROM</span>
+    per_periods_of_service     ppos
+    <span class="kw">JOIN</span> per_all_people_f       papf  <span class="kw">ON</span>  papf.person_id          = ppos.person_id
+                                          <span class="kw">AND</span> ppos.actual_termination_date
+                                              <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                  <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">JOIN</span> per_all_assignments_m  paam  <span class="kw">ON</span>  paam.period_of_service_id = ppos.period_of_service_id
+                                          <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>
+                                          <span class="kw">AND</span> paam.primary_flag           = <span class="st">'Y'</span>
+    <span class="kw">JOIN</span> hr_all_organization_units_f dept
+                                      <span class="kw">ON</span>  dept.organization_id   = paam.organization_id
+                                          <span class="kw">AND</span> ppos.actual_termination_date
+                                              <span class="kw">BETWEEN</span> dept.effective_start_date
+                                                  <span class="kw">AND</span> dept.effective_end_date
+    <span class="kw">JOIN</span> per_jobs_f              job   <span class="kw">ON</span>  job.job_id              = paam.job_id
+                                          <span class="kw">AND</span> ppos.actual_termination_date
+                                              <span class="kw">BETWEEN</span> job.effective_start_date
+                                                  <span class="kw">AND</span> job.effective_end_date
+    <span class="kw">LEFT JOIN</span> fnd_lookup_values  flv_action
+                                      <span class="kw">ON</span>  flv_action.lookup_type = <span class="st">'HR_TERMINATION_ACTION'</span>
+                                          <span class="kw">AND</span> flv_action.lookup_code = ppos.leaving_reason
+                                          <span class="kw">AND</span> flv_action.language    = <span class="st">'US'</span>
+    <span class="kw">LEFT JOIN</span> fnd_lookup_values  flv_reason
+                                      <span class="kw">ON</span>  flv_reason.lookup_type  = <span class="st">'LEAV_REAS'</span>
+                                          <span class="kw">AND</span> flv_reason.lookup_code = ppos.leaving_reason_secondary
+                                          <span class="kw">AND</span> flv_reason.language    = <span class="st">'US'</span>
+    <span class="kw">LEFT JOIN</span> per_all_people_f   mgr   <span class="kw">ON</span>  mgr.person_id           = paam.manager_id
+                                          <span class="kw">AND</span> ppos.actual_termination_date
+                                              <span class="kw">BETWEEN</span> mgr.effective_start_date
+                                                  <span class="kw">AND</span> mgr.effective_end_date
+<span class="kw">WHERE</span>
+    ppos.actual_termination_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+<span class="kw">ORDER BY</span>
+    ppos.actual_termination_date <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="q3-payroll-variance">4. Query 3: Payroll Variance Detection</h2>
+<p>Compares gross pay between two consecutive payroll periods and flags employees with variance above a threshold. Compliance teams use this to detect unauthorized pay changes, ghost employees, and data entry errors before external audit.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 3 — Payroll Variance Detection (Period-over-Period)</span></div>
+  <pre><span class="cm">-- Detects pay variance &gt; :variance_pct% between two payroll periods</span>
+<span class="cm">-- :period1_name = prior period, :period2_name = current period, e.g. '2026-03'</span>
+<span class="kw">WITH</span> period1 <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        paa.assignment_id,
+        paa.person_id,
+        <span class="fn">SUM</span>(prrv.result_value)  <span class="kw">AS</span> gross_pay
+    <span class="kw">FROM</span>
+        pay_payroll_actions     ppa
+        <span class="kw">JOIN</span> pay_assignment_actions paa  <span class="kw">ON</span> paa.payroll_action_id = ppa.payroll_action_id
+        <span class="kw">JOIN</span> pay_run_results       prr  <span class="kw">ON</span> prr.assignment_action_id = paa.assignment_action_id
+        <span class="kw">JOIN</span> pay_run_result_values prrv <span class="kw">ON</span> prrv.run_result_id     = prr.run_result_id
+        <span class="kw">JOIN</span> pay_input_values_f    piv  <span class="kw">ON</span> piv.input_value_id     = prrv.input_value_id
+                                         <span class="kw">AND</span> piv.name = <span class="st">'Pay Value'</span>
+    <span class="kw">WHERE</span>
+        ppa.action_type   <span class="kw">IN</span> (<span class="st">'R'</span>, <span class="st">'Q'</span>)     <span class="cm">-- Regular run and QuickPay</span>
+        <span class="kw">AND</span> ppa.action_status  = <span class="st">'C'</span>          <span class="cm">-- Completed only</span>
+        <span class="kw">AND</span> <span class="fn">TO_CHAR</span>(ppa.effective_date, <span class="st">'YYYY-MM'</span>) = :period1_name
+    <span class="kw">GROUP BY</span> paa.assignment_id, paa.person_id
+),
+period2 <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        paa.assignment_id,
+        paa.person_id,
+        <span class="fn">SUM</span>(prrv.result_value)  <span class="kw">AS</span> gross_pay
+    <span class="kw">FROM</span>
+        pay_payroll_actions     ppa
+        <span class="kw">JOIN</span> pay_assignment_actions paa  <span class="kw">ON</span> paa.payroll_action_id = ppa.payroll_action_id
+        <span class="kw">JOIN</span> pay_run_results       prr  <span class="kw">ON</span> prr.assignment_action_id = paa.assignment_action_id
+        <span class="kw">JOIN</span> pay_run_result_values prrv <span class="kw">ON</span> prrv.run_result_id     = prr.run_result_id
+        <span class="kw">JOIN</span> pay_input_values_f    piv  <span class="kw">ON</span> piv.input_value_id     = prrv.input_value_id
+                                         <span class="kw">AND</span> piv.name = <span class="st">'Pay Value'</span>
+    <span class="kw">WHERE</span>
+        ppa.action_type   <span class="kw">IN</span> (<span class="st">'R'</span>, <span class="st">'Q'</span>)
+        <span class="kw">AND</span> ppa.action_status  = <span class="st">'C'</span>
+        <span class="kw">AND</span> <span class="fn">TO_CHAR</span>(ppa.effective_date, <span class="st">'YYYY-MM'</span>) = :period2_name
+    <span class="kw">GROUP BY</span> paa.assignment_id, paa.person_id
+)
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    p1.gross_pay                                   <span class="kw">AS</span> prior_period_pay,
+    p2.gross_pay                                   <span class="kw">AS</span> current_period_pay,
+    <span class="fn">ROUND</span>((p2.gross_pay - p1.gross_pay) / <span class="fn">NULLIF</span>(p1.gross_pay, <span class="nm">0</span>) * <span class="nm">100</span>, <span class="nm">2</span>)
+                                                   <span class="kw">AS</span> variance_pct,
+    p2.gross_pay - p1.gross_pay                    <span class="kw">AS</span> variance_amount
+<span class="kw">FROM</span>
+    period2        p2
+    <span class="kw">JOIN</span> period1   p1     <span class="kw">ON</span>  p1.person_id = p2.person_id
+    <span class="kw">JOIN</span> per_all_people_f papf
+                          <span class="kw">ON</span>  papf.person_id = p2.person_id
+                              <span class="kw">AND</span> SYSDATE <span class="kw">BETWEEN</span> papf.effective_start_date
+                                               <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">WHERE</span>
+    <span class="fn">ABS</span>((p2.gross_pay - p1.gross_pay) / <span class="fn">NULLIF</span>(p1.gross_pay, <span class="nm">0</span>) * <span class="nm">100</span>) &gt; :variance_pct
+<span class="kw">ORDER BY</span>
+    <span class="fn">ABS</span>(p2.gross_pay - p1.gross_pay) <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="q4-rehire">5. Query 4: Rehire Detection</h2>
+<p>Returns all active employees who have a prior terminated period of service. Used for rehire policy compliance — many organizations require manager or CHRO approval before rehiring terminated employees, especially involuntary terminations.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 4 — Active Employees with Prior Termination (Rehire Detection)</span></div>
+  <pre><span class="cm">-- Identifies active employees who were previously terminated</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    papf.date_of_birth,
+    curr_pos.date_start                            <span class="kw">AS</span> rehire_date,
+    prior_pos.actual_termination_date              <span class="kw">AS</span> prior_term_date,
+    prior_pos.leaving_reason,
+    flv.meaning                                    <span class="kw">AS</span> prior_term_reason,
+    prior_pos.voluntary_flag                       <span class="kw">AS</span> prior_voluntary,
+    <span class="fn">MONTHS_BETWEEN</span>(curr_pos.date_start,
+                   prior_pos.actual_termination_date)
+                                                   <span class="kw">AS</span> gap_months
+<span class="kw">FROM</span>
+    per_all_people_f            papf
+    <span class="kw">JOIN</span> per_periods_of_service curr_pos
+                                      <span class="kw">ON</span>  curr_pos.person_id     = papf.person_id
+                                          <span class="kw">AND</span> curr_pos.actual_termination_date <span class="kw">IS NULL</span>  <span class="cm">-- current active POS</span>
+    <span class="kw">JOIN</span> per_periods_of_service prior_pos
+                                      <span class="kw">ON</span>  prior_pos.person_id    = papf.person_id
+                                          <span class="kw">AND</span> prior_pos.period_of_service_id
+                                              != curr_pos.period_of_service_id
+                                          <span class="kw">AND</span> prior_pos.actual_termination_date <span class="kw">IS NOT NULL</span>
+    <span class="kw">LEFT JOIN</span> fnd_lookup_values flv
+                                      <span class="kw">ON</span>  flv.lookup_type        = <span class="st">'LEAV_REAS'</span>
+                                          <span class="kw">AND</span> flv.lookup_code     = prior_pos.leaving_reason
+                                          <span class="kw">AND</span> flv.language        = <span class="st">'US'</span>
+<span class="kw">WHERE</span>
+    SYSDATE <span class="kw">BETWEEN</span> papf.effective_start_date <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">ORDER BY</span>
+    curr_pos.date_start <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="q5-job-changes">6. Query 5: Job Change Audit Trail</h2>
+<p>Returns the full history of job, grade, and salary changes for a person or population. Auditors use this to verify that promotions and transfers followed the correct approval workflow and compensation bands.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 5 — Job &amp; Salary Change History Audit Trail</span></div>
+  <pre><span class="cm">-- Full job + salary change history for audit period</span>
+<span class="cm">-- :start_date / :end_date filter by when the change became effective</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    paam.effective_start_date                      <span class="kw">AS</span> change_date,
+    job.name                                       <span class="kw">AS</span> job_name,
+    grade.name                                     <span class="kw">AS</span> grade,
+    pos.name                                       <span class="kw">AS</span> position_name,
+    dept.name                                      <span class="kw">AS</span> department,
+    paam.normal_hours,
+    sal.proposed_salary_n                          <span class="kw">AS</span> proposed_salary,
+    sal.change_amount_n                            <span class="kw">AS</span> salary_change_amount,
+    sal.change_percent                             <span class="kw">AS</span> salary_change_pct,
+    flv.meaning                                    <span class="kw">AS</span> salary_change_reason
+<span class="kw">FROM</span>
+    per_all_assignments_m        paam
+    <span class="kw">JOIN</span> per_all_people_f        papf  <span class="kw">ON</span>  papf.person_id        = paam.person_id
+                                          <span class="kw">AND</span> paam.effective_start_date
+                                              <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                  <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_jobs_f         job   <span class="kw">ON</span>  job.job_id            = paam.job_id
+                                          <span class="kw">AND</span> paam.effective_start_date
+                                              <span class="kw">BETWEEN</span> job.effective_start_date
+                                                  <span class="kw">AND</span> job.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_grades_f       grade <span class="kw">ON</span>  grade.grade_id        = paam.grade_id
+                                          <span class="kw">AND</span> paam.effective_start_date
+                                              <span class="kw">BETWEEN</span> grade.effective_start_date
+                                                  <span class="kw">AND</span> grade.effective_end_date
+    <span class="kw">LEFT JOIN</span> hr_all_positions_f pos   <span class="kw">ON</span>  pos.position_id       = paam.position_id
+                                          <span class="kw">AND</span> paam.effective_start_date
+                                              <span class="kw">BETWEEN</span> pos.effective_start_date
+                                                  <span class="kw">AND</span> pos.effective_end_date
+    <span class="kw">LEFT JOIN</span> hr_all_organization_units_f dept
+                                      <span class="kw">ON</span>  dept.organization_id = paam.organization_id
+                                          <span class="kw">AND</span> paam.effective_start_date
+                                              <span class="kw">BETWEEN</span> dept.effective_start_date
+                                                  <span class="kw">AND</span> dept.effective_end_date
+    <span class="kw">LEFT JOIN</span> cmp_salary          sal   <span class="kw">ON</span>  sal.assignment_id     = paam.assignment_id
+                                          <span class="kw">AND</span> paam.effective_start_date
+                                              <span class="kw">BETWEEN</span> sal.date_from
+                                                  <span class="kw">AND</span> <span class="fn">NVL</span>(sal.date_to, DATE <span class="st">'4712-12-31'</span>)
+    <span class="kw">LEFT JOIN</span> fnd_lookup_values  flv   <span class="kw">ON</span>  flv.lookup_type       = <span class="st">'SALARY_CHANGE_REASON'</span>
+                                          <span class="kw">AND</span> flv.lookup_code    = sal.change_reason
+                                          <span class="kw">AND</span> flv.language       = <span class="st">'US'</span>
+<span class="kw">WHERE</span>
+    paam.assignment_type         = <span class="st">'E'</span>
+    <span class="kw">AND</span> paam.primary_flag        = <span class="st">'Y'</span>
+    <span class="kw">AND</span> paam.effective_start_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+<span class="kw">ORDER BY</span>
+    papf.display_name,
+    paam.effective_start_date;</pre>
+</div>
+
+<h2 id="q6-absence">7. Query 6: Absence Accrual Balance Audit</h2>
+<p>Returns current accrual balances by plan and employee as of a specific date. Used for year-end liability calculations, audit of excess carry-forward balances, and SOX controls around accrued PTO liability.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 6 — Absence Accrual Balance Audit</span></div>
+  <pre><span class="cm">-- Absence accrual balances as of :as_of_date</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    aap.name                                       <span class="kw">AS</span> absence_plan,
+    anr.accrual_date,
+    anr.net_accrual_value                          <span class="kw">AS</span> balance_days,
+    anr.accrued_value,
+    anr.taken_value,
+    anr.adjusted_value,
+    anr.ceiling_value,
+    anr.carry_over_value,
+    dept.name                                      <span class="kw">AS</span> department
+<span class="kw">FROM</span>
+    anc_accrual_plan_enrollments  aape
+    <span class="kw">JOIN</span> anc_accrual_plans         aap   <span class="kw">ON</span>  aap.accrual_plan_id    = aape.accrual_plan_id
+    <span class="kw">JOIN</span> anc_net_accruals          anr   <span class="kw">ON</span>  anr.accrual_plan_enrollment_id
+                                               = aape.accrual_plan_enrollment_id
+                                           <span class="kw">AND</span> anr.accrual_date      = (
+                                                   <span class="kw">SELECT</span> <span class="fn">MAX</span>(anr2.accrual_date)
+                                                   <span class="kw">FROM</span>   anc_net_accruals anr2
+                                                   <span class="kw">WHERE</span>  anr2.accrual_plan_enrollment_id
+                                                          = aape.accrual_plan_enrollment_id
+                                                     <span class="kw">AND</span>  anr2.accrual_date &lt;= :as_of_date
+                                               )
+    <span class="kw">JOIN</span> per_all_people_f          papf  <span class="kw">ON</span>  papf.person_id         = aape.person_id
+                                           <span class="kw">AND</span> :as_of_date <span class="kw">BETWEEN</span>  papf.effective_start_date
+                                                                    <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_all_assignments_m paam <span class="kw">ON</span>  paam.person_id         = papf.person_id
+                                           <span class="kw">AND</span> :as_of_date <span class="kw">BETWEEN</span>  paam.effective_start_date
+                                                                    <span class="kw">AND</span> paam.effective_end_date
+                                           <span class="kw">AND</span> paam.primary_flag    = <span class="st">'Y'</span>
+                                           <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>
+    <span class="kw">LEFT JOIN</span> hr_all_organization_units_f dept
+                                       <span class="kw">ON</span>  dept.organization_id  = paam.organization_id
+                                           <span class="kw">AND</span> :as_of_date <span class="kw">BETWEEN</span>  dept.effective_start_date
+                                                                    <span class="kw">AND</span> dept.effective_end_date
+<span class="kw">WHERE</span>
+    aape.enrollment_status = <span class="st">'A'</span>
+<span class="kw">ORDER BY</span>
+    aap.name,
+    papf.display_name;</pre>
+</div>
+
+<h2 id="q7-position">8. Query 7: Position Change Audit</h2>
+<p>Tracks all position movements across the organization for a period: promotions, transfers, reclassifications. Useful for workforce planning audits and verifying that position budget controls were respected.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 7 — Position Change Audit (FTE Movements)</span></div>
+  <pre><span class="cm">-- All assignment-to-position changes in a date range</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    paam.effective_start_date                      <span class="kw">AS</span> movement_date,
+    pos_new.name                                   <span class="kw">AS</span> new_position,
+    pos_new.full_part_time                         <span class="kw">AS</span> new_fte_type,
+    dept_new.name                                  <span class="kw">AS</span> new_department,
+    pos_old.name                                   <span class="kw">AS</span> prior_position,
+    dept_old.name                                  <span class="kw">AS</span> prior_department,
+    <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> dept_new.organization_id != dept_old.organization_id <span class="kw">THEN</span> <span class="st">'TRANSFER'</span>
+        <span class="kw">WHEN</span> pos_new.position_id     != pos_old.position_id       <span class="kw">THEN</span> <span class="st">'POSITION CHANGE'</span>
+        <span class="kw">ELSE</span> <span class="st">'OTHER'</span>
+    <span class="kw">END</span>                                            <span class="kw">AS</span> movement_type,
+    mgr.display_name                               <span class="kw">AS</span> approving_manager
+<span class="kw">FROM</span>
+    per_all_assignments_m        paam
+    <span class="kw">JOIN</span> per_all_people_f        papf     <span class="kw">ON</span>  papf.person_id        = paam.person_id
+                                              <span class="kw">AND</span> paam.effective_start_date
+                                                  <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                      <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">LEFT JOIN</span> hr_all_positions_f pos_new  <span class="kw">ON</span>  pos_new.position_id   = paam.position_id
+                                              <span class="kw">AND</span> paam.effective_start_date
+                                                  <span class="kw">BETWEEN</span> pos_new.effective_start_date
+                                                      <span class="kw">AND</span> pos_new.effective_end_date
+    <span class="kw">LEFT JOIN</span> hr_all_organization_units_f dept_new
+                                          <span class="kw">ON</span>  dept_new.organization_id = paam.organization_id
+                                              <span class="kw">AND</span> paam.effective_start_date
+                                                  <span class="kw">BETWEEN</span> dept_new.effective_start_date
+                                                      <span class="kw">AND</span> dept_new.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_all_assignments_m paam_prior
+                                          <span class="kw">ON</span>  paam_prior.assignment_id = paam.assignment_id
+                                              <span class="kw">AND</span> paam_prior.effective_end_date
+                                                  = paam.effective_start_date - <span class="nm">1</span>
+                                              <span class="kw">AND</span> paam_prior.effective_latest_change = <span class="st">'Y'</span>
+    <span class="kw">LEFT JOIN</span> hr_all_positions_f pos_old  <span class="kw">ON</span>  pos_old.position_id   = paam_prior.position_id
+                                              <span class="kw">AND</span> paam_prior.effective_end_date
+                                                  <span class="kw">BETWEEN</span> pos_old.effective_start_date
+                                                      <span class="kw">AND</span> pos_old.effective_end_date
+    <span class="kw">LEFT JOIN</span> hr_all_organization_units_f dept_old
+                                          <span class="kw">ON</span>  dept_old.organization_id = paam_prior.organization_id
+                                              <span class="kw">AND</span> paam_prior.effective_end_date
+                                                  <span class="kw">BETWEEN</span> dept_old.effective_start_date
+                                                      <span class="kw">AND</span> dept_old.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_all_people_f   mgr      <span class="kw">ON</span>  mgr.person_id         = paam.manager_id
+                                              <span class="kw">AND</span> paam.effective_start_date
+                                                  <span class="kw">BETWEEN</span> mgr.effective_start_date
+                                                      <span class="kw">AND</span> mgr.effective_end_date
+<span class="kw">WHERE</span>
+    paam.assignment_type         = <span class="st">'E'</span>
+    <span class="kw">AND</span> paam.primary_flag        = <span class="st">'Y'</span>
+    <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>
+    <span class="kw">AND</span> paam.effective_start_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+    <span class="kw">AND</span> paam_prior.assignment_id  <span class="kw">IS NOT NULL</span>   <span class="cm">-- must have a prior row (not a new hire)</span>
+    <span class="kw">AND</span> (  pos_new.position_id  != pos_old.position_id
+        <span class="kw">OR</span> dept_new.organization_id != dept_old.organization_id)
+<span class="kw">ORDER BY</span>
+    paam.effective_start_date <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="q8-costing">9. Query 8: Costing Distribution Audit</h2>
+<p>Returns payroll cost allocations by GL account, cost center, and employee. Used to reconcile payroll journals against the general ledger and verify that costing overrides were properly authorized during the audit period.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 8 — Payroll Costing Distribution Audit</span></div>
+  <pre><span class="cm">-- Payroll costing by GL segment for a period</span>
+<span class="cm">-- :payroll_period_name = e.g. 'Monthly Payroll 2026-03'</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    pet.element_name,
+    pca.cost_allocation_keyflex_id,
+    <span class="cm">-- GL segments — adjust segment numbers to your chart of accounts</span>
+    gcc.segment1                                   <span class="kw">AS</span> company,
+    gcc.segment2                                   <span class="kw">AS</span> cost_center,
+    gcc.segment3                                   <span class="kw">AS</span> account,
+    gcc.segment4                                   <span class="kw">AS</span> project,
+    pca.debit_or_credit,
+    pca.costed_value,
+    ppa.effective_date                             <span class="kw">AS</span> payroll_date,
+    ppa.payroll_id
+<span class="kw">FROM</span>
+    pay_payroll_actions           ppa
+    <span class="kw">JOIN</span> pay_assignment_actions   paa    <span class="kw">ON</span>  paa.payroll_action_id  = ppa.payroll_action_id
+    <span class="kw">JOIN</span> pay_costs                pca    <span class="kw">ON</span>  pca.assignment_action_id = paa.assignment_action_id
+    <span class="kw">JOIN</span> pay_run_results          prr    <span class="kw">ON</span>  prr.run_result_id      = pca.run_result_id
+    <span class="kw">JOIN</span> pay_element_types_f      pet    <span class="kw">ON</span>  pet.element_type_id    = prr.element_type_id
+                                            <span class="kw">AND</span> ppa.effective_date
+                                                <span class="kw">BETWEEN</span> pet.effective_start_date
+                                                    <span class="kw">AND</span> pet.effective_end_date
+    <span class="kw">JOIN</span> gl_code_combinations     gcc    <span class="kw">ON</span>  gcc.code_combination_id
+                                               = pca.gl_code_combination_id
+    <span class="kw">JOIN</span> per_all_people_f         papf   <span class="kw">ON</span>  papf.person_id         = paa.person_id
+                                            <span class="kw">AND</span> ppa.effective_date
+                                                <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                    <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">WHERE</span>
+    ppa.action_type        <span class="kw">IN</span> (<span class="st">'R'</span>, <span class="st">'Q'</span>)
+    <span class="kw">AND</span> ppa.action_status  = <span class="st">'C'</span>
+    <span class="kw">AND</span> ppa.payroll_period_name = :payroll_period_name
+<span class="kw">ORDER BY</span>
+    gcc.segment2,          <span class="cm">-- cost center</span>
+    papf.display_name,
+    pet.element_name;</pre>
+</div>
+
+<h2 id="tips">10. Audit Query Best Practices</h2>
+
+<h3>Date-Effective Filtering Rules</h3>
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>Scenario</th><th>Filter to Use</th><th>Why</th></tr>
+    </thead>
+    <tbody>
+      <tr><td>Point-in-time state</td><td><code>:date BETWEEN eff_start AND eff_end</code></td><td>Returns state at a specific moment</td></tr>
+      <tr><td>Changes in a period</td><td><code>eff_start BETWEEN :start AND :end</code></td><td>Returns rows that became effective in the window</td></tr>
+      <tr><td>Current state</td><td><code>SYSDATE BETWEEN eff_start AND eff_end</code></td><td>Use only for operational reports, not audits</td></tr>
+      <tr><td>Latest row in range</td><td><code>effective_latest_change = 'Y'</code></td><td>Deduplicates _M tables; one row per assignment per date range</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Common Gotchas</h3>
+<ul>
+  <li><strong>Ghost employees:</strong> Workers with no <code>PER_PERIODS_OF_SERVICE</code> row but an active assignment — possible if migrated via HDL with incomplete data. Add a <code>JOIN</code> to <code>PER_PERIODS_OF_SERVICE</code> with a null-check on <code>ACTUAL_TERMINATION_DATE</code> to validate.</li>
+  <li><strong>Multiple assignments:</strong> Some workers have more than one active assignment (common in education and healthcare). Always filter <code>PRIMARY_FLAG = 'Y'</code> for headcount; omit it when auditing compensation by assignment.</li>
+  <li><strong>Payroll variance false positives:</strong> Salary increases, back-pay, and QuickPay supplements all appear as variance. Add an element name filter or cross-reference <code>PAY_ELEMENT_TYPES_F.CLASSIFICATION_NAME</code> to isolate regular pay vs. one-time payments.</li>
+  <li><strong>Costing with overrides:</strong> <code>PAY_COSTS</code> contains both default and override allocations. If a cost override was entered at the assignment or element level, both rows appear. Check <code>DEBIT_OR_CREDIT</code> and sum to net.</li>
+</ul>
+
+<div class="cl cl-t">
+  <span class="cl-icon">✅</span>
+  <p><strong>Audit-ready tip:</strong> Run Query 1 (headcount) at three dates — prior quarter-end, current quarter-end, and today. If they diverge from HR system headcount reports, the delta reveals data quality issues before your external auditors find them.</p>
+</div>
+
+<div class="cta-box">
+  <h3>Need More Oracle HCM SQL Patterns?</h3>
+  <p>The OTBI Template Pack includes 15 production-ready report patterns covering worker data, compensation, absence, and recruiting — with OTBI Logical SQL syntax that ChatGPT gets wrong.</p>
+  <a href="/otbi-template-pack" class="cta-btn">Get the OTBI Template Pack &rarr;</a>
+</div>
+
+</div>
+<footer class="footer">
+  <p>&copy; 2026 HCM Tables &mdash; <a href="/blog/">Blog</a> &middot; <a href="/">Table Search</a> &middot; <a href="/privacy">Privacy</a></p>
+  <p>Oracle and Oracle Fusion Cloud are trademarks of Oracle Corporation. HCM Tables is not affiliated with or endorsed by Oracle.</p>
+</footer>
+<script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+</body>
+</html>

@@ -1,0 +1,786 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <!-- Primary Meta Tags -->
+  <title>PER_ALL_ASSIGNMENTS_F in Oracle 24B: What Changed and How to Migrate | HCM Tables</title>
+  <meta name="title" content="PER_ALL_ASSIGNMENTS_F in Oracle 24B: What Changed and How to Migrate | HCM Tables">
+  <meta name="description" content="Oracle 24B shifted HCM reporting best practices away from PER_ALL_ASSIGNMENTS_F toward PER_ALL_ASSIGNMENTS_M. Learn what changed, why your OTBI reports may break, and the exact SQL migration patterns to fix them.">
+  <meta name="keywords" content="PER_ALL_ASSIGNMENTS_F Oracle 24B, PER_ALL_ASSIGNMENTS_F deprecated, PER_ALL_ASSIGNMENTS_M migration, Oracle Fusion HCM 24B changes, Oracle HCM assignment table migration, OTBI assignment subject area 24B, PER_ALL_ASSIGNMENTS_F vs PER_ALL_ASSIGNMENTS_M, Oracle HCM 24B schema changes">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/per-all-assignments-f-oracle-24b-migration-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/per-all-assignments-f-oracle-24b-migration-guide">
+  <meta property="og:title" content="PER_ALL_ASSIGNMENTS_F in Oracle 24B: What Changed and How to Migrate">
+  <meta property="og:description" content="Oracle 24B shifted HCM reporting best practices toward PER_ALL_ASSIGNMENTS_M. Learn the migration patterns for SQL queries and OTBI reports.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:alt" content="Oracle HCM Tables article">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/per-all-assignments-f-oracle-24b-migration-guide">
+  <meta property="twitter:title" content="PER_ALL_ASSIGNMENTS_F in Oracle 24B: What Changed and How to Migrate">
+  <meta property="twitter:description" content="Oracle 24B shifted HCM reporting best practices toward PER_ALL_ASSIGNMENTS_M. Migration patterns for SQL and OTBI reports.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "PER_ALL_ASSIGNMENTS_F in Oracle 24B: What Changed and How to Migrate",
+    "description": "Oracle 24B shifted HCM reporting best practices away from PER_ALL_ASSIGNMENTS_F toward PER_ALL_ASSIGNMENTS_M. Learn what changed, why your OTBI reports may break, and the exact SQL migration patterns to fix them.",
+    "url": "https://hcm-tables.com/blog/per-all-assignments-f-oracle-24b-migration-guide",
+    "datePublished": "2026-04-04",
+    "dateModified": "2026-04-04",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/per-all-assignments-f-oracle-24b-migration-guide"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"PER_ALL_ASSIGNMENTS_F Oracle 24B Migration","item":"https://hcm-tables.com/blog/per-all-assignments-f-oracle-24b-migration-guide"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Is PER_ALL_ASSIGNMENTS_F deprecated in Oracle 24B?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_ASSIGNMENTS_F is not officially deprecated in Oracle 24B, but Oracle's recommended reporting approach has shifted to PER_ALL_ASSIGNMENTS_M. The _M table exposes EFFECTIVE_LATEST_CHANGE and EFFECTIVE_SEQUENCE columns that make current-state queries far simpler and more reliable. New OTBI subject areas and Oracle-delivered reports are built on the _M view, and Oracle documentation now directs developers to use _M for all new development."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between PER_ALL_ASSIGNMENTS_F and PER_ALL_ASSIGNMENTS_M?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_ASSIGNMENTS_F (the _F suffix = date-effective/fused) requires SYSDATE BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE to filter current rows. PER_ALL_ASSIGNMENTS_M (the _M suffix = merged) adds the EFFECTIVE_LATEST_CHANGE column, which Oracle populates automatically to flag the current row. _M also includes EFFECTIVE_SEQUENCE for ordering. For current-state queries, EFFECTIVE_LATEST_CHANGE = 'Y' is more reliable than date-range filtering."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do OTBI assignment reports break after upgrading to Oracle 24B?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Oracle 24B updated several OTBI subject area view objects to reference _M tables instead of _F tables. Reports that used custom SQL overrides or direct table references to PER_ALL_ASSIGNMENTS_F may return incorrect row counts or miss current-state data. The fix is to replace PER_ALL_ASSIGNMENTS_F references with PER_ALL_ASSIGNMENTS_M and update the WHERE clause to use EFFECTIVE_LATEST_CHANGE = 'Y' instead of date-range filtering."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does EFFECTIVE_LATEST_CHANGE mean in PER_ALL_ASSIGNMENTS_M?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EFFECTIVE_LATEST_CHANGE is an Oracle-managed column in _M tables that flags the most recently entered row for each assignment with 'Y'. Unlike date-range filtering, EFFECTIVE_LATEST_CHANGE correctly handles future-dated changes — if a promotion is entered for next week, Oracle marks it as EFFECTIVE_LATEST_CHANGE = 'Y' while the current row gets 'N'. For point-in-time historical queries, use date-range filtering instead."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .article-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .article-body h2 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-body h3 {
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-body p {
+      margin-bottom: 1.25rem;
+    }
+
+    .article-body ul, .article-body ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+      white-space: pre;
+    }
+
+    .success-box {
+      background: rgba(112, 168, 102, 0.1);
+      border-left: 4px solid var(--green);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .error-box {
+      background: rgba(200, 100, 100, 0.1);
+      border-left: 4px solid var(--red);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .tip-box {
+      background: rgba(100, 150, 200, 0.1);
+      border-left: 4px solid var(--blue);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .warning-box {
+      background: rgba(200, 160, 50, 0.1);
+      border-left: 4px solid var(--yellow);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    table th, table td {
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+    }
+
+    .cta-box {
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      margin-bottom: 1rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .cta-button:hover {
+      opacity: 0.9;
+      text-decoration: none;
+    }
+
+    /* Affiliate card */
+    .affiliate-card {
+      background: linear-gradient(135deg, rgba(26,26,46,0.8) 0%, rgba(22,33,62,0.8) 100%);
+      border: 1px solid rgba(255, 77, 61, 0.25);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2.5rem 0 1.5rem;
+    }
+    .affiliate-card-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0.25rem 0 0.4rem;
+    }
+    .affiliate-card-header p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .affiliate-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(255, 77, 61, 0.12);
+      color: var(--accent);
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .affiliate-card-items { display: flex; flex-direction: column; gap: 0.6rem; }
+    .affiliate-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .affiliate-link:hover {
+      border-color: rgba(255, 77, 61, 0.35);
+      background: rgba(255, 77, 61, 0.04);
+    }
+    .affiliate-platform {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(255, 77, 61, 0.1);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .affiliate-title {
+      flex: 1;
+      font-size: 0.925rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .affiliate-cta {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .migration-checklist {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .migration-checklist h3 {
+      margin-top: 0;
+      margin-bottom: 1rem;
+      font-size: 1rem;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+    .migration-checklist li {
+      list-style: none;
+      padding-left: 1.5rem;
+      position: relative;
+      margin-bottom: 0.6rem;
+    }
+    .migration-checklist li::before {
+      content: "☐";
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+    }
+  </style>
+  <script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Table Browser</a>
+      <a href="/blog/">Blog</a>
+      <a href="/otbi-template-pack">OTBI Templates</a>
+      <a href="/oracle-hcm-consultants">Find a Consultant</a>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/blog/">Blog</a> / PER_ALL_ASSIGNMENTS_F Oracle 24B Migration
+    </div>
+
+    <article class="article-header">
+      <div class="article-tag">Oracle HCM / Migration</div>
+      <h1>PER_ALL_ASSIGNMENTS_F in Oracle 24B: What Changed and How to Migrate Your Reports</h1>
+      <div class="article-meta">
+        <span>April 4, 2026</span>
+        <span>·</span>
+        <span>1,800 words</span>
+      </div>
+
+      <div class="affiliate-card">
+        <div class="affiliate-card-header">
+          <span class="affiliate-badge">Sponsored</span>
+          <h3>Stay Current with Oracle HCM Updates</h3>
+          <p>Structured courses to help you navigate Oracle Fusion HCM releases and reporting changes.</p>
+        </div>
+        <div class="affiliate-card-items">
+          <a href="https://www.udemy.com/courses/search/?q=oracle+fusion+hcm&sort=highest-rated" target="_blank" rel="noopener sponsored" class="affiliate-link">
+            <span class="affiliate-platform">Udemy</span>
+            <span class="affiliate-title">Oracle Fusion HCM Cloud — Complete Training</span>
+            <span class="affiliate-cta">Browse Courses →</span>
+          </a>
+          <a href="https://www.pluralsight.com/search?q=oracle+hcm" target="_blank" rel="noopener sponsored" class="affiliate-link">
+            <span class="affiliate-platform">Pluralsight</span>
+            <span class="affiliate-title">Oracle HCM Cloud Learning Path</span>
+            <span class="affiliate-cta">Start Free Trial →</span>
+          </a>
+        </div>
+      </div>
+    </article>
+
+    <div class="article-body">
+
+      <p>If you've been writing Oracle Fusion HCM SQL since before Release 13, your queries probably reference <code>PER_ALL_ASSIGNMENTS_F</code>. It's been the go-to assignments table for years. But starting with Oracle's 24A and 24B quarterly releases, the recommended pattern has shifted — and if you're still writing new reports against <code>_F</code>, you're doing it the hard way.</p>
+
+      <p>This guide covers what changed, why <code>PER_ALL_ASSIGNMENTS_M</code> is now Oracle's preferred table for most reporting scenarios, and the exact patterns to migrate your existing SQL and OTBI reports.</p>
+
+      <div class="warning-box">
+        <strong>Before you start:</strong> <code>PER_ALL_ASSIGNMENTS_F</code> is not removed or officially deprecated in Oracle 24B. Existing queries that work correctly will continue to work. This is about best practices for new development and fixing the edge cases where <code>_F</code> queries return incorrect results.
+      </div>
+
+      <h2>The _F vs _M Difference (Quick Recap)</h2>
+
+      <p>In Oracle Fusion HCM, most core tables come in two variants:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Suffix</th>
+            <th>Name</th>
+            <th>How to Filter for Current Row</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><code>_F</code></td>
+            <td>Date-effective (Fused)</td>
+            <td><code>TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE</code></td>
+          </tr>
+          <tr>
+            <td><code>_M</code></td>
+            <td>Merged (with metadata)</td>
+            <td><code>EFFECTIVE_LATEST_CHANGE = 'Y'</code></td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>The <code>_F</code> table stores every date-effective version of a record. To get today's row you filter by date range. The <code>_M</code> table contains the same data but adds <code>EFFECTIVE_LATEST_CHANGE</code> — an Oracle-managed flag that marks the most recently entered row as <code>'Y'</code>.</p>
+
+      <p>That one column change has significant implications for how queries behave, especially when future-dated changes are involved.</p>
+
+      <h2>Why _F Queries Break with Future-Dated Changes</h2>
+
+      <p>This is the root cause of most assignment query bugs reported after 24B upgrades.</p>
+
+      <p>When an HR administrator enters a change with a future effective date — a promotion that starts next quarter, a grade change effective next month — Oracle creates a new row in the assignments table immediately. That row has a future <code>EFFECTIVE_START_DATE</code>.</p>
+
+      <p>Here's what happens with each filter approach:</p>
+
+      <div class="error-box">
+        <strong>⚠️ PER_ALL_ASSIGNMENTS_F with date-range filter — breaks on future-dated changes:</strong>
+      </div>
+
+      <div class="code-block">-- PER_ALL_ASSIGNMENTS_F: future-dated change causes duplicate
+SELECT PERSON_ID, GRADE_ID, EFFECTIVE_START_DATE
+FROM PER_ALL_ASSIGNMENTS_F
+WHERE PERSON_ID = 123456
+  AND TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+  AND ASSIGNMENT_TYPE = 'E';
+
+-- Returns 2 rows if today falls within overlapping date ranges:
+-- Row 1: Grade G5, effective 2024-01-01 to 2026-06-29  ← current
+-- Row 2: Grade G6, effective 2026-06-30 to 4712-12-31  ← future
+-- SYSDATE is 2026-04-04 — only Row 1 should match, but edge cases exist</div>
+
+      <div class="success-box">
+        <strong>✅ PER_ALL_ASSIGNMENTS_M with EFFECTIVE_LATEST_CHANGE — handles future changes correctly:</strong>
+      </div>
+
+      <div class="code-block">-- PER_ALL_ASSIGNMENTS_M: always returns the most recently entered row
+SELECT PERSON_ID, GRADE_ID, EFFECTIVE_START_DATE
+FROM PER_ALL_ASSIGNMENTS_M
+WHERE PERSON_ID = 123456
+  AND EFFECTIVE_LATEST_CHANGE = 'Y'
+  AND ASSIGNMENT_TYPE = 'E';
+
+-- Returns 1 row: Grade G6 (the most recently entered change)
+-- EFFECTIVE_LATEST_CHANGE flags the future change as the "latest" entry</div>
+
+      <p>The behavior difference matters: <code>_F</code> with date-range gives you "what's active today." <code>_M</code> with <code>EFFECTIVE_LATEST_CHANGE</code> gives you "what is the most recently entered state." For current-state headcount reports, <code>_M</code> is the correct choice in almost every case.</p>
+
+      <h2>What Oracle Changed in 24A/24B</h2>
+
+      <p>Oracle's quarterly releases don't always announce schema changes in headlines — they show up in the OTBI subject area updates, the Oracle-delivered report redesigns, and the technical documentation revisions.</p>
+
+      <p>In the 24A and 24B cycles, Oracle updated:</p>
+
+      <ul>
+        <li><strong>OTBI Worker Real Time subject area</strong> — underlying view objects now reference <code>_M</code> tables for assignment data. Custom reports using direct SQL overrides to <code>PER_ALL_ASSIGNMENTS_F</code> may produce different row counts than Oracle-delivered reports.</li>
+        <li><strong>Worker Assignment Real Time subject area</strong> — assignment history dimensions now expose <code>EFFECTIVE_LATEST_CHANGE</code> as a filterable attribute. Historical queries should use date-range; current-state queries should use this flag.</li>
+        <li><strong>Oracle-delivered headcount analytics</strong> — rebuilt on <code>_M</code> tables. If your custom reports produce different headcount numbers than Oracle's delivered workforce analytics, this is the likely cause.</li>
+        <li><strong>HCM Data Loader validations</strong> — 24B tightened assignment data validation to align with the <code>_M</code> data model. Some HDL loads that previously succeeded now require explicit effective dating.</li>
+      </ul>
+
+      <h2>The Full Migration Pattern</h2>
+
+      <p>Replacing <code>PER_ALL_ASSIGNMENTS_F</code> with <code>PER_ALL_ASSIGNMENTS_M</code> requires three changes:</p>
+
+      <h3>1. Replace the table reference</h3>
+
+      <div class="code-block">-- Before (PER_ALL_ASSIGNMENTS_F)
+FROM PER_ALL_ASSIGNMENTS_F paf
+
+-- After (PER_ALL_ASSIGNMENTS_M)
+FROM PER_ALL_ASSIGNMENTS_M pam</div>
+
+      <h3>2. Replace the date-range filter with EFFECTIVE_LATEST_CHANGE</h3>
+
+      <div class="code-block">-- Before: date-range filter
+WHERE TRUNC(SYSDATE) BETWEEN paf.EFFECTIVE_START_DATE AND paf.EFFECTIVE_END_DATE
+
+-- After: flag-based filter
+WHERE pam.EFFECTIVE_LATEST_CHANGE = 'Y'</div>
+
+      <h3>3. Keep (or add) the assignment type and status filters</h3>
+
+      <div class="code-block">-- These stay the same regardless of _F or _M
+AND pam.ASSIGNMENT_TYPE = 'E'                    -- employee assignments only
+AND pam.ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN' -- active employees only</div>
+
+      <h3>Complete Before/After Example</h3>
+
+      <div class="error-box">
+        <strong>Before (PER_ALL_ASSIGNMENTS_F pattern):</strong>
+      </div>
+
+      <div class="code-block">SELECT
+  p.PERSON_NUMBER,
+  p.FULL_NAME,
+  paf.ASSIGNMENT_NUMBER,
+  paf.GRADE_ID,
+  paf.DEPARTMENT_ID,
+  paf.JOB_ID,
+  paf.LOCATION_ID
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_F paf
+  ON p.PERSON_ID = paf.PERSON_ID
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND TRUNC(SYSDATE) BETWEEN paf.EFFECTIVE_START_DATE AND paf.EFFECTIVE_END_DATE
+  AND paf.ASSIGNMENT_TYPE = 'E'
+  AND paf.ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN';</div>
+
+      <div class="success-box">
+        <strong>After (PER_ALL_ASSIGNMENTS_M pattern — Oracle 24B recommended):</strong>
+      </div>
+
+      <div class="code-block">SELECT
+  p.PERSON_NUMBER,
+  p.FULL_NAME,
+  pam.ASSIGNMENT_NUMBER,
+  pam.GRADE_ID,
+  pam.DEPARTMENT_ID,
+  pam.JOB_ID,
+  pam.LOCATION_ID
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_M pam
+  ON p.PERSON_ID = pam.PERSON_ID
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND pam.EFFECTIVE_LATEST_CHANGE = 'Y'
+  AND pam.ASSIGNMENT_TYPE = 'E'
+  AND pam.ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN';</div>
+
+      <p>Both queries return active employees, but the <code>_M</code> version is more reliable when future-dated changes exist in the system — which in any active Oracle HCM implementation, they almost certainly do.</p>
+
+      <h2>When to Keep Using PER_ALL_ASSIGNMENTS_F</h2>
+
+      <p>The <code>_F</code> table is still the right choice for <strong>point-in-time historical queries</strong>. If you need to answer "what was this person's assignment as of December 31, 2024?", the date-range filter on <code>_F</code> is correct:</p>
+
+      <div class="code-block">-- Historical as-of query: use _F with explicit date range
+SELECT
+  p.PERSON_NUMBER,
+  paf.GRADE_ID,
+  paf.DEPARTMENT_ID,
+  paf.EFFECTIVE_START_DATE
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_F paf
+  ON p.PERSON_ID = paf.PERSON_ID
+WHERE DATE '2024-12-31' BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND DATE '2024-12-31' BETWEEN paf.EFFECTIVE_START_DATE AND paf.EFFECTIVE_END_DATE
+  AND paf.ASSIGNMENT_TYPE = 'E';</div>
+
+      <p>The <code>_M</code> table's <code>EFFECTIVE_LATEST_CHANGE</code> flag reflects the <em>most recently entered</em> row, not the row active on a specific historical date. For historical as-of queries, <code>_F</code> with explicit date filtering is still the correct approach.</p>
+
+      <h2>Key Columns Compared</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Column</th>
+            <th>PER_ALL_ASSIGNMENTS_F</th>
+            <th>PER_ALL_ASSIGNMENTS_M</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EFFECTIVE_START_DATE</td>
+            <td>Present — use for historical queries</td>
+            <td>Present — use for historical queries</td>
+          </tr>
+          <tr>
+            <td>EFFECTIVE_END_DATE</td>
+            <td>Present — 4712-12-31 = open-ended</td>
+            <td>Present — same semantics</td>
+          </tr>
+          <tr>
+            <td>EFFECTIVE_LATEST_CHANGE</td>
+            <td>Not available</td>
+            <td>'Y' = most recently entered row</td>
+          </tr>
+          <tr>
+            <td>EFFECTIVE_SEQUENCE</td>
+            <td>Not available</td>
+            <td>Ordering number for same-date changes</td>
+          </tr>
+          <tr>
+            <td>ASSIGNMENT_TYPE</td>
+            <td>E/C/N/B/P/O</td>
+            <td>Same values, same semantics</td>
+          </tr>
+          <tr>
+            <td>ASSIGNMENT_STATUS_TYPE</td>
+            <td>ACTIVE_ASSIGN, INACTIVE, etc.</td>
+            <td>Same values, same semantics</td>
+          </tr>
+          <tr>
+            <td>PRIMARY_FLAG</td>
+            <td>Y/N — primary assignment indicator</td>
+            <td>Same values, same semantics</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>OTBI Report Migration</h2>
+
+      <p>If you have custom OTBI reports that use <strong>logical SQL overrides</strong> or <strong>direct database joins</strong> referencing <code>PER_ALL_ASSIGNMENTS_F</code>, you'll need to update these manually.</p>
+
+      <p>For reports using standard OTBI subject area columns (no custom SQL), the underlying view objects were updated by Oracle. You may still see behavioral differences if:</p>
+
+      <ul>
+        <li>Your report uses an <strong>assignment date filter</strong> built before 24B — check if the filter logic was date-range based and whether it now needs to reference the <code>Effective Latest Change</code> attribute</li>
+        <li>Your headcount totals differ from Oracle's delivered analytics — run the same query on both <code>_F</code> (date-range) and <code>_M</code> (<code>EFFECTIVE_LATEST_CHANGE = 'Y'</code>) and compare; the difference is future-dated rows</li>
+        <li>You use the <strong>Worker Assignment Real Time</strong> subject area with custom assignment date dimensions — verify these dimensions resolve correctly after the 24B update</li>
+      </ul>
+
+      <div class="migration-checklist">
+        <h3>Migration Checklist</h3>
+        <ul>
+          <li>Audit all custom SQL reports for <code>PER_ALL_ASSIGNMENTS_F</code> references</li>
+          <li>Replace date-range filters with <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> for current-state queries</li>
+          <li>Keep date-range filters for historical point-in-time queries</li>
+          <li>Verify headcount numbers match Oracle-delivered analytics after migration</li>
+          <li>Test against employees with pending future-dated assignment changes</li>
+          <li>Check HDL load templates — update effective date logic if loads are failing validation</li>
+          <li>Review OTBI report custom SQL overrides for direct table references</li>
+        </ul>
+      </div>
+
+      <h2>Related Changes: EFFECTIVE_SEQUENCE</h2>
+
+      <p>The <code>_M</code> table also exposes <code>EFFECTIVE_SEQUENCE</code>, which becomes important when multiple assignment changes are entered on the same calendar date. In <code>_F</code>, same-day changes share the same <code>EFFECTIVE_START_DATE</code>, which can produce ambiguous results. In <code>_M</code>, <code>EFFECTIVE_SEQUENCE</code> provides an ordering number to break ties:</p>
+
+      <div class="code-block">-- When multiple changes land on the same date, EFFECTIVE_SEQUENCE determines order
+SELECT PERSON_ID, GRADE_ID, EFFECTIVE_START_DATE, EFFECTIVE_SEQUENCE, EFFECTIVE_LATEST_CHANGE
+FROM PER_ALL_ASSIGNMENTS_M
+WHERE PERSON_ID = 123456
+  AND ASSIGNMENT_TYPE = 'E'
+ORDER BY EFFECTIVE_START_DATE, EFFECTIVE_SEQUENCE;
+
+-- EFFECTIVE_LATEST_CHANGE = 'Y' on the highest EFFECTIVE_SEQUENCE row for each date</div>
+
+      <div class="cta-box">
+        <h3>Explore PER_ALL_ASSIGNMENTS_M and Every Oracle HCM Table</h3>
+        <p>Search all columns for PER_ALL_ASSIGNMENTS_M, PER_ALL_ASSIGNMENTS_F, and 14,950+ Oracle Fusion HCM tables. Find join paths, data types, and FK relationships between assignment, person, and payroll tables.</p>
+        <a href="/" class="cta-button">Search Oracle HCM Tables →</a>
+      </div>
+
+      <h2>Summary</h2>
+
+      <p>Oracle's 24A/24B releases formalized the shift toward <code>_M</code> tables for assignment reporting. The practical impact:</p>
+
+      <ul>
+        <li><strong>New reports</strong> — always use <code>PER_ALL_ASSIGNMENTS_M</code> with <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> for current-state queries</li>
+        <li><strong>Existing reports that work</strong> — no urgency to migrate unless you're seeing headcount discrepancies or future-dated row issues</li>
+        <li><strong>Historical queries</strong> — keep using <code>PER_ALL_ASSIGNMENTS_F</code> with explicit date-range filters; <code>_M</code>'s <code>EFFECTIVE_LATEST_CHANGE</code> does not apply to historical as-of queries</li>
+        <li><strong>OTBI reports</strong> — audit custom SQL overrides; Oracle-delivered reports were updated but custom logical SQL may not have been</li>
+      </ul>
+
+      <p>The easiest way to validate your migration: run both the old query (PER_ALL_ASSIGNMENTS_F + date-range) and the new query (PER_ALL_ASSIGNMENTS_M + EFFECTIVE_LATEST_CHANGE) against the same dataset. If results differ, you have future-dated assignment changes in the system — the <code>_M</code> version is correct.</p>
+
+    </div>
+  </div>
+</body>
+</html>

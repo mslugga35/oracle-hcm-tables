@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle HCM HDL Integration Error Debugger — 3-Table Debug Chain | HCM Tables</title>
+<meta name="description" content="Debug Oracle HCM Data Loader errors using the 3-table chain: HRC_INTEGRATION_BATCHES, HRC_INTEGRATION_DETAILS, HRC_INTEGRATION_ERROR_MESSAGES. Full SQL debug workflow covering 100% of HDL failure modes.">
+<meta name="keywords" content="Oracle HDL errors, HRC_INTEGRATION_BATCHES, HRC_INTEGRATION_DETAILS, HRC_INTEGRATION_ERROR_MESSAGES, Oracle HCM Data Loader debug, HDL integration troubleshooting, Oracle Fusion HDL SQL, HDL error messages Oracle">
+<meta name="robots" content="index, follow">
+<meta name="author" content="HCM Tables">
+<link rel="canonical" href="https://hcm-tables.com/blog/hdl-integration-error-debugger">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hcm-tables.com/blog/hdl-integration-error-debugger">
+<meta property="og:title" content="Oracle HCM HDL Integration Error Debugger — 3-Table Debug Chain">
+<meta property="og:description" content="Full SQL debug workflow for Oracle HCM Data Loader errors. Covers HRC_INTEGRATION_BATCHES → HRC_INTEGRATION_DETAILS → HRC_INTEGRATION_ERROR_MESSAGES with 6 production queries.">
+<meta property="og:site_name" content="HCM Tables">
+<meta property="og:image" content="https://hcm-tables.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Oracle HCM HDL Integration Error Debugger — 3-Table Debug Chain","description":"Debug Oracle HCM Data Loader errors using the 3-table chain: HRC_INTEGRATION_BATCHES, HRC_INTEGRATION_DETAILS, HRC_INTEGRATION_ERROR_MESSAGES.","url":"https://hcm-tables.com/blog/hdl-integration-error-debugger","datePublished":"2026-04-18","dateModified":"2026-04-18","author":{"@type":"Person","name":"Matt Morales"},"publisher":{"@type":"Organization","name":"HCM Tables","url":"https://hcm-tables.com"},"proficiencyLevel":"Expert","dependencies":"Oracle Fusion Cloud HCM"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"Oracle HCM HDL Integration Error Debugger","item":"https://hcm-tables.com/blog/hdl-integration-error-debugger"}]}</script>
+<script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head><body>
+<style>
+:root{--bg:#0f1117;--bg2:#141720;--bg3:#1a1e2e;--fg:#f8f9fa;--fg2:#a0a8c0;--fg3:#606880;--bd:#2a2e42;--ac:#e05a2b;--ac2:rgba(224,90,43,.25);--bl:#5b8dee;--gn:#4caf82;--yw:#d4b44a;--fn:Inter,system-ui,sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+a{color:var(--bl);text-decoration:none;transition:color .15s}a:hover{color:var(--ac);text-decoration:underline}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+.nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+.nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}.nl a.active{color:var(--ac)}
+.hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:900px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:400px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+.hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+.toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+.toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+.toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+.ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+.ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+.ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+.ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+.ab strong{color:var(--fg);font-weight:600}
+.ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+.cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+.cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}.cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}.cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}.cl-e{background:rgba(224,90,43,.08);border-color:var(--ac)}
+.cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}.cl p{color:var(--fg2);margin:0;font-size:.95rem}.cl strong{color:var(--fg)}
+.tw{overflow-x:auto;margin:1.5rem 0;border-radius:var(--rs);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{padding:.75rem 1rem;text-align:left;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--bd)}
+td{padding:.75rem 1rem;color:var(--fg2);border-bottom:1px solid var(--bd);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--bg3)}
+td code{font-size:.8rem}
+.sql{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs);padding:1.5rem;margin:1.5rem 0;overflow-x:auto}
+.sql-hd{display:flex;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bd)}
+.sql-ti{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.sql pre{font-family:var(--fm);font-size:.82rem;color:var(--fg2);white-space:pre;line-height:1.65}
+.kw{color:var(--bl);font-weight:600}.cm{color:var(--fg3);font-style:italic}.fn{color:var(--gn)}.st{color:#88c0a0}.nm{color:var(--yw)}
+.flow{display:flex;align-items:center;gap:.5rem;flex-wrap:wrap;margin:1.5rem 0;padding:1.5rem;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r)}
+.flow-step{background:var(--bg3);border:1px solid var(--bd);border-radius:var(--rs);padding:.75rem 1rem;font-family:var(--fm);font-size:.8rem;color:var(--yw);white-space:nowrap}
+.flow-arrow{color:var(--fg3);font-size:1.2rem;flex-shrink:0}
+.cta-box{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border:1px solid var(--ac);border-radius:var(--r);padding:2rem;margin:3rem 0;text-align:center}
+.cta-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.cta-box p{color:var(--fg2);margin-bottom:1.25rem;font-size:.95rem}
+.cta-btn{display:inline-block;background:var(--ac);color:#fff;font-weight:700;font-size:.95rem;padding:.75rem 1.75rem;border-radius:var(--rs);text-decoration:none;transition:opacity .15s}
+.cta-btn:hover{opacity:.85;text-decoration:none;color:#fff}
+.footer{padding:2rem 1.5rem;border-top:1px solid var(--bd);text-align:center}
+.footer p{color:var(--fg3);font-size:.85rem;margin-bottom:.5rem}
+.footer a{color:var(--bl)}.footer a:hover{color:var(--ac);text-decoration:underline}
+@media(max-width:640px){.hero{padding:2.5rem 1rem 2rem}.nav{padding:1rem}.nl{gap:1rem}.flow{flex-direction:column;align-items:flex-start}}
+</style>
+<nav class="nav">
+  <a href="/" class="nb">HCM Tables</a>
+  <div class="nl"><a href="/">Search</a><a href="/blog/" class="active">Blog</a></div>
+</nav>
+<section class="hero">
+  <span class="tag">HCM Data Loader</span>
+  <h1>Oracle HDL Integration Error Debugger</h1>
+  <p style="position:relative;color:var(--fg2);font-size:1.05rem;max-width:640px;margin:.5rem auto 0">The complete 3-table debug chain &mdash; <code style="font-size:.9rem;background:rgba(255,255,255,.07);padding:.1em .4em;border-radius:4px">HRC_INTEGRATION_BATCHES</code> &rarr; <code style="font-size:.9rem;background:rgba(255,255,255,.07);padding:.1em .4em;border-radius:4px">HRC_INTEGRATION_DETAILS</code> &rarr; <code style="font-size:.9rem;background:rgba(255,255,255,.07);padding:.1em .4em;border-radius:4px">HRC_INTEGRATION_ERROR_MESSAGES</code> — with 6 copy-paste SQL queries covering 100% of HDL failure modes.</p>
+  <div class="meta"><span>Apr 18, 2026</span><span>&middot;</span><span>18 min read</span><span>&middot;</span><a href="/">Search 35K+ Tables &rarr;</a></div>
+</section>
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#architecture">HDL Architecture &amp; Failure Modes</a></li>
+    <li><a href="#table1">Table 1: HRC_INTEGRATION_BATCHES</a></li>
+    <li><a href="#table2">Table 2: HRC_INTEGRATION_DETAILS</a></li>
+    <li><a href="#table3">Table 3: HRC_INTEGRATION_ERROR_MESSAGES</a></li>
+    <li><a href="#q1-batch-status">Query 1: Batch Status Dashboard</a></li>
+    <li><a href="#q2-failed-rows">Query 2: All Failed Rows with Error Messages</a></li>
+    <li><a href="#q3-error-summary">Query 3: Error Message Frequency Summary</a></li>
+    <li><a href="#q4-partial-success">Query 4: Partially Loaded Batches</a></li>
+    <li><a href="#q5-worker-context">Query 5: Failed Row with Person Context</a></li>
+    <li><a href="#q6-history">Query 6: Integration History by Object</a></li>
+    <li><a href="#error-patterns">Common HDL Error Patterns &amp; Root Causes</a></li>
+  </ol>
+</div>
+<div class="ab">
+
+<h2 id="architecture">1. HDL Architecture &amp; Failure Modes</h2>
+<p>Oracle HCM Data Loader (HDL) processes <code>.dat</code> files through a multi-stage pipeline. When a load fails, Oracle stores the failure context in three tables that form a debug chain. Most support calls fail to use all three — leading to incomplete diagnosis and repeated submission failures.</p>
+
+<div class="flow">
+  <div class="flow-step">Upload .dat File</div>
+  <span class="flow-arrow">&rarr;</span>
+  <div class="flow-step">HRC_INTEGRATION_BATCHES</div>
+  <span class="flow-arrow">&rarr;</span>
+  <div class="flow-step">HRC_INTEGRATION_DETAILS</div>
+  <span class="flow-arrow">&rarr;</span>
+  <div class="flow-step">HRC_INTEGRATION_ERROR_MESSAGES</div>
+  <span class="flow-arrow">&rarr;</span>
+  <div class="flow-step">Business Object Tables</div>
+</div>
+
+<p>Each layer tells you something different:</p>
+<ul>
+  <li><strong>HRC_INTEGRATION_BATCHES:</strong> Was the file accepted at all? Batch-level status (COMPLETED, FAILED, PROCESSING). This is the first table to check — if the batch never made it here, the upload itself failed (network, file format, authentication).</li>
+  <li><strong>HRC_INTEGRATION_DETAILS:</strong> Row-level processing results. Each record in your <code>.dat</code> file generates one or more rows here. This is where you find out <em>which</em> records failed vs. succeeded.</li>
+  <li><strong>HRC_INTEGRATION_ERROR_MESSAGES:</strong> The actual error text, error code, and attribute-level context for each failed row. This is the table most people miss — they stop at <code>DETAILS</code> but the actionable message is here.</li>
+</ul>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p><strong>Licensing note:</strong> These tables are accessible via Oracle HCM Cloud database views through HCM Extracts or direct OTBI subject area "Integration" queries. Direct SQL access requires a BI or HCM Reporting role. In OTBI, use the <strong>HCM Integration subject area</strong>.</p>
+</div>
+
+<h2 id="table1">2. Table 1: HRC_INTEGRATION_BATCHES</h2>
+<p>The entry point of every HDL load. One row per <code>.dat</code> file submitted.</p>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>Column</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>INTEGRATION_BATCH_ID</code></td><td>NUMBER</td><td>Primary key — join key to DETAILS table</td></tr>
+      <tr><td><code>INTEGRATION_BATCH_NAME</code></td><td>VARCHAR2</td><td>Name you assigned on upload, or system-generated</td></tr>
+      <tr><td><code>BATCH_STATUS</code></td><td>VARCHAR2</td><td>COMPLETED, FAILED, PROCESSING, WAITING, CANCELLED</td></tr>
+      <tr><td><code>OBJECT_NAME</code></td><td>VARCHAR2</td><td>HDL business object: Worker, Assignment, Salary, etc.</td></tr>
+      <tr><td><code>STARTED_ON</code></td><td>TIMESTAMP</td><td>When processing began</td></tr>
+      <tr><td><code>COMPLETED_ON</code></td><td>TIMESTAMP</td><td>When processing finished (null if still running)</td></tr>
+      <tr><td><code>TOTAL_RECORDS</code></td><td>NUMBER</td><td>Total rows in the submitted file</td></tr>
+      <tr><td><code>SUCCESSFUL_RECORDS</code></td><td>NUMBER</td><td>Rows that loaded successfully</td></tr>
+      <tr><td><code>FAILED_RECORDS</code></td><td>NUMBER</td><td>Rows that failed — if &gt; 0, drill into DETAILS</td></tr>
+      <tr><td><code>SOURCE_FILE_NAME</code></td><td>VARCHAR2</td><td>Original .dat filename</td></tr>
+      <tr><td><code>CREATED_BY</code></td><td>VARCHAR2</td><td>User who submitted the load</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="table2">3. Table 2: HRC_INTEGRATION_DETAILS</h2>
+<p>Row-level processing status. One row per record in the <code>.dat</code> file.</p>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>Column</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>INTEGRATION_DETAIL_ID</code></td><td>NUMBER</td><td>PK — join key to ERROR_MESSAGES</td></tr>
+      <tr><td><code>INTEGRATION_BATCH_ID</code></td><td>NUMBER</td><td>FK to HRC_INTEGRATION_BATCHES</td></tr>
+      <tr><td><code>RECORD_STATUS</code></td><td>VARCHAR2</td><td>SUCCESS, FAILED, WARNING, SKIPPED</td></tr>
+      <tr><td><code>SOURCE_RECORD_NUMBER</code></td><td>NUMBER</td><td>Line number in the .dat file — use to locate the bad row</td></tr>
+      <tr><td><code>PERSON_NUMBER</code></td><td>VARCHAR2</td><td>Person number if applicable (null for org/position loads)</td></tr>
+      <tr><td><code>EFFECTIVE_START_DATE</code></td><td>DATE</td><td>Effective date of the record being loaded</td></tr>
+      <tr><td><code>ACTION_TYPE</code></td><td>VARCHAR2</td><td>MERGE, DELETE, UPDATE — from the .dat METADATA line</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="table3">4. Table 3: HRC_INTEGRATION_ERROR_MESSAGES</h2>
+<p>The actual error messages. This is the table most implementers skip — but it's the only place you get the specific attribute, error code, and human-readable fix guidance.</p>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>Column</th><th>Type</th><th>Description</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>MESSAGE_ID</code></td><td>NUMBER</td><td>PK</td></tr>
+      <tr><td><code>INTEGRATION_DETAIL_ID</code></td><td>NUMBER</td><td>FK to HRC_INTEGRATION_DETAILS</td></tr>
+      <tr><td><code>MESSAGE_TYPE</code></td><td>VARCHAR2</td><td>ERROR, WARNING, INFORMATION</td></tr>
+      <tr><td><code>MESSAGE_TEXT</code></td><td>VARCHAR2</td><td>Full error text — this is what you want</td></tr>
+      <tr><td><code>MESSAGE_NAME</code></td><td>VARCHAR2</td><td>Oracle message code (e.g. HR_WORKER_NOT_FOUND)</td></tr>
+      <tr><td><code>ATTRIBUTE_NAME</code></td><td>VARCHAR2</td><td>The specific column in the .dat file that caused the error</td></tr>
+      <tr><td><code>ATTRIBUTE_VALUE</code></td><td>VARCHAR2</td><td>The value that was rejected</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="q1-batch-status">5. Query 1: Batch Status Dashboard</h2>
+<p>First query to run after any HDL submission. Shows all batches from the last 7 days with success/failure counts and processing time.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 1 — HDL Batch Status Dashboard</span></div>
+  <pre><span class="cm">-- HDL batch status for the last 7 days</span>
+<span class="kw">SELECT</span>
+    hib.integration_batch_id,
+    hib.integration_batch_name,
+    hib.object_name,
+    hib.batch_status,
+    hib.total_records,
+    hib.successful_records,
+    hib.failed_records,
+    hib.started_on,
+    hib.completed_on,
+    <span class="fn">ROUND</span>(<span class="fn">EXTRACT</span>(<span class="kw">SECOND</span> <span class="kw">FROM</span>
+        (hib.completed_on - hib.started_on) <span class="kw">DAY</span>(<span class="nm">3</span>) <span class="kw">TO</span> <span class="kw">SECOND</span>(<span class="nm">0</span>)
+    ) / <span class="nm">60</span>, <span class="nm">1</span>)                              <span class="kw">AS</span> processing_minutes,
+    hib.source_file_name,
+    hib.created_by
+<span class="kw">FROM</span>
+    hrc_integration_batches  hib
+<span class="kw">WHERE</span>
+    hib.started_on &gt;= SYSDATE - <span class="nm">7</span>
+<span class="kw">ORDER BY</span>
+    hib.started_on <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="q2-failed-rows">6. Query 2: All Failed Rows with Error Messages</h2>
+<p>The core debug query. Pass in a batch ID (from Query 1) to get every failed row with its error text, the bad attribute, and the bad value — all in one result set.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 2 — All Failed Rows with Full Error Context</span></div>
+  <pre><span class="cm">-- Full error detail for a specific batch</span>
+<span class="cm">-- Replace :batch_id with the INTEGRATION_BATCH_ID from Query 1</span>
+<span class="kw">SELECT</span>
+    hid.source_record_number,
+    hid.person_number,
+    hid.effective_start_date,
+    hid.action_type,
+    hid.record_status,
+    hiem.message_type,
+    hiem.message_name,
+    hiem.message_text,
+    hiem.attribute_name,
+    hiem.attribute_value
+<span class="kw">FROM</span>
+    hrc_integration_batches     hib
+    <span class="kw">JOIN</span> hrc_integration_details     hid  <span class="kw">ON</span>  hid.integration_batch_id = hib.integration_batch_id
+    <span class="kw">JOIN</span> hrc_integration_error_messages hiem
+                                         <span class="kw">ON</span>  hiem.integration_detail_id = hid.integration_detail_id
+<span class="kw">WHERE</span>
+    hib.integration_batch_id = :batch_id
+    <span class="kw">AND</span> hid.record_status   = <span class="st">'FAILED'</span>
+    <span class="kw">AND</span> hiem.message_type   = <span class="st">'ERROR'</span>
+<span class="kw">ORDER BY</span>
+    hid.source_record_number,
+    hiem.message_id;</pre>
+</div>
+
+<h2 id="q3-error-summary">7. Query 3: Error Message Frequency Summary</h2>
+<p>When a batch has thousands of failures, you don't need every row — you need the top error types. This query groups by <code>MESSAGE_NAME</code> so you can fix the most common root cause first.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 3 — Error Frequency by Message Code (Triage View)</span></div>
+  <pre><span class="cm">-- Top errors by frequency for a given batch</span>
+<span class="kw">SELECT</span>
+    hiem.message_name,
+    hiem.attribute_name,
+    <span class="fn">COUNT</span>(*)                      <span class="kw">AS</span> occurrences,
+    <span class="fn">MAX</span>(hiem.message_text)         <span class="kw">AS</span> sample_message_text,
+    <span class="fn">LISTAGG</span>(
+        <span class="fn">SUBSTR</span>(hiem.attribute_value, <span class="nm">1</span>, <span class="nm">50</span>), <span class="st">', '</span>
+    ) <span class="kw">WITHIN GROUP</span> (<span class="kw">ORDER BY</span> hiem.message_id)
+                                  <span class="kw">AS</span> sample_bad_values
+<span class="kw">FROM</span>
+    hrc_integration_batches          hib
+    <span class="kw">JOIN</span> hrc_integration_details     hid  <span class="kw">ON</span>  hid.integration_batch_id = hib.integration_batch_id
+    <span class="kw">JOIN</span> hrc_integration_error_messages hiem
+                                         <span class="kw">ON</span>  hiem.integration_detail_id = hid.integration_detail_id
+<span class="kw">WHERE</span>
+    hib.integration_batch_id = :batch_id
+    <span class="kw">AND</span> hid.record_status   = <span class="st">'FAILED'</span>
+    <span class="kw">AND</span> hiem.message_type   = <span class="st">'ERROR'</span>
+<span class="kw">GROUP BY</span>
+    hiem.message_name,
+    hiem.attribute_name
+<span class="kw">ORDER BY</span>
+    occurrences <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="q4-partial-success">8. Query 4: Partially Loaded Batches</h2>
+<p>Finds batches where some records succeeded and some failed — the most dangerous state, because a partial load can leave your data model in an inconsistent state (a <code>Worker</code> object loaded but the associated <code>Assignment</code> failed).</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 4 — Partially Loaded Batches (Data Integrity Risk)</span></div>
+  <pre><span class="cm">-- Batches with both successes and failures — review before resubmit</span>
+<span class="kw">SELECT</span>
+    hib.integration_batch_id,
+    hib.integration_batch_name,
+    hib.object_name,
+    hib.batch_status,
+    hib.total_records,
+    hib.successful_records,
+    hib.failed_records,
+    <span class="fn">ROUND</span>(hib.successful_records / <span class="fn">NULLIF</span>(hib.total_records, <span class="nm">0</span>) * <span class="nm">100</span>, <span class="nm">1</span>)
+                                    <span class="kw">AS</span> success_rate_pct,
+    hib.started_on,
+    hib.created_by
+<span class="kw">FROM</span>
+    hrc_integration_batches  hib
+<span class="kw">WHERE</span>
+    hib.failed_records     &gt; <span class="nm">0</span>
+    <span class="kw">AND</span> hib.successful_records &gt; <span class="nm">0</span>
+    <span class="kw">AND</span> hib.started_on     &gt;= SYSDATE - <span class="nm">30</span>
+<span class="kw">ORDER BY</span>
+    hib.started_on <span class="kw">DESC</span>;</pre>
+</div>
+
+<div class="cl cl-e">
+  <span class="cl-icon">🚨</span>
+  <p><strong>Critical:</strong> Never resubmit a full batch after a partial success. Extract only the failed rows (using <code>SOURCE_RECORD_NUMBER</code> from Query 2), fix them, and submit a corrective file. Resubmitting the full batch will MERGE duplicate successful records.</p>
+</div>
+
+<h2 id="q5-worker-context">9. Query 5: Failed Row with Person Context</h2>
+<p>When a worker's assignment fails, you need to see their current state in Oracle to understand why — are they active? Do they have a work relationship? This query joins the error row back to <code>PER_ALL_PEOPLE_F</code> to give you full person context alongside the error.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 5 — Failed HDL Rows with Current Person State</span></div>
+  <pre><span class="cm">-- Joins HDL failures back to current person data for root cause analysis</span>
+<span class="kw">SELECT</span>
+    hid.source_record_number,
+    hid.person_number,
+    hid.effective_start_date                  <span class="kw">AS</span> hdl_effective_date,
+    hiem.message_name,
+    hiem.message_text,
+    hiem.attribute_name,
+    hiem.attribute_value,
+    <span class="cm">-- Current state from Oracle</span>
+    papf.display_name,
+    papf.date_of_birth,
+    paam.assignment_status_type               <span class="kw">AS</span> current_assignment_status,
+    paam.assignment_type                      <span class="kw">AS</span> current_assignment_type,
+    ppos.date_start                           <span class="kw">AS</span> work_rel_start_date,
+    ppos.actual_termination_date              <span class="kw">AS</span> term_date
+<span class="kw">FROM</span>
+    hrc_integration_batches          hib
+    <span class="kw">JOIN</span> hrc_integration_details     hid  <span class="kw">ON</span>  hid.integration_batch_id  = hib.integration_batch_id
+    <span class="kw">JOIN</span> hrc_integration_error_messages hiem
+                                         <span class="kw">ON</span>  hiem.integration_detail_id = hid.integration_detail_id
+    <span class="kw">LEFT JOIN</span> per_all_people_f       papf <span class="kw">ON</span>  papf.person_number         = hid.person_number
+                                         <span class="kw">AND</span>  SYSDATE <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                              <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_all_assignments_m  paam <span class="kw">ON</span>  paam.person_id             = papf.person_id
+                                         <span class="kw">AND</span>  SYSDATE <span class="kw">BETWEEN</span> paam.effective_start_date
+                                                              <span class="kw">AND</span> paam.effective_end_date
+                                         <span class="kw">AND</span>  paam.primary_flag          = <span class="st">'Y'</span>
+                                         <span class="kw">AND</span>  paam.effective_latest_change = <span class="st">'Y'</span>
+    <span class="kw">LEFT JOIN</span> per_periods_of_service ppos <span class="kw">ON</span>  ppos.person_id             = papf.person_id
+                                         <span class="kw">AND</span>  ppos.actual_termination_date <span class="kw">IS NULL</span>
+<span class="kw">WHERE</span>
+    hib.integration_batch_id = :batch_id
+    <span class="kw">AND</span> hid.record_status   = <span class="st">'FAILED'</span>
+    <span class="kw">AND</span> hiem.message_type   = <span class="st">'ERROR'</span>
+<span class="kw">ORDER BY</span>
+    hid.source_record_number;</pre>
+</div>
+
+<h2 id="q6-history">10. Query 6: Integration History by Object</h2>
+<p>Shows HDL load history for a specific business object over the last 90 days. Use this to identify load frequency, failure trends, and which users are submitting the most failed loads — often points to a broken upstream process.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 6 — Integration Load History by Business Object</span></div>
+  <pre><span class="cm">-- History of all loads for a given HDL object type</span>
+<span class="cm">-- :object_name = 'Worker', 'Assignment', 'Salary', 'PersonAddress', etc.</span>
+<span class="kw">SELECT</span>
+    <span class="fn">TRUNC</span>(hib.started_on, <span class="st">'MM'</span>)              <span class="kw">AS</span> load_month,
+    hib.created_by,
+    hib.batch_status,
+    <span class="fn">COUNT</span>(*)                                 <span class="kw">AS</span> batch_count,
+    <span class="fn">SUM</span>(hib.total_records)                   <span class="kw">AS</span> total_records,
+    <span class="fn">SUM</span>(hib.successful_records)              <span class="kw">AS</span> total_success,
+    <span class="fn">SUM</span>(hib.failed_records)                  <span class="kw">AS</span> total_failed,
+    <span class="fn">ROUND</span>(<span class="fn">AVG</span>(
+        <span class="fn">EXTRACT</span>(<span class="kw">SECOND</span> <span class="kw">FROM</span>
+            (hib.completed_on - hib.started_on) <span class="kw">DAY</span>(<span class="nm">3</span>) <span class="kw">TO</span> <span class="kw">SECOND</span>(<span class="nm">0</span>))
+    ) / <span class="nm">60</span>, <span class="nm">1</span>)                              <span class="kw">AS</span> avg_processing_min
+<span class="kw">FROM</span>
+    hrc_integration_batches  hib
+<span class="kw">WHERE</span>
+    hib.object_name  = :object_name
+    <span class="kw">AND</span> hib.started_on &gt;= SYSDATE - <span class="nm">90</span>
+<span class="kw">GROUP BY</span>
+    <span class="fn">TRUNC</span>(hib.started_on, <span class="st">'MM'</span>),
+    hib.created_by,
+    hib.batch_status
+<span class="kw">ORDER BY</span>
+    load_month <span class="kw">DESC</span>,
+    total_failed <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="error-patterns">11. Common HDL Error Patterns &amp; Root Causes</h2>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr><th>MESSAGE_NAME</th><th>Cause</th><th>Fix</th></tr>
+    </thead>
+    <tbody>
+      <tr><td><code>HR_WORKER_NOT_FOUND</code></td><td><code>PersonNumber</code> in .dat file doesn't exist in Oracle, or the effective date predates the person's hire date</td><td>Verify person number with a <code>PER_ALL_PEOPLE_F</code> lookup; check <code>DATE_START</code> in <code>PER_PERIODS_OF_SERVICE</code></td></tr>
+      <tr><td><code>HR_ASSIGNMENT_NOT_FOUND</code></td><td>Assignment ID referenced in the payload doesn't exist or belongs to a different person</td><td>Use person number + effective date to re-derive assignment; avoid hardcoded assignment IDs</td></tr>
+      <tr><td><code>HR_WORK_RELATIONSHIP_ACTIVE</code></td><td>Attempting to create a new work relationship when an active one already exists</td><td>Terminate the existing work relationship first, or use a MERGE action to update it</td></tr>
+      <tr><td><code>HR_INVALID_LOOKUP_CODE</code></td><td>A lookup code value doesn't exist in the target environment (common in env migrations)</td><td>Check <code>FND_LOOKUP_VALUES</code> for the specific lookup type; add missing lookup codes via Manage Lookups</td></tr>
+      <tr><td><code>HR_DATE_OVERLAP</code></td><td>Effective date range overlaps an existing date-effective row</td><td>Either correct-as-of (update the existing row) or end-date the prior row before inserting a new one</td></tr>
+      <tr><td><code>PAY_ORG_PAY_METHOD_NOT_FOUND</code></td><td>Payroll definition or payment method referenced in a payroll assignment doesn't exist</td><td>Load the payroll definition via Manage Payroll Definitions first, then resubmit the assignment</td></tr>
+      <tr><td><code>HR_POSITION_NOT_FOUND</code></td><td>Position referenced in the assignment row doesn't exist or is end-dated before the effective start date</td><td>Verify position status and effective dates in <code>HR_ALL_POSITIONS_F</code></td></tr>
+      <tr><td><code>HR_REQUISITION_NOT_FOUND</code></td><td>For recruiting loads: offer letter or requisition ID doesn't match</td><td>Only applicable for ORC data; verify via <code>IRC_REQUISITIONS</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h3>Debug Decision Tree</h3>
+<ol>
+  <li>Run <strong>Query 1</strong> to find the batch ID and confirm it failed (not just PROCESSING).</li>
+  <li>Run <strong>Query 3</strong> on that batch ID to get the top error types by frequency. Pick the top error.</li>
+  <li>Run <strong>Query 2</strong> filtered to that <code>MESSAGE_NAME</code> to get specific rows and bad attribute values.</li>
+  <li>For person-related errors, run <strong>Query 5</strong> to see the current Oracle state for those person numbers.</li>
+  <li>Check for <strong>Query 4</strong> (partial success) before fixing — if some rows loaded, extract only the failed rows for the corrective file.</li>
+  <li>After fix, verify the resubmission using <strong>Query 6</strong> to confirm improved success rates over time.</li>
+</ol>
+
+<div class="cl cl-t">
+  <span class="cl-icon">✅</span>
+  <p><strong>Pro tip:</strong> Add <code>INTEGRATION_BATCH_ID</code> to your HDL submission logging. When support asks "what batch ID was that?", you'll have it. Store it in a load log table with the submission timestamp, object name, and submitting user — one row per batch.</p>
+</div>
+
+<div class="cta-box">
+  <h3>Need the Full Oracle HCM SQL Library?</h3>
+  <p>Beyond HDL debugging — the SQL Query Library has 7 production queries for active employees, headcount, turnover, absence balances, and salary reports. All with proper date-effective joins.</p>
+  <a href="/blog/sql-query-library" class="cta-btn">View SQL Query Library &rarr;</a>
+</div>
+
+</div>
+<footer class="footer">
+  <p>&copy; 2026 HCM Tables &mdash; <a href="/blog/">Blog</a> &middot; <a href="/">Table Search</a> &middot; <a href="/privacy">Privacy</a></p>
+  <p>Oracle and Oracle Fusion Cloud are trademarks of Oracle Corporation. HCM Tables is not affiliated with or endorsed by Oracle.</p>
+</footer>
+<script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+</body>
+</html>

@@ -1,0 +1,482 @@
+# Oracle HCM SQL Pattern Corpus
+# Purpose: 50 production-proven patterns for Oracle Fusion HCM reporting and integration
+# Usage: system prompt for HCM SQL Clinic AI, $997 Pattern Library, Slack bot intelligence
+# Last updated: 2026-04-11
+
+metadata:
+  version: "1.0.0"
+  total_patterns: 50  # skeleton — fill in as you validate each
+  categories:
+    - effective_date_predicates
+    - primary_flag_rules
+    - assignment_model
+    - otbi_logical_sql
+    - common_joins
+    - payroll_queries
+    - absence_queries
+    - hdl_patterns
+    - fast_formula_snippets
+    - troubleshooting_fixes
+
+# ============================================================
+# CATEGORY 1: EFFECTIVE DATE PREDICATES
+# ============================================================
+effective_date_predicates:
+
+  - id: EDP-001
+    name: "Standard current-date filter (date-effective tables)"
+    applies_to: [PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M, PER_PERSONS, PER_ALL_ASSIGNMENTS_F]
+    pattern: |
+      WHERE TRUNC(SYSDATE) BETWEEN effective_start_date AND effective_end_date
+    notes: "Universal filter for any _F or _M table. Always TRUNC(SYSDATE) — never SYSDATE alone."
+    anti_pattern: |
+      WHERE effective_end_date > SYSDATE  -- misses rows ending at midnight
+
+  - id: EDP-002
+    name: "As-of date filter (historical reports)"
+    applies_to: [PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M]
+    pattern: |
+      WHERE :as_of_date BETWEEN effective_start_date AND effective_end_date
+    notes: "Use bind variable for reusable historical queries. Replace :as_of_date with TO_DATE('2026-01-01','YYYY-MM-DD') for static."
+
+  - id: EDP-003
+    name: "Date-range overlap filter"
+    applies_to: [PER_ALL_ASSIGNMENTS_M, PAY_PAYROLL_ASSIGNMENTS]
+    pattern: |
+      WHERE effective_start_date <= :period_end
+        AND effective_end_date   >= :period_start
+    notes: "Use when you need all rows that were active at ANY point during a date range, not just point-in-time."
+
+  - id: EDP-004
+    name: "Latest row only (no date param)"
+    applies_to: [PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M]
+    pattern: |
+      WHERE effective_end_date = TO_DATE('4712-12-31','YYYY-MM-DD')
+    notes: "Oracle stores 31-Dec-4712 as the 'infinity' end date for the current row. Faster than SYSDATE filter on large tables but returns future-dated rows too — use with caution."
+    risk: "Returns future-dated rows if pre-loaded. SYSDATE filter is safer."
+
+  - id: EDP-005
+    name: "PER_PERIODS_OF_SERVICE current filter"
+    applies_to: [PER_PERIODS_OF_SERVICE]
+    pattern: |
+      WHERE actual_termination_date IS NULL
+        AND (date_start <= TRUNC(SYSDATE))
+    notes: "PER_PERIODS_OF_SERVICE is NOT date-effective in the _F sense — use actual_termination_date IS NULL for active service."
+
+# ============================================================
+# CATEGORY 2: PRIMARY_FLAG RULES
+# ============================================================
+primary_flag_rules:
+
+  - id: PFR-001
+    name: "Primary assignment filter — headcount reports"
+    applies_to: [PER_ALL_ASSIGNMENTS_M, PER_ALL_ASSIGNMENTS_F]
+    pattern: |
+      WHERE primary_flag = 'Y'
+        AND assignment_type = 'E'   -- 'E'=Employee, 'C'=Contingent, 'N'=Non-worker
+        AND TRUNC(SYSDATE) BETWEEN effective_start_date AND effective_end_date
+    notes: "Always add primary_flag = 'Y' for headcount. Without it: one row per assignment per worker."
+
+  - id: PFR-002
+    name: "PRIMARY_FLAG per entity — reference table"
+    notes: "PRIMARY_FLAG means different things by entity:"
+    entity_map:
+      PER_ALL_ASSIGNMENTS_M: "Primary assignment among multiple concurrent assignments"
+      PER_EMAIL_ADDRESSES: "Primary email (use email_type = 'W1' for work email)"
+      PER_PHONES: "Primary phone number for a given phone type"
+      PER_NATIONAL_IDENTIFIERS: "Primary NI record (SSN/NI per country)"
+      PER_ADDRESSES: "Primary address — typically home address"
+    anti_pattern: "Assuming primary_flag exists on all HCM tables — it doesn't. Some use sequence or type codes instead."
+
+  - id: PFR-003
+    name: "All active assignments (multi-assignment workers)"
+    applies_to: [PER_ALL_ASSIGNMENTS_M]
+    pattern: |
+      WHERE assignment_type IN ('E','C')
+        AND assignment_status_type = 'ACTIVE_PROCESS'
+        AND TRUNC(SYSDATE) BETWEEN effective_start_date AND effective_end_date
+        -- Intentionally omit primary_flag filter to count all assignments
+    notes: "Use when business requirement is 'count all active assignments', not unique headcount."
+
+# ============================================================
+# CATEGORY 3: ASSIGNMENT MODEL
+# ============================================================
+assignment_model:
+
+  - id: ASN-001
+    name: "PER_ALL_ASSIGNMENTS_M vs PER_ALL_ASSIGNMENTS_F decision tree"
+    decision:
+      use_M_when:
+        - "Oracle 24B or later"
+        - "Need current state only (no history required)"
+        - "Performance is a concern on large orgs"
+        - "Writing new reports/integrations from scratch"
+      use_F_when:
+        - "Existing legacy code that hasn't been migrated"
+        - "Pre-24B instance"
+        - "Need to join to a system that expects _F columns"
+    notes: "Oracle deprecated PER_ALL_ASSIGNMENTS_F in 24B in favor of PER_ALL_ASSIGNMENTS_M. Both exist — _M is preferred."
+
+  - id: ASN-002
+    name: "Core assignment query — active employees"
+    applies_to: [PER_ALL_ASSIGNMENTS_M, PER_PERSONS]
+    pattern: |
+      SELECT
+        p.person_number,
+        p.last_name || ', ' || p.first_name AS full_name,
+        a.assignment_number,
+        a.job_id,
+        a.department_id,
+        a.location_id,
+        a.grade_id,
+        a.position_id,
+        a.assignment_status_type
+      FROM
+        per_persons p
+        JOIN per_all_assignments_m a
+          ON p.person_id = a.person_id
+      WHERE
+        a.assignment_type = 'E'
+        AND a.primary_flag = 'Y'
+        AND a.assignment_status_type = 'ACTIVE_PROCESS'
+        AND TRUNC(SYSDATE) BETWEEN a.effective_start_date AND a.effective_end_date
+        AND TRUNC(SYSDATE) BETWEEN p.start_date AND NVL(p.date_of_death, TO_DATE('4712-12-31','YYYY-MM-DD'))
+    notes: "Foundation query. Layer additional joins on top for org unit, job, location names."
+
+  - id: ASN-003
+    name: "Work relationship filter — exclude contingent workers"
+    applies_to: [PER_PERIODS_OF_SERVICE, PER_ALL_ASSIGNMENTS_M]
+    pattern: |
+      WHERE a.assignment_type = 'E'   -- Employees only
+      -- OR
+      WHERE a.assignment_type IN ('E', 'C')  -- Employees + Contingent workers
+      -- assignment_type values: E=Employee, C=Contingent, N=Nonworker, B=Benefit
+    notes: "assignment_type is the cleanest filter. Avoid joining PER_PERIODS_OF_SERVICE unless you specifically need service dates."
+
+# ============================================================
+# CATEGORY 4: OTBI LOGICAL SQL QUIRKS
+# ============================================================
+otbi_logical_sql:
+
+  - id: OTB-001
+    name: "Comma join — broken pattern"
+    pattern_broken: |
+      SELECT col_a, col_b
+      FROM "Subject Area A", "Subject Area B"
+      WHERE filter_condition
+    pattern_fixed: |
+      SELECT col_a, col_b
+      FROM "Subject Area A" sa
+        JOIN "Subject Area B" sb
+          ON (sa."Worker"."Person Number" = sb."Worker"."Person Number")
+      WHERE filter_condition
+    notes: "Comma join = Cartesian product. Always use explicit JOIN...ON syntax in hand-written Logical SQL."
+    symptom: "Row count = |A| × |B|. Inflated headcount. No error thrown."
+
+  - id: OTB-002
+    name: "GROUP BY requirement in OTBI Logical SQL"
+    notes: |
+      OTBI Logical SQL requires ALL non-aggregate SELECT columns in the GROUP BY clause.
+      This differs from SQL:1999 standard. Missing a column from GROUP BY causes nQSError 27002.
+    pattern: |
+      SELECT
+        "Worker"."Person Number",
+        "Worker"."Person Full Name",
+        COUNT("Assignment"."Assignment ID") AS assignment_count
+      FROM "Workforce Management - Worker Assignment Real Time"
+      GROUP BY
+        "Worker"."Person Number",
+        "Worker"."Person Full Name"   -- must include all non-aggregate columns
+
+  - id: OTB-003
+    name: "Subject area aliasing"
+    pattern: |
+      -- Short aliases reduce repetition and prevent nQSError 10058 from mixed references
+      SELECT
+        wf."Worker"."Person Number",
+        ab."Absence Balance"."Balance As Of Date Accrual Balance"
+      FROM
+        "Workforce Management - Worker Assignment Real Time" wf
+        JOIN "Absence Management - Absence Transactions Real Time" ab
+          ON (wf."Worker"."Person Number" = ab."Worker"."Person Number")
+    notes: "Once you alias a subject area, use the alias consistently. Mixing aliased and unaliased references in the same query causes nQSError 10058."
+
+  - id: OTB-004
+    name: "OTBI date filter — avoid TO_DATE in Logical SQL"
+    pattern_broken: |
+      WHERE "Assignment"."Effective Start Date" >= TO_DATE('2026-01-01','YYYY-MM-DD')
+    pattern_fixed: |
+      WHERE "Assignment"."Effective Start Date" >= DATE '2026-01-01'
+      -- or use a prompt variable: >= VALUEOF(NQ_SESSION.START_DATE)
+    notes: "TO_DATE() is a physical SQL function. Logical SQL uses DATE 'YYYY-MM-DD' or TIMESTAMP 'YYYY-MM-DD HH:MM:SS' literals."
+
+# ============================================================
+# CATEGORY 5: COMMON JOIN PATTERNS
+# ============================================================
+common_joins:
+
+  - id: JN-001
+    name: "Person → Assignment → Department → Location"
+    pattern: |
+      SELECT
+        p.person_number,
+        p.last_name || ', ' || p.first_name AS full_name,
+        a.assignment_number,
+        d.name AS department_name,
+        l.location_name
+      FROM
+        per_persons p
+        JOIN per_all_assignments_m a  ON p.person_id = a.person_id
+        JOIN hr_all_organization_units_f d ON a.organization_id = d.organization_id
+          AND TRUNC(SYSDATE) BETWEEN d.effective_start_date AND d.effective_end_date
+        JOIN hr_locations_all l ON a.location_id = l.location_id
+      WHERE
+        a.assignment_type = 'E'
+        AND a.primary_flag = 'Y'
+        AND a.assignment_status_type = 'ACTIVE_PROCESS'
+        AND TRUNC(SYSDATE) BETWEEN a.effective_start_date AND a.effective_end_date
+    notes: "HR_ALL_ORGANIZATION_UNITS_F is also date-effective — must join with effective date filter."
+
+  - id: JN-002
+    name: "Person → Job → Grade"
+    pattern: |
+      SELECT
+        a.assignment_number,
+        j.job_code,
+        j.name AS job_name,
+        g.grade_code,
+        g.name AS grade_name
+      FROM
+        per_all_assignments_m a
+        JOIN per_jobs_f j ON a.job_id = j.job_id
+          AND TRUNC(SYSDATE) BETWEEN j.effective_start_date AND j.effective_end_date
+        JOIN per_grades_f g ON a.grade_id = g.grade_id
+          AND TRUNC(SYSDATE) BETWEEN g.effective_start_date AND g.effective_end_date
+      WHERE
+        a.assignment_type = 'E'
+        AND a.primary_flag = 'Y'
+        AND TRUNC(SYSDATE) BETWEEN a.effective_start_date AND a.effective_end_date
+
+  - id: JN-003
+    name: "Person → Salary (CMP_SALARY)"
+    pattern: |
+      SELECT
+        p.person_number,
+        s.salary_amount,
+        s.annualization_factor,
+        s.salary_amount * s.annualization_factor AS annualized_salary,
+        s.currency_code,
+        s.effective_start_date AS salary_effective_date
+      FROM
+        per_persons p
+        JOIN per_all_assignments_m a ON p.person_id = a.person_id
+        JOIN cmp_salary s ON a.assignment_id = s.assignment_id
+          AND TRUNC(SYSDATE) BETWEEN s.date_from AND NVL(s.date_to, TO_DATE('4712-12-31','YYYY-MM-DD'))
+      WHERE
+        a.assignment_type = 'E'
+        AND a.primary_flag = 'Y'
+        AND TRUNC(SYSDATE) BETWEEN a.effective_start_date AND a.effective_end_date
+    notes: "CMP_SALARY uses date_from/date_to, not effective_start/end_date. Always NVL the date_to to 31-Dec-4712."
+
+# ============================================================
+# CATEGORY 6: PAYROLL QUERIES
+# ============================================================
+payroll_queries:
+
+  - id: PAY-001
+    name: "Current payroll assignment"
+    applies_to: [PAY_PAYROLL_ASSIGNMENTS_F]
+    pattern: |
+      SELECT
+        a.person_number,
+        ppa.payroll_id,
+        pp.payroll_name,
+        ppa.payroll_relationship_id
+      FROM
+        per_all_assignments_m a
+        JOIN pay_payroll_assignments_f ppa ON a.assignment_id = ppa.assignment_id
+          AND TRUNC(SYSDATE) BETWEEN ppa.effective_start_date AND ppa.effective_end_date
+        JOIN pay_all_payrolls_f pp ON ppa.payroll_id = pp.payroll_id
+          AND TRUNC(SYSDATE) BETWEEN pp.effective_start_date AND pp.effective_end_date
+      WHERE
+        a.primary_flag = 'Y'
+        AND a.assignment_type = 'E'
+        AND TRUNC(SYSDATE) BETWEEN a.effective_start_date AND a.effective_end_date
+
+  - id: PAY-002
+    name: "Run results for last payroll period"
+    applies_to: [PAY_RUN_RESULTS, PAY_PAYROLL_ACTIONS, PAY_ASSIGNMENT_ACTIONS]
+    pattern: |
+      SELECT
+        ppa.payroll_action_id,
+        ppa.effective_date,
+        ppa.action_type,
+        paa.assignment_id,
+        prr.element_type_id,
+        prr.result_value
+      FROM
+        pay_payroll_actions ppa
+        JOIN pay_assignment_actions paa ON ppa.payroll_action_id = paa.payroll_action_id
+        JOIN pay_run_results prr ON paa.assignment_action_id = prr.assignment_action_id
+      WHERE
+        ppa.action_type = 'R'                    -- 'R' = Run (regular payroll)
+        AND ppa.action_status = 'C'              -- 'C' = Completed
+        AND ppa.effective_date BETWEEN :start_date AND :end_date
+    notes: "action_type values: R=Run, Q=QuickPay, B=Balance Init, U=Balance Adjustment"
+
+# ============================================================
+# CATEGORY 7: ABSENCE QUERIES
+# ============================================================
+absence_queries:
+
+  - id: ABS-001
+    name: "Current absence balances per employee"
+    applies_to: [ANC_PER_ABS_ENTRIES, ANC_ACCRUAL_PLAN_ENROLLMENTS_F]
+    pattern: |
+      SELECT
+        p.person_number,
+        p.last_name || ', ' || p.first_name AS employee_name,
+        apt.name AS absence_plan_name,
+        aape.accrual_balance,
+        aape.balance_as_of_date
+      FROM
+        per_persons p
+        JOIN per_all_assignments_m a ON p.person_id = a.person_id
+        JOIN anc_accrual_plan_enrollments_f aape ON p.person_id = aape.person_id
+          AND TRUNC(SYSDATE) BETWEEN aape.effective_start_date AND aape.effective_end_date
+        JOIN anc_absence_plans_tl apt ON aape.absence_plan_id = apt.absence_plan_id
+          AND apt.language = USERENV('LANG')
+      WHERE
+        a.primary_flag = 'Y'
+        AND a.assignment_type = 'E'
+        AND TRUNC(SYSDATE) BETWEEN a.effective_start_date AND a.effective_end_date
+    notes: "Always join _TL tables with language filter. Use USERENV('LANG') to match session language."
+
+# ============================================================
+# CATEGORY 8: HDL PATTERNS
+# ============================================================
+hdl_patterns:
+
+  - id: HDL-001
+    name: "Worker.dat METADATA line"
+    pattern: |
+      METADATA|Worker|SourceSystemOwner|SourceSystemId|EffectiveStartDate|EffectiveEndDate|
+      PersonNumber|LastName|FirstName|DateOfBirth|ActionCode|ReasonCode
+    notes: "METADATA line must exactly match column names. Case-sensitive."
+
+  - id: HDL-002
+    name: "Assignment.dat METADATA line"
+    pattern: |
+      METADATA|WorkRelationship|SourceSystemOwner|SourceSystemId|PersonNumber|
+      LegalEntityName|WorkerType|StartDate
+      METADATA|WorkTerms|SourceSystemOwner|SourceSystemId|StartDate|PersonNumber|
+      LegalEntityName|WorkerType|PayrollName|PayGroupName|TimeCardRequired
+      METADATA|Assignment|SourceSystemOwner|SourceSystemId|EffectiveStartDate|
+      PersonNumber|AssignmentNumber|AssignmentType|AssignmentStatusTypeCode|
+      ActionCode|JobCode|GradeCode|LocationCode|DepartmentName|PrimaryFlag
+    notes: "Worker, WorkRelationship, WorkTerms, and Assignment objects must load in hierarchy order."
+
+  - id: HDL-003
+    name: "Common HDL error: Worker assignment not found"
+    error: "HCM Data Loader Error: Worker assignment not found"
+    causes:
+      - "PersonNumber in Assignment object doesn't match any Worker"
+      - "Effective date of Assignment is before Worker's start date"
+      - "WorkRelationship not loaded before Assignment in the same batch"
+    fix: |
+      1. Verify PersonNumber exactly matches (case-sensitive, no leading zeros stripped)
+      2. Check EffectiveStartDate >= WorkRelationship StartDate
+      3. Load in object order: Worker → WorkRelationship → WorkTerms → Assignment
+
+# ============================================================
+# CATEGORY 9: FAST FORMULA SNIPPETS
+# ============================================================
+fast_formula_snippets:
+
+  - id: FF-001
+    name: "Null-safe element input value retrieval"
+    pattern: |
+      l_salary = NVL(SALARY_ANNUAL_SALARY, 0)
+    notes: "Fast Formula doesn't allow NULL arithmetic. Always NVL numeric inputs before arithmetic operations."
+
+  - id: FF-002
+    name: "Date comparison in Fast Formula"
+    pattern: |
+      l_start_date = TO_DATE('2026-01-01', 'YYYY-MM-DD')
+      IF (EFFECTIVE_DATE >= l_start_date) THEN
+        ...
+      END IF
+    notes: "Use TO_DATE with format mask. Fast Formula dates are not automatically cast."
+
+# ============================================================
+# CATEGORY 10: TROUBLESHOOTING FIXES
+# ============================================================
+troubleshooting_fixes:
+
+  - id: TF-001
+    name: "nQSError 10058 — general assertion failure"
+    causes:
+      - "Mixed aliased/unaliased subject area references"
+      - "Column not found in selected subject area"
+      - "Circular join in RPD"
+    fix: |
+      1. Check every column reference uses either alias OR full name consistently
+      2. Verify column exists in the subject area (check "Available" panel in Analysis editor)
+      3. Simplify query — remove columns one at a time to isolate bad reference
+
+  - id: TF-002
+    name: "nQSError 27002 — syntax error in Logical SQL"
+    causes:
+      - "Missing column in GROUP BY"
+      - "TO_DATE() used instead of DATE literal"
+      - "Subquery in FROM clause (not supported)"
+    fix: |
+      1. Add all non-aggregate SELECT columns to GROUP BY
+      2. Replace TO_DATE() with DATE 'YYYY-MM-DD' literal
+      3. Move subquery logic to a separate analysis or OBIEE variable
+
+  - id: TF-003
+    name: "PER_ALL_ASSIGNMENTS_M: multiple rows per person"
+    causes:
+      - "Missing primary_flag = 'Y' filter"
+      - "Missing effective date filter"
+      - "Worker has multiple concurrent assignments"
+    diagnostic: |
+      SELECT person_id, COUNT(*) FROM per_all_assignments_m
+      WHERE TRUNC(SYSDATE) BETWEEN effective_start_date AND effective_end_date
+        AND assignment_type = 'E'
+      GROUP BY person_id HAVING COUNT(*) > 1
+    fix: |
+      Add: AND primary_flag = 'Y'
+      If worker legitimately has multiple assignments and business needs all of them,
+      document that explicitly — omit primary_flag intentionally, not accidentally.
+
+# ============================================================
+# PATTERNS TODO (placeholders — fill in from clinic sessions)
+# ============================================================
+# EDP-006: HCM_TREE_V effective date join pattern
+# PFR-004: Primary phone/email selection logic
+# ASN-004: Contingent worker vs employee union query
+# ASN-005: Worker history (all rows, ordered by effective date)
+# JN-004: Person → National Identifier (SSN/NI)
+# JN-005: Person → Seniority Date
+# JN-006: Manager hierarchy (connect by)
+# JN-007: Position hierarchy
+# PAY-003: Element entry values query
+# PAY-004: Balance feeds per element
+# PAY-005: Costing entries
+# ABS-002: Absence transactions (taken vs. balance)
+# ABS-003: Absence certification status
+# OTB-005: OTBI presentation variable usage
+# OTB-006: OTBI CASE WHEN in Logical SQL
+# OTB-007: Report prompt default values
+# FF-003: Element entry write-back pattern
+# FF-004: Grade step increment formula
+# FF-005: Absence accrual formula skeleton
+# HDL-004: Salary data loader (.dat template)
+# HDL-005: Benefits enrollment loader
+# TF-004: HDL Error: LegalEntityName not found
+# TF-005: HCM Extract: no data returned
+# TF-006: BI Publisher: Parameter not passing to SQL
+# TF-007: HCM Extract: duplicate records in output
+# ... (23 more to reach 50)
