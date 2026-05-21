@@ -1,0 +1,475 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <title>Oracle HCM SQL QA Guard — Catch Anti-Patterns Before Client Delivery | HCM Tables</title>
+  <meta name="description" content="Paste your Oracle HCM SQL query. QA Guard flags missing EFFECTIVE_LATEST_CHANGE, deprecated _F tables, SELECT *, unbound date ranges, and DISTINCT masking join duplication — before your client sees them.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hcm-tables.com/hcm-sql-qa-guard">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hcm-tables.com/hcm-sql-qa-guard">
+  <meta property="og:title" content="Oracle HCM SQL QA Guard — Catch Anti-Patterns Before Client Delivery">
+  <meta property="og:description" content="5 HCM SQL anti-pattern checks that consultants miss before delivery. Free pilot for Oracle implementation partners.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🛡️</text></svg>">
+
+  <style>
+    :root {
+      --bg: oklch(0.13 0.01 260);
+      --bg2: oklch(0.16 0.01 260);
+      --bg3: oklch(0.20 0.015 260);
+      --text: oklch(0.98 0 0);
+      --muted: oklch(0.65 0.01 260);
+      --faint: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-dim: oklch(0.60 0.25 25 / 0.15);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.62 0.22 15);
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+      --r: 12px;
+      --r-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      max-width: 1100px; margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-links a { font-size: 0.9rem; color: var(--muted); font-weight: 500; margin-left: 1.5rem; }
+
+    .hero {
+      max-width: 820px; margin: 0 auto;
+      padding: 4rem 1.5rem 3rem; text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: oklch(0.65 0.2 25 / 0.12); color: var(--accent);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.3rem 0.8rem;
+      border-radius: 100px; border: 1px solid oklch(0.65 0.2 25 / 0.3);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 1.15rem; color: var(--muted); max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .waitlist-form {
+      display: flex; gap: 0.75rem; max-width: 480px; margin: 0 auto 0.75rem;
+      flex-wrap: wrap; justify-content: center;
+    }
+    .waitlist-input {
+      flex: 1; min-width: 220px;
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 0.85rem 1rem;
+      font-family: var(--sans); font-size: 0.975rem; color: var(--text);
+      outline: none; transition: border-color 0.15s;
+    }
+    .waitlist-input:focus { border-color: var(--accent); }
+    .waitlist-input::placeholder { color: var(--faint); }
+    .waitlist-btn {
+      background: var(--accent); color: #fff;
+      font-weight: 700; font-size: 1rem;
+      padding: 0.85rem 1.5rem; border-radius: var(--r-sm);
+      border: none; cursor: pointer; transition: opacity 0.15s;
+      white-space: nowrap; font-family: var(--sans);
+    }
+    .waitlist-btn:hover { opacity: 0.88; }
+    .hero-note { font-size: 0.82rem; color: var(--faint); }
+
+    .stat-row {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    @media (max-width: 640px) { .stat-row { grid-template-columns: 1fr; } }
+    .stat-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem; text-align: center;
+    }
+    .stat-number { font-size: 2.5rem; font-weight: 800; color: var(--accent); }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+
+    .section {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem;
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem;
+    }
+    .section > p {
+      font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem;
+    }
+
+    .checks-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+    .check-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1.1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .check-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 1px; }
+    .check-content h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .check-content p { font-size: 0.875rem; color: var(--muted); }
+    .check-severity {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      padding: 0.1rem 0.45rem; border-radius: 4px; margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .sev-high { background: oklch(0.62 0.22 15 / 0.12); color: var(--red); }
+    .sev-med { background: oklch(0.80 0.15 85 / 0.12); color: var(--yellow); }
+
+    .code-preview {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem; margin: 2rem 0;
+      overflow-x: auto;
+    }
+    .code-preview-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--faint);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;
+    }
+    .code-preview pre {
+      font-family: var(--mono); font-size: 0.875rem;
+      color: var(--muted); line-height: 1.6;
+    }
+    .kw { color: oklch(0.65 0.2 25); }
+    .col { color: oklch(0.75 0.12 250); }
+    .cmt { color: oklch(0.45 0.01 260); }
+    .str { color: oklch(0.70 0.18 145); }
+    .bad { color: oklch(0.62 0.22 15); }
+
+    .output-preview {
+      background: oklch(0.11 0.015 260); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem; margin-top: 1rem;
+      font-family: var(--mono); font-size: 0.875rem; overflow-x: auto;
+    }
+    .out-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--faint);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;
+    }
+    .out-row { display: flex; gap: 1.5rem; padding: 0.5rem 0; border-bottom: 1px solid oklch(0.20 0.01 260); }
+    .out-row:last-child { border-bottom: none; }
+    .out-check { color: var(--muted); flex: 2; }
+    .out-badge { flex: 1; font-weight: 700; font-size: 0.8rem; }
+    .out-fail { color: var(--red); }
+    .out-warn { color: var(--yellow); }
+    .out-pass { color: var(--green); }
+    .score-line {
+      margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid oklch(0.20 0.01 260);
+      font-weight: 800; font-size: 1.1rem;
+    }
+    .score-ok { color: var(--green); }
+    .score-bad { color: var(--red); }
+
+    .for-who {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;
+    }
+    @media (max-width: 640px) { .for-who { grid-template-columns: 1fr; } }
+    .who-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1.25rem;
+    }
+    .who-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .who-card p { font-size: 0.875rem; color: var(--muted); }
+
+    .pricing-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-top: 1.5rem;
+    }
+    @media (max-width: 640px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .pricing-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem;
+    }
+    .pricing-card.featured { border-color: var(--accent); }
+    .pricing-tier { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); margin-bottom: 0.5rem; }
+    .pricing-price { font-size: 2rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .pricing-price span { font-size: 1rem; font-weight: 400; color: var(--muted); }
+    .pricing-desc { font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem; }
+    .pricing-features { list-style: none; padding: 0; }
+    .pricing-features li { font-size: 0.875rem; color: var(--muted); padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before { content: "✓ "; color: var(--green); font-weight: 700; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem; }
+    .faq-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1.25rem;
+    }
+    .faq-item h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .faq-item p { font-size: 0.9rem; color: var(--muted); }
+
+    .cta-block {
+      max-width: 600px; margin: 0 auto; padding: 0 1.5rem 5rem;
+      text-align: center;
+    }
+    .cta-block h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+    .cta-block p { font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem 1.5rem;
+      text-align: center; font-size: 0.85rem; color: var(--faint);
+    }
+    footer a { color: var(--faint); }
+    footer a:hover { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/blog/">Blog</a>
+      <a href="/otbi-template-pack">Templates</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">Early Access — Free Pilot for Oracle Partners</div>
+    <h1>Catch HCM SQL <span>Anti-Patterns</span><br>Before Client Delivery</h1>
+    <p>Paste your Oracle HCM SQL. QA Guard flags the 5 mistakes that make consultants look bad — missing EFFECTIVE_LATEST_CHANGE, deprecated tables, SELECT *, unbound dates, and DISTINCT hiding bad joins.</p>
+    <form class="waitlist-form" action="mailto:mpm.morales@gmail.com?subject=HCM SQL QA Guard Pilot Request" method="get" enctype="text/plain">
+      <input type="email" class="waitlist-input" placeholder="your@firm.com" required name="email">
+      <button type="submit" class="waitlist-btn">Request Pilot Access →</button>
+    </form>
+    <div class="hero-note">Free 30-day pilot for Oracle implementation partners. No credit card.</div>
+  </section>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-number">5</div>
+      <div class="stat-label">Critical HCM SQL anti-patterns checked automatically</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$50K+</div>
+      <div class="stat-label">Average consultant liability per broken HCM report</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">&lt;30s</div>
+      <div class="stat-label">Time to QA score + remediation suggestions</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-label">The 5 Checks</div>
+    <h2>What QA Guard Catches</h2>
+    <p>Every check targets Oracle HCM-specific SQL patterns that pass syntax validation but produce silent data quality failures in production.</p>
+
+    <div class="checks-grid">
+      <div class="check-item">
+        <div class="check-icon">🔴</div>
+        <div class="check-content">
+          <h3>Missing EFFECTIVE_LATEST_CHANGE = 'Y' <span class="check-severity sev-high">HIGH</span></h3>
+          <p>Queries against <code>PER_ALL_ASSIGNMENTS_M</code>, <code>PER_ALL_PEOPLE_M</code>, or any <code>_M</code> table without an effective date constraint return all historical rows. A 5,000-employee org returns 15,000–30,000 rows instead of 5,000. This is the #1 cause of wrong headcount in OTBI reports.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🔴</div>
+        <div class="check-content">
+          <h3>Deprecated _F Table References (24B+) <span class="check-severity sev-high">HIGH</span></h3>
+          <p>Queries using <code>PER_ALL_ASSIGNMENTS_F</code> directly when <code>PER_ALL_ASSIGNMENTS_M</code> is the Oracle-recommended view. Oracle's new OTBI subject areas don't join to <code>_F</code> tables, causing mismatches when reports are later migrated. Flag and suggest the <code>_M</code> equivalent.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🔴</div>
+        <div class="check-content">
+          <h3>SELECT * on Fact Tables <span class="check-severity sev-high">HIGH</span></h3>
+          <p>Selecting all columns from <code>PER_ALL_ASSIGNMENTS_M</code> (350+ columns) or <code>PAY_RUN_RESULTS</code> causes full-table scans and can exhaust Oracle's row fetch limits in OTBI. One developer doing this in a report that later gets scheduled weekly creates a performance incident.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🟡</div>
+        <div class="check-content">
+          <h3>Unbound Date Ranges <span class="check-severity sev-med">MED</span></h3>
+          <p>Payroll queries against <code>PAY_RUN_RESULTS</code> or <code>PAY_PAYROLL_ACTIONS</code> without a date range bound scan every payroll run ever processed. On a 10-year-old Oracle instance, this is millions of rows. A missing <code>AND pa.effective_date &gt;= ADD_MONTHS(SYSDATE, -12)</code> costs minutes of runtime.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🟡</div>
+        <div class="check-content">
+          <h3>DISTINCT Masking Join Duplication <span class="check-severity sev-med">MED</span></h3>
+          <p><code>SELECT DISTINCT</code> on a query against <code>_M</code> tables indicates an unresolved Cartesian join. The DISTINCT hides the symptom but not the root cause — when the query is later embedded in a union or CTE, the duplication re-emerges. QA Guard flags this and suggests the correct effective date filter instead.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="code-preview">
+      <div class="code-preview-label">Example — Query Submitted to QA Guard</div>
+      <pre><span class="cmt">-- Consultant's query before QA Guard review</span>
+<span class="kw">SELECT DISTINCT</span>
+  <span class="col">p.person_number</span>,
+  <span class="col">p.full_name</span>,
+  <span class="col">a.*</span>                <span class="cmt bad">-- ❌ SELECT * on _M table</span>
+<span class="kw">FROM</span>   per_all_assignments_f a    <span class="cmt bad">-- ❌ Deprecated _F table</span>
+<span class="kw">JOIN</span>   per_all_people_f p
+  <span class="kw">ON</span>   p.person_id = a.person_id
+<span class="kw">WHERE</span>  a.assignment_type = <span class="str">'E'</span>;  <span class="cmt bad">-- ❌ No effective date filter</span></pre>
+    </div>
+
+    <div class="output-preview">
+      <div class="out-label">QA Guard Output</div>
+      <div class="out-row">
+        <div class="out-check">EFFECTIVE_LATEST_CHANGE filter</div>
+        <div class="out-badge out-fail">FAIL — add AND a.effective_latest_change = 'Y'</div>
+      </div>
+      <div class="out-row">
+        <div class="out-check">Deprecated _F table usage</div>
+        <div class="out-badge out-fail">FAIL — use PER_ALL_ASSIGNMENTS_M instead</div>
+      </div>
+      <div class="out-row">
+        <div class="out-check">SELECT * on fact table</div>
+        <div class="out-badge out-fail">FAIL — name required columns explicitly</div>
+      </div>
+      <div class="out-row">
+        <div class="out-check">Unbound date range</div>
+        <div class="out-badge out-pass">PASS</div>
+      </div>
+      <div class="out-row">
+        <div class="out-check">DISTINCT masking join duplication</div>
+        <div class="out-badge out-warn">WARN — remove DISTINCT after fixing effective date</div>
+      </div>
+      <div class="score-line score-bad">QA Score: 20/100 — Not delivery-ready</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Who It's For</div>
+    <h2>Built for Oracle Implementation Partners</h2>
+    <p>QA Guard is designed for firms that deliver SQL-based reporting, OTBI customizations, and HCM integrations — and need a fast gate before handing off to clients.</p>
+
+    <div class="for-who">
+      <div class="who-card">
+        <h3>Oracle Implementation Firms</h3>
+        <p>Add QA Guard to your delivery checklist. Every SQL query gets scored before it reaches the client. Reduces rework, protects your reputation, and gives clients a QA report they can reference.</p>
+      </div>
+      <div class="who-card">
+        <h3>Internal Oracle HCM Teams</h3>
+        <p>Your developers write SQL, but not all of them know Oracle HCM's effective-date semantics. QA Guard catches the patterns before they land in production reports that silently return wrong headcount for months.</p>
+      </div>
+      <div class="who-card">
+        <h3>HCM Report Developers</h3>
+        <p>Before submitting OTBI customizations or SQL Workshop scripts, run them through QA Guard. Get a score and specific fix suggestions — not just a flag that something's wrong.</p>
+      </div>
+      <div class="who-card">
+        <h3>QA Engineers on HCM Projects</h3>
+        <p>You know Oracle HCM enough to be dangerous but don't have the deep schema knowledge to catch every anti-pattern. QA Guard encodes 5 years of HCM SQL review experience into a 30-second check.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Pricing</div>
+    <h2>Simple Firm Pricing</h2>
+    <p>Priced for Oracle partner firms, not individual developers. One subscription covers your whole delivery team.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Starter</div>
+        <div class="pricing-price">Free <span>/ 30-day pilot</span></div>
+        <div class="pricing-desc">Full access during pilot. No credit card. Feedback appreciated.</div>
+        <ul class="pricing-features">
+          <li>All 5 anti-pattern checks</li>
+          <li>QA score + fix suggestions</li>
+          <li>Up to 50 queries/month</li>
+          <li>PDF report export</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-tier">Partner Firm</div>
+        <div class="pricing-price">$199 <span>/ month</span></div>
+        <div class="pricing-desc">For Oracle implementation firms. Covers full team, unlimited queries.</div>
+        <ul class="pricing-features">
+          <li>All 5 anti-pattern checks</li>
+          <li>Unlimited queries/month</li>
+          <li>PDF QA report (invoiceable to client)</li>
+          <li>Custom rule configuration</li>
+          <li>Priority email support</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">FAQ</div>
+    <h2>Common Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Does QA Guard execute my SQL against my Oracle instance?</h3>
+        <p>No. QA Guard performs static analysis on your SQL text — the same way a linter works on code. No database connection required. Your query never leaves the tool, and no data is accessed.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What Oracle HCM versions does it cover?</h3>
+        <p>QA Guard covers Oracle Fusion Cloud HCM (all release versions from 23A onward). The anti-patterns it catches apply across all current cloud releases. Oracle EBS is not supported — it's a different schema architecture.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can I configure which checks to run?</h3>
+        <p>Yes — on the Partner Firm tier, you can enable/disable individual checks and set severity thresholds per your firm's delivery standards. Useful if your team uses a different effective date convention internally.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What does the PDF report include?</h3>
+        <p>The PDF includes: QA score (0–100), per-check results with severity ratings, the specific SQL line triggering each flag, and remediation snippets showing the corrected pattern. Partners typically attach this to deliverable documentation for clients.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-block">
+    <h2>Request Your Free Pilot</h2>
+    <p>30-day free access for Oracle implementation partners. Takes 2 minutes to set up. We onboard in batches — email us and we'll confirm your slot.</p>
+    <form class="waitlist-form" action="mailto:mpm.morales@gmail.com?subject=HCM SQL QA Guard Pilot Request" method="get" enctype="text/plain">
+      <input type="email" class="waitlist-input" placeholder="your@firm.com" required name="email">
+      <button type="submit" class="waitlist-btn">Request Pilot Access →</button>
+    </form>
+    <div class="hero-note" style="margin-top:0.75rem">Or email <a href="mailto:mpm.morales@gmail.com">mpm.morales@gmail.com</a> directly with your firm name.</div>
+  </div>
+
+  <footer>
+    <p><a href="/">Oracle HCM Tables</a> · <a href="/blog/">Blog</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <p style="margin-top:0.5rem">&copy; 2026 HCM Tables</p>
+  </footer>
+
+  <script>
+    document.querySelectorAll('form').forEach(form => {
+      form.addEventListener('submit', function(e) {
+        if (typeof gtag !== 'undefined') {
+          gtag('event', 'qa_guard_pilot_request', { event_category: 'conversion' });
+        }
+      });
+    });
+  </script>
+
+</body>
+</html>

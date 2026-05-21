@@ -398,18 +398,33 @@
     <p style="margin-top: 0.5rem;">© 2026 HCM Tables. Not affiliated with Oracle Corporation.</p>
   </footer>
 
+  <script src="/subscribe.js"></script>
   <script>
     function handleSubmit(e) {
       e.preventDefault();
       const form = e.target;
-      const email = form.querySelector('input[type="email"]').value;
+      const email = form.querySelector('input[type="email"]').value.trim();
       const btn = form.querySelector('button');
-      btn.textContent = 'You\'re on the list!';
-      btn.style.background = 'oklch(0.70 0.18 145)';
+      const origText = btn.textContent;
+      btn.textContent = 'Sending...';
       btn.disabled = true;
-      form.querySelector('input').disabled = true;
-      // Send to mailto as fallback until backend is wired
-      window.location.href = `mailto:mpm.morales@gmail.com?subject=Data Quality Scanner Waitlist&body=Add me to the waitlist: ${encodeURIComponent(email)}`;
+      fetch('/api/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ email, source: 'data-quality-scanner', type: 'waitlist' })
+      })
+      .then(r => r.json().then(d => ({ ok: r.ok, data: d })))
+      .then(res => {
+        if (res.ok) {
+          btn.textContent = "You're on the list!";
+          btn.style.background = 'oklch(0.70 0.18 145)';
+          form.querySelector('input').disabled = true;
+        } else {
+          btn.textContent = origText;
+          btn.disabled = false;
+        }
+      })
+      .catch(() => { btn.textContent = origText; btn.disabled = false; });
     }
   </script>
 </body>

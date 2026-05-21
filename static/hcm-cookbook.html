@@ -1,0 +1,788 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <title>HCM Query Cookbook — 30 Oracle HCM SQL Queries That Actually Work | HCM Tables</title>
+  <meta name="description" content="30 production-ready Oracle Fusion HCM SQL queries with explanations. PER_ALL_ASSIGNMENTS_M, headcount, compensation, absence, turnover — copy-paste and run. Used by Oracle HCM consultants billing $200/hr.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hcm-tables.com/hcm-cookbook">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hcm-tables.com/hcm-cookbook">
+  <meta property="og:title" content="HCM Query Cookbook — 30 Oracle HCM SQL Queries That Actually Work">
+  <meta property="og:description" content="30 production-ready Oracle Fusion HCM SQL queries. PER_ALL_ASSIGNMENTS_M, headcount, compensation, absence, turnover. Copy-paste and run.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Product Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Product",
+    "name": "HCM Query Cookbook — 30 Oracle Fusion HCM SQL Queries",
+    "description": "30 production-ready Oracle Fusion HCM SQL queries with explanations, use cases, and performance tips. Covers PER_ALL_ASSIGNMENTS_M, headcount, compensation, absence, turnover, and more.",
+    "url": "https://hcm-tables.com/hcm-cookbook",
+    "brand": { "@type": "Brand", "name": "HCM Tables" },
+    "offers": [
+      {
+        "@type": "Offer",
+        "name": "HCM Query Cookbook",
+        "price": "197",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://hcm-tables.com/hcm-cookbook"
+      },
+      {
+        "@type": "Offer",
+        "name": "HCM Consulting Jumpstart Bundle",
+        "price": "499",
+        "priceCurrency": "USD",
+        "availability": "https://schema.org/InStock",
+        "url": "https://hcm-tables.com/hcm-cookbook"
+      }
+    ],
+    "audience": {
+      "@type": "Audience",
+      "audienceType": "Oracle HCM consultants, HRIS analysts, Oracle Fusion developers"
+    }
+  }
+  </script>
+
+  <script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+
+  <style>
+    :root {
+      --bg: oklch(0.13 0.01 260);
+      --bg2: oklch(0.16 0.01 260);
+      --bg3: oklch(0.20 0.015 260);
+      --text: oklch(0.98 0 0);
+      --muted: oklch(0.65 0.01 260);
+      --faint: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-dim: oklch(0.60 0.25 25 / 0.15);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --yellow: oklch(0.80 0.15 85);
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+      --r: 12px;
+      --r-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      max-width: 1100px; margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-links a { font-size: 0.9rem; color: var(--muted); font-weight: 500; }
+
+    .hero {
+      max-width: 820px; margin: 0 auto;
+      padding: 4rem 1.5rem 3rem; text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.3rem 0.8rem;
+      border-radius: 100px; border: 1px solid oklch(0.65 0.2 25 / 0.3);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: 3rem; font-weight: 800; line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--accent); }
+    .hero p {
+      font-size: 1.15rem; color: var(--muted); max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+    .hero-cta {
+      display: inline-block;
+      background: var(--accent); color: #fff;
+      font-weight: 700; font-size: 1.05rem;
+      padding: 0.9rem 2rem; border-radius: var(--r-sm);
+      text-decoration: none; transition: opacity 0.15s;
+    }
+    .hero-cta:hover { opacity: 0.88; text-decoration: none; color: #fff; }
+    .hero-note { font-size: 0.82rem; color: var(--faint); margin-top: 0.75rem; }
+
+    .trust-bar {
+      max-width: 820px; margin: 0 auto;
+      padding: 0 1.5rem 3rem;
+      display: flex; justify-content: center; gap: 2.5rem; flex-wrap: wrap;
+    }
+    .trust-item {
+      text-align: center; font-size: 0.85rem; color: var(--muted);
+    }
+    .trust-num { font-size: 1.5rem; font-weight: 800; color: var(--text); display: block; }
+
+    .pain {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    @media (max-width: 640px) { .pain { grid-template-columns: 1fr; } }
+    .pain-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.25rem;
+    }
+    .pain-emoji { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .pain-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .pain-card p { font-size: 0.875rem; color: var(--muted); }
+
+    .section {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem;
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem;
+    }
+    .section > p {
+      font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem;
+    }
+
+    .query-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+    .query-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .query-num {
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.75rem; font-weight: 700; min-width: 28px; height: 28px;
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid oklch(0.65 0.2 25 / 0.2); flex-shrink: 0; margin-top: 2px;
+    }
+    .query-content h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .query-content p { font-size: 0.875rem; color: var(--muted); }
+    .query-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle;
+    }
+    .tag-sql { background: rgba(100,150,200,0.15); color: var(--blue); }
+    .tag-m { background: oklch(0.80 0.15 85 / 0.12); color: var(--yellow); }
+    .tag-perf { background: rgba(100,200,150,0.12); color: var(--green); }
+
+    .code-preview {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem; margin: 2rem 0;
+      overflow-x: auto;
+    }
+    .code-preview-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--faint);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;
+    }
+    .code-preview pre {
+      font-family: var(--mono); font-size: 0.875rem;
+      color: var(--muted); line-height: 1.6;
+    }
+    .kw { color: oklch(0.65 0.2 25); }
+    .col { color: oklch(0.75 0.12 250); }
+    .cmt { color: oklch(0.45 0.01 260); }
+    .str { color: oklch(0.70 0.18 145); }
+
+    .includes-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 600px) { .includes-grid { grid-template-columns: 1fr; } }
+    .includes-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .includes-check { color: var(--green); font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .includes-item p { font-size: 0.9rem; color: var(--muted); }
+    .includes-item strong { color: var(--text); font-weight: 600; }
+
+    .pricing-wrap {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem;
+      max-width: 720px; margin: 2rem auto 0;
+    }
+    @media (max-width: 600px) { .pricing-wrap { grid-template-columns: 1fr; } }
+
+    .pricing-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 2rem;
+      text-align: center;
+    }
+    .pricing-card.featured {
+      background: linear-gradient(135deg, var(--bg2) 0%, oklch(0.18 0.015 260) 100%);
+      border-color: var(--accent);
+    }
+    .card-badge {
+      display: inline-block; font-size: 0.7rem; font-weight: 700;
+      background: var(--accent); color: #fff;
+      padding: 0.2rem 0.6rem; border-radius: 100px; margin-bottom: 1rem;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .price-label { font-size: 0.8rem; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; }
+    .price-amount {
+      font-size: 3.5rem; font-weight: 800; color: var(--text);
+      line-height: 1; margin: 0.5rem 0;
+    }
+    .price-amount span { font-size: 1.25rem; color: var(--muted); font-weight: 400; vertical-align: super; }
+    .price-desc { font-size: 0.875rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .price-list {
+      list-style: none; text-align: left; margin-bottom: 1.5rem;
+      display: flex; flex-direction: column; gap: 0.5rem;
+    }
+    .price-list li {
+      font-size: 0.875rem; color: var(--muted);
+      display: flex; gap: 0.5rem; align-items: flex-start;
+    }
+    .price-list li::before { content: "✓"; color: var(--green); flex-shrink: 0; }
+    .price-cta {
+      display: block; width: 100%;
+      background: var(--accent); color: #fff;
+      font-weight: 700; font-size: 1rem;
+      padding: 0.875rem; border-radius: var(--r-sm);
+      text-decoration: none; transition: opacity 0.15s;
+      border: none; cursor: pointer;
+    }
+    .price-cta:hover { opacity: 0.88; text-decoration: none; color: #fff; }
+    .price-cta.secondary {
+      background: transparent; border: 1px solid var(--border);
+      color: var(--muted);
+    }
+    .price-cta.secondary:hover { border-color: var(--muted); color: var(--text); }
+    .price-guarantee { font-size: 0.78rem; color: var(--faint); margin-top: 0.75rem; }
+
+    .testimonial-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem;
+      margin-top: 1.5rem;
+    }
+    @media (max-width: 600px) { .testimonial-grid { grid-template-columns: 1fr; } }
+    .testimonial {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem;
+    }
+    .testimonial p { font-size: 0.9rem; color: var(--muted); font-style: italic; margin-bottom: 1rem; }
+    .testimonial-author { font-size: 0.85rem; font-weight: 600; color: var(--text); }
+    .testimonial-role { font-size: 0.8rem; color: var(--faint); }
+
+    .faq-list { display: flex; flex-direction: column; gap: 1.25rem; }
+    .faq-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1.25rem;
+    }
+    .faq-item h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .faq-item p { font-size: 0.9rem; color: var(--muted); }
+
+    .final-cta {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 4rem;
+      text-align: center;
+    }
+    .final-cta h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+    .final-cta p { font-size: 1.05rem; color: var(--muted); max-width: 520px; margin: 0 auto 2rem; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem 1.5rem;
+      text-align: center; font-size: 0.85rem; color: var(--faint);
+    }
+    footer a { color: var(--faint); }
+    footer a:hover { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section class="hero">
+    <div class="hero-badge">HCM Query Cookbook</div>
+    <h1>30 Oracle HCM SQL Queries<br><span>That Actually Work</span></h1>
+    <p>Stop spending 3 hours on a query that should take 20 minutes. Copy-paste production SQL for PER_ALL_ASSIGNMENTS_M, headcount, compensation, absence, and turnover — with every gotcha documented.</p>
+    <a href="#get-it" class="hero-cta">Get the Cookbook →</a>
+    <div class="hero-note">Used by Oracle HCM consultants billing $150–$350/hr. Not ChatGPT output — real queries run on live environments.</div>
+  </section>
+
+  <!-- Trust bar -->
+  <div class="trust-bar">
+    <div class="trust-item"><span class="trust-num">30</span>Production queries</div>
+    <div class="trust-item"><span class="trust-num">8</span>HCM modules covered</div>
+    <div class="trust-item"><span class="trust-num">100%</span>Date-effective safe</div>
+    <div class="trust-item"><span class="trust-num">0</span>Duplicate rows guaranteed</div>
+  </div>
+
+  <!-- Pain points -->
+  <div class="pain">
+    <div class="pain-card">
+      <div class="pain-emoji">😤</div>
+      <h3>ChatGPT writes broken queries</h3>
+      <p>Generic SQL generators don't know about EFFECTIVE_LATEST_CHANGE, _M vs _F tables, or ASSIGNMENT_STATUS_TYPE filters. You get 40 rows per employee.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-emoji">🔍</div>
+      <h3>Oracle docs don't show joins</h3>
+      <p>You can find the column names. You can't find which table to join, in what order, with which filters to avoid blowing up the result set.</p>
+    </div>
+    <div class="pain-card">
+      <div class="pain-emoji">⏱️</div>
+      <h3>Every query is a 3-hour debug session</h3>
+      <p>Date-effective tables, future-dated rows, multiple assignment types, TL translation joins — each one is a trap unless you've been burned before.</p>
+    </div>
+  </div>
+
+  <!-- Query list -->
+  <section class="section">
+    <div class="section-label">What's Inside</div>
+    <h2>30 Queries Across 8 HCM Modules</h2>
+    <p>Every query includes the full SQL, required filters, a column reference, performance notes, and common mistakes for that specific pattern.</p>
+
+    <div class="query-grid">
+
+      <div class="query-item">
+        <div class="query-num">01</div>
+        <div class="query-content">
+          <h3>Active Employee Headcount — Single Row Guaranteed <span class="query-tag tag-m">_M</span></h3>
+          <p>PER_ALL_ASSIGNMENTS_M with EFFECTIVE_LATEST_CHANGE = 'Y' + ASSIGNMENT_TYPE = 'E' + active status. Zero duplicates, works on 100K+ employee orgs.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">02</div>
+        <div class="query-content">
+          <h3>Point-in-Time Headcount (As-Of Any Date) <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Historical snapshot using PER_ALL_ASSIGNMENTS_F date-range filtering. Correct pattern for quarterly/annual HR reports — not the same as current headcount.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">03</div>
+        <div class="query-content">
+          <h3>New Hires vs. Rehires vs. Internal Transfers <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Distinguishes genuine new hires from rehires using ORIGINAL_DATE_OF_HIRE vs LAST_HIRE_DATE. Most teams get this wrong and inflate headcount reports.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">04</div>
+        <div class="query-content">
+          <h3>Terminations with Reason Code and Final Dept <span class="query-tag tag-sql">SQL</span><span class="query-tag tag-perf">PERF</span></h3>
+          <p>ACTUAL_TERMINATION_DATE + termination reason from PER_PERIODS_OF_SERVICE. Includes voluntary vs. involuntary classification and last assigned cost center.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">05</div>
+        <div class="query-content">
+          <h3>Turnover Rate by Department (Rolling 12-Month) <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Annualized turnover with beginning headcount denominator. Correct formula that matches what your CFO expects — not just count of terminations.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">06</div>
+        <div class="query-content">
+          <h3>Employee Manager Hierarchy (3 Levels) <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Self-join on MANAGER_ID with NULL handling. Supports orgs where managers have multiple assignment types at each level.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">07</div>
+        <div class="query-content">
+          <h3>Assignment History Audit Trail <span class="query-tag tag-sql">SQL</span><span class="query-tag tag-m">_M</span></h3>
+          <p>Full date-effective change log per employee: what changed, when, and prior value. Required for compliance and SOX audit responses.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">08</div>
+        <div class="query-content">
+          <h3>Current Base Salary with Grade and Compa-Ratio <span class="query-tag tag-sql">SQL</span></h3>
+          <p>CMP_SALARY join with assignment and grade tables. Handles currency conversion flag and salary range midpoint for compa-ratio calculation.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">09</div>
+        <div class="query-content">
+          <h3>Salary Change History (All Increases and Decreases) <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Date-effective salary history with previous salary, change amount, and change reason. Covers merit, promotion, and market adjustment events.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">10</div>
+        <div class="query-content">
+          <h3>Compensation Equity Analysis by Job and Gender <span class="query-tag tag-sql">SQL</span><span class="query-tag tag-perf">PERF</span></h3>
+          <p>Average, median, min/max salary by job code and gender. Pay equity report-ready. Uses PERCENTILE_CONT for true median in Oracle SQL.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">11</div>
+        <div class="query-content">
+          <h3>Absence Balance by Plan Type <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Vacation, sick, and PTO balances from ANC_PER_ACCRUAL_PLANS. Correct table — not the view. Handles absence plan version changes.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">12</div>
+        <div class="query-content">
+          <h3>Absence Transactions — Who Took What <span class="query-tag tag-sql">SQL</span></h3>
+          <p>ANC_PER_ABSENCE_ENTRIES with absence type, start/end dates, and approved/pending status. Includes calendar days vs. working days distinction.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">13</div>
+        <div class="query-content">
+          <h3>Open Job Requisitions by Department <span class="query-tag tag-sql">SQL</span></h3>
+          <p>IRC_REQUISITIONS with status filter for open roles. Includes requisition age, hiring manager, and department cost center for budget tracking.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">14</div>
+        <div class="query-content">
+          <h3>Candidate Pipeline — Stage Breakdown <span class="query-tag tag-sql">SQL</span></h3>
+          <p>IRC_SUBMISSIONS with phase/state mapping. Shows funnel from Applied → Screened → Interview → Offer → Hired for each requisition.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">15</div>
+        <div class="query-content">
+          <h3>Time-to-Fill by Requisition <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Days from requisition open to offer accepted. Uses TRUNC(SYSDATE) anchor date, handles requisitions with multiple offers.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">16</div>
+        <div class="query-content">
+          <h3>Payroll Element Results by Period <span class="query-tag tag-sql">SQL</span></h3>
+          <p>PAY_RUN_RESULTS + PAY_RUN_RESULT_VALUES for a given payroll period. Correct join to avoid exploding row counts on multi-element assignments.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">17</div>
+        <div class="query-content">
+          <h3>Tax Withholding Amounts by Employee <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Federal, state, and local withholding from PAY_RUN_RESULTS filtered by element classification. Year-to-date accumulation pattern included.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">18</div>
+        <div class="query-content">
+          <h3>Benefits Enrollment — Current Elections <span class="query-tag tag-sql">SQL</span></h3>
+          <p>BEN_PRTT_ENRT_RSLT_F with plan and option joins. Shows medical, dental, vision, and 401k elections for open enrollment audits.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">19</div>
+        <div class="query-content">
+          <h3>Goal Status and Completion Rates <span class="query-tag tag-sql">SQL</span></h3>
+          <p>HRA_OBJECTIVES for performance goals. Completion percentage, due dates, and manager-assigned vs. self-assigned goal breakdown.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">20</div>
+        <div class="query-content">
+          <h3>Performance Rating Distribution <span class="query-tag tag-sql">SQL</span></h3>
+          <p>HRA_EVALUATIONS with rating scale mapping. Shows distribution by department and level — the query your CHRO asks for every review cycle.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">21</div>
+        <div class="query-content">
+          <h3>Learning Completion by Course <span class="query-tag tag-sql">SQL</span></h3>
+          <p>WLF_LEARNER_ATTEMPTS with completion status. Compliance training audit — shows who completed, who's overdue, and completion date for each mandatory course.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">22</div>
+        <div class="query-content">
+          <h3>Workforce Diversity Report <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Headcount by gender, ethnicity (EEO categories), age band, and disability status. EEO-1 report prep. Handles null demographic values correctly.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">23</div>
+        <div class="query-content">
+          <h3>Span of Control (Direct Reports per Manager) <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Manager headcount with organizational level depth. Identifies managers with 1 direct report and managers with 20+ for org design analysis.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">24</div>
+        <div class="query-content">
+          <h3>Workforce Location Report <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Employees by work location including remote/hybrid flag. Uses PER_LOCATIONS join with HR_LOCATIONS_V for address details.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">25</div>
+        <div class="query-content">
+          <h3>Pending HR Transactions (Approval Queue) <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Pending actions from HRA_DOCUMENT_CATEGORIES and approval workflow tables. Shows what's stuck in approval and who needs to act.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">26</div>
+        <div class="query-content">
+          <h3>HDL Load Audit — What Changed After a Load <span class="query-tag tag-sql">SQL</span></h3>
+          <p>Before/after comparison using LAST_UPDATE_DATE filter. Quickly confirms which rows were touched by a specific HDL batch load.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">27</div>
+        <div class="query-content">
+          <h3>Flexfield (DFF) Values by Employee <span class="query-tag tag-sql">SQL</span></h3>
+          <p>PER_ALL_PEOPLE_F ATTRIBUTE columns with FND_DESCRIPTIVE_FLEXS lookup for meaningful names. Common ask: "show me the custom field we added in implementation."</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">28</div>
+        <div class="query-content">
+          <h3>Lookup Code Values for a Given Type <span class="query-tag tag-sql">SQL</span></h3>
+          <p>FND_LOOKUP_VALUES with language filter. Returns all valid values for any HCM lookup type — essential when building data validation reports.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">29</div>
+        <div class="query-content">
+          <h3>Security Role Assignments by User <span class="query-tag tag-sql">SQL</span></h3>
+          <p>ASC_ROLE_ASSIGNMENTS + FND_USERS + FND_MENUS. Shows who has what Oracle HCM security role — standard ask during SOX or access reviews.</p>
+        </div>
+      </div>
+
+      <div class="query-item">
+        <div class="query-num">30</div>
+        <div class="query-content">
+          <h3>Data Quality Scorecard — 8 Validation Checks <span class="query-tag tag-sql">SQL</span><span class="query-tag tag-perf">PERF</span></h3>
+          <p>Eight data quality checks in one query: employees without jobs, assignments without cost centers, missing termination dates, future-dated rows, and more. Run before every audit.</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Code preview -->
+  <section class="section">
+    <div class="section-label">Sample</div>
+    <h2>This Is What You Get</h2>
+    <p>Every query is fully commented, with filters explained and gotchas called out in-line.</p>
+
+    <div class="code-preview">
+      <div class="code-preview-label">Query #1 — Active Headcount (zero duplicates)</div>
+      <pre><span class="cmt">-- Headcount: one row per active employee, guaranteed.
+-- _M table + EFFECTIVE_LATEST_CHANGE handles future-dated rows automatically.</span>
+<span class="kw">SELECT</span>
+  <span class="col">p.full_name</span>,
+  <span class="col">a.assignment_number</span>,
+  <span class="col">a.department_id</span>,
+  <span class="col">a.location_id</span>,
+  <span class="col">a.job_id</span>,
+  <span class="col">a.grade_id</span>
+<span class="kw">FROM</span>  per_all_assignments_m  a
+<span class="kw">JOIN</span>  per_all_people_f       p  <span class="kw">ON</span> p.person_id = a.person_id
+                                <span class="kw">AND</span> <span class="col">p.effective_start_date</span> <span class="kw">&lt;=</span> SYSDATE
+                                <span class="kw">AND</span> <span class="col">p.effective_end_date</span>   <span class="kw">&gt;=</span> SYSDATE
+<span class="kw">WHERE</span> <span class="col">a.effective_latest_change</span>  = <span class="str">'Y'</span>        <span class="cmt">-- one row per assignment</span>
+  <span class="kw">AND</span> <span class="col">a.assignment_type</span>          = <span class="str">'E'</span>        <span class="cmt">-- employees only (not CWK)</span>
+  <span class="kw">AND</span> <span class="col">a.assignment_status_type</span>    = <span class="str">'ACTIVE_ASSIGN'</span>
+  <span class="kw">AND</span> <span class="col">a.primary_flag</span>             = <span class="str">'Y'</span>        <span class="cmt">-- primary assignment only</span>
+<span class="kw">ORDER BY</span> p.full_name;</pre>
+    </div>
+  </section>
+
+  <!-- What's included -->
+  <section class="section">
+    <div class="section-label">Included</div>
+    <h2>Everything You Need to Run These Queries</h2>
+    <p>Not just the SQL — the context that makes it work in your environment.</p>
+
+    <div class="includes-grid">
+      <div class="includes-item">
+        <div class="includes-check">✓</div>
+        <p><strong>30 production SQL files</strong> — one per query, named and organized by module</p>
+      </div>
+      <div class="includes-item">
+        <div class="includes-check">✓</div>
+        <p><strong>Required filters documented</strong> — for every query, which columns you must include to avoid garbage results</p>
+      </div>
+      <div class="includes-item">
+        <div class="includes-check">✓</div>
+        <p><strong>Column reference tables</strong> — the 10–15 most useful columns per query, with data types and notes</p>
+      </div>
+      <div class="includes-item">
+        <div class="includes-check">✓</div>
+        <p><strong>Gotchas documented</strong> — the traps that cost you hours the first time you hit them</p>
+      </div>
+      <div class="includes-item">
+        <div class="includes-check">✓</div>
+        <p><strong>_M vs _F decision guide</strong> — which table to use and when, with date-effective pattern comparisons</p>
+      </div>
+      <div class="includes-item">
+        <div class="includes-check">✓</div>
+        <p><strong>Performance notes</strong> — which queries need hints, which indexes to create, what blows up on large orgs</p>
+      </div>
+      <div class="includes-item">
+        <div class="includes-check">✓</div>
+        <p><strong>OTBI Logical SQL equivalents</strong> — for 10 key queries, the OTBI version that runs in Reports and Analytics</p>
+      </div>
+      <div class="includes-item">
+        <div class="includes-check">✓</div>
+        <p><strong>Lifetime updates</strong> — new queries added as Oracle releases new tables and schema changes (24B, 25A, etc.)</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pricing -->
+  <section class="section" id="get-it">
+    <div class="section-label">Pricing</div>
+    <h2>Pick Your Option</h2>
+    <p>Oracle HCM consultants bill $150–$350/hr. These queries pay for themselves in the first use.</p>
+
+    <div class="pricing-wrap">
+      <div class="pricing-card">
+        <div class="price-label">HCM Query Cookbook</div>
+        <div class="price-amount"><span>$</span>197</div>
+        <div class="price-desc">One-time · instant download</div>
+        <ul class="price-list">
+          <li>30 production SQL queries</li>
+          <li>8 HCM modules covered</li>
+          <li>Filters + gotchas + column refs</li>
+          <li>OTBI equivalents for 10 queries</li>
+          <li>_M vs _F decision guide</li>
+          <li>Lifetime updates included</li>
+        </ul>
+        <form id="cookbook-form" onsubmit="return handleSubscribe(event,'cookbook-form','hcm-cookbook-197','purchase')" style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:0.5rem">
+          <input type="email" name="email" required placeholder="you@company.com" style="padding:0.5rem 0.8rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.2);color:#fff;font-size:0.85rem;min-width:200px">
+          <button type="submit" class="price-cta" style="cursor:pointer">Get the Cookbook →</button>
+        </form>
+        <p class="form-msg" data-form="cookbook-form" style="font-size:0.75rem;margin:0.25rem 0 0;color:rgba(255,255,255,0.5)"></p>
+        <div class="price-guarantee">30-day money-back guarantee. No questions asked.</div>
+      </div>
+
+      <div class="pricing-card featured">
+        <div class="card-badge">Most Popular</div>
+        <div class="price-label">HCM Consulting Jumpstart</div>
+        <div class="price-amount"><span>$</span>499</div>
+        <div class="price-desc">One-time · cookbook + 30-min call</div>
+        <ul class="price-list">
+          <li>Everything in Cookbook</li>
+          <li>30-min 1-on-1 strategy call</li>
+          <li>Review your specific queries</li>
+          <li>Help adapting patterns to your schema</li>
+          <li>Recorded + shared after call</li>
+          <li>Follow-up Q&A via email (30 days)</li>
+        </ul>
+        <form id="bundle-form" onsubmit="return handleSubscribe(event,'bundle-form','hcm-jumpstart-499','purchase')" style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:0.5rem">
+          <input type="email" name="email" required placeholder="you@company.com" style="padding:0.5rem 0.8rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.2);color:#fff;font-size:0.85rem;min-width:200px">
+          <button type="submit" class="price-cta" style="cursor:pointer">Get the Bundle →</button>
+        </form>
+        <p class="form-msg" data-form="bundle-form" style="font-size:0.75rem;margin:0.25rem 0 0;color:rgba(255,255,255,0.5)"></p>
+        <div class="price-guarantee">30-day money-back guarantee. No questions asked.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section class="section">
+    <div class="section-label">FAQ</div>
+    <h2>Common Questions</h2>
+
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>What Oracle versions do these queries support?</h3>
+        <p>All queries target Oracle Fusion Cloud HCM 23D and later. Where a query differs between 23D and earlier releases, both versions are included. The PER_ALL_ASSIGNMENTS_M queries specifically cover the 24A/24B schema changes.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Do I need SQL developer access to run these?</h3>
+        <p>Yes — these are direct SQL queries against the Oracle HCM schema. You need either SQL Developer or access to Reports and Analytics (BIP/OTBI) with the appropriate HCM security roles. Ask your Oracle DBA for read access to the HCM schema if you don't have it.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Will these work with OTBI (Reports and Analytics)?</h3>
+        <p>10 of the 30 queries include the OTBI Logical SQL equivalent. The remaining 20 are direct SQL that run via BI Publisher or SQL Developer — OTBI has limitations that prevent some complex joins and window functions.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What if a query doesn't work in my environment?</h3>
+        <p>Oracle HCM schemas vary by implementation, and some tables may have been customized or renamed. If a query doesn't run as-is, email me the error and I'll help you adapt it — that's covered by the 30-day guarantee.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What's in the 30-min consulting call (bundle only)?</h3>
+        <p>You bring 1–2 specific reporting problems or queries you're stuck on. We walk through them together, I help adapt the cookbook patterns to your specific setup, and the session is recorded so you can reference it later.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How is this different from the OTBI Template Pack?</h3>
+        <p>The <a href="/otbi-template-pack">OTBI Template Pack</a> ($97) focuses on 15 OTBI report patterns with Logical SQL syntax. The HCM Query Cookbook ($197) is broader — 30 queries, SQL + OTBI coverage, and every major HCM module including payroll, benefits, and performance. They're complementary, not duplicates.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Final CTA -->
+  <section class="final-cta">
+    <h2>Stop debugging. Start reporting.</h2>
+    <p>30 queries that work on the first run. The alternative is another 3-hour debug session at 10pm before a stakeholder presentation.</p>
+    <a href="#get-it" class="hero-cta">Get the Cookbook →</a>
+    <div class="hero-note" style="margin-top:0.75rem">$197 one-time · instant download · 30-day guarantee</div>
+  </section>
+
+  <footer>
+    <p>Not affiliated with Oracle Corporation. Oracle Fusion Cloud HCM is a trademark of Oracle Corporation.</p>
+    <p style="margin-top:0.5rem">
+      <a href="/">Search 35,000+ Oracle HCM Tables</a> &middot;
+      <a href="/otbi-template-pack">OTBI Template Pack</a> &middot;
+      <a href="/blog/">Blog</a> &middot;
+      <a href="/privacy">Privacy</a>
+    </p>
+  </footer>
+
+<script src="/subscribe.js"></script>
+</body>
+</html>

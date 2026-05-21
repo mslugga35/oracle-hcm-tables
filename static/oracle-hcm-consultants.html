@@ -703,9 +703,7 @@
     function handleFormSubmit(e) {
       e.preventDefault();
       const form = e.target;
-      const btn = form.querySelector('.form-submit');
 
-      // Basic validation
       const required = form.querySelectorAll('[required]');
       let valid = true;
       required.forEach(f => {
@@ -718,36 +716,35 @@
       });
       if (!valid) return false;
 
-      // Submit via Formspree (or log for now)
-      btn.textContent = 'Submitting...';
-      btn.disabled = true;
+      const name        = form.querySelector('#name').value;
+      const email       = form.querySelector('#email').value;
+      const company     = form.querySelector('#company').value || 'Not provided';
+      const employees   = form.querySelector('#employees').value || 'Not provided';
+      const modules     = form.querySelector('#modules').value || 'Not provided';
+      const timeline    = form.querySelector('#timeline').value || 'Not provided';
+      const description = form.querySelector('#description').value;
 
-      const data = new FormData(form);
-      fetch(form.action, {
-        method: 'POST',
-        body: data,
-        headers: { 'Accept': 'application/json' }
-      })
-      .then(res => {
-        if (res.ok) {
-          form.innerHTML = `
-            <div style="padding:2rem; text-align:center;">
-              <div style="font-size:2.5rem; margin-bottom:1rem;">&#9989;</div>
-              <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; color:var(--text-primary);">Project Submitted!</h3>
-              <p style="color:var(--text-secondary);">We'll match you with 2–3 relevant Oracle HCM consultants within 1 business day.</p>
-            </div>
-          `;
-        } else {
-          btn.textContent = 'Submit Project — Get Matched Free →';
-          btn.disabled = false;
-          alert('Submission failed. Please email your project details to hello@hcm-tables.com');
-        }
-      })
-      .catch(() => {
-        btn.textContent = 'Submit Project — Get Matched Free →';
-        btn.disabled = false;
-        alert('Network error. Please try again or email hello@hcm-tables.com');
-      });
+      const body = [
+        `Name: ${name}`,
+        `Email: ${email}`,
+        `Company: ${company}`,
+        `Employee Count: ${employees}`,
+        `Modules Needed: ${modules}`,
+        `Timeline: ${timeline}`,
+        ``,
+        `Project Description:`,
+        description
+      ].join('\n');
+
+      window.location.href = `mailto:mpm.morales@gmail.com?subject=${encodeURIComponent('Oracle HCM Consultant Inquiry — ' + company)}&body=${encodeURIComponent(body)}`;
+
+      form.innerHTML = `
+        <div style="padding:2rem; text-align:center;">
+          <div style="font-size:2.5rem; margin-bottom:1rem;">&#9989;</div>
+          <h3 style="font-size:1.25rem; font-weight:700; margin-bottom:0.5rem; color:var(--text-primary);">Project Submitted!</h3>
+          <p style="color:var(--text-secondary);">We'll match you with 2–3 relevant Oracle HCM consultants within 1 business day.</p>
+        </div>
+      `;
 
       return false;
     }

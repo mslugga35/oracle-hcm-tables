@@ -1,0 +1,685 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <title>PER_ALL_ASSIGNMENTS_M Duplicate Rows — The Definitive Fix | HCM Tables</title>
+  <meta name="title" content="PER_ALL_ASSIGNMENTS_M Duplicate Rows — The Definitive Fix | HCM Tables">
+  <meta name="description" content="PER_ALL_ASSIGNMENTS_M returns multiple rows per employee? Here's the exact fix: EFFECTIVE_LATEST_CHANGE = 'Y'. Covers all root causes, SQL patterns, and OTBI report fixes with working examples.">
+  <meta name="keywords" content="PER_ALL_ASSIGNMENTS_M duplicate rows, PER_ALL_ASSIGNMENTS_M multiple rows, EFFECTIVE_LATEST_CHANGE Y, Oracle HCM assignment table duplicates, PER_ALL_ASSIGNMENTS_M current row, Oracle Fusion HCM SQL duplicates, PER_ALL_ASSIGNMENTS_M fix, Oracle HCM effective date filter">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/per-all-assignments-m-duplicate-rows-fix">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/per-all-assignments-m-duplicate-rows-fix">
+  <meta property="og:title" content="PER_ALL_ASSIGNMENTS_M Duplicate Rows — The Definitive Fix">
+  <meta property="og:description" content="The exact SQL fix for PER_ALL_ASSIGNMENTS_M returning multiple rows per employee. Covers EFFECTIVE_LATEST_CHANGE, EFFECTIVE_SEQUENCE, date-range filtering, and OTBI report duplication.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/per-all-assignments-m-duplicate-rows-fix">
+  <meta property="twitter:title" content="PER_ALL_ASSIGNMENTS_M Duplicate Rows — The Definitive Fix">
+  <meta property="twitter:description" content="The exact SQL fix for PER_ALL_ASSIGNMENTS_M returning multiple rows per employee. Covers EFFECTIVE_LATEST_CHANGE, EFFECTIVE_SEQUENCE, and OTBI report duplication.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "PER_ALL_ASSIGNMENTS_M Duplicate Rows — The Definitive Fix",
+    "description": "PER_ALL_ASSIGNMENTS_M returns multiple rows per employee? Here's the exact fix using EFFECTIVE_LATEST_CHANGE = 'Y'. Covers all root causes, SQL patterns, and OTBI report fixes.",
+    "url": "https://hcm-tables.com/blog/per-all-assignments-m-duplicate-rows-fix",
+    "datePublished": "2026-05-09",
+    "dateModified": "2026-05-09",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/per-all-assignments-m-duplicate-rows-fix"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"PER_ALL_ASSIGNMENTS_M Duplicate Rows Fix","item":"https://hcm-tables.com/blog/per-all-assignments-m-duplicate-rows-fix"}
+  ]}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why does PER_ALL_ASSIGNMENTS_M return multiple rows per employee?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_ASSIGNMENTS_M is a date-effective (_M suffix = merged) table. It stores one row per effective date range, so an employee who has had three salary changes has three rows in the table. Without an effective date filter, all historical rows are returned. The fix is to add WHERE EFFECTIVE_LATEST_CHANGE = 'Y' to return only the current row for each assignment."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is EFFECTIVE_LATEST_CHANGE in PER_ALL_ASSIGNMENTS_M?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EFFECTIVE_LATEST_CHANGE is an Oracle-managed column in _M tables that is set to 'Y' on the most recent effective-dated row for each assignment record. Unlike a date-range filter (SYSDATE BETWEEN effective_start_date AND effective_end_date), EFFECTIVE_LATEST_CHANGE = 'Y' is always correct for current-state queries — it is not affected by future-dated changes or gaps in the date chain."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between EFFECTIVE_LATEST_CHANGE = 'Y' and SYSDATE filtering?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "SYSDATE BETWEEN effective_start_date AND effective_end_date returns the row that is active right now according to the calendar. EFFECTIVE_LATEST_CHANGE = 'Y' returns the most recent row Oracle has processed, even if it's future-dated. For current-state queries, EFFECTIVE_LATEST_CHANGE is safer because it handles gaps, future-dated changes, and Oracle's internal processing order correctly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why do my OTBI headcount reports return 2x or 3x the expected row count?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OTBI subject areas that join to PER_ALL_ASSIGNMENTS_M without an effective date constraint produce a Cartesian-style explosion of rows — one row per historical assignment change rather than one per employee. In Logical SQL, this manifests as a comma join where two subject areas reference the same employee dimension but don't share a proper date-effective join. Adding a EFFECTIVE_LATEST_CHANGE = 'Y' filter in a custom SQL override or switching to the correct subject area resolves this."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0f1117;
+      --bg2: #1a1d24;
+      --bg3: #20242e;
+      --text: #f8f9fa;
+      --muted: #8b949e;
+      --faint: #555d68;
+      --border: #2d3139;
+      --accent: #ff4d3d;
+      --blue: #58a6ff;
+      --green: #3fb950;
+      --yellow: #d29922;
+      --red: #f85149;
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.7; font-size: 1rem; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+
+    .site-header {
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 1.5rem;
+      display: flex; align-items: center; justify-content: space-between;
+      max-width: 1100px; margin: 0 auto;
+    }
+    .site-logo { font-weight: 700; font-size: 1.05rem; color: var(--text); text-decoration: none; }
+    .site-nav a { color: var(--muted); font-size: 0.9rem; font-weight: 500; margin-left: 1.5rem; }
+
+    .article-wrap { max-width: 760px; margin: 0 auto; padding: 3rem 1.5rem 5rem; }
+
+    .breadcrumb { font-size: 0.82rem; color: var(--faint); margin-bottom: 2rem; }
+    .breadcrumb a { color: var(--faint); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-meta { margin-bottom: 2.5rem; }
+    .article-tag {
+      display: inline-block; background: rgba(255,77,61,0.1); color: var(--accent);
+      font-size: 0.72rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em;
+      padding: 0.25rem 0.6rem; border-radius: 4px; border: 1px solid rgba(255,77,61,0.3);
+      margin-bottom: 1rem;
+    }
+    h1 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: 800; line-height: 1.2; margin-bottom: 1rem; }
+    .article-desc { font-size: 1.1rem; color: var(--muted); margin-bottom: 1.25rem; }
+    .article-byline { font-size: 0.85rem; color: var(--faint); }
+
+    .toc {
+      background: var(--bg2); border: 1px solid var(--border); border-radius: 10px;
+      padding: 1.25rem 1.5rem; margin: 2rem 0;
+    }
+    .toc-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.08em; color: var(--faint); margin-bottom: 0.75rem; }
+    .toc ol { padding-left: 1.25rem; }
+    .toc li { font-size: 0.9rem; margin-bottom: 0.35rem; }
+    .toc a { color: var(--muted); }
+    .toc a:hover { color: var(--text); }
+
+    h2 { font-size: 1.5rem; font-weight: 700; margin: 2.5rem 0 1rem; padding-top: 0.5rem; }
+    h3 { font-size: 1.15rem; font-weight: 600; margin: 2rem 0 0.75rem; }
+    p { margin-bottom: 1.1rem; color: var(--muted); }
+    p strong { color: var(--text); }
+    ul, ol { margin-bottom: 1.1rem; padding-left: 1.5rem; color: var(--muted); }
+    li { margin-bottom: 0.4rem; }
+    li strong { color: var(--text); }
+
+    .alert {
+      background: var(--bg2); border-left: 3px solid var(--accent);
+      border-radius: 0 8px 8px 0; padding: 1rem 1.25rem; margin: 1.5rem 0;
+    }
+    .alert-warn { border-left-color: var(--yellow); }
+    .alert-ok { border-left-color: var(--green); }
+    .alert-title { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.35rem; }
+    .alert-title.danger { color: var(--accent); }
+    .alert-title.warn { color: var(--yellow); }
+    .alert-title.ok { color: var(--green); }
+    .alert p { margin: 0; font-size: 0.9rem; }
+
+    pre, code {
+      font-family: var(--mono); font-size: 0.875rem;
+    }
+    code { background: var(--bg3); padding: 0.15em 0.4em; border-radius: 4px; color: var(--text); }
+    .code-block {
+      background: #0d1117; border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden; margin: 1.5rem 0;
+    }
+    .code-label {
+      background: var(--bg3); padding: 0.5rem 1rem;
+      font-size: 0.7rem; font-weight: 700; color: var(--faint);
+      text-transform: uppercase; letter-spacing: 0.07em;
+      border-bottom: 1px solid var(--border);
+    }
+    .code-block pre { padding: 1.25rem; overflow-x: auto; line-height: 1.65; }
+    .kw { color: #ff7b72; }
+    .fn { color: #d2a8ff; }
+    .col { color: #79c0ff; }
+    .str { color: #a5d6ff; }
+    .cmt { color: #484f58; font-style: italic; }
+    .num { color: #f2cc60; }
+    .val { color: #3fb950; }
+
+    .compare-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 1.5rem 0;
+    }
+    @media (max-width: 640px) { .compare-grid { grid-template-columns: 1fr; } }
+    .compare-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 10px; overflow: hidden;
+    }
+    .compare-header {
+      padding: 0.6rem 1rem; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .compare-bad .compare-header { background: rgba(248,81,73,0.1); color: var(--red); }
+    .compare-good .compare-header { background: rgba(63,185,80,0.1); color: var(--green); }
+    .compare-card pre { padding: 1rem; font-size: 0.82rem; overflow-x: auto; line-height: 1.6; }
+
+    .root-causes {
+      display: flex; flex-direction: column; gap: 0.75rem; margin: 1.5rem 0;
+    }
+    .cause-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem 1.25rem;
+      display: flex; gap: 1rem; align-items: flex-start;
+    }
+    .cause-num {
+      background: rgba(255,77,61,0.1); color: var(--accent);
+      font-size: 0.8rem; font-weight: 800; width: 28px; height: 28px;
+      border-radius: 50%; display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+    }
+    .cause-content h4 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.3rem; color: var(--text); }
+    .cause-content p { font-size: 0.875rem; margin: 0; }
+
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    th { background: var(--bg3); padding: 0.7rem 1rem; text-align: left; font-size: 0.8rem; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: 0.05em; border-bottom: 1px solid var(--border); }
+    td { padding: 0.7rem 1rem; border-bottom: 1px solid var(--border); color: var(--muted); vertical-align: top; }
+    td strong { color: var(--text); }
+    tr:last-child td { border-bottom: none; }
+
+    .related-posts { margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); }
+    .related-title { font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); margin-bottom: 1rem; }
+    .related-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1rem; }
+    .related-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: 8px; padding: 1rem; text-decoration: none;
+      display: block; transition: border-color 0.15s;
+    }
+    .related-card:hover { border-color: var(--accent); text-decoration: none; }
+    .related-card h4 { font-size: 0.875rem; font-weight: 600; color: var(--text); margin-bottom: 0.3rem; line-height: 1.4; }
+    .related-card p { font-size: 0.8rem; color: var(--faint); margin: 0; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem 1.5rem;
+      text-align: center; font-size: 0.85rem; color: var(--faint);
+    }
+    footer a { color: var(--faint); }
+    footer a:hover { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+  <header>
+    <div class="site-header">
+      <a href="/" class="site-logo">📊 Oracle HCM Tables</a>
+      <nav class="site-nav">
+        <a href="/">Tables</a>
+        <a href="/blog/">Blog</a>
+        <a href="/otbi-template-pack">Templates</a>
+      </nav>
+    </div>
+  </header>
+
+  <article class="article-wrap">
+
+    <div class="breadcrumb">
+      <a href="/">Home</a> › <a href="/blog/">Blog</a> › PER_ALL_ASSIGNMENTS_M Duplicate Rows Fix
+    </div>
+
+    <div class="article-meta">
+      <div class="article-tag">Core HR · SQL</div>
+      <h1>PER_ALL_ASSIGNMENTS_M Duplicate Rows — The Definitive Fix</h1>
+      <p class="article-desc">Your query returns 3 rows for every employee. Your headcount report is off by 200%. Here's the exact column that fixes it — and why every other approach eventually fails.</p>
+      <div class="article-byline">HCM Tables · May 2026 · 2,800 words</div>
+    </div>
+
+    <div class="toc">
+      <div class="toc-title">Contents</div>
+      <ol>
+        <li><a href="#why-duplicates">Why PER_ALL_ASSIGNMENTS_M returns duplicates</a></li>
+        <li><a href="#the-fix">The fix: EFFECTIVE_LATEST_CHANGE = 'Y'</a></li>
+        <li><a href="#root-causes">4 root causes of duplicate rows</a></li>
+        <li><a href="#sysdate-vs-elc">SYSDATE filter vs EFFECTIVE_LATEST_CHANGE</a></li>
+        <li><a href="#sql-patterns">Production SQL patterns</a></li>
+        <li><a href="#otbi-duplicates">Fixing duplicate rows in OTBI reports</a></li>
+        <li><a href="#effective-sequence">When to use EFFECTIVE_SEQUENCE</a></li>
+        <li><a href="#common-mistakes">Common mistakes that reintroduce duplicates</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ol>
+    </div>
+
+    <div class="alert">
+      <div class="alert-title danger">The Short Answer</div>
+      <p>Add <code>WHERE EFFECTIVE_LATEST_CHANGE = 'Y'</code> to every query against <code>PER_ALL_ASSIGNMENTS_M</code>. That single column eliminates 95% of duplicate row problems. The rest of this post explains why, and covers the 5% of edge cases where you need more.</p>
+    </div>
+
+    <h2 id="why-duplicates">Why PER_ALL_ASSIGNMENTS_M Returns Duplicate Rows</h2>
+
+    <p><code>PER_ALL_ASSIGNMENTS_M</code> is a date-effective table — the <code>_M</code> suffix stands for "merged," which is Oracle's term for the view that combines all effective-dated rows into a single queryable surface. Every time an employee's assignment changes — a salary increase, a department transfer, a location change — Oracle writes a new row with new <code>EFFECTIVE_START_DATE</code> and <code>EFFECTIVE_END_DATE</code> values.</p>
+
+    <p>An employee hired in 2021 with three subsequent job changes has <strong>four rows</strong> in <code>PER_ALL_ASSIGNMENTS_M</code>: one for the original hire and one for each change. A query with no effective date filter returns all four.</p>
+
+    <p>This is not a bug. It's the architecture. Oracle stores history so you can query headcount as of any past date. The problem is that most queries only want <em>current state</em>, and forgetting to filter for it is the #1 cause of inflated headcount numbers in Oracle HCM reporting.</p>
+
+    <h2 id="the-fix">The Fix: EFFECTIVE_LATEST_CHANGE = 'Y'</h2>
+
+    <p><code>EFFECTIVE_LATEST_CHANGE</code> is an Oracle-managed flag column in all <code>_M</code> suffix tables. Oracle sets it to <code>'Y'</code> on the most recently processed effective-dated row for each assignment. For current-state queries, filtering on this column is the simplest and most reliable approach.</p>
+
+    <div class="compare-grid">
+      <div class="compare-card compare-bad">
+        <div class="compare-header">❌ Wrong — returns all history</div>
+        <pre><span class="kw">SELECT</span>
+  a.person_id,
+  a.assignment_number,
+  a.job_id,
+  a.department_id
+<span class="kw">FROM</span> per_all_assignments_m a
+<span class="kw">WHERE</span> a.assignment_type = <span class="str">'E'</span>;</pre>
+      </div>
+      <div class="compare-card compare-good">
+        <div class="compare-header">✅ Correct — current row only</div>
+        <pre><span class="kw">SELECT</span>
+  a.person_id,
+  a.assignment_number,
+  a.job_id,
+  a.department_id
+<span class="kw">FROM</span> per_all_assignments_m a
+<span class="kw">WHERE</span> a.assignment_type = <span class="str">'E'</span>
+  <span class="kw">AND</span> a.effective_latest_change = <span class="str">'Y'</span>;</pre>
+      </div>
+    </div>
+
+    <p>That's the whole fix for most queries. One predicate. One column. Done.</p>
+
+    <h2 id="root-causes">4 Root Causes of Duplicate Rows</h2>
+
+    <p>Understanding why duplicates appear helps you write queries that stay correct as data changes. There are four main causes:</p>
+
+    <div class="root-causes">
+      <div class="cause-item">
+        <div class="cause-num">1</div>
+        <div class="cause-content">
+          <h4>No effective date filter at all</h4>
+          <p>The most common cause. A developer writes <code>FROM per_all_assignments_m</code> without any WHERE clause on effective dates or <code>EFFECTIVE_LATEST_CHANGE</code>. Returns all historical rows for every assignment. Fix: add <code>AND effective_latest_change = 'Y'</code>.</p>
+        </div>
+      </div>
+      <div class="cause-item">
+        <div class="cause-num">2</div>
+        <div class="cause-content">
+          <h4>SYSDATE filter with future-dated changes</h4>
+          <p>A filter like <code>SYSDATE BETWEEN effective_start_date AND effective_end_date</code> returns the current calendar row. But when an employee has a future-dated change, Oracle can create overlapping rows during processing, temporarily causing duplicates. <code>EFFECTIVE_LATEST_CHANGE</code> handles this correctly.</p>
+        </div>
+      </div>
+      <div class="cause-item">
+        <div class="cause-num">3</div>
+        <div class="cause-content">
+          <h4>Multiple active assignment records</h4>
+          <p>An employee can have multiple assignment records (ASSIGNMENT_NUMBER sequences) simultaneously — for example, a primary assignment and a secondary assignment. Both have <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> on their current rows. If you want one row per employee, you also need to filter on <code>PRIMARY_FLAG = 'Y'</code>.</p>
+        </div>
+      </div>
+      <div class="cause-item">
+        <div class="cause-num">4</div>
+        <div class="cause-content">
+          <h4>HDL-introduced date chain gaps</h4>
+          <p>A faulty HDL import can create a gap in the effective date chain — a period where no row covers a given date. If <code>SYSDATE</code> falls in the gap, a SYSDATE-based filter returns zero rows. <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> is immune to gaps because it marks the most recently written row regardless of calendar alignment.</p>
+        </div>
+      </div>
+    </div>
+
+    <h2 id="sysdate-vs-elc">SYSDATE Filter vs EFFECTIVE_LATEST_CHANGE — Which to Use?</h2>
+
+    <p>This is the most common debate in Oracle HCM SQL communities. Here's the full comparison:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Scenario</th>
+          <th>SYSDATE filter</th>
+          <th>EFFECTIVE_LATEST_CHANGE = 'Y'</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Current headcount, today's state</td>
+          <td><strong>Works</strong></td>
+          <td><strong>Works</strong></td>
+        </tr>
+        <tr>
+          <td>Employee with future-dated promotion</td>
+          <td>Returns current (not promoted) row ✓</td>
+          <td>May return future row depending on Oracle processing order ⚠</td>
+        </tr>
+        <tr>
+          <td>HDL-created date chain gaps</td>
+          <td>Returns 0 rows for employees in the gap ❌</td>
+          <td>Returns latest processed row ✓</td>
+        </tr>
+        <tr>
+          <td>As-of-date historical reporting</td>
+          <td><strong>Use this</strong> — replace SYSDATE with your target date</td>
+          <td>Cannot do point-in-time ❌</td>
+        </tr>
+        <tr>
+          <td>Oracle 24B+ new development</td>
+          <td>Acceptable but deprecated approach</td>
+          <td><strong>Oracle recommended approach</strong> ✓</td>
+        </tr>
+        <tr>
+          <td>OTBI Logical SQL compatibility</td>
+          <td>Requires custom SQL override</td>
+          <td>Works with standard OTBI filters ✓</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="alert alert-warn">
+      <div class="alert-title warn">Use Case Exception</div>
+      <p>For point-in-time historical queries (headcount as of 2024-12-31, salary as of hire date, etc.), you must use the SYSDATE pattern — replace SYSDATE with your target date. <code>EFFECTIVE_LATEST_CHANGE</code> only gives you the current state and cannot travel back in time.</p>
+    </div>
+
+    <h2 id="sql-patterns">Production SQL Patterns</h2>
+
+    <h3>Pattern 1: Current active headcount</h3>
+
+    <div class="code-block">
+      <div class="code-label">Current active employee headcount</div>
+      <pre><span class="cmt">-- Current active employees: one row per person, primary assignment only</span>
+<span class="kw">SELECT</span>
+  p.person_number,
+  p.full_name,
+  a.assignment_number,
+  a.job_id,
+  a.department_id,
+  a.location_id,
+  a.assignment_status_type,
+  a.effective_start_date
+<span class="kw">FROM</span>   per_all_assignments_m a
+<span class="kw">JOIN</span>   per_all_people_f p
+  <span class="kw">ON</span>   p.person_id = a.person_id
+  <span class="kw">AND</span>  p.effective_start_date &lt;= <span class="fn">SYSDATE</span>
+  <span class="kw">AND</span>  p.effective_end_date   &gt;= <span class="fn">SYSDATE</span>
+<span class="kw">WHERE</span>  a.effective_latest_change   = <span class="str">'Y'</span>
+  <span class="kw">AND</span>  a.assignment_type          = <span class="str">'E'</span>
+  <span class="kw">AND</span>  a.primary_flag             = <span class="str">'Y'</span>
+  <span class="kw">AND</span>  a.assignment_status_type   = <span class="str">'ACTIVE_ASSIGN'</span>
+<span class="kw">ORDER</span> <span class="kw">BY</span> p.full_name;</pre>
+    </div>
+
+    <h3>Pattern 2: Headcount by department</h3>
+
+    <div class="code-block">
+      <div class="code-label">Headcount by department (current state)</div>
+      <pre><span class="kw">SELECT</span>
+  d.department_name,
+  <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> a.person_id)  <span class="kw">AS</span> headcount
+<span class="kw">FROM</span>   per_all_assignments_m a
+<span class="kw">JOIN</span>   hr_all_organization_units_vl d
+  <span class="kw">ON</span>   d.organization_id = a.department_id
+<span class="kw">WHERE</span>  a.effective_latest_change   = <span class="str">'Y'</span>
+  <span class="kw">AND</span>  a.assignment_type          = <span class="str">'E'</span>
+  <span class="kw">AND</span>  a.primary_flag             = <span class="str">'Y'</span>
+  <span class="kw">AND</span>  a.assignment_status_type   = <span class="str">'ACTIVE_ASSIGN'</span>
+<span class="kw">GROUP</span> <span class="kw">BY</span> d.department_name
+<span class="kw">ORDER</span> <span class="kw">BY</span> headcount <span class="kw">DESC</span>;</pre>
+    </div>
+
+    <h3>Pattern 3: As-of-date headcount (historical)</h3>
+
+    <div class="code-block">
+      <div class="code-label">Point-in-time headcount — as of a specific date</div>
+      <pre><span class="cmt">-- Replace :as_of_date with your target date (e.g., DATE '2024-12-31')</span>
+<span class="kw">SELECT</span>
+  p.person_number,
+  p.full_name,
+  a.job_id,
+  a.department_id,
+  a.effective_start_date,
+  a.effective_end_date
+<span class="kw">FROM</span>   per_all_assignments_m a
+<span class="kw">JOIN</span>   per_all_people_f p
+  <span class="kw">ON</span>   p.person_id = a.person_id
+  <span class="kw">AND</span>  p.effective_start_date &lt;= :as_of_date
+  <span class="kw">AND</span>  p.effective_end_date   &gt;= :as_of_date
+<span class="kw">WHERE</span>  a.effective_start_date  &lt;= :as_of_date
+  <span class="kw">AND</span>  a.effective_end_date    &gt;= :as_of_date
+  <span class="kw">AND</span>  a.assignment_type       = <span class="str">'E'</span>
+  <span class="kw">AND</span>  a.primary_flag          = <span class="str">'Y'</span>
+  <span class="kw">AND</span>  a.assignment_status_type = <span class="str">'ACTIVE_ASSIGN'</span>
+<span class="kw">ORDER</span> <span class="kw">BY</span> p.full_name;</pre>
+    </div>
+
+    <h3>Pattern 4: Employee assignment history (intentionally all rows)</h3>
+
+    <div class="code-block">
+      <div class="code-label">Full assignment history for an employee — deliberate, no dedup filter</div>
+      <pre><span class="cmt">-- No EFFECTIVE_LATEST_CHANGE filter — we want all historical rows</span>
+<span class="kw">SELECT</span>
+  a.assignment_number,
+  a.effective_start_date,
+  a.effective_end_date,
+  a.job_id,
+  a.department_id,
+  a.location_id,
+  a.assignment_status_type,
+  a.effective_sequence
+<span class="kw">FROM</span>   per_all_assignments_m a
+<span class="kw">WHERE</span>  a.person_id    = :person_id
+  <span class="kw">AND</span>  a.assignment_type = <span class="str">'E'</span>
+  <span class="kw">AND</span>  a.primary_flag   = <span class="str">'Y'</span>
+<span class="kw">ORDER</span> <span class="kw">BY</span> a.effective_start_date <span class="kw">ASC</span>, a.effective_sequence <span class="kw">ASC</span>;</pre>
+    </div>
+
+    <div class="alert alert-ok">
+      <div class="alert-title ok">Pro Tip</div>
+      <p>When writing a history query deliberately (no dedup), add a comment like <code>-- intentional: all rows</code> so future developers don't "fix" it by adding a current-row filter and breaking the use case.</p>
+    </div>
+
+    <h2 id="otbi-duplicates">Fixing Duplicate Rows in OTBI Reports</h2>
+
+    <p>OTBI headcount reports that return 2x or 3x the expected row count are almost always caused by one of two things:</p>
+
+    <h3>Cause A: Comma join between subject areas</h3>
+
+    <p>When you drag columns from two subject areas onto the same OTBI report without a shared dimension, Oracle BI generates a comma join — a cross join that multiplies rows. If one subject area joins to <code>PER_ALL_ASSIGNMENTS_M</code> without an effective date constraint, you get one OTBI row per historical assignment change per matched row.</p>
+
+    <p>The fix: use a single subject area per report where possible. If you must join two, ensure they share the same "Employee" or "Assignment" dimension object — not just similar-looking columns.</p>
+
+    <h3>Cause B: Custom SQL override missing effective date filter</h3>
+
+    <p>Custom SQL overrides in OTBI bypass the subject area's built-in date-effective join logic. If your custom SQL selects from <code>PER_ALL_ASSIGNMENTS_M</code> without <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code>, you'll get multiple rows per assignment.</p>
+
+    <div class="code-block">
+      <div class="code-label">OTBI Custom SQL — add EFFECTIVE_LATEST_CHANGE to fix duplicates</div>
+      <pre><span class="cmt">-- Wrong: no effective date filter</span>
+<span class="kw">SELECT</span>
+  "Workforce Management - Worker Assignment Real Time"."Assignment Details"."Assignment Number",
+  "Workforce Management - Worker Assignment Real Time"."Worker"."Full Name"
+<span class="kw">FROM</span> "Workforce Management - Worker Assignment Real Time"
+
+<span class="cmt">-- Use a filter in the OTBI Criteria tab instead:</span>
+<span class="cmt">-- "Assignment Details"."Effective Latest Change" is equal to / is in Y</span></pre>
+    </div>
+
+    <p>In OTBI's standard subject areas, look for a filter column called <strong>"Effective Latest Change"</strong> under the Assignment Details folder. Adding a filter <code>Effective Latest Change = Y</code> in the Criteria tab is equivalent to <code>WHERE effective_latest_change = 'Y'</code> in SQL.</p>
+
+    <h2 id="effective-sequence">When to Use EFFECTIVE_SEQUENCE</h2>
+
+    <p><code>EFFECTIVE_SEQUENCE</code> is a secondary sequencing column that handles same-day multiple changes. When two assignment changes share the same <code>EFFECTIVE_START_DATE</code>, Oracle differentiates them with <code>EFFECTIVE_SEQUENCE</code> — the highest sequence number is the most recent version of that day's changes.</p>
+
+    <p>You need <code>EFFECTIVE_SEQUENCE</code> in two scenarios:</p>
+
+    <ol>
+      <li><strong>Ordering history queries</strong>: When displaying all changes sorted chronologically, order by <code>EFFECTIVE_START_DATE ASC, EFFECTIVE_SEQUENCE ASC</code>.</li>
+      <li><strong>Deduplicating same-day changes manually</strong>: If you cannot use <code>EFFECTIVE_LATEST_CHANGE</code> (rare edge case), you can use a window function to pick the highest sequence per date:</li>
+    </ol>
+
+    <div class="code-block">
+      <div class="code-label">Manual deduplication using EFFECTIVE_SEQUENCE (use only when EFFECTIVE_LATEST_CHANGE unavailable)</div>
+      <pre><span class="kw">SELECT</span> *
+<span class="kw">FROM</span> (
+  <span class="kw">SELECT</span>
+    a.*,
+    <span class="fn">ROW_NUMBER</span>() <span class="kw">OVER</span> (
+      <span class="kw">PARTITION BY</span> a.person_id, a.assignment_id
+      <span class="kw">ORDER BY</span> a.effective_start_date <span class="kw">DESC</span>, a.effective_sequence <span class="kw">DESC</span>
+    ) <span class="kw">AS</span> rn
+  <span class="kw">FROM</span>   per_all_assignments_m a
+  <span class="kw">WHERE</span>  a.assignment_type = <span class="str">'E'</span>
+    <span class="kw">AND</span>  a.primary_flag   = <span class="str">'Y'</span>
+)
+<span class="kw">WHERE</span> rn = <span class="num">1</span>;</pre>
+    </div>
+
+    <div class="alert alert-warn">
+      <div class="alert-title warn">Performance Note</div>
+      <p>The window function approach forces a full scan + sort. <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> can leverage Oracle's index on that column and is significantly faster on large instances. Use the window function only when you genuinely need it.</p>
+    </div>
+
+    <h2 id="common-mistakes">Common Mistakes That Reintroduce Duplicates</h2>
+
+    <p>Even after adding <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code>, some queries still return multiples. Here's why:</p>
+
+    <h3>Mistake 1: Forgetting PRIMARY_FLAG</h3>
+
+    <p>An employee with a primary and secondary assignment has two assignment records, both with <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> on their respective current rows. The result is two rows per person. Fix: add <code>AND primary_flag = 'Y'</code> when you want exactly one row per employee.</p>
+
+    <h3>Mistake 2: Filtering on ASSIGNMENT_STATUS_TYPE without understanding all valid values</h3>
+
+    <p>Some queries filter on <code>ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN'</code> to get active employees. But an employee on leave has a different status code (e.g., <code>'SUSP_ASSIGN'</code>) and won't appear. If your headcount should include employees on leave, extend your filter: <code>AND assignment_status_type IN ('ACTIVE_ASSIGN', 'SUSP_ASSIGN')</code>.</p>
+
+    <h3>Mistake 3: Joining PER_ALL_PEOPLE_F without effective date</h3>
+
+    <p>Joining <code>PER_ALL_ASSIGNMENTS_M</code> (filtered to current row) to <code>PER_ALL_PEOPLE_F</code> without an effective date filter on <code>PER_ALL_PEOPLE_F</code> reintroduces duplicates — now from the person table. Always add:</p>
+
+    <div class="code-block">
+      <div class="code-label">Always include effective date filter when joining PER_ALL_PEOPLE_F</div>
+      <pre><span class="kw">JOIN</span> per_all_people_f p
+  <span class="kw">ON</span>  p.person_id = a.person_id
+  <span class="kw">AND</span> p.effective_start_date &lt;= <span class="fn">SYSDATE</span>
+  <span class="kw">AND</span> p.effective_end_date   &gt;= <span class="fn">SYSDATE</span></pre>
+    </div>
+
+    <h3>Mistake 4: Using DISTINCT as a band-aid</h3>
+
+    <p><code>SELECT DISTINCT</code> masks duplicate rows without fixing the underlying join problem. If your query needs <code>DISTINCT</code> to return the right count, you have an implicit Cartesian join somewhere. Fix the join, don't hide the symptom.</p>
+
+    <div class="alert">
+      <div class="alert-title danger">Anti-Pattern to Avoid</div>
+      <p><code>SELECT DISTINCT person_id FROM per_all_assignments_m</code> — if you need <code>DISTINCT</code> here, you're not filtering effectively. Add <code>effective_latest_change = 'Y'</code> and <code>primary_flag = 'Y'</code> and remove the <code>DISTINCT</code>. The result will be the same, the query will be faster, and the intent will be clearer.</p>
+    </div>
+
+    <h2 id="faq">Frequently Asked Questions</h2>
+
+    <h3>Does EFFECTIVE_LATEST_CHANGE work on all Oracle HCM versions?</h3>
+    <p>Yes. <code>EFFECTIVE_LATEST_CHANGE</code> is present in all Oracle Fusion Cloud HCM versions and was introduced with the <code>_M</code> table architecture. If you're on Oracle HCM Cloud (Fusion), you have it. The column is not available on Oracle E-Business Suite (EBS) — that's a completely different architecture.</p>
+
+    <h3>Can I use EFFECTIVE_LATEST_CHANGE on other _M tables?</h3>
+    <p>Yes — it's available on all Oracle HCM <code>_M</code> suffix tables: <code>PER_ALL_ASSIGNMENTS_M</code>, <code>PER_ALL_PEOPLE_M</code>, <code>PAY_ALL_PAYROLLS_M</code>, and others. The column functions identically across all of them.</p>
+
+    <h3>My query still returns duplicates after adding EFFECTIVE_LATEST_CHANGE = 'Y'. Why?</h3>
+    <p>Check for: (1) missing <code>PRIMARY_FLAG = 'Y'</code> — the employee has multiple assignments; (2) a join to another date-effective table without an effective date filter; (3) a comma join in OTBI — two subject areas that don't share a properly constrained dimension.</p>
+
+    <h3>Is PER_ALL_ASSIGNMENTS_M replacing PER_ALL_ASSIGNMENTS_F?</h3>
+    <p><code>PER_ALL_ASSIGNMENTS_F</code> is not officially deprecated, but Oracle's recommended approach since 23D/24B is to use <code>PER_ALL_ASSIGNMENTS_M</code> for all new development. New Oracle-delivered OTBI subject areas are built on <code>_M</code> tables. See the <a href="/blog/per-all-assignments-f-oracle-24b-migration-guide">24B migration guide</a> for full detail.</p>
+
+    <h3>What's the performance impact of EFFECTIVE_LATEST_CHANGE = 'Y'?</h3>
+    <p>Oracle indexes <code>EFFECTIVE_LATEST_CHANGE</code> on all <code>_M</code> tables. A filter on this column is typically faster than a range predicate on <code>EFFECTIVE_START_DATE/EFFECTIVE_END_DATE</code> because it's a single-value equality check. On large instances (500K+ assignments), this difference is material.</p>
+
+    <div class="related-posts">
+      <div class="related-title">Related Articles</div>
+      <div class="related-grid">
+        <a href="/blog/per-all-assignments-f-oracle-24b-migration-guide" class="related-card">
+          <h4>PER_ALL_ASSIGNMENTS_F in Oracle 24B: Migration Guide</h4>
+          <p>The full _F → _M migration patterns</p>
+        </a>
+        <a href="/blog/otbi-comma-join-explained" class="related-card">
+          <h4>OTBI Comma Join Explained</h4>
+          <p>Why reports return too many rows</p>
+        </a>
+        <a href="/blog/person-assignment-work-relationship-data-model-explained" class="related-card">
+          <h4>Person-Assignment Data Model</h4>
+          <p>How PER_ tables relate to each other</p>
+        </a>
+        <a href="/blog/sql-query-library" class="related-card">
+          <h4>Oracle HCM SQL Query Library</h4>
+          <p>7 production-ready HCM queries</p>
+        </a>
+      </div>
+    </div>
+
+  </article>
+
+  <footer>
+    <p><a href="/">Oracle HCM Tables</a> · <a href="/blog/">Blog</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <p style="margin-top:0.5rem">&copy; 2026 HCM Tables</p>
+  </footer>
+
+</body>
+</html>

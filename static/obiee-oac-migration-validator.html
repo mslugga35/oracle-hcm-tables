@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <title>OBIEE to OAC Migration Validator — Check Logical SQL Compatibility | HCM Tables</title>
+  <meta name="description" content="Paste legacy OBIEE Logical SQL and get an OAC compatibility score + required changes. Catches comma-join syntax, saw_X aliasing, missing GROUP BY on aggregates, and deprecated column aliases automatically.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hcm-tables.com/obiee-oac-migration-validator">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hcm-tables.com/obiee-oac-migration-validator">
+  <meta property="og:title" content="OBIEE to OAC Migration Validator — Check Logical SQL Compatibility">
+  <meta property="og:description" content="Migrate OBIEE reports to OAC without the guesswork. Paste Logical SQL, get a compatibility score and exact fixes. First 5 reports free.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔄</text></svg>">
+
+  <style>
+    :root {
+      --bg: oklch(0.13 0.01 260);
+      --bg2: oklch(0.16 0.01 260);
+      --bg3: oklch(0.20 0.015 260);
+      --text: oklch(0.98 0 0);
+      --muted: oklch(0.65 0.01 260);
+      --faint: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-dim: oklch(0.60 0.25 25 / 0.15);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.62 0.22 15);
+      --purple: oklch(0.65 0.18 290);
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+      --r: 12px;
+      --r-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      max-width: 1100px; margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-links a { font-size: 0.9rem; color: var(--muted); font-weight: 500; margin-left: 1.5rem; }
+
+    .urgency-bar {
+      background: oklch(0.62 0.22 15 / 0.12); border-bottom: 1px solid oklch(0.62 0.22 15 / 0.3);
+      padding: 0.6rem 1.5rem; text-align: center;
+      font-size: 0.85rem; color: var(--red); font-weight: 600;
+    }
+
+    .hero {
+      max-width: 820px; margin: 0 auto;
+      padding: 4rem 1.5rem 3rem; text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: oklch(0.65 0.18 290 / 0.12); color: var(--purple);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.3rem 0.8rem;
+      border-radius: 100px; border: 1px solid oklch(0.65 0.18 290 / 0.3);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 {
+      font-size: clamp(2.2rem, 5vw, 3.2rem); font-weight: 800; line-height: 1.15;
+      margin-bottom: 1.25rem;
+    }
+    .hero h1 span { color: var(--purple); }
+    .hero p {
+      font-size: 1.15rem; color: var(--muted); max-width: 600px;
+      margin: 0 auto 2.5rem;
+    }
+
+    .cta-row {
+      display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap;
+      margin-bottom: 0.75rem;
+    }
+    .cta-primary {
+      background: var(--accent); color: #fff;
+      font-weight: 700; font-size: 1rem;
+      padding: 0.9rem 2rem; border-radius: var(--r-sm);
+      border: none; cursor: pointer; font-family: var(--sans);
+      text-decoration: none; display: inline-block;
+    }
+    .cta-primary:hover { opacity: 0.88; color: #fff; text-decoration: none; }
+    .cta-secondary {
+      background: var(--bg2); color: var(--text);
+      font-weight: 600; font-size: 1rem;
+      padding: 0.9rem 2rem; border-radius: var(--r-sm);
+      border: 1px solid var(--border); cursor: pointer; font-family: var(--sans);
+      text-decoration: none; display: inline-block;
+    }
+    .cta-secondary:hover { border-color: var(--accent); color: var(--text); text-decoration: none; }
+    .hero-note { font-size: 0.82rem; color: var(--faint); }
+
+    .stat-row {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    @media (max-width: 640px) { .stat-row { grid-template-columns: 1fr; } }
+    .stat-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem; text-align: center;
+    }
+    .stat-number { font-size: 2.5rem; font-weight: 800; color: var(--purple); }
+    .stat-label { font-size: 0.85rem; color: var(--muted); margin-top: 0.25rem; }
+
+    .section {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem;
+    }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; color: var(--purple);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;
+    }
+    .section h2 {
+      font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem;
+    }
+    .section > p {
+      font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem;
+    }
+
+    .checks-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+    .check-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1.1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .check-icon { font-size: 1.25rem; flex-shrink: 0; margin-top: 1px; }
+    .check-content h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .check-content p { font-size: 0.875rem; color: var(--muted); }
+    .check-severity {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      padding: 0.1rem 0.45rem; border-radius: 4px; margin-left: 0.5rem;
+      vertical-align: middle;
+    }
+    .sev-high { background: oklch(0.62 0.22 15 / 0.12); color: var(--red); }
+    .sev-med { background: oklch(0.80 0.15 85 / 0.12); color: var(--yellow); }
+
+    .before-after {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin: 2rem 0;
+    }
+    @media (max-width: 640px) { .before-after { grid-template-columns: 1fr; } }
+    .ba-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+    }
+    .ba-header {
+      padding: 0.6rem 1rem; font-size: 0.75rem; font-weight: 700;
+      text-transform: uppercase; letter-spacing: 0.06em;
+      border-bottom: 1px solid var(--border);
+    }
+    .ba-before .ba-header { background: oklch(0.62 0.22 15 / 0.08); color: var(--red); }
+    .ba-after .ba-header { background: oklch(0.70 0.18 145 / 0.08); color: var(--green); }
+    .ba-card pre {
+      padding: 1rem; font-family: var(--mono); font-size: 0.82rem;
+      line-height: 1.6; color: var(--muted); overflow-x: auto;
+    }
+    .kw { color: oklch(0.65 0.2 25); }
+    .col { color: oklch(0.75 0.12 250); }
+    .cmt { color: oklch(0.45 0.01 260); font-style: italic; }
+    .str { color: oklch(0.70 0.18 145); }
+    .bad { color: oklch(0.62 0.22 15); }
+    .good { color: oklch(0.70 0.18 145); }
+
+    .output-preview {
+      background: oklch(0.11 0.015 260); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem; margin-top: 1rem;
+      font-family: var(--mono); font-size: 0.875rem; overflow-x: auto;
+    }
+    .out-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--faint);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;
+    }
+    .out-row { display: flex; gap: 1.5rem; padding: 0.5rem 0; border-bottom: 1px solid oklch(0.20 0.01 260); align-items: center; }
+    .out-row:last-child { border-bottom: none; }
+    .out-check { color: var(--muted); flex: 2; }
+    .out-badge { flex: 1; font-weight: 700; font-size: 0.8rem; }
+    .out-fix { flex: 3; font-size: 0.78rem; color: var(--faint); }
+    .out-fail { color: var(--red); }
+    .out-warn { color: var(--yellow); }
+    .out-pass { color: var(--green); }
+    .score-line {
+      margin-top: 1rem; padding-top: 0.75rem; border-top: 1px solid oklch(0.20 0.01 260);
+      font-weight: 800; font-size: 1.1rem;
+    }
+    .score-ok { color: var(--green); }
+    .score-bad { color: var(--yellow); }
+
+    .pricing-grid {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem; margin-top: 1.5rem;
+    }
+    @media (max-width: 700px) { .pricing-grid { grid-template-columns: 1fr; } }
+    .pricing-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem;
+    }
+    .pricing-card.featured { border-color: var(--purple); }
+    .pricing-tier { font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.07em; color: var(--faint); margin-bottom: 0.5rem; }
+    .pricing-price { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .pricing-price span { font-size: 0.9rem; font-weight: 400; color: var(--muted); }
+    .pricing-desc { font-size: 0.875rem; color: var(--muted); margin-bottom: 1rem; }
+    .pricing-features { list-style: none; padding: 0; }
+    .pricing-features li { font-size: 0.875rem; color: var(--muted); padding: 0.3rem 0; border-bottom: 1px solid var(--border); }
+    .pricing-features li:last-child { border-bottom: none; }
+    .pricing-features li::before { content: "✓ "; color: var(--green); font-weight: 700; }
+
+    .faq-list { display: flex; flex-direction: column; gap: 1.25rem; margin-top: 1.5rem; }
+    .faq-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1.25rem;
+    }
+    .faq-item h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .faq-item p { font-size: 0.9rem; color: var(--muted); }
+
+    .cta-block {
+      max-width: 600px; margin: 0 auto; padding: 0 1.5rem 5rem;
+      text-align: center;
+    }
+    .cta-block h2 { font-size: 2rem; font-weight: 800; margin-bottom: 1rem; }
+    .cta-block p { font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem; }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem 1.5rem;
+      text-align: center; font-size: 0.85rem; color: var(--faint);
+    }
+    footer a { color: var(--faint); }
+    footer a:hover { color: var(--blue); }
+  </style>
+</head>
+<body>
+
+  <div class="urgency-bar">
+    OBIEE on-premise end-of-support is active — Oracle is encouraging migration to OAC now. Reports that worked in OBIEE will fail in OAC without syntax updates.
+  </div>
+
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/blog/">Blog</a>
+      <a href="/otbi-template-pack">Templates</a>
+    </div>
+  </nav>
+
+  <section class="hero">
+    <div class="hero-badge">Migration Window Open — Consultants Moving Projects Now</div>
+    <h1>Validate OBIEE Reports<br>for <span>OAC Compatibility</span> — Fast</h1>
+    <p>Paste your legacy OBIEE Logical SQL. Get a compatibility score + exact fixes for comma-join syntax, deprecated aliases, missing GROUP BY, and subquery patterns that break in OAC.</p>
+    <div class="cta-row">
+      <a href="mailto:mpm.morales@gmail.com?subject=OBIEE-OAC Validator - First 5 Reports Free" class="cta-primary">Validate My First Report Free →</a>
+    </div>
+    <div class="hero-note">First 5 reports free. No account required. Avg 3-5 migration projects per firm = $5K–$10K/project revenue protected.</div>
+  </section>
+
+  <div class="stat-row">
+    <div class="stat-card">
+      <div class="stat-number">4</div>
+      <div class="stat-label">Logical SQL syntax changes that break reports in OAC</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">200+</div>
+      <div class="stat-label">Avg OBIEE reports per migration project</div>
+    </div>
+    <div class="stat-card">
+      <div class="stat-number">$25</div>
+      <div class="stat-label">Per-report validation (batch pricing available)</div>
+    </div>
+  </div>
+
+  <section class="section">
+    <div class="section-label">Compatibility Checks</div>
+    <h2>What the Validator Catches</h2>
+    <p>OAC's query engine handles several Logical SQL patterns differently from OBIEE 11g/12c. These four changes cause the most report failures post-migration.</p>
+
+    <div class="checks-grid">
+      <div class="check-item">
+        <div class="check-icon">🔴</div>
+        <div class="check-content">
+          <h3>Comma-Join Syntax → Explicit JOIN Required <span class="check-severity sev-high">HIGH</span></h3>
+          <p>OBIEE tolerated implicit comma joins in Logical SQL (<code>FROM "Subject A", "Subject B"</code>). OAC enforces explicit join syntax. Reports using comma joins produce assertion failures (<code>nQSError: Assertion failure</code>) in OAC. The validator detects comma joins and outputs the corrected OBIEE JOIN syntax.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🔴</div>
+        <div class="check-content">
+          <h3>saw_X Subquery Aliasing <span class="check-severity sev-high">HIGH</span></h3>
+          <p>OBIEE's internal SQL uses <code>saw_0</code>, <code>saw_1</code> aliases in nested queries. Reports that reference these aliases in custom SQL overrides or OBIEE Answers advanced SQL break in OAC where the aliasing scheme changed. Validator flags these and suggests the OAC-compatible column reference format.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🟡</div>
+        <div class="check-content">
+          <h3>Missing GROUP BY on Ranked Aggregates <span class="check-severity sev-med">MED</span></h3>
+          <p>OBIEE's query rewriter was more permissive about implicit grouping in aggregate queries. OAC enforces strict GROUP BY requirements. Reports using RANK(), DENSE_RANK(), or SUM() without explicit GROUP BY clauses that worked in OBIEE will throw syntax errors in OAC.</p>
+        </div>
+      </div>
+      <div class="check-item">
+        <div class="check-icon">🟡</div>
+        <div class="check-content">
+          <h3>Deprecated Column Alias Formats <span class="check-severity sev-med">MED</span></h3>
+          <p>Several OBIEE-specific column alias patterns (particularly in Presentation layer references) changed format between OBIEE 12c and OAC. Reports with hardcoded subject area paths in non-standard format produce "column not found" errors. Validator normalizes these to the OAC expected format.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Before & After</div>
+    <h2>What the Output Looks Like</h2>
+
+    <div class="before-after">
+      <div class="ba-card ba-before">
+        <div class="ba-header">❌ OBIEE — Breaks in OAC</div>
+        <pre><span class="kw">SELECT</span>
+  <span class="col">"Workforce"."Full Name"</span>,
+  <span class="col">"Payroll"."Total Pay"</span>
+<span class="kw">FROM</span>
+  <span class="bad">"Workforce Management",</span>
+  <span class="bad">"Payroll Results"</span>     <span class="cmt">-- comma join</span>
+<span class="kw">WHERE</span>
+  <span class="col">"Workforce"."Status"</span>
+    = <span class="str">'Active'</span>
+<span class="kw">ORDER BY</span> <span class="bad">saw_0</span> <span class="kw">ASC</span></pre>
+      </div>
+      <div class="ba-card ba-after">
+        <div class="ba-header">✅ OAC-Compatible Output</div>
+        <pre><span class="kw">SELECT</span>
+  <span class="col">"Workforce"."Full Name"</span>,
+  <span class="col">"Payroll"."Total Pay"</span>
+<span class="kw">FROM</span>
+  <span class="good">"Workforce Management"</span>
+  <span class="good">JOIN "Payroll Results"</span>
+  <span class="good">ON ...</span>           <span class="cmt">-- explicit join</span>
+<span class="kw">WHERE</span>
+  <span class="col">"Workforce"."Status"</span>
+    = <span class="str">'Active'</span>
+<span class="kw">ORDER BY</span> <span class="good">1</span> <span class="kw">ASC</span></pre>
+      </div>
+    </div>
+
+    <div class="output-preview">
+      <div class="out-label">Validator Report</div>
+      <div class="out-row">
+        <div class="out-check">Comma-join syntax</div>
+        <div class="out-badge out-fail">FAIL</div>
+        <div class="out-fix">→ Replace with explicit JOIN between subject areas</div>
+      </div>
+      <div class="out-row">
+        <div class="out-check">saw_X column aliases</div>
+        <div class="out-badge out-fail">FAIL</div>
+        <div class="out-fix">→ Replace saw_0 with positional integer (1)</div>
+      </div>
+      <div class="out-row">
+        <div class="out-check">GROUP BY on aggregates</div>
+        <div class="out-badge out-pass">PASS</div>
+        <div class="out-fix"></div>
+      </div>
+      <div class="out-row">
+        <div class="out-check">Column alias format</div>
+        <div class="out-badge out-pass">PASS</div>
+        <div class="out-fix"></div>
+      </div>
+      <div class="score-line score-bad">OAC Compatibility Score: 45/100 — 2 blocking issues, corrected SQL provided</div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">Pricing</div>
+    <h2>Pay Per Report or Flat Monthly</h2>
+    <p>Most migration projects run 200–400 reports. Per-report pricing gets you started immediately; flat monthly makes sense for firms running multiple projects in parallel.</p>
+
+    <div class="pricing-grid">
+      <div class="pricing-card">
+        <div class="pricing-tier">Free Trial</div>
+        <div class="pricing-price">$0 <span>/ first 5 reports</span></div>
+        <div class="pricing-desc">Test mid-migration. No credit card. Instant access.</div>
+        <ul class="pricing-features">
+          <li>All 4 compatibility checks</li>
+          <li>Compatibility score</li>
+          <li>Fix suggestions</li>
+          <li>5 reports included</li>
+        </ul>
+      </div>
+      <div class="pricing-card featured">
+        <div class="pricing-tier">Per Report</div>
+        <div class="pricing-price">$25 <span>/ report</span></div>
+        <div class="pricing-desc">Best for one-off projects. Pay as you go, no commitment.</div>
+        <ul class="pricing-features">
+          <li>All 4 compatibility checks</li>
+          <li>Full corrected SQL output</li>
+          <li>PDF deliverable report</li>
+          <li>Batch discounts (100+ reports)</li>
+        </ul>
+      </div>
+      <div class="pricing-card">
+        <div class="pricing-tier">Monthly</div>
+        <div class="pricing-price">$499 <span>/ month</span></div>
+        <div class="pricing-desc">For firms running 2+ concurrent migration projects.</div>
+        <ul class="pricing-features">
+          <li>Unlimited reports/month</li>
+          <li>Full corrected SQL output</li>
+          <li>PDF deliverable reports</li>
+          <li>Priority turnaround</li>
+          <li>Batch import via CSV</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="section-label">FAQ</div>
+    <h2>Common Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <h3>Does this work for all OBIEE versions?</h3>
+        <p>Yes — the validator handles Logical SQL from OBIEE 11g, 12c, and Oracle BI Publisher. The most common migration paths today are 12c → OAC and 11g → OAC. Both are supported.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Does the validator fix the SQL automatically?</h3>
+        <p>Yes. For the two highest-severity issues (comma joins and saw_X aliasing), the validator outputs a corrected version of your Logical SQL. For lower-severity issues, it provides the exact pattern change needed with a before/after example.</p>
+      </div>
+      <div class="faq-item">
+        <h3>How do I get my first 5 reports validated for free?</h3>
+        <p>Email <a href="mailto:mpm.morales@gmail.com">mpm.morales@gmail.com</a> with your OBIEE Logical SQL (paste directly in the email or attach as .txt). We'll return a compatibility report within 24 hours. No account setup, no credit card.</p>
+      </div>
+      <div class="faq-item">
+        <h3>Can you handle a full 200-report migration project?</h3>
+        <p>Yes. On the monthly plan, batch import via CSV lets you submit all 200 reports at once. Typical turnaround for a full project batch is 2–3 business days with PDF report per query and a summary findings document.</p>
+      </div>
+      <div class="faq-item">
+        <h3>What about OTBI-specific Logical SQL?</h3>
+        <p>OTBI generates Logical SQL that targets Oracle BI Server subject areas — the same engine as OBIEE/OAC. The same compatibility checks apply. If you have OTBI custom SQL overrides that need to work in OAC, the validator handles those too.</p>
+      </div>
+    </div>
+  </section>
+
+  <div class="cta-block">
+    <h2>Start With Your First Report — Free</h2>
+    <p>OBIEE migration projects are happening now. Consultants who validate first ship faster and avoid the post-go-live "assertion failure" calls. Email us your first Logical SQL query.</p>
+    <div class="cta-row">
+      <a href="mailto:mpm.morales@gmail.com?subject=OBIEE-OAC Validator - First 5 Reports Free" class="cta-primary">Send My First Report →</a>
+      <a href="/blog/obiee-assertion-failure-fix" class="cta-secondary">Read the OBIEE Fix Guide</a>
+    </div>
+    <div class="hero-note" style="margin-top:0.75rem">Or email <a href="mailto:mpm.morales@gmail.com">mpm.morales@gmail.com</a> directly. First 5 reports always free.</div>
+  </div>
+
+  <footer>
+    <p><a href="/">Oracle HCM Tables</a> · <a href="/blog/">Blog</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+    <p style="margin-top:0.5rem">&copy; 2026 HCM Tables</p>
+  </footer>
+
+</body>
+</html>
