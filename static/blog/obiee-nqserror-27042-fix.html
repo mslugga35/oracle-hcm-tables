@@ -1,0 +1,1057 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>OBIEE nQSError 27042 — "At Most One Row Is Expected" Causes, Fixes &amp; Diagnosis | HCM Tables</title>
+  <meta name="title" content="OBIEE nQSError 27042 — "At Most One Row Is Expected" Causes, Fixes &amp; Diagnosis | HCM Tables">
+  <meta name="description" content="Fix OBIEE nQSError 27042 'At Most One Row Is Expected' errors. Covers initialization block fixes, scalar session variables, filter issues, and OTBI diagnostic steps with code examples.">
+  <meta name="keywords" content="nQSError 27042, OBIEE 27042 error, at most one row is expected, OBIEE initialization block, OTBI 27042 fix, scalar session variable, OBIEE session variable error, Oracle BI row count fix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/obiee-nqserror-27042-fix">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/obiee-nqserror-27042-fix">
+  <meta property="og:title" content="OBIEE nQSError 27042 — "At Most One Row Is Expected" Causes, Fixes &amp; Diagnosis">
+  <meta property="og:description" content="Fix OBIEE nQSError 27042 errors with initialization blocks, scalar session variables, and filter diagnostics. Copy-paste SQL examples and root cause analysis.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/obiee-nqserror-27042-fix">
+  <meta property="twitter:title" content="OBIEE nQSError 27042 — "At Most One Row Is Expected" Causes, Fixes &amp; Diagnosis">
+  <meta property="twitter:description" content="Fix nQSError 27042 'At Most One Row Is Expected' errors with initialization blocks, scalar variables, and filter diagnostics.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OBIEE nQSError 27042 — \"At Most One Row Is Expected\" Causes, Fixes & Diagnosis",
+    "description": "Fix OBIEE nQSError 27042 'At Most One Row Is Expected' errors. Covers initialization block fixes, scalar session variables, filter issues, and OTBI diagnostic steps with code examples.",
+    "url": "https://hcm-tables.com/blog/obiee-nqserror-27042-fix",
+    "datePublished": "2026-05-30",
+    "dateModified": "2026-05-30",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/obiee-nqserror-27042-fix"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OBIEE nQSError 27042 — \"At Most One Row Is Expected\" Causes, Fixes & Diagnosis","item":"https://hcm-tables.com/blog/obiee-nqserror-27042-fix"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema (boosts featured snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does OBIEE nQSError 27042 mean?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "nQSError 27042 means 'At most one row is expected in the result set for an initialization block SQL statement.' This error is thrown when an initialization block's SQL query returns more than one row, but the block is configured to populate a single scalar session variable. Scalar variables can only hold one value; if the SQL returns multiple rows, the server cannot determine which row to use and throws 27042."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between scalar and row session variables in OBIEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A scalar session variable holds a single value (e.g., the current user's department). A row session variable holds multiple values, one per row in the result set. If your initialization block SQL returns multiple rows, you must configure the session variable as a row variable, not a scalar. Check the variable type in Administration Tool: Manage > Variables > Session."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix an initialization block that returns multiple rows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Three options: 1) Add a WHERE clause to filter the SQL to return exactly one row per user (e.g., WHERE user_id = CURRENT_USER), 2) Use FETCH FIRST 1 ROWS ONLY to grab the first row only, 3) Change the session variable from scalar to row type if you genuinely need multiple values, or 4) Use an aggregate function like MAX() or LISTAGG() to collapse multiple rows into a single output."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google tag (gtag.js) — GA4 analytics, tracking ID G-NSN2JWG98H -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H" crossorigin="anonymous"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    .error-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-card .error-code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-card .error-msg {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .fix-card {
+      background: oklch(0.16 0.02 145 / 0.3);
+      border: 1px solid oklch(0.70 0.18 145 / 0.4);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fix-card .fix-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .fix-card p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .callout p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout strong { color: var(--text-primary); }
+
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .toc a { color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); text-decoration: none; }
+
+    .quick-ref {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .quick-ref table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .quick-ref th {
+      background: var(--bg-tertiary);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .quick-ref td {
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .quick-ref td:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .quick-ref td:nth-child(3) {
+      color: var(--green);
+      font-size: 0.88rem;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, oklch(0.18 0.03 260) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary) !important;
+      margin-top: 0 !important;
+    }
+
+    .cta-box p {
+      color: var(--text-secondary);
+      font-size: 1rem !important;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: oklch(0.98 0 0);
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.85; text-decoration: none; color: oklch(0.98 0 0); }
+
+    .related-posts {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-posts h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      transition: border-color 0.15s;
+    }
+
+    .related-card:hover { border-color: var(--text-muted); }
+
+    .related-card .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .related-card a:hover { color: var(--accent); text-decoration: none; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer a { color: var(--blue); }
+    .footer a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <main class="article-container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; OBIEE nQSError 27042
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <span class="article-tag">OTBI Reporting</span>
+      <h1>OBIEE nQSError 27042 &mdash; "At Most One Row Is Expected" Causes, Fixes &amp; Diagnosis</h1>
+      <p class="article-meta">May 30, 2026 &middot; 12 min read</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h4>In this article</h4>
+      <ol>
+        <li><a href="#what-is">What nQSError 27042 Means</a></li>
+        <li><a href="#root-causes">Root Causes of 27042</a></li>
+        <li><a href="#scalar-vs-row">Scalar vs Row Session Variables</a></li>
+        <li><a href="#diagnosis">Diagnosis Steps</a></li>
+        <li><a href="#fix-patterns">5 Fix Patterns with Code Examples</a></li>
+        <li><a href="#init-block-types">Init Block Types Quick Reference</a></li>
+        <li><a href="#otbi-context">27042 in OTBI (Fusion Cloud)</a></li>
+        <li><a href="#logging">Debug Using BI Server Log Level 3</a></li>
+        <li><a href="#faq">Frequently Asked Questions</a></li>
+      </ol>
+    </nav>
+
+    <!-- Article Content -->
+    <article class="article-content">
+
+      <p>
+        OBIEE nQSError 27042 is one of the most common initialization block errors, but the error message is misleading. The full message reads "At most one row is expected in the result set for an initialization block SQL statement" — yet beginners often don't understand why their initialization block is returning multiple rows or what "scalar" means. This guide covers every root cause, diagnosis step, and copy-paste fix.
+      </p>
+
+      <div class="callout">
+        <p><strong>Where this error occurs:</strong> nQSError 27042 fires when an initialization block's SQL query returns more than one row, but the session variable is configured as scalar (single value). It also fires in OTBI when a calculated measure or filter expects a unique result but gets multiple rows. The cause is different in each case, but the fix pattern is the same: make sure each SQL returns exactly one row per logical entity.</p>
+      </div>
+
+      <!-- What is 27042? -->
+      <h2 id="what-is">What nQSError 27042 Means</h2>
+
+      <p>
+        When an OBIEE initialization block runs, its SQL query populates one or more session variables. The error 27042 is thrown in two scenarios:
+      </p>
+
+      <ol>
+        <li><strong>Init block SQL returns multiple rows:</strong> The block's SQL returns 2, 10, or 100 rows, but the session variable is configured to hold only 1 value (scalar type). The server cannot decide which row to use and throws 27042.</li>
+        <li><strong>OTBI filter returns multiple matches:</strong> In Fusion Cloud OTBI, you have a calculated measure or filter condition that expects a single scalar value, but the underlying query returns 0 or many results instead of exactly 1.</li>
+      </ol>
+
+      <div class="error-card">
+        <div class="error-code">Typical error message:</div>
+        <div class="error-msg">[nQSError: 27042] At most one row is expected in the result set for an initialization block SQL statement. (Session variable: 'SECURITY_DEPARTMENT')</div>
+      </div>
+
+      <p>
+        The error message tells you which session variable caused the issue, but not why. The "why" is almost always one of these: (a) the SQL has no WHERE clause filtering to the current user, (b) the current user has multiple role assignments or department assignments, (c) the SQL is too broad and returns results for all users, or (d) you're using a scalar variable when you should use a row variable.
+      </p>
+
+      <!-- Root Causes -->
+      <h2 id="root-causes">Root Causes of nQSError 27042</h2>
+
+      <h3>Cause 1: Init block SQL with no WHERE clause filtering to current user</h3>
+
+      <p>
+        The most common trigger. You query all users instead of just the current one. The SQL returns 100 rows, the scalar session variable can only hold 1, so OBIEE throws 27042.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: No WHERE clause — returns all departments (100+ rows)
+SELECT DISTINCT department_id
+FROM employees
+ORDER BY department_id
+
+-- RIGHT: Filter to current user
+SELECT DISTINCT department_id
+FROM employees
+WHERE employee_id = VALUE(USER)
+ORDER BY department_id</pre>
+      </div>
+
+      <h3>Cause 2: Init block SQL returns multiple rows per user</h3>
+
+      <p>
+        The WHERE clause correctly filters to the current user, but that user has multiple values. For example, a user assigned to 3 cost centers, or with 5 active role assignments. Each assignment is a row, so the query returns 3 or 5 rows, triggering 27042.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: User may have multiple cost center assignments (returns 3 rows)
+SELECT cost_center_id
+FROM employee_cost_centers
+WHERE employee_id = VALUE(USER)
+
+-- RIGHT: Use FETCH FIRST to grab the primary (first) one
+SELECT cost_center_id
+FROM employee_cost_centers
+WHERE employee_id = VALUE(USER)
+AND primary_flag = 'Y'
+FETCH FIRST 1 ROWS ONLY
+
+-- ALTERNATE: Use aggregate to collapse to single row
+SELECT MAX(cost_center_id) AS cost_center_id
+FROM employee_cost_centers
+WHERE employee_id = VALUE(USER)
+WHERE primary_flag = 'Y'</pre>
+      </div>
+
+      <h3>Cause 3: Correlated subquery returns multiple rows</h3>
+
+      <p>
+        Your init block uses a subquery in the SELECT clause that returns multiple rows. Scalar context (a single value in SELECT) cannot unpack multiple rows.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: Subquery can return multiple rows in scalar context
+SELECT (SELECT role_id FROM user_roles WHERE user_id = VALUE(USER)) AS role
+FROM dual
+
+-- RIGHT: Collapse to a single value
+SELECT LISTAGG(role_id, ',') WITHIN GROUP (ORDER BY role_id) AS roles
+FROM user_roles
+WHERE user_id = VALUE(USER)</pre>
+      </div>
+
+      <h3>Cause 4: Security group filter returns multiple matches</h3>
+
+      <p>
+        In OTBI, if you have a calculated measure or filter that uses a security group, and that group's definition returns multiple rows where it should return 1, you get 27042.
+      </p>
+
+      <h3>Cause 5: Using scalar variable when you need row variable</h3>
+
+      <p>
+        Your initialization block genuinely needs to return multiple values (e.g., all departments for the current user), but you incorrectly configured the session variable as <code>scalar</code> instead of <code>row</code>.
+      </p>
+
+      <!-- Scalar vs Row -->
+      <h2 id="scalar-vs-row">Scalar vs Row Session Variables Explained</h2>
+
+      <p>
+        Understanding the difference is critical to avoiding 27042.
+      </p>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Variable Type</th>
+              <th>Expected Rows</th>
+              <th>Storage</th>
+              <th>Use Case</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Scalar</strong></td>
+              <td>Exactly 1 row</td>
+              <td>Single value, e.g., 'DEPT_001'</td>
+              <td>Current user's primary department, region, cost center</td>
+            </tr>
+            <tr>
+              <td><strong>Row</strong></td>
+              <td>0 to N rows</td>
+              <td>Array of values, e.g., ['DEPT_001', 'DEPT_002', 'DEPT_003']</td>
+              <td>All departments user can access, all active assignments, all roles</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p>
+        If your init block SQL returns 3 rows (because the user has 3 cost centers), you must use a row variable, not a scalar. If you use a scalar variable, you get 27042 every time that initialization block runs.
+      </p>
+
+      <div class="callout">
+        <p><strong>How to check in OBIEE:</strong> Administration Tool &rarr; Manage &rarr; Variables &rarr; Session Variables &rarr; [Variable Name]. Look at the "Is Session Variable Scalar?" checkbox. Checked = scalar. Unchecked = row variable.</p>
+      </div>
+
+      <!-- Diagnosis -->
+      <h2 id="diagnosis">How to Diagnose nQSError 27042</h2>
+
+      <p>
+        Follow these steps to identify the root cause before you fix anything:
+      </p>
+
+      <ol>
+        <li><strong>Locate the init block:</strong> In OBIEE Administration Tool, go to Manage &rarr; Variables &rarr; Session Variables &rarr; Initialization Blocks. Find the block name mentioned in the error message (e.g., 'SECURITY_DEPARTMENT').</li>
+        <li><strong>Extract the SQL:</strong> Open the init block definition and copy the entire SQL query.</li>
+        <li><strong>Simulate the current user:</strong> Replace all <code>VALUE(USER)</code> with a hardcoded test user ID, e.g., <code>'EMP12345'</code>.</li>
+        <li><strong>Run it manually:</strong> Execute the SQL against the database (SQL Developer, SQL*Plus) using the same connection pool user that OBIEE uses.</li>
+        <li><strong>Count the rows:</strong> If the query returns 0 rows, the session variable won't be set. If it returns > 1 rows, that's your 27042 trigger.</li>
+        <li><strong>Identify the row count per user:</strong> Modify the query to show how many rows each user gets: <code>SELECT user_id, COUNT(*) FROM ... GROUP BY user_id</code>. If any user has count > 1, you've found the root cause.</li>
+      </ol>
+
+      <div class="fix-card">
+        <div class="fix-label">Pro tip for diagnosis</div>
+        <p>Enable BI Server query logging at level 3. The log file will show the exact SQL that was executed, with the USER variable substituted. Use that actual SQL in your manual test — never guess at what OBIEE is sending.</p>
+      </div>
+
+      <!-- Fix Patterns -->
+      <h2 id="fix-patterns">5 Fix Patterns with Code Examples</h2>
+
+      <h3>Fix 1: Add FETCH FIRST 1 ROWS ONLY</h3>
+
+      <p>
+        If your SQL logically should return 1 row but accidentally returns multiples (due to duplicate joins or aggregation issues), use <code>FETCH FIRST 1 ROWS ONLY</code> to grab the first row and discard the rest.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Init block SQL: grab user's primary department
+SELECT cc.cost_center_id
+FROM employee_assignments ea
+JOIN cost_centers cc ON ea.cost_center_id = cc.id
+WHERE ea.employee_id = VALUE(USER)
+AND ea.primary_assignment_flag = 'Y'
+FETCH FIRST 1 ROWS ONLY</pre>
+      </div>
+
+      <h3>Fix 2: Use MAX() or MIN() to collapse multiple rows</h3>
+
+      <p>
+        If multiple rows represent the same logical entity (e.g., multiple role assignments), use an aggregate function to pick one deterministically.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Init block SQL: grab user's highest-priority role (by role_id)
+SELECT MAX(role_id) AS role_id
+FROM user_roles
+WHERE user_id = VALUE(USER)
+AND role_status = 'ACTIVE'
+GROUP BY user_id</pre>
+      </div>
+
+      <h3>Fix 3: Use LISTAGG() to concatenate multi-value results</h3>
+
+      <p>
+        If you genuinely need multiple values in a single result (e.g., all departments the user can access), use <code>LISTAGG()</code> to concatenate them into a comma-separated list, then store in a scalar variable. When you use the variable in a filter, the filter expands the list.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Init block SQL: all departments for user as comma-separated list
+SELECT LISTAGG(department_id, ',') WITHIN GROUP (ORDER BY department_id) AS accessible_depts
+FROM user_department_access
+WHERE user_id = VALUE(USER)
+AND access_type = 'VIEW'</pre>
+      </div>
+
+      <h3>Fix 4: Change to a ROW session variable</h3>
+
+      <p>
+        If you genuinely need multiple rows (and your init block is configured correctly to return multiple rows), change the session variable from scalar to row type.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- In Administration Tool, for session variable 'USER_DEPARTMENTS':
+-- 1. Go to Variables > Session Variables > USER_DEPARTMENTS
+-- 2. Uncheck "Is Session Variable Scalar?"
+-- 3. Check "Is Session Variable Row?"
+-- 4. Set initialization block to return multiple rows (no FETCH FIRST, no MAX)
+-- 5. Save and reload the server
+
+-- Init block SQL:
+SELECT DISTINCT department_id
+FROM user_department_access
+WHERE user_id = VALUE(USER)
+AND access_type = 'VIEW'</pre>
+      </div>
+
+      <h3>Fix 5: Add a WHERE clause filtering to current user</h3>
+
+      <p>
+        If the init block SQL has no WHERE clause at all, that's the bug. Add one to filter to the current user.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: No WHERE clause — all 1000 users' departments!
+SELECT DISTINCT department_id FROM employees
+
+-- RIGHT: Add WHERE clause
+SELECT DISTINCT department_id
+FROM employees
+WHERE employee_id = VALUE(USER)</pre>
+      </div>
+
+      <!-- Init Block Types -->
+      <h2 id="init-block-types">Init Block Types Quick Reference Table</h2>
+
+      <p>
+        Use this table when you're setting up a new initialization block to avoid 27042 before it happens:
+      </p>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Block Purpose</th>
+              <th>Variable Type</th>
+              <th>Expected Rows</th>
+              <th>Fix Pattern if 27042 Occurs</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Current user's primary dept</td>
+              <td>Scalar</td>
+              <td>Exactly 1</td>
+              <td>Add WHERE primary_flag='Y' or FETCH FIRST 1</td>
+            </tr>
+            <tr>
+              <td>All user's cost centers</td>
+              <td>Row</td>
+              <td>0 to N</td>
+              <td>Change variable type from scalar to row</td>
+            </tr>
+            <tr>
+              <td>User's roles (concatenated)</td>
+              <td>Scalar</td>
+              <td>Exactly 1</td>
+              <td>Use LISTAGG() to collapse multiple rows</td>
+            </tr>
+            <tr>
+              <td>User's accessible GL accounts</td>
+              <td>Row</td>
+              <td>0 to N</td>
+              <td>Change variable type from scalar to row</td>
+            </tr>
+            <tr>
+              <td>Current user's manager ID</td>
+              <td>Scalar</td>
+              <td>Exactly 1</td>
+              <td>Add WHERE manager_assignment_type='PRIMARY'</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- OTBI Context -->
+      <h2 id="otbi-context">nQSError 27042 in OTBI (Oracle Fusion Cloud)</h2>
+
+      <p>
+        In OTBI, you don't write initialization blocks (that's OBIEE-specific). However, you can still hit 27042 in two scenarios:
+      </p>
+
+      <h3>Scenario 1: Calculated measure returns multiple rows</h3>
+
+      <p>
+        You have a calculated measure that tries to return a scalar result (a single number), but the underlying query returns multiple rows or a query error. OTBI throws 27042 when it tries to assign the multi-row result to a scalar field.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: This calculated measure queries employees and gets 100 rows
+SELECT SUM(salary)
+FROM employees
+-- No WHERE clause — returns multiple rows, breaks scalar context
+
+-- RIGHT: Wrap in aggregation to ensure scalar result
+SELECT SUM(salary)
+FROM employees
+WHERE department_id = @department_id  -- Parameter passed in
+AND employee_status = 'ACTIVE'</pre>
+      </div>
+
+      <h3>Scenario 2: Filter or prompt uses a subquery returning multiple values</h3>
+
+      <p>
+        You have a column filter or dashboard prompt that uses a subquery to populate allowed values. If that subquery is supposed to return a single scalar but returns multiple rows, you get 27042.
+      </p>
+
+      <div class="fix-card">
+        <div class="fix-label">OTBI diagnosis</div>
+        <p>Enable BI Server logging (contact your Fusion System Administrator). Look for the physical SQL that was executed. Run it manually in SQL Developer. If it returns more rows than expected, that's your root cause. Add an aggregate function or WHERE clause to reduce to 1 row.</p>
+      </div>
+
+      <!-- Logging -->
+      <h2 id="logging">Debug Using BI Server Log Level 3</h2>
+
+      <p>
+        When you're stuck, enable BI Server logging at level 3 (detailed query logging). This shows the exact SQL OBIEE is executing, including all <code>VALUE(USER)</code> substitutions.
+      </p>
+
+      <h3>Steps (OBIEE on-premises):</h3>
+
+      <ol>
+        <li>Open Administration Tool</li>
+        <li>Go to Manage &rarr; Servers &rarr; BI Server &rarr; Click "Logging" tab</li>
+        <li>Set Query Log Level to 3 (or higher for more detail)</li>
+        <li>Click "Save and Deploy"</li>
+        <li>Run a report or dashboard that hits the init block (or try to log in)</li>
+        <li>Go to the BI Server log location (usually /config/logfiles/ or /logs/): Find <code>nqserver.log</code></li>
+        <li>Search for the initialization block name or the SQL you're testing</li>
+        <li>Look at the actual SQL sent to the database — this is what's returning multiple rows</li>
+      </ol>
+
+      <div class="callout">
+        <p><strong>Log levels:</strong> 0 = off, 1 = errors only, 2 = warnings, 3 = queries + timing, 4 = full detail. Level 3 is usually enough to diagnose 27042. Level 4 is verbose and slows the system down — use only for critical debugging.</p>
+      </div>
+
+      <!-- FAQ -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+
+      <h3>Q: I'm getting 27042 but my init block SQL looks correct. What else could it be?</h3>
+
+      <p>
+        Check three things: (1) The SQL you're looking at in the Administration Tool might not be the latest — restart the BI Server and try again. (2) The initialization block might not be the problem — check if there's another init block that runs before it that's failing. (3) The connection pool user (who OBIEE uses to run the SQL) might have different data access than your user account — test the SQL using the connection pool user's login, not your own.
+      </p>
+
+      <h3>Q: How do I use a row session variable in a filter in OTBI?</h3>
+
+      <p>
+        If you configure a session variable as row type and populate it with multiple values (e.g., ['DEPT_001', 'DEPT_002', 'DEPT_003']), you can use it in a filter with the IN operator: <code>"Department"."Department ID" IN (VALUE(ROW_VARIABLE_NAME))</code>. OBIEE expands the row variable into a comma-separated list automatically.
+      </p>
+
+      <h3>Q: My init block query returns 1 row in SQL Developer but still throws 27042 in OBIEE. Why?</h3>
+
+      <p>
+        Three possibilities: (1) You tested with your own login; OBIEE is using the connection pool user, who may see different data. (2) You tested with a hardcoded user ID, but OBIEE is logging in a different user. (3) The init block runs for multiple users in parallel, and one user's query is returning > 1 rows while yours returns 1. Check which user is logged in when the error occurs, then test the init block SQL for that specific user.
+      </p>
+
+      <h3>Q: Is there a way to defer initialization blocks or run them in a specific order?</h3>
+
+      <p>
+        In OBIEE Administration Tool, you can set dependencies between init blocks using the "Initialization Block Sequence" setting. If Block B relies on a session variable set by Block A, configure Block B to depend on Block A. OBIEE will run Block A first. However, there's no way to "skip" an init block if it's not applicable for a user — if a user triggers 27042, they can't log in.
+      </p>
+
+      <h3>Q: Can I catch 27042 in a filter or use IFNULL to handle it?</h3>
+
+      <p>
+        No. nQSError 27042 happens during session initialization, before any queries run. Once you're in a dashboard or report, the session variable is either set or it's not. You can't recover from 27042 with a filter condition — you have to fix the initialization block SQL. If you want optional session variables (that might not be set), configure them with "Allow NULL values" in the initialization block definition.
+      </p>
+
+      <!-- CTA Boxes -->
+      <div class="cta-box">
+        <h3>OBIEE/OTBI SQL Validator</h3>
+        <p>Still stuck? Paste your error message and init block SQL. Get a root cause diagnosis and corrected query in seconds.</p>
+        <a href="/obiee-sql-validator" class="cta-btn">Open SQL Validator &rarr;</a>
+      </div>
+
+      <div class="cta-box" style="margin-top:1.5rem;background:oklch(0.18 0.02 145 / 0.25);border-color:oklch(0.50 0.15 145 / 0.4);">
+        <h3>15 Production-Ready OTBI Queries</h3>
+        <p>Copy-paste OTBI logical SQL templates for headcount, assignments, compensation, and absence reports. No more Syntax Errors.</p>
+        <a href="/otbi-template-pack" class="cta-btn" style="background:oklch(0.60 0.18 145);box-shadow:0 2px 12px oklch(0.60 0.18 145 / 0.35);">Get the OTBI Template Pack &rarr;</a>
+      </div>
+
+      <h2>Quick Diagnostic Checklist for 27042</h2>
+
+      <ol>
+        <li>Find the initialization block name in the error message</li>
+        <li>Extract the SQL query from Administration Tool</li>
+        <li>Replace <code>VALUE(USER)</code> with a test user ID</li>
+        <li>Run the SQL manually — count the rows</li>
+        <li>If > 1 rows, identify which rows: do they belong to one user (multiple assignments) or multiple users (missing WHERE clause)?</li>
+        <li>If multiple assignments per user, add <code>FETCH FIRST 1 ROWS ONLY</code> or use <code>MAX()</code> / <code>LISTAGG()</code></li>
+        <li>If missing WHERE clause, add one: <code>WHERE [user_column] = VALUE(USER)</code></li>
+        <li>If you genuinely need multiple rows, change the session variable from scalar to row type</li>
+        <li>Restart BI Server and test login again</li>
+      </ol>
+
+    </article>
+
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h3>Related guides</h3>
+      <div class="related-grid">
+        <div class="related-card">
+          <div class="tag">OTBI Errors</div>
+          <a href="/blog/obiee-assertion-failure-fix">OBIEE/OTBI Assertion Failure Errors &mdash; Causes, Fixes &amp; SQL Examples</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">OTBI Reporting</div>
+          <a href="/blog/otbi-subject-area-guide">OTBI Subject Areas &mdash; Complete Guide with Decision Tree</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">SQL</div>
+          <a href="/blog/sql-query-library">SQL Query Library &mdash; 7 Production-Ready Queries</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">OTBI Syntax</div>
+          <a href="/blog/otbi-comma-join-explained">OTBI Comma Join Explained &mdash; Root Cause &amp; Fix</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p>
+        <a href="/">Search 35,000+ Oracle Tables</a> &middot;
+        <a href="/privacy">Privacy Policy</a> &middot;
+        <a href="/terms">Terms of Service</a> &middot;
+        <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      navigator.clipboard.writeText(pre.textContent).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

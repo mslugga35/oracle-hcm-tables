@@ -1,0 +1,1264 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" data-ad-client="ca-pub-4971966903803570"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>OBIEE and OTBI Subquery Joins — Complete Guide with Logical SQL Examples | HCM Tables</title>
+  <meta name="title" content="OBIEE and OTBI Subquery Joins — Complete Guide with Logical SQL Examples | HCM Tables">
+  <meta name="description" content="Master OBIEE/OTBI subqueries and inline views. Learn when to use EXISTS, IN, scalar subqueries, and derived tables with Oracle HCM examples. Covers syntax, nQSError fixes, and the multi-dataset workaround.">
+  <meta name="keywords" content="obiee subquery, otbi subquery join, obiee logical sql subquery, oracle bi subquery syntax, otbi inline view, obiee derived table, otbi exists, nqserror 27002 subquery, oracle bi inline view">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/obiee-subquery-joins-otbi">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/obiee-subquery-joins-otbi">
+  <meta property="og:title" content="OBIEE and OTBI Subquery Joins — Complete Guide with Logical SQL Examples">
+  <meta property="og:description" content="Master OBIEE/OTBI subqueries: inline views, EXISTS patterns, scalar subqueries, window functions with production Oracle HCM examples.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/obiee-subquery-joins-otbi">
+  <meta property="twitter:title" content="OBIEE and OTBI Subquery Joins — Complete Guide with Logical SQL Examples">
+  <meta property="twitter:description" content="Master OBIEE/OTBI subqueries, inline views, EXISTS patterns, and window functions with production Oracle HCM examples.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OBIEE and OTBI Subquery Joins — Complete Guide with Logical SQL Examples",
+    "description": "Master OBIEE/OTBI subqueries and inline views. Learn when to use EXISTS, IN, scalar subqueries, and derived tables with Oracle HCM examples. Covers syntax, nQSError fixes, and the multi-dataset workaround.",
+    "url": "https://hcm-tables.com/blog/obiee-subquery-joins-otbi",
+    "datePublished": "2026-05-30",
+    "dateModified": "2026-05-30",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/obiee-subquery-joins-otbi"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OBIEE and OTBI Subquery Joins — Complete Guide with Logical SQL Examples","item":"https://hcm-tables.com/blog/obiee-subquery-joins-otbi"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema (boosts featured snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Does OBIEE logical SQL support subqueries?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. OBIEE logical SQL supports inline views (derived tables in FROM), scalar subqueries in SELECT or WHERE, and correlated subqueries with EXISTS and IN. However, subqueries must reference presentation columns from your selected subject area, not physical table names. All inline views require an alias."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my OTBI subquery return nQSError 27002?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The most common causes are: 1) Missing alias on an inline view (derived table), 2) Subquery without parentheses or wrong parenthesis placement, 3) Mixing physical table names with logical presentation columns in the same query. Always use presentation layer column paths like \"Folder\".\"Column\" inside OTBI subqueries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I join data from two different OTBI subject areas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OTBI logical SQL queries run against a single subject area at a time. To combine data from two subject areas: 1) Use a BI Publisher data model with two separate OTBI queries as datasets, then join them by Person Number or another key in the BIP layer, or 2) If both subject areas share overlapping columns, check if a single broader subject area already exists that spans both."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js" integrity="sha384-RhiCEKjXVNvXDqt0jlWXH5D6h8D+2YBJo7jI6y3d+g0yYAqQfv0n3YtEKBVBVJX" crossorigin="anonymous"></script>
+
+  <!-- Google tag (gtag.js) — GA4 analytics, tracking ID G-NSN2JWG98H -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H" integrity="sha384-KW+wkHlkKKzxvPjC8cIQHqqk2LjBe1YTMPPPKnsjVVYhXr0Cf6YhfmxDwPy5BK9Z" crossorigin="anonymous"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    .error-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-card .error-code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-card .error-msg {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .fix-card {
+      background: oklch(0.16 0.02 145 / 0.3);
+      border: 1px solid oklch(0.70 0.18 145 / 0.4);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fix-card .fix-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .fix-card p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .callout p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout strong { color: var(--text-primary); }
+
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .toc a { color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); text-decoration: none; }
+
+    .quick-ref {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .quick-ref table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .quick-ref th {
+      background: var(--bg-tertiary);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .quick-ref td {
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .quick-ref td:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .quick-ref td:nth-child(3) {
+      color: var(--green);
+      font-size: 0.88rem;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, oklch(0.18 0.03 260) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary) !important;
+      margin-top: 0 !important;
+    }
+
+    .cta-box p {
+      color: var(--text-secondary);
+      font-size: 1rem !important;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: oklch(0.98 0 0);
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.85; text-decoration: none; color: oklch(0.98 0 0); }
+
+    .related-posts {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-posts h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      transition: border-color 0.15s;
+    }
+
+    .related-card:hover { border-color: var(--text-muted); }
+
+    .related-card .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .related-card a:hover { color: var(--accent); text-decoration: none; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer a { color: var(--blue); }
+    .footer a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <main class="article-container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; OBIEE and OTBI Subquery Joins
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <span class="article-tag">OTBI Reporting</span>
+      <h1>OBIEE and OTBI Subquery Joins &mdash; Complete Guide with Logical SQL Examples</h1>
+      <p class="article-meta">May 30, 2026 &middot; 18 min read</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h4>In this article</h4>
+      <ol>
+        <li><a href="#overview">OBIEE Logical SQL vs Physical SQL: Subquery Support Overview</a></li>
+        <li><a href="#inline-views">Inline Views (Derived Tables) in FROM Clause</a></li>
+        <li><a href="#correlated-subqueries">Correlated Subqueries: EXISTS, NOT EXISTS, IN</a></li>
+        <li><a href="#scalar-subqueries">Scalar Subqueries in SELECT and WHERE</a></li>
+        <li><a href="#why-physical-fails">Why Physical SQL Subquery Patterns Fail</a></li>
+        <li><a href="#common-errors">Common nQSError Codes with Subqueries</a></li>
+        <li><a href="#multi-dataset">Multi-Dataset Workaround: Joining Two Subject Areas</a></li>
+        <li><a href="#evaluate">EVALUATE() Function for Native DB SQL</a></li>
+        <li><a href="#window-functions">Window Functions and RANK()</a></li>
+        <li><a href="#hcm-examples">Practical Examples for Oracle HCM</a></li>
+        <li><a href="#quick-ref">Subquery Pattern Quick Reference</a></li>
+        <li><a href="#faq">FAQ: OBIEE Subquery Questions</a></li>
+      </ol>
+    </nav>
+
+    <!-- Article Content -->
+    <article class="article-content">
+
+      <p>
+        OBIEE and OTBI subqueries are powerful but differ significantly from standard SQL. Many developers coming from SQL backgrounds expect all subquery patterns to work—but they don't. This guide covers every supported subquery pattern, common errors, and practical workarounds for Oracle HCM.
+      </p>
+
+      <div class="callout">
+        <p><strong>Key difference:</strong> OBIEE logical SQL subqueries reference presentation columns from your selected subject area, not physical table names. This is the single most important rule. A subquery that runs fine in SQL*Plus will fail in OTBI because it references table names instead of presentation folder paths.</p>
+      </div>
+
+      <!-- Overview -->
+      <h2 id="overview">OBIEE Logical SQL vs Physical SQL: Subquery Support Overview</h2>
+
+      <p>
+        OBIEE's BI Server parses your logical SQL and converts it to physical database SQL before execution. When you write a subquery in logical SQL, you're not talking to the database—you're talking to the presentation layer. This fundamental difference explains why many standard SQL patterns break.
+      </p>
+
+      <h3>What IS supported:</h3>
+      <ul>
+        <li>Inline views (derived tables in FROM clause) — yes, with mandatory alias</li>
+        <li>Correlated subqueries with EXISTS, NOT EXISTS, IN — yes, using presentation columns</li>
+        <li>Scalar subqueries in SELECT or WHERE returning single value — yes</li>
+        <li>Window functions (RANK, ROW_NUMBER) — yes, in most OBIEE/OTBI versions</li>
+        <li>CASE expressions with subqueries — yes</li>
+      </ul>
+
+      <h3>What IS NOT supported:</h3>
+      <ul>
+        <li>Comma-separated FROM with subqueries (must use explicit JOIN syntax)</li>
+        <li>UNION inside subqueries (in older OBIEE versions; newer versions support it)</li>
+        <li>Correlated subqueries that reference tables outside the FROM clause subject area</li>
+        <li>Physical table names or aliases in subqueries (must use presentation layer paths)</li>
+        <li>Subqueries without aliases in FROM clause (will trigger nQSError 27002)</li>
+      </ul>
+
+      <!-- Inline Views -->
+      <h2 id="inline-views">Inline Views (Derived Tables) in FROM Clause</h2>
+
+      <p>
+        Inline views are subqueries in the FROM clause, also called "derived tables." OBIEE supports them, but every inline view <strong>must have an alias</strong>. Missing the alias is the #1 cause of "nQSError 27002 near ) syntax error."
+      </p>
+
+      <h3>Syntax: Basic inline view</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Correct: inline view with mandatory alias
+SELECT
+  inner_query.person_number,
+  inner_query.full_name,
+  inner_query.assignment_count
+FROM (
+  SELECT
+    "Worker Details"."Person Number"  AS person_number,
+    "Worker"."Full Name"              AS full_name,
+    COUNT(*)                          AS assignment_count
+  FROM "Workforce Management - Worker Assignment Real Time"
+  WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+  GROUP BY "Worker Details"."Person Number", "Worker"."Full Name"
+) inner_query
+ORDER BY inner_query.assignment_count DESC</pre>
+      </div>
+
+      <p>
+        Notice that the subquery references presentation columns (like <code>"Worker Details"."Person Number"</code>), not physical table names. The alias <code>inner_query</code> is required.
+      </p>
+
+      <h3>Why the alias is mandatory</h3>
+
+      <p>
+        OBIEE's parser needs a name for the inline view to reference columns from it in the outer query. Without the alias, the parser cannot bind <code>inner_query.person_number</code> to a result set. The error message is terse—just "nQSError 27002 near )"—but it's always the missing alias.
+      </p>
+
+      <div class="error-card">
+        <div class="error-code">nQSError: 27002</div>
+        <div class="error-msg">Near &lt;)&gt;: Syntax error [at line 5, near char 182]</div>
+      </div>
+
+      <div class="fix-card">
+        <div class="fix-label">Fix</div>
+        <p>Add <code>AS alias_name</code> after the closing parenthesis of your subquery. The alias name can be anything: <code>sub1</code>, <code>derived_employees</code>, <code>t1</code>—pick a descriptive name for readability.</p>
+      </div>
+
+      <h3>Inline views with aggregation</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Count employees per department from a derived table
+SELECT
+  dept.department_name,
+  dept.total_employees
+FROM (
+  SELECT
+    "Department"."Department Name"  AS department_name,
+    COUNT(DISTINCT "Worker Details"."Person Number")  AS total_employees
+  FROM "Workforce Management - Worker Assignment Real Time"
+  WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+  GROUP BY "Department"."Department Name"
+) dept
+ORDER BY dept.total_employees DESC</pre>
+      </div>
+
+      <!-- Correlated Subqueries -->
+      <h2 id="correlated-subqueries">Correlated Subqueries: EXISTS, NOT EXISTS, IN</h2>
+
+      <p>
+        Correlated subqueries allow you to filter outer rows based on conditions in the subquery. OBIEE supports EXISTS, NOT EXISTS, and IN patterns, but they must reference the outer query's columns correctly through the presentation layer.
+      </p>
+
+      <h3>EXISTS pattern</h3>
+
+      <p>
+        Use EXISTS when you need to check if at least one row matching a condition exists. EXISTS returns true/false, not a value.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Find all active employees who have had assignment changes in the last 90 days
+SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name",
+  "Assignment Details"."Effective Start Date"
+FROM "Workforce Management - Worker Assignment Real Time" outer_asgn
+WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+AND EXISTS (
+  SELECT 1
+  FROM "Workforce Management - Worker Assignment Real Time" history
+  WHERE history."Worker Details"."Person Number" = outer_asgn."Worker Details"."Person Number"
+  AND history."Assignment Details"."Effective Start Date" >= CURRENT_DATE - 90
+)</pre>
+      </div>
+
+      <p>
+        Note the WHERE condition inside the subquery: <code>history."Worker Details"."Person Number" = outer_asgn."Worker Details"."Person Number"</code>. This correlates the subquery to the outer query by matching person numbers.
+      </p>
+
+      <h3>NOT EXISTS pattern</h3>
+
+      <p>
+        Invert the logic to find rows where NO matching condition exists.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Find employees with NO assignment in the last 30 days (potentially inactive)
+SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name",
+  "Last Hire Effective Date"
+FROM "Workforce Management - Worker Assignment Real Time" p
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM "Workforce Management - Worker Assignment Real Time" a
+  WHERE a."Worker Details"."Person Number" = p."Worker Details"."Person Number"
+  AND a."Assignment Details"."Effective Start Date" >= CURRENT_DATE - 30
+)</pre>
+      </div>
+
+      <h3>IN pattern with subquery</h3>
+
+      <p>
+        Use IN when you need a subquery that returns a single column of values to match against.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Find all employees whose department's headcount exceeds 50
+SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name",
+  "Department"."Department Name"
+FROM "Workforce Management - Worker Assignment Real Time"
+WHERE "Department"."Department Name" IN (
+  SELECT
+    "Department"."Department Name"
+  FROM "Workforce Management - Worker Assignment Real Time"
+  WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+  GROUP BY "Department"."Department Name"
+  HAVING COUNT(DISTINCT "Worker Details"."Person Number") > 50
+)</pre>
+      </div>
+
+      <div class="callout">
+        <p><strong>Performance note:</strong> IN subqueries can be slow in OBIEE if the subquery returns many rows. EXISTS is often faster for row existence checks. Test both and use execution statistics to compare.</p>
+      </div>
+
+      <!-- Scalar Subqueries -->
+      <h2 id="scalar-subqueries">Scalar Subqueries in SELECT and WHERE</h2>
+
+      <p>
+        A scalar subquery returns exactly one value (one row, one column). Use them in SELECT to add calculated columns, or in WHERE to filter by a single value.
+      </p>
+
+      <h3>Scalar subquery in SELECT clause</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Add company average headcount to each employee's row
+SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name",
+  "Department"."Department Name",
+  (SELECT COUNT(DISTINCT "Worker Details"."Person Number")
+   FROM "Workforce Management - Worker Assignment Real Time"
+   WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+  ) AS company_total_headcount
+FROM "Workforce Management - Worker Assignment Real Time"
+WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'</pre>
+      </div>
+
+      <p>
+        This subquery runs once and returns the same value for every row, so company_total_headcount will be identical in all rows.
+      </p>
+
+      <h3>Scalar subquery in WHERE clause</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Find all employees whose salary exceeds the company average salary
+SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name",
+  "Annual Salary"
+FROM "Compensation Real Time"
+WHERE "Annual Salary" > (
+  SELECT AVG("Annual Salary")
+  FROM "Compensation Real Time"
+)</pre>
+      </div>
+
+      <div class="error-card">
+        <div class="error-code">Common error</div>
+        <div class="error-msg">nQSError: 27002 "Near &lt;)&gt;: Syntax error" if your scalar subquery returns multiple rows or columns</div>
+      </div>
+
+      <p>
+        If your scalar subquery accidentally returns 2+ rows or 2+ columns, OBIEE will reject it as a syntax error because a scalar position expects exactly one value.
+      </p>
+
+      <!-- Why Physical Fails -->
+      <h2 id="why-physical-fails">Why Physical SQL Subquery Patterns Fail in OBIEE Logical SQL</h2>
+
+      <p>
+        The biggest gotcha: standard SQL subqueries reference <strong>physical table names</strong>. OBIEE subqueries reference <strong>presentation folder and column names</strong>. Here's a concrete example:
+      </p>
+
+      <h3>Physical SQL (works in SQL*Plus, FAILS in OTBI):</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- This works in SQL*Plus but will FAIL in OTBI:
+SELECT person_id, name
+FROM per_all_people_f p
+WHERE SYSDATE BETWEEN p.effective_start_date AND p.effective_end_date
+AND EXISTS (
+  SELECT 1 FROM per_all_assignments_f a
+  WHERE a.person_id = p.person_id
+  AND a.effective_latest_change = 'Y'
+)</pre>
+      </div>
+
+      <h3>Logical SQL (OBIEE/OTBI way):</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Correct OBIEE/OTBI logical SQL version:
+SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name"
+FROM "Workforce Management - Worker Assignment Real Time" p
+WHERE EXISTS (
+  SELECT 1
+  FROM "Workforce Management - Worker Assignment Real Time" a
+  WHERE a."Worker Details"."Person Number" = p."Worker Details"."Person Number"
+  AND a."Assignment Details"."Effective Latest Change" = 'Yes'
+)</pre>
+      </div>
+
+      <h3>Key differences:</h3>
+
+      <ul>
+        <li><strong>Table names gone:</strong> No <code>per_all_people_f</code>, no <code>per_all_assignments_f</code>. Instead, one subject area: <code>"Workforce Management - Worker Assignment Real Time"</code>.</li>
+        <li><strong>Column paths qualified:</strong> Instead of <code>person_id</code>, it's <code>"Worker Details"."Person Number"</code> — full folder.column notation.</li>
+        <li><strong>Date logic implicit:</strong> OBIEE automatically handles <code>SYSDATE BETWEEN effective_start_date AND effective_end_date</code> through the metadata. You don't write it in logical SQL for temporal tables.</li>
+        <li><strong>Function names changed:</strong> <code>SYSDATE</code> becomes <code>CURRENT_DATE</code>; <code>'Y'</code> might become <code>'Yes'</code> depending on the presentation layer's lookup codes.</li>
+      </ul>
+
+      <!-- Common Errors -->
+      <h2 id="common-errors">Common nQSError Codes with Subqueries</h2>
+
+      <h3>nQSError: 27002 "Near ) Syntax error"</h3>
+
+      <p>
+        Usually caused by:
+      </p>
+
+      <ul>
+        <li>Missing alias on an inline view: <code>SELECT * FROM (...) </code> instead of <code>SELECT * FROM (...) AS alias</code></li>
+        <li>Subquery with wrong parenthesis count: <code>SELECT * FROM (SELECT ...)</code> vs <code>SELECT * FROM ((SELECT ...))</code></li>
+        <li>Scalar subquery returning multiple rows</li>
+      </ul>
+
+      <h3>nQSError: 22024 "Column not found in subject area"</h3>
+
+      <p>
+        Your subquery references a column that doesn't exist in the selected subject area. Always verify column paths against the OTBI column browser before writing the query.
+      </p>
+
+      <h3>nQSError: 14025 "No fact table at requested level"</h3>
+
+      <p>
+        You're mixing grain levels from two incompatible subject areas inside a single query. OBIEE cannot automatically roll up or drill down between different subject areas. Use the multi-dataset workaround (see below).
+      </p>
+
+      <h3>nQSError: 96015 "Function called with wrong number of arguments"</h3>
+
+      <p>
+        Your subquery uses an OBIEE function with the wrong argument count. For example, <code>IFNULL(col)</code> needs 2 arguments: <code>IFNULL(col, default_value)</code>.
+      </p>
+
+      <!-- Multi-Dataset Workaround -->
+      <h2 id="multi-dataset">Multi-Dataset Workaround: Joining Two Subject Areas</h2>
+
+      <p>
+        OBIEE logical SQL queries run against <strong>one subject area at a time</strong>. You cannot write a single query that joins two subject areas—the BI Server will throw nQSError: 27002 "syntax error near comma" if you try.
+      </p>
+
+      <p>
+        If you need data from two subject areas, use a <strong>BI Publisher data model</strong> with two separate OTBI logical SQL datasets, then join them in the BIP layer.
+      </p>
+
+      <h3>Example: Combining Worker data + Absence balances</h3>
+
+      <p>
+        Worker data lives in <code>Workforce Management - Worker Assignment Real Time</code>. Absence balances live in <code>Workforce Management - Accrual Real Time</code>. These are two separate subject areas.
+      </p>
+
+      <h3>Solution: BI Publisher data model with 2 datasets</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- DATASET 1: Worker details (Subject Area 1)
+SELECT
+  "Worker Details"."Person Number"     AS person_number,
+  "Worker"."Full Name"                 AS full_name,
+  "Department"."Department Name"       AS department,
+  "Annual Salary"                      AS salary
+FROM "Workforce Management - Worker Assignment Real Time"
+WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+
+-- DATASET 2: Absence balances (Subject Area 2)
+SELECT
+  "Worker"."Person Number"             AS person_number,
+  "Absence Plan"."Absence Plan Name"   AS absence_type,
+  "Balance"."Balance in Days"          AS balance_days
+FROM "Workforce Management - Accrual Real Time"
+
+-- In BI Publisher data model: Define a group link joining dataset1.person_number = dataset2.person_number
+-- Then in the RTF template, you can display workers with their absence balances using nesting</pre>
+      </div>
+
+      <p>
+        This approach lets you fetch data from both subject areas, then join them at the reporting layer where you have full control.
+      </p>
+
+      <!-- EVALUATE Function -->
+      <h2 id="evaluate">EVALUATE() Function for Native DB SQL</h2>
+
+      <p>
+        If your OBIEE/OTBI instance has direct database access enabled (rare in cloud), you can use <code>EVALUATE()</code> to push native SQL to the physical database layer.
+      </p>
+
+      <h3>Syntax:</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name",
+  EVALUATE(
+    'SELECT AVG(salary) FROM per_all_people_f WHERE SYSDATE BETWEEN effective_start_date AND effective_end_date'
+  ) AS avg_salary
+FROM "Workforce Management - Worker Assignment Real Time"</pre>
+      </div>
+
+      <div class="callout">
+        <p><strong>Caution:</strong> EVALUATE() is disabled in most cloud tenants for security reasons. If you attempt to use it on OTBI and get an error, contact Oracle Support to check if it's enabled in your instance.</p>
+      </div>
+
+      <!-- Window Functions -->
+      <h2 id="window-functions">Window Functions and RANK()</h2>
+
+      <p>
+        OBIEE supports window functions like <code>RANK()</code>, <code>ROW_NUMBER()</code>, <code>DENSE_RANK()</code> in logical SQL. These are useful for ranking rows within groups.
+      </p>
+
+      <h3>RANK() to find top earners per department</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Rank employees by salary within each department, show top 3
+SELECT
+  "Department"."Department Name",
+  "Worker"."Full Name",
+  "Annual Salary",
+  RANK() OVER (PARTITION BY "Department"."Department Name" ORDER BY "Annual Salary" DESC) AS salary_rank
+FROM "Compensation Real Time"
+WHERE RANK() OVER (PARTITION BY "Department"."Department Name" ORDER BY "Annual Salary" DESC) <= 3
+ORDER BY "Department"."Department Name", salary_rank</pre>
+      </div>
+
+      <p>
+        This query ranks salaries within each department and returns only the top 3 earners per department.
+      </p>
+
+      <h3>ROW_NUMBER() for unique row numbering</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Get the latest assignment per person
+SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name",
+  "Assignment Details"."Job Name",
+  "Assignment Details"."Effective Start Date"
+FROM (
+  SELECT
+    "Worker Details"."Person Number",
+    "Worker"."Full Name",
+    "Assignment Details"."Job Name",
+    "Assignment Details"."Effective Start Date",
+    ROW_NUMBER() OVER (PARTITION BY "Worker Details"."Person Number" ORDER BY "Assignment Details"."Effective Start Date" DESC) AS rn
+  FROM "Workforce Management - Worker Assignment Real Time"
+) latest_asgn
+WHERE latest_asgn.rn = 1</pre>
+      </div>
+
+      <!-- HCM Examples -->
+      <h2 id="hcm-examples">Practical Examples for Oracle HCM</h2>
+
+      <h3>Example 1: Top 5 highest-paid employees</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  "Worker"."Full Name",
+  "Job"."Job Name",
+  "Department"."Department Name",
+  "Annual Salary"
+FROM "Compensation Real Time"
+ORDER BY "Annual Salary" DESC
+FETCH FIRST 5 ROWS ONLY</pre>
+      </div>
+
+      <h3>Example 2: Employees with no assignment in last 90 days (NOT EXISTS pattern)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  "Worker Details"."Person Number",
+  "Worker"."Full Name",
+  "Worker"."Hire Date"
+FROM "Workforce Management - Worker Assignment Real Time" p
+WHERE NOT EXISTS (
+  SELECT 1
+  FROM "Workforce Management - Worker Assignment Real Time" a
+  WHERE a."Worker Details"."Person Number" = p."Worker Details"."Person Number"
+  AND a."Assignment Details"."Effective Start Date" >= CURRENT_DATE - 90
+)
+ORDER BY p."Worker"."Hire Date" DESC</pre>
+      </div>
+
+      <h3>Example 3: Count employees per department vs company average (scalar subquery)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  "Department"."Department Name",
+  COUNT(DISTINCT "Worker Details"."Person Number") AS dept_headcount,
+  (SELECT COUNT(DISTINCT "Worker Details"."Person Number")
+   FROM "Workforce Management - Worker Assignment Real Time"
+   WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+  ) AS company_total,
+  ROUND(
+    100.0 * COUNT(DISTINCT "Worker Details"."Person Number") /
+    (SELECT COUNT(DISTINCT "Worker Details"."Person Number")
+     FROM "Workforce Management - Worker Assignment Real Time"
+     WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+    ),
+    2
+  ) AS pct_of_total
+FROM "Workforce Management - Worker Assignment Real Time"
+WHERE "Assignment Details"."Assignment Status Type" = 'ACTIVE'
+GROUP BY "Department"."Department Name"
+ORDER BY dept_headcount DESC</pre>
+      </div>
+
+      <h3>Example 4: Latest assignment per person with effective date</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  latest."Worker Details"."Person Number",
+  latest."Worker"."Full Name",
+  latest."Job"."Job Name",
+  latest."Assignment Details"."Effective Start Date",
+  latest."Department"."Department Name"
+FROM (
+  SELECT
+    "Worker Details"."Person Number",
+    "Worker"."Full Name",
+    "Job"."Job Name",
+    "Assignment Details"."Effective Start Date",
+    "Department"."Department Name",
+    ROW_NUMBER() OVER (
+      PARTITION BY "Worker Details"."Person Number"
+      ORDER BY "Assignment Details"."Effective Start Date" DESC
+    ) AS row_num
+  FROM "Workforce Management - Worker Assignment Real Time"
+) latest
+WHERE latest.row_num = 1
+ORDER BY latest."Assignment Details"."Effective Start Date" DESC</pre>
+      </div>
+
+      <!-- Quick Reference -->
+      <h2 id="quick-ref">Subquery Pattern Quick Reference</h2>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Pattern</th>
+              <th>Use Case</th>
+              <th>OBIEE Support</th>
+              <th>Common Errors</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><code>FROM (SELECT ...) alias</code></td>
+              <td>Inline view / derived table</td>
+              <td>Full support</td>
+              <td>Missing alias → nQSError 27002</td>
+            </tr>
+            <tr>
+              <td><code>WHERE EXISTS (SELECT ...)</code></td>
+              <td>Check if row exists</td>
+              <td>Full support</td>
+              <td>Correlation not matching → 0 results</td>
+            </tr>
+            <tr>
+              <td><code>WHERE NOT EXISTS (SELECT ...)</code></td>
+              <td>Check if row does NOT exist</td>
+              <td>Full support</td>
+              <td>Same as EXISTS</td>
+            </tr>
+            <tr>
+              <td><code>WHERE col IN (SELECT ...)</code></td>
+              <td>Match against subquery results</td>
+              <td>Full support</td>
+              <td>Subquery returns 2+ columns → error</td>
+            </tr>
+            <tr>
+              <td><code>SELECT (SELECT ...) AS col</code></td>
+              <td>Add scalar column from subquery</td>
+              <td>Full support</td>
+              <td>Subquery returns 2+ rows → error</td>
+            </tr>
+            <tr>
+              <td><code>WHERE col > (SELECT ...)</code></td>
+              <td>Filter by scalar value</td>
+              <td>Full support</td>
+              <td>Same as SELECT scalar</td>
+            </tr>
+            <tr>
+              <td><code>RANK() OVER (PARTITION BY ...)</code></td>
+              <td>Rank rows within group</td>
+              <td>Full support</td>
+              <td>Window function syntax errors</td>
+            </tr>
+            <tr>
+              <td><code>FROM sa1, sa2 WHERE ...</code></td>
+              <td>Join two subject areas</td>
+              <td>NOT supported</td>
+              <td>nQSError 27002 near comma</td>
+            </tr>
+            <tr>
+              <td><code>EVALUATE('native_sql')</code></td>
+              <td>Push native DB SQL</td>
+              <td>Conditional (security)</td>
+              <td>Often disabled in cloud</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- FAQ -->
+      <h2 id="faq">FAQ: OBIEE Subquery Questions</h2>
+
+      <h3>Q1: Can I use UNION in a subquery?</h3>
+
+      <p>
+        <strong>A:</strong> Newer OBIEE versions (11g+) support UNION inside subqueries, but older versions (10g) do not. If you get "nQSError: 27002" when using UNION inside a subquery, your instance doesn't support it. Workaround: run two separate OTBI queries and union the results in a reporting tool like BI Publisher or Tableau instead.
+      </p>
+
+      <h3>Q2: Why does my correlated subquery return zero rows?</h3>
+
+      <p>
+        <strong>A:</strong> Check your correlation condition in the WHERE clause. Make sure the column names match exactly. For example: <code>a."Worker Details"."Person Number" = p."Worker Details"."Person Number"</code> must use identical folder and column paths on both sides. If one side has a typo, the join will match nothing.
+      </p>
+
+      <h3>Q3: Can I use a subquery in a CASE expression?</h3>
+
+      <p>
+        <strong>A:</strong> Yes. CASE expressions can contain scalar subqueries:
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  "Worker"."Full Name",
+  CASE
+    WHEN "Annual Salary" > (SELECT AVG("Annual Salary") FROM "Compensation Real Time")
+    THEN 'Above Average'
+    ELSE 'Below Average'
+  END AS salary_tier
+FROM "Compensation Real Time"</pre>
+      </div>
+
+    </article>
+
+    <!-- CTA Boxes -->
+    <div class="cta-box">
+      <h3>OBIEE/OTBI SQL Validator</h3>
+      <p>Paste your subquery error and code. Get AI diagnosis and a corrected query in seconds.</p>
+      <a href="/obiee-sql-validator" class="cta-btn">Open SQL Validator &rarr;</a>
+    </div>
+
+    <div class="cta-box" style="margin-top:1.5rem;background:oklch(0.18 0.02 145 / 0.25);border-color:oklch(0.50 0.15 145 / 0.4);">
+      <h3>Stop Writing OTBI Reports From Scratch</h3>
+      <p>15 production-tested OTBI query patterns for Oracle HCM: headcount, assignment history, compensation, absence, and recruiting. Copy, adapt, and ship.</p>
+      <a href="/otbi-template-pack" class="cta-btn" style="background:oklch(0.60 0.18 145);box-shadow:0 2px 12px oklch(0.60 0.18 145 / 0.35);">Get the OTBI Template Pack &rarr;</a>
+    </div>
+
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h3>Related guides</h3>
+      <div class="related-grid">
+        <div class="related-card">
+          <div class="tag">OTBI Reporting</div>
+          <a href="/blog/obiee-assertion-failure-fix">OBIEE/OTBI Assertion Failure Errors</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">OTBI Reporting</div>
+          <a href="/blog/otbi-comma-join-explained">OTBI Comma Join Explained</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">OTBI Reporting</div>
+          <a href="/blog/otbi-subject-area-guide">OTBI Subject Areas — Complete Guide</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">SQL</div>
+          <a href="/blog/sql-query-library">SQL Query Library — 7 Production Queries</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p>
+        <a href="/">Search 35,000+ Oracle Tables</a> &middot;
+        <a href="/privacy">Privacy Policy</a> &middot;
+        <a href="/terms">Terms of Service</a> &middot;
+        <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      navigator.clipboard.writeText(pre.textContent).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

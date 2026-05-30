@@ -1,0 +1,1374 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="OBIEE federation and subject area conflicts explained. Learn common errors (nQSError 27002, 14025, 22024), RPD fixes for on-prem, and OTBI cloud workarounds using BI Publisher and Oracle Analytics Cloud.">
+  <meta name="keywords" content="OBIEE federation, OTBI cross subject area, Oracle BI subject area conflicts, federated query, nQSError 27002">
+  <meta property="og:title" content="OBIEE Federation & Subject Area Conflicts: Causes, Fixes & Workarounds">
+  <meta property="og:description" content="Complete guide to OBIEE federation errors and solutions for on-prem RPD and OTBI cloud alternatives.">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/obiee-federation-subject-area-conflicts">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta name="author" content="HCM Tables">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hcm-tables.com/blog/obiee-federation-subject-area-conflicts">
+
+  <title>OBIEE Federation & Subject Area Conflicts | HCM Tables</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMzFK2YS6b2B0PpCnrU7ZeZayChEo"></script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H" integrity="sha384-qyu7U6eHSXrYt2f3lHYHv9Pxkm2GBcGM7y9zJn0bVLZMz/H3TXCgwFH0k8j4wGZEe" crossorigin="anonymous"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js" integrity="sha384-J3JhKPYvVH3LyEr5xWAzTUwzP9M7dxMvOuXO1c7bVbwVBkJvudzFMhVvAn1A8J7oN" crossorigin="anonymous"></script>
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-family: var(--font-sans);
+      line-height: 1.6;
+      font-size: 16px;
+    }
+
+    /* Navigation */
+    nav {
+      background-color: var(--bg-secondary);
+      border-bottom: 1px solid var(--border);
+      padding: 1rem 2rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    nav .brand {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+    }
+
+    nav .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    nav a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      transition: color 0.2s;
+    }
+
+    nav a:hover {
+      color: var(--accent);
+    }
+
+    /* Container */
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header */
+    .post-header {
+      margin-bottom: 3rem;
+      padding-bottom: 2rem;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .post-header h1 {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+      line-height: 1.2;
+      color: var(--text-primary);
+    }
+
+    .post-meta {
+      display: flex;
+      gap: 1.5rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+    }
+
+    .post-meta span {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .breadcrumb {
+      display: flex;
+      gap: 0.5rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 1.5rem;
+    }
+
+    .breadcrumb a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    .breadcrumb a:hover {
+      text-decoration: underline;
+    }
+
+    /* Table of Contents */
+    .toc {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 2rem;
+      position: sticky;
+      top: 80px;
+    }
+
+    .toc h3 {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 1rem;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .toc ol {
+      list-style: none;
+      margin-left: 0;
+    }
+
+    .toc li {
+      margin-bottom: 0.5rem;
+    }
+
+    .toc a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.2s;
+    }
+
+    .toc a:hover {
+      color: var(--accent);
+    }
+
+    /* Content */
+    .post-content {
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .post-content h2 {
+      font-size: 1.8rem;
+      margin-top: 2.5rem;
+      margin-bottom: 1rem;
+      color: var(--accent);
+      scroll-margin-top: 100px;
+    }
+
+    .post-content h3 {
+      font-size: 1.3rem;
+      margin-top: 1.8rem;
+      margin-bottom: 0.8rem;
+      color: var(--text-primary);
+      scroll-margin-top: 100px;
+    }
+
+    .post-content h4 {
+      font-size: 1.1rem;
+      margin-top: 1.5rem;
+      margin-bottom: 0.8rem;
+      color: var(--text-secondary);
+    }
+
+    .post-content p {
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .post-content ul, .post-content ol {
+      margin-left: 2rem;
+      margin-bottom: 1rem;
+    }
+
+    .post-content li {
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .post-content strong {
+      color: var(--accent);
+      font-weight: 600;
+    }
+
+    .post-content code {
+      background-color: var(--bg-tertiary);
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--yellow);
+    }
+
+    .post-content pre {
+      background-color: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      overflow-x: auto;
+      margin-bottom: 1.5rem;
+    }
+
+    .post-content pre code {
+      background: none;
+      padding: 0;
+      color: var(--yellow);
+      font-size: 0.9em;
+    }
+
+    /* Code Block Wrapper */
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-label {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      color: var(--text-secondary);
+      padding: 0.4rem 0.8rem;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.8rem;
+      transition: all 0.2s;
+      font-family: var(--font-mono);
+    }
+
+    .copy-btn:hover {
+      background-color: var(--accent);
+      color: var(--bg-primary);
+    }
+
+    /* Cards */
+    .error-card {
+      background-color: var(--bg-secondary);
+      border-left: 4px solid var(--red);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--red);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-card h4 {
+      color: var(--red);
+      margin-top: 0;
+    }
+
+    .error-card .error-code {
+      font-family: var(--font-mono);
+      color: var(--yellow);
+      font-weight: 600;
+      background-color: var(--bg-tertiary);
+      padding: 0.2em 0.5em;
+      border-radius: 4px;
+    }
+
+    .fix-card {
+      background-color: var(--bg-secondary);
+      border-left: 4px solid var(--green);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--green);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fix-card h4 {
+      color: var(--green);
+      margin-top: 0;
+    }
+
+    /* Callout */
+    .callout {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .callout.warning {
+      border-left-color: var(--yellow);
+    }
+
+    .callout.info {
+      border-left-color: var(--blue);
+    }
+
+    /* Quick Reference Table */
+    .quick-ref {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 1.5rem;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .quick-ref th {
+      background-color: var(--bg-secondary);
+      padding: 1rem;
+      text-align: left;
+      color: var(--accent);
+      font-weight: 600;
+      border-bottom: 2px solid var(--border);
+    }
+
+    .quick-ref td {
+      padding: 1rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text-primary);
+    }
+
+    .quick-ref tr:last-child td {
+      border-bottom: none;
+    }
+
+    .quick-ref tbody tr:nth-child(odd) {
+      background-color: var(--bg-secondary);
+    }
+
+    /* CTA Boxes */
+    .cta-box {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      color: var(--accent);
+      margin-top: 0;
+      margin-bottom: 0.5rem;
+    }
+
+    .cta-box p {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+    }
+
+    .cta-box.green {
+      border-color: var(--green);
+    }
+
+    .cta-box.green h3 {
+      color: var(--green);
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background-color: var(--accent);
+      color: var(--bg-primary);
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      transition: all 0.2s;
+      border: none;
+      cursor: pointer;
+    }
+
+    .btn:hover {
+      background-color: var(--text-primary);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px rgba(210, 105, 30, 0.2);
+    }
+
+    .btn.green {
+      background-color: var(--green);
+    }
+
+    .btn.green:hover {
+      background-color: var(--text-primary);
+    }
+
+    /* Related Posts */
+    .related-posts {
+      margin-top: 3rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-posts h3 {
+      color: var(--accent);
+      margin-bottom: 1.5rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .related-card {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: flex;
+      flex-direction: column;
+      color: inherit;
+    }
+
+    .related-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 8px 16px var(--accent-glow);
+    }
+
+    .related-card-title {
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 1.1rem;
+    }
+
+    .related-card-desc {
+      color: var(--text-secondary);
+      font-size: 0.9rem;
+      flex-grow: 1;
+    }
+
+    .related-card-arrow {
+      color: var(--accent);
+      margin-top: 1rem;
+      font-weight: 600;
+    }
+
+    /* FAQ */
+    .faq-item {
+      background-color: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .faq-question {
+      padding: 1.5rem;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: var(--bg-secondary);
+      transition: background-color 0.2s;
+      color: var(--text-primary);
+      border: none;
+      width: 100%;
+      text-align: left;
+      font-size: 1rem;
+      font-family: var(--font-sans);
+    }
+
+    .faq-question:hover {
+      background-color: var(--bg-tertiary);
+    }
+
+    .faq-question.active {
+      background-color: var(--bg-tertiary);
+    }
+
+    .faq-toggle {
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 1.5rem;
+      transition: transform 0.2s;
+    }
+
+    .faq-question.active .faq-toggle {
+      transform: rotate(45deg);
+    }
+
+    .faq-answer {
+      display: none;
+      padding: 0 1.5rem 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      border-top: 1px solid var(--border);
+    }
+
+    .faq-answer.active {
+      display: block;
+    }
+
+    .faq-answer p {
+      margin-bottom: 0.5rem;
+    }
+
+    /* Footer */
+    footer {
+      background-color: var(--bg-secondary);
+      border-top: 1px solid var(--border);
+      padding: 2rem;
+      margin-top: 3rem;
+      text-align: center;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+    }
+
+    footer a {
+      color: var(--blue);
+      text-decoration: none;
+    }
+
+    footer a:hover {
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      nav {
+        flex-direction: column;
+        gap: 1rem;
+      }
+
+      nav .nav-links {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .post-header h1 {
+        font-size: 1.8rem;
+      }
+
+      .toc {
+        position: static;
+        margin-bottom: 2rem;
+      }
+
+      .post-meta {
+        flex-direction: column;
+        gap: 0.5rem;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- Navigation -->
+  <nav>
+    <a href="/" class="brand">HCM Tables</a>
+    <ul class="nav-links">
+      <li><a href="/">Home</a></li>
+      <li><a href="/blog">Blog</a></li>
+      <li><a href="/otbi-template-pack">Templates</a></li>
+      <li><a href="/oracle-hcm-consultants">Consultants</a></li>
+    </ul>
+  </nav>
+
+  <!-- Container -->
+  <div class="container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="/">Home</a>
+      <span>/</span>
+      <a href="/blog">Blog</a>
+      <span>/</span>
+      <span>OBIEE Federation & Subject Area Conflicts</span>
+    </div>
+
+    <!-- Header -->
+    <div class="post-header">
+      <h1>OBIEE Federation & Subject Area Conflicts: Causes, Fixes & Workarounds</h1>
+      <div class="post-meta">
+        <span>📅 Published: May 30, 2026</span>
+        <span>📖 Read time: 12 min</span>
+        <span>👤 By HCM Tables</span>
+      </div>
+    </div>
+
+    <!-- Table of Contents -->
+    <div class="toc">
+      <h3>Quick Navigation</h3>
+      <ol>
+        <li><a href="#what-is-federation">What is OBIEE Federation?</a></li>
+        <li><a href="#common-errors">Common Federation Errors</a></li>
+        <li><a href="#onprem-solutions">OBIEE On-Prem Solutions</a></li>
+        <li><a href="#otbi-workarounds">OTBI Cloud Workarounds</a></li>
+        <li><a href="#scenario-workforce-absence">Scenario: Workforce + Absence</a></li>
+        <li><a href="#scenario-compensation-assignment">Scenario: Compensation + Assignment</a></li>
+        <li><a href="#identify-columns">Identifying Subject Areas</a></li>
+        <li><a href="#grain-conflicts">Grain Conflict Detection</a></li>
+        <li><a href="#rpd-checks">RPD Consistency Checks</a></li>
+        <li><a href="#quick-reference">Quick Reference Matrix</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ol>
+    </div>
+
+    <!-- Main Content -->
+    <div class="post-content">
+      <h2 id="what-is-federation">What is OBIEE Federation?</h2>
+
+      <p>OBIEE federation is the ability to query across multiple subject areas or data sources as if they were a single unified data model. Instead of writing separate queries for each subject area and stitching results together, federation lets you write one logical SQL statement that transparently joins data from different business areas.</p>
+
+      <h3>Federation in OBIEE On-Prem vs. OTBI Cloud</h3>
+
+      <table class="quick-ref">
+        <tr>
+          <th>Feature</th>
+          <th>OBIEE On-Prem</th>
+          <th>OTBI Cloud</th>
+        </tr>
+        <tr>
+          <td>Multi-subject area joins</td>
+          <td>✓ Supported (RPD-managed)</td>
+          <td>✗ Not available</td>
+        </tr>
+        <tr>
+          <td>RPD modification</td>
+          <td>✓ Full access</td>
+          <td>✗ Read-only Oracle-managed</td>
+        </tr>
+        <tr>
+          <td>VPD &amp; virtual database layers</td>
+          <td>✓ Available</td>
+          <td>✗ No equivalent</td>
+        </tr>
+        <tr>
+          <td>Conformed dimensions</td>
+          <td>✓ Manual configuration</td>
+          <td>✓ Pre-configured by Oracle</td>
+        </tr>
+        <tr>
+          <td>Workaround: BI Publisher data models</td>
+          <td>Optional</td>
+          <td>✓ Recommended</td>
+        </tr>
+      </table>
+
+      <p><strong>The key difference:</strong> In OBIEE on-prem, you control the RPD (Repository) and can explicitly define how subject areas relate to each other. In OTBI cloud, Oracle maintains the RPD and doesn't expose federation capabilities—you must use alternative approaches.</p>
+
+      <h2 id="common-errors">Common Federation Conflict Errors</h2>
+
+      <div class="error-card">
+        <h4>Error 1: nQSError 27002 — Syntax Error in Logical SQL</h4>
+        <p><span class="error-code">nQSError: 27002: Syntax error in Logical SQL: syntax error [nQSError: 43113: Error while parsing the query. [nQSError: 27002: Syntax error in Logical SQL: ... ]]</span></p>
+        <p><strong>Cause:</strong> Attempting to comma-join two subject areas in OTBI logical SQL, or an undefined table alias in the ON clause.</p>
+        <p><strong>Example (wrong):</strong></p>
+        <div class="code-block-wrapper">
+          <span class="code-label">Logical SQL</span>
+          <pre><code>SELECT
+  Workforce."Workforce"."Employee Number",
+  Absence."Absence"."Absence Reason"
+FROM Workforce, Absence
+WHERE Workforce."Workforce"."Employee Number" = Absence."Absence"."Employee Number"</code></pre>
+        </div>
+        <p>OTBI doesn't allow direct subject area joins like this—each subject area is isolated in the logical layer.</p>
+      </div>
+
+      <div class="error-card">
+        <h4>Error 2: nQSError 14025 — No Fact Table at Requested Level</h4>
+        <p><span class="error-code">nQSError: 14025: There is no fact table that has granularity defined at the requested level.</span></p>
+        <p><strong>Cause:</strong> Mixing fact tables with different granularities. For example, combining a "Worker" level measure with an "Assignment" level measure, when the fact tables don't align on the same dimension keys.</p>
+        <p><strong>Example:</strong></p>
+        <ul>
+          <li>Workforce subject area has <code>PER_ALL_PEOPLE_F</code> (Worker grain)</li>
+          <li>Assignment subject area has <code>PER_ALL_ASSIGNMENTS_M</code> (Assignment grain)</li>
+          <li>If you request both "Headcount" (worker level) and "Total Compensation" (assignment level) without proper dimensional alignment, the RPD can't find a fact table at the intersection</li>
+        </ul>
+      </div>
+
+      <div class="error-card">
+        <h4>Error 3: nQSError 22024 — Column Not Found</h4>
+        <p><span class="error-code">nQSError: 22024: Column not found [Column Name]</span></p>
+        <p><strong>Cause:</strong> Referencing a column that exists in Subject Area B, but your FROM clause only includes Subject Area A (or the column name is ambiguous across multiple subject areas).</p>
+        <p><strong>Example:</strong></p>
+        <div class="code-block-wrapper">
+          <span class="code-label">Logical SQL</span>
+          <pre><code>SELECT
+  p."Person"."Person Number",
+  a."Assignment"."Assignment Number"
+FROM "Compensation"."Compensation Details" p
+WHERE a."Assignment"."Full Time Equivalent" = 1</code></pre>
+        </div>
+        <p>Alias <code>a</code> (Assignment) is referenced in the WHERE clause but never appears in the FROM clause.</p>
+      </div>
+
+      <h2 id="onprem-solutions">OBIEE On-Prem Federation Solutions</h2>
+
+      <p>If you run OBIEE on-prem (self-managed), you have direct control over the RPD and can implement federation in three ways:</p>
+
+      <h3>1. Virtual Private Databases (VPD) in the RPD Physical Layer</h3>
+
+      <p>VPD allows you to query multiple physical tables as if they were one logical table. In the RPD:</p>
+      <ol>
+        <li>Create a <strong>logical table</strong> that combines columns from multiple physical tables</li>
+        <li>Define <strong>row-wise security rules</strong> that determine which physical table provides data based on context (user, organization, date)</li>
+        <li>Users see one unified logical table; the RPD routes queries to the appropriate physical table at runtime</li>
+      </ol>
+
+      <p><strong>Use case:</strong> Querying Employee data from different legal entities or payroll systems that are structured identically but stored separately.</p>
+
+      <h3>2. Cross-Database Joins in the RPD</h3>
+
+      <p>If your subject areas source from different databases (e.g., HCM schema + Payroll schema), you can configure cross-database joins in the RPD's physical layer:</p>
+      <ol>
+        <li>Ensure both databases are registered in the Connection Pool</li>
+        <li>Create a <strong>physical join</strong> between tables across databases using a shared key (e.g., <code>PER_ALL_PEOPLE_F.PERSON_ID</code> = <code>PAY_PEOPLE.PERSON_ID</code>)</li>
+        <li>The RPD will automatically route the query to both databases and perform the join in the BI server</li>
+      </ol>
+
+      <p><strong>Gotcha:</strong> Cross-database joins require the connection pool to support distributed queries. Test throughput and latency—joining across databases can be slow.</p>
+
+      <h3>3. Conformed Dimensions in the Logical Layer</h3>
+
+      <p>Conformed dimensions are shared logical dimensions that multiple subject areas reference. This is the cleanest federation approach:</p>
+      <ol>
+        <li>Create a <strong>logical dimension table</strong> (e.g., "Person") that multiple logical fact tables can join to</li>
+        <li>In the logical layer, use <strong>logical joins</strong> to connect fact tables through the shared dimension</li>
+        <li>When a user queries across subject areas, the RPD intelligently joins through the conformed dimension</li>
+      </ol>
+
+      <p><strong>Example:</strong> Both "Workforce" and "Absence" subject areas join through a conformed "Person" dimension. A query for "Employees with Active Absences" automatically joins through Person.</p>
+
+      <div class="fix-card">
+        <h4>RPD Consistency Check</h4>
+        <p>After defining federation rules, always run <strong>Tools → Check Global Consistency</strong> in the RPD client. This validates:</p>
+        <ul>
+          <li>Logical joins have valid physical joins backing them</li>
+          <li>All referenced columns exist</li>
+          <li>No circular dependencies in dimensions</li>
+          <li>Foreign key cardinality is correct (1:N, not 1:M ambiguity)</li>
+        </ul>
+      </div>
+
+      <h2 id="otbi-workarounds">OTBI Cloud Workarounds</h2>
+
+      <p>Since OTBI cloud doesn't expose federation (Oracle maintains the RPD as read-only), you must use alternative approaches to combine data from multiple subject areas:</p>
+
+      <h3>Method 1: BI Publisher Data Model (Recommended)</h3>
+
+      <p>Use BI Publisher to create a custom data model that combines logical SQL queries from multiple subject areas, linked by common keys (Person Number, Assignment Number, etc.).</p>
+
+      <p><strong>Steps:</strong></p>
+      <ol>
+        <li>In BI Publisher, create a <strong>SQL Query</strong> that fetches Workforce data (filtered to needed columns)</li>
+        <li>Create a second <strong>SQL Query</strong> for Absence data</li>
+        <li>Link the two queries using a <strong>Data Link</strong> on <code>PERSON_ID</code></li>
+        <li>Run a test report; BI Publisher will join the results in the application layer</li>
+      </ol>
+
+      <div class="code-block-wrapper">
+        <span class="code-label">BI Publisher Data Model: Two Queries + Link</span>
+        <pre><code>-- Query 1: Workforce (Primary Query)
+SELECT
+  ppf.PERSON_ID,
+  ppf.PERSON_NUMBER,
+  ppf.FIRST_NAME,
+  ppf.LAST_NAME
+FROM PER_ALL_PEOPLE_F ppf
+WHERE TRUNC(SYSDATE) BETWEEN ppf.EFFECTIVE_START_DATE
+  AND ppf.EFFECTIVE_END_DATE
+ORDER BY ppf.PERSON_ID;
+
+-- Query 2: Absence (Linked Query)
+SELECT
+  pab.PERSON_ID,
+  pab.ABSENCE_ID,
+  pab.ABSENCE_TYPE_ID,
+  plc.LOOKUP_CODE as ABSENCE_REASON,
+  pab.START_DATE,
+  pab.END_DATE
+FROM PER_ABSENCE_ENTRIES pab
+LEFT JOIN PER_LOOKUPS plc
+  ON pab.ABSENCE_TYPE_ID = plc.LOOKUP_TYPE
+  AND plc.LOOKUP_TYPE = 'ABSENCE_TYPE'
+WHERE TRUNC(SYSDATE) BETWEEN pab.EFFECTIVE_START_DATE
+  AND pab.EFFECTIVE_END_DATE
+ORDER BY pab.PERSON_ID;
+
+-- Data Link: Query 1.PERSON_ID = Query 2.PERSON_ID</code></pre>
+      </div>
+
+      <p><strong>Pros:</strong></p>
+      <ul>
+        <li>Full control over query logic and join behavior</li>
+        <li>Works with any OTBI subject area</li>
+        <li>Can use raw SQL with date-effective filters optimized for your use case</li>
+      </ul>
+
+      <p><strong>Cons:</strong></p>
+      <ul>
+        <li>Requires BI Publisher license</li>
+        <li>Application-layer join (slower for large result sets)</li>
+        <li>Need to maintain data links if schema changes</li>
+      </ul>
+
+      <h3>Method 2: Find a Pre-Built Combined Subject Area</h3>
+
+      <p>Oracle often provides combined subject areas that already join commonly-needed data sources. Before building a custom data model, check if Oracle has created a pre-built subject area:</p>
+
+      <ul>
+        <li><strong>Workforce + Absence:</strong> "Absence Management" or "Employee Absence Details" subject area (may include absence reasons, accruals, and employee data)</li>
+        <li><strong>Workforce + Compensation:</strong> "Workforce + Compensation" or "Total Rewards" subject area</li>
+        <li><strong>Assignment + Payroll:</strong> "Payroll Integration" or "Assignment Payroll" subject area</li>
+      </ul>
+
+      <p>To discover available subject areas:</p>
+      <ol>
+        <li>Open OTBI (BI Answer or OTBI home)</li>
+        <li>Click <strong>New → Logical SQL</strong></li>
+        <li>In the query builder, browse the <strong>Subject Area dropdown</strong> — all available subject areas are listed with counts of available columns</li>
+        <li>Search for keywords like "Absence", "Compensation", "Total Rewards" in the dropdown</li>
+      </ol>
+
+      <div class="callout info">
+        <strong>Tip:</strong> Many OTBI users don't know about all the pre-built subject areas. Oracle HCM regularly adds new combined SAs in updates. Check release notes before building custom data models.
+      </div>
+
+      <h3>Method 3: Oracle Analytics Cloud (OAC) Semantic Modeler</h3>
+
+      <p>If you have Oracle Analytics Cloud (OAC), you can use the <strong>Semantic Modeler</strong> to define custom business models that span multiple OTBI subject areas, with cross-SA joins.</p>
+
+      <p><strong>Steps:</strong></p>
+      <ol>
+        <li>In OAC, create a new <strong>Business Model</strong></li>
+        <li>Add tables from multiple OTBI subject areas as data sources</li>
+        <li>Define <strong>relationships</strong> between tables using logical join expressions</li>
+        <li>Publish as a new subject area for Answers or OTBI</li>
+      </ol>
+
+      <p><strong>Use case:</strong> You need true federation across multiple OTBI subject areas without rebuilding queries each time.</p>
+
+      <p><strong>Caveat:</strong> OAC Semantic Modeler is a separate product with separate licensing. Check your Oracle contract.</p>
+
+      <h2 id="scenario-workforce-absence">Scenario: Combining Workforce + Absence Data</h2>
+
+      <p>A common federation use case: "Show me all employees with their active absences, grouped by absence reason."</p>
+
+      <h3>The Wrong Way (Will Fail in OTBI)</h3>
+
+      <div class="error-card">
+        <h4>Direct Subject Area Join (OTBI Logical SQL)</h4>
+        <p><span class="error-code">Will fail with nQSError 27002 or 43113</span></p>
+        <div class="code-block-wrapper">
+          <span class="code-label">Don't Do This</span>
+          <pre><code>SELECT
+  w."Worker".PERSON_NUMBER,
+  w."Worker".FIRST_NAME,
+  a."Absence".ABSENCE_REASON,
+  COUNT(*) as ABSENCE_COUNT
+FROM "Workforce"."Worker" w, "Absence"."Absence Details" a
+WHERE w."Worker".PERSON_ID = a."Absence Details".PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN a."Absence Details".START_DATE
+    AND a."Absence Details".END_DATE
+GROUP BY w."Worker".PERSON_NUMBER, w."Worker".FIRST_NAME,
+         a."Absence".ABSENCE_REASON;</code></pre>
+        </div>
+      </div>
+
+      <h3>The Right Way (BI Publisher Data Model)</h3>
+
+      <div class="fix-card">
+        <h4>BI Publisher Approach</h4>
+        <p><strong>Query 1 (Primary):</strong> Fetch active workforce</p>
+        <div class="code-block-wrapper">
+          <span class="code-label">SQL Query: Workforce</span>
+          <pre><code>SELECT
+  ppf.PERSON_ID,
+  ppf.PERSON_NUMBER,
+  ppf.FIRST_NAME,
+  ppf.LAST_NAME,
+  ppf.EMPLOYEE_NUMBER
+FROM PER_ALL_PEOPLE_F ppf
+WHERE ppf.PERSON_TYPE_ID IN (
+  SELECT person_type_id
+  FROM PER_PERSON_TYPES
+  WHERE system_person_type = 'EMP'
+)
+  AND TRUNC(SYSDATE) BETWEEN ppf.EFFECTIVE_START_DATE
+    AND ppf.EFFECTIVE_END_DATE
+ORDER BY ppf.PERSON_NUMBER;</code></pre>
+        </div>
+
+        <p><strong>Query 2 (Linked):</strong> Fetch active absences</p>
+        <div class="code-block-wrapper">
+          <span class="code-label">SQL Query: Absence Details</span>
+          <pre><code>SELECT
+  pab.PERSON_ID,
+  pab.ABSENCE_ENTRY_ID,
+  plc.MEANING as ABSENCE_REASON,
+  pab.START_DATE,
+  pab.END_DATE,
+  (pab.END_DATE - pab.START_DATE + 1) as DAYS_ABSENT
+FROM PER_ABSENCE_ENTRIES pab
+LEFT JOIN PER_LOOKUPS plc
+  ON pab.ABSENCE_TYPE_ID = plc.LOOKUP_TYPE
+  AND plc.LOOKUP_TYPE = 'ABSENCE_TYPE'
+WHERE TRUNC(SYSDATE) BETWEEN pab.EFFECTIVE_START_DATE
+  AND pab.EFFECTIVE_END_DATE
+ORDER BY pab.PERSON_ID, pab.START_DATE;</code></pre>
+        </div>
+
+        <p><strong>Data Link:</strong> Query 1.PERSON_ID = Query 2.PERSON_ID</p>
+
+        <p><strong>BI Publisher Layout:</strong> For each Person (Query 1), print Absence records (Query 2) in a details section.</p>
+      </div>
+
+      <h2 id="scenario-compensation-assignment">Scenario: Combining Compensation + Assignment Data</h2>
+
+      <p>Another federation scenario: "Show me all assignments with their salary bands and compensation history."</p>
+
+      <h3>The Challenge</h3>
+
+      <p>Compensation subject area (PAY_ schema) and Assignment subject area (PER_ALL_ASSIGNMENTS_M) are at different grains:</p>
+      <ul>
+        <li>Assignment is 1 record per {PERSON_ID, ASSIGNMENT_ID, EFFECTIVE_DATE}</li>
+        <li>Compensation may be 1 record per {PERSON_ID, GRADE_ID, EFFECTIVE_DATE} or per {PERSON_ID, PAYROLL_ID, EFFECTIVE_DATE}</li>
+      </ul>
+
+      <p>Direct join can produce duplicates or missing rows.</p>
+
+      <h3>Solution: Use Conformed Join Keys</h3>
+
+      <div class="fix-card">
+        <h4>BI Publisher with Conformed Dimensions</h4>
+        <p><strong>Join through PERSON_ID and EFFECTIVE_DATE:</strong></p>
+        <div class="code-block-wrapper">
+          <span class="code-label">SQL Query: Assignment + Salary</span>
+          <pre><code>SELECT
+  pam.ASSIGNMENT_ID,
+  pam.PERSON_ID,
+  pam.EFFECTIVE_START_DATE as ASSIGN_START,
+  pam.EFFECTIVE_END_DATE as ASSIGN_END,
+  pcs.GRADE_ID,
+  pcs.GRADE_NAME,
+  pcs.MIN_SALARY,
+  pcs.MAX_SALARY,
+  pcs.MIDPOINT_SALARY,
+  ppf.PERSON_NUMBER,
+  ppf.FIRST_NAME || ' ' || ppf.LAST_NAME as FULL_NAME
+FROM PER_ALL_ASSIGNMENTS_M pam
+LEFT JOIN PER_ALL_PEOPLE_F ppf
+  ON pam.PERSON_ID = ppf.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN ppf.EFFECTIVE_START_DATE
+    AND ppf.EFFECTIVE_END_DATE
+LEFT JOIN PER_COMP_SALARY pcs
+  ON pam.GRADE_ID = pcs.GRADE_ID
+  AND TRUNC(SYSDATE) BETWEEN pcs.EFFECTIVE_START_DATE
+    AND pcs.EFFECTIVE_END_DATE
+WHERE TRUNC(SYSDATE) BETWEEN pam.EFFECTIVE_START_DATE
+  AND pam.EFFECTIVE_END_DATE
+ORDER BY ppf.PERSON_NUMBER, pam.ASSIGNMENT_ID;</code></pre>
+        </div>
+
+        <p><strong>Key technique:</strong> Use <code>LEFT JOIN</code> with date-effective filters on all tables. This ensures you get all assignments, even if salary data is missing (null-safe).</p>
+      </div>
+
+      <h2 id="identify-columns">Identifying Which Subject Area Contains a Column</h2>
+
+      <p>When building federated queries, you need to know which subject area has a specific column. Use this workflow in OTBI:</p>
+
+      <ol>
+        <li><strong>Open OTBI Answers</strong> (or go to BI Answer home)</li>
+        <li>Click <strong>New → Logical SQL</strong></li>
+        <li>In the query builder, click on the <strong>Subject Area dropdown</strong></li>
+        <li>Start typing the column name or keyword (e.g., "Absence Reason")</li>
+        <li>OTBI will filter subject areas that contain matching columns</li>
+        <li>Expand each subject area to see the full column list</li>
+      </ol>
+
+      <p><strong>Alternative: Browse via Column List</strong></p>
+      <ol>
+        <li>Open a subject area in the query builder</li>
+        <li>Expand <strong>"Column Definitions"</strong> (usually on the left panel)</li>
+        <li>Scroll through all available columns in that subject area</li>
+        <li>If not found, switch to a different subject area and repeat</li>
+      </ol>
+
+      <div class="callout warning">
+        <strong>Pro Tip:</strong> Subject area names in OTBI often differ from physical table names. For example, "Workforce" may contain data from PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M, and related tables. Always use the OTBI logical column names in Logical SQL, never the physical table names directly.
+      </div>
+
+      <h2 id="grain-conflicts">Grain Conflict Detection</h2>
+
+      <p>Grain conflicts occur when you mix measures from fact tables with different dimensional granularities, causing inaccurate aggregates or "no fact table at requested level" errors.</p>
+
+      <h3>Example: Worker vs. Assignment Grain</h3>
+
+      <table class="quick-ref">
+        <tr>
+          <th>Measure</th>
+          <th>Source Table</th>
+          <th>Grain</th>
+          <th>Can Mix?</th>
+        </tr>
+        <tr>
+          <td>Headcount</td>
+          <td>PER_ALL_PEOPLE_F</td>
+          <td>1 row per Worker</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>Assignments (count)</td>
+          <td>PER_ALL_ASSIGNMENTS_M</td>
+          <td>1 row per Assignment</td>
+          <td>No</td>
+        </tr>
+        <tr>
+          <td>FTE (Full Time Equivalent)</td>
+          <td>PER_ALL_ASSIGNMENTS_M</td>
+          <td>1 row per Assignment</td>
+          <td>Yes (same as assignments)</td>
+        </tr>
+        <tr>
+          <td>Salary</td>
+          <td>PAY_ tables</td>
+          <td>Often per Payroll ID</td>
+          <td>Maybe (depends on join)</td>
+        </tr>
+      </table>
+
+      <h3>How to Avoid Grain Conflicts</h3>
+
+      <p><strong>Rule 1: Identify the grain of each measure</strong></p>
+      <ul>
+        <li>Headcount (Person grain) cannot be mixed with FTE (Assignment grain) without causing double-counts</li>
+        <li>Always ask: "What is the lowest level of detail in this metric?"</li>
+      </ul>
+
+      <p><strong>Rule 2: Aggregate consistently</strong></p>
+      <ul>
+        <li>If mixing grains, aggregate to the coarsest grain explicitly in your query</li>
+        <li>Example: If mixing Person and Assignment grains, group by PERSON_ID only, and use SUM(FTE) to aggregate assignments per person</li>
+      </ul>
+
+      <p><strong>Rule 3: Use conformed dimensions</strong></p>
+      <ul>
+        <li>In a properly federated query, all measures should roll up through the same dimensions (Person → Department → Company)</li>
+        <li>If a measure breaks this hierarchy, it may indicate a grain conflict</li>
+      </ul>
+
+      <h2 id="rpd-checks">RPD Consistency Checks (On-Prem Only)</h2>
+
+      <p>For OBIEE on-prem deployments with custom federation rules, always run consistency checks:</p>
+
+      <h3>Using the RPD Client</h3>
+
+      <ol>
+        <li>Open <strong>Oracle BI Administration Tool</strong></li>
+        <li>Connect to your RPD repository</li>
+        <li>Go to <strong>Tools → Check Global Consistency</strong></li>
+        <li>A detailed report will show:</li>
+        <ul>
+          <li>Broken logical joins (physical joins not found)</li>
+          <li>Orphaned logical tables (not in any subject area)</li>
+          <li>Unresolved foreign keys</li>
+          <li>Circular join paths</li>
+          <li>Ambiguous dimensions (multiple paths to same table)</li>
+        </ul>
+      </ol>
+
+      <h3>Common Consistency Errors</h3>
+
+      <div class="error-card">
+        <h4>"Physical Table Not Found" Error</h4>
+        <p>Cause: A logical join references a physical table that was deleted or renamed.</p>
+        <p><strong>Fix:</strong></p>
+        <ol>
+          <li>In the RPD, open the logical layer</li>
+          <li>Find the broken logical join (indicated in the consistency check)</li>
+          <li>Re-map it to the correct physical table in the physical layer</li>
+          <li>Re-run consistency check</li>
+        </ol>
+      </div>
+
+      <div class="error-card">
+        <h4>"Ambiguous Dimension" Error</h4>
+        <p>Cause: Multiple tables can reach the same dimension through different paths, making the join order ambiguous.</p>
+        <p><strong>Fix:</strong></p>
+        <ol>
+          <li>Examine the join graph in the logical layer</li>
+          <li>Designate one path as the "canonical" path</li>
+          <li>Set join properties: <strong>Cardinality</strong> (1:N, 1:1), <strong>Join Type</strong> (inner, left outer)</li>
+          <li>Use <strong>Logical Join Properties → Advanced</strong> to set join order hints if needed</li>
+        </ol>
+      </div>
+
+      <h2 id="quick-reference">Quick Reference: Federation Approach by Scenario</h2>
+
+      <table class="quick-ref">
+        <tr>
+          <th>Scenario</th>
+          <th>Subject Areas</th>
+          <th>OBIEE On-Prem</th>
+          <th>OTBI Cloud</th>
+        </tr>
+        <tr>
+          <td>Combine Workforce + Absence</td>
+          <td>2 separate</td>
+          <td>Conformed Dimension (Person)</td>
+          <td>BI Publisher Data Model + Data Link</td>
+        </tr>
+        <tr>
+          <td>Combine Assignment + Compensation</td>
+          <td>2 separate</td>
+          <td>Cross-DB join on PERSON_ID + GRADE_ID</td>
+          <td>BI Publisher + date-effective LEFT JOIN</td>
+        </tr>
+        <tr>
+          <td>Combine Payroll + Assignment</td>
+          <td>2 separate</td>
+          <td>Cross-DB join on PERSON_ID + PAYROLL_ID</td>
+          <td>Check for pre-built "Payroll Integration" SA</td>
+        </tr>
+        <tr>
+          <td>Multiple legal entities, same schema</td>
+          <td>1 logical, multiple physical</td>
+          <td>VPD (Virtual Private Database)</td>
+          <td>Row-level security + BI Publisher filters</td>
+        </tr>
+        <tr>
+          <td>Complex cross-SA relationships</td>
+          <td>3+ separate</td>
+          <td>Conformed Dims + RPD consistency checks</td>
+          <td>OAC Semantic Modeler (if available)</td>
+        </tr>
+      </table>
+
+      <h2 id="faq">Frequently Asked Questions</h2>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>Can I use OBIEE on-prem federation techniques in OTBI cloud?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>Short answer:</strong> No. OBIEE on-prem federation happens in the RPD (Repository), which you control. In OTBI cloud, Oracle manages the RPD as read-only. You cannot define custom federation rules in OTBI.</p>
+          <p><strong>What you can do instead:</strong> Use BI Publisher data models (Method 1), find pre-built combined subject areas (Method 2), or use OAC Semantic Modeler (Method 3).</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>What's the performance impact of BI Publisher data models vs. true federation?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>BI Publisher data models (application-layer joins):</strong> Slower for large result sets. BI Publisher fetches data from both queries separately, then joins in memory. Works well for reports with < 100K rows total.</p>
+          <p><strong>True RPD federation (database-layer joins):</strong> Faster. The database joins the data before returning results. Can handle millions of rows efficiently.</p>
+          <p><strong>When to use each:</strong> Use BI Publisher for ad-hoc reports and smaller datasets. If you need daily federation queries on millions of rows, consider migrating to OBIEE on-prem or using OAC Semantic Modeler.</p>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>How do I detect grain conflicts in my queries?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>Symptom 1:</strong> "No fact table at requested level" error → You've mixed measures from different grains without proper aggregation.</p>
+          <p><strong>Symptom 2:</strong> Results don't match your expectations (e.g., headcount is 200 but should be 150) → Likely a grain conflict causing duplicates.</p>
+          <p><strong>How to diagnose:</strong></p>
+          <ol>
+            <li>Identify the grain of each measure in your query (Worker? Assignment? Payroll?)</li>
+            <li>Check if they align (all worker-level? all assignment-level?)</li>
+            <li>If mixed, examine the GROUP BY clause—are you aggregating to a common grain?</li>
+            <li>Count rows at each grain level manually in a simple query to verify expectations</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="faq-item">
+        <button class="faq-question" onclick="toggleFAQ(this)">
+          <span>Should I upgrade from OBIEE on-prem to OTBI cloud?</span>
+          <span class="faq-toggle">+</span>
+        </button>
+        <div class="faq-answer">
+          <p><strong>OTBI cloud advantages:</strong> No maintenance, automatic updates, pre-built subject areas, integrated with Fusion HCM.</p>
+          <p><strong>OTBI cloud disadvantages:</strong> No federation, limited RPD customization, higher licensing costs if you need multiple instances.</p>
+          <p><strong>OBIEE on-prem advantages:</strong> Full RPD control, true federation, lower licensing (single perpetual license), can integrate with non-Oracle data sources.</p>
+          <p><strong>OBIEE on-prem disadvantages:</strong> Maintenance overhead, no automatic updates, RPD expertise required.</p>
+          <p><strong>Recommendation:</strong> If you heavily use federation, stay on-prem. If you can work with BI Publisher data models, OTBI cloud is simpler. Consider a hybrid: OTBI for standard reports, OAC Semantic Modeler for federation needs.</p>
+        </div>
+      </div>
+
+      <!-- CTA Boxes -->
+      <div class="cta-box">
+        <h3>Need Help Debugging OBIEE Errors?</h3>
+        <p>Use our SQL validator to test Logical SQL queries and diagnose nQSError issues instantly.</p>
+        <a href="/obiee-sql-validator" class="btn">Try the SQL Validator →</a>
+      </div>
+
+      <div class="cta-box green">
+        <h3>OTBI Template Pack</h3>
+        <p>Get 15 ready-to-use OTBI templates, including federated data model examples for Workforce + Absence and Assignment + Compensation.</p>
+        <a href="/otbi-template-pack" class="btn green">Explore Templates →</a>
+      </div>
+
+      <!-- Related Posts -->
+      <div class="related-posts">
+        <h3>Related Articles</h3>
+        <div class="related-grid">
+          <a href="/blog/obiee-assertion-failure-fix" class="related-card">
+            <div class="related-card-title">OBIEE/OTBI Assertion Failure Errors</div>
+            <div class="related-card-desc">Understand pCriteria assertion failures, pconstant_type type mismatches, and how to fix them in logical SQL.</div>
+            <div class="related-card-arrow">Read →</div>
+          </a>
+          <a href="/blog/otbi-comma-join-explained" class="related-card">
+            <div class="related-card-title">OTBI Comma Join Explained</div>
+            <div class="related-card-desc">Why comma joins fail in OTBI logical SQL and the correct join syntax for multiple subject areas.</div>
+            <div class="related-card-arrow">Read →</div>
+          </a>
+          <a href="/blog/otbi-subject-area-guide" class="related-card">
+            <div class="related-card-title">OTBI Subject Areas Complete Guide</div>
+            <div class="related-card-desc">All 40+ Oracle HCM subject areas with use cases, columns, and a decision tree for finding the right SA.</div>
+            <div class="related-card-arrow">Read →</div>
+          </a>
+          <a href="/blog/person-assignment-work-relationship-data-model-explained" class="related-card">
+            <div class="related-card-title">Person vs. Assignment Data Model</div>
+            <div class="related-card-desc">Understand the grain difference between PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M, and when to use each.</div>
+            <div class="related-card-arrow">Read →</div>
+          </a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+    <p><strong>Disclaimer:</strong> This guide is for educational purposes. Always test federation changes in a non-production environment first. Oracle's RPD and subject area structures may change with new releases—refer to official Oracle HCM documentation for your specific version.</p>
+    <p style="margin-top: 1rem; color: var(--text-muted);">&copy; 2026 HCM Tables. All rights reserved. | <a href="/privacy">Privacy</a> | <a href="/terms">Terms</a></p>
+  </footer>
+
+  <script>
+    // Copy to clipboard function
+    function copyCode(button) {
+      const codeBlock = button.closest('.code-block-wrapper').querySelector('pre');
+      const text = codeBlock.textContent;
+      navigator.clipboard.writeText(text).then(() => {
+        const originalText = button.textContent;
+        button.textContent = 'Copied!';
+        button.style.backgroundColor = 'var(--green)';
+        setTimeout(() => {
+          button.textContent = originalText;
+          button.style.backgroundColor = '';
+        }, 2000);
+      });
+    }
+
+    // Add copy buttons to code blocks
+    document.querySelectorAll('.code-block-wrapper').forEach(block => {
+      const pre = block.querySelector('pre');
+      if (pre && !block.querySelector('.copy-btn')) {
+        const btn = document.createElement('button');
+        btn.className = 'copy-btn';
+        btn.textContent = 'Copy';
+        btn.onclick = function(e) {
+          e.preventDefault();
+          copyCode(this);
+        };
+        block.insertBefore(btn, pre);
+      }
+    });
+
+    // FAQ toggle functionality
+    function toggleFAQ(button) {
+      const answer = button.nextElementSibling;
+      const isActive = button.classList.contains('active');
+
+      // Close all other FAQs
+      document.querySelectorAll('.faq-question').forEach(q => {
+        if (q !== button) {
+          q.classList.remove('active');
+          q.nextElementSibling.classList.remove('active');
+        }
+      });
+
+      // Toggle current FAQ
+      button.classList.toggle('active');
+      answer.classList.toggle('active');
+    }
+
+    // Smooth scroll for table of contents
+    document.querySelectorAll('.toc a').forEach(link => {
+      link.addEventListener('click', function(e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute('href'));
+        if (target) {
+          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      });
+    });
+  </script>
+</body>
+</html>
