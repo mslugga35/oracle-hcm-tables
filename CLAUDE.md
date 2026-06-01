@@ -14,7 +14,7 @@
 - **Join path finder:** generate SQL joins between any two tables with date-effective filters
 - **JS data:** MODULE_PREFIXES (28), FK_MAP (16 FK columns), SUFFIX_INFO (7 suffixes)
 
-## Blog Pages (24 total in static/blog/)
+## Blog Pages (31 total in static/blog/)
 | # | File | Topic |
 |---|------|-------|
 | 1 | oracle-hcm-table-suffixes-explained.html | _F, _TL, _VL suffix guide |
@@ -41,6 +41,13 @@
 | 22 | hdl-integration-error-debugger.html | HDL 3-table debug chain |
 | 23 | oracle-hcm-compliance-audit-sql-queries.html | 8 compliance audit SQL queries |
 | 24 | otbi-comma-join-explained.html | OTBI comma join root cause + fix |
+| 25 | chatgpt-prompts-oracle-hcm.html | ChatGPT prompts for Oracle HCM |
+| 26 | per-all-assignments-m-duplicate-rows-fix.html | PER_ALL_ASSIGNMENTS_M duplicate rows fix |
+| 27 | obiee-nqserror-27042-fix.html | nQSError 27042 "At Most One Row" fix |
+| 28 | obiee-subquery-joins-otbi.html | OBIEE subquery joins in OTBI |
+| 29 | obiee-federation-subject-area-conflicts.html | OBIEE federation subject area conflicts |
+| 30 | oracle-hcm-benefits-tables-guide.html | BEN_ schema + enrollment flows + 8 SQL queries |
+| 31 | otbi-calculated-fields-guide.html | Calculated fields + 15 real-world expressions |
 
 ## Product Pages
 - `static/oracle-hcm-consultants.html` — Consultant directory / lead gen (submit project → get quotes)
