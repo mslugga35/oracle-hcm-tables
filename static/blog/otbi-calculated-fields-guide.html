@@ -1,0 +1,1325 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>OTBI Calculated Fields &amp; Custom Expressions — Complete Guide with Examples | HCM Tables</title>
+  <meta name="title" content="OTBI Calculated Fields &amp; Custom Expressions — Complete Guide with Examples | HCM Tables">
+  <meta name="description" content="Master OTBI calculated fields in Oracle HCM Cloud. Covers CASE/WHEN, date math, TIMESTAMPDIFF, CAST, CONCAT, conditional logic, and 15+ real-world expression examples for HR reporting.">
+  <meta name="keywords" content="OTBI calculated fields, OTBI custom expressions, OBIEE calculated columns, OTBI CASE WHEN, oracle analytics calculated field, OTBI date calculation, HCM OTBI formula, OTBI expression examples">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/otbi-calculated-fields-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/otbi-calculated-fields-guide">
+  <meta property="og:title" content="OTBI Calculated Fields &amp; Custom Expressions — Complete Guide with Examples">
+  <meta property="og:description" content="Master OTBI calculated fields: CASE/WHEN, TIMESTAMPDIFF, CAST, CONCAT, and 15+ real-world HR reporting expressions with copy-paste examples.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/otbi-calculated-fields-guide">
+  <meta property="twitter:title" content="OTBI Calculated Fields &amp; Custom Expressions — Complete Guide with Examples">
+  <meta property="twitter:description" content="Master OTBI calculated fields with CASE/WHEN, TIMESTAMPDIFF, and 15+ real-world expression examples for Oracle HCM Cloud reporting.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OTBI Calculated Fields & Custom Expressions — Complete Guide with Examples",
+    "description": "Master OTBI calculated fields in Oracle HCM Cloud. Covers CASE/WHEN, date math, TIMESTAMPDIFF, CAST, CONCAT, conditional logic, and 15+ real-world expression examples for HR reporting.",
+    "url": "https://hcm-tables.com/blog/otbi-calculated-fields-guide",
+    "datePublished": "2026-06-01",
+    "dateModified": "2026-06-01",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/otbi-calculated-fields-guide"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OTBI Calculated Fields & Custom Expressions Guide","item":"https://hcm-tables.com/blog/otbi-calculated-fields-guide"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema (boosts featured snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is an OTBI calculated field?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An OTBI calculated field is a custom column you create in Oracle Analytics/OTBI that derives its value from other columns using an expression. Unlike standard table columns (which come directly from the database), calculated fields are computed at query time using functions like CASE, CONCAT, TIMESTAMPDIFF, CAST, and aggregates. Use them when you need to transform, combine, or filter data without writing SQL."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the syntax for CASE/WHEN in OTBI calculated fields?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OTBI uses OBIEE Logical SQL for calculated fields. The CASE/WHEN syntax is: CASE WHEN condition1 THEN result1 WHEN condition2 THEN result2 ELSE default_result END. Example: CASE WHEN \"Employees\".\"Status\" = 'ACTIVE' THEN 'Current' WHEN \"Employees\".\"Status\" = 'TERMINATED' THEN 'Former' ELSE 'Unknown' END. Always use double quotes around column names."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I calculate age in OTBI using TIMESTAMPDIFF?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use TIMESTAMPDIFF with SQL_TSI_YEAR to get age in years: TIMESTAMPDIFF(SQL_TSI_YEAR, \"Employees\".\"Date of Birth\", CURRENT_DATE). The general syntax is TIMESTAMPDIFF(SQL_TSI_UNIT, start_date, end_date) where SQL_TSI_UNIT can be SQL_TSI_DAY, SQL_TSI_MONTH, SQL_TSI_QUARTER, or SQL_TSI_YEAR. OTBI uses this Logical SQL syntax, not standard SQL date arithmetic."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between CAST and CONVERT in OTBI calculated fields?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OTBI primarily uses CAST for type conversion. Syntax: CAST(column AS target_type). CONVERT is rarely used in Logical SQL. Common targets: VARCHAR, INTEGER, DECIMAL, DATE, TIMESTAMP. Example: CAST(\"Salary\" AS DECIMAL(12,2)). If type conversion fails at runtime, the query returns NULL or an error — test with sample data before deploying to production."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I handle NULL values in calculated fields to avoid errors?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use COALESCE, IFNULL, or CASE WHEN. COALESCE(\"Employees\".\"Commission\", 0) returns the first non-NULL value. IFNULL(value, default) is shorthand. Always wrap division with NULL checks: CASE WHEN \"Count\" = 0 THEN 0 ELSE \"Total\" / \"Count\" END. This prevents 'divide by zero' errors when denominators are NULL."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use aggregate functions like SUM or COUNT in calculated fields?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, but only in measure (aggregated) contexts. If you're building a calculated measure in a report or dashboard, you can use SUM(\"Salary\"), COUNT(*), AVG(\"Hours Worked\"), etc. However, if you're creating a calculated column in a data set (for dimensional attributes), do NOT use aggregates. If you try to mix aggregates with non-aggregates in a column context, OTBI throws an error. Test your expression in the OTBI expression builder first."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google tag (gtag.js) — GA4 analytics, tracking ID G-NSN2JWG98H -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H" crossorigin="anonymous"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    .error-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-card .error-code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-card .error-msg {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .fix-card {
+      background: oklch(0.16 0.02 145 / 0.3);
+      border: 1px solid oklch(0.70 0.18 145 / 0.4);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fix-card .fix-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .fix-card p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .callout p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout strong { color: var(--text-primary); }
+
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .toc a { color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); text-decoration: none; }
+
+    .quick-ref {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .quick-ref table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .quick-ref th {
+      background: var(--bg-tertiary);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .quick-ref td {
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .quick-ref td:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .quick-ref td:nth-child(3) {
+      color: var(--green);
+      font-size: 0.88rem;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, oklch(0.18 0.03 260) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary) !important;
+      margin-top: 0 !important;
+    }
+
+    .cta-box p {
+      color: var(--text-secondary);
+      font-size: 1rem !important;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: oklch(0.98 0 0);
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.85; text-decoration: none; color: oklch(0.98 0 0); }
+
+    .related-posts {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-posts h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      transition: border-color 0.15s;
+    }
+
+    .related-card:hover { border-color: var(--text-muted); }
+
+    .related-card .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .related-card a:hover { color: var(--accent); text-decoration: none; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer a { color: var(--blue); }
+    .footer a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <main class="article-container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; OTBI Calculated Fields
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <span class="article-tag">OTBI Reporting</span>
+      <h1>OTBI Calculated Fields &amp; Custom Expressions &mdash; Complete Guide with Examples</h1>
+      <p class="article-meta">June 1, 2026 &middot; 18 min read</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h4>In this article</h4>
+      <ol>
+        <li><a href="#what-are">What Are Calculated Fields</a></li>
+        <li><a href="#when-use">When to Use Calculated Fields vs Standard Columns</a></li>
+        <li><a href="#how-create">How to Create a Calculated Field in OTBI</a></li>
+        <li><a href="#functions-reference">Essential Functions Reference Table</a></li>
+        <li><a href="#15-examples">15 Real-World Expression Examples</a></li>
+        <li><a href="#common-mistakes">Common Mistakes &amp; Fixes</a></li>
+        <li><a href="#performance-tips">Performance Tips &amp; Optimization</a></li>
+        <li><a href="#faq">Frequently Asked Questions</a></li>
+      </ol>
+    </nav>
+
+    <!-- Article Content -->
+    <article class="article-content">
+
+      <p>
+        OTBI calculated fields are custom columns you create directly in Oracle Analytics/OTBI that compute their values from existing columns using expressions. Unlike table columns that come pre-built from the database, calculated fields let you transform, combine, and derive data at query time. This guide covers how to build them, 15 production-ready examples, and how to avoid common mistakes.
+      </p>
+
+      <div class="callout">
+        <p><strong>Key difference:</strong> Calculated fields exist only in your OTBI report or data set, not in the database. They're computed per-query, which means they're flexible (change the expression = instant update) but also slightly slower than database-native columns. Use calculated fields for ad hoc transformations; use database views for frequently-reused computed columns.</p>
+      </div>
+
+      <!-- What Are Calculated Fields? -->
+      <h2 id="what-are">What Are OTBI Calculated Fields?</h2>
+
+      <p>
+        A calculated field is a virtual column built from an <strong>expression</strong> — a formula that references other columns, functions, and constants. When you add a calculated field to a report, OTBI evaluates the expression for each row of data and displays the result. The expression uses <strong>OBIEE Logical SQL</strong>, not standard SQL, which means it has some special functions and syntax.
+      </p>
+
+      <p>
+        Examples of calculated fields you might build:
+      </p>
+
+      <ul>
+        <li><strong>Tenure in years:</strong> How long an employee has been with the company (today minus hire date)</li>
+        <li><strong>FTE headcount:</strong> Full-time equivalent count (sum of employees * their FTE percentage)</li>
+        <li><strong>Salary band classification:</strong> Junior, Mid, Senior based on salary ranges (CASE/WHEN)</li>
+        <li><strong>Compensation ratio:</strong> Employee salary vs median for their role (avoid-divide-by-zero pattern)</li>
+        <li><strong>Turnover flag:</strong> 'Active' or 'Terminated' status (simple conditional)</li>
+      </ul>
+
+      <!-- When to Use -->
+      <h2 id="when-use">When to Use Calculated Fields vs Standard Columns</h2>
+
+      <p>
+        Use a <strong>calculated field</strong> when you need a one-off computation for a specific report or rarely repeat the same logic across reports. Use a <strong>database view or table</strong> when you're computing the same thing in many reports or when the calculation is complex and performance-critical.
+      </p>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Scenario</th>
+              <th>Calculated Field?</th>
+              <th>Database View?</th>
+              <th>Why</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>One-time calc: tenure years for this report</td>
+              <td>✓</td>
+              <td></td>
+              <td>Quick, no maintenance burden</td>
+            </tr>
+            <tr>
+              <td>Used in 10+ reports: compa-ratio</td>
+              <td></td>
+              <td>✓</td>
+              <td>Avoid duplication, single source of truth</td>
+            </tr>
+            <tr>
+              <td>Slow aggregation (SUM across 1M rows)</td>
+              <td></td>
+              <td>✓</td>
+              <td>Pre-aggregate in database for speed</td>
+            </tr>
+            <tr>
+              <td>Complex logic: 5+ CASE statements</td>
+              <td></td>
+              <td>✓</td>
+              <td>Cleaner, easier to debug in SQL</td>
+            </tr>
+            <tr>
+              <td>Ad hoc: "show me compa ratio if salary &gt; X"</td>
+              <td>✓</td>
+              <td></td>
+              <td>Quick exploration, no repo impact</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- How to Create -->
+      <h2 id="how-create">How to Create a Calculated Field in OTBI</h2>
+
+      <h3>Step 1: Open Your Report or Data Set</h3>
+
+      <p>
+        In Oracle Analytics/OTBI, open an existing report or create a new one. Add the base columns you want to work with (e.g., hire date, salary, department).
+      </p>
+
+      <h3>Step 2: Locate the "New Calculated Field" Option</h3>
+
+      <p>
+        In the Data panel or column list, look for a <code>+</code> button or "New Calculated Field" link. In some versions, it's under the Data Source menu. Click to open the Calculated Field editor.
+      </p>
+
+      <h3>Step 3: Name Your Field</h3>
+
+      <p>
+        Give it a descriptive name: <code>Tenure Years</code>, <code>Compa Ratio</code>, <code>Status Flag</code>. This name will appear as a column in your report.
+      </p>
+
+      <h3>Step 4: Write Your Expression</h3>
+
+      <p>
+        Click in the Expression box and type your OBIEE Logical SQL formula. Use double quotes around column names: <code>"Employees"."Hire Date"</code>. The editor may offer autocomplete for column names and functions.
+      </p>
+
+      <h3>Step 5: Test and Save</h3>
+
+      <p>
+        Click "Validate" or "Test" to check for syntax errors. If it passes, click "OK" or "Save". The field will appear in your report immediately.
+      </p>
+
+      <div class="fix-card">
+        <div class="fix-label">Pro Tip</div>
+        <p>If your expression doesn't work, check for typos in column names (must match the subject area exactly), missing quotes around column references, and incompatible data types. Start simple — test a single CASE or CAST before combining multiple functions.</p>
+      </div>
+
+      <!-- Functions Reference -->
+      <h2 id="functions-reference">Essential Functions Reference Table</h2>
+
+      <p>
+        This table covers the most common OBIEE Logical SQL functions used in calculated fields. All examples use the double-quote syntax for columns.
+      </p>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Category</th>
+              <th>Function</th>
+              <th>Example</th>
+              <th>Returns</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>String</strong></td>
+              <td>CONCAT</td>
+              <td>CONCAT("First Name", ' ', "Last Name")</td>
+              <td>'John Doe'</td>
+            </tr>
+            <tr>
+              <td><strong>String</strong></td>
+              <td>UPPER</td>
+              <td>UPPER("Department")</td>
+              <td>'SALES'</td>
+            </tr>
+            <tr>
+              <td><strong>String</strong></td>
+              <td>LOWER</td>
+              <td>LOWER("Department")</td>
+              <td>'sales'</td>
+            </tr>
+            <tr>
+              <td><strong>String</strong></td>
+              <td>SUBSTR</td>
+              <td>SUBSTR("Employee ID", 1, 3)</td>
+              <td>'EMP'</td>
+            </tr>
+            <tr>
+              <td><strong>String</strong></td>
+              <td>TRIM</td>
+              <td>TRIM("Name")</td>
+              <td>'John' (no spaces)</td>
+            </tr>
+            <tr>
+              <td><strong>String</strong></td>
+              <td>LENGTH</td>
+              <td>LENGTH("Name")</td>
+              <td>4</td>
+            </tr>
+            <tr>
+              <td><strong>String</strong></td>
+              <td>REPLACE</td>
+              <td>REPLACE("Code", '-', '_')</td>
+              <td>'EMP_001'</td>
+            </tr>
+            <tr>
+              <td><strong>Date</strong></td>
+              <td>TIMESTAMPDIFF</td>
+              <td>TIMESTAMPDIFF(SQL_TSI_YEAR, "Hire Date", CURRENT_DATE)</td>
+              <td>15</td>
+            </tr>
+            <tr>
+              <td><strong>Date</strong></td>
+              <td>CURRENT_DATE</td>
+              <td>CURRENT_DATE</td>
+              <td>2026-06-01</td>
+            </tr>
+            <tr>
+              <td><strong>Date</strong></td>
+              <td>CAST</td>
+              <td>CAST("Hire Date" AS VARCHAR)</td>
+              <td>'2015-03-15'</td>
+            </tr>
+            <tr>
+              <td><strong>Numeric</strong></td>
+              <td>ROUND</td>
+              <td>ROUND("Salary" / "Target", 2)</td>
+              <td>1.25</td>
+            </tr>
+            <tr>
+              <td><strong>Numeric</strong></td>
+              <td>FLOOR</td>
+              <td>FLOOR("Hours" / 8)</td>
+              <td>8</td>
+            </tr>
+            <tr>
+              <td><strong>Numeric</strong></td>
+              <td>CEIL</td>
+              <td>CEIL("Hours" / 8)</td>
+              <td>9</td>
+            </tr>
+            <tr>
+              <td><strong>Numeric</strong></td>
+              <td>ABS</td>
+              <td>ABS("Variance")</td>
+              <td>1500</td>
+            </tr>
+            <tr>
+              <td><strong>Numeric</strong></td>
+              <td>MOD</td>
+              <td>MOD("Employee ID", 10)</td>
+              <td>7</td>
+            </tr>
+            <tr>
+              <td><strong>Conditional</strong></td>
+              <td>CASE/WHEN</td>
+              <td>CASE WHEN "Salary" &gt; 100000 THEN 'Senior' ELSE 'Junior' END</td>
+              <td>'Senior'</td>
+            </tr>
+            <tr>
+              <td><strong>Conditional</strong></td>
+              <td>IFNULL</td>
+              <td>IFNULL("Commission", 0)</td>
+              <td>0 (if NULL)</td>
+            </tr>
+            <tr>
+              <td><strong>Conditional</strong></td>
+              <td>COALESCE</td>
+              <td>COALESCE("Commission", "Bonus", 0)</td>
+              <td>First non-NULL value</td>
+            </tr>
+            <tr>
+              <td><strong>Conditional</strong></td>
+              <td>NULLIF</td>
+              <td>NULLIF("Code", 'UNKNOWN')</td>
+              <td>NULL if equal</td>
+            </tr>
+            <tr>
+              <td><strong>Aggregate</strong></td>
+              <td>SUM</td>
+              <td>SUM("Hours Worked")</td>
+              <td>160</td>
+            </tr>
+            <tr>
+              <td><strong>Aggregate</strong></td>
+              <td>COUNT</td>
+              <td>COUNT(*)</td>
+              <td>100</td>
+            </tr>
+            <tr>
+              <td><strong>Aggregate</strong></td>
+              <td>AVG</td>
+              <td>AVG("Salary")</td>
+              <td>85000</td>
+            </tr>
+            <tr>
+              <td><strong>Aggregate</strong></td>
+              <td>MAX</td>
+              <td>MAX("Salary")</td>
+              <td>250000</td>
+            </tr>
+            <tr>
+              <td><strong>Aggregate</strong></td>
+              <td>MIN</td>
+              <td>MIN("Salary")</td>
+              <td>30000</td>
+            </tr>
+            <tr>
+              <td><strong>Aggregate</strong></td>
+              <td>COUNT(DISTINCT)</td>
+              <td>COUNT(DISTINCT "Department ID")</td>
+              <td>15</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- 15 Real-World Examples -->
+      <h2 id="15-examples">15 Real-World Expression Examples</h2>
+
+      <h3>1. Tenure in Years (Simple Date Subtraction)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>TIMESTAMPDIFF(SQL_TSI_YEAR, "Employees"."Hire Date", CURRENT_DATE)</pre>
+      </div>
+
+      <p>
+        Calculates years since hire date. Uses <code>SQL_TSI_YEAR</code> to get full years. Replace with <code>SQL_TSI_MONTH</code> for months, <code>SQL_TSI_DAY</code> for days.
+      </p>
+
+      <h3>2. Tenure in Years and Months (Combined)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>CONCAT(
+  TIMESTAMPDIFF(SQL_TSI_YEAR, "Employees"."Hire Date", CURRENT_DATE),
+  ' years, ',
+  MOD(TIMESTAMPDIFF(SQL_TSI_MONTH, "Employees"."Hire Date", CURRENT_DATE), 12),
+  ' months'
+)</pre>
+      </div>
+
+      <p>
+        Returns "5 years, 3 months". Combines TIMESTAMPDIFF for years, MOD to get months only (remainder after dividing total months by 12), and CONCAT to format the result.
+      </p>
+
+      <h3>3. Age Calculation from Date of Birth</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>TIMESTAMPDIFF(SQL_TSI_YEAR, "Employees"."Date of Birth", CURRENT_DATE)</pre>
+      </div>
+
+      <p>
+        Similar to tenure, but uses date of birth to calculate age. Always use <code>CURRENT_DATE</code> (not CURRENT_TIMESTAMP) for age calculations to avoid day-of-month mismatches.
+      </p>
+
+      <h3>4. FTE Headcount (Full-Time Equivalent)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SUM("Employees"."FTE Percentage") / 100</pre>
+      </div>
+
+      <p>
+        Sums up FTE percentages (e.g., 0.5 for half-time) and divides by 100 to convert from percentage to decimal. This is a measure, so it aggregates per dimension (e.g., per department).
+      </p>
+
+      <h3>5. Salary Band Classification (CASE/WHEN)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>CASE
+  WHEN "Compensation"."Salary" < 50000 THEN 'Band A: Entry'
+  WHEN "Compensation"."Salary" < 75000 THEN 'Band B: Mid'
+  WHEN "Compensation"."Salary" < 100000 THEN 'Band C: Senior'
+  ELSE 'Band D: Executive'
+END</pre>
+      </div>
+
+      <p>
+        Bucketing salary into tiers. Each WHEN is evaluated top-to-bottom; first match wins. Include an ELSE for any edge cases.
+      </p>
+
+      <h3>6. Turnover Rate Percentage</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>CASE
+  WHEN SUM("Employees"."Starting Headcount") = 0 THEN 0
+  ELSE ROUND(SUM("Employees"."Terminations") / SUM("Employees"."Starting Headcount") * 100, 2)
+END</pre>
+      </div>
+
+      <p>
+        Avoids divide-by-zero by checking if denominator is 0 first. Returns 0 if no starting headcount, otherwise calculates percentage. ROUND to 2 decimals for readability.
+      </p>
+
+      <h3>7. Time to Fill (Days Since Requisition Opened)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>TIMESTAMPDIFF(SQL_TSI_DAY, "Recruitment"."Requisition Open Date", CURRENT_DATE)</pre>
+      </div>
+
+      <p>
+        Measures days a position has been open. Use this to track recruitment velocity and hiring delays. Filter to open requisitions only (status = 'OPEN') for current time-to-fill.
+      </p>
+
+      <h3>8. Absence Rate as Percentage</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>ROUND(
+  SUM("Absence"."Absence Hours") /
+  (SUM("Absence"."Absence Hours") + SUM("Timecard"."Hours Worked"))
+  * 100,
+  2
+)</pre>
+      </div>
+
+      <p>
+        Ratio of absence hours to total hours. Wrap in NULL-safe CASE to avoid divide-by-zero if no hours are recorded.
+      </p>
+
+      <h3>9. Manager vs Individual Contributor Flag</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>CASE
+  WHEN "Employees"."Manager ID" IS NOT NULL AND "Employees"."Reports Count" > 0 THEN 'Manager'
+  ELSE 'Individual Contributor'
+END</pre>
+      </div>
+
+      <p>
+        Identifies managers by checking if they have a manager ID and direct reports. Useful for org structure analysis and leadership dashboards.
+      </p>
+
+      <h3>10. Compa-Ratio (Actual Salary vs Midpoint)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>CASE
+  WHEN "Salary Grade"."Midpoint Salary" = 0 THEN NULL
+  ELSE ROUND("Compensation"."Salary" / "Salary Grade"."Midpoint Salary", 3)
+END</pre>
+      </div>
+
+      <p>
+        Shows how an employee's salary compares to the grade midpoint (1.0 = at midpoint, 0.9 = 10% below, 1.1 = 10% above). Essential for pay equity analysis. Returns NULL if midpoint is 0 to avoid errors.
+      </p>
+
+      <h3>11. Custom Date Formatting (ISO to Human-Readable)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>CONCAT(
+  SUBSTR(CAST("Employees"."Hire Date" AS VARCHAR), 6, 2),
+  '/',
+  SUBSTR(CAST("Employees"."Hire Date" AS VARCHAR), 9, 2),
+  '/',
+  SUBSTR(CAST("Employees"."Hire Date" AS VARCHAR), 1, 4)
+)</pre>
+      </div>
+
+      <p>
+        Converts ISO date (2026-06-01) to MM/DD/YYYY format (06/01/2026). CAST to VARCHAR, then SUBSTR to extract parts. Not needed if OTBI date formatting options suffice.
+      </p>
+
+      <h3>12. Full Name Concatenation (NULL-Safe)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>TRIM(CONCAT(
+  COALESCE("Employees"."First Name", ''),
+  ' ',
+  COALESCE("Employees"."Last Name", '')
+))</pre>
+      </div>
+
+      <p>
+        Combines first and last name, handling NULLs gracefully. COALESCE replaces NULL with empty string, CONCAT concatenates, TRIM removes extra spaces. Safe even if either name is missing.
+      </p>
+
+      <h3>13. Null-Safe Division (Avoid Divide by Zero)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>CASE
+  WHEN "Performance"."Target" = 0 OR "Performance"."Target" IS NULL THEN NULL
+  ELSE ROUND("Performance"."Actual" / "Performance"."Target", 2)
+END</pre>
+      </div>
+
+      <p>
+        Returns NULL (not an error or 0) if the denominator is zero or NULL. This prevents misleading values when data is incomplete. Use this pattern anytime you divide two metrics.
+      </p>
+
+      <h3>14. Period-over-Period Change (YoY Growth)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>ROUND(
+  ("Current Year Sales" - "Prior Year Sales") /
+  "Prior Year Sales" * 100,
+  2
+)</pre>
+      </div>
+
+      <p>
+        Calculates year-over-year growth percentage. Assumes you have separate measures for current and prior year. Multiply by 100 to get percentage.
+      </p>
+
+      <h3>15. Active vs Terminated Status Filter</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>CASE
+  WHEN "Employees"."Termination Date" IS NULL THEN 'Active'
+  WHEN "Employees"."Termination Date" <= CURRENT_DATE THEN 'Terminated'
+  ELSE 'Future Termination'
+END</pre>
+      </div>
+
+      <p>
+        Classifies employees by termination status. Used to separate active headcount from separated employees. Handles future terminations (notice given) as a separate category.
+      </p>
+
+      <!-- Common Mistakes -->
+      <h2 id="common-mistakes">Common Mistakes &amp; Fixes</h2>
+
+      <h3>Mistake 1: Column Name Typo or Missing Quotes</h3>
+
+      <p>
+        <strong>Error:</strong> "Column Hire Date not found" or "Invalid column reference"
+      </p>
+
+      <p>
+        <strong>Fix:</strong> Always use double quotes around column names, and match the exact name from the subject area. Column names are case-sensitive in OBIEE Logical SQL. Use autocomplete in the expression editor to avoid typos.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: Missing quotes
+TIMESTAMPDIFF(SQL_TSI_YEAR, Hire Date, CURRENT_DATE)
+
+-- RIGHT: Double quotes
+TIMESTAMPDIFF(SQL_TSI_YEAR, "Hire Date", CURRENT_DATE)</pre>
+      </div>
+
+      <h3>Mistake 2: Data Type Mismatch</h3>
+
+      <p>
+        <strong>Error:</strong> "Type mismatch: cannot mix DECIMAL and VARCHAR" or "Invalid conversion"
+      </p>
+
+      <p>
+        <strong>Fix:</strong> Ensure all operands in an expression are compatible types. Use CAST to convert: <code>CAST("Salary" AS DECIMAL)</code> or <code>CAST("Hire Date" AS VARCHAR)</code>. OTBI is strict about types.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: Trying to concatenate a number with text (no CAST)
+CONCAT("Salary", " dollars")
+
+-- RIGHT: CAST salary to VARCHAR first
+CONCAT(CAST("Salary" AS VARCHAR), " dollars")</pre>
+      </div>
+
+      <h3>Mistake 3: Using Non-Aggregate Functions in Aggregate Context</h3>
+
+      <p>
+        <strong>Error:</strong> "Cannot mix aggregate and non-aggregate functions" or "Column must be in GROUP BY clause"
+      </p>
+
+      <p>
+        <strong>Fix:</strong> If you're using an aggregate (SUM, COUNT, AVG), all non-aggregated columns must be in the GROUP BY. Alternatively, nest non-aggregated columns inside an aggregate if they're the same across the group.
+      </p>
+
+      <h3>Mistake 4: NULL Handling</h3>
+
+      <p>
+        <strong>Error:</strong> Reports show NULL or blank values unexpectedly
+      </p>
+
+      <p>
+        <strong>Fix:</strong> Wrap expressions that might return NULL with COALESCE, IFNULL, or CASE. NULL propagates through most operations (NULL + 5 = NULL). Always check the source columns for missing values.
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- WRONG: If Bonus is NULL, entire result is NULL
+"Salary" + "Bonus"
+
+-- RIGHT: Treat NULL as 0
+"Salary" + COALESCE("Bonus", 0)</pre>
+      </div>
+
+      <h3>Mistake 5: Date Format Issues</h3>
+
+      <p>
+        <strong>Error:</strong> TIMESTAMPDIFF returns 0 or wrong values; date comparisons don't work
+      </p>
+
+      <p>
+        <strong>Fix:</strong> Ensure the column is actually a DATE or TIMESTAMP type in the database. If it's stored as VARCHAR, CAST it first: <code>CAST("Hire Date Str" AS DATE)</code>. Always use ISO format (YYYY-MM-DD) when comparing dates manually.
+      </p>
+
+      <!-- Performance Tips -->
+      <h2 id="performance-tips">Performance Tips &amp; Optimization</h2>
+
+      <h3>Tip 1: Avoid Expensive Functions in Large Data Sets</h3>
+
+      <p>
+        SUBSTR, REPLACE, and CONCAT are slow on millions of rows. If possible, use the database view to pre-compute these, then reference the view column in OTBI.
+      </p>
+
+      <h3>Tip 2: Use Aggregates Wisely</h3>
+
+      <p>
+        Calculated measures with SUM, COUNT, or AVG can slow down large queries. If the same aggregate is used in many reports, create a pre-aggregated table in the database and reference it directly.
+      </p>
+
+      <h3>Tip 3: Filter Early, Not in Calculated Fields</h3>
+
+      <p>
+        If you're filtering to active employees, do it with a report filter, not a CASE statement inside a measure. Filters reduce the data volume before calculation; CASE statements run on all rows, then filter results.
+      </p>
+
+      <h3>Tip 4: Test with Sample Data</h3>
+
+      <p>
+        Create your calculated field against a small date range or subset of users first. Once it works, expand to full data. This helps catch logic errors before they hit large data sets.
+      </p>
+
+      <h3>Tip 5: Monitor Query Time</h3>
+
+      <p>
+        If a report with calculated fields suddenly gets slower, the calculated field might be the culprit. Profile the query using OTBI's "Query Builder" or database logs to identify bottlenecks.
+      </p>
+
+      <!-- FAQ -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+
+      <h3>Q: Can I use parameters or prompts in calculated fields?</h3>
+
+      <p>
+        No. Calculated fields are evaluated per-row at query time; they don't have access to report parameters. However, you can use calculated fields to compute a column, then filter that column by a parameter. Example: Create a "Salary Band" calculated field, then add a report filter "Salary Band = @SelectedBand".
+      </p>
+
+      <h3>Q: How do I debug a calculated field that returns unexpected values?</h3>
+
+      <p>
+        Add the expression components as separate calculated fields first to isolate the problem. For example, if TIMESTAMPDIFF isn't working, add a field that just returns "Hire Date", another that returns CURRENT_DATE, then combine them. This helps pinpoint which part is broken.
+      </p>
+
+      <h3>Q: Can calculated fields reference other calculated fields?</h3>
+
+      <p>
+        Yes, in most OTBI versions. Create Field A, then in Field B's expression, reference Field A by name (in quotes). Test this in your environment first, as older OTBI versions may not support it.
+      </p>
+
+      <h3>Q: What's the maximum complexity of an expression?</h3>
+
+      <p>
+        OBIEE Logical SQL can handle deeply nested expressions (CASE inside CASE inside CONCAT, etc.), but readability and performance suffer. Aim for 3-4 levels of nesting max. For very complex logic (10+ CASE statements), use a database view instead.
+      </p>
+
+      <h3>Q: Can I use window functions (ROW_NUMBER, RANK, LAG) in calculated fields?</h3>
+
+      <p>
+        Depends on your OTBI version and underlying database. Modern versions support window functions, but they're typically slower than database-native views. Test in a non-production environment first.
+      </p>
+
+      <h3>Q: How do I export calculated field definitions for reuse?</h3>
+
+      <p>
+        Calculated fields are stored with the report, not globally. To reuse an expression across multiple reports, either (a) document the expression and manually recreate it, or (b) create a database view and reference it as a standard column in all reports. Option B is cleaner and more maintainable.
+      </p>
+
+      <!-- CTA Boxes -->
+      <div class="cta-box">
+        <h3>OTBI Template Pack</h3>
+        <p>15 production-ready OTBI queries for headcount, assignments, compensation, and absence. Copy-paste into your reports — no syntax errors, no trial-and-error.</p>
+        <a href="/otbi-template-pack" class="cta-btn">Get the OTBI Template Pack &rarr;</a>
+      </div>
+
+      <div class="cta-box" style="margin-top:1.5rem;background:oklch(0.18 0.02 145 / 0.25);border-color:oklch(0.50 0.15 145 / 0.4);">
+        <h3>Search 14,950+ Oracle HCM Tables</h3>
+        <p>Find any table, understand its columns, explore relationships, and get SQL join examples in seconds. Save hours of documentation hunting.</p>
+        <a href="/" class="cta-btn" style="background:oklch(0.60 0.18 145);box-shadow:0 2px 12px oklch(0.60 0.18 145 / 0.35);">Search Tables &rarr;</a>
+      </div>
+
+      <h2>Quick Checklist for Building Calculated Fields</h2>
+
+      <ol>
+        <li>Identify the columns and functions you need</li>
+        <li>Use double quotes around column names</li>
+        <li>Use OBIEE Logical SQL syntax (not standard SQL)</li>
+        <li>Test with a simple expression first (single CONCAT or CASE)</li>
+        <li>Add NULL-handling (COALESCE, CASE) for edge cases</li>
+        <li>Validate the expression in the OTBI editor</li>
+        <li>Run a report with sample data to verify correctness</li>
+        <li>Document the expression for team reference</li>
+        <li>If reusing in 3+ reports, move to a database view instead</li>
+      </ol>
+
+    </article>
+
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h3>Related guides</h3>
+      <div class="related-grid">
+        <div class="related-card">
+          <div class="tag">OTBI Reporting</div>
+          <a href="/blog/otbi-subject-area-guide">OTBI Subject Areas &mdash; Complete Guide with Decision Tree</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">OTBI Errors</div>
+          <a href="/blog/obiee-assertion-failure-fix">OBIEE/OTBI Assertion Failure Errors &mdash; Causes, Fixes &amp; SQL Examples</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">SQL</div>
+          <a href="/blog/sql-query-library">SQL Query Library &mdash; 7 Production-Ready Queries</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">OTBI Syntax</div>
+          <a href="/blog/otbi-comma-join-explained">OTBI Comma Join Explained &mdash; Root Cause &amp; Fix</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p>
+        <a href="/">Search 35,000+ Oracle Tables</a> &middot;
+        <a href="/privacy">Privacy Policy</a> &middot;
+        <a href="/terms">Terms of Service</a> &middot;
+        <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      navigator.clipboard.writeText(pre.textContent).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>

@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle HCM Benefits Tables &amp; Configuration Guide — BEN_ Schema Deep Dive | HCM Tables</title>
+  <meta name="title" content="Oracle HCM Benefits Tables &amp; Configuration Guide — BEN_ Schema Deep Dive | HCM Tables">
+  <meta name="description" content="Complete guide to Oracle Fusion HCM Benefits tables. Covers BEN_PL_F, BEN_OPT_F, BEN_PRTT_ENRT_RSLT_F, plan types, enrollment flows, life events, and 10+ SQL queries for benefits reporting.">
+  <meta name="keywords" content="oracle hcm benefits tables, BEN_PL_F, BEN_OPT_F, BEN_PRTT_ENRT_RSLT_F, oracle fusion benefits, benefits enrollment tables, oracle hcm benefits reporting, life events oracle hcm">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Matt Morales">
+  <link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-benefits-tables-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-benefits-tables-guide">
+  <meta property="og:title" content="Oracle HCM Benefits Tables &amp; Configuration Guide — BEN_ Schema Deep Dive">
+  <meta property="og:description" content="Complete guide to Oracle Fusion HCM Benefits tables. Covers BEN_PL_F, BEN_OPT_F, BEN_PRTT_ENRT_RSLT_F, plan types, enrollment flows, and production SQL queries.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-hcm-benefits-tables-guide">
+  <meta property="twitter:title" content="Oracle HCM Benefits Tables &amp; Configuration Guide — BEN_ Schema Deep Dive">
+  <meta property="twitter:description" content="Complete guide to Oracle Fusion HCM Benefits tables with BEN_PL_F, BEN_OPT_F, BEN_PRTT_ENRT_RSLT_F deep dives and 10+ production SQL queries.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle HCM Benefits Tables &amp; Configuration Guide — BEN_ Schema Deep Dive",
+    "description": "Complete guide to Oracle Fusion HCM Benefits tables. Covers BEN_PL_F, BEN_OPT_F, BEN_PRTT_ENRT_RSLT_F, plan types, enrollment flows, life events, and 10+ SQL queries for benefits reporting.",
+    "url": "https://hcm-tables.com/blog/oracle-hcm-benefits-tables-guide",
+    "datePublished": "2026-06-01",
+    "dateModified": "2026-06-01",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/oracle-hcm-benefits-tables-guide"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"Oracle HCM Benefits Tables &amp; Configuration Guide","item":"https://hcm-tables.com/blog/oracle-hcm-benefits-tables-guide"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema (boosts featured snippets) -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is BEN_PL_F in Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "BEN_PL_F is the Benefits Plans table in Oracle Fusion HCM. It stores the definition of all benefit plans (medical, dental, vision, FSA, HSA, 401k, etc.) across your organization. The _F suffix indicates it is a date-effective table, supporting plan changes over time. Each plan has a plan_id, plan_name, plan_type (e.g., MEDICAL, DENTAL), and validity dates (effective_start_date, effective_end_date)."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do BEN_PL_F and BEN_OPT_F relate to each other?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "BEN_PL_F defines the plans; BEN_OPT_F defines the coverage options within those plans. For example, a MEDICAL plan might have two options: Basic and Premium. A DENTAL plan might have Standard and PPO. BEN_OPT_F stores each option's details and premium rates. To query the full plan + option hierarchy, join BEN_PL_F to BEN_OPT_F on PL_ID = PL_ID and both effective_start_date and effective_end_date ranges."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is BEN_PRTT_ENRT_RSLT_F and why is it important?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "BEN_PRTT_ENRT_RSLT_F (Participant Enrollment Result) is the transaction log of all employee enrollments. Every time an employee enrolls in a plan (during open enrollment, hire, or life event), a row is inserted into BEN_PRTT_ENRT_RSLT_F. This table is critical for auditing, reporting enrollment history, and calculating benefit costs. It includes enrollment_id, person_id, pl_id, opt_id, enrollment_date, and effective dates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a life event in Oracle HCM Benefits?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A life event is a triggering event that allows employees to change their benefit elections outside of open enrollment. Common life events include birth of a child, marriage, divorce, change of employment status, and loss of coverage. In Oracle HCM, life events are defined in BEN_PER_IN_LER (Person in Life Event Reason). When a life event occurs, the employee can make new elections within a defined enrollment period."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I query active enrollments by department and plan type?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Join BEN_PRTT_ENRT_RSLT_F to BEN_PL_F, BEN_OPT_F, PER_ALL_ASSIGNMENTS_F, and ORG_ORG_INFORMATION_F. Filter on PRTT_ENRT_RSLT.enrt_ovrid_reason IS NULL (active enrollments), date-effective ranges, and plan_type. Group by department and plan_type to get counts. See the Production SQL Queries section below for a complete example."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google tag (gtag.js) — GA4 analytics, tracking ID G-NSN2JWG98H -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H" crossorigin="anonymous"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    .error-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .error-card .error-code {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+    }
+
+    .error-card .error-msg {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--text-secondary);
+      white-space: pre-wrap;
+      word-break: break-word;
+    }
+
+    .fix-card {
+      background: oklch(0.16 0.02 145 / 0.3);
+      border: 1px solid oklch(0.70 0.18 145 / 0.4);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .fix-card .fix-label {
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: var(--green);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 0.75rem;
+    }
+
+    .fix-card p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .callout p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout strong { color: var(--text-primary); }
+
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .toc a { color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); text-decoration: none; }
+
+    .quick-ref {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .quick-ref table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .quick-ref th {
+      background: var(--bg-tertiary);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .quick-ref td {
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .quick-ref td:first-child {
+      font-family: var(--font-mono);
+      font-size: 0.82rem;
+      color: var(--accent);
+      white-space: nowrap;
+    }
+
+    .quick-ref td:nth-child(3) {
+      color: var(--green);
+      font-size: 0.88rem;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, oklch(0.18 0.03 260) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary) !important;
+      margin-top: 0 !important;
+    }
+
+    .cta-box p {
+      color: var(--text-secondary);
+      font-size: 1rem !important;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: oklch(0.98 0 0);
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.85; text-decoration: none; color: oklch(0.98 0 0); }
+
+    .related-posts {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-posts h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      transition: border-color 0.15s;
+    }
+
+    .related-card:hover { border-color: var(--text-muted); }
+
+    .related-card .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card a {
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+
+    .related-card a:hover { color: var(--accent); text-decoration: none; }
+
+    .footer {
+      padding: 2rem 1.5rem;
+      border-top: 1px solid var(--border);
+      text-align: center;
+    }
+
+    .footer p {
+      color: var(--text-muted);
+      font-size: 0.85rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .footer a { color: var(--blue); }
+    .footer a:hover { color: var(--accent); }
+
+    @media (max-width: 640px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <!-- Nav -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/" class="active">Blog</a>
+    </div>
+  </nav>
+
+  <main class="article-container">
+    <!-- Breadcrumb -->
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Oracle HCM Benefits Tables Guide
+    </nav>
+
+    <!-- Article Header -->
+    <header class="article-header">
+      <span class="article-tag">BENEFITS</span>
+      <h1>Oracle HCM Benefits Tables &amp; Configuration Guide &mdash; BEN_ Schema Deep Dive</h1>
+      <p class="article-meta">June 1, 2026 &middot; 14 min read</p>
+    </header>
+
+    <!-- Table of Contents -->
+    <nav class="toc">
+      <h4>In this article</h4>
+      <ol>
+        <li><a href="#why-complex">Why Benefits Tables Are Complex</a></li>
+        <li><a href="#core-tables">Core Benefits Tables Overview</a></li>
+        <li><a href="#ben-pl-f">BEN_PL_F: Plans Deep Dive</a></li>
+        <li><a href="#ben-opt-f">BEN_OPT_F: Options &amp; Rates</a></li>
+        <li><a href="#ben-prtt-enrt">BEN_PRTT_ENRT_RSLT_F: Enrollment Transactions</a></li>
+        <li><a href="#ben-per-in-ler">BEN_PER_IN_LER: Life Events</a></li>
+        <li><a href="#ben-elig">BEN_ELIG_PER_F: Eligibility Profiles</a></li>
+        <li><a href="#enrollment-flow">Benefits Enrollment Data Flow</a></li>
+        <li><a href="#sql-queries">8 Production SQL Queries</a></li>
+        <li><a href="#join-patterns">Join Patterns &amp; Best Practices</a></li>
+        <li><a href="#faq">Frequently Asked Questions</a></li>
+      </ol>
+    </nav>
+
+    <!-- Article Content -->
+    <article class="article-content">
+
+      <p>
+        Oracle Fusion HCM Benefits tables are among the most complex in the entire system. Unlike payroll tables (which follow a linear month-by-month flow) or absence tables (which are largely self-contained), benefits involve multiple overlapping dimensions: plan types, eligibility rules, life events, coverage options, enrollment periods, and enrollment overrides. This guide covers the BEN_ schema with working SQL examples for the most common reporting scenarios.
+      </p>
+
+      <div class="callout">
+        <p><strong>Scope of this guide:</strong> This covers Oracle Fusion HCM 24B+ Benefits tables (BEN_* schema), date-effective dimensions, enrollment flows, and production-ready SQL. We do not cover Enrollment Objects (BEN_ENRT_OBJ) or Advanced Benefits features (Life/Health Insurance, COBRA). For those, consult Oracle's official Benefits Implementation Guide.</p>
+      </div>
+
+      <!-- Why Complex -->
+      <h2 id="why-complex">Why Benefits Tables Are Complex</h2>
+
+      <p>
+        Benefits in Oracle HCM are complex because they model real-world insurance administration:
+      </p>
+
+      <ul>
+        <li><strong>Multiple plan types:</strong> Medical, dental, vision, FSA, HSA, 401(k), supplemental life — each with different rules, rates, and eligibility.</li>
+        <li><strong>Eligibility rules:</strong> Not all employees can enroll in all plans. Eligibility depends on employment type (FTE vs. contractor), assignment status, union membership, age, tenure, and job classification.</li>
+        <li><strong>Coverage options within plans:</strong> A medical plan might offer Employee-Only, Employee+Spouse, Employee+Child, and Family coverage. Each option has a different premium.</li>
+        <li><strong>Life events:</strong> Employees can change elections outside open enrollment if a life event occurs (birth, marriage, divorce, loss of coverage).</li>
+        <li><strong>Enrollment overrides:</strong> Administrators can override or cancel enrollments for corrections, terminations, or compliance.</li>
+        <li><strong>Date-effective history:</strong> Plans, options, and enrollment decisions all have effective dates. Benefit administrators need to query "which plans were active on January 15, 2026?" — not just "which plans are active today?"</li>
+      </ul>
+
+      <p>
+        Because of these dimensions, the benefits schema uses at least 12 core tables, plus supporting tables for eligibility profiles, life event definitions, and enrollment rules. Queries often require 4-6 table joins and careful WHERE clause filtering.
+      </p>
+
+      <!-- Core Tables -->
+      <h2 id="core-tables">Core Benefits Tables Overview</h2>
+
+      <p>
+        Here are the 12 most commonly queried BEN_ tables:
+      </p>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Table</th>
+              <th>Purpose</th>
+              <th>Key Columns</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>BEN_PL_F</strong></td>
+              <td>Benefit Plans (medical, dental, 401k, FSA, etc.)</td>
+              <td>pl_id, plan_type, plan_name, effective_start_date, effective_end_date</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_OPT_F</strong></td>
+              <td>Plan Options (Employee-Only, Family, etc.)</td>
+              <td>opt_id, pl_id, opt_name, effective_start_date, effective_end_date</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_OPT_RT_F</strong></td>
+              <td>Option Rates (premium, coverage cost)</td>
+              <td>opt_rt_id, opt_id, rate_id, rate_type, effective_start_date, effective_end_date</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_PRTT_ENRT_RSLT_F</strong></td>
+              <td>Enrollment Results (employee-plan-option assignments)</td>
+              <td>prtt_enrt_rslt_id, person_id, pl_id, opt_id, elig_flag, enrt_ovrid_reason</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_ELIG_PER_F</strong></td>
+              <td>Eligibility Profiles (rules for who can enroll)</td>
+              <td>elig_per_id, person_id, elig_flag, effective_start_date, effective_end_date</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_PER_IN_LER</strong></td>
+              <td>Person in Life Event Reason (employee life event records)</td>
+              <td>per_in_ler_id, person_id, ler_id, lf_evt_ocrd_dt, dtls_clctd_flag</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_LER_F</strong></td>
+              <td>Life Event Reason (definition of life events)</td>
+              <td>ler_id, ler_name, ler_typ, effective_start_date, effective_end_date</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_ENRT_PD_F</strong></td>
+              <td>Enrollment Periods (open enrollment windows, life event periods)</td>
+              <td>enrt_prd_id, enrt_prd_name, start_dt, end_dt, effective_start_date</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_PRTT_ENRT_F</strong></td>
+              <td>Participant Enrollments (employee enrollment master record)</td>
+              <td>prtt_enrt_id, person_id, pl_id, enrt_cvg_strt_dt, enrt_cvg_end_dt</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_DPNT_CVRD_DPNT_F</strong></td>
+              <td>Dependent Coverage (spouse, children on enrollments)</td>
+              <td>dpnt_cvrd_dpnt_id, prtt_enrt_rslt_id, dpnt_person_id, effective_start_date</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_BENEF_INTRST_F</strong></td>
+              <td>Beneficiary Interest (life insurance beneficiary designations)</td>
+              <td>benef_intrst_id, prtt_enrt_rslt_id, benef_person_id, bnf_pct</td>
+            </tr>
+            <tr>
+              <td><strong>BEN_ELIG_PER_OPT_F</strong></td>
+              <td>Eligibility by Option (which options are eligible per employee)</td>
+              <td>elig_per_opt_id, elig_per_id, opt_id, elig_flag</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- BEN_PL_F -->
+      <h2 id="ben-pl-f">BEN_PL_F: Plans Deep Dive</h2>
+
+      <p>
+        BEN_PL_F is the master definition of all benefit plans. It is a date-effective table, meaning each plan can have multiple rows representing different versions across time.
+      </p>
+
+      <h3>Key Columns</h3>
+
+      <ul>
+        <li><code>pl_id</code> — Unique plan ID (auto-generated by Oracle)</li>
+        <li><code>business_group_id</code> — Organizational hierarchy; typically 1 for a single-group company</li>
+        <li><code>plan_type</code> — MEDICAL, DENTAL, VISION, FSA, HSA, 401K, LIFE, SUPPLEMENTAL, etc.</li>
+        <li><code>plan_name</code> — User-friendly name, e.g., "Blue Cross PPO" or "Delta Dental Premier"</li>
+        <li><code>effective_start_date</code> — When this plan version becomes active</li>
+        <li><code>effective_end_date</code> — When this plan version expires (12/31/4712 = no end date)</li>
+        <li><code>pl_status</code> — ACTIVE or INACTIVE</li>
+        <li><code>uses_elig_flag</code> — Y/N: does this plan use eligibility profiles?</li>
+      </ul>
+
+      <div class="callout">
+        <p><strong>Date-effective patterns:</strong> Always filter BEN_PL_F with: <code>TRUNC(SYSDATE) BETWEEN effective_start_date AND effective_end_date</code> to get today's active plans. For historical queries, use a specific date: <code>TO_DATE('2026-01-15','YYYY-MM-DD') BETWEEN effective_start_date AND effective_end_date</code>.</p>
+      </div>
+
+      <!-- BEN_OPT_F -->
+      <h2 id="ben-opt-f">BEN_OPT_F: Options &amp; Rates</h2>
+
+      <p>
+        BEN_OPT_F defines the coverage choices within a plan. A single plan can have 2-5 options. For example, a medical plan might offer:
+      </p>
+
+      <ul>
+        <li>Employee Only</li>
+        <li>Employee + Spouse</li>
+        <li>Employee + 1 Child</li>
+        <li>Employee + 2+ Children</li>
+        <li>Family (Employee + All)</li>
+      </ul>
+
+      <p>
+        Each option has its own premium (stored in BEN_OPT_RT_F) and eligibility rules. You query BEN_OPT_F to see what choices are available for a plan; you query BEN_OPT_RT_F to see the monthly or annual cost of each choice.
+      </p>
+
+      <h3>Key Columns</h3>
+
+      <ul>
+        <li><code>opt_id</code> — Unique option ID</li>
+        <li><code>pl_id</code> — Foreign key to BEN_PL_F</li>
+        <li><code>opt_name</code> — e.g., "Family Coverage"</li>
+        <li><code>opt_typ_cd</code> — Option type (e.g., EMPLOYEE_ONLY, FAMILY)</li>
+        <li><code>effective_start_date, effective_end_date</code> — Date-effective validity</li>
+        <li><code>cvg_ty_cd</code> — Coverage type (e.g., MONTHLY, ANNUAL)</li>
+      </ul>
+
+      <!-- BEN_PRTT_ENRT_RSLT_F -->
+      <h2 id="ben-prtt-enrt">BEN_PRTT_ENRT_RSLT_F: Enrollment Transactions</h2>
+
+      <p>
+        This is the workhorse table for benefits reporting. Every row represents one employee's enrollment in one plan-option combination. This table grows over time — every enrollment, change, or override creates a new row.
+      </p>
+
+      <h3>Key Columns</h3>
+
+      <ul>
+        <li><code>prtt_enrt_rslt_id</code> — Unique enrollment transaction ID</li>
+        <li><code>person_id</code> — Employee ID (matches PER_ALL_PEOPLE_F.person_id)</li>
+        <li><code>pl_id</code> — Plan ID (matches BEN_PL_F.pl_id)</li>
+        <li><code>opt_id</code> — Option ID (matches BEN_OPT_F.opt_id)</li>
+        <li><code>elig_flag</code> — Y/N: was the employee eligible for this plan at the time of enrollment?</li>
+        <li><code>enrt_ovrid_reason</code> — If not NULL, this enrollment was overridden (e.g., "TERMINATION", "ADMIN_CHANGE", "BENEFIT_SUSPENSION"). Active enrollments have NULL.</li>
+        <li><code>enrt_cvg_strt_dt</code> — Coverage effective date (when the benefit kicks in)</li>
+        <li><code>enrt_cvg_end_dt</code> — Coverage end date (typically 12/31/YYYY of the plan year)</li>
+        <li><code>creation_date</code> — When this enrollment record was created</li>
+      </ul>
+
+      <div class="fix-card">
+        <div class="fix-label">Querying active enrollments</div>
+        <p>To find employee's CURRENT enrollments, filter: <code>enrt_ovrid_reason IS NULL AND TRUNC(SYSDATE) BETWEEN enrt_cvg_strt_dt AND enrt_cvg_end_dt</code>. Overridden or expired enrollments are historical records, not active.</p>
+      </div>
+
+      <!-- BEN_PER_IN_LER -->
+      <h2 id="ben-per-in-ler">BEN_PER_IN_LER: Life Events</h2>
+
+      <p>
+        BEN_PER_IN_LER records when an employee experiences a life event (birth, marriage, divorce, loss of coverage). Each life event opens a defined enrollment period during which the employee can change benefits.
+      </p>
+
+      <h3>Key Columns</h3>
+
+      <ul>
+        <li><code>per_in_ler_id</code> — Unique life event record ID</li>
+        <li><code>person_id</code> — Employee ID</li>
+        <li><code>ler_id</code> — Life event reason ID (matches BEN_LER_F.ler_id)</li>
+        <li><code>lf_evt_ocrd_dt</code> — Date the life event occurred (e.g., birth date, marriage date)</li>
+        <li><code>dtls_clctd_flag</code> — Y/N: has the employee provided details about the life event?</li>
+        <li><code>creation_date</code> — When the life event was recorded</li>
+      </ul>
+
+      <p>
+        Join BEN_PER_IN_LER to BEN_LER_F to get the name of the life event (e.g., "Birth", "Marriage", "Loss of Coverage").
+      </p>
+
+      <!-- BEN_ELIG -->
+      <h2 id="ben-elig">BEN_ELIG_PER_F: Eligibility Profiles</h2>
+
+      <p>
+        BEN_ELIG_PER_F defines eligibility rules — which employees can enroll in which plans. Eligibility can be based on employment type, assignment status, union membership, or job classification.
+      </p>
+
+      <h3>Key Columns</h3>
+
+      <ul>
+        <li><code>elig_per_id</code> — Unique eligibility profile ID</li>
+        <li><code>person_id</code> — Employee ID</li>
+        <li><code>elig_flag</code> — Y/N: is this employee eligible?</li>
+        <li><code>effective_start_date, effective_end_date</code> — Date-effective eligibility window</li>
+      </ul>
+
+      <p>
+        To find which PLANS are eligible for an employee, join BEN_ELIG_PER_F to BEN_ELIG_PER_OPT_F (option level) or to BEN_ELIG_PL_F (plan level). The structure is: Employee → Eligibility Profile → Eligible Plans/Options.
+      </p>
+
+      <!-- Enrollment Flow -->
+      <h2 id="enrollment-flow">Benefits Enrollment Data Flow</h2>
+
+      <p>
+        Here's the typical path of data through the benefits tables when an employee enrolls in a plan during open enrollment:
+      </p>
+
+      <div class="quick-ref">
+        <table>
+          <thead>
+            <tr>
+              <th>Step</th>
+              <th>Action / Table</th>
+              <th>Key Data</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>1</td>
+              <td><strong>Enrollment Period Defined</strong><br/>BEN_ENRT_PD_F</td>
+              <td>Open enrollment starts Nov 1, ends Nov 30, coverage effective Jan 1</td>
+            </tr>
+            <tr>
+              <td>2</td>
+              <td><strong>Check Eligibility</strong><br/>BEN_ELIG_PER_F</td>
+              <td>Employee is eligible for MEDICAL, DENTAL, VISION plans</td>
+            </tr>
+            <tr>
+              <td>3</td>
+              <td><strong>Show Plan Choices</strong><br/>BEN_PL_F, BEN_OPT_F</td>
+              <td>3 medical plans (PPO, HMO, HDHP), each with 5 coverage options</td>
+            </tr>
+            <tr>
+              <td>4</td>
+              <td><strong>Employee Selects</strong><br/>UI captures choice</td>
+              <td>Employee picks "Blue Cross PPO" + "Employee + Spouse" coverage</td>
+            </tr>
+            <tr>
+              <td>5</td>
+              <td><strong>Enrollment Created</strong><br/>BEN_PRTT_ENRT_RSLT_F</td>
+              <td>New row: person_id, pl_id, opt_id, enrt_ovrid_reason=NULL, enrt_cvg_strt_dt=2026-01-01</td>
+            </tr>
+            <tr>
+              <td>6</td>
+              <td><strong>Charges Calculated</strong><br/>PAY_ tables (payroll)</td>
+              <td>Payroll deduction created based on BEN_OPT_RT_F (option rate)</td>
+            </tr>
+            <tr>
+              <td>7</td>
+              <td><strong>Coverage Active</strong><br/>BEN_PRTT_ENRT_RSLT_F</td>
+              <td>Enrollment is live; employee appears on medical invoice</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <!-- SQL Queries -->
+      <h2 id="sql-queries">8 Production SQL Queries</h2>
+
+      <h3>Query 1: Active Enrollments by Plan &amp; Department</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  pp.person_number,
+  pp.first_name,
+  pp.last_name,
+  pl.plan_name,
+  pl.plan_type,
+  opt.opt_name,
+  dorg.name AS department,
+  per.enrt_cvg_strt_dt,
+  per.enrt_cvg_end_dt,
+  COUNT(*) OVER (PARTITION BY pl.pl_id) AS plan_enrollees
+FROM ben_prtt_enrt_rslt_f per
+JOIN ben_pl_f pl
+  ON per.pl_id = pl.pl_id
+  AND TRUNC(SYSDATE) BETWEEN pl.effective_start_date AND pl.effective_end_date
+JOIN ben_opt_f opt
+  ON per.opt_id = opt.opt_id
+  AND TRUNC(SYSDATE) BETWEEN opt.effective_start_date AND opt.effective_end_date
+JOIN per_all_people_f pp
+  ON per.person_id = pp.person_id
+  AND TRUNC(SYSDATE) BETWEEN pp.effective_start_date AND pp.effective_end_date
+JOIN per_all_assignments_f paa
+  ON pp.person_id = paa.person_id
+  AND TRUNC(SYSDATE) BETWEEN paa.effective_start_date AND paa.effective_end_date
+JOIN org_organization_definitions_f dorg
+  ON paa.department_id = dorg.organization_id
+  AND TRUNC(SYSDATE) BETWEEN dorg.effective_start_date AND dorg.effective_end_date
+WHERE per.enrt_ovrid_reason IS NULL
+  AND TRUNC(SYSDATE) BETWEEN per.enrt_cvg_strt_dt AND per.enrt_cvg_end_dt
+ORDER BY dorg.name, pl.plan_type, pp.last_name</pre>
+      </div>
+
+      <h3>Query 2: Enrollment History for Single Employee</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  per.prtt_enrt_rslt_id,
+  pl.plan_name,
+  pl.plan_type,
+  opt.opt_name,
+  per.enrt_cvg_strt_dt,
+  per.enrt_cvg_end_dt,
+  per.enrt_ovrid_reason,
+  per.creation_date,
+  per.elig_flag
+FROM ben_prtt_enrt_rslt_f per
+JOIN ben_pl_f pl
+  ON per.pl_id = pl.pl_id
+JOIN ben_opt_f opt
+  ON per.opt_id = opt.opt_id
+WHERE per.person_id = :person_id
+ORDER BY per.enrt_cvg_strt_dt DESC, per.creation_date DESC</pre>
+      </div>
+
+      <h3>Query 3: Life Events Pending Processing</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  pil.per_in_ler_id,
+  pp.person_number,
+  pp.first_name,
+  pp.last_name,
+  ler.ler_name,
+  pil.lf_evt_ocrd_dt,
+  pil.creation_date,
+  pil.dtls_clctd_flag,
+  CASE WHEN pil.dtls_clctd_flag = 'Y' THEN 'Ready for enrollment'
+       WHEN SYSDATE - pil.creation_date > 30 THEN 'PENDING - OVERDUE'
+       ELSE 'Pending' END AS status
+FROM ben_per_in_ler pil
+JOIN per_all_people_f pp
+  ON pil.person_id = pp.person_id
+  AND TRUNC(SYSDATE) BETWEEN pp.effective_start_date AND pp.effective_end_date
+JOIN ben_ler_f ler
+  ON pil.ler_id = ler.ler_id
+  AND TRUNC(SYSDATE) BETWEEN ler.effective_start_date AND ler.effective_end_date
+WHERE pil.dtls_clctd_flag = 'N'
+  AND pil.lf_evt_ocrd_dt >= TRUNC(SYSDATE) - 60
+ORDER BY pil.creation_date ASC</pre>
+      </div>
+
+      <h3>Query 4: Benefit Costs by Department (Monthly Deduction)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  dorg.name AS department,
+  pl.plan_type,
+  pl.plan_name,
+  COUNT(DISTINCT per.person_id) AS employee_count,
+  SUM(ort.input_value_id) AS total_monthly_cost,
+  ROUND(AVG(ort.input_value_id), 2) AS avg_per_employee
+FROM ben_prtt_enrt_rslt_f per
+JOIN ben_pl_f pl
+  ON per.pl_id = pl.pl_id
+  AND TRUNC(SYSDATE) BETWEEN pl.effective_start_date AND pl.effective_end_date
+JOIN ben_opt_f opt
+  ON per.opt_id = opt.opt_id
+  AND TRUNC(SYSDATE) BETWEEN opt.effective_start_date AND opt.effective_end_date
+JOIN ben_opt_rt_f ort
+  ON opt.opt_id = ort.opt_id
+  AND TRUNC(SYSDATE) BETWEEN ort.effective_start_date AND ort.effective_end_date
+  AND ort.rate_type = 'EMPLOYEE_CONTRIBUTION'
+JOIN per_all_assignments_f paa
+  ON per.person_id = paa.person_id
+  AND TRUNC(SYSDATE) BETWEEN paa.effective_start_date AND paa.effective_end_date
+JOIN org_organization_definitions_f dorg
+  ON paa.department_id = dorg.organization_id
+  AND TRUNC(SYSDATE) BETWEEN dorg.effective_start_date AND dorg.effective_end_date
+WHERE per.enrt_ovrid_reason IS NULL
+  AND TRUNC(SYSDATE) BETWEEN per.enrt_cvg_strt_dt AND per.enrt_cvg_end_dt
+GROUP BY dorg.name, pl.plan_type, pl.plan_name
+ORDER BY department, pl.plan_type</pre>
+      </div>
+
+      <h3>Query 5: Coverage Levels &amp; Dependents</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  per.prtt_enrt_rslt_id,
+  pp.person_number,
+  pp.first_name,
+  pp.last_name,
+  pl.plan_name,
+  opt.opt_name,
+  COUNT(DISTINCT dpnt.dpnt_person_id) AS dependent_count,
+  LISTAGG(CONCAT(dp.first_name, ' ', dp.last_name), ', ') WITHIN GROUP (ORDER BY dp.last_name) AS dependents
+FROM ben_prtt_enrt_rslt_f per
+JOIN ben_pl_f pl
+  ON per.pl_id = pl.pl_id
+  AND TRUNC(SYSDATE) BETWEEN pl.effective_start_date AND pl.effective_end_date
+JOIN ben_opt_f opt
+  ON per.opt_id = opt.opt_id
+  AND TRUNC(SYSDATE) BETWEEN opt.effective_start_date AND opt.effective_end_date
+JOIN per_all_people_f pp
+  ON per.person_id = pp.person_id
+  AND TRUNC(SYSDATE) BETWEEN pp.effective_start_date AND pp.effective_end_date
+LEFT JOIN ben_dpnt_cvrd_dpnt_f dpnt
+  ON per.prtt_enrt_rslt_id = dpnt.prtt_enrt_rslt_id
+  AND TRUNC(SYSDATE) BETWEEN dpnt.effective_start_date AND dpnt.effective_end_date
+LEFT JOIN per_all_people_f dp
+  ON dpnt.dpnt_person_id = dp.person_id
+  AND TRUNC(SYSDATE) BETWEEN dp.effective_start_date AND dp.effective_end_date
+WHERE per.enrt_ovrid_reason IS NULL
+  AND pl.plan_type = 'MEDICAL'
+GROUP BY per.prtt_enrt_rslt_id, pp.person_number, pp.first_name, pp.last_name,
+         pl.plan_name, opt.opt_name
+ORDER BY pp.last_name</pre>
+      </div>
+
+      <h3>Query 6: Open Enrollment Status (Employees Not Yet Enrolled)</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Find employees eligible for current OE but have NOT enrolled yet
+SELECT DISTINCT
+  pp.person_id,
+  pp.person_number,
+  pp.first_name,
+  pp.last_name,
+  paa.assignment_status_type_id,
+  dorg.name AS department,
+  'NOT ENROLLED' AS status
+FROM per_all_people_f pp
+JOIN per_all_assignments_f paa
+  ON pp.person_id = paa.person_id
+  AND TRUNC(SYSDATE) BETWEEN paa.effective_start_date AND paa.effective_end_date
+JOIN org_organization_definitions_f dorg
+  ON paa.department_id = dorg.organization_id
+  AND TRUNC(SYSDATE) BETWEEN dorg.effective_start_date AND dorg.effective_end_date
+WHERE TRUNC(SYSDATE) BETWEEN pp.effective_start_date AND pp.effective_end_date
+  AND pp.person_id NOT IN (
+    SELECT DISTINCT person_id
+    FROM ben_prtt_enrt_rslt_f
+    WHERE enrt_ovrid_reason IS NULL
+      AND TRUNC(SYSDATE) BETWEEN enrt_cvg_strt_dt AND enrt_cvg_end_dt
+  )
+ORDER BY dorg.name, pp.last_name</pre>
+      </div>
+
+      <h3>Query 7: Plan Comparison Report</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT
+  pl.plan_name,
+  pl.plan_type,
+  opt.opt_name,
+  CASE
+    WHEN ort.rate_type = 'EMPLOYER_CONTRIBUTION' THEN 'Employer'
+    WHEN ort.rate_type = 'EMPLOYEE_CONTRIBUTION' THEN 'Employee'
+    ELSE ort.rate_type
+  END AS contribution_type,
+  ort.input_value_id AS monthly_amount,
+  COUNT(DISTINCT per.person_id) AS current_enrollees
+FROM ben_pl_f pl
+JOIN ben_opt_f opt
+  ON pl.pl_id = opt.pl_id
+  AND TRUNC(SYSDATE) BETWEEN opt.effective_start_date AND opt.effective_end_date
+LEFT JOIN ben_opt_rt_f ort
+  ON opt.opt_id = ort.opt_id
+  AND TRUNC(SYSDATE) BETWEEN ort.effective_start_date AND ort.effective_end_date
+LEFT JOIN ben_prtt_enrt_rslt_f per
+  ON opt.opt_id = per.opt_id
+  AND per.enrt_ovrid_reason IS NULL
+  AND TRUNC(SYSDATE) BETWEEN per.enrt_cvg_strt_dt AND per.enrt_cvg_end_dt
+WHERE TRUNC(SYSDATE) BETWEEN pl.effective_start_date AND pl.effective_end_date
+GROUP BY pl.plan_name, pl.plan_type, opt.opt_name, ort.rate_type, ort.input_value_id
+ORDER BY pl.plan_type, pl.plan_name, opt.opt_name</pre>
+      </div>
+
+      <h3>Query 8: Benefits Eligibility Audit</h3>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Find employees enrolled in plans they are NOT eligible for (audit issue)
+SELECT
+  per.prtt_enrt_rslt_id,
+  pp.person_number,
+  pp.first_name,
+  pp.last_name,
+  pl.plan_name,
+  pl.plan_type,
+  per.elig_flag,
+  'AUDIT ISSUE: Eligible flag = N' AS issue_type
+FROM ben_prtt_enrt_rslt_f per
+JOIN ben_pl_f pl
+  ON per.pl_id = pl.pl_id
+  AND TRUNC(SYSDATE) BETWEEN pl.effective_start_date AND pl.effective_end_date
+JOIN per_all_people_f pp
+  ON per.person_id = pp.person_id
+  AND TRUNC(SYSDATE) BETWEEN pp.effective_start_date AND pp.effective_end_date
+WHERE per.enrt_ovrid_reason IS NULL
+  AND per.elig_flag = 'N'
+  AND TRUNC(SYSDATE) BETWEEN per.enrt_cvg_strt_dt AND per.enrt_cvg_end_dt
+ORDER BY pp.last_name</pre>
+      </div>
+
+      <!-- Join Patterns -->
+      <h2 id="join-patterns">Join Patterns &amp; Best Practices</h2>
+
+      <p>
+        Benefits queries almost always start with BEN_PRTT_ENRT_RSLT_F (the enrollment fact table), then join to:
+      </p>
+
+      <ul>
+        <li><strong>BEN_PL_F</strong> on pl_id to get plan name and type</li>
+        <li><strong>BEN_OPT_F</strong> on opt_id to get option name (coverage level)</li>
+        <li><strong>PER_ALL_PEOPLE_F</strong> on person_id to get employee details</li>
+        <li><strong>PER_ALL_ASSIGNMENTS_F</strong> on person_id to get department and job</li>
+        <li><strong>BEN_OPT_RT_F</strong> on opt_id to get premium rates</li>
+      </ul>
+
+      <p>
+        <strong>Date-effective join pattern:</strong> Always use the BETWEEN clause on effective dates for all tables:
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>-- Date-effective join pattern (required for all BEN_ tables)
+JOIN ben_pl_f pl
+  ON per.pl_id = pl.pl_id
+  AND TRUNC(SYSDATE) BETWEEN pl.effective_start_date AND pl.effective_end_date
+
+-- For historical queries, use a specific date instead of SYSDATE:
+JOIN ben_pl_f pl
+  ON per.pl_id = pl.pl_id
+  AND TO_DATE('2025-12-31', 'YYYY-MM-DD') BETWEEN pl.effective_start_date
+    AND pl.effective_end_date</pre>
+      </div>
+
+      <!-- CTA Boxes -->
+      <div class="cta-box">
+        <h3>Search 15,000+ Oracle HCM Tables</h3>
+        <p>Find any table, column, or relationship in seconds. Explore the full BEN_ schema with our interactive table browser.</p>
+        <a href="/" class="cta-btn">Open Table Search &rarr;</a>
+      </div>
+
+      <div class="cta-box" style="margin-top:1.5rem;background:oklch(0.18 0.02 145 / 0.25);border-color:oklch(0.50 0.15 145 / 0.4);">
+        <h3>15 Production-Ready OTBI Templates</h3>
+        <p>Copy-paste SQL templates for benefits reporting, enrollment audits, cost analysis, and compliance. No more syntax errors.</p>
+        <a href="/otbi-template-pack" class="cta-btn" style="background:oklch(0.60 0.18 145);box-shadow:0 2px 12px oklch(0.60 0.18 145 / 0.35);">Get the OTBI Template Pack &rarr;</a>
+      </div>
+
+      <!-- FAQ -->
+      <h2 id="faq">Frequently Asked Questions</h2>
+
+      <h3>Q: What's the difference between BEN_PRTT_ENRT_F and BEN_PRTT_ENRT_RSLT_F?</h3>
+
+      <p>
+        <code>BEN_PRTT_ENRT_F</code> is the enrollment master record (one row per employee per plan per year). <code>BEN_PRTT_ENRT_RSLT_F</code> is the enrollment result (one row per plan-option choice per employee). In practice, you query BEN_PRTT_ENRT_RSLT_F 99% of the time because you need to know which specific option (coverage level) the employee selected, not just that they're enrolled in a plan.
+      </p>
+
+      <h3>Q: How do I find which employees are NOT enrolled in any benefit plan?</h3>
+
+      <p>
+        Use the Query 6 example above (Open Enrollment Status). Alternatively, use an anti-join:
+      </p>
+
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre>SELECT pp.person_id, pp.person_number
+FROM per_all_people_f pp
+WHERE TRUNC(SYSDATE) BETWEEN pp.effective_start_date AND pp.effective_end_date
+  AND pp.person_id NOT IN (
+    SELECT DISTINCT person_id
+    FROM ben_prtt_enrt_rslt_f
+    WHERE enrt_ovrid_reason IS NULL
+      AND TRUNC(SYSDATE) BETWEEN enrt_cvg_strt_dt AND enrt_cvg_end_dt
+  )</pre>
+      </div>
+
+      <h3>Q: Can an employee have multiple enrollments in the same plan?</h3>
+
+      <p>
+        No, not in the same plan year. But they can have multiple enrollments across different plan years (2025 coverage vs. 2026 coverage). In BEN_PRTT_ENRT_RSLT_F, you'll see multiple rows for the same employee-plan combo with different enrt_cvg_strt_dt/enrt_cvg_end_dt ranges. Use the WHERE clause to filter to the current period: <code>WHERE enrt_ovrid_reason IS NULL AND TRUNC(SYSDATE) BETWEEN enrt_cvg_strt_dt AND enrt_cvg_end_dt</code>.
+      </p>
+
+      <h3>Q: How do I calculate total benefits cost per employee?</h3>
+
+      <p>
+        Join BEN_PRTT_ENRT_RSLT_F to BEN_OPT_RT_F on opt_id. Sum the employee contribution amounts from BEN_OPT_RT_F.input_value_id where rate_type = 'EMPLOYEE_CONTRIBUTION'. Multiply by 12 for annual cost, or keep monthly. Use Query 4 above as a template.
+      </p>
+
+      <h3>Q: What does "enrt_ovrid_reason" mean when it's NULL?</h3>
+
+      <p>
+        NULL means the enrollment is active and not overridden. When enrt_ovrid_reason has a value (e.g., 'TERMINATION', 'BENEFIT_SUSPENSION'), that enrollment has been cancelled or superseded. Always filter for <code>enrt_ovrid_reason IS NULL</code> when querying current enrollments.
+      </p>
+
+      <h3>Q: How do I handle employees with multiple dependents on a single enrollment?</h3>
+
+      <p>
+        Each dependent is a row in BEN_DPNT_CVRD_DPNT_F, linked to the enrollment (prtt_enrt_rslt_id). Group or count by prtt_enrt_rslt_id to get dependent counts per enrollment. Use Query 5 above for a complete example with LISTAGG().
+      </p>
+
+    </article>
+
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h3>Related guides</h3>
+      <div class="related-grid">
+        <div class="related-card">
+          <div class="tag">Absence</div>
+          <a href="/blog/oracle-absence-management-tables-configuration-guide">Oracle Absence Management Tables — Configuration &amp; SQL</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">Compensation</div>
+          <a href="/blog/oracle-workforce-compensation-tables-guide">Compensation Tables &amp; Salary Processing Guide</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">Payroll</div>
+          <a href="/blog/oracle-fusion-payroll-tables-guide">Payroll Tables Deep Dive — PAY_ Schema &amp; SQL</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">Compliance</div>
+          <a href="/blog/oracle-hcm-compliance-audit-sql-queries">Compliance Audit SQL Queries — 8 Production Examples</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p>
+        <a href="/">Search 35,000+ Oracle Tables</a> &middot;
+        <a href="/privacy">Privacy Policy</a> &middot;
+        <a href="/terms">Terms of Service</a> &middot;
+        <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      navigator.clipboard.writeText(pre.textContent).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
