@@ -1,0 +1,406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle Fusion Time and Labor Tables Complete Guide &mdash; HWM_ Schema &amp; SQL | HCM Tables</title>
+<meta name="description" content="Complete guide to Oracle Fusion Cloud Time and Labor tables. Covers HWM_TM_REP_TIMES, HWM_TM_TIME_CARDS, work schedules, timecard approval flow, and 6 production SQL queries for time reporting.">
+<meta name="keywords" content="Oracle Fusion Time and Labor tables, HWM_TM_REP_TIMES, HWM_TM_TIME_CARDS, Oracle time reporting SQL, Oracle timecard tables, HWM work schedules, Oracle Cloud time management, OTBI time and labor, Oracle overtime reporting">
+<meta name="robots" content="index, follow">
+<meta name="author" content="HCM Tables">
+<link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-time-labor-tables-guide">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-time-labor-tables-guide">
+<meta property="og:title" content="Oracle Fusion Time and Labor Tables Complete Guide">
+<meta property="og:description" content="Master Oracle Fusion Cloud Time and Labor tables: timecards, reported times, work schedules, approval flows, and payroll transfer with SQL examples.">
+<meta property="og:site_name" content="HCM Tables">
+<meta property="og:image" content="https://hcm-tables.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Oracle Fusion Time and Labor Tables Complete Guide","description":"Complete guide to Oracle Fusion Cloud Time and Labor tables with SQL queries.","url":"https://hcm-tables.com/blog/oracle-hcm-time-labor-tables-guide","datePublished":"2026-06-11","dateModified":"2026-06-11","author":{"@type":"Person","name":"Matt Morales"},"publisher":{"@type":"Organization","name":"HCM Tables","url":"https://hcm-tables.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://hcm-tables.com/blog/oracle-hcm-time-labor-tables-guide"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"Oracle HCM Time and Labor Tables Guide","item":"https://hcm-tables.com/blog/oracle-hcm-time-labor-tables-guide"}]}</script>
+<script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head><body>
+<style>
+:root{--bg:#0f1117;--bg2:#141720;--bg3:#1a1e2e;--fg:#f8f9fa;--fg2:#a0a8c0;--fg3:#606880;--bd:#2a2e42;--ac:#e05a2b;--ac2:rgba(224,90,43,.25);--bl:#5b8dee;--gn:#4caf82;--yw:#d4b44a;--fn:Inter,system-ui,sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+a{color:var(--bl);text-decoration:none;transition:color .15s}a:hover{color:var(--ac);text-decoration:underline}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+.nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+.nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}.nl a.active{color:var(--ac)}
+.hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:900px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:400px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+.hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+.toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+.toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+.toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+.ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+.ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+.ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+.ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+.ab strong{color:var(--fg);font-weight:600}
+.ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+.cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+.cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}.cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}.cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}
+.cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}.cl p{color:var(--fg2);margin:0;font-size:.95rem}.cl strong{color:var(--fg)}
+.tw{overflow-x:auto;margin:1.5rem 0;border-radius:var(--rs);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{padding:.75rem 1rem;text-align:left;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--bd)}
+td{padding:.75rem 1rem;color:var(--fg2);border-bottom:1px solid var(--bd);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--bg3)}
+td code{font-size:.8rem}
+.sql{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs);padding:1.5rem;margin:1.5rem 0;overflow-x:auto}
+.sql-hd{display:flex;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bd)}
+.sql-ti{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.sql pre{font-family:var(--fm);font-size:.82rem;color:var(--fg2);white-space:pre;line-height:1.65}
+.kw{color:var(--bl);font-weight:600}.cm{color:var(--fg3);font-style:italic}.fn{color:var(--gn)}.st{color:#88c0a0}.nm{color:var(--yw)}
+.footer{padding:2rem 1.5rem;border-top:1px solid var(--bd);text-align:center}
+.footer p{color:var(--fg3);font-size:.85rem;margin-bottom:.5rem}
+.footer a{color:var(--bl)}.footer a:hover{color:var(--ac);text-decoration:underline}
+@media(max-width:640px){.hero{padding:2.5rem 1rem 2rem}.nav{padding:1rem}.nl{gap:1rem}}
+</style>
+<nav class="nav">
+  <a href="/" class="nb">HCM Tables</a>
+  <div class="nl"><a href="/">Search</a><a href="/blog/" class="active">Blog</a></div>
+</nav>
+<section class="hero">
+  <span class="tag">Time &amp; Labor</span>
+  <h1>Oracle Fusion Time and Labor Tables Complete Guide</h1>
+  <p style="position:relative;color:var(--fg2);font-size:1.05rem;max-width:620px;margin:.5rem auto 0">Master the HWM_ schema: timecards, reported times, work schedules, approval workflows, and payroll transfer &mdash; with 6 copy-paste SQL queries.</p>
+  <div class="meta"><span>Jun 11, 2026</span><span>&middot;</span><span>18 min read</span><span>&middot;</span><a href="/">Search 14K+ Tables &rarr;</a></div>
+</section><div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#overview">Time &amp; Labor Module Overview</a></li>
+    <li><a href="#core-tables">Core HWM_ Tables Reference</a></li>
+    <li><a href="#processing-flow">Timecard Processing Flow</a></li>
+    <li><a href="#schedules">Work Schedules &amp; Assignments</a></li>
+    <li><a href="#otbi">OTBI Subject Areas</a></li>
+    <li><a href="#sql-queries">6 Production SQL Queries</a></li>
+    <li><a href="#payroll-transfer">Payroll Transfer Mapping</a></li>
+    <li><a href="#tips">Reporting Tips &amp; Gotchas</a></li>
+  </ol>
+</div>
+<div class="ab">
+<h2 id="overview">1. Time &amp; Labor Module Overview</h2>
+<p>Oracle Fusion Cloud Time and Labor uses the <strong>HWM_ prefix</strong> (Historical Workforce Management) for its core tables. The module handles employee time entry, approval workflows, time calculation rules, and the transfer of approved hours to payroll for earnings processing.</p>
+<p>The architecture splits into three layers:</p>
+<ul>
+  <li><strong>Time Entry:</strong> Employees record hours via timecards (<code>HWM_TM_TIME_CARDS</code> + <code>HWM_TM_REP_TIMES</code>)</li>
+  <li><strong>Time Calculation:</strong> Rules engine applies overtime thresholds, shift differentials, and break deductions (<code>HWM_TM_RULE_SETS</code> + <code>HWM_TM_DURATIONS</code>)</li>
+  <li><strong>Payroll Transfer:</strong> Approved, calculated time maps to payroll element entries for processing</li>
+</ul>
+<div class="cl cl-i"><span class="cl-icon">&#x2139;&#xFE0F;</span><p><strong>Access note:</strong> In Oracle Fusion Cloud, time data is typically reported through OTBI subject areas (like <em>Workforce Management &mdash; Reported Time Real Time</em>) rather than direct SQL. Direct SQL access requires BI Publisher data models or HCM Extracts with appropriate roles.</p></div>
+
+<h2 id="core-tables">2. Core HWM_ Tables Reference</h2>
+<p>Here are the 12 most important Time and Labor tables, grouped by function:</p>
+
+<h3>Timecard &amp; Time Entry Tables</h3>
+<div class="tw"><table>
+<tr><th>Table</th><th>Purpose</th><th>Key Columns</th></tr>
+<tr><td><code>HWM_TM_TIME_CARDS</code></td><td>Timecard header/summary &mdash; one row per timecard submission</td><td>TIME_CARD_ID, PERSON_ID, TIMECARD_PERIOD_ID, TIMECARD_STATUS, SUBMITTED_DATE, APPROVED_DATE</td></tr>
+<tr><td><code>HWM_TM_REP_TIMES</code></td><td>Individual time entries (the main detail table) &mdash; one row per time block</td><td>TIME_ID, PERSON_ID, ASSIGNMENT_ID, TIMECARD_ID, START_DATE, END_DATE, DURATION_HOURS, TIME_CATEGORY_CODE, TIME_APPROVAL_STATUS</td></tr>
+<tr><td><code>HWM_TM_DURATIONS</code></td><td>Calculated durations after rule processing (post-rules output)</td><td>DURATION_ID, TIME_ID, DURATION_MINUTES, SHIFT_TYPE_ID</td></tr>
+<tr><td><code>HWM_TIMECARD_PERIODS</code></td><td>Timecard period definitions (weekly, biweekly, semi-monthly boundaries)</td><td>TIMECARD_PERIOD_ID, PERIOD_START_DATE, PERIOD_END_DATE, PERIOD_STATUS</td></tr>
+</table></div>
+
+<h3>Work Schedule Tables</h3>
+<div class="tw"><table>
+<tr><th>Table</th><th>Purpose</th><th>Key Columns</th></tr>
+<tr><td><code>HWM_WORK_SCHEDULES</code></td><td>Work schedule definitions (8-hour day, 4x10, rotating shifts)</td><td>WORK_SCHEDULE_ID, WORK_SCHEDULE_NAME, SCHEDULE_START_DATE, SCHEDULE_END_DATE</td></tr>
+<tr><td><code>HWM_WORK_SCHEDULE_ASSIGNMENTS</code></td><td>Links schedules to workers (date-effective)</td><td>SCHEDULE_ASSIGNMENT_ID, WORK_SCHEDULE_ID, PERSON_ID, ASSIGNMENT_ID, EFFECTIVE_START_DATE, EFFECTIVE_END_DATE</td></tr>
+<tr><td><code>HWM_WORK_SCHEDULE_DETAILS</code></td><td>Daily patterns within a schedule (Mon=8h, Tue=8h, etc.)</td><td>SCHEDULE_DETAIL_ID, WORK_SCHEDULE_ID, DAY_OF_WEEK, START_TIME, END_TIME, SCHEDULED_HOURS</td></tr>
+</table></div>
+
+<h3>Time Rules &amp; Configuration Tables</h3>
+<div class="tw"><table>
+<tr><th>Table</th><th>Purpose</th><th>Key Columns</th></tr>
+<tr><td><code>HWM_TM_RULE_SETS</code></td><td>Time calculation rule sets (overtime thresholds, break rules)</td><td>RULE_SET_ID, RULE_SET_NAME, RULE_SET_CODE</td></tr>
+<tr><td><code>HWM_TM_RULES</code></td><td>Individual rules within a rule set</td><td>RULE_ID, RULE_SET_ID, RULE_TYPE, THRESHOLD_HOURS, MULTIPLIER</td></tr>
+<tr><td><code>HWM_TM_TIME_CATEGORIES</code></td><td>Time category definitions (Regular, Overtime, Holiday, etc.)</td><td>TIME_CATEGORY_ID, TIME_CATEGORY_CODE, TIME_CATEGORY_NAME</td></tr>
+<tr><td><code>HWM_TM_APPROVAL_CHAINS</code></td><td>Approval workflow routing for timecards</td><td>APPROVAL_CHAIN_ID, APPROVER_PERSON_ID, APPROVAL_SEQUENCE</td></tr>
+<tr><td><code>HWM_TM_TRANSFER_BATCHES</code></td><td>Tracks batches of approved time transferred to payroll</td><td>TRANSFER_BATCH_ID, TRANSFER_DATE, BATCH_STATUS, PERIOD_START_DATE, PERIOD_END_DATE</td></tr>
+</table></div>
+
+<h2 id="processing-flow">3. Timecard Processing Flow</h2>
+<p>Understanding how Oracle processes timecards maps directly to which tables are populated at each stage:</p>
+<div style="display:flex;flex-direction:column;gap:0;margin:1.5rem 0">
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs) var(--rs) 0 0;border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">1</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Employee Enters Time</strong><span style="color:var(--fg2);font-size:.875rem">Creates rows in <code>HWM_TM_REP_TIMES</code> with START_DATE, END_DATE, DURATION_HOURS. A header row is created in <code>HWM_TM_TIME_CARDS</code> with TIMECARD_STATUS = <code>'OPEN'</code>.</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">2</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Submit for Approval</strong><span style="color:var(--fg2);font-size:.875rem">TIMECARD_STATUS changes to <code>'SUBMITTED'</code>. TIME_APPROVAL_STATUS in <code>HWM_TM_REP_TIMES</code> is set to <code>'SUBMITTED'</code>. SUBMITTED_DATE is populated.</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">3</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Apply Time Rules</strong><span style="color:var(--fg2);font-size:.875rem">Oracle evaluates <code>HWM_TM_RULE_SETS</code> against the time entries. Overtime thresholds, break deductions, and shift differentials are calculated. Results written to <code>HWM_TM_DURATIONS</code> with categorized hours (REG, OT, DIFF).</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">4</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Manager Approval</strong><span style="color:var(--fg2);font-size:.875rem">Approval workflow routes to manager per <code>HWM_TM_APPROVAL_CHAINS</code>. On approve: TIMECARD_STATUS &rarr; <code>'APPROVED'</code>, APPROVED_DATE populated. On reject: status &rarr; <code>'REJECTED'</code>, returned to employee.</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-bottom:none">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">5</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Transfer to Payroll</strong><span style="color:var(--fg2);font-size:.875rem">Approved time is batched in <code>HWM_TM_TRANSFER_BATCHES</code> and mapped to payroll element entries in <code>PAY_ELEMENT_ENTRIES_F</code>. TIME_CATEGORY_CODE maps to element types (Regular Earnings, Overtime, Shift Premium).</span></div>
+</div>
+<div style="display:flex;gap:1rem;padding:1rem 1.25rem;background:var(--bg2);border:1px solid var(--bd);border-radius:0 0 var(--rs) var(--rs)">
+  <div style="display:flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:var(--ac);border-radius:50%;font-size:.8rem;font-weight:700;color:#fff;flex-shrink:0">6</div>
+  <div><strong style="color:var(--fg);display:block;margin-bottom:.25rem">Payroll Processing</strong><span style="color:var(--fg2);font-size:.875rem">Payroll run picks up element entries, applies pay rates, and generates <code>PAY_RUN_RESULTS</code> with calculated earnings (Hours &times; Rate = Amount).</span></div>
+</div>
+</div>
+
+<h2 id="schedules">4. Work Schedules &amp; Assignments</h2>
+<p>Work schedules define when employees are <em>expected</em> to work. They drive overtime calculations (hours beyond scheduled = OT) and are used for absence accrual rules.</p>
+
+<h3>Schedule Architecture</h3>
+<ul>
+  <li><code>HWM_WORK_SCHEDULES</code> defines the template (e.g., "Standard 40-Hour Week")</li>
+  <li><code>HWM_WORK_SCHEDULE_DETAILS</code> defines daily patterns (Mon: 9am&ndash;5pm = 8h)</li>
+  <li><code>HWM_WORK_SCHEDULE_ASSIGNMENTS</code> links a schedule to a person/assignment with date-effectiveness</li>
+</ul>
+
+<div class="cl cl-w"><span class="cl-icon">&#x26A0;&#xFE0F;</span><p><strong>Date-effective joins:</strong> When joining schedule assignments to time entries, always filter on <code>hwm.START_DATE BETWEEN wsa.EFFECTIVE_START_DATE AND wsa.EFFECTIVE_END_DATE</code>. Employees can change schedules mid-period (e.g., transferring from day shift to night shift).</p></div>
+
+<h3>Common Schedule Types</h3>
+<div class="tw"><table>
+<tr><th>Schedule Name</th><th>Pattern</th><th>Weekly Hours</th><th>OT Trigger</th></tr>
+<tr><td>Standard 5x8</td><td>Mon&ndash;Fri, 8h/day</td><td>40</td><td>&gt;8h/day or &gt;40h/week</td></tr>
+<tr><td>Compressed 4x10</td><td>Mon&ndash;Thu, 10h/day</td><td>40</td><td>&gt;10h/day or &gt;40h/week</td></tr>
+<tr><td>Rotating Shift</td><td>Variable pattern (e.g., 4-on/3-off)</td><td>Varies</td><td>Per schedule rules</td></tr>
+<tr><td>Part-Time</td><td>Mon/Wed/Fri, 6h/day</td><td>18</td><td>&gt;6h/day (if configured)</td></tr>
+</table></div>
+
+<h2 id="otbi">5. OTBI Subject Areas</h2>
+<p>Oracle provides several OTBI subject areas for Time and Labor reporting. These are the most useful for common reporting needs:</p>
+<div class="tw"><table>
+<tr><th>Subject Area</th><th>Best For</th><th>Key Dimensions</th><th>Key Measures</th></tr>
+<tr><td><code>Workforce Management &mdash; Reported Time Real Time</code></td><td>Individual time entries, hours by category, approval tracking</td><td>Worker, Period, Time Category, Schedule, Status</td><td>Hours Worked, Duration, Start/End Time</td></tr>
+<tr><td><code>Workforce Management &mdash; Time Card Real Time</code></td><td>Timecard-level reporting, submission and approval status</td><td>Worker, Assignment, Period, Status</td><td>Total Hours, Submission Date, Approval Date</td></tr>
+<tr><td><code>Workforce Management &mdash; Work Schedule Real Time</code></td><td>Schedule definitions and worker assignments</td><td>Schedule, Effective Dates, Assignment</td><td>Scheduled Hours, Pattern</td></tr>
+<tr><td><code>Time and Labor &mdash; Time Categories</code></td><td>Time category breakdown and configuration</td><td>Category Code, Category Name</td><td>Hours per Category</td></tr>
+</table></div>
+
+<div class="cl cl-t"><span class="cl-icon">&#x1F4A1;</span><p><strong>Tip:</strong> Use <em>Workforce Management &mdash; Reported Time Real Time</em> as your primary subject area for most time reports. It includes worker demographics, department, time details, and approval status all in one subject area without needing cross-subject joins.</p></div>
+
+<h2 id="sql-queries">6. Six Production SQL Queries</h2>
+<p>All queries filter on <code>TIME_APPROVAL_STATUS = 'APPROVED'</code> by default. Remove this filter if you need pending/submitted time for dashboard views.</p>
+
+<h3>Query 1: Hours by Department (Last 6 Months)</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Department Hours Summary</span></div><pre>
+<span class="kw">SELECT</span> dept_tl.name                     <span class="kw">AS</span> department,
+       <span class="fn">SUM</span>(hwm.duration_hours)          <span class="kw">AS</span> total_hours,
+       <span class="fn">ROUND</span>(<span class="fn">AVG</span>(hwm.duration_hours), <span class="nm">2</span>) <span class="kw">AS</span> avg_hours_per_entry,
+       <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> hwm.time_id)      <span class="kw">AS</span> num_entries,
+       <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> hwm.person_id)    <span class="kw">AS</span> num_employees
+<span class="kw">FROM</span>   hwm_tm_rep_times hwm
+<span class="kw">JOIN</span>   per_all_assignments_m paam
+       <span class="kw">ON</span> hwm.assignment_id = paam.assignment_id
+       <span class="kw">AND</span> hwm.start_date <span class="kw">BETWEEN</span> paam.effective_start_date
+                                    <span class="kw">AND</span> paam.effective_end_date
+<span class="kw">JOIN</span>   hr_all_organization_units_f_tl dept_tl
+       <span class="kw">ON</span> paam.organization_id = dept_tl.organization_id
+       <span class="kw">AND</span> dept_tl.language = <span class="fn">USERENV</span>(<span class="st">'LANG'</span>)
+       <span class="kw">AND</span> hwm.start_date <span class="kw">BETWEEN</span> dept_tl.effective_start_date
+                                    <span class="kw">AND</span> dept_tl.effective_end_date
+<span class="kw">WHERE</span>  hwm.start_date &gt;= <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) - <span class="nm">180</span>
+  <span class="kw">AND</span>  hwm.time_approval_status = <span class="st">'APPROVED'</span>
+<span class="kw">GROUP BY</span> dept_tl.name
+<span class="kw">ORDER BY</span> total_hours <span class="kw">DESC</span>;</pre></div>
+
+<h3>Query 2: Overtime Analysis (Last 30 Days)</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Overtime Hours by Employee</span></div><pre>
+<span class="kw">SELECT</span> papf.person_number,
+       ppnf.full_name,
+       hwm.time_category_code,
+       <span class="fn">SUM</span>(hwm.duration_hours)    <span class="kw">AS</span> total_hours,
+       <span class="fn">COUNT</span>(*)                    <span class="kw">AS</span> num_entries,
+       <span class="fn">MIN</span>(hwm.start_date)         <span class="kw">AS</span> first_entry,
+       <span class="fn">MAX</span>(hwm.start_date)         <span class="kw">AS</span> last_entry
+<span class="kw">FROM</span>   hwm_tm_rep_times hwm
+<span class="kw">JOIN</span>   per_all_people_f papf
+       <span class="kw">ON</span> hwm.person_id = papf.person_id
+       <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> papf.effective_start_date
+                                        <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">JOIN</span>   per_person_names_f ppnf
+       <span class="kw">ON</span> papf.person_id = ppnf.person_id
+       <span class="kw">AND</span> ppnf.name_type = <span class="st">'GLOBAL'</span>
+       <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> ppnf.effective_start_date
+                                        <span class="kw">AND</span> ppnf.effective_end_date
+<span class="kw">WHERE</span>  hwm.time_approval_status = <span class="st">'APPROVED'</span>
+  <span class="kw">AND</span>  hwm.time_category_code = <span class="st">'OT'</span>
+  <span class="kw">AND</span>  hwm.start_date &gt;= <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) - <span class="nm">30</span>
+<span class="kw">GROUP BY</span> papf.person_number, ppnf.full_name, hwm.time_category_code
+<span class="kw">ORDER BY</span> total_hours <span class="kw">DESC</span>;</pre></div>
+
+<h3>Query 3: Unapproved Timecards (Pending Manager Action)</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Timecards Awaiting Approval</span></div><pre>
+<span class="kw">SELECT</span> papf.person_number,
+       ppnf.full_name,
+       dept_tl.name                    <span class="kw">AS</span> department,
+       htc.timecard_status,
+       <span class="fn">COUNT</span>(hwm.time_id)              <span class="kw">AS</span> pending_entries,
+       <span class="fn">SUM</span>(hwm.duration_hours)          <span class="kw">AS</span> total_pending_hours,
+       <span class="fn">MIN</span>(hwm.start_date)              <span class="kw">AS</span> oldest_entry
+<span class="kw">FROM</span>   hwm_tm_rep_times hwm
+<span class="kw">JOIN</span>   hwm_tm_time_cards htc
+       <span class="kw">ON</span> hwm.timecard_id = htc.time_card_id
+<span class="kw">JOIN</span>   per_all_people_f papf
+       <span class="kw">ON</span> hwm.person_id = papf.person_id
+       <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> papf.effective_start_date
+                                        <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">JOIN</span>   per_person_names_f ppnf
+       <span class="kw">ON</span> papf.person_id = ppnf.person_id
+       <span class="kw">AND</span> ppnf.name_type = <span class="st">'GLOBAL'</span>
+       <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> ppnf.effective_start_date
+                                        <span class="kw">AND</span> ppnf.effective_end_date
+<span class="kw">JOIN</span>   per_all_assignments_m paam
+       <span class="kw">ON</span> hwm.assignment_id = paam.assignment_id
+       <span class="kw">AND</span> hwm.start_date <span class="kw">BETWEEN</span> paam.effective_start_date
+                                    <span class="kw">AND</span> paam.effective_end_date
+<span class="kw">LEFT JOIN</span> hr_all_organization_units_f_tl dept_tl
+       <span class="kw">ON</span> paam.organization_id = dept_tl.organization_id
+       <span class="kw">AND</span> dept_tl.language = <span class="fn">USERENV</span>(<span class="st">'LANG'</span>)
+       <span class="kw">AND</span> hwm.start_date <span class="kw">BETWEEN</span> dept_tl.effective_start_date
+                                    <span class="kw">AND</span> dept_tl.effective_end_date
+<span class="kw">WHERE</span>  hwm.time_approval_status <span class="kw">IN</span> (<span class="st">'SUBMITTED'</span>, <span class="st">'PENDING'</span>)
+<span class="kw">GROUP BY</span> papf.person_number, ppnf.full_name, dept_tl.name, htc.timecard_status
+<span class="kw">ORDER BY</span> oldest_entry;</pre></div>
+
+<h3>Query 4: Weekly Hours Trend (Regular vs Overtime)</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Weekly Hours Breakdown by Category</span></div><pre>
+<span class="kw">SELECT</span> <span class="fn">TRUNC</span>(hwm.start_date, <span class="st">'IW'</span>)    <span class="kw">AS</span> week_start,
+       hwm.time_category_code,
+       <span class="fn">SUM</span>(hwm.duration_hours)          <span class="kw">AS</span> total_hours,
+       <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> hwm.person_id)    <span class="kw">AS</span> num_employees
+<span class="kw">FROM</span>   hwm_tm_rep_times hwm
+<span class="kw">WHERE</span>  hwm.time_approval_status = <span class="st">'APPROVED'</span>
+  <span class="kw">AND</span>  hwm.start_date &gt;= <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) - <span class="nm">90</span>
+<span class="kw">GROUP BY</span> <span class="fn">TRUNC</span>(hwm.start_date, <span class="st">'IW'</span>), hwm.time_category_code
+<span class="kw">ORDER BY</span> week_start <span class="kw">DESC</span>, hwm.time_category_code;</pre></div>
+
+<h3>Query 5: Schedule Compliance (Actual vs Scheduled)</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Variance: Worked Hours vs Scheduled Hours</span></div><pre>
+<span class="kw">SELECT</span> papf.person_number,
+       ppnf.full_name,
+       ws.work_schedule_name,
+       <span class="fn">SUM</span>(hwm.duration_hours)       <span class="kw">AS</span> actual_hours,
+       <span class="fn">SUM</span>(wsd.scheduled_hours)      <span class="kw">AS</span> scheduled_hours,
+       <span class="fn">SUM</span>(hwm.duration_hours) - <span class="fn">SUM</span>(wsd.scheduled_hours)
+                                      <span class="kw">AS</span> variance_hours
+<span class="kw">FROM</span>   hwm_tm_rep_times hwm
+<span class="kw">JOIN</span>   per_all_people_f papf
+       <span class="kw">ON</span> hwm.person_id = papf.person_id
+       <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> papf.effective_start_date
+                                        <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">JOIN</span>   per_person_names_f ppnf
+       <span class="kw">ON</span> papf.person_id = ppnf.person_id
+       <span class="kw">AND</span> ppnf.name_type = <span class="st">'GLOBAL'</span>
+       <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> ppnf.effective_start_date
+                                        <span class="kw">AND</span> ppnf.effective_end_date
+<span class="kw">JOIN</span>   hwm_work_schedule_assignments wsa
+       <span class="kw">ON</span> hwm.person_id = wsa.person_id
+       <span class="kw">AND</span> hwm.start_date <span class="kw">BETWEEN</span> wsa.effective_start_date
+                                    <span class="kw">AND</span> wsa.effective_end_date
+<span class="kw">JOIN</span>   hwm_work_schedules ws
+       <span class="kw">ON</span> wsa.work_schedule_id = ws.work_schedule_id
+<span class="kw">JOIN</span>   hwm_work_schedule_details wsd
+       <span class="kw">ON</span> ws.work_schedule_id = wsd.work_schedule_id
+       <span class="kw">AND</span> wsd.day_of_week = <span class="fn">TO_CHAR</span>(hwm.start_date, <span class="st">'DY'</span>)
+<span class="kw">WHERE</span>  hwm.time_approval_status = <span class="st">'APPROVED'</span>
+  <span class="kw">AND</span>  hwm.start_date &gt;= <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) - <span class="nm">30</span>
+<span class="kw">GROUP BY</span> papf.person_number, ppnf.full_name, ws.work_schedule_name
+<span class="kw">HAVING</span> <span class="fn">ABS</span>(<span class="fn">SUM</span>(hwm.duration_hours) - <span class="fn">SUM</span>(wsd.scheduled_hours)) &gt; <span class="nm">2</span>
+<span class="kw">ORDER BY</span> variance_hours <span class="kw">DESC</span>;</pre></div>
+
+<h3>Query 6: Time-to-Payroll Transfer Audit</h3>
+<div class="sql"><div class="sql-hd"><span class="sql-ti">Approved Time Not Yet Transferred to Payroll</span></div><pre>
+<span class="kw">SELECT</span> papf.person_number,
+       ppnf.full_name,
+       hwm.time_category_code,
+       <span class="fn">SUM</span>(hwm.duration_hours)       <span class="kw">AS</span> approved_hours,
+       <span class="fn">MIN</span>(hwm.start_date)            <span class="kw">AS</span> earliest_date,
+       <span class="fn">MAX</span>(hwm.start_date)            <span class="kw">AS</span> latest_date,
+       hwm.timecard_id
+<span class="kw">FROM</span>   hwm_tm_rep_times hwm
+<span class="kw">JOIN</span>   per_all_people_f papf
+       <span class="kw">ON</span> hwm.person_id = papf.person_id
+       <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> papf.effective_start_date
+                                        <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">JOIN</span>   per_person_names_f ppnf
+       <span class="kw">ON</span> papf.person_id = ppnf.person_id
+       <span class="kw">AND</span> ppnf.name_type = <span class="st">'GLOBAL'</span>
+       <span class="kw">AND</span> <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) <span class="kw">BETWEEN</span> ppnf.effective_start_date
+                                        <span class="kw">AND</span> ppnf.effective_end_date
+<span class="kw">LEFT JOIN</span> hwm_tm_transfer_batches tb
+       <span class="kw">ON</span> hwm.start_date <span class="kw">BETWEEN</span> tb.period_start_date
+                                    <span class="kw">AND</span> tb.period_end_date
+       <span class="kw">AND</span> tb.batch_status = <span class="st">'COMPLETE'</span>
+<span class="kw">WHERE</span>  hwm.time_approval_status = <span class="st">'APPROVED'</span>
+  <span class="kw">AND</span>  tb.transfer_batch_id <span class="kw">IS NULL</span>  <span class="cm">-- Not yet transferred</span>
+  <span class="kw">AND</span>  hwm.start_date &gt;= <span class="fn">TRUNC</span>(<span class="fn">SYSDATE</span>) - <span class="nm">60</span>
+<span class="kw">GROUP BY</span> papf.person_number, ppnf.full_name,
+         hwm.time_category_code, hwm.timecard_id
+<span class="kw">ORDER BY</span> earliest_date;</pre></div>
+
+<h2 id="payroll-transfer">7. Payroll Transfer Mapping</h2>
+<p>When approved time transfers to payroll, Oracle maps <strong>time categories to payroll elements</strong>. The mapping is configurable per business unit, but the standard pattern is:</p>
+<div class="tw"><table>
+<tr><th>Time Category Code</th><th>Payroll Element</th><th>Calculation</th></tr>
+<tr><td><code>REG</code></td><td>Regular Earnings</td><td>Hours &times; Base Rate</td></tr>
+<tr><td><code>OT</code></td><td>Overtime Earnings</td><td>Hours &times; Base Rate &times; 1.5 (or 2.0)</td></tr>
+<tr><td><code>DIFF</code></td><td>Shift Differential</td><td>Hours &times; Differential Rate</td></tr>
+<tr><td><code>HOLIDAY</code></td><td>Holiday Pay</td><td>Scheduled Hours &times; Base Rate (or premium)</td></tr>
+<tr><td><code>CALLBACK</code></td><td>Callback Pay</td><td>Minimum guarantee + Hours &times; Rate</td></tr>
+</table></div>
+<div class="cl cl-i"><span class="cl-icon">&#x2139;&#xFE0F;</span><p><strong>Transfer verification:</strong> After each payroll transfer, compare <code>SUM(duration_hours)</code> from <code>HWM_TM_REP_TIMES</code> (where transferred) against <code>SUM(screen_entry_value)</code> from <code>PAY_ELEMENT_ENTRY_VALUES_F</code> (where input_value = 'Hours') for the same period. Any mismatch indicates a mapping or rounding issue.</p></div>
+
+<h2 id="tips">8. Reporting Tips &amp; Gotchas</h2>
+<h3>Critical Join Patterns</h3>
+<ul>
+  <li><strong>Always use date-effective joins</strong> &mdash; <code>hwm.START_DATE BETWEEN x.EFFECTIVE_START_DATE AND x.EFFECTIVE_END_DATE</code> for PER_ALL_ASSIGNMENTS_M, schedule assignments, and org units</li>
+  <li><strong>Use TIME_APPROVAL_STATUS, not TIMECARD_STATUS</strong> &mdash; the timecard header can be approved while individual entries within it may still be pending (partial approval)</li>
+  <li><strong>Join to PER_PERSON_NAMES_F with NAME_TYPE = 'GLOBAL'</strong> &mdash; this gives you the display name; 'LEGISLATION' gives the legal name</li>
+</ul>
+
+<h3>Common Pitfalls</h3>
+<div class="cl cl-w"><span class="cl-icon">&#x26A0;&#xFE0F;</span><p><strong>Duration vs. Calculated Duration:</strong> <code>HWM_TM_REP_TIMES.DURATION_HOURS</code> is the raw employee-entered value. <code>HWM_TM_DURATIONS</code> contains the <em>post-rules</em> calculated value (after break deductions, rounding, OT splitting). For accurate payroll reporting, always use the durations table.</p></div>
+
+<ul>
+  <li><strong>Multi-day timecards:</strong> A single timecard can span multiple pay periods. Always filter by <code>START_DATE</code> range, not by TIMECARD_ID alone</li>
+  <li><strong>Retroactive changes:</strong> Managers can approve corrections for past periods. Check <code>LAST_UPDATED_DATE</code> if you need to identify recent changes to old time entries</li>
+  <li><strong>No direct OTBI cross-join:</strong> There's no OTBI subject area that joins Time entries directly to Payroll Run Results. You must use SQL (BI Publisher or HCM Extract) for time-to-payroll audit reports</li>
+  <li><strong>Time categories are configurable:</strong> While REG, OT, DIFF are standard, organizations can define custom categories. Always check <code>HWM_TM_TIME_CATEGORIES</code> for the full list in your environment</li>
+</ul>
+
+<h3>Performance Tips</h3>
+<ul>
+  <li>Index on <code>HWM_TM_REP_TIMES(PERSON_ID, START_DATE)</code> is the primary access path &mdash; always include both in WHERE clauses</li>
+  <li>For dashboard queries, filter on <code>START_DATE</code> first to limit the scan window before joining to other tables</li>
+  <li>Use <code>TRUNC(start_date, 'IW')</code> for ISO week grouping &mdash; avoids locale issues with <code>'WW'</code></li>
+</ul>
+
+<div class="cl cl-t"><span class="cl-icon">&#x1F4A1;</span><p><strong>Quick reference:</strong> The FK chain for time reporting is: <code>HWM_TM_REP_TIMES.PERSON_ID</code> &rarr; <code>PER_ALL_PEOPLE_F.PERSON_ID</code> | <code>HWM_TM_REP_TIMES.ASSIGNMENT_ID</code> &rarr; <code>PER_ALL_ASSIGNMENTS_M.ASSIGNMENT_ID</code> | <code>HWM_TM_REP_TIMES.TIMECARD_ID</code> &rarr; <code>HWM_TM_TIME_CARDS.TIME_CARD_ID</code></p></div>
+
+</div>
+<footer class="footer">
+  <p><a href="/blog/">&#8592; Back to Blog</a></p>
+  <p>&copy; 2026 <a href="/">HCM Tables</a> &mdash; Oracle HCM Cloud table reference for report writers and analysts.</p>
+</footer>
+</body>
+</html>
