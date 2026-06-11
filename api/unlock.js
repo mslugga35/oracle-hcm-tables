@@ -8,6 +8,7 @@
  */
 
 const { createToken, verifyToken, SIGNING_SECRET } = require('./_lib/token');
+const { getClientIP } = require('./_lib/rate-limit');
 
 // Comma-separated djb2 hashes — no hardcoded fallback
 const VALID_HASHES = process.env.UNLOCK_CODES
@@ -20,6 +21,38 @@ function hashCode(str) {
     .reduce((h, c) => ((h << 5) - h + c.charCodeAt(0)) | 0, 0)
     .toString(16)
     .slice(-8);
+}
+
+// Brute-force protection: cap FAILED unlock attempts per IP so the (small) code
+// space can't be guessed online. Only failures count, so a legit user entering a
+// correct code is never throttled. Mirrors the per-endpoint limiter in subscribe.js.
+const MAX_FAILED_ATTEMPTS = 15;
+const ATTEMPT_WINDOW = 60 * 60 * 1000; // 1 hour
+const failedAttempts = new Map();
+let lastAttemptCleanup = Date.now();
+
+function cleanupAttempts() {
+  const now = Date.now();
+  if (now - lastAttemptCleanup < ATTEMPT_WINDOW) return;
+  const currentWindow = Math.floor(now / ATTEMPT_WINDOW);
+  for (const key of failedAttempts.keys()) {
+    if (!key.endsWith(':' + currentWindow)) failedAttempts.delete(key);
+  }
+  lastAttemptCleanup = now;
+}
+
+const attemptKey = (ip) => `${ip}:${Math.floor(Date.now() / ATTEMPT_WINDOW)}`;
+
+/** True if this IP has exhausted its failed-attempt budget this window. */
+function isLockedOut(ip) {
+  cleanupAttempts();
+  return (failedAttempts.get(attemptKey(ip)) || 0) >= MAX_FAILED_ATTEMPTS;
+}
+
+/** Record one failed attempt for this IP. */
+function recordFailure(ip) {
+  const key = attemptKey(ip);
+  failedAttempts.set(key, (failedAttempts.get(key) || 0) + 1);
 }
 
 module.exports = (req, res) => {
@@ -48,9 +81,15 @@ module.exports = (req, res) => {
     return res.status(503).json({ valid: false, error: 'Service not configured' });
   }
 
+  const clientIP = getClientIP(req);
+  if (isLockedOut(clientIP)) {
+    return res.status(429).json({ valid: false, error: 'Too many attempts. Try again later.' });
+  }
+
   if (VALID_HASHES.includes(hashCode(code))) {
     return res.status(200).json({ valid: true, token: createToken() });
   }
 
+  recordFailure(clientIP);
   return res.status(200).json({ valid: false });
 };
