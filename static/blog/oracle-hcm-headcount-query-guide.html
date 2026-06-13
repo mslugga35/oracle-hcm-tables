@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>New to Oracle HCM? Write Your First Headcount Query (Step by Step) | HCM Tables</title>
+<meta name="description" content="Step-by-step guide to writing your first Oracle HCM headcount SQL query. Covers PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M, date-effective joins, EFFECTIVE_LATEST_CHANGE, and common beginner mistakes.">
+<meta name="keywords" content="Oracle HCM headcount query, Oracle Fusion headcount SQL, PER_ALL_ASSIGNMENTS_M headcount, Oracle HCM SQL beginners, Oracle Fusion HR SQL query, Oracle HCM date effective SQL, PER_ALL_PEOPLE_F query, Oracle HCM first SQL query">
+<meta name="robots" content="index, follow">
+<meta name="author" content="HCM Tables">
+<link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-headcount-query-guide">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-headcount-query-guide">
+<meta property="og:title" content="New to Oracle HCM? Write Your First Headcount Query (Step by Step)">
+<meta property="og:description" content="Build an Oracle HCM headcount query from scratch. Date-effective joins, EFFECTIVE_LATEST_CHANGE, ASSIGNMENT_TYPE filter, and the five mistakes every new analyst makes.">
+<meta property="og:site_name" content="HCM Tables">
+<meta property="og:image" content="https://hcm-tables.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-hcm-headcount-query-guide">
+<meta property="twitter:title" content="New to Oracle HCM? Write Your First Headcount Query (Step by Step)">
+<meta property="twitter:description" content="Step-by-step Oracle HCM headcount SQL for analysts new to Fusion HCM. Tables, date joins, common mistakes.">
+<meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"New to Oracle HCM? Write Your First Headcount Query (Step by Step)","description":"Step-by-step guide to writing Oracle HCM headcount SQL. Covers PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M, date-effective joins, and five common beginner mistakes.","url":"https://hcm-tables.com/blog/oracle-hcm-headcount-query-guide","datePublished":"2026-06-13","dateModified":"2026-06-13","author":{"@type":"Person","name":"Matt Morales"},"publisher":{"@type":"Organization","name":"HCM Tables","url":"https://hcm-tables.com"},"proficiencyLevel":"Beginner","dependencies":"Oracle Fusion Cloud HCM"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"Oracle HCM Headcount Query Guide","item":"https://hcm-tables.com/blog/oracle-hcm-headcount-query-guide"}]}</script>
+<script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head><body>
+<style>
+:root{--bg:#0f1117;--bg2:#141720;--bg3:#1a1e2e;--fg:#f8f9fa;--fg2:#a0a8c0;--fg3:#606880;--bd:#2a2e42;--ac:#e05a2b;--ac2:rgba(224,90,43,.25);--bl:#5b8dee;--gn:#4caf82;--yw:#d4b44a;--fn:Inter,system-ui,sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+a{color:var(--bl);text-decoration:none;transition:color .15s}a:hover{color:var(--ac);text-decoration:underline}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+.nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+.nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}.nl a.active{color:var(--ac)}
+.hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:900px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:400px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+.hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+.toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+.toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+.toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+.ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+.ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+.ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+.ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+.ab strong{color:var(--fg);font-weight:600}
+.ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+.cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+.cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}.cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}.cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}
+.cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}.cl p{color:var(--fg2);margin:0;font-size:.95rem}.cl strong{color:var(--fg)}
+.tw{overflow-x:auto;margin:1.5rem 0;border-radius:var(--rs);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{padding:.75rem 1rem;text-align:left;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--bd)}
+td{padding:.75rem 1rem;color:var(--fg2);border-bottom:1px solid var(--bd);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--bg3)}
+td code{font-size:.8rem}
+.sql{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs);padding:1.5rem;margin:1.5rem 0;overflow-x:auto}
+.sql-hd{display:flex;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bd)}
+.sql-ti{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.sql pre{font-family:var(--fm);font-size:.82rem;color:var(--fg2);white-space:pre;line-height:1.65}
+.kw{color:var(--bl);font-weight:600}.cm{color:var(--fg3);font-style:italic}.fn{color:var(--gn)}.st{color:#88c0a0}.nm{color:var(--yw)}
+.step{display:flex;gap:1.25rem;margin:2rem 0}
+.step-num{flex-shrink:0;width:2rem;height:2rem;border-radius:50%;background:var(--ac);color:#fff;font-weight:700;font-size:.9rem;display:flex;align-items:center;justify-content:center;margin-top:.15rem}
+.step-body{flex:1}
+.step-body h3{margin:0 0 .5rem;font-size:1.05rem;font-weight:700;color:var(--fg)}
+.step-body p{color:var(--fg2);margin:0;font-size:.95rem}
+.mistake{background:var(--bg2);border:1px solid #c53030;border-radius:var(--rs);padding:1.25rem 1.5rem;margin:1.5rem 0}
+.mistake-hd{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:#fc8181;margin-bottom:.5rem}
+.mistake p{color:var(--fg2);margin:0;font-size:.9rem}
+.cta-box{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border:1px solid var(--ac);border-radius:var(--r);padding:2rem;margin:3rem 0;text-align:center}
+.cta-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.cta-box p{color:var(--fg2);margin-bottom:1.25rem;font-size:.95rem}
+.cta-btn{display:inline-block;background:var(--ac);color:#fff;font-weight:700;font-size:.95rem;padding:.75rem 1.75rem;border-radius:var(--rs);text-decoration:none;transition:opacity .15s}
+.cta-btn:hover{opacity:.85;text-decoration:none;color:#fff}
+.footer{padding:2rem 1.5rem;border-top:1px solid var(--bd);text-align:center}
+.footer p{color:var(--fg3);font-size:.85rem;margin-bottom:.5rem}
+.footer a{color:var(--bl)}.footer a:hover{color:var(--ac);text-decoration:underline}
+@media(max-width:640px){.hero{padding:2.5rem 1rem 2rem}.nav{padding:1rem}.nl{gap:1rem}}
+</style>
+<nav class="nav">
+  <a href="/" class="nb">HCM Tables</a>
+  <div class="nl"><a href="/">Search</a><a href="/blog/" class="active">Blog</a></div>
+</nav>
+<section class="hero">
+  <span class="tag">Beginner Guide</span>
+  <h1>New to Oracle HCM?<br>Here's Your First Headcount Query</h1>
+  <p style="position:relative;color:var(--fg2);font-size:1.05rem;max-width:640px;margin:.5rem auto 0">The two tables you need, the one join that trips everyone up, and five mistakes that make your headcount wrong — step by step from zero.</p>
+  <div class="meta"><span>Jun 13, 2026</span><span>&middot;</span><span>16 min read</span><span>&middot;</span><a href="/">Search 35K+ Tables &rarr;</a></div>
+</section>
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#why-hcm-sql-different">Why Oracle HCM SQL Is Different</a></li>
+    <li><a href="#two-tables">The Two Tables You Need</a></li>
+    <li><a href="#date-effective">Understanding Date-Effective Joins</a></li>
+    <li><a href="#minimal-query">Step 1: The Minimal Headcount Query</a></li>
+    <li><a href="#add-filters">Step 2: Add the Required Filters</a></li>
+    <li><a href="#add-dimensions">Step 3: Break Out by Department</a></li>
+    <li><a href="#complete-query">The Complete Production Query</a></li>
+    <li><a href="#five-mistakes">5 Mistakes Every New Analyst Makes</a></li>
+    <li><a href="#next-steps">What to Learn Next</a></li>
+  </ol>
+</div>
+<div class="ab">
+
+<h2 id="why-hcm-sql-different">1. Why Oracle HCM SQL Is Different</h2>
+<p>If you're coming from a regular transactional database — or from Workday, SAP, or any other HR system — Oracle Fusion HCM's data model will surprise you. Most HR systems store the current state of an employee record and overwrite it when something changes. Oracle HCM does <strong>not</strong>.</p>
+
+<p>Instead, Oracle HCM uses a pattern called <strong>date-effective history</strong>: every change to a person, assignment, or position creates a new row with a start date and end date, while the old row is kept unchanged. This means:</p>
+
+<ul>
+  <li>One employee might have 20 rows in <code>PER_ALL_ASSIGNMENTS_M</code> — one for each job change, location change, or grade change over their career.</li>
+  <li>A naive <code>SELECT COUNT(*) FROM PER_ALL_ASSIGNMENTS_M</code> will give you a number 5–20x higher than your actual headcount.</li>
+  <li>Every query needs a date filter to ask "as of <em>when</em>?" — without it, you're counting history, not people.</li>
+</ul>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p>The most common mistake new HCM analysts make: they run a headcount query, get a number that's 3x too high, and assume something is wrong with the data. The data is correct — the query is missing the date-effective filter.</p>
+</div>
+
+<h2 id="two-tables">2. The Two Tables You Need</h2>
+<p>For a basic headcount query you need exactly two tables. Everything else is optional enrichment.</p>
+
+<div class="tw">
+  <table>
+    <thead><tr><th>Table</th><th>What It Holds</th><th>Key Columns</th></tr></thead>
+    <tbody>
+      <tr>
+        <td><code>PER_ALL_PEOPLE_F</code></td>
+        <td>One row per person per date range. Holds name, person number, date of birth. The <code>_F</code> suffix means date-effective.</td>
+        <td><code>PERSON_ID</code>, <code>PERSON_NUMBER</code>, <code>DISPLAY_NAME</code>, <code>EFFECTIVE_START_DATE</code>, <code>EFFECTIVE_END_DATE</code></td>
+      </tr>
+      <tr>
+        <td><code>PER_ALL_ASSIGNMENTS_M</code></td>
+        <td>One row per assignment per date range. Holds job, department, status, payroll. The <code>_M</code> suffix is the modern multi-assignment view (post-24B).</td>
+        <td><code>PERSON_ID</code>, <code>ASSIGNMENT_TYPE</code>, <code>ASSIGNMENT_STATUS_TYPE</code>, <code>EFFECTIVE_LATEST_CHANGE</code>, <code>EFFECTIVE_START_DATE</code>, <code>EFFECTIVE_END_DATE</code></td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cl cl-i">
+  <span class="cl-icon">ℹ️</span>
+  <p><strong>Why not just use <code>PER_ALL_ASSIGNMENTS_M</code> alone?</strong> You can for a headcount count, since it contains <code>PERSON_ID</code>. But you'll almost always want the person's name and number, which live in <code>PER_ALL_PEOPLE_F</code>. Get in the habit of joining both from the start.</p>
+</div>
+
+<h3>The Suffix Cheat Sheet</h3>
+<div class="tw">
+  <table>
+    <thead><tr><th>Suffix</th><th>Meaning</th><th>Example</th></tr></thead>
+    <tbody>
+      <tr><td><code>_F</code></td><td>Date-effective — has <code>EFFECTIVE_START_DATE</code> and <code>EFFECTIVE_END_DATE</code></td><td><code>PER_ALL_PEOPLE_F</code></td></tr>
+      <tr><td><code>_M</code></td><td>Modern date-effective — replaces old <code>_F</code> assignment tables post-24B, adds <code>EFFECTIVE_LATEST_CHANGE</code></td><td><code>PER_ALL_ASSIGNMENTS_M</code></td></tr>
+      <tr><td><code>_VL</code></td><td>View with language translation — use instead of <code>_TL</code> for multi-language orgs</td><td><code>HR_ALL_ORGANIZATION_UNITS_VL</code></td></tr>
+      <tr><td><code>_V</code></td><td>View — often a simplified read-only version of the underlying <code>_F</code> table</td><td><code>PER_EMPLOYEES_X</code></td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="date-effective">3. Understanding Date-Effective Joins</h2>
+<p>The core pattern for joining two date-effective tables is <code>BETWEEN effective_start_date AND effective_end_date</code> on both sides of the join, using the same "as of" date. Think of it as asking: "give me the row that was current on this date."</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Date-Effective Join Pattern (the template you'll use everywhere)</span></div>
+  <pre><span class="cm">-- The universal HCM join pattern</span>
+<span class="cm">-- :as_of_date is the date you care about (e.g. DATE '2026-03-31')</span>
+<span class="kw">FROM</span>
+    table_a  a
+    <span class="kw">JOIN</span> table_b b
+         <span class="kw">ON</span>  b.join_key          = a.join_key
+         <span class="kw">AND</span> :as_of_date         <span class="kw">BETWEEN</span> b.effective_start_date
+                                         <span class="kw">AND</span> b.effective_end_date
+<span class="kw">WHERE</span>
+    :as_of_date <span class="kw">BETWEEN</span> a.effective_start_date
+                        <span class="kw">AND</span> a.effective_end_date</pre>
+</div>
+
+<p>A few things to notice:</p>
+<ul>
+  <li>The <code>:as_of_date</code> filter appears in <strong>both</strong> the JOIN condition and the WHERE clause — once for each table.</li>
+  <li>Effective end dates in Oracle HCM use <code>9999-12-31</code> for "still current." The <code>BETWEEN</code> pattern handles this automatically.</li>
+  <li>Never use <code>effective_end_date = DATE '9999-12-31'</code> as your current-record filter — that breaks for closed records that ended before your as-of date.</li>
+</ul>
+
+<h2 id="minimal-query">4. Step 1: The Minimal Headcount Query</h2>
+<p>Here is the smallest possible correct headcount query. It will give you a number close to your real headcount — but it'll be slightly too high until we add the required filters in Step 2.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Step 1 — Minimal Query (intentionally incomplete)</span></div>
+  <pre><span class="cm">-- Minimal query — will over-count without the filters in Step 2</span>
+<span class="kw">SELECT</span>
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> paam.person_id)   <span class="kw">AS</span> headcount
+<span class="kw">FROM</span>
+    per_all_assignments_m  paam
+<span class="kw">WHERE</span>
+    :as_of_date <span class="kw">BETWEEN</span> paam.effective_start_date <span class="kw">AND</span> paam.effective_end_date;</pre>
+</div>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p>This will still over-count because <code>PER_ALL_ASSIGNMENTS_M</code> contains rows for <strong>employees, contractors, applicants, and contingent workers</strong> — all mixed together. Step 2 adds the filters to isolate employees only.</p>
+</div>
+
+<h2 id="add-filters">5. Step 2: Add the Required Filters</h2>
+<p>Three filters are non-negotiable for a correct headcount. Missing any one of them inflates the result.</p>
+
+<div class="step">
+  <div class="step-num">1</div>
+  <div class="step-body">
+    <h3><code>ASSIGNMENT_TYPE = 'E'</code></h3>
+    <p><code>PER_ALL_ASSIGNMENTS_M</code> stores employees (<code>E</code>), contingent workers (<code>C</code>), applicants (<code>A</code>), and non-workers (<code>N</code>) in the same table. Without this filter you count all of them.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">2</div>
+  <div class="step-body">
+    <h3><code>ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN'</code></h3>
+    <p>An employee who has been terminated still has rows in this table — their last row just has an end date in the past. The status filter ensures you only count currently active assignments.</p>
+  </div>
+</div>
+
+<div class="step">
+  <div class="step-num">3</div>
+  <div class="step-body">
+    <h3><code>EFFECTIVE_LATEST_CHANGE = 'Y'</code></h3>
+    <p>This is the <code>_M</code>-specific column. When multiple rows exist for the same assignment and overlapping date range (due to change history), this flag marks only the most recent one. Without it you get duplicates for employees who had mid-period changes.</p>
+  </div>
+</div>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Step 2 — Add the Three Required Filters</span></div>
+  <pre><span class="cm">-- Headcount with all required filters — now accurate</span>
+<span class="kw">SELECT</span>
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> paam.person_id)   <span class="kw">AS</span> headcount
+<span class="kw">FROM</span>
+    per_all_assignments_m  paam
+<span class="kw">WHERE</span>
+    :as_of_date <span class="kw">BETWEEN</span> paam.effective_start_date <span class="kw">AND</span> paam.effective_end_date
+    <span class="kw">AND</span> paam.assignment_type         = <span class="st">'E'</span>           <span class="cm">-- employees only</span>
+    <span class="kw">AND</span> paam.assignment_status_type  = <span class="st">'ACTIVE_ASSIGN'</span>
+    <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>;          <span class="cm">-- deduplicate mid-period changes</span></pre>
+</div>
+
+<p>This should now match your HR system's headcount report within a small margin. If it's still off, check: are you including primary assignments only? Some orgs allow employees to have secondary assignments. Add <code>paam.primary_flag = 'Y'</code> to count heads, not assignment rows.</p>
+
+<h2 id="add-dimensions">6. Step 3: Break Out by Department</h2>
+<p>A total headcount number is rarely useful on its own. Let's add a department breakdown, which requires joining to the organization table.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Step 3 — Headcount by Department</span></div>
+  <pre><span class="cm">-- Headcount broken out by department</span>
+<span class="kw">SELECT</span>
+    dept.name                                    <span class="kw">AS</span> department,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> paam.person_id)              <span class="kw">AS</span> headcount
+<span class="kw">FROM</span>
+    per_all_assignments_m           paam
+    <span class="kw">JOIN</span> hr_all_organization_units_f dept
+         <span class="kw">ON</span>  dept.organization_id    = paam.organization_id
+         <span class="kw">AND</span> :as_of_date             <span class="kw">BETWEEN</span> dept.effective_start_date
+                                             <span class="kw">AND</span> dept.effective_end_date
+<span class="kw">WHERE</span>
+    :as_of_date <span class="kw">BETWEEN</span> paam.effective_start_date <span class="kw">AND</span> paam.effective_end_date
+    <span class="kw">AND</span> paam.assignment_type         = <span class="st">'E'</span>
+    <span class="kw">AND</span> paam.assignment_status_type  = <span class="st">'ACTIVE_ASSIGN'</span>
+    <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>
+    <span class="kw">AND</span> paam.primary_flag            = <span class="st">'Y'</span>
+<span class="kw">GROUP BY</span>
+    dept.name
+<span class="kw">ORDER BY</span>
+    dept.name;</pre>
+</div>
+
+<div class="cl cl-i">
+  <span class="cl-icon">ℹ️</span>
+  <p><code>HR_ALL_ORGANIZATION_UNITS_F</code> is also date-effective — notice the date join appears in the JOIN condition, not just the WHERE clause. This is the pattern you'll repeat for every lookup table you add.</p>
+</div>
+
+<h2 id="complete-query">7. The Complete Production Query</h2>
+<p>Here is the full headcount query with person name, department, legal employer, job, and manager — ready to copy into Oracle SQL Developer, HCM Data Loader preview, or OTBI Logical SQL.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Complete Headcount Query — Production Ready</span></div>
+  <pre><span class="cm">-- Production headcount query: active employees as of any date</span>
+<span class="cm">-- Replace DATE '2026-06-30' with your target date</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    paam.assignment_number,
+    job.name                                        <span class="kw">AS</span> job_name,
+    dept.name                                       <span class="kw">AS</span> department,
+    le.name                                         <span class="kw">AS</span> legal_employer,
+    mgr.display_name                                <span class="kw">AS</span> manager_name,
+    paam.effective_start_date                       <span class="kw">AS</span> assignment_start
+<span class="kw">FROM</span>
+    per_all_assignments_m           paam
+    <span class="kw">JOIN</span> per_all_people_f           papf
+         <span class="kw">ON</span>  papf.person_id          = paam.person_id
+         <span class="kw">AND</span> :as_of_date             <span class="kw">BETWEEN</span> papf.effective_start_date
+                                             <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">JOIN</span> hr_all_organization_units_f dept
+         <span class="kw">ON</span>  dept.organization_id    = paam.organization_id
+         <span class="kw">AND</span> :as_of_date             <span class="kw">BETWEEN</span> dept.effective_start_date
+                                             <span class="kw">AND</span> dept.effective_end_date
+    <span class="kw">JOIN</span> hr_all_organization_units_f le
+         <span class="kw">ON</span>  le.organization_id      = paam.legal_entity_id
+         <span class="kw">AND</span> :as_of_date             <span class="kw">BETWEEN</span> le.effective_start_date
+                                             <span class="kw">AND</span> le.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_jobs_f            job
+         <span class="kw">ON</span>  job.job_id              = paam.job_id
+         <span class="kw">AND</span> :as_of_date             <span class="kw">BETWEEN</span> job.effective_start_date
+                                             <span class="kw">AND</span> job.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_all_people_f      mgr
+         <span class="kw">ON</span>  mgr.person_id           = paam.manager_id
+         <span class="kw">AND</span> :as_of_date             <span class="kw">BETWEEN</span> mgr.effective_start_date
+                                             <span class="kw">AND</span> mgr.effective_end_date
+<span class="kw">WHERE</span>
+    :as_of_date <span class="kw">BETWEEN</span> paam.effective_start_date <span class="kw">AND</span> paam.effective_end_date
+    <span class="kw">AND</span> paam.assignment_type         = <span class="st">'E'</span>
+    <span class="kw">AND</span> paam.assignment_status_type  = <span class="st">'ACTIVE_ASSIGN'</span>
+    <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>
+    <span class="kw">AND</span> paam.primary_flag            = <span class="st">'Y'</span>
+<span class="kw">ORDER BY</span>
+    le.name,
+    dept.name,
+    papf.display_name;</pre>
+</div>
+
+<h2 id="five-mistakes">8. Five Mistakes Every New Analyst Makes</h2>
+
+<div class="mistake">
+  <div class="mistake-hd">Mistake 1: No date filter</div>
+  <p>Running <code>SELECT COUNT(*) FROM PER_ALL_ASSIGNMENTS_M</code> without a <code>BETWEEN</code> filter returns the total number of assignment rows across all time — often 5–20x your real headcount. Always bind <code>:as_of_date</code>.</p>
+</div>
+
+<div class="mistake">
+  <div class="mistake-hd">Mistake 2: Missing ASSIGNMENT_TYPE = 'E'</div>
+  <p>The assignments table has E, C, A, and N rows. If your org has contractors or open requisitions, you'll count them as employees. This filter is mandatory for headcount.</p>
+</div>
+
+<div class="mistake">
+  <div class="mistake-hd">Mistake 3: Forgetting EFFECTIVE_LATEST_CHANGE on _M tables</div>
+  <p>The <code>_M</code> suffix tables use a different deduplication mechanism than the older <code>_F</code> tables. Without <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code>, employees with mid-period changes (a job change on the 15th of the month) appear as two rows.</p>
+</div>
+
+<div class="mistake">
+  <div class="mistake-hd">Mistake 4: Using SYSDATE instead of a bound date variable</div>
+  <p><code>SYSDATE</code>-based queries are not reproducible — the same query returns different results depending on when you run it. Use <code>:as_of_date</code> and log the value you used. Auditors will ask for it.</p>
+</div>
+
+<div class="mistake">
+  <div class="mistake-hd">Mistake 5: Joining on PERSON_ID without the date filter on both tables</div>
+  <p>If you join <code>PER_ALL_PEOPLE_F</code> on just <code>person_id = person_id</code> without adding the date filter on <code>PER_ALL_PEOPLE_F</code>, you get a row for every historical version of the person's name — multiplying your result set by however many times they changed their legal name.</p>
+</div>
+
+<h2 id="next-steps">9. What to Learn Next</h2>
+<p>Once the headcount query clicks, the same pattern extends to every other HCM query you'll ever write. Here's a suggested order:</p>
+
+<ol>
+  <li><strong>Add hire and termination dates</strong> — join <code>PER_PERIODS_OF_SERVICE</code> for employment start dates and termination history.</li>
+  <li><strong>Add salary</strong> — join <code>CMP_SALARY</code> on <code>person_id</code> + effective date to pull current annual salary.</li>
+  <li><strong>Filter by legal employer</strong> — add a WHERE on <code>le.name = 'Your Legal Employer Name'</code> to scope to one entity.</li>
+  <li><strong>Learn OTBI Logical SQL</strong> — once you know the physical tables, OTBI's subject areas will make sense as a friendlier layer over the same data.</li>
+  <li><strong>Master <code>PER_ALL_ASSIGNMENTS_M</code> columns</strong> — it holds job, grade, position, location, payroll, and 80+ other columns. One table, most of what you need.</li>
+</ol>
+
+<div class="cta-box">
+  <h3>Explore All 14,950 Oracle HCM Tables</h3>
+  <p>Search every table and column in the Oracle Fusion HCM schema — find the exact column you need, see sample values, and trace relationships across the data model.</p>
+  <a href="/" class="cta-btn">Search HCM Tables &rarr;</a>
+</div>
+
+<h3>Related Articles</h3>
+<ul>
+  <li><a href="/blog/per-all-assignments-m-duplicate-rows-fix">PER_ALL_ASSIGNMENTS_M Duplicate Rows Fix</a></li>
+  <li><a href="/blog/per-all-assignments-f-oracle-24b-migration-guide">PER_ALL_ASSIGNMENTS_F → _M Migration Guide (Oracle 24B)</a></li>
+  <li><a href="/blog/person-assignment-work-relationship-data-model-explained">Person, Assignment &amp; Work Relationship Data Model Explained</a></li>
+  <li><a href="/blog/sql-query-library">Oracle HCM SQL Query Library</a></li>
+  <li><a href="/blog/oracle-hcm-compliance-audit-sql-queries">Oracle HCM Compliance Audit SQL Queries</a></li>
+</ul>
+
+</div>
+<footer class="footer">
+  <p>&copy; 2026 HCM Tables &mdash; Oracle HCM table reference for consultants and analysts</p>
+  <p><a href="/">Home</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a></p>
+</footer>
+</body>
+</html>

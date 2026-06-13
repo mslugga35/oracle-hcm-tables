@@ -1,0 +1,515 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Oracle HCM SOX Audit SQL Queries — 8 Compliance-Ready Scripts | HCM Tables</title>
+<meta name="description" content="8 production-ready Oracle HCM SQL queries for SOX compliance: segregation of duties, privileged access review, payroll control validation, role change audit trail, and period-end headcount certification.">
+<meta name="keywords" content="Oracle HCM SOX audit SQL, Oracle Fusion SOX compliance queries, Oracle HCM segregation of duties SQL, Oracle payroll SOX controls, Oracle HCM privileged access review, SOX audit Oracle Fusion HR, Oracle HCM role audit SQL, Oracle Fusion SOX compliance">
+<meta name="robots" content="index, follow">
+<meta name="author" content="HCM Tables">
+<link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-sox-audit-sql-queries">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-sox-audit-sql-queries">
+<meta property="og:title" content="Oracle HCM SOX Audit SQL Queries — 8 Compliance-Ready Scripts">
+<meta property="og:description" content="8 Oracle HCM SQL queries for SOX compliance: SoD conflicts, privileged access, payroll variance, role change history, and period-end headcount certification.">
+<meta property="og:site_name" content="HCM Tables">
+<meta property="og:image" content="https://hcm-tables.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-hcm-sox-audit-sql-queries">
+<meta property="twitter:title" content="Oracle HCM SOX Audit SQL Queries — 8 Compliance-Ready Scripts">
+<meta property="twitter:description" content="SOX-specific Oracle HCM SQL: SoD conflicts, privileged access, payroll controls, and period-end certification queries.">
+<meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"Oracle HCM SOX Audit SQL Queries — 8 Compliance-Ready Scripts","description":"8 production-ready Oracle HCM SQL queries for SOX compliance: segregation of duties, privileged access, payroll controls, and period-end certification.","url":"https://hcm-tables.com/blog/oracle-hcm-sox-audit-sql-queries","datePublished":"2026-06-13","dateModified":"2026-06-13","author":{"@type":"Person","name":"Matt Morales"},"publisher":{"@type":"Organization","name":"HCM Tables","url":"https://hcm-tables.com"},"proficiencyLevel":"Expert","dependencies":"Oracle Fusion Cloud HCM"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"Oracle HCM SOX Audit SQL Queries","item":"https://hcm-tables.com/blog/oracle-hcm-sox-audit-sql-queries"}]}</script>
+<script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head><body>
+<style>
+:root{--bg:#0f1117;--bg2:#141720;--bg3:#1a1e2e;--fg:#f8f9fa;--fg2:#a0a8c0;--fg3:#606880;--bd:#2a2e42;--ac:#e05a2b;--ac2:rgba(224,90,43,.25);--bl:#5b8dee;--gn:#4caf82;--yw:#d4b44a;--fn:Inter,system-ui,sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+a{color:var(--bl);text-decoration:none;transition:color .15s}a:hover{color:var(--ac);text-decoration:underline}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+.nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+.nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}.nl a.active{color:var(--ac)}
+.hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:900px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:400px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+.hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+.toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+.toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+.toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+.ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+.ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+.ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+.ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+.ab strong{color:var(--fg);font-weight:600}
+.ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+.cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+.cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}.cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}.cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}
+.cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}.cl p{color:var(--fg2);margin:0;font-size:.95rem}.cl strong{color:var(--fg)}
+.tw{overflow-x:auto;margin:1.5rem 0;border-radius:var(--rs);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{padding:.75rem 1rem;text-align:left;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--bd)}
+td{padding:.75rem 1rem;color:var(--fg2);border-bottom:1px solid var(--bd);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--bg3)}
+td code{font-size:.8rem}
+.sql{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs);padding:1.5rem;margin:1.5rem 0;overflow-x:auto}
+.sql-hd{display:flex;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bd)}
+.sql-ti{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.sql pre{font-family:var(--fm);font-size:.82rem;color:var(--fg2);white-space:pre;line-height:1.65}
+.kw{color:var(--bl);font-weight:600}.cm{color:var(--fg3);font-style:italic}.fn{color:var(--gn)}.st{color:#88c0a0}.nm{color:var(--yw)}
+.cta-box{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border:1px solid var(--ac);border-radius:var(--r);padding:2rem;margin:3rem 0;text-align:center}
+.cta-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.cta-box p{color:var(--fg2);margin-bottom:1.25rem;font-size:.95rem}
+.cta-btn{display:inline-block;background:var(--ac);color:#fff;font-weight:700;font-size:.95rem;padding:.75rem 1.75rem;border-radius:var(--rs);text-decoration:none;transition:opacity .15s}
+.cta-btn:hover{opacity:.85;text-decoration:none;color:#fff}
+.footer{padding:2rem 1.5rem;border-top:1px solid var(--bd);text-align:center}
+.footer p{color:var(--fg3);font-size:.85rem;margin-bottom:.5rem}
+.footer a{color:var(--bl)}.footer a:hover{color:var(--ac);text-decoration:underline}
+@media(max-width:640px){.hero{padding:2.5rem 1rem 2rem}.nav{padding:1rem}.nl{gap:1rem}}
+</style>
+<nav class="nav">
+  <a href="/" class="nb">HCM Tables</a>
+  <div class="nl"><a href="/">Search</a><a href="/blog/" class="active">Blog</a></div>
+</nav>
+<section class="hero">
+  <span class="tag">SOX Compliance</span>
+  <h1>Oracle HCM SOX Audit SQL Queries</h1>
+  <p style="position:relative;color:var(--fg2);font-size:1.05rem;max-width:640px;margin:.5rem auto 0">8 production-ready SQL scripts that satisfy the most common SOX HCM controls — segregation of duties, privileged access review, payroll variance, role change history, and period-end certification.</p>
+  <div class="meta"><span>Jun 13, 2026</span><span>&middot;</span><span>20 min read</span><span>&middot;</span><a href="/">Search 35K+ Tables &rarr;</a></div>
+</section>
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#sox-hcm-controls">SOX Controls That Touch Oracle HCM</a></li>
+    <li><a href="#q1-sod">Query 1: Segregation of Duties Role Conflict</a></li>
+    <li><a href="#q2-privileged-access">Query 2: Privileged Access Review</a></li>
+    <li><a href="#q3-role-changes">Query 3: Role Assignment Change History</a></li>
+    <li><a href="#q4-payroll-variance">Query 4: Payroll Period Variance (SOX Control)</a></li>
+    <li><a href="#q5-terminated-access">Query 5: Terminated Employees with Active System Access</a></li>
+    <li><a href="#q6-headcount-cert">Query 6: Period-End Headcount Certification</a></li>
+    <li><a href="#q7-salary-changes">Query 7: Salary Change Authorization Audit</a></li>
+    <li><a href="#q8-bank-changes">Query 8: Bank Account Changes Audit</a></li>
+    <li><a href="#tips">SOX Audit Best Practices</a></li>
+  </ol>
+</div>
+<div class="ab">
+
+<h2 id="sox-hcm-controls">1. SOX Controls That Touch Oracle HCM</h2>
+<p>Sarbanes-Oxley Section 404 requires management to assess the effectiveness of internal controls over financial reporting (ICFR). For Oracle HCM, that means three categories of controls that external auditors will test every year:</p>
+
+<ul>
+  <li><strong>IT General Controls (ITGC):</strong> Who has access, how that access is granted, and whether terminated employees still have system access.</li>
+  <li><strong>Payroll Process Controls:</strong> Is payroll processed by authorized users only? Are pay run changes within expected variance thresholds?</li>
+  <li><strong>Change Management Controls:</strong> Are changes to sensitive data (compensation, bank accounts, roles) authorized, logged, and reviewed?</li>
+</ul>
+
+<p>Every query below is tagged to its SOX control category. The bind variable <code>:as_of_date</code> should be set to the quarter-end or fiscal year-end date under review.</p>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p><strong>Key join gotcha:</strong> Oracle HCM uses date-effective tables. Without the correct <code>BETWEEN effective_start_date AND effective_end_date</code> filter, you will pull historical role assignments that were revoked years ago — and falsely flag them as active SoD conflicts.</p>
+</div>
+
+<h2 id="q1-sod">2. Query 1: Segregation of Duties Role Conflict</h2>
+<p>The most critical SOX-HCM query. Returns users who hold two or more roles from a defined conflict matrix. Customize the <code>role_pairs</code> CTE with your organization's SoD ruleset. Common conflicts: payroll entry + payroll approval, HR data entry + user provisioning, compensation change + payroll release.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 1 — SOX SoD Role Conflict Detection</span></div>
+  <pre><span class="cm">-- SOX ITGC: Segregation of Duties conflict report</span>
+<span class="cm">-- Customize the role_pairs CTE with your SoD ruleset</span>
+<span class="kw">WITH</span> role_pairs <span class="kw">AS</span> (
+    <span class="kw">SELECT</span> <span class="st">'ORA_PAY_PAYROLL_ADMIN'</span>    <span class="kw">AS</span> role_a, <span class="st">'ORA_PAY_PAYROLL_MANAGER'</span>     <span class="kw">AS</span> role_b, <span class="st">'Payroll Entry + Approval'</span>       <span class="kw">AS</span> conflict <span class="kw">FROM</span> dual
+    <span class="kw">UNION ALL</span>
+    <span class="kw">SELECT</span> <span class="st">'ORA_HCM_HR_SPECIALIST'</span>,       <span class="st">'ORA_PER_MANAGE_USER_ACCOUNT'</span>, <span class="st">'HR Data Entry + User Provisioning'</span> <span class="kw">FROM</span> dual
+    <span class="kw">UNION ALL</span>
+    <span class="kw">SELECT</span> <span class="st">'ORA_CMP_COMPENSATION_ANALYST'</span>, <span class="st">'ORA_PAY_PAYROLL_MANAGER'</span>,     <span class="st">'Comp Change + Payroll Release'</span>     <span class="kw">FROM</span> dual
+)
+<span class="kw">SELECT</span>
+    fu.user_name,
+    fu.email_address,
+    ra_a.role_name     <span class="kw">AS</span> conflicting_role_a,
+    ra_b.role_name     <span class="kw">AS</span> conflicting_role_b,
+    rp.conflict        <span class="kw">AS</span> sod_violation,
+    ra_a.start_date    <span class="kw">AS</span> role_a_granted,
+    ra_b.start_date    <span class="kw">AS</span> role_b_granted
+<span class="kw">FROM</span>
+    role_pairs rp
+    <span class="kw">JOIN</span> per_user_roles ra_a
+         <span class="kw">ON</span>  ra_a.role_name   = rp.role_a
+         <span class="kw">AND</span> :as_of_date     <span class="kw">BETWEEN</span> ra_a.start_date <span class="kw">AND</span> <span class="fn">NVL</span>(ra_a.end_date, <span class="fn">DATE</span> <span class="st">'9999-12-31'</span>)
+    <span class="kw">JOIN</span> per_user_roles ra_b
+         <span class="kw">ON</span>  ra_b.role_name   = rp.role_b
+         <span class="kw">AND</span> ra_b.user_id     = ra_a.user_id
+         <span class="kw">AND</span> :as_of_date     <span class="kw">BETWEEN</span> ra_b.start_date <span class="kw">AND</span> <span class="fn">NVL</span>(ra_b.end_date, <span class="fn">DATE</span> <span class="st">'9999-12-31'</span>)
+    <span class="kw">JOIN</span> fnd_user fu
+         <span class="kw">ON</span>  fu.user_id       = ra_a.user_id
+<span class="kw">ORDER BY</span>
+    rp.conflict,
+    fu.user_name;</pre>
+</div>
+
+<h2 id="q2-privileged-access">3. Query 2: Privileged Access Review</h2>
+<p>Returns all users with administrator-level or privileged roles as of the audit date. SOX requires this list to be reviewed and certified by a control owner each quarter. Run this against every quarter-end date and compare the delta.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 2 — SOX ITGC Privileged Access Review</span></div>
+  <pre><span class="cm">-- SOX ITGC: Privileged access review as of audit date</span>
+<span class="cm">-- Extend the role_name IN list with your org's privileged roles</span>
+<span class="kw">SELECT</span>
+    fu.user_name,
+    fu.email_address,
+    pur.role_name,
+    pur.start_date                                  <span class="kw">AS</span> access_granted_date,
+    <span class="fn">NVL</span>(pur.end_date, <span class="fn">DATE</span> <span class="st">'9999-12-31'</span>)           <span class="kw">AS</span> access_end_date,
+    papf.display_name                               <span class="kw">AS</span> employee_name,
+    dept.name                                       <span class="kw">AS</span> department,
+    mgr.display_name                                <span class="kw">AS</span> manager_name
+<span class="kw">FROM</span>
+    per_user_roles              pur
+    <span class="kw">JOIN</span> fnd_user               fu    <span class="kw">ON</span>  fu.user_id          = pur.user_id
+    <span class="kw">LEFT JOIN</span> per_all_people_f  papf  <span class="kw">ON</span>  papf.person_id      = fu.person_party_id
+                                          <span class="kw">AND</span> :as_of_date      <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                                         <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_all_assignments_m paam
+                                      <span class="kw">ON</span>  paam.person_id      = papf.person_id
+                                          <span class="kw">AND</span> :as_of_date      <span class="kw">BETWEEN</span> paam.effective_start_date
+                                                                         <span class="kw">AND</span> paam.effective_end_date
+                                          <span class="kw">AND</span> paam.primary_flag            = <span class="st">'Y'</span>
+                                          <span class="kw">AND</span> paam.assignment_type         = <span class="st">'E'</span>
+                                          <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>
+    <span class="kw">LEFT JOIN</span> hr_all_organization_units_f dept
+                                      <span class="kw">ON</span>  dept.organization_id = paam.organization_id
+                                          <span class="kw">AND</span> :as_of_date      <span class="kw">BETWEEN</span> dept.effective_start_date
+                                                                         <span class="kw">AND</span> dept.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_all_people_f  mgr   <span class="kw">ON</span>  mgr.person_id       = paam.manager_id
+                                          <span class="kw">AND</span> :as_of_date      <span class="kw">BETWEEN</span> mgr.effective_start_date
+                                                                         <span class="kw">AND</span> mgr.effective_end_date
+<span class="kw">WHERE</span>
+    pur.role_name <span class="kw">IN</span> (
+        <span class="st">'ORA_FND_APPLICATION_ADMINISTRATOR_JOB'</span>,
+        <span class="st">'ORA_PER_MANAGE_USER_ACCOUNT'</span>,
+        <span class="st">'ORA_PAY_PAYROLL_ADMIN'</span>,
+        <span class="st">'ORA_HCM_APPLICATION_ADMINISTRATOR_JOB'</span>
+    )
+    <span class="kw">AND</span> :as_of_date <span class="kw">BETWEEN</span> pur.start_date <span class="kw">AND</span> <span class="fn">NVL</span>(pur.end_date, <span class="fn">DATE</span> <span class="st">'9999-12-31'</span>)
+<span class="kw">ORDER BY</span>
+    pur.role_name,
+    fu.user_name;</pre>
+</div>
+
+<h2 id="q3-role-changes">4. Query 3: Role Assignment Change History</h2>
+<p>Returns every role added or removed in a date range. SOX change management controls require that all access grants be tied to an authorized request. Cross-reference this output against your access request ticketing system.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 3 — Role Assignment Change Log</span></div>
+  <pre><span class="cm">-- SOX Change Management: role grants and revocations in a period</span>
+<span class="cm">-- :start_date and :end_date bound the review window (typically a quarter)</span>
+<span class="kw">SELECT</span>
+    fu.user_name,
+    fu.email_address,
+    pur.role_name,
+    <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> pur.start_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date <span class="kw">THEN</span> <span class="st">'GRANTED'</span>
+        <span class="kw">WHEN</span> pur.end_date   <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date <span class="kw">THEN</span> <span class="st">'REVOKED'</span>
+    <span class="kw">END</span>                                             <span class="kw">AS</span> change_type,
+    <span class="fn">COALESCE</span>(pur.start_date, pur.end_date)          <span class="kw">AS</span> change_date,
+    papf.display_name                               <span class="kw">AS</span> employee_name
+<span class="kw">FROM</span>
+    per_user_roles              pur
+    <span class="kw">JOIN</span> fnd_user               fu    <span class="kw">ON</span>  fu.user_id      = pur.user_id
+    <span class="kw">LEFT JOIN</span> per_all_people_f  papf  <span class="kw">ON</span>  papf.person_id  = fu.person_party_id
+                                          <span class="kw">AND</span> <span class="fn">COALESCE</span>(pur.start_date, pur.end_date)
+                                              <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                  <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">WHERE</span>
+    (
+        pur.start_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+        <span class="kw">OR</span>
+        pur.end_date   <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+    )
+<span class="kw">ORDER BY</span>
+    <span class="fn">COALESCE</span>(pur.start_date, pur.end_date) <span class="kw">DESC</span>,
+    fu.user_name;</pre>
+</div>
+
+<h2 id="q4-payroll-variance">5. Query 4: Payroll Period Variance (SOX Control)</h2>
+<p>Compares total payroll run cost between two consecutive periods. SOX payroll controls require that payroll changes above a materiality threshold are reviewed and signed off. The threshold (<code>:variance_pct_threshold</code>) is typically 5% for most organizations, though some use dollar-amount floors instead.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 4 — SOX Payroll Variance: Period-over-Period</span></div>
+  <pre><span class="cm">-- SOX Payroll Controls: variance between two payroll run periods</span>
+<span class="cm">-- :prior_payroll_id = prior period's payroll action ID</span>
+<span class="cm">-- :current_payroll_id = current period's payroll action ID</span>
+<span class="kw">WITH</span> prior_run <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        ppa.payroll_id,
+        <span class="fn">SUM</span>(prr.result_value)   <span class="kw">AS</span> total_pay
+    <span class="kw">FROM</span>
+        pay_payroll_actions  ppa
+        <span class="kw">JOIN</span> pay_assignment_actions paa  <span class="kw">ON</span>  paa.payroll_action_id  = ppa.payroll_action_id
+        <span class="kw">JOIN</span> pay_run_results         prr  <span class="kw">ON</span>  prr.assignment_action_id = paa.assignment_action_id
+    <span class="kw">WHERE</span>
+        ppa.payroll_action_id = :prior_payroll_id
+        <span class="kw">AND</span> ppa.action_type   = <span class="st">'R'</span>                 <span class="cm">-- R = payroll run</span>
+        <span class="kw">AND</span> prr.element_type_id <span class="kw">IN</span> (                 <span class="cm">-- filter to earnings elements only</span>
+            <span class="kw">SELECT</span> element_type_id
+            <span class="kw">FROM</span>   pay_element_types_f
+            <span class="kw">WHERE</span>  classification_name <span class="kw">IN</span> (<span class="st">'Earnings'</span>, <span class="st">'Supplemental Earnings'</span>)
+            <span class="kw">AND</span>    :as_of_date <span class="kw">BETWEEN</span> effective_start_date <span class="kw">AND</span> effective_end_date
+        )
+    <span class="kw">GROUP BY</span> ppa.payroll_id
+),
+current_run <span class="kw">AS</span> (
+    <span class="kw">SELECT</span>
+        ppa.payroll_id,
+        <span class="fn">SUM</span>(prr.result_value)   <span class="kw">AS</span> total_pay
+    <span class="kw">FROM</span>
+        pay_payroll_actions  ppa
+        <span class="kw">JOIN</span> pay_assignment_actions paa  <span class="kw">ON</span>  paa.payroll_action_id   = ppa.payroll_action_id
+        <span class="kw">JOIN</span> pay_run_results         prr  <span class="kw">ON</span>  prr.assignment_action_id = paa.assignment_action_id
+    <span class="kw">WHERE</span>
+        ppa.payroll_action_id = :current_payroll_id
+        <span class="kw">AND</span> ppa.action_type   = <span class="st">'R'</span>
+        <span class="kw">AND</span> prr.element_type_id <span class="kw">IN</span> (
+            <span class="kw">SELECT</span> element_type_id <span class="kw">FROM</span> pay_element_types_f
+            <span class="kw">WHERE</span>  classification_name <span class="kw">IN</span> (<span class="st">'Earnings'</span>, <span class="st">'Supplemental Earnings'</span>)
+            <span class="kw">AND</span>    :as_of_date <span class="kw">BETWEEN</span> effective_start_date <span class="kw">AND</span> effective_end_date
+        )
+    <span class="kw">GROUP BY</span> ppa.payroll_id
+)
+<span class="kw">SELECT</span>
+    p.payroll_id,
+    p.total_pay                                     <span class="kw">AS</span> prior_period_pay,
+    c.total_pay                                     <span class="kw">AS</span> current_period_pay,
+    c.total_pay - p.total_pay                       <span class="kw">AS</span> variance_amount,
+    <span class="fn">ROUND</span>((c.total_pay - p.total_pay) / <span class="fn">NULLIF</span>(p.total_pay, <span class="nm">0</span>) * <span class="nm">100</span>, <span class="nm">2</span>) <span class="kw">AS</span> variance_pct,
+    <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> <span class="fn">ABS</span>(<span class="fn">ROUND</span>((c.total_pay - p.total_pay) / <span class="fn">NULLIF</span>(p.total_pay,<span class="nm">0</span>) * <span class="nm">100</span>, <span class="nm">2</span>))
+             > :variance_pct_threshold               <span class="kw">THEN</span> <span class="st">'REVIEW REQUIRED'</span>
+        <span class="kw">ELSE</span> <span class="st">'Within Threshold'</span>
+    <span class="kw">END</span>                                             <span class="kw">AS</span> sox_status
+<span class="kw">FROM</span>
+    prior_run p
+    <span class="kw">JOIN</span> current_run c <span class="kw">ON</span> c.payroll_id = p.payroll_id;</pre>
+</div>
+
+<h2 id="q5-terminated-access">6. Query 5: Terminated Employees with Active System Access</h2>
+<p>SOX ITGC requires that terminated employees have their system access revoked promptly — typically within 24 hours of the termination effective date. This query returns any terminated person whose FND_USER account is still active beyond the grace period.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 5 — Terminated Employees with Active User Accounts</span></div>
+  <pre><span class="cm">-- SOX ITGC: Terminated employees who still have active system access</span>
+<span class="cm">-- :days_grace = allowed days between term date and account suspension (usually 1–3)</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    ppos.actual_termination_date,
+    fu.user_name,
+    fu.end_date                                     <span class="kw">AS</span> account_suspended_date,
+    <span class="fn">NVL</span>(fu.end_date, <span class="fn">DATE</span> <span class="st">'9999-12-31'</span>)           <span class="kw">AS</span> effective_end,
+    <span class="fn">ROUND</span>(<span class="fn">NVL</span>(fu.end_date, <span class="fn">SYSDATE</span>) - ppos.actual_termination_date)
+                                                    <span class="kw">AS</span> days_access_after_term
+<span class="kw">FROM</span>
+    per_periods_of_service      ppos
+    <span class="kw">JOIN</span> per_all_people_f       papf  <span class="kw">ON</span>  papf.person_id  = ppos.person_id
+                                          <span class="kw">AND</span> ppos.actual_termination_date
+                                              <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                  <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">JOIN</span> fnd_user               fu    <span class="kw">ON</span>  fu.person_party_id = papf.person_id
+<span class="kw">WHERE</span>
+    ppos.actual_termination_date <span class="kw">IS NOT NULL</span>
+    <span class="kw">AND</span> ppos.actual_termination_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+    <span class="kw">AND</span> (
+        fu.end_date <span class="kw">IS NULL</span>
+        <span class="kw">OR</span> fu.end_date > ppos.actual_termination_date + :days_grace
+    )
+<span class="kw">ORDER BY</span>
+    days_access_after_term <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="q6-headcount-cert">7. Query 6: Period-End Headcount Certification</h2>
+<p>Produces the headcount roll that control owners sign off on at each period end. Returns active headcount by legal employer and business unit as of the certification date, with hire and termination counts for the period — allowing reconciliation to prior-period numbers.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 6 — Period-End Headcount Certification</span></div>
+  <pre><span class="cm">-- SOX headcount certification: active count + period hires/terms</span>
+<span class="cm">-- :period_start and :period_end define the review period</span>
+<span class="cm">-- :as_of_date = last day of period for active count (= :period_end)</span>
+<span class="kw">SELECT</span>
+    le.name                                         <span class="kw">AS</span> legal_employer,
+    bu.name                                         <span class="kw">AS</span> business_unit,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> paam.assignment_status_type = <span class="st">'ACTIVE_ASSIGN'</span>
+         <span class="kw">AND</span> :as_of_date <span class="kw">BETWEEN</span> paam.effective_start_date <span class="kw">AND</span> paam.effective_end_date
+        <span class="kw">THEN</span> paam.person_id
+    <span class="kw">END</span>)                                            <span class="kw">AS</span> active_headcount,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> ppos.date_start <span class="kw">BETWEEN</span> :period_start <span class="kw">AND</span> :period_end
+        <span class="kw">THEN</span> ppos.person_id
+    <span class="kw">END</span>)                                            <span class="kw">AS</span> hires_in_period,
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> ppos.actual_termination_date <span class="kw">BETWEEN</span> :period_start <span class="kw">AND</span> :period_end
+        <span class="kw">THEN</span> ppos.person_id
+    <span class="kw">END</span>)                                            <span class="kw">AS</span> terms_in_period
+<span class="kw">FROM</span>
+    per_all_assignments_m           paam
+    <span class="kw">JOIN</span> hr_all_organization_units_f le
+                                      <span class="kw">ON</span>  le.organization_id  = paam.legal_entity_id
+                                          <span class="kw">AND</span> :as_of_date     <span class="kw">BETWEEN</span> le.effective_start_date
+                                                                        <span class="kw">AND</span> le.effective_end_date
+    <span class="kw">JOIN</span> hr_all_organization_units_f bu
+                                      <span class="kw">ON</span>  bu.organization_id = paam.business_unit_id
+                                          <span class="kw">AND</span> :as_of_date     <span class="kw">BETWEEN</span> bu.effective_start_date
+                                                                        <span class="kw">AND</span> bu.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_periods_of_service  ppos
+                                      <span class="kw">ON</span>  ppos.person_id    = paam.person_id
+<span class="kw">WHERE</span>
+    paam.assignment_type         = <span class="st">'E'</span>
+    <span class="kw">AND</span> paam.primary_flag        = <span class="st">'Y'</span>
+    <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>
+<span class="kw">GROUP BY</span>
+    le.name,
+    bu.name
+<span class="kw">ORDER BY</span>
+    le.name,
+    bu.name;</pre>
+</div>
+
+<h2 id="q7-salary-changes">8. Query 7: Salary Change Authorization Audit</h2>
+<p>Returns all salary changes in a review period. For SOX, compensation changes above a materiality threshold must be approved by the employee's manager and HR. Use this output to verify that every change has an approved workflow history record in <code>HRC_TXNS_F</code>.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 7 — Salary Change Authorization Audit</span></div>
+  <pre><span class="cm">-- SOX Change Management: salary changes in a review period</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    csa_new.annual_salary                           <span class="kw">AS</span> new_salary,
+    csa_old.annual_salary                           <span class="kw">AS</span> prior_salary,
+    csa_new.annual_salary - <span class="fn">NVL</span>(csa_old.annual_salary, <span class="nm">0</span>)
+                                                    <span class="kw">AS</span> change_amount,
+    <span class="fn">ROUND</span>((csa_new.annual_salary - <span class="fn">NVL</span>(csa_old.annual_salary, <span class="nm">0</span>))
+          / <span class="fn">NULLIF</span>(csa_old.annual_salary, <span class="nm">0</span>) * <span class="nm">100</span>, <span class="nm">2</span>)
+                                                    <span class="kw">AS</span> change_pct,
+    csa_new.effective_start_date                    <span class="kw">AS</span> change_effective_date,
+    dept.name                                       <span class="kw">AS</span> department,
+    mgr.display_name                                <span class="kw">AS</span> manager_name
+<span class="kw">FROM</span>
+    cmp_salary              csa_new
+    <span class="kw">JOIN</span> per_all_people_f   papf    <span class="kw">ON</span>  papf.person_id      = csa_new.person_id
+                                        <span class="kw">AND</span> csa_new.effective_start_date
+                                            <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                <span class="kw">AND</span> papf.effective_end_date
+    <span class="kw">LEFT JOIN</span> cmp_salary    csa_old <span class="kw">ON</span>  csa_old.person_id   = csa_new.person_id
+                                        <span class="kw">AND</span> csa_old.effective_end_date
+                                                = csa_new.effective_start_date - <span class="nm">1</span>
+    <span class="kw">LEFT JOIN</span> per_all_assignments_m paam
+                                    <span class="kw">ON</span>  paam.person_id      = csa_new.person_id
+                                        <span class="kw">AND</span> csa_new.effective_start_date
+                                            <span class="kw">BETWEEN</span> paam.effective_start_date
+                                                <span class="kw">AND</span> paam.effective_end_date
+                                        <span class="kw">AND</span> paam.primary_flag            = <span class="st">'Y'</span>
+                                        <span class="kw">AND</span> paam.assignment_type         = <span class="st">'E'</span>
+                                        <span class="kw">AND</span> paam.effective_latest_change = <span class="st">'Y'</span>
+    <span class="kw">LEFT JOIN</span> hr_all_organization_units_f dept
+                                    <span class="kw">ON</span>  dept.organization_id = paam.organization_id
+                                        <span class="kw">AND</span> csa_new.effective_start_date
+                                            <span class="kw">BETWEEN</span> dept.effective_start_date
+                                                <span class="kw">AND</span> dept.effective_end_date
+    <span class="kw">LEFT JOIN</span> per_all_people_f mgr  <span class="kw">ON</span>  mgr.person_id       = paam.manager_id
+                                        <span class="kw">AND</span> csa_new.effective_start_date
+                                            <span class="kw">BETWEEN</span> mgr.effective_start_date
+                                                <span class="kw">AND</span> mgr.effective_end_date
+<span class="kw">WHERE</span>
+    csa_new.effective_start_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+<span class="kw">ORDER BY</span>
+    change_pct <span class="kw">DESC</span>;</pre>
+</div>
+
+<h2 id="q8-bank-changes">9. Query 8: Bank Account Changes Audit</h2>
+<p>Bank account changes are among the highest-risk SOX-relevant HR actions — they are a common vector for payroll fraud. This query returns all bank account adds, changes, and deactivations in the audit period, with the user who made the change.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">Query 8 — Bank Account Changes Audit</span></div>
+  <pre><span class="cm">-- SOX Fraud Controls: bank account changes in a review period</span>
+<span class="kw">SELECT</span>
+    papf.person_number,
+    papf.display_name,
+    pba.bank_account_name,
+    pba.bank_account_number,
+    pba.currency_code,
+    pba.primary_flag,
+    pba.effective_start_date                        <span class="kw">AS</span> change_date,
+    pba.effective_end_date,
+    <span class="kw">CASE</span>
+        <span class="kw">WHEN</span> pba.effective_start_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+          <span class="kw">AND</span> pba.effective_start_date = (
+                  <span class="kw">SELECT</span> <span class="fn">MIN</span>(b2.effective_start_date)
+                  <span class="kw">FROM</span>   pay_personal_payment_methods_f b2
+                  <span class="kw">WHERE</span>  b2.personal_payment_method_id = pba.personal_payment_method_id
+              )                                     <span class="kw">THEN</span> <span class="st">'NEW'</span>
+        <span class="kw">WHEN</span> pba.effective_end_date   <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+          <span class="kw">AND</span> pba.effective_end_date < <span class="fn">DATE</span> <span class="st">'9999-12-31'</span>  <span class="kw">THEN</span> <span class="st">'CLOSED'</span>
+        <span class="kw">ELSE</span> <span class="st">'CHANGED'</span>
+    <span class="kw">END</span>                                             <span class="kw">AS</span> change_type
+<span class="kw">FROM</span>
+    pay_personal_payment_methods_f  pba
+    <span class="kw">JOIN</span> per_all_people_f           papf  <span class="kw">ON</span>  papf.person_id = pba.payee_person_id
+                                              <span class="kw">AND</span> pba.effective_start_date
+                                                  <span class="kw">BETWEEN</span> papf.effective_start_date
+                                                      <span class="kw">AND</span> papf.effective_end_date
+<span class="kw">WHERE</span>
+    (
+        pba.effective_start_date <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+        <span class="kw">OR</span>
+        pba.effective_end_date   <span class="kw">BETWEEN</span> :start_date <span class="kw">AND</span> :end_date
+    )
+<span class="kw">ORDER BY</span>
+    pba.effective_start_date <span class="kw">DESC</span>,
+    papf.display_name;</pre>
+</div>
+
+<h2 id="tips">10. SOX Audit Best Practices</h2>
+<ul>
+  <li><strong>Bind every date variable.</strong> Never run SOX queries with <code>SYSDATE</code> — auditors need reproducibility. Log the exact <code>:as_of_date</code> value used for each evidence export.</li>
+  <li><strong>Use <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> on <code>_M</code> tables.</strong> Without it you pull every historical row in a date range, inflating counts. The <code>_M</code> suffix tables are the recommended post-24B standard for assignments and work relationships.</li>
+  <li><strong>Store query outputs in an evidence vault.</strong> SOX evidence must be retained for 7 years. Export results to an auditor-controlled share, not email attachments.</li>
+  <li><strong>Run role queries at quarter-end dates.</strong> Run Query 1 (SoD) and Query 2 (Privileged Access) for <em>each</em> quarter-end — not just at year-end. Auditors test quarterly controls.</li>
+  <li><strong>Cross-reference the role name to Oracle's role hierarchy.</strong> <code>PER_USER_ROLES</code> stores the directly assigned role. Inherited roles from parent roles won't appear here — use Oracle's Role Explorer in Security Console to see effective permissions.</li>
+</ul>
+
+<div class="cta-box">
+  <h3>Need More Oracle HCM SQL?</h3>
+  <p>Search 14,950 Oracle HCM tables with full column-level detail — instantly find every table that holds the data your SOX controls depend on.</p>
+  <a href="/" class="cta-btn">Search HCM Tables &rarr;</a>
+</div>
+
+<h3>Related Articles</h3>
+<ul>
+  <li><a href="/blog/oracle-hcm-compliance-audit-sql-queries">Oracle HCM Compliance Audit SQL Queries — 8 Production Scripts</a></li>
+  <li><a href="/blog/oracle-fusion-payroll-tables-guide">Oracle Fusion Payroll Tables Guide</a></li>
+  <li><a href="/blog/sql-query-library">Oracle HCM SQL Query Library</a></li>
+  <li><a href="/blog/person-assignment-work-relationship-data-model-explained">Person, Assignment &amp; Work Relationship Data Model Explained</a></li>
+</ul>
+
+</div>
+<footer class="footer">
+  <p>&copy; 2026 HCM Tables &mdash; Oracle HCM table reference for consultants and analysts</p>
+  <p><a href="/">Home</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a></p>
+</footer>
+</body>
+</html>

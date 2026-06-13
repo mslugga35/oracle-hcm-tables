@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OBIEE Assertion Failure: pCriteria != 0 — Root Cause &amp; Fix | HCM Tables</title>
+<meta name="description" content="Fix the OBIEE 'assertion failure pCriteria != 0' error. Covers root cause (multi-fact join), error codes E4T4O7MK and OPR4ONWY, and 4 copy-paste fixes for Oracle BI Server and OTBI.">
+<meta name="keywords" content="OBIEE assertion failure pCriteria, pCriteria != 0 OBIEE, E4T4O7MK OBIEE fix, OPR4ONWY OBIEE error, OTBI multi-fact error, Oracle BI assertion failure fix, OBIEE pCriteria error, Oracle BI Server pCriteria">
+<meta name="robots" content="index, follow">
+<meta name="author" content="HCM Tables">
+<link rel="canonical" href="https://hcm-tables.com/blog/obiee-assertion-failure-pcriteria">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hcm-tables.com/blog/obiee-assertion-failure-pcriteria">
+<meta property="og:title" content="OBIEE Assertion Failure: pCriteria != 0 — Root Cause &amp; Fix">
+<meta property="og:description" content="Fix the pCriteria != 0 assertion failure in OBIEE and OTBI. Root cause, error codes E4T4O7MK and OPR4ONWY, and 4 step-by-step fixes.">
+<meta property="og:site_name" content="HCM Tables">
+<meta property="og:image" content="https://hcm-tables.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="twitter:card" content="summary_large_image">
+<meta property="twitter:url" content="https://hcm-tables.com/blog/obiee-assertion-failure-pcriteria">
+<meta property="twitter:title" content="OBIEE Assertion Failure: pCriteria != 0 — Root Cause &amp; Fix">
+<meta property="twitter:description" content="Fix the pCriteria != 0 assertion in OBIEE/OTBI — multi-fact root cause, error codes, 4 fixes.">
+<meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"TechArticle","headline":"OBIEE Assertion Failure: pCriteria != 0 — Root Cause & Fix","description":"Fix the OBIEE pCriteria != 0 assertion failure. Root cause, error codes, and 4 copy-paste fixes for Oracle BI Server and OTBI.","url":"https://hcm-tables.com/blog/obiee-assertion-failure-pcriteria","datePublished":"2026-06-13","dateModified":"2026-06-13","author":{"@type":"Person","name":"Matt Morales"},"publisher":{"@type":"Organization","name":"HCM Tables","url":"https://hcm-tables.com"},"proficiencyLevel":"Expert","dependencies":"Oracle OBIEE, Oracle OTBI"}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"OBIEE pCriteria Assertion Failure Fix","item":"https://hcm-tables.com/blog/obiee-assertion-failure-pcriteria"}]}</script>
+<script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+</head><body>
+<style>
+:root{--bg:#0f1117;--bg2:#141720;--bg3:#1a1e2e;--fg:#f8f9fa;--fg2:#a0a8c0;--fg3:#606880;--bd:#2a2e42;--ac:#e05a2b;--ac2:rgba(224,90,43,.25);--bl:#5b8dee;--gn:#4caf82;--yw:#d4b44a;--fn:Inter,system-ui,sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+a{color:var(--bl);text-decoration:none;transition:color .15s}a:hover{color:var(--ac);text-decoration:underline}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+.nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+.nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}.nl a.active{color:var(--ac)}
+.hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:900px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:400px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+.hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+.toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+.toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+.toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+.ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+.ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+.ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+.ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+.ab strong{color:var(--fg);font-weight:600}
+.ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+.cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+.cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}.cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}.cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}
+.cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}.cl p{color:var(--fg2);margin:0;font-size:.95rem}.cl strong{color:var(--fg)}
+.tw{overflow-x:auto;margin:1.5rem 0;border-radius:var(--rs);border:1px solid var(--bd)}
+table{width:100%;border-collapse:collapse;font-size:.875rem}
+th{padding:.75rem 1rem;text-align:left;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--fg3);background:var(--bg3);border-bottom:1px solid var(--bd)}
+td{padding:.75rem 1rem;color:var(--fg2);border-bottom:1px solid var(--bd);vertical-align:top}
+tr:last-child td{border-bottom:none}tr:hover td{background:var(--bg3)}
+td code{font-size:.8rem}
+.sql{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs);padding:1.5rem;margin:1.5rem 0;overflow-x:auto}
+.sql-hd{display:flex;align-items:center;margin-bottom:1rem;padding-bottom:.75rem;border-bottom:1px solid var(--bd)}
+.sql-ti{font-size:.8rem;font-weight:700;text-transform:uppercase;letter-spacing:.06em;color:var(--ac)}
+.sql pre{font-family:var(--fm);font-size:.82rem;color:var(--fg2);white-space:pre;line-height:1.65}
+.kw{color:var(--bl);font-weight:600}.cm{color:var(--fg3);font-style:italic}.fn{color:var(--gn)}.st{color:#88c0a0}.nm{color:var(--yw)}
+.err-box{background:var(--bg2);border:1px solid #c53030;border-radius:var(--rs);padding:1.25rem 1.5rem;margin:1.5rem 0;font-family:var(--fm);font-size:.8rem;color:#fc8181;line-height:1.65;overflow-x:auto}
+.cta-box{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border:1px solid var(--ac);border-radius:var(--r);padding:2rem;margin:3rem 0;text-align:center}
+.cta-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.cta-box p{color:var(--fg2);margin-bottom:1.25rem;font-size:.95rem}
+.cta-btn{display:inline-block;background:var(--ac);color:#fff;font-weight:700;font-size:.95rem;padding:.75rem 1.75rem;border-radius:var(--rs);text-decoration:none;transition:opacity .15s}
+.cta-btn:hover{opacity:.85;text-decoration:none;color:#fff}
+.footer{padding:2rem 1.5rem;border-top:1px solid var(--bd);text-align:center}
+.footer p{color:var(--fg3);font-size:.85rem;margin-bottom:.5rem}
+.footer a{color:var(--bl)}.footer a:hover{color:var(--ac);text-decoration:underline}
+@media(max-width:640px){.hero{padding:2.5rem 1rem 2rem}.nav{padding:1rem}.nl{gap:1rem}}
+</style>
+<nav class="nav">
+  <a href="/" class="nb">HCM Tables</a>
+  <div class="nl"><a href="/">Search</a><a href="/blog/" class="active">Blog</a></div>
+</nav>
+<section class="hero">
+  <span class="tag">OBIEE / OTBI</span>
+  <h1>Assertion Failure: pCriteria != 0<br>Root Cause &amp; Fix</h1>
+  <p style="position:relative;color:var(--fg2);font-size:1.05rem;max-width:640px;margin:.5rem auto 0">The most cryptic OBIEE error explained. Multi-fact join rules, error codes E4T4O7MK and OPR4ONWY, and four copy-paste fixes that actually work.</p>
+  <div class="meta"><span>Jun 13, 2026</span><span>&middot;</span><span>14 min read</span><span>&middot;</span><a href="/">Search 35K+ Tables &rarr;</a></div>
+</section>
+<div class="toc">
+  <h3>Table of Contents</h3>
+  <ol>
+    <li><a href="#what-is-pcriteria">What Is pCriteria != 0?</a></li>
+    <li><a href="#full-error">The Full Error Message</a></li>
+    <li><a href="#root-cause">Root Cause: Multi-Fact Queries</a></li>
+    <li><a href="#fix1">Fix 1: Use a Single Fact Table</a></li>
+    <li><a href="#fix2">Fix 2: Add the Joining Dimension</a></li>
+    <li><a href="#fix3">Fix 3: Separate Reports + Union</a></li>
+    <li><a href="#fix4">Fix 4: Logical SQL Workaround</a></li>
+    <li><a href="#otbi-notes">OTBI-Specific Notes</a></li>
+    <li><a href="#checklist">Diagnosis Checklist</a></li>
+  </ol>
+</div>
+<div class="ab">
+
+<h2 id="what-is-pcriteria">1. What Is pCriteria != 0?</h2>
+<p>The <code>pCriteria != 0</code> assertion is an internal Oracle BI Server guard. <code>pCriteria</code> is a bitmask that tracks which filter conditions are "pushed down" to each physical data source for a given query. The assertion fires when the BI Server cannot assign at least one filter criterion to a particular Logical Table Source (LTS) — meaning it would have to cross-query two unrelated fact tables with no valid join path between them.</p>
+
+<p>In plain English: <strong>you asked OBIEE to combine columns from two different fact tables that don't share a common dimension key in this query</strong>. OBIEE refuses rather than returning a Cartesian product.</p>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p><strong>Common trigger:</strong> Dragging columns from <em>Workforce Management</em> and <em>Payroll</em> subject areas into the same OTBI analysis. These map to different fact tables (<code>WFM_FACT_*</code> vs <code>PAY_FACT_*</code>) with no direct join key available at query time.</p>
+</div>
+
+<h2 id="full-error">2. The Full Error Message</h2>
+<p>The error surfaces in different wrappers depending on whether you hit it through Answers, OTBI, or a raw JDBC/ODBC connection. The internal assertion always reads the same:</p>
+
+<div class="err-box">Odbc driver returned an error (SQLExecDirectW).
+Error Details:
+Error Codes: OPR4ONWY:U9IM8TAC:OI2DL65P
+OPR4ONWY:U9IM8TAC:OI2DL65P: Received exception with message: nQSError: 27002
+Error Codes: E4T4O7MK
+E4T4O7MK: Unresolvable query state: assertion failure pCriteria != 0</div>
+
+<div class="tw">
+  <table>
+    <thead><tr><th>Error Code</th><th>Meaning</th></tr></thead>
+    <tbody>
+      <tr><td><code>OPR4ONWY</code></td><td>ODBC driver wrapper — the outer container for the real error</td></tr>
+      <tr><td><code>U9IM8TAC</code></td><td>Internal BI Server exception propagation</td></tr>
+      <tr><td><code>OI2DL65P</code></td><td>Query state serialization failure</td></tr>
+      <tr><td><code>nQSError: 27002</code></td><td>Syntax or state error in the generated Logical SQL</td></tr>
+      <tr><td><code>E4T4O7MK</code></td><td>The specific assertion: <code>pCriteria != 0</code> failed for an LTS</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cl cl-i">
+  <span class="cl-icon">ℹ️</span>
+  <p>The <code>nQSError: 27002</code> in the stack trace does <strong>not</strong> mean you have a syntax error in your hand-written SQL. It refers to an internal state that OBIEE itself generated. Do not waste time hunting for typos — fix the join structure instead.</p>
+</div>
+
+<h2 id="root-cause">3. Root Cause: Multi-Fact Queries</h2>
+<p>OBIEE's Logical SQL is translated to physical SQL by the BI Server in a two-phase process: first, it resolves which Logical Table Sources map to each column; second, it builds join paths between them. The <code>pCriteria</code> bitmask is the bookkeeping structure for step two.</p>
+
+<p>When you select columns that map to <strong>two different fact LTS tables</strong>, the BI Server needs a shared dimension key to join them. If no such key is available in the current query context (because you didn't include the bridging dimension column, or because the RPD doesn't define the join), <code>pCriteria</code> stays at 0 for one of the LTS entries and the assertion fires.</p>
+
+<h3>The Three Most Common Multi-Fact Scenarios in Oracle HCM OTBI</h3>
+<div class="tw">
+  <table>
+    <thead><tr><th>Columns Mixed</th><th>Fact Tables</th><th>Missing Link</th></tr></thead>
+    <tbody>
+      <tr><td>Headcount + Payroll run results</td><td><code>WFM_HEADCOUNT_FACT</code> + <code>PAY_RUN_RESULT_VALUES</code></td><td>Assignment ID at pay period grain</td></tr>
+      <tr><td>Absence balance + Payroll element</td><td><code>ANC_BALANCE_FACT</code> + <code>PAY_ELEMENT_ENTRIES_F</code></td><td>Person ID with matching date grain</td></tr>
+      <tr><td>Compensation + Time &amp; Labor</td><td><code>CMP_SALARY_FACT</code> + <code>HXT_TIMECARD_SUMMARY</code></td><td>No join defined in delivered RPD</td></tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="fix1">4. Fix 1: Use a Single Fact Table</h2>
+<p>The cleanest fix is to scope your analysis to a single subject area and single fact. Ask: <em>what is the primary question this report answers?</em> Strip columns from the secondary fact entirely.</p>
+
+<div class="cl cl-t">
+  <span class="cl-icon">✅</span>
+  <p><strong>Works every time.</strong> If you need payroll data, use the Payroll subject area exclusively. If you need headcount, use Workforce Management. Two separate reports are better than one broken combined report.</p>
+</div>
+
+<h2 id="fix2">5. Fix 2: Add the Bridging Dimension Column</h2>
+<p>If both fact tables are joinable — they just lack the link in your current query — adding the shared dimension column to your criteria forces OBIEE to build the join path and resolves the assertion.</p>
+
+<p>For most HCM + Payroll crosses, the bridge is <strong>Assignment ID</strong>:</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">OTBI Logical SQL — Add Assignment ID as the Bridge</span></div>
+  <pre><span class="cm">-- Before fix: mixing headcount columns with pay run columns</span>
+<span class="cm">-- This causes pCriteria != 0 because no join key is present</span>
+<span class="kw">SELECT</span>
+    <span class="st">"Workforce Management - Workforce Trend"</span>.<span class="st">"Department"</span>.<span class="st">"Department Name"</span>,
+    <span class="st">"Workforce Management - Workforce Trend"</span>.<span class="st">"Headcount"</span>.<span class="st">"Headcount"</span>,
+    <span class="st">"Payroll - Payroll Run Results"</span>.<span class="st">"Element"</span>.<span class="st">"Element Name"</span>,
+    <span class="st">"Payroll - Payroll Run Results"</span>.<span class="st">"Run Result Values"</span>.<span class="st">"Pay Value"</span>
+<span class="kw">FROM</span> <span class="st">"Workforce Management - Workforce Trend"</span>
+
+<span class="cm">-- After fix: add the bridging assignment column</span>
+<span class="kw">SELECT</span>
+    <span class="st">"Workforce Management - Workforce Trend"</span>.<span class="st">"Worker"</span>.<span class="st">"Assignment Number"</span>,  <span class="cm">-- bridge key</span>
+    <span class="st">"Workforce Management - Workforce Trend"</span>.<span class="st">"Department"</span>.<span class="st">"Department Name"</span>,
+    <span class="st">"Payroll - Payroll Run Results"</span>.<span class="st">"Run Result Values"</span>.<span class="st">"Pay Value"</span>
+<span class="kw">FROM</span> <span class="st">"Workforce Management - Workforce Trend"</span></pre>
+</div>
+
+<div class="cl cl-i">
+  <span class="cl-icon">ℹ️</span>
+  <p>In Oracle OTBI (cloud), the bridge column must be from a <strong>conformed dimension</strong> — one that exists in both subject areas with the same grain. Person Number and Assignment Number are the most reliable conforming keys across HCM subject areas.</p>
+</div>
+
+<h2 id="fix3">6. Fix 3: Separate Reports + Union</h2>
+<p>When the two fact tables truly don't share a join path (no conforming key exists in the RPD), separate them into two individual analyses and union or link them at the presentation layer.</p>
+
+<p>In OTBI Answers, create two analyses and use <strong>Combined Results</strong> (the Set Operations tab). In BI Publisher, create two separate data sets in the data model and join them using a correlated lookup element on Person Number.</p>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p>The Union approach only works if both queries return the same grain (same number and type of columns). If one returns one row per department and the other returns one row per element, you need a BI Publisher data model join instead.</p>
+</div>
+
+<h2 id="fix4">7. Fix 4: Logical SQL EVALUATE Workaround</h2>
+<p>For advanced users with physical SQL access to the underlying DB, the <code>EVALUATE</code> function lets you push a subquery directly to the database, bypassing the BI Server's join logic entirely. Use this when you genuinely need combined data and can't change the RPD.</p>
+
+<div class="sql">
+  <div class="sql-hd"><span class="sql-ti">OTBI Logical SQL — EVALUATE to Bypass pCriteria</span></div>
+  <pre><span class="cm">-- EVALUATE pushes a SQL fragment to the DB engine</span>
+<span class="cm">-- The BI Server treats it as an opaque scalar — no pCriteria check</span>
+<span class="kw">SELECT</span>
+    <span class="st">"Workforce Management - Workforce Trend"</span>.<span class="st">"Department"</span>.<span class="st">"Department Name"</span>,
+    <span class="st">"Workforce Management - Workforce Trend"</span>.<span class="st">"Headcount"</span>.<span class="st">"Headcount"</span>,
+    <span class="fn">EVALUATE</span>(<span class="st">'(SELECT SUM(prv.result_value)
+                FROM pay_run_result_values prv
+                JOIN pay_assignment_actions paa
+                  ON paa.assignment_action_id = prv.assignment_action_id
+               WHERE paa.assignment_id = %1
+                 AND TRUNC(SYSDATE) BETWEEN paa.effective_start_date
+                                        AND paa.effective_end_date)'</span>
+             <span class="kw">AS</span> DOUBLE,
+             <span class="st">"Workforce Management - Workforce Trend"</span>.<span class="st">"Worker"</span>.<span class="st">"Assignment Id"</span>)
+             <span class="kw">AS</span> pay_value
+<span class="kw">FROM</span> <span class="st">"Workforce Management - Workforce Trend"</span></pre>
+</div>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p><strong>EVALUATE risks:</strong> (1) Bypasses BI Server caching. (2) Runs N+1 queries — one scalar subquery per row. (3) Requires the physical SQL to use correct table names, which differ between on-prem OBIEE and Oracle Cloud. Test with row limits before production use.</p>
+</div>
+
+<h2 id="otbi-notes">8. OTBI-Specific Notes (Oracle Cloud)</h2>
+<p>In Oracle Fusion Cloud (OTBI), you don't have direct RPD access, so Fixes 1–3 are the only options. The EVALUATE workaround requires your Cloud tenant to have <code>EVALUATE</code> enabled — Oracle disables it by default in SaaS because it allows arbitrary SQL execution against the HCM schema.</p>
+
+<p>Cloud-specific triggers that look like pCriteria errors but have different fixes:</p>
+<ul>
+  <li><strong>Missing data role:</strong> If the user can see the column in the subject area but not the data behind it, OTBI may generate an empty LTS that triggers the assertion. Fix: assign the correct OTBI data role (e.g., <em>Oracle Fusion Human Capital Management - Workforce Transaction Analysis Duty</em>).</li>
+  <li><strong>Cross-pillar subject areas:</strong> Mixing HCM subject areas with ERP subject areas (e.g., General Ledger) always triggers pCriteria because the RPD pillars don't share conforming keys. Use separate analyses.</li>
+  <li><strong>Inactive LTS:</strong> After a Release Update, Oracle sometimes adds a new Logical Table Source and disables an old one. If a saved analysis still references the old LTS, the BI Server can't resolve <code>pCriteria</code>. Delete the affected column and re-add it from the current subject area tree.</li>
+</ul>
+
+<h2 id="checklist">9. Diagnosis Checklist</h2>
+<p>Run through this in order before rebuilding the report from scratch:</p>
+<ol>
+  <li><strong>Count the subject areas</strong> — is your analysis pulling from more than one? That's almost always the cause.</li>
+  <li><strong>Check the grain</strong> — are all columns at the same grain (person, assignment, pay period)? Mixed grains cause implicit fan-outs.</li>
+  <li><strong>Add Person Number or Assignment Number</strong> — if you removed it for display reasons, add it back temporarily; if the error goes away, it was the missing bridge.</li>
+  <li><strong>Check for deactivated columns</strong> — remove any column flagged with a yellow warning icon in the subject area tree and re-add it.</li>
+  <li><strong>Review filters</strong> — a filter that references a column from a secondary fact is itself enough to trigger pCriteria. Move complex filters to a where-clause on a separate analysis.</li>
+  <li><strong>Enable Query Log</strong> — in OBIEE Admin Tool: <em>Manage → Sessions → Log Level 2</em>. The nqquery.log will show exactly which LTS failed the pCriteria check.</li>
+</ol>
+
+<div class="cta-box">
+  <h3>Debugging More OBIEE Errors?</h3>
+  <p>Search 14,950 Oracle HCM tables and trace every column back to its physical source — useful when you're not sure which fact table a column belongs to.</p>
+  <a href="/" class="cta-btn">Search HCM Tables &rarr;</a>
+</div>
+
+<h3>Related Articles</h3>
+<ul>
+  <li><a href="/blog/obiee-assertion-failure-fix">OBIEE Assertion Failure Errors: nQSError 10058 &amp; 27002 Fix</a></li>
+  <li><a href="/blog/otbi-comma-join-explained">OTBI Comma Join: Root Cause &amp; Fix</a></li>
+  <li><a href="/blog/obiee-nqserror-27042-fix">nQSError 27042: "At Most One Row" Fix</a></li>
+  <li><a href="/blog/obiee-subquery-joins-otbi">OBIEE Subquery Joins in OTBI</a></li>
+  <li><a href="/blog/obiee-federation-subject-area-conflicts">OBIEE Federation Subject Area Conflicts</a></li>
+</ul>
+
+</div>
+<footer class="footer">
+  <p>&copy; 2026 HCM Tables &mdash; Oracle HCM table reference for consultants and analysts</p>
+  <p><a href="/">Home</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a></p>
+</footer>
+</body>
+</html>
