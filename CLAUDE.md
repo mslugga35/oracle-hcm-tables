@@ -14,7 +14,7 @@
 - **Join path finder:** generate SQL joins between any two tables with date-effective filters
 - **JS data:** MODULE_PREFIXES (28), FK_MAP (16 FK columns), SUFFIX_INFO (7 suffixes)
 
-## Blog Pages (31 total in static/blog/)
+## Blog Pages (33 total in static/blog/)
 | # | File | Topic |
 |---|------|-------|
 | 1 | oracle-hcm-table-suffixes-explained.html | _F, _TL, _VL suffix guide |
@@ -48,6 +48,8 @@
 | 29 | obiee-federation-subject-area-conflicts.html | OBIEE federation subject area conflicts |
 | 30 | oracle-hcm-benefits-tables-guide.html | BEN_ schema + enrollment flows + 8 SQL queries |
 | 31 | otbi-calculated-fields-guide.html | Calculated fields + 15 real-world expressions |
+| 32 | oracle-hcm-vs-sap-successfactors.html | Oracle HCM vs SAP SuccessFactors enterprise comparison |
+| 33 | otbi-vs-bi-publisher-when-to-use-which.html | OTBI vs BI Publisher decision guide + examples |
 
 ## Product Pages
 - `static/oracle-hcm-consultants.html` — Consultant directory / lead gen (submit project → get quotes)

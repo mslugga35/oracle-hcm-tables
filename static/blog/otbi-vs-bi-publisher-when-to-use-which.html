@@ -1,0 +1,956 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>OTBI vs BI Publisher: When to Use Which for Oracle HCM Reporting | HCM Tables</title>
+  <meta name="title" content="OTBI vs BI Publisher: When to Use Which for Oracle HCM Reporting | HCM Tables">
+  <meta name="description" content="OTBI and BI Publisher serve different reporting needs in Oracle HCM Cloud. This guide explains the architecture, use cases, and decision criteria for choosing the right tool for every report.">
+  <meta name="keywords" content="OTBI vs BI Publisher, Oracle HCM reporting, OTBI report, BI Publisher data model, Oracle Analytics, when to use OTBI, when to use BI Publisher, HCM Cloud reporting, OBIEE vs BIP, Oracle reporting tools">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/otbi-vs-bi-publisher-when-to-use-which">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/otbi-vs-bi-publisher-when-to-use-which">
+  <meta property="og:title" content="OTBI vs BI Publisher: When to Use Which for Oracle HCM Reporting">
+  <meta property="og:description" content="Architecture, use cases, and decision criteria for choosing between OTBI and BI Publisher in Oracle HCM Cloud. Includes comparison table, SQL examples, and common mistakes.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/otbi-vs-bi-publisher-when-to-use-which">
+  <meta property="twitter:title" content="OTBI vs BI Publisher: When to Use Which for Oracle HCM Reporting">
+  <meta property="twitter:description" content="The definitive comparison of OTBI and BI Publisher for Oracle HCM Cloud reporting. Decision criteria, architecture, and real-world examples.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OTBI vs BI Publisher: When to Use Which for Oracle HCM Reporting",
+    "description": "OTBI and BI Publisher serve different reporting needs in Oracle HCM Cloud. This guide explains the architecture, use cases, and decision criteria for choosing the right tool for every report.",
+    "url": "https://hcm-tables.com/blog/otbi-vs-bi-publisher-when-to-use-which",
+    "datePublished": "2026-06-14",
+    "dateModified": "2026-06-14",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/otbi-vs-bi-publisher-when-to-use-which"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OTBI vs BI Publisher","item":"https://hcm-tables.com/blog/otbi-vs-bi-publisher-when-to-use-which"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the difference between OTBI and BI Publisher in Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OTBI (Oracle Transactional Business Intelligence) is for ad-hoc, interactive reporting using pre-built subject areas and Logical SQL. BI Publisher is for pixel-perfect, formatted reports using SQL or data model queries against the database. OTBI shows real-time transactional data through subject areas; BI Publisher produces formatted documents (PDF, Excel, RTF) from custom SQL queries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use OTBI instead of BI Publisher?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use OTBI when you need real-time transactional data, ad-hoc analysis with drag-and-drop, interactive dashboards, pivot tables, charts, or when the data is available in an OTBI subject area. OTBI is faster to build and requires no SQL knowledge for basic reports."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use BI Publisher instead of OTBI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use BI Publisher when you need pixel-perfect formatting (offer letters, pay slips, compliance forms), scheduled batch delivery, complex SQL with subqueries or UNIONs, data from tables not in any OTBI subject area, burst reports sent to different recipients, or output in PDF/RTF/Excel format with precise layout control."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can OTBI and BI Publisher use the same data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "They access data differently. OTBI queries through pre-built subject areas (logical layer), which abstract the physical tables. BI Publisher queries the database directly via SQL data models. The underlying data is the same Oracle HCM database, but the access paths, available columns, and join logic differ. Some tables are available in both; others are only accessible through one tool."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I schedule OTBI reports like BI Publisher reports?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes, but with limitations. OTBI reports can be scheduled using Oracle Analytics agents, which email or save reports on a schedule. However, BI Publisher scheduling is more powerful — it supports bursting (splitting one report into personalized copies for each manager), conditional delivery, and more output formats. For complex scheduling requirements, BI Publisher is the better choice."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which is easier to learn, OTBI or BI Publisher?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OTBI is easier for beginners. Its drag-and-drop interface lets you build reports without writing SQL. BI Publisher requires SQL knowledge for data models and RTF/Excel template design for layouts. However, OTBI's Logical SQL syntax has its own learning curve for advanced calculated fields, and experienced SQL developers often find BI Publisher more intuitive because it uses standard Oracle SQL."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google tag (gtag.js) -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H" crossorigin="anonymous"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta { font-size: 0.9rem; color: var(--text-muted); }
+
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      font-family: var(--font-mono);
+      background: var(--bg-tertiary);
+      padding: 0.2rem 0.5rem;
+      border-radius: 4px;
+      font-size: 0.9em;
+      color: var(--green);
+    }
+
+    .code-block-wrapper {
+      position: relative;
+      margin-bottom: 1.5rem;
+    }
+
+    .code-block-wrapper pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      overflow-x: auto;
+      font-family: var(--font-mono);
+      font-size: 0.88rem;
+      line-height: 1.7;
+      color: var(--text-secondary);
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--text-muted);
+      padding: 0.3rem 0.6rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-family: var(--font-sans);
+      cursor: pointer;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .copy-btn:hover { color: var(--text-primary); border-color: var(--text-muted); }
+    .copy-btn.copied { color: var(--green); border-color: var(--green); }
+
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .callout p {
+      font-size: 0.95rem !important;
+      color: var(--text-secondary);
+      margin-bottom: 0 !important;
+    }
+
+    .callout strong { color: var(--text-primary); }
+
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem 2rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .toc h4 {
+      font-size: 0.85rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--text-muted);
+      margin-bottom: 0.75rem;
+    }
+
+    .toc ol {
+      margin: 0;
+      padding-left: 1.25rem;
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+      line-height: 1.7;
+    }
+
+    .toc a { color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); text-decoration: none; }
+
+    .quick-ref {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-bottom: 2rem;
+    }
+
+    .quick-ref table {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.9rem;
+    }
+
+    .quick-ref th {
+      background: var(--bg-tertiary);
+      padding: 0.75rem 1rem;
+      text-align: left;
+      font-size: 0.8rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+      color: var(--text-muted);
+    }
+
+    .quick-ref td {
+      padding: 0.85rem 1rem;
+      border-top: 1px solid var(--border);
+      color: var(--text-secondary);
+      vertical-align: top;
+    }
+
+    .quick-ref td:first-child {
+      font-weight: 600;
+      color: var(--text-primary);
+      white-space: nowrap;
+    }
+
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg-secondary) 0%, oklch(0.18 0.03 260) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem 2.5rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      font-size: 1.3rem;
+      font-weight: 700;
+      margin-bottom: 0.75rem;
+      color: var(--text-primary) !important;
+      margin-top: 0 !important;
+    }
+
+    .cta-box p {
+      color: var(--text-secondary);
+      font-size: 1rem !important;
+      margin-bottom: 1.25rem;
+    }
+
+    .cta-btn {
+      display: inline-block;
+      background: var(--accent);
+      color: oklch(0.98 0 0);
+      padding: 0.75rem 1.75rem;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      text-decoration: none;
+      transition: opacity 0.15s;
+    }
+
+    .cta-btn:hover { opacity: 0.85; text-decoration: none; color: oklch(0.98 0 0); }
+
+    .related-posts {
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .related-posts h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin-bottom: 1.25rem;
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 1rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+    }
+
+    .related-card .tag {
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .related-card a {
+      font-size: 0.95rem;
+      font-weight: 500;
+      color: var(--text-primary);
+      line-height: 1.4;
+    }
+    .related-card a:hover { color: var(--blue); text-decoration: none; }
+
+    .footer {
+      border-top: 1px solid var(--border);
+      padding: 2rem 1.5rem;
+      text-align: center;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+    }
+    .footer a { color: var(--text-muted); }
+    .footer a:hover { color: var(--blue); }
+    .footer p { margin-bottom: 0.5rem; }
+
+    @media (max-width: 768px) {
+      .article-container { padding: 2rem 1rem 3rem; }
+      .quick-ref { overflow-x: auto; }
+      .quick-ref table { min-width: 500px; }
+      .cta-box { padding: 1.5rem; }
+      .nav { padding: 1rem; }
+      .nav-links { gap: 1rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Table Search</a>
+      <a href="/blog/">Blog</a>
+      <a href="/otbi-template-pack">OTBI Templates</a>
+    </div>
+  </nav>
+
+  <main class="article-container">
+    <!-- Breadcrumb -->
+    <div class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; OTBI vs BI Publisher
+    </div>
+
+    <article>
+      <!-- Header -->
+      <div class="article-header">
+        <div class="article-tag">Reporting</div>
+        <h1>OTBI vs BI Publisher: When to Use Which for Oracle HCM Reporting</h1>
+        <div class="article-meta">June 14, 2026 &middot; 12 min read &middot; Matt Morales</div>
+      </div>
+
+      <!-- TOC -->
+      <div class="toc">
+        <h4>In This Guide</h4>
+        <ol>
+          <li><a href="#quick-comparison">Quick Comparison Table</a></li>
+          <li><a href="#what-is-otbi">What Is OTBI?</a></li>
+          <li><a href="#what-is-bi-publisher">What Is BI Publisher?</a></li>
+          <li><a href="#architecture">How They Access Data Differently</a></li>
+          <li><a href="#decision-matrix">Decision Matrix: Which to Use When</a></li>
+          <li><a href="#otbi-examples">OTBI Example: Headcount Dashboard</a></li>
+          <li><a href="#bip-examples">BI Publisher Example: Offer Letter Template</a></li>
+          <li><a href="#common-mistakes">5 Common Mistakes</a></li>
+          <li><a href="#together">Using Both Together</a></li>
+          <li><a href="#faq">FAQ</a></li>
+        </ol>
+      </div>
+
+      <div class="article-content">
+
+        <p>Every Oracle HCM Cloud implementation has the same conversation: "Should we build this in OTBI or BI Publisher?" The answer is almost never "either one works." Each tool has a clear purpose, and using the wrong one creates reports that are harder to build, harder to maintain, and harder for end users to consume.</p>
+
+        <p>OTBI (Oracle Transactional Business Intelligence) is for interactive, ad-hoc analysis. BI Publisher is for formatted, pixel-perfect documents. That one-sentence distinction resolves 80% of the decision &mdash; but the remaining 20% is where teams waste weeks building reports in the wrong tool, then rebuilding them in the right one.</p>
+
+        <p>This guide explains the architecture behind both tools, provides a decision matrix for choosing between them, and shows concrete examples of when each tool is the right choice.</p>
+
+        <!-- Quick Comparison -->
+        <h2 id="quick-comparison">Quick Comparison Table</h2>
+
+        <div class="quick-ref">
+          <table>
+            <tr>
+              <th>Criteria</th>
+              <th>OTBI</th>
+              <th>BI Publisher</th>
+            </tr>
+            <tr>
+              <td>Primary Use</td>
+              <td>Ad-hoc analysis, dashboards, interactive exploration</td>
+              <td>Formatted documents, scheduled reports, compliance forms</td>
+            </tr>
+            <tr>
+              <td>Data Access</td>
+              <td>Pre-built subject areas (Logical SQL)</td>
+              <td>Direct SQL against HCM database tables</td>
+            </tr>
+            <tr>
+              <td>Query Language</td>
+              <td>OBIEE Logical SQL (non-standard syntax)</td>
+              <td>Standard Oracle SQL</td>
+            </tr>
+            <tr>
+              <td>Data Freshness</td>
+              <td>Real-time transactional data</td>
+              <td>Real-time (direct SQL) or scheduled</td>
+            </tr>
+            <tr>
+              <td>Output Formats</td>
+              <td>HTML, CSV, Excel, PDF (basic)</td>
+              <td>PDF, RTF, Excel, CSV, HTML, XML (pixel-perfect)</td>
+            </tr>
+            <tr>
+              <td>Scheduling</td>
+              <td>Basic (Oracle Analytics agents)</td>
+              <td>Advanced (bursting, conditional delivery, FTP)</td>
+            </tr>
+            <tr>
+              <td>Learning Curve</td>
+              <td>Lower for basic reports (drag-and-drop)</td>
+              <td>Higher (SQL + template design required)</td>
+            </tr>
+            <tr>
+              <td>Layout Control</td>
+              <td>Limited (tabular, pivot, chart)</td>
+              <td>Full pixel-perfect control (RTF/Excel templates)</td>
+            </tr>
+            <tr>
+              <td>Subqueries/UNIONs</td>
+              <td>Not supported in subject areas</td>
+              <td>Fully supported in SQL data models</td>
+            </tr>
+            <tr>
+              <td>Bursting</td>
+              <td>Not available</td>
+              <td>Built-in (split report by manager, department, etc.)</td>
+            </tr>
+          </table>
+        </div>
+
+        <!-- What is OTBI -->
+        <h2 id="what-is-otbi">What Is OTBI?</h2>
+
+        <p>OTBI &mdash; Oracle Transactional Business Intelligence &mdash; is the ad-hoc reporting tool built into Oracle HCM Cloud. It runs on Oracle Analytics (formerly OBIEE) and lets you build reports by dragging columns from pre-built <strong>subject areas</strong> into a report canvas.</p>
+
+        <p>Subject areas are logical groupings of related data. For example, the <code>Workforce Management - Worker Assignment Real Time</code> subject area exposes columns like employee name, department, job, grade, manager, and hire date. You don't need to know which physical tables these columns come from or how to join them &mdash; the subject area handles that.</p>
+
+        <h3>When OTBI Excels</h3>
+        <ul>
+          <li><strong>Self-service reporting</strong> &mdash; HR analysts can build their own reports without writing SQL</li>
+          <li><strong>Interactive dashboards</strong> &mdash; drill-down, filtering, and pivot tables in the browser</li>
+          <li><strong>Real-time data</strong> &mdash; queries execute against live transactional data, not a data warehouse</li>
+          <li><strong>Charts and visualizations</strong> &mdash; bar charts, pie charts, trend lines built into the editor</li>
+          <li><strong>Quick turnaround</strong> &mdash; simple reports can be built in minutes, not hours</li>
+        </ul>
+
+        <h3>OTBI Limitations</h3>
+        <ul>
+          <li><strong>Subject area boundaries</strong> &mdash; you can only use columns that exist in a subject area. If the data you need isn't exposed, you can't access it</li>
+          <li><strong>No subqueries or UNIONs</strong> &mdash; Logical SQL doesn't support standard SQL features like subqueries, CTEs, or UNION ALL</li>
+          <li><strong>Limited formatting</strong> &mdash; output is tabular or chart-based. No letter templates, no precise positioning</li>
+          <li><strong>Cross-subject-area joins are restricted</strong> &mdash; combining data from two subject areas that don't share a common dimension is difficult or impossible</li>
+          <li><strong>Logical SQL syntax</strong> &mdash; calculated fields use OBIEE's non-standard syntax (<code>TIMESTAMPDIFF</code>, double-quoted column names), not standard Oracle SQL</li>
+        </ul>
+
+        <!-- What is BI Publisher -->
+        <h2 id="what-is-bi-publisher">What Is BI Publisher?</h2>
+
+        <p>BI Publisher (BIP) is Oracle's enterprise reporting tool for producing formatted documents. It separates the data layer (SQL data models) from the presentation layer (RTF, Excel, or HTML templates). You write a SQL query to fetch data, design a template that controls the layout, and BI Publisher merges them at runtime.</p>
+
+        <p>In Oracle HCM Cloud, BI Publisher is used for system-generated documents like offer letters, pay slips, benefits enrollment summaries, and compliance reports. It's also the tool for any custom report that needs precise layout control or scheduled delivery.</p>
+
+        <h3>When BI Publisher Excels</h3>
+        <ul>
+          <li><strong>Pixel-perfect documents</strong> &mdash; offer letters, tax forms, compliance reports with precise positioning</li>
+          <li><strong>Complex SQL</strong> &mdash; subqueries, UNIONs, CTEs, window functions, anything standard Oracle SQL supports</li>
+          <li><strong>Scheduled delivery</strong> &mdash; automated reports emailed daily/weekly/monthly</li>
+          <li><strong>Bursting</strong> &mdash; one report split into personalized copies (e.g., each manager gets only their team's data)</li>
+          <li><strong>Data from any table</strong> &mdash; not limited to subject areas. Query any HCM table directly</li>
+          <li><strong>Multiple output formats</strong> &mdash; same data model produces PDF, Excel, RTF, CSV, or XML</li>
+        </ul>
+
+        <h3>BI Publisher Limitations</h3>
+        <ul>
+          <li><strong>No interactive analysis</strong> &mdash; reports are static documents, not interactive dashboards</li>
+          <li><strong>Requires SQL knowledge</strong> &mdash; data models are written in SQL; no drag-and-drop</li>
+          <li><strong>Template design</strong> &mdash; RTF templates require the BI Publisher Template Builder plugin for Word</li>
+          <li><strong>Longer development time</strong> &mdash; building a BIP report takes hours or days, not minutes</li>
+          <li><strong>No real-time pivoting</strong> &mdash; end users can't re-slice data or drill down interactively</li>
+        </ul>
+
+        <!-- Architecture -->
+        <h2 id="architecture">How They Access Data Differently</h2>
+
+        <p>This is the most important concept for choosing between the two tools. OTBI and BI Publisher access the same Oracle HCM database, but through completely different paths.</p>
+
+        <h3>OTBI: Subject Area &rarr; Logical Layer &rarr; Physical Tables</h3>
+
+        <p>When you build an OTBI report, you select columns from a subject area. Behind the scenes, Oracle Analytics translates your column selections into Logical SQL, which the OBIEE server converts into physical SQL against the database. You never see or control the physical SQL &mdash; the logical layer handles joins, filters, and aggregations automatically.</p>
+
+        <div class="callout">
+          <p><strong>Key implication:</strong> If a column doesn't exist in any subject area, OTBI cannot access it. There's no way to add custom columns to Oracle-delivered subject areas in SaaS. Your only option is to use BI Publisher instead.</p>
+        </div>
+
+        <h3>BI Publisher: SQL Data Model &rarr; Physical Tables</h3>
+
+        <p>BI Publisher data models contain standard Oracle SQL that queries the HCM database directly. You write SELECT statements against physical tables like <code>PER_ALL_PEOPLE_F</code>, <code>PER_ALL_ASSIGNMENTS_M</code>, and <code>HR_ALL_ORGANIZATION_UNITS_F</code>. You control the joins, filters, and date-effective logic yourself.</p>
+
+        <div class="callout">
+          <p><strong>Key implication:</strong> With BI Publisher, you can query any table in the HCM schema. This includes tables that have no subject area representation in OTBI, such as setup tables, configuration data, and custom extensible flexfield (EFF) storage tables.</p>
+        </div>
+
+        <!-- Decision Matrix -->
+        <h2 id="decision-matrix">Decision Matrix: Which to Use When</h2>
+
+        <div class="quick-ref">
+          <table>
+            <tr>
+              <th>Requirement</th>
+              <th>Use This</th>
+              <th>Why</th>
+            </tr>
+            <tr>
+              <td>Headcount dashboard with filters</td>
+              <td>OTBI</td>
+              <td>Interactive, real-time, drag-and-drop</td>
+            </tr>
+            <tr>
+              <td>Offer letter with company logo</td>
+              <td>BI Publisher</td>
+              <td>Pixel-perfect layout with template</td>
+            </tr>
+            <tr>
+              <td>Monthly turnover trend chart</td>
+              <td>OTBI</td>
+              <td>Built-in charting, easy to update</td>
+            </tr>
+            <tr>
+              <td>Pay slip for every employee</td>
+              <td>BI Publisher</td>
+              <td>Bursting (one per employee), PDF format</td>
+            </tr>
+            <tr>
+              <td>Ad-hoc "who reports to whom" query</td>
+              <td>OTBI</td>
+              <td>Quick, no SQL needed, self-service</td>
+            </tr>
+            <tr>
+              <td>Query with subqueries or UNIONs</td>
+              <td>BI Publisher</td>
+              <td>OTBI Logical SQL doesn't support them</td>
+            </tr>
+            <tr>
+              <td>Compliance form (EEO-1, VETS-4212)</td>
+              <td>BI Publisher</td>
+              <td>Fixed layout, scheduled, formatted output</td>
+            </tr>
+            <tr>
+              <td>Manager self-service report</td>
+              <td>OTBI</td>
+              <td>Security-aware, interactive, no IT involvement</td>
+            </tr>
+            <tr>
+              <td>Data from tables not in subject areas</td>
+              <td>BI Publisher</td>
+              <td>Direct SQL access to all HCM tables</td>
+            </tr>
+            <tr>
+              <td>Report emailed to each dept head daily</td>
+              <td>BI Publisher</td>
+              <td>Bursting + scheduling built-in</td>
+            </tr>
+            <tr>
+              <td>Quick count of active employees by location</td>
+              <td>OTBI</td>
+              <td>30-second report, no development needed</td>
+            </tr>
+            <tr>
+              <td>Audit trail of assignment changes</td>
+              <td>BI Publisher</td>
+              <td>Requires date-effective SQL across _F tables</td>
+            </tr>
+          </table>
+        </div>
+
+        <div class="callout">
+          <p><strong>Rule of thumb:</strong> If the end user needs to interact with the data (filter, sort, drill down), use OTBI. If the end user needs to print, email, or file the output, use BI Publisher.</p>
+        </div>
+
+        <!-- OTBI Example -->
+        <h2 id="otbi-examples">OTBI Example: Active Headcount by Department</h2>
+
+        <p>This is a common OTBI report that takes about 5 minutes to build. The subject area handles all joins and date-effective filtering automatically.</p>
+
+        <h3>Subject Area</h3>
+        <p><code>Workforce Management - Worker Assignment Real Time</code></p>
+
+        <h3>Columns Selected</h3>
+        <ul>
+          <li>Department Name (from Department dimension)</li>
+          <li>Worker Count (aggregated measure)</li>
+          <li>Assignment Status Type = "ACTIVE" (filter)</li>
+        </ul>
+
+        <h3>Equivalent Logical SQL</h3>
+        <div class="code-block-wrapper">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre>SELECT
+  "Workforce Management - Worker Assignment Real Time"."Department"."Department Name",
+  COUNT("Workforce Management - Worker Assignment Real Time"."Worker"."Person Number")
+FROM
+  "Workforce Management - Worker Assignment Real Time"
+WHERE
+  "Workforce Management - Worker Assignment Real Time"."Assignment Details"."Assignment Status Type" = 'ACTIVE'
+GROUP BY
+  "Workforce Management - Worker Assignment Real Time"."Department"."Department Name"
+ORDER BY 2 DESC</pre>
+        </div>
+
+        <p>Notice the double-quoted column references and the subject area name prefixing every column. This is OBIEE Logical SQL &mdash; it looks like SQL but follows different rules. You don't specify table joins; the logical layer resolves them.</p>
+
+        <!-- BIP Example -->
+        <h2 id="bip-examples">BI Publisher Example: Offer Letter Data Model</h2>
+
+        <p>This data model powers an offer letter template. It queries physical tables directly and provides all the data an RTF template needs to generate a personalized offer letter PDF.</p>
+
+        <div class="code-block-wrapper">
+          <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+          <pre>SELECT
+    papf.first_name,
+    papf.last_name,
+    paam.position_id,
+    hapft.name AS position_name,
+    haouft.name AS department_name,
+    paam.normal_hours,
+    paam.frequency,
+    (SELECT pps.proposed_salary_n
+     FROM cmp_salary pps
+     WHERE pps.assignment_id = paam.assignment_id
+       AND pps.approved = 'Y'
+       AND ROWNUM = 1
+     ORDER BY pps.date_from DESC) AS salary,
+    gl.currency_code
+FROM
+    per_all_people_f papf
+    JOIN per_all_assignments_m paam
+      ON paam.person_id = papf.person_id
+      AND TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date
+      AND paam.primary_flag = 'Y'
+      AND paam.effective_latest_change = 'Y'
+      AND paam.assignment_type IN ('E','C')
+    JOIN hr_all_positions_f_tl hapft
+      ON hapft.position_id = paam.position_id
+      AND hapft.language = USERENV('LANG')
+      AND TRUNC(SYSDATE) BETWEEN hapft.effective_start_date AND hapft.effective_end_date
+    JOIN hr_all_organization_units_f_tl haouft
+      ON haouft.organization_id = paam.organization_id
+      AND haouft.language = USERENV('LANG')
+      AND TRUNC(SYSDATE) BETWEEN haouft.effective_start_date AND haouft.effective_end_date
+    JOIN gl_ledgers gl
+      ON gl.ledger_id = paam.ledger_id
+WHERE
+    TRUNC(SYSDATE) BETWEEN papf.effective_start_date AND papf.effective_end_date
+    AND papf.person_id = :p_person_id</pre>
+        </div>
+
+        <p>Key differences from the OTBI version:</p>
+        <ul>
+          <li><strong>Standard Oracle SQL</strong> &mdash; regular table names, explicit joins, standard functions</li>
+          <li><strong>Subquery</strong> &mdash; the salary lookup uses a correlated subquery, which OTBI cannot do</li>
+          <li><strong>Date-effective joins</strong> &mdash; you manually add <code>BETWEEN effective_start_date AND effective_end_date</code></li>
+          <li><strong>Bind parameters</strong> &mdash; <code>:p_person_id</code> is passed from the report at runtime</li>
+          <li><strong>Translation joins</strong> &mdash; <code>_TL</code> tables joined with <code>language = USERENV('LANG')</code></li>
+        </ul>
+
+        <!-- Common Mistakes -->
+        <h2 id="common-mistakes">5 Common Mistakes When Choosing Between Them</h2>
+
+        <h3>1. Building a Formatted Document in OTBI</h3>
+        <p>OTBI's PDF export produces a dump of the table or chart &mdash; not a formatted document. If the requirement includes a company logo, specific margins, headers/footers, or letter-style formatting, OTBI cannot deliver. Use BI Publisher.</p>
+
+        <h3>2. Building an Interactive Dashboard in BI Publisher</h3>
+        <p>BI Publisher produces static output. If managers need to filter by department, drill into a team, or change the time period interactively, BI Publisher forces them to re-run the report with new parameters each time. OTBI handles this interactivity natively.</p>
+
+        <h3>3. Writing Standard SQL in OTBI</h3>
+        <p>A common frustration: a developer writes a perfectly valid Oracle SQL query and tries to paste it into OTBI's advanced editor. It fails because OTBI uses Logical SQL, not standard SQL. Column names must be double-quoted, table references use subject area paths, and functions like <code>NVL</code> and <code>DECODE</code> are replaced by <code>IFNULL</code> and <code>CASE</code>. See our <a href="/blog/otbi-calculated-fields-guide">OTBI calculated fields guide</a> for the correct syntax.</p>
+
+        <h3>4. Ignoring Subject Area Coverage Before Starting</h3>
+        <p>Before building any report, check whether the data you need exists in an OTBI subject area. If it does, OTBI is usually faster to build. If it doesn't, BI Publisher is your only option. Oracle documents subject area contents in the <a href="/blog/otbi-subject-area-guide">OTBI Subject Area Reference</a>. Skipping this check leads to days of work in the wrong tool.</p>
+
+        <h3>5. Not Using Date-Effective Filters in BI Publisher</h3>
+        <p>Most HCM tables are date-effective &mdash; they store history with <code>effective_start_date</code> and <code>effective_end_date</code> columns. OTBI subject areas handle this automatically (they return current-effective rows by default). BI Publisher queries do not &mdash; you must add <code>TRUNC(SYSDATE) BETWEEN effective_start_date AND effective_end_date</code> to every date-effective table join. Forgetting this returns duplicate rows for every historical change.</p>
+
+        <div class="callout">
+          <p><strong>Pro tip:</strong> For <code>PER_ALL_ASSIGNMENTS_M</code>, also add <code>effective_latest_change = 'Y'</code> to avoid duplicate rows from the merged assignment model. See our <a href="/blog/per-all-assignments-m-duplicate-rows-fix">duplicate rows fix guide</a> for details.</p>
+        </div>
+
+        <!-- Using Both Together -->
+        <h2 id="together">Using OTBI and BI Publisher Together</h2>
+
+        <p>The best Oracle HCM reporting strategies use both tools for their strengths:</p>
+
+        <ul>
+          <li><strong>OTBI for daily operations</strong> &mdash; managers check headcount dashboards, HR reviews open positions, analysts explore turnover trends interactively</li>
+          <li><strong>BI Publisher for formal outputs</strong> &mdash; offer letters generated per hire, compliance reports filed quarterly, pay slips distributed per pay period</li>
+          <li><strong>OTBI for discovery, BI Publisher for delivery</strong> &mdash; use OTBI to explore data and identify patterns, then build the formal report in BI Publisher for scheduled distribution</li>
+        </ul>
+
+        <p>A practical example: an HR team uses an OTBI dashboard to monitor headcount changes in real time. When they spot an anomaly (unexpected terminations in one department), they drill into the OTBI data to understand the pattern. Once they have findings, they use a BI Publisher report to generate a formatted executive summary with charts, tables, and narrative &mdash; delivered as a PDF to leadership.</p>
+
+        <div class="cta-box">
+          <h3>OTBI Template Pack</h3>
+          <p>15 production-ready OTBI queries for headcount, assignments, compensation, and absence. Copy-paste into your reports &mdash; no syntax errors, no trial-and-error.</p>
+          <a href="/otbi-template-pack" class="cta-btn">Get the OTBI Template Pack &rarr;</a>
+        </div>
+
+        <div class="cta-box" style="margin-top:1.5rem;background:oklch(0.18 0.02 145 / 0.25);border-color:oklch(0.50 0.15 145 / 0.4);">
+          <h3>Search 14,950+ Oracle HCM Tables</h3>
+          <p>Find any table, understand its columns, explore relationships, and get SQL join examples. Save hours of documentation hunting.</p>
+          <a href="/" class="cta-btn" style="background:oklch(0.60 0.18 145);box-shadow:0 2px 12px oklch(0.60 0.18 145 / 0.35);">Search Tables &rarr;</a>
+        </div>
+
+        <!-- FAQ -->
+        <h2 id="faq">Frequently Asked Questions</h2>
+
+        <h3>Can I embed an OTBI report inside a BI Publisher template?</h3>
+        <p>No. OTBI and BI Publisher are separate tools with separate rendering engines. You cannot embed an OTBI visualization inside a BIP template. However, you can replicate the same data in a BIP data model and include a chart in your RTF template using BI Publisher's built-in charting syntax.</p>
+
+        <h3>Which one is better for security-sensitive reports?</h3>
+        <p>OTBI automatically applies Oracle HCM data security &mdash; managers only see their direct reports, HR sees everyone in their business unit. BI Publisher data models run with the report owner's privileges by default, which can expose data beyond the viewer's security scope. For BI Publisher, use bind parameters tied to the logged-in user's security context, or use OTBI subject areas as the data source (which preserves security).</p>
+
+        <h3>Is OTBI being replaced by Oracle Analytics Cloud?</h3>
+        <p>Oracle is investing heavily in Oracle Analytics Cloud (OAC) as the next-generation analytics platform. However, OTBI remains the embedded reporting tool within Oracle HCM Cloud SaaS. For on-premises or hybrid deployments, OAC may be the path forward. For pure SaaS HCM Cloud customers, OTBI continues to be the supported embedded analytics tool.</p>
+
+        <h3>Can BI Publisher access OTBI subject areas?</h3>
+        <p>Yes. BI Publisher data models support an "Oracle BI Analysis" data source type, which executes an OTBI analysis and uses its results as the data for a BIP report. This is useful when you want OTBI's automatic security and date-effective filtering but BI Publisher's formatting capabilities. The tradeoff is performance &mdash; this approach runs the OTBI query first, then passes results to BIP, which is slower than direct SQL.</p>
+
+      </div>
+    </article>
+
+    <!-- Related Posts -->
+    <div class="related-posts">
+      <h3>Related guides</h3>
+      <div class="related-grid">
+        <div class="related-card">
+          <div class="tag">OTBI Reporting</div>
+          <a href="/blog/otbi-subject-area-guide">OTBI Subject Areas &mdash; Complete Guide with Decision Tree</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">OTBI Syntax</div>
+          <a href="/blog/otbi-calculated-fields-guide">OTBI Calculated Fields &amp; Custom Expressions Guide</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">SQL</div>
+          <a href="/blog/sql-query-library">SQL Query Library &mdash; 7 Production-Ready Queries</a>
+        </div>
+        <div class="related-card">
+          <div class="tag">Data Model</div>
+          <a href="/blog/person-assignment-work-relationship-data-model-explained">Person, Assignment &amp; Work Relationship Data Model</a>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div style="max-width:1100px;margin:0 auto;">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p>
+        <a href="/">Search 14,950+ Oracle Tables</a> &middot;
+        <a href="/privacy">Privacy Policy</a> &middot;
+        <a href="/terms">Terms of Service</a> &middot;
+        <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Official Oracle Docs &rarr;</a>
+      </p>
+    </div>
+  </footer>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      navigator.clipboard.writeText(pre.textContent).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => { btn.textContent = 'Copy'; btn.classList.remove('copied'); }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
