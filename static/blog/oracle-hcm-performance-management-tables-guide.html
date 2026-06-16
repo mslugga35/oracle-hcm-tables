@@ -1,0 +1,1460 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle HCM Performance Management Tables Complete Guide | HCM Tables</title>
+  <meta name="title" content="Oracle HCM Performance Management Tables Complete Guide | HCM Tables">
+  <meta name="description" content="Master Oracle HCM Performance Management tables (HRA_*): appraisals, goals, rating models, 360 feedback with practical SQL examples for Fusion reporting.">
+  <meta name="keywords" content="Oracle HRA tables, performance management Oracle HCM, appraisals Oracle, performance ratings, goals objectives, 360 feedback, performance review database">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="Matt Morales">
+  <link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-performance-management-tables-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-performance-management-tables-guide">
+  <meta property="og:title" content="Oracle HCM Performance Management Tables Complete Guide">
+  <meta property="og:description" content="Master Oracle HCM Performance Management tables with practical SQL examples for appraisals, goals, and ratings.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-hcm-performance-management-tables-guide">
+  <meta property="twitter:title" content="Oracle HCM Performance Management Tables Complete Guide">
+  <meta property="twitter:description" content="Learn Oracle HCM Performance Management database structure with practical examples.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle HCM Performance Management Tables Complete Guide",
+    "description": "Master Oracle HCM Performance Management tables (HRA_*): appraisals, goals, rating models, 360 feedback with practical SQL examples for Fusion reporting.",
+    "url": "https://hcm-tables.com/blog/oracle-hcm-performance-management-tables-guide",
+    "datePublished": "2026-06-16",
+    "dateModified": "2026-06-16",
+    "author": {"@type":"Person","name":"Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/oracle-hcm-performance-management-tables-guide"
+    }
+  }
+  </script>
+
+<script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"Oracle HCM Performance Management Tables Complete Guide","item":"https://hcm-tables.com/blog/oracle-hcm-performance-management-tables-guide"}
+  ]}
+  </script>
+
+<script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is HRA_APPRAISALS in Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "HRA_APPRAISALS is the master table for performance appraisals in Oracle HCM. It stores individual appraisal records with data such as the employee ID, appraisal period, appraisal type, overall rating, and status. Each appraisal can have multiple sections, goals, and ratings."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I query performance ratings in Oracle Fusion?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Use HRA_PERF_RATINGS joined with HRA_APPRAISALS and PER_ALL_PEOPLE_F, ensuring proper date-effective filtering with TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE. Join the rating model lookup tables to get human-readable rating names."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What OTBI subject area covers performance management?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The OTBI subject area for performance management is 'Workforce Performance - Performance Document Real Time'. It provides real-time access to appraisal data, performance ratings, goals, and review cycle information directly from the HRA_ tables."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do goals relate to appraisals in Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Goals (HRA_GOALS) are linked to appraisals through the employee's performance cycle. An employee can have individual goals tracked during an appraisal period. Goals are then referenced in the appraisal document and may influence the performance rating."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is a performance document type in Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A performance document type (HRA_PERF_DOC_TYPES) defines the template and structure for appraisal documents. It specifies sections, rating models, required fields, and workflow rules for performance reviews in a specific organization or for a specific review cycle."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google tag (gtag.js) — GA4 analytics, tracking ID G-NSN2JWG98H -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    /* Nav */
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    /* Article Layout */
+    .article-container {
+      max-width: 780px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header {
+      margin-bottom: 3rem;
+    }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: clamp(1.8rem, 4vw, 2.5rem);
+      font-weight: 700;
+      letter-spacing: -0.03em;
+      line-height: 1.2;
+      margin-bottom: 1rem;
+      background: linear-gradient(135deg, var(--text-primary) 40%, var(--accent) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .article-meta {
+      font-size: 0.9rem;
+      color: var(--text-muted);
+    }
+
+    /* Article Content */
+    .article-content h2 {
+      font-size: 1.5rem;
+      font-weight: 700;
+      margin: 2.5rem 0 1rem;
+      color: var(--text-primary);
+      letter-spacing: -0.02em;
+    }
+
+    .article-content h3 {
+      font-size: 1.2rem;
+      font-weight: 600;
+      margin: 2rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-content p {
+      font-size: 1.05rem;
+      color: var(--text-secondary);
+      line-height: 1.8;
+      margin-bottom: 1.25rem;
+    }
+
+    .article-content ul, .article-content ol {
+      margin: 0 0 1.5rem 1.5rem;
+      color: var(--text-secondary);
+      font-size: 1.05rem;
+      line-height: 1.8;
+    }
+
+    .article-content li { margin-bottom: 0.5rem; }
+
+    .article-content code {
+      background: var(--bg-tertiary);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      font-family: var(--font-mono);
+      font-size: 0.9em;
+      color: var(--accent);
+      font-weight: 500;
+    }
+
+    .code-block-wrapper {
+      position: relative;
+      margin: 1.5rem 0;
+    }
+
+    .copy-btn {
+      position: absolute;
+      top: 0.75rem;
+      right: 0.75rem;
+      padding: 0.5rem 1rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      color: var(--accent);
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-family: var(--font-mono);
+      font-weight: 500;
+      transition: all 0.2s;
+    }
+
+    .copy-btn:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+      border-color: var(--accent);
+    }
+
+    .copy-btn.copied {
+      color: var(--green);
+    }
+
+    .article-content pre {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1.25rem;
+      overflow-x: auto;
+      margin: 0;
+    }
+
+    .article-content pre code {
+      background: none;
+      padding: 0;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+      font-weight: 400;
+    }
+
+    /* Tables */
+    .table-wrapper {
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--border);
+    }
+
+    .article-content table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--bg-secondary);
+    }
+
+    .article-content th, .article-content td {
+      padding: 0.75rem;
+      text-align: left;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .article-content th {
+      background: var(--bg-tertiary);
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .article-content td {
+      color: var(--text-secondary);
+      font-size: 0.95rem;
+    }
+
+    .article-content .mono {
+      font-family: var(--font-mono);
+      font-size: 0.85rem;
+    }
+
+    .quick-ref {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin: 1.5rem 0;
+    }
+
+    /* TOC */
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--blue);
+      padding: 1.5rem;
+      margin: 2rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .toc ol {
+      margin-left: 1.5rem;
+      margin-bottom: 0;
+    }
+
+    .toc li {
+      margin-bottom: 0.5rem;
+      color: var(--text-secondary);
+    }
+
+    .toc a {
+      color: var(--blue);
+    }
+
+    /* Callout boxes */
+    .callout {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      padding: 1.25rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .callout p {
+      color: var(--text-primary);
+      margin-bottom: 0;
+      font-size: 1rem;
+    }
+
+    .callout.security {
+      border-left-color: var(--yellow);
+    }
+
+    /* CTA Box */
+    .cta-box {
+      background: linear-gradient(135deg, var(--bg-tertiary) 0%, var(--bg-secondary) 100%);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2.5rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      margin-top: 0;
+      color: var(--text-primary);
+    }
+
+    .cta-btn {
+      display: inline-block;
+      padding: 0.75rem 1.5rem;
+      background: var(--accent);
+      color: var(--bg-primary);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      transition: all 0.2s;
+      margin-top: 1rem;
+    }
+
+    .cta-btn:hover {
+      background: var(--accent);
+      color: var(--bg-primary);
+      text-decoration: none;
+      transform: translateY(-2px);
+      box-shadow: 0 8px 16px var(--accent-glow);
+    }
+
+    /* Related Posts */
+    .related-posts {
+      margin: 3rem 0;
+    }
+
+    .related-posts h3 {
+      font-size: 1.2rem;
+      margin-bottom: 1.5rem;
+      color: var(--text-primary);
+    }
+
+    .related-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 2rem;
+    }
+
+    .related-card {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      padding: 1.25rem;
+      border-radius: var(--radius-sm);
+      transition: all 0.2s;
+    }
+
+    .related-card:hover {
+      background: var(--bg-tertiary);
+      border-color: var(--accent);
+    }
+
+    .related-card-tag {
+      display: inline-block;
+      padding: 0.25rem 0.5rem;
+      background: var(--bg-tertiary);
+      border-radius: 4px;
+      font-size: 0.75rem;
+      color: var(--blue);
+      margin-bottom: 0.5rem;
+      font-weight: 600;
+    }
+
+    .related-card a {
+      color: var(--text-primary);
+      font-weight: 500;
+      display: block;
+    }
+
+    .related-card a:hover {
+      color: var(--accent);
+    }
+
+    /* Footer */
+    .article-footer {
+      border-top: 1px solid var(--border);
+      padding-top: 2rem;
+      margin-top: 3rem;
+    }
+
+    .related-articles h3 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .related-list {
+      list-style: none;
+      margin: 0;
+    }
+
+    .related-list li {
+      margin-bottom: 0.75rem;
+    }
+
+    .related-list a {
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+    }
+
+    .related-list a:hover {
+      color: var(--blue);
+      text-decoration: underline;
+    }
+
+    /* Responsive */
+    @media (max-width: 768px) {
+      .nav {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        padding: 1rem;
+      }
+
+      .nav-links {
+        gap: 1rem;
+      }
+
+      .article-container {
+        padding: 2rem 1rem 3rem;
+      }
+
+      .copy-btn {
+        font-size: 0.75rem;
+        padding: 0.4rem 0.75rem;
+      }
+
+      .related-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .cta-box {
+        padding: 1.5rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Search</a>
+      <a href="/blog/">Blog</a>
+      <a href="/about">About</a>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <div class="article-container">
+    <nav class="breadcrumb">
+      <a href="/">Home</a> &rsaquo; <a href="/blog/">Blog</a> &rsaquo; Oracle HCM Performance Management Tables Guide
+    </nav>
+
+    <header class="article-header">
+      <div class="article-tag">Performance Management</div>
+      <h1>Oracle HCM Performance Management Tables Guide — Appraisals, Goals &amp; Talent Review</h1>
+      <div class="article-meta">
+        June 16, 2026 • 15 min read
+      </div>
+    </header>
+
+    <div class="article-content">
+      <p>Oracle Fusion HCM's Performance Management module powers talent reviews, goal tracking, and performance appraisals across your organization. Understanding the underlying database structure is essential for HR analysts, system administrators, and developers who need to create performance reports, track review cycles, or integrate performance data with external systems.</p>
+
+      <p>This guide covers the core performance management tables (HRA_* prefix), their relationships, and practical SQL examples for common performance scenarios. From active appraisal tracking to 360 feedback analysis and performance rating distributions, you'll learn how to leverage Oracle's performance data model effectively.</p>
+
+      <div class="toc">
+        <h3>Table of Contents</h3>
+        <ol>
+          <li><a href="#why-hard">Why Performance Management Data Is Hard to Query</a></li>
+          <li><a href="#core-tables">Core Performance Tables Overview</a></li>
+          <li><a href="#appraisals">HRA_APPRAISALS: Appraisals Deep Dive</a></li>
+          <li><a href="#periods">HRA_APPRAISAL_PERIODS: Review Cycles</a></li>
+          <li><a href="#goals">HRA_GOALS: Goals &amp; Objectives</a></li>
+          <li><a href="#rating-models">HRA_RATING_MODELS: Rating Scales &amp; Calculations</a></li>
+          <li><a href="#perf-ratings">HRA_PERF_RATINGS: Performance Ratings Storage</a></li>
+          <li><a href="#data-flow">Performance Review Data Flow</a></li>
+          <li><a href="#sql-queries">8 Production SQL Queries</a></li>
+          <li><a href="#join-patterns">Join Patterns &amp; Best Practices</a></li>
+          <li><a href="#faq">Frequently Asked Questions</a></li>
+        </ol>
+      </div>
+
+      <h2 id="why-hard">Why Performance Management Data Is Hard to Query</h2>
+
+      <p>Performance management in Oracle HCM spans multiple interconnected tables with several unique challenges:</p>
+
+      <ul>
+        <li><strong>Date-effective records:</strong> Appraisal periods, rating models, and goals all use effective-dating. You must filter for current records using EFFECTIVE_START_DATE and EFFECTIVE_END_DATE.</li>
+        <li><strong>Hierarchical ratings:</strong> Performance ratings reference rating models, which have multiple levels. A single appraisal can have ratings at multiple sections, requiring careful joining.</li>
+        <li><strong>Multi-rater feedback:</strong> 360-degree reviews involve multiple participants (managers, peers, direct reports) creating complex join paths.</li>
+        <li><strong>Goal-to-rating linkage:</strong> Goals are tracked separately from appraisals but are referenced during review periods, requiring LEFT JOINs to avoid losing appraisals.</li>
+        <li><strong>OTBI complexity:</strong> The OTBI subject area <code>Workforce Performance - Performance Document Real Time</code> exposes these tables with pre-built hierarchies, but direct SQL requires understanding the full data model.</li>
+      </ul>
+
+      <h2 id="core-tables">Core Performance Tables Overview</h2>
+
+      <div class="table-wrapper">
+        <table class="quick-ref">
+          <thead>
+            <tr>
+              <th>Table</th>
+              <th>Key Columns</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">HRA_APPRAISALS</td>
+              <td>APPRAISAL_ID, PERSON_ID, APPRAISAL_PERIOD_ID, APPRSL_TYPE, OVERALL_RATING, STATUS_CODE</td>
+              <td>Master appraisal records with ratings and status</td>
+            </tr>
+            <tr>
+              <td class="mono">HRA_APPRAISAL_PERIODS</td>
+              <td>APPRAISAL_PERIOD_ID, PERIOD_NAME, START_DATE, END_DATE</td>
+              <td>Review cycle definitions (annual, semi-annual, etc.)</td>
+            </tr>
+            <tr>
+              <td class="mono">HRA_GOALS</td>
+              <td>GOAL_ID, PERSON_ID, GOAL_NAME, TARGET_VALUE, ACTUAL_VALUE, STATUS_CODE, GOAL_TYPE_CODE</td>
+              <td>Individual goals and objectives for employees</td>
+            </tr>
+            <tr>
+              <td class="mono">HRA_GOAL_PLANS</td>
+              <td>GOAL_PLAN_ID, GOAL_PLAN_NAME, START_DATE, END_DATE</td>
+              <td>Organization goal plan templates and frameworks</td>
+            </tr>
+            <tr>
+              <td class="mono">HRA_RATING_MODELS</td>
+              <td>RATING_MODEL_ID, RATING_MODEL_NAME, RATING_LEVEL_CODE, NUMERIC_RATING</td>
+              <td>Rating scale definitions (1-5, Exceeds/Meets/Below, etc.)</td>
+            </tr>
+            <tr>
+              <td class="mono">HRA_PERF_RATINGS</td>
+              <td>PERF_RATING_ID, APPRAISAL_ID, SECTION_ID, RATING_LEVEL_CODE, RATING_MODEL_ID</td>
+              <td>Section and overall ratings for appraisals</td>
+            </tr>
+            <tr>
+              <td class="mono">HRA_PERF_DOC_TYPES</td>
+              <td>PERF_DOC_TYPE_ID, DOC_TYPE_NAME, TEMPLATE_NAME</td>
+              <td>Performance document templates (standard, tailored)</td>
+            </tr>
+            <tr>
+              <td class="mono">HRA_PARTICIPANTS</td>
+              <td>PARTICIPANT_ID, APPRAISAL_ID, PERSON_ID, ROLE_CODE</td>
+              <td>Multi-rater feedback participants (manager, peer, direct report)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="appraisals">HRA_APPRAISALS: Appraisals Deep Dive</h2>
+
+      <p>The <code>HRA_APPRAISALS</code> table is the master record for all performance appraisals. Each row represents one employee's appraisal in a given period.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">APPRAISAL_ID</td>
+              <td>NUMBER (PK)</td>
+              <td>Unique appraisal identifier</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td>NUMBER (FK)</td>
+              <td>Links to PER_ALL_PEOPLE_F, the employee being reviewed</td>
+            </tr>
+            <tr>
+              <td class="mono">APPRAISAL_PERIOD_ID</td>
+              <td>NUMBER (FK)</td>
+              <td>Links to HRA_APPRAISAL_PERIODS, identifies the review cycle</td>
+            </tr>
+            <tr>
+              <td class="mono">APPRSL_TYPE</td>
+              <td>VARCHAR2</td>
+              <td>Type of appraisal (STANDARD, PROBATION, MANAGER, etc.)</td>
+            </tr>
+            <tr>
+              <td class="mono">OVERALL_RATING</td>
+              <td>VARCHAR2</td>
+              <td>Overall performance rating code (from rating model)</td>
+            </tr>
+            <tr>
+              <td class="mono">STATUS_CODE</td>
+              <td>VARCHAR2</td>
+              <td>Appraisal status: DRAFT, IN_PROGRESS, SUBMITTED, APPROVED, CLOSED</td>
+            </tr>
+            <tr>
+              <td class="mono">MANAGER_ID</td>
+              <td>NUMBER (FK)</td>
+              <td>Manager conducting the appraisal (PER_ALL_PEOPLE_F)</td>
+            </tr>
+            <tr>
+              <td class="mono">SUBMITTED_DATE</td>
+              <td>DATE</td>
+              <td>When appraisal was submitted by employee</td>
+            </tr>
+            <tr>
+              <td class="mono">APPROVED_DATE</td>
+              <td>DATE</td>
+              <td>When appraisal was approved by manager</td>
+            </tr>
+            <tr>
+              <td class="mono">COMMENTS</td>
+              <td>CLOB</td>
+              <td>Overall appraisal comments and feedback</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <p><strong>Key Gotcha:</strong> STATUS_CODE is NOT a date-effective field. There is only one active appraisal per employee per period. Always filter by APPRAISAL_PERIOD_ID and STATUS_CODE together.</p>
+
+      <h2 id="periods">HRA_APPRAISAL_PERIODS: Review Cycles</h2>
+
+      <p>This table defines the performance review cycles your organization runs. Each period represents a distinct review window (annual, semi-annual, quarterly).</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">APPRAISAL_PERIOD_ID</td>
+              <td>NUMBER (PK)</td>
+              <td>Unique period identifier</td>
+            </tr>
+            <tr>
+              <td class="mono">PERIOD_NAME</td>
+              <td>VARCHAR2</td>
+              <td>User-friendly name (e.g., "2026 Annual Review")</td>
+            </tr>
+            <tr>
+              <td class="mono">START_DATE</td>
+              <td>DATE</td>
+              <td>When the review period begins</td>
+            </tr>
+            <tr>
+              <td class="mono">END_DATE</td>
+              <td>DATE</td>
+              <td>When the review period closes</td>
+            </tr>
+            <tr>
+              <td class="mono">PERIOD_TYPE</td>
+              <td>VARCHAR2</td>
+              <td>ANNUAL, SEMI_ANNUAL, QUARTERLY, AD_HOC</td>
+            </tr>
+            <tr>
+              <td class="mono">SUBMISSION_DUE_DATE</td>
+              <td>DATE</td>
+              <td>Final date for employees to submit self-review</td>
+            </tr>
+            <tr>
+              <td class="mono">APPROVAL_DUE_DATE</td>
+              <td>DATE</td>
+              <td>Final date for managers to approve reviews</td>
+            </tr>
+            <tr>
+              <td class="mono">STATUS</td>
+              <td>VARCHAR2</td>
+              <td>OPEN, IN_PROGRESS, CLOSED</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="goals">HRA_GOALS: Goals &amp; Objectives</h2>
+
+      <p>The <code>HRA_GOALS</code> table tracks individual employee goals throughout the performance cycle. Goals are separate from appraisals but are referenced during reviews.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">GOAL_ID</td>
+              <td>NUMBER (PK)</td>
+              <td>Unique goal identifier</td>
+            </tr>
+            <tr>
+              <td class="mono">PERSON_ID</td>
+              <td>NUMBER (FK)</td>
+              <td>Employee who owns the goal</td>
+            </tr>
+            <tr>
+              <td class="mono">GOAL_PLAN_ID</td>
+              <td>NUMBER (FK)</td>
+              <td>Links to HRA_GOAL_PLANS, the goal framework</td>
+            </tr>
+            <tr>
+              <td class="mono">GOAL_NAME</td>
+              <td>VARCHAR2</td>
+              <td>Goal title or description</td>
+            </tr>
+            <tr>
+              <td class="mono">GOAL_TYPE_CODE</td>
+              <td>VARCHAR2</td>
+              <td>STRATEGIC, COMPETENCY, DEVELOPMENT, COMPLIANCE</td>
+            </tr>
+            <tr>
+              <td class="mono">START_DATE</td>
+              <td>DATE</td>
+              <td>When goal tracking begins</td>
+            </tr>
+            <tr>
+              <td class="mono">END_DATE</td>
+              <td>DATE</td>
+              <td>When goal tracking ends</td>
+            </tr>
+            <tr>
+              <td class="mono">TARGET_VALUE</td>
+              <td>NUMBER</td>
+              <td>Quantitative target (if applicable)</td>
+            </tr>
+            <tr>
+              <td class="mono">ACTUAL_VALUE</td>
+              <td>NUMBER</td>
+              <td>Actual achievement against target</td>
+            </tr>
+            <tr>
+              <td class="mono">STATUS_CODE</td>
+              <td>VARCHAR2</td>
+              <td>NOT_STARTED, IN_PROGRESS, ACHIEVED, NOT_ACHIEVED</td>
+            </tr>
+            <tr>
+              <td class="mono">WEIGHT_PERCENTAGE</td>
+              <td>NUMBER</td>
+              <td>Importance relative to overall performance (0-100)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="rating-models">HRA_RATING_MODELS: Rating Scales &amp; Calculations</h2>
+
+      <p>Rating models define the scales used in appraisals. Organizations can have multiple rating models (1-5 scale, Exceeds/Meets/Below, etc.) depending on role or organizational unit.</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">RATING_MODEL_ID</td>
+              <td>NUMBER (PK)</td>
+              <td>Unique rating model identifier</td>
+            </tr>
+            <tr>
+              <td class="mono">RATING_MODEL_NAME</td>
+              <td>VARCHAR2</td>
+              <td>Model name (e.g., "Standard 5-Point")</td>
+            </tr>
+            <tr>
+              <td class="mono">RATING_LEVEL_CODE</td>
+              <td>VARCHAR2</td>
+              <td>Individual rating code (1, 2, 3, 4, 5 or text codes)</td>
+            </tr>
+            <tr>
+              <td class="mono">NUMERIC_RATING</td>
+              <td>NUMBER</td>
+              <td>Numeric equivalent for calculations</td>
+            </tr>
+            <tr>
+              <td class="mono">RATING_LEVEL_DESCRIPTION</td>
+              <td>VARCHAR2</td>
+              <td>Human-readable description (e.g., "Exceeds Expectations")</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_START_DATE</td>
+              <td>DATE</td>
+              <td>When this rating level is effective</td>
+            </tr>
+            <tr>
+              <td class="mono">EFFECTIVE_END_DATE</td>
+              <td>DATE</td>
+              <td>When this rating level expires</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="perf-ratings">HRA_PERF_RATINGS: Performance Ratings Storage</h2>
+
+      <p>This table stores the actual ratings assigned during appraisals. A single appraisal can have multiple ratings (one per section, plus an overall rating).</p>
+
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th>Column</th>
+              <th>Type</th>
+              <th>Purpose</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td class="mono">PERF_RATING_ID</td>
+              <td>NUMBER (PK)</td>
+              <td>Unique rating record identifier</td>
+            </tr>
+            <tr>
+              <td class="mono">APPRAISAL_ID</td>
+              <td>NUMBER (FK)</td>
+              <td>Links to HRA_APPRAISALS</td>
+            </tr>
+            <tr>
+              <td class="mono">SECTION_ID</td>
+              <td>NUMBER (FK)</td>
+              <td>Links to appraisal section (optional; NULL = overall rating)</td>
+            </tr>
+            <tr>
+              <td class="mono">RATING_LEVEL_CODE</td>
+              <td>VARCHAR2</td>
+              <td>The rating code assigned (1, 2, 3, etc.)</td>
+            </tr>
+            <tr>
+              <td class="mono">RATING_MODEL_ID</td>
+              <td>NUMBER (FK)</td>
+              <td>Links to HRA_RATING_MODELS for validation and description</td>
+            </tr>
+            <tr>
+              <td class="mono">RATING_DATE</td>
+              <td>DATE</td>
+              <td>When this rating was assigned</td>
+            </tr>
+            <tr>
+              <td class="mono">COMMENTS</td>
+              <td>CLOB</td>
+              <td>Section-specific feedback</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h2 id="data-flow">Performance Review Data Flow</h2>
+
+      <p>The performance management workflow follows this sequence:</p>
+
+      <ol>
+        <li><strong>Define Period:</strong> Create a new HRA_APPRAISAL_PERIODS (e.g., "2026 Annual Review")</li>
+        <li><strong>Set Doc Type:</strong> Assign a performance document template (HRA_PERF_DOC_TYPES)</li>
+        <li><strong>Create Appraisals:</strong> Generate HRA_APPRAISALS records for each employee in scope</li>
+        <li><strong>Add Goals:</strong> Employees set HRA_GOALS for the period</li>
+        <li><strong>Manager Reviews:</strong> Manager completes appraisal, adding HRA_PERF_RATINGS for each section</li>
+        <li><strong>360 Feedback:</strong> (Optional) Peers and direct reports provide ratings via HRA_PARTICIPANTS</li>
+        <li><strong>Overall Rating:</strong> Final HRA_PERF_RATINGS record with overall rating stored</li>
+        <li><strong>Approval:</strong> Status moves from DRAFT → IN_PROGRESS → SUBMITTED → APPROVED → CLOSED</li>
+      </ol>
+
+      <h2 id="sql-queries">8 Production SQL Queries</h2>
+
+      <h3>Query 1: Active Appraisals by Status</h3>
+      <p>Count appraisals by status for the current review period.</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- Active appraisals by status for current period
+WITH current_period AS (
+    SELECT APPRAISAL_PERIOD_ID, PERIOD_NAME
+    FROM HRA_APPRAISAL_PERIODS
+    WHERE STATUS = 'OPEN'
+      AND TRUNC(SYSDATE) BETWEEN START_DATE AND END_DATE
+)
+SELECT
+    ap.PERIOD_NAME,
+    ha.STATUS_CODE,
+    COUNT(*) as APPRAISAL_COUNT,
+    COUNT(DISTINCT ha.MANAGER_ID) as MANAGER_COUNT,
+    ROUND(100.0 * COUNT(*) /
+          SUM(COUNT(*)) OVER (PARTITION BY ap.PERIOD_NAME), 1) as PERCENTAGE
+FROM HRA_APPRAISALS ha
+JOIN current_period ap ON ha.APPRAISAL_PERIOD_ID = ap.APPRAISAL_PERIOD_ID
+GROUP BY ap.PERIOD_NAME, ha.STATUS_CODE
+ORDER BY ap.PERIOD_NAME,
+         CASE ha.STATUS_CODE
+           WHEN 'DRAFT' THEN 1
+           WHEN 'IN_PROGRESS' THEN 2
+           WHEN 'SUBMITTED' THEN 3
+           WHEN 'APPROVED' THEN 4
+           WHEN 'CLOSED' THEN 5
+         END;</code></pre>
+      </div>
+
+      <h3>Query 2: Overall Performance Ratings Distribution</h3>
+      <p>See the distribution of overall performance ratings across the organization.</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- Performance rating distribution by department
+SELECT
+    org.NAME as DEPARTMENT,
+    rm.RATING_LEVEL_DESCRIPTION,
+    COUNT(*) as EMPLOYEE_COUNT,
+    ROUND(100.0 * COUNT(*) /
+          SUM(COUNT(*)) OVER (PARTITION BY org.NAME), 1) as DISTRIBUTION_PCT
+FROM HRA_APPRAISALS ha
+JOIN HRA_PERF_RATINGS hpr
+  ON ha.APPRAISAL_ID = hpr.APPRAISAL_ID
+  AND hpr.SECTION_ID IS NULL  -- Overall rating only
+JOIN HRA_RATING_MODELS rm
+  ON hpr.RATING_MODEL_ID = rm.RATING_MODEL_ID
+  AND TRUNC(SYSDATE) BETWEEN rm.EFFECTIVE_START_DATE
+                         AND rm.EFFECTIVE_END_DATE
+JOIN PER_ALL_PEOPLE_F p
+  ON ha.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE
+                         AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a
+  ON p.PERSON_ID = a.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE
+                         AND a.EFFECTIVE_END_DATE
+  AND a.PRIMARY_FLAG = 'Y'
+JOIN HR_ALL_ORGANIZATION_UNITS org
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+WHERE ha.STATUS_CODE = 'APPROVED'
+  AND ha.APPRAISAL_PERIOD_ID IN (
+      SELECT APPRAISAL_PERIOD_ID FROM HRA_APPRAISAL_PERIODS
+      WHERE EXTRACT(YEAR FROM END_DATE) = EXTRACT(YEAR FROM SYSDATE)
+  )
+GROUP BY org.NAME, rm.RATING_LEVEL_DESCRIPTION
+ORDER BY org.NAME, rm.NUMERIC_RATING;</code></pre>
+      </div>
+
+      <h3>Query 3: Goals Completion Rate by Department</h3>
+      <p>Track goal achievement rates across departments.</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- Goal completion rate analysis
+WITH goal_summary AS (
+    SELECT
+        hg.PERSON_ID,
+        COUNT(*) as TOTAL_GOALS,
+        SUM(CASE WHEN hg.STATUS_CODE = 'ACHIEVED' THEN 1 ELSE 0 END) as ACHIEVED_GOALS,
+        ROUND(100.0 * SUM(CASE WHEN hg.STATUS_CODE = 'ACHIEVED' THEN 1 ELSE 0 END) /
+              COUNT(*), 1) as ACHIEVEMENT_PCT
+    FROM HRA_GOALS hg
+    WHERE hg.START_DATE >= TRUNC(SYSDATE, 'YYYY')  -- Current year
+    GROUP BY hg.PERSON_ID
+)
+SELECT
+    org.NAME as DEPARTMENT,
+    COUNT(*) as EMPLOYEE_COUNT,
+    ROUND(AVG(gs.TOTAL_GOALS), 1) as AVG_GOALS_PER_EMPLOYEE,
+    ROUND(AVG(gs.ACHIEVED_GOALS), 1) as AVG_ACHIEVED_GOALS,
+    ROUND(AVG(gs.ACHIEVEMENT_PCT), 1) as AVG_ACHIEVEMENT_PCT,
+    ROUND(PERCENTILE_CONT(0.5) WITHIN GROUP (ORDER BY gs.ACHIEVEMENT_PCT), 1) as MEDIAN_ACHIEVEMENT_PCT
+FROM goal_summary gs
+JOIN PER_ALL_PEOPLE_F p
+  ON gs.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE
+                         AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a
+  ON p.PERSON_ID = a.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE
+                         AND a.EFFECTIVE_END_DATE
+  AND a.PRIMARY_FLAG = 'Y'
+JOIN HR_ALL_ORGANIZATION_UNITS org
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+GROUP BY org.NAME
+ORDER BY org.NAME;</code></pre>
+      </div>
+
+      <h3>Query 4: Overdue Performance Reviews</h3>
+      <p>Find reviews that are past the approval due date but not yet closed.</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- Overdue appraisals not yet approved
+SELECT
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    ap.PERIOD_NAME,
+    ap.APPROVAL_DUE_DATE,
+    TRUNC(SYSDATE - ap.APPROVAL_DUE_DATE) as DAYS_OVERDUE,
+    ha.STATUS_CODE,
+    ha.SUBMITTED_DATE,
+    m.DISPLAY_NAME as MANAGER_NAME
+FROM HRA_APPRAISALS ha
+JOIN HRA_APPRAISAL_PERIODS ap
+  ON ha.APPRAISAL_PERIOD_ID = ap.APPRAISAL_PERIOD_ID
+JOIN PER_ALL_PEOPLE_F p
+  ON ha.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE
+                         AND p.EFFECTIVE_END_DATE
+LEFT JOIN PER_ALL_PEOPLE_F m
+  ON ha.MANAGER_ID = m.PERSON_ID
+WHERE ap.APPROVAL_DUE_DATE < TRUNC(SYSDATE)
+  AND ha.STATUS_CODE NOT IN ('APPROVED', 'CLOSED')
+  AND ap.STATUS = 'OPEN'
+ORDER BY DAYS_OVERDUE DESC;</code></pre>
+      </div>
+
+      <h3>Query 5: Manager vs Self-Rating Comparison</h3>
+      <p>Compare manager ratings against employee self-ratings to identify rating gaps.</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- Manager vs self-rating gap analysis
+WITH rating_comparison AS (
+    SELECT
+        ha.APPRAISAL_ID,
+        ha.PERSON_ID,
+        hpr.RATING_LEVEL_CODE,
+        LEAD(hpr.RATING_LEVEL_CODE) OVER (
+            PARTITION BY ha.APPRAISAL_ID ORDER BY hpr.RATING_DATE
+        ) as SELF_RATING,
+        rm.NUMERIC_RATING,
+        LEAD(rm.NUMERIC_RATING) OVER (
+            PARTITION BY ha.APPRAISAL_ID ORDER BY hpr.RATING_DATE
+        ) as SELF_NUMERIC_RATING
+    FROM HRA_APPRAISALS ha
+    JOIN HRA_PERF_RATINGS hpr
+      ON ha.APPRAISAL_ID = hpr.APPRAISAL_ID
+      AND hpr.SECTION_ID IS NULL  -- Overall rating only
+    JOIN HRA_RATING_MODELS rm
+      ON hpr.RATING_MODEL_ID = rm.RATING_MODEL_ID
+      AND TRUNC(hpr.RATING_DATE) BETWEEN rm.EFFECTIVE_START_DATE
+                                    AND rm.EFFECTIVE_END_DATE
+    WHERE ha.STATUS_CODE = 'APPROVED'
+)
+SELECT
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    rc.RATING_LEVEL_CODE as MANAGER_RATING,
+    rc.SELF_RATING,
+    rc.NUMERIC_RATING as MANAGER_NUMERIC,
+    rc.SELF_NUMERIC_RATING,
+    (rc.SELF_NUMERIC_RATING - rc.NUMERIC_RATING) as RATING_GAP,
+    CASE
+        WHEN rc.SELF_NUMERIC_RATING > rc.NUMERIC_RATING THEN 'Self-Inflated'
+        WHEN rc.SELF_NUMERIC_RATING < rc.NUMERIC_RATING THEN 'Self-Modest'
+        ELSE 'Aligned'
+    END as ALIGNMENT_TYPE
+FROM rating_comparison rc
+JOIN PER_ALL_PEOPLE_F p
+  ON rc.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE
+                         AND p.EFFECTIVE_END_DATE
+WHERE rc.SELF_RATING IS NOT NULL
+ORDER BY ABS(RATING_GAP) DESC;</code></pre>
+      </div>
+
+      <h3>Query 6: 360 Feedback Participant Completion</h3>
+      <p>Track completion rates for 360-degree feedback process.</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- 360 feedback participation and completion tracking
+WITH feedback_status AS (
+    SELECT
+        ha.APPRAISAL_ID,
+        ha.PERSON_ID,
+        COUNT(*) as TOTAL_PARTICIPANTS,
+        SUM(CASE WHEN hp.SUBMISSION_DATE IS NOT NULL THEN 1 ELSE 0 END) as COMPLETED_FEEDBACK,
+        ROUND(100.0 * SUM(CASE WHEN hp.SUBMISSION_DATE IS NOT NULL THEN 1 ELSE 0 END) /
+              COUNT(*), 1) as COMPLETION_PCT
+    FROM HRA_APPRAISALS ha
+    LEFT JOIN HRA_PARTICIPANTS hp
+      ON ha.APPRAISAL_ID = hp.APPRAISAL_ID
+    WHERE ha.STATUS_CODE IN ('IN_PROGRESS', 'SUBMITTED', 'APPROVED')
+    GROUP BY ha.APPRAISAL_ID, ha.PERSON_ID
+)
+SELECT
+    p.PERSON_NUMBER,
+    p.DISPLAY_NAME,
+    ap.PERIOD_NAME,
+    fs.TOTAL_PARTICIPANTS,
+    fs.COMPLETED_FEEDBACK,
+    fs.COMPLETION_PCT,
+    CASE
+        WHEN fs.COMPLETION_PCT >= 100 THEN 'Complete'
+        WHEN fs.COMPLETION_PCT >= 75 THEN 'On Track'
+        WHEN fs.COMPLETION_PCT >= 50 THEN 'In Progress'
+        ELSE 'Just Started'
+    END as STATUS
+FROM feedback_status fs
+JOIN HRA_APPRAISALS ha
+  ON fs.APPRAISAL_ID = ha.APPRAISAL_ID
+JOIN HRA_APPRAISAL_PERIODS ap
+  ON ha.APPRAISAL_PERIOD_ID = ap.APPRAISAL_PERIOD_ID
+JOIN PER_ALL_PEOPLE_F p
+  ON fs.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE
+                         AND p.EFFECTIVE_END_DATE
+WHERE fs.TOTAL_PARTICIPANTS > 0
+ORDER BY p.DISPLAY_NAME;</code></pre>
+      </div>
+
+      <h3>Query 7: Performance Trend (Year-over-Year Ratings)</h3>
+      <p>Track how employee performance ratings change year-over-year.</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- Year-over-year performance rating trends
+WITH annual_ratings AS (
+    SELECT
+        p.PERSON_ID,
+        p.DISPLAY_NAME,
+        EXTRACT(YEAR FROM ap.END_DATE) as REVIEW_YEAR,
+        rm.RATING_LEVEL_DESCRIPTION,
+        rm.NUMERIC_RATING,
+        ROW_NUMBER() OVER (
+            PARTITION BY p.PERSON_ID, EXTRACT(YEAR FROM ap.END_DATE)
+            ORDER BY ha.APPROVED_DATE DESC
+        ) as RN
+    FROM HRA_APPRAISALS ha
+    JOIN HRA_PERF_RATINGS hpr
+      ON ha.APPRAISAL_ID = hpr.APPRAISAL_ID
+      AND hpr.SECTION_ID IS NULL  -- Overall rating
+    JOIN HRA_RATING_MODELS rm
+      ON hpr.RATING_MODEL_ID = rm.RATING_MODEL_ID
+    JOIN HRA_APPRAISAL_PERIODS ap
+      ON ha.APPRAISAL_PERIOD_ID = ap.APPRAISAL_PERIOD_ID
+    JOIN PER_ALL_PEOPLE_F p
+      ON ha.PERSON_ID = p.PERSON_ID
+    WHERE ha.STATUS_CODE = 'APPROVED'
+      AND ap.PERIOD_TYPE = 'ANNUAL'
+      AND EXTRACT(YEAR FROM ap.END_DATE) IN (EXTRACT(YEAR FROM SYSDATE) - 1,
+                                             EXTRACT(YEAR FROM SYSDATE))
+)
+SELECT
+    ar.PERSON_ID,
+    ar.DISPLAY_NAME,
+    MAX(CASE WHEN ar.REVIEW_YEAR = EXTRACT(YEAR FROM SYSDATE) - 1
+             THEN ar.NUMERIC_RATING END) as PRIOR_YEAR_RATING,
+    MAX(CASE WHEN ar.REVIEW_YEAR = EXTRACT(YEAR FROM SYSDATE) - 1
+             THEN ar.RATING_LEVEL_DESCRIPTION END) as PRIOR_YEAR_DESCRIPTION,
+    MAX(CASE WHEN ar.REVIEW_YEAR = EXTRACT(YEAR FROM SYSDATE)
+             THEN ar.NUMERIC_RATING END) as CURRENT_YEAR_RATING,
+    MAX(CASE WHEN ar.REVIEW_YEAR = EXTRACT(YEAR FROM SYSDATE)
+             THEN ar.RATING_LEVEL_DESCRIPTION END) as CURRENT_YEAR_DESCRIPTION,
+    MAX(CASE WHEN ar.REVIEW_YEAR = EXTRACT(YEAR FROM SYSDATE)
+             THEN ar.NUMERIC_RATING END) -
+    MAX(CASE WHEN ar.REVIEW_YEAR = EXTRACT(YEAR FROM SYSDATE) - 1
+             THEN ar.NUMERIC_RATING END) as RATING_CHANGE
+FROM annual_ratings ar
+WHERE ar.RN = 1
+GROUP BY ar.PERSON_ID, ar.DISPLAY_NAME
+HAVING MAX(CASE WHEN ar.REVIEW_YEAR = EXTRACT(YEAR FROM SYSDATE) - 1
+              THEN ar.NUMERIC_RATING END) IS NOT NULL
+   AND MAX(CASE WHEN ar.REVIEW_YEAR = EXTRACT(YEAR FROM SYSDATE)
+              THEN ar.NUMERIC_RATING END) IS NOT NULL
+ORDER BY ABS(RATING_CHANGE) DESC;</code></pre>
+      </div>
+
+      <h3>Query 8: Headcount by Rating Level for Calibration</h3>
+      <p>Aggregate performance data for calibration meetings and workforce planning.</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>-- Headcount by rating level for workforce calibration
+SELECT
+    org.NAME as DEPARTMENT,
+    j.NAME as JOB_TITLE,
+    rm.RATING_LEVEL_DESCRIPTION,
+    COUNT(DISTINCT p.PERSON_ID) as HEADCOUNT,
+    ROUND(100.0 * COUNT(DISTINCT p.PERSON_ID) /
+          SUM(COUNT(DISTINCT p.PERSON_ID)) OVER (PARTITION BY org.NAME), 1) as DEPT_PERCENTAGE,
+    ROUND(100.0 * COUNT(DISTINCT p.PERSON_ID) /
+          SUM(COUNT(DISTINCT p.PERSON_ID)) OVER (PARTITION BY org.NAME, j.NAME), 1) as JOB_PERCENTAGE,
+    ROUND(AVG(SALARY_COMPONENTS.SALARY_AMOUNT), 0) as AVG_SALARY,
+    COUNT(DISTINCT CASE WHEN FLOOR(MONTHS_BETWEEN(TRUNC(SYSDATE), wr.START_DATE) / 12) < 1
+                        THEN p.PERSON_ID END) as NEW_HIRES_UNDER_1YR
+FROM HRA_APPRAISALS ha
+JOIN HRA_PERF_RATINGS hpr
+  ON ha.APPRAISAL_ID = hpr.APPRAISAL_ID
+  AND hpr.SECTION_ID IS NULL
+JOIN HRA_RATING_MODELS rm
+  ON hpr.RATING_MODEL_ID = rm.RATING_MODEL_ID
+JOIN PER_ALL_PEOPLE_F p
+  ON ha.PERSON_ID = p.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE
+                         AND p.EFFECTIVE_END_DATE
+JOIN PER_ALL_ASSIGNMENTS_F a
+  ON p.PERSON_ID = a.PERSON_ID
+  AND TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE
+                         AND a.EFFECTIVE_END_DATE
+  AND a.PRIMARY_FLAG = 'Y'
+LEFT JOIN PER_JOBS j
+  ON a.JOB_ID = j.JOB_ID
+LEFT JOIN HR_ALL_ORGANIZATION_UNITS org
+  ON a.ORGANIZATION_ID = org.ORGANIZATION_ID
+LEFT JOIN PER_WORK_RELATIONSHIPS wr
+  ON p.PERSON_ID = wr.PERSON_ID
+  AND wr.PRIMARY_FLAG = 'Y'
+LEFT JOIN (
+    SELECT PERSON_ID, SUM(SALARY_AMOUNT) as SALARY_AMOUNT
+    FROM CMP_SALARY
+    WHERE TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+    GROUP BY PERSON_ID
+) SALARY_COMPONENTS
+  ON p.PERSON_ID = SALARY_COMPONENTS.PERSON_ID
+WHERE ha.STATUS_CODE = 'APPROVED'
+  AND EXTRACT(YEAR FROM (SELECT MAX(END_DATE)
+                          FROM HRA_APPRAISAL_PERIODS
+                          WHERE APPRAISAL_PERIOD_ID = ha.APPRAISAL_PERIOD_ID))
+      = EXTRACT(YEAR FROM SYSDATE)
+GROUP BY org.NAME, j.NAME, rm.RATING_LEVEL_DESCRIPTION, rm.NUMERIC_RATING
+ORDER BY org.NAME, j.NAME, rm.NUMERIC_RATING DESC;</code></pre>
+      </div>
+
+      <h2 id="join-patterns">Join Patterns &amp; Best Practices</h2>
+
+      <h3>Date-Effective Filtering</h3>
+      <p>Always use this pattern for date-effective tables like rating models:</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>AND TRUNC(SYSDATE) BETWEEN table_alias.EFFECTIVE_START_DATE
+                         AND table_alias.EFFECTIVE_END_DATE</code></pre>
+      </div>
+
+      <h3>Core Entity Chain</h3>
+      <p>To get from appraisal to department, use this proven chain:</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>HRA_APPRAISALS → PER_ALL_PEOPLE_F → PER_ALL_ASSIGNMENTS_F → HR_ALL_ORGANIZATION_UNITS</code></pre>
+      </div>
+
+      <h3>Rating Model Lookup</h3>
+      <p>Always join HRA_PERF_RATINGS to HRA_RATING_MODELS with date-effective filtering:</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>JOIN HRA_RATING_MODELS rm
+  ON hpr.RATING_MODEL_ID = rm.RATING_MODEL_ID
+  AND TRUNC(hpr.RATING_DATE) BETWEEN rm.EFFECTIVE_START_DATE
+                                AND rm.EFFECTIVE_END_DATE</code></pre>
+      </div>
+
+      <h3>Overall vs Section Ratings</h3>
+      <p><strong>Key Gotcha:</strong> In HRA_PERF_RATINGS, when SECTION_ID is NULL, it's the overall appraisal rating. Always include this filter for aggregate reporting:</p>
+      <div class="code-block-wrapper">
+        <button class="copy-btn" onclick="copyCode(this)">Copy</button>
+        <pre><code>WHERE hpr.SECTION_ID IS NULL  -- Only overall ratings</code></pre>
+      </div>
+
+      <h2 id="faq">Frequently Asked Questions</h2>
+
+      <h3>What is HRA_APPRAISALS in Oracle HCM?</h3>
+      <p>HRA_APPRAISALS is the master table for performance appraisals. It stores individual appraisal records with data such as the employee ID, appraisal period, appraisal type, overall rating, and status. Each appraisal can have multiple sections, goals, and ratings stored in related tables like HRA_PERF_RATINGS.</p>
+
+      <h3>How do I query performance ratings in Oracle Fusion?</h3>
+      <p>Use HRA_PERF_RATINGS joined with HRA_APPRAISALS and PER_ALL_PEOPLE_F, ensuring proper date-effective filtering. Always join HRA_RATING_MODELS to get the human-readable rating names. Filter for SECTION_ID IS NULL to get overall ratings, and use proper date-effective syntax: <code>TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE</code>.</p>
+
+      <h3>What OTBI subject area covers performance management?</h3>
+      <p>The OTBI subject area for performance management is <strong>"Workforce Performance - Performance Document Real Time"</strong>. It provides real-time access to appraisal data, performance ratings, goals, and review cycle information directly from the HRA_ tables without the latency of the data warehouse.</p>
+
+      <h3>How do goals relate to appraisals in Oracle HCM?</h3>
+      <p>Goals (HRA_GOALS) are tracked separately from appraisals but within the same performance cycle. An employee sets goals at the beginning of an appraisal period. These goals are then referenced in the appraisal document and may influence the performance rating. Goals have their own status and achievement tracking independent of the appraisal.</p>
+
+      <h3>What is a performance document type in Oracle HCM?</h3>
+      <p>A performance document type (HRA_PERF_DOC_TYPES) defines the template and structure for appraisal documents. It specifies which sections appear in the appraisal, which rating models apply to each section, required fields, and workflow rules for the performance review process in a specific organization or for a specific review cycle.</p>
+
+      <div class="cta-box">
+        <h3>Need Performance Management Configuration Help?</h3>
+        <p>Get expert guidance on Oracle HCM performance management implementation, reporting, and data integration.</p>
+        <a href="/oracle-hcm-consultants" class="cta-btn">Find Consultants</a>
+      </div>
+
+      <div class="related-posts">
+        <h3>Related Articles</h3>
+        <div class="related-grid">
+          <div class="related-card">
+            <div class="related-card-tag">Data Model</div>
+            <a href="/blog/person-assignment-work-relationship-data-model-explained">Person/Assignment/Work Relationship Data Model</a>
+          </div>
+          <div class="related-card">
+            <div class="related-card-tag">OTBI</div>
+            <a href="/blog/otbi-calculated-fields-guide">OTBI Calculated Fields — 15 Real-World Expressions</a>
+          </div>
+          <div class="related-card">
+            <div class="related-card-tag">Compensation</div>
+            <a href="/blog/oracle-workforce-compensation-tables-guide">Compensation Tables &amp; Salary Processing Guide</a>
+          </div>
+          <div class="related-card">
+            <div class="related-card-tag">Compliance</div>
+            <a href="/blog/oracle-hcm-compliance-audit-sql-queries">Compliance Audit SQL Queries — 8 Production Examples</a>
+          </div>
+        </div>
+      </div>
+
+      <p>Understanding Oracle HCM's performance management tables enables sophisticated talent reviews, goal tracking, and performance analytics. The modular design separates appraisals, ratings, goals, and feedback, giving your organization flexibility in how you structure performance processes.</p>
+
+      <p>Combine performance data with <a href="/blog/person-assignment-work-relationship-data-model-explained">core HCM entities</a> for comprehensive talent analytics, and leverage the <a href="/blog/otbi-subject-area-guide">OTBI "Workforce Performance" subject area</a> for real-time reporting without writing SQL. Whether you're building calibration dashboards, tracking goal completion, or analyzing performance trends, these queries provide a solid foundation for your reporting layer.</p>
+    </div>
+
+    <footer class="article-footer">
+      <div class="related-articles">
+        <h3>Related Articles</h3>
+        <ul class="related-list">
+          <li><a href="/blog/person-assignment-work-relationship-data-model-explained">Person vs Assignment vs Work Relationship Data Model</a></li>
+          <li><a href="/blog/otbi-subject-area-guide">OTBI Subject Area Guide — 40+ Areas &amp; Decision Tree</a></li>
+          <li><a href="/blog/oracle-workforce-compensation-tables-guide">Oracle Workforce Compensation Tables Complete Guide</a></li>
+          <li><a href="/blog/oracle-hcm-compliance-audit-sql-queries">Oracle HCM Compliance Audit SQL Queries — 8 Production Examples</a></li>
+          <li><a href="/blog/sql-query-library">Oracle HCM SQL Query Library &amp; Examples</a></li>
+        </ul>
+      </div>
+    </footer>
+  </div>
+
+  <script>
+    function copyCode(btn) {
+      const pre = btn.nextElementSibling;
+      navigator.clipboard.writeText(pre.textContent).then(() => {
+        btn.textContent = 'Copied!';
+        btn.classList.add('copied');
+        setTimeout(() => {
+          btn.textContent = 'Copy';
+          btn.classList.remove('copied');
+        }, 2000);
+      });
+    }
+  </script>
+</body>
+</html>
