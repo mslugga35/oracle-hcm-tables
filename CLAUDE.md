@@ -14,7 +14,7 @@
 - **Join path finder:** generate SQL joins between any two tables with date-effective filters
 - **JS data:** MODULE_PREFIXES (28), FK_MAP (16 FK columns), SUFFIX_INFO (7 suffixes)
 
-## Blog Pages (33 total in static/blog/)
+## Blog Pages (41 total in static/blog/)
 | # | File | Topic |
 |---|------|-------|
 | 1 | oracle-hcm-table-suffixes-explained.html | _F, _TL, _VL suffix guide |
@@ -50,6 +50,14 @@
 | 31 | otbi-calculated-fields-guide.html | Calculated fields + 15 real-world expressions |
 | 32 | oracle-hcm-vs-sap-successfactors.html | Oracle HCM vs SAP SuccessFactors enterprise comparison |
 | 33 | otbi-vs-bi-publisher-when-to-use-which.html | OTBI vs BI Publisher decision guide + examples |
+| 34 | oracle-hcm-headcount-query-guide.html | Beginner headcount query step-by-step |
+| 35 | oracle-hcm-sox-audit-sql-queries.html | 8 SOX compliance SQL scripts |
+| 36 | obiee-assertion-failure-pcriteria.html | pCriteria != 0 assertion fix |
+| 37 | oracle-hcm-implementation-cost-guide.html | Implementation cost breakdown by module |
+| 38 | oracle-hcm-performance-management-tables-guide.html | HRA_ performance tables + SQL |
+| 39 | oracle-hcm-time-labor-tables-guide.html | HWM_ time and labor tables + SQL |
+| 40 | oracle-hcm-to-rippling-migration-guide.html | Oracle HCM to Rippling migration |
+| 41 | oracle-hcm-ai-assistant-setup.html | Claude/ChatGPT HCM assistant setup |
 
 ## Product Pages
 - `static/oracle-hcm-consultants.html` — Consultant directory / lead gen (submit project → get quotes)
