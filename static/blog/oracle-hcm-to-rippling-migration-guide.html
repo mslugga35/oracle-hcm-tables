@@ -1,0 +1,779 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <!-- Primary Meta Tags -->
+  <title>Oracle HCM to Rippling Migration Guide 2026: Step-by-Step | HCM Tables</title>
+  <meta name="title" content="Oracle HCM to Rippling Migration Guide 2026: Step-by-Step | HCM Tables">
+  <meta name="description" content="How to migrate from Oracle Fusion HCM to Rippling in 2026. Exact tables to extract (PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M), data mapping, timeline, costs, and what to watch out for.">
+  <meta name="keywords" content="Oracle HCM to Rippling migration, migrate Oracle HCM Rippling, Oracle Fusion HCM Rippling, switch Oracle HCM to Rippling, Oracle HCM Rippling data migration, Oracle HCM replacement Rippling 2026">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/oracle-hcm-to-rippling-migration-guide">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/oracle-hcm-to-rippling-migration-guide">
+  <meta property="og:title" content="Oracle HCM to Rippling Migration Guide 2026: Step-by-Step">
+  <meta property="og:description" content="Exact tables, data mapping, timeline, and costs for migrating from Oracle Fusion HCM to Rippling. Written by Oracle HCM consultants.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:alt" content="Oracle HCM to Rippling Migration Guide 2026">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/oracle-hcm-to-rippling-migration-guide">
+  <meta property="twitter:title" content="Oracle HCM to Rippling Migration Guide 2026">
+  <meta property="twitter:description" content="Exact tables, mapping, and timeline for migrating from Oracle Fusion HCM to Rippling — from consultants who've done it.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "Oracle HCM to Rippling Migration Guide 2026: Step-by-Step",
+    "description": "How to migrate from Oracle Fusion HCM to Rippling in 2026. Exact tables to extract, data mapping, timeline, costs, and common pitfalls.",
+    "url": "https://hcm-tables.com/blog/oracle-hcm-to-rippling-migration-guide",
+    "datePublished": "2026-06-07",
+    "dateModified": "2026-06-07",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/oracle-hcm-to-rippling-migration-guide"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"Oracle HCM to Rippling Migration Guide","item":"https://hcm-tables.com/blog/oracle-hcm-to-rippling-migration-guide"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "How long does it take to migrate from Oracle HCM to Rippling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A typical Oracle HCM to Rippling migration takes 6–14 weeks: 2 weeks for data extraction and mapping, 2–4 weeks for Rippling configuration, 2–4 weeks for testing and parallel run, and 1–2 weeks for cutover and stabilization. This is significantly faster than an Oracle HCM implementation (which averages 12–18 months), but slower than migrating to BambooHR (4–8 weeks) due to Rippling's broader feature set and payroll configuration complexity."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which Oracle HCM tables do I need to extract for a Rippling migration?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The core tables for an Oracle HCM to Rippling migration are: PER_ALL_PEOPLE_F (employee demographics), PER_ALL_ASSIGNMENTS_M (job assignments and effective-dated history), PER_WORK_RELATIONSHIPS (employment relationships), PER_ALL_POSITIONS (position structure), PER_ASSIGNMENT_SUPERVISORS_F (manager hierarchy), PAY_ELEMENT_ENTRIES_F (compensation elements), BEN_PERSON_BENEFIT_EXPRS_F (benefit enrollments), and PER_ABSENCE_ATTENDANCES (time-off history). Address and contact data comes from PER_PHONES and PER_ADDRESSES_F."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How much does it cost to migrate from Oracle HCM to Rippling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A typical Oracle HCM to Rippling migration costs $15,000–$60,000 in professional services, depending on the number of employees, countries, and how much historical data you're migrating. This includes data extraction from Oracle, transformation scripts, Rippling configuration, testing, and cutover support. Rippling also provides a dedicated migration team at no additional cost for mid-market companies (200–2,000 employees). Oracle HCM data extraction is typically the most time-intensive part — plan for 2–3 weeks if your team is unfamiliar with effective-dated tables."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Does Rippling have a migration team that helps from Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. Rippling has a dedicated implementation team for Oracle HCM migrations. They provide import templates, data validation tools, and hands-on support through go-live. For companies with 200+ employees, Rippling typically assigns a dedicated implementation manager. The main Oracle HCM-specific challenge they help with is flattening effective-dated records — Rippling's data model expects current-state flat records, not Oracle's multi-row date-effective format."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the hardest part of migrating from Oracle HCM to Rippling?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The hardest part is handling Oracle's effective-dated tables. Every assignment, compensation, and job change in Oracle is stored as a date range row (EFFECTIVE_START_DATE / EFFECTIVE_END_DATE). Rippling expects a single current-state record per employee. You'll need transformation logic to collapse Oracle's history to the current state before import. The second challenge is mapping Oracle lookup codes (ASSIGNMENT_TYPE, EMPLOYEE_CATEGORY, ABSENCE_ATTENDANCE_TYPE) to Rippling's equivalent enumerations — this requires manual mapping for non-standard values."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --bg: #0a0d14;
+      --bg-secondary: #0f1117;
+      --bg-card: #13161f;
+      --border: #1e2235;
+      --text-primary: #f0f2f8;
+      --text-secondary: #8892b0;
+      --text-muted: #4a5280;
+      --accent: #e84f37;
+      --blue: #5b8dee;
+      --green: #4caf82;
+      --purple: #7c5cbf;
+      --radius: 10px;
+      --radius-sm: 6px;
+    }
+    body { background: var(--bg); color: var(--text-primary); font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; line-height: 1.7; font-size: 1rem; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { text-decoration: underline; }
+    code { background: rgba(91,141,238,.12); color: #a5c3ff; padding: 0.15em 0.45em; border-radius: 4px; font-family: "SF Mono", Consolas, monospace; font-size: 0.88em; }
+    pre { background: #0d1117; border: 1px solid var(--border); border-radius: var(--radius); padding: 1.25rem 1.5rem; overflow-x: auto; margin: 1.5rem 0; }
+    pre code { background: none; padding: 0; font-size: 0.875rem; color: #e6edf3; }
+
+    nav { background: rgba(10,13,20,0.95); backdrop-filter: blur(8px); border-bottom: 1px solid var(--border); position: sticky; top: 0; z-index: 100; }
+    .nav { max-width: 860px; margin: 0 auto; padding: 0 1.5rem; height: 56px; display: flex; align-items: center; justify-content: space-between; }
+    .nav-brand { font-weight: 700; font-size: 1rem; color: var(--text-primary); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 0.875rem; color: var(--text-secondary); }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container { max-width: 760px; margin: 0 auto; padding: 3rem 1.5rem 4rem; }
+    .breadcrumb { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 1.5rem; }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); text-decoration: none; }
+
+    .article-header { margin-bottom: 2.5rem; }
+    .article-tag { display: inline-block; background: oklch(0.65 0.2 25 / 0.15); color: var(--accent); font-size: 0.75rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; padding: 0.3em 0.75em; border-radius: 20px; margin-bottom: 0.75rem; }
+    h1 { font-size: clamp(1.6rem, 4vw, 2.2rem); font-weight: 800; line-height: 1.25; color: var(--text-primary); margin-bottom: 1rem; }
+    .article-meta { color: var(--text-muted); font-size: 0.875rem; display: flex; gap: 0.5rem; flex-wrap: wrap; }
+
+    h2 { font-size: 1.4rem; font-weight: 700; color: var(--text-primary); margin: 2.5rem 0 1rem; padding-top: 0.5rem; border-top: 1px solid var(--border); }
+    h3 { font-size: 1.1rem; font-weight: 600; color: var(--text-primary); margin: 1.75rem 0 0.6rem; }
+    p { color: oklch(0.82 0.01 260); margin-bottom: 1rem; }
+    ul, ol { padding-left: 1.5rem; margin-bottom: 1rem; }
+    li { color: oklch(0.82 0.01 260); margin-bottom: 0.35rem; }
+    strong { color: var(--text-primary); }
+
+    .toc {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 2rem 0;
+    }
+    .toc h2 { margin-top: 0 !important; margin-bottom: 1rem !important; font-size: 1rem !important; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.05em; border-top: none; padding-top: 0; }
+    .toc ol { margin-bottom: 0; }
+    .toc li { margin-bottom: 0.35rem; }
+    .toc a { color: var(--text-secondary); }
+    .toc a:hover { color: var(--blue); }
+
+    table { width: 100%; border-collapse: collapse; margin: 1.5rem 0; font-size: 0.9rem; }
+    th { background: var(--bg-secondary); color: var(--text-primary); font-weight: 600; padding: 0.6rem 0.9rem; text-align: left; border: 1px solid var(--border); font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.04em; }
+    td { padding: 0.6rem 0.9rem; border: 1px solid var(--border); color: oklch(0.80 0.01 260); vertical-align: top; }
+    tr:nth-child(even) td { background: rgba(255,255,255,0.015); }
+
+    .step-block {
+      background: var(--bg-card);
+      border: 1px solid var(--border);
+      border-left: 3px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .step-number { font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.3rem; }
+    .step-block h3 { margin-top: 0; font-size: 1.05rem; }
+    .step-block p:last-child { margin-bottom: 0; }
+
+    .callout {
+      background: oklch(0.65 0.2 25 / 0.08);
+      border: 1px solid oklch(0.65 0.2 25 / 0.3);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .callout-label { font-size: 0.72rem; font-weight: 700; color: var(--accent); text-transform: uppercase; letter-spacing: 0.07em; margin-bottom: 0.4rem; }
+    .callout p:last-child { margin-bottom: 0; }
+
+    .cta-box {
+      background: linear-gradient(135deg, oklch(0.65 0.2 25 / 0.12), oklch(0.65 0.15 250 / 0.08));
+      border: 1px solid oklch(0.65 0.2 25 / 0.3);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 2.5rem 0;
+      text-align: center;
+    }
+    .cta-box h3 { margin-top: 0 !important; margin-bottom: 0.75rem !important; font-size: 1.2rem !important; color: var(--text-primary); border-top: none; padding-top: 0; }
+    .cta-box p { margin-bottom: 1.25rem; color: var(--text-secondary); font-size: 0.95rem; }
+    .cta-button {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      background: var(--accent);
+      color: white;
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.15s;
+      text-decoration: none;
+      margin: 0.35rem;
+    }
+    .cta-button:hover { opacity: 0.85; color: white; text-decoration: none; }
+    .cta-button-alt {
+      display: inline-block;
+      padding: 0.75rem 1.75rem;
+      background: transparent;
+      color: var(--blue);
+      border: 1px solid var(--blue);
+      border-radius: var(--radius-sm);
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: opacity 0.15s;
+      text-decoration: none;
+      margin: 0.35rem;
+    }
+    .cta-button-alt:hover { opacity: 0.85; color: var(--blue); text-decoration: none; }
+
+    .platform-cta {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 1.25rem 1.5rem;
+      margin: 1.5rem 0;
+    }
+    .platform-cta-header { font-size: 0.72rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    .platform-link {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      text-decoration: none;
+      margin-bottom: 0.5rem;
+      transition: border-color 0.15s;
+    }
+    .platform-link:last-child { margin-bottom: 0; }
+    .platform-link:hover { border-color: var(--blue); text-decoration: none; }
+    .platform-name { font-size: 0.78rem; font-weight: 700; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; min-width: 80px; }
+    .platform-desc { flex: 1; font-size: 0.875rem; color: var(--text-primary); margin: 0 1rem; }
+    .platform-action { font-size: 0.8rem; font-weight: 600; white-space: nowrap; }
+
+    .faq-section { margin: 2.5rem 0; }
+    .faq-item { border-bottom: 1px solid var(--border); padding: 1.25rem 0; }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-question { font-weight: 600; margin-bottom: 0.5rem; color: var(--text-primary); font-size: 1rem; }
+    .faq-answer { color: oklch(0.80 0.01 260); font-size: 0.95rem; }
+
+    footer.footer { border-top: 1px solid var(--border); padding: 2rem 1.5rem; text-align: center; }
+    footer.footer p { font-size: 0.8rem; color: var(--text-muted); margin-bottom: 0.5rem; }
+    footer.footer a { color: var(--text-muted); }
+    footer.footer a:hover { color: var(--blue); }
+
+    @media (max-width: 640px) {
+      .nav-links { display: none; }
+      table { font-size: 0.8rem; }
+      th, td { padding: 0.5rem 0.6rem; }
+      .platform-link { flex-wrap: wrap; gap: 0.4rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <nav>
+    <div class="nav">
+      <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+      <div class="nav-links">
+        <a href="/">Table Search</a>
+        <a href="/blog/">Blog</a>
+        <a href="/otbi-template-pack">OTBI Templates</a>
+        <a href="/oracle-hcm-consultants">Find a Consultant</a>
+      </div>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/blog/">Blog</a> / Oracle HCM to Rippling Migration Guide 2026
+    </div>
+
+    <div class="article-header">
+      <span class="article-tag">Migration Guide</span>
+      <h1>Oracle HCM to Rippling Migration Guide 2026</h1>
+      <div class="article-meta">
+        <span>June 7, 2026</span>
+        <span>·</span>
+        <span>18 min read</span>
+        <span>·</span>
+        <span>For companies 200–5,000 employees</span>
+      </div>
+    </div>
+
+    <p>Migrating from Oracle Fusion HCM to Rippling is one of the fastest-growing HR transformation projects in 2026. Oracle HCM is powerful — but for mid-market companies that don't need multi-country payroll or ERP integration, the complexity and cost often outweigh the benefits. Rippling gives you HR + IT + payroll in a single platform, implements in weeks rather than months, and costs a fraction of Oracle licensing.</p>
+
+    <p>This guide is written from the Oracle side: we'll cover the exact tables you need to extract, how to handle Oracle's effective-dating quirks, the data mapping to Rippling's model, and the realistic timeline and cost you should budget.</p>
+
+    <div class="toc">
+      <h2>Table of Contents</h2>
+      <ol>
+        <li><a href="#should-you-migrate">Should you migrate to Rippling?</a></li>
+        <li><a href="#what-you-extract">What to extract from Oracle HCM</a></li>
+        <li><a href="#effective-dating">Handling effective-dated records</a></li>
+        <li><a href="#data-mapping">Oracle → Rippling data mapping</a></li>
+        <li><a href="#timeline">Migration timeline (6–14 weeks)</a></li>
+        <li><a href="#cost">What it costs</a></li>
+        <li><a href="#rippling-setup">Rippling configuration checklist</a></li>
+        <li><a href="#what-doesnt-migrate">What doesn't migrate cleanly</a></li>
+        <li><a href="#faq">FAQ</a></li>
+      </ol>
+    </div>
+
+    <h2 id="should-you-migrate">Should You Migrate to Rippling?</h2>
+
+    <p>Rippling is a strong Oracle HCM replacement if most of the following apply:</p>
+
+    <ul>
+      <li>You have 200–5,000 employees (Rippling's sweet spot)</li>
+      <li>You're primarily US-based, with limited international payroll (Rippling covers 140+ countries but its US payroll is its strongest)</li>
+      <li>You don't rely heavily on Oracle Fast Formula for complex business rules</li>
+      <li>You don't have Oracle ERP (Financials/SCM) integrations that depend on Oracle HCM's native data model</li>
+      <li>Your HR team spends more time fighting Oracle than using it</li>
+    </ul>
+
+    <p>Rippling's advantages over Oracle for this profile: 4–6x lower total cost, 10–15x faster implementation, a modern UI that employees actually adopt, and native IT device management bundled in.</p>
+
+    <div class="callout">
+      <div class="callout-label">When Oracle HCM wins</div>
+      <p>Stay on Oracle if you have payroll in 20+ countries, complex Fast Formula business rules that drive payroll outcomes, deep Oracle ERP integration with Financials/SCM, or more than 10,000 employees with highly customized workflows. For those scenarios, the migration complexity and feature gap don't justify the switch.</p>
+    </div>
+
+    <div class="platform-cta">
+      <div class="platform-cta-header">Evaluate Rippling before you commit</div>
+      <a href="https://rippling.com/request-demo?utm_source=hcm-tables&utm_medium=referral&utm_campaign=oracle-rippling-migration" target="_blank" rel="nofollow sponsored noopener" class="platform-link">
+        <span class="platform-name">Rippling</span>
+        <span class="platform-desc">HR + IT + payroll unified — free demo, typical 30–45 min, pricing shared on first call</span>
+        <span class="platform-action" style="color:var(--blue)">Request Demo →</span>
+      </a>
+      <a href="https://bamboohr.com/request-demo/?utm_source=hcm-tables&utm_medium=referral&utm_campaign=oracle-rippling-migration" target="_blank" rel="nofollow sponsored noopener" class="platform-link">
+        <span class="platform-name">BambooHR</span>
+        <span class="platform-desc">Simpler alternative — great for sub-1,000 employees who don't need IT management</span>
+        <span class="platform-action" style="color:var(--green)">Get a Demo →</span>
+      </a>
+      <p style="font-size:0.72rem;color:var(--text-muted);margin-top:0.75rem;margin-bottom:0">Disclosure: Some links above are affiliate links. We may earn a commission at no extra cost to you.</p>
+    </div>
+
+    <h2 id="what-you-extract">What to Extract From Oracle HCM</h2>
+
+    <p>Oracle Fusion HCM stores HR data across dozens of tables. For a Rippling migration, you need these core datasets:</p>
+
+    <h3>Tier 1: Required (Core Employee Data)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Oracle Table</th>
+          <th>What It Contains</th>
+          <th>Rippling Equivalent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>PER_ALL_PEOPLE_F</code></td>
+          <td>Employee demographics — name, DOB, national identifier, gender, ethnicity</td>
+          <td>Employee profile fields</td>
+        </tr>
+        <tr>
+          <td><code>PER_ALL_ASSIGNMENTS_M</code></td>
+          <td>Job assignments — title, department, location, grade, FTE — date-effective history</td>
+          <td>Job information (current state only)</td>
+        </tr>
+        <tr>
+          <td><code>PER_WORK_RELATIONSHIPS</code></td>
+          <td>Employment relationships — hire date, termination date, worker type</td>
+          <td>Employment record / start and end dates</td>
+        </tr>
+        <tr>
+          <td><code>PER_ASSIGNMENT_SUPERVISORS_F</code></td>
+          <td>Reporting manager hierarchy</td>
+          <td>Reports-to field on each employee</td>
+        </tr>
+        <tr>
+          <td><code>PER_PHONES</code></td>
+          <td>Employee phone numbers by type (work, mobile, home)</td>
+          <td>Contact fields</td>
+        </tr>
+        <tr>
+          <td><code>PER_ADDRESSES_F</code></td>
+          <td>Employee addresses (home, work)</td>
+          <td>Address fields (required for payroll tax)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Tier 2: Recommended (Compensation + Benefits)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Oracle Table</th>
+          <th>What It Contains</th>
+          <th>Rippling Equivalent</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>PAY_ELEMENT_ENTRIES_F</code></td>
+          <td>Salary, bonus, and compensation element entries</td>
+          <td>Compensation (base salary + one-time payments)</td>
+        </tr>
+        <tr>
+          <td><code>PAY_ELEMENT_ENTRY_VALUES_F</code></td>
+          <td>Actual values for compensation elements (amounts, rates)</td>
+          <td>Compensation values</td>
+        </tr>
+        <tr>
+          <td><code>BEN_PERSON_BENEFIT_EXPRS_F</code></td>
+          <td>Benefit plan enrollments and coverage elections</td>
+          <td>Benefits elections (if migrating mid-year)</td>
+        </tr>
+        <tr>
+          <td><code>PER_ABSENCE_ATTENDANCES</code></td>
+          <td>Absence history — type, start date, end date, days/hours</td>
+          <td>Time-off history (for accrual balance carryover)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h3>Tier 3: Optional (Historical Reference)</h3>
+    <table>
+      <thead>
+        <tr>
+          <th>Oracle Table</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>PAY_RUN_RESULTS</code></td>
+          <td>Historical payroll run results — reference only, doesn't migrate to Rippling</td>
+        </tr>
+        <tr>
+          <td><code>PER_ALL_POSITIONS</code></td>
+          <td>Position hierarchy — relevant if Rippling's position management feature is used</td>
+        </tr>
+        <tr>
+          <td><code>ORG_ORGANIZATION_EFF_F</code></td>
+          <td>Department and organization hierarchy — import into Rippling's department tree</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout">
+      <div class="callout-label">Oracle Pro Tip</div>
+      <p>Use the OTBI <strong>"Workforce Management – Worker Assignment Real Time"</strong> subject area to export current-state assignments without writing SQL. For historical data, query the underlying tables directly via BI Publisher or Oracle BIP data model. <code>PER_ALL_ASSIGNMENTS_M</code> gives you the cleanest assignment history — prefer it over <code>PER_ALL_ASSIGNMENTS_F</code> for migrations.</p>
+    </div>
+
+    <h2 id="effective-dating">Handling Oracle's Effective-Dated Records</h2>
+
+    <p>This is the single biggest source of migration bugs. Oracle stores changes as date-range rows — every update to an assignment creates a new row with <code>EFFECTIVE_START_DATE</code> and <code>EFFECTIVE_END_DATE</code>. Rippling expects a single current-state record per employee.</p>
+
+    <p><strong>The problem:</strong> A typical Oracle employee record in <code>PER_ALL_ASSIGNMENTS_M</code> has 5–20+ rows, one per job change. If you export all rows naively, you'll import 20 records per employee into Rippling and cause chaos.</p>
+
+    <p><strong>The fix:</strong> Filter to current state before export:</p>
+
+    <pre><code>-- Get current-state assignment for all active employees
+SELECT
+  paam.person_id,
+  paam.assignment_id,
+  paam.job_id,
+  paam.department_id,
+  paam.location_id,
+  paam.grade_id,
+  paam.assignment_status_type,
+  paam.effective_start_date,
+  paam.effective_end_date,
+  papf.full_name,
+  papf.date_of_birth,
+  papf.national_identifier
+FROM per_all_assignments_m paam
+JOIN per_all_people_f papf
+  ON papf.person_id = paam.person_id
+  AND TRUNC(SYSDATE) BETWEEN papf.effective_start_date AND papf.effective_end_date
+WHERE TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date
+  AND paam.assignment_type = 'E'
+  AND paam.assignment_status_type = 'ACTIVE'
+  AND paam.effective_latest_change = 'Y';</code></pre>
+
+    <p>The <code>effective_latest_change = 'Y'</code> filter ensures you only get the latest version of each row within the current date range — critical when Oracle has multiple rows with the same effective dates after corrections.</p>
+
+    <h3>Handling Historical Data (Optional)</h3>
+    <p>Rippling doesn't natively store Oracle-style effective-dated history. You have two options:</p>
+    <ol>
+      <li><strong>Current-state only migration</strong> — Import only the current record. Clean, fast, loses history. Recommended for most companies.</li>
+      <li><strong>Historical CSV archive</strong> — Export full history to CSV files and store in a shared drive or SharePoint as a reference archive. Don't try to import history into Rippling.</li>
+    </ol>
+
+    <h2 id="data-mapping">Oracle → Rippling Data Mapping</h2>
+
+    <p>Rippling uses different field names and value enumerations than Oracle. Here's the key mapping:</p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Oracle Field</th>
+          <th>Oracle Example</th>
+          <th>Rippling Field</th>
+          <th>Rippling Value</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>ASSIGNMENT_TYPE</code></td>
+          <td>E (Employee), C (CWK)</td>
+          <td>Worker Type</td>
+          <td>Employee, Contractor</td>
+        </tr>
+        <tr>
+          <td><code>EMPLOYMENT_CATEGORY</code></td>
+          <td>FR (Full-time Regular), PR (Part-time Regular)</td>
+          <td>Employment Type</td>
+          <td>Full Time, Part Time</td>
+        </tr>
+        <tr>
+          <td><code>EXEMPT_INDICATOR</code></td>
+          <td>Y / N</td>
+          <td>FLSA Status</td>
+          <td>Exempt / Non-Exempt</td>
+        </tr>
+        <tr>
+          <td><code>BARGAINING_UNIT_CODE</code></td>
+          <td>Custom lookup values</td>
+          <td>Custom field</td>
+          <td>Map to Rippling custom field</td>
+        </tr>
+        <tr>
+          <td><code>GRADE</code> (from HR_GRADES)</td>
+          <td>Grade 1–10 or custom codes</td>
+          <td>Level / Band</td>
+          <td>Map or create matching values</td>
+        </tr>
+        <tr>
+          <td>Department from <code>ORGANIZATION_NAME</code></td>
+          <td>HR, Finance, Engineering</td>
+          <td>Department</td>
+          <td>Must pre-create in Rippling</td>
+        </tr>
+        <tr>
+          <td>Location from <code>LOCATION_CODE</code></td>
+          <td>HQ-NYC, REMOTE, EMEA-LON</td>
+          <td>Work Location</td>
+          <td>Must pre-create in Rippling</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p><strong>Key rule:</strong> Create departments and locations in Rippling <em>before</em> importing employees. Rippling imports fail if referenced values don't exist. Oracle lookup codes that don't map to standard Rippling values need a custom field or manual mapping document.</p>
+
+    <h2 id="timeline">Migration Timeline (6–14 Weeks)</h2>
+
+    <div class="step-block">
+      <div class="step-number">Week 1–2</div>
+      <h3>Discovery and Data Extraction</h3>
+      <p>Audit your Oracle HCM instance: headcount, countries, data quality issues. Extract Tier 1 tables and do initial profiling — identify lookup code values, custom flexfields, and any non-standard configurations. Assign a data owner for each Oracle table.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Week 2–4</div>
+      <h3>Data Transformation and Mapping</h3>
+      <p>Write and test transformation scripts (Python, SQL, or Excel + Power Query) to flatten effective-dated records, map Oracle lookup codes to Rippling equivalents, and build the import CSVs. Validate against a sample of 50–100 employee records manually.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Week 3–6</div>
+      <h3>Rippling Configuration (Runs in Parallel)</h3>
+      <p>Configure Rippling: set up departments, locations, job titles, compensation bands, benefit plans, time-off policies, and custom fields. Get payroll tax registrations in place for all states/countries where you have employees. Rippling's implementation team will guide this.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Week 6–10</div>
+      <h3>Test Import and Parallel Run</h3>
+      <p>Import into a Rippling test environment. Validate all employee records, run test payroll for one pay cycle (compare gross vs. Oracle). Identify and fix data issues — expect 1–3 cycles of finding and fixing mapping errors before the data is clean.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Week 10–12</div>
+      <h3>Cutover Preparation</h3>
+      <p>Pick a payroll cutover date (usually beginning of a quarter or benefit year). Notify employees. Set up IT onboarding in Rippling (device management, app provisioning). Train HR admins on Rippling workflows. Archive Oracle data to CSV/SharePoint.</p>
+    </div>
+
+    <div class="step-block">
+      <div class="step-number">Week 12–14</div>
+      <h3>Go-Live and Stabilization</h3>
+      <p>Import final data refresh (delta since test import). Run first live payroll in Rippling while Oracle is still active. Confirm match. Cut over completely. Keep Oracle in read-only mode for 30–60 days for reference.</p>
+    </div>
+
+    <h2 id="cost">What It Costs</h2>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Cost Component</th>
+          <th>Typical Range</th>
+          <th>Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Rippling implementation (Rippling-provided)</td>
+          <td>Included for 200+ employees</td>
+          <td>Rippling assigns an implementation manager</td>
+        </tr>
+        <tr>
+          <td>Oracle data extraction (internal or consultant)</td>
+          <td>$5,000–$20,000</td>
+          <td>Higher if effective-dating is complex or data quality is poor</td>
+        </tr>
+        <tr>
+          <td>Transformation scripts and mapping</td>
+          <td>$5,000–$15,000</td>
+          <td>Python/SQL; can be internal if you have technical HR/IT staff</td>
+        </tr>
+        <tr>
+          <td>Testing and parallel run</td>
+          <td>$5,000–$15,000</td>
+          <td>Plan for 3–4 rounds of validation</td>
+        </tr>
+        <tr>
+          <td>Change management and training</td>
+          <td>$2,000–$8,000</td>
+          <td>HR admin training + employee comms</td>
+        </tr>
+        <tr>
+          <td><strong>Total (professional services)</strong></td>
+          <td><strong>$17,000–$58,000</strong></td>
+          <td>Excluding Rippling licensing (typically $8–15/employee/mo)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <p>Compare that to Oracle HCM's average implementation cost of $250,000–$1,000,000+ for a fresh deployment, and the ROI math is clear for mid-market companies.</p>
+
+    <div class="cta-box">
+      <h3>Not sure if Rippling is right for your size?</h3>
+      <p>Get a free scoping call with an Oracle HCM consultant — they can assess your data complexity, flag migration risks, and recommend whether Rippling, BambooHR, or staying on Oracle is the right call.</p>
+      <a href="/oracle-hcm-consultants" class="cta-button">Free Migration Scoping →</a>
+      <a href="https://rippling.com/request-demo?utm_source=hcm-tables&utm_medium=referral&utm_campaign=oracle-rippling-migration" target="_blank" rel="nofollow sponsored noopener" class="cta-button-alt">Request Rippling Demo →</a>
+    </div>
+
+    <h2 id="rippling-setup">Rippling Configuration Checklist</h2>
+
+    <p>Before importing Oracle data, these need to exist in Rippling:</p>
+
+    <ul>
+      <li>✓ All departments (match Oracle organization names or create new hierarchy)</li>
+      <li>✓ All work locations (including remote; required for state tax compliance)</li>
+      <li>✓ All job titles (Rippling doesn't auto-create from import)</li>
+      <li>✓ Compensation bands or custom pay types (salary, hourly, commission)</li>
+      <li>✓ Payroll tax registrations for every state/country where you have employees</li>
+      <li>✓ Benefit plans configured (if migrating mid-year, current elections need to match Oracle)</li>
+      <li>✓ Time-off policies configured (PTO, sick, parental — before importing absence balances)</li>
+      <li>✓ Custom fields for Oracle-specific data that has no Rippling equivalent (e.g., grade codes)</li>
+      <li>✓ IT management connected (Rippling's device management and app provisioning needs an initial sync)</li>
+    </ul>
+
+    <h2 id="what-doesnt-migrate">What Doesn't Migrate Cleanly</h2>
+
+    <p>Be honest with stakeholders about what you're leaving behind:</p>
+
+    <ul>
+      <li><strong>Historical payroll data</strong> — Oracle's <code>PAY_RUN_RESULTS</code> doesn't import to Rippling. Archive in CSV for compliance; Rippling starts fresh from cutover date.</li>
+      <li><strong>Fast Formula logic</strong> — Any complex Oracle Fast Formula rules (absence accrual overrides, custom pay calculations) need to be re-implemented in Rippling's rule engine or accepted as simplified behavior.</li>
+      <li><strong>Oracle Workflows / BPM</strong> — Approval workflows defined in Oracle BPM are not portable. Rebuild in Rippling's approval flows, which are simpler but sufficient for most companies.</li>
+      <li><strong>Comprehensive absence history</strong> — Rippling can import current absence balances, but the row-level history from <code>PER_ABSENCE_ATTENDANCES</code> doesn't have a clean import path. Provide employees a PDF summary from Oracle before cutover.</li>
+      <li><strong>ORC (Recruiting)</strong> — Oracle Recruiting data doesn't migrate to Rippling Recruiting. If you use ORC, plan for a separate migration or parallel operation until open requisitions close.</li>
+    </ul>
+
+    <h2 id="faq">FAQ</h2>
+
+    <div class="faq-section">
+      <div class="faq-item">
+        <div class="faq-question">How long does it take to migrate from Oracle HCM to Rippling?</div>
+        <div class="faq-answer">6–14 weeks for a typical migration (200–2,000 employees). The wide range reflects data quality: if your Oracle data is clean and your IT team can handle extraction, you can hit 6 weeks. If data quality is poor, you have custom flexfields, or you're doing a mid-year payroll cutover, expect 12–14 weeks. This compares to Oracle HCM implementations that average 12–18 months for a fresh deployment.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Which Oracle HCM tables are required for the migration?</div>
+        <div class="faq-answer">The core required tables are <code>PER_ALL_PEOPLE_F</code> (demographics), <code>PER_ALL_ASSIGNMENTS_M</code> (job assignments), <code>PER_WORK_RELATIONSHIPS</code> (hire/term dates), <code>PER_ASSIGNMENT_SUPERVISORS_F</code> (managers), <code>PER_PHONES</code>, and <code>PER_ADDRESSES_F</code>. For compensation, add <code>PAY_ELEMENT_ENTRIES_F</code>. For benefits, add <code>BEN_PERSON_BENEFIT_EXPRS_F</code>. Historical payroll (<code>PAY_RUN_RESULTS</code>) is archived but not imported into Rippling.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">How much does it cost to migrate from Oracle HCM to Rippling?</div>
+        <div class="faq-answer">$17,000–$58,000 in professional services (data extraction, transformation, testing, cutover). Rippling includes implementation support for mid-market customers. The main cost variable is Oracle data extraction complexity — effective-dated tables, custom flexfields, and poor data quality all add time. Compare to Oracle HCM implementation costs of $250k–$1M+ and the ROI is clear for most mid-market companies.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Does Rippling have a dedicated Oracle HCM migration team?</div>
+        <div class="faq-answer">Yes. Rippling assigns a dedicated implementation manager for companies with 200+ employees. They have experience with Oracle HCM migrations and provide import templates, data validation tools, and hands-on support through go-live. The Oracle-specific challenge they most often help with is flattening effective-dated records into Rippling's current-state model.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">What's the hardest part of the Oracle-to-Rippling migration?</div>
+        <div class="faq-answer">Effective-dated record flattening. Oracle stores every change as a date-range row; Rippling expects one record per employee. You need transformation scripts that correctly identify the current-state record and handle correction rows (<code>EFFECTIVE_LATEST_CHANGE = 'Y'</code>). The second challenge is mapping Oracle lookup codes — custom values for <code>ASSIGNMENT_TYPE</code>, <code>EMPLOYEE_CATEGORY</code>, grade codes — to Rippling's equivalents.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-question">Is Rippling better than BambooHR for Oracle HCM migrations?</div>
+        <div class="faq-answer">Depends on your size and needs. BambooHR is simpler to implement (4–8 weeks vs. 6–14 for Rippling) and cheaper for under-500 employees. Rippling is better if you want integrated IT management (device provisioning, app access), more complex payroll, or if you have 1,000–5,000 employees. See our <a href="/blog/oracle-hcm-vs-bamboohr">Oracle HCM vs BambooHR comparison</a> for the full breakdown.</div>
+      </div>
+    </div>
+
+    <div class="cta-box">
+      <h3>Ready to start your migration?</h3>
+      <p>Get a free scoping call with an Oracle HCM migration specialist, or request a Rippling demo to see the platform before committing.</p>
+      <a href="/oracle-hcm-consultants" class="cta-button">Find a Migration Specialist →</a>
+      <a href="https://rippling.com/request-demo?utm_source=hcm-tables&utm_medium=referral&utm_campaign=oracle-rippling-migration" target="_blank" rel="nofollow sponsored noopener" class="cta-button-alt">Request Rippling Demo →</a>
+    </div>
+
+    <h2>Related Articles</h2>
+    <ul>
+      <li><a href="/blog/oracle-hcm-vs-bamboohr">Oracle HCM vs BambooHR 2026: Mid-Market Guide</a> — Is BambooHR a simpler migration target?</li>
+      <li><a href="/blog/oracle-hcm-alternatives">7 Best Oracle HCM Alternatives in 2026</a> — Full comparison of all major alternatives</li>
+      <li><a href="/blog/person-assignment-work-relationship-data-model-explained">Oracle HCM Person-Assignment Data Model</a> — Deep dive into the tables you're migrating</li>
+      <li><a href="/blog/per-all-assignments-m-duplicate-rows-fix">PER_ALL_ASSIGNMENTS_M Duplicate Rows Fix</a> — Critical for clean extraction</li>
+      <li><a href="/blog/per-all-assignments-f-oracle-24b-migration-guide">PER_ALL_ASSIGNMENTS_F vs _M in Oracle 24B</a> — Which table to use for extraction</li>
+    </ul>
+
+    <div style="margin-top:2rem;padding:1.25rem 1.5rem;background:var(--bg-card,#13161f);border:1px solid var(--border);border-radius:8px">
+      <p style="margin:0 0 0.5rem;font-size:0.8rem;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:0.05em">Still on Oracle HCM?</p>
+      <p style="margin:0 0 0.75rem;font-size:0.9rem;line-height:1.55">Search 14,950+ Oracle Fusion Cloud tables and 1.2M columns instantly. Find the exact schema for every table in this guide.</p>
+      <a href="/" style="display:inline-block;padding:0.45rem 1rem;background:#2563eb;color:#fff;border-radius:5px;font-size:0.85rem;font-weight:600;text-decoration:none">Search Oracle HCM Tables →</a>
+    </div>
+
+    <div style="background:var(--bg-secondary,#16181f);border:1px solid var(--border,#2a2e42);border-radius:12px;padding:2rem;margin:1.5rem 0;text-align:center">
+      <p style="font-size:0.75rem;font-weight:700;color:var(--accent,#e05a2b);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.5rem">Free Resource</p>
+      <h3 style="font-size:1.1rem;font-weight:700;margin-bottom:0.4rem;color:var(--text-primary,#f8f9fa)">Oracle HCM SQL Cheat Sheet</h3>
+      <p style="font-size:0.875rem;color:var(--text-secondary,#a0a8c0);margin-bottom:1.25rem">7 copy-paste SQL queries for extracting clean employee and assignment data — pre-filtered for effective-dating, _TL joins, and EFFECTIVE_LATEST_CHANGE. Essential for any migration project.</p>
+      <form id="cheatsheet-form" onsubmit="return handleSubscribe(event,'cheatsheet-form','sql-cheatsheet','lead')" style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap">
+        <input type="email" name="email" required placeholder="you@company.com" style="padding:0.6rem 1rem;border-radius:8px;border:1px solid var(--border,#2a2e42);background:var(--bg-primary,#0f1117);color:var(--text-primary,#f8f9fa);font-size:0.9rem;min-width:220px">
+        <button type="submit" style="padding:0.6rem 1.25rem;border-radius:8px;border:none;background:var(--accent,#e05a2b);color:white;font-size:0.9rem;font-weight:600;cursor:pointer">Get the SQL Cheat Sheet →</button>
+      </form>
+      <p class="form-msg" data-form="cheatsheet-form" style="font-size:0.75rem;margin-top:0.75rem;color:var(--text-muted,#606880)">Free. No spam.</p>
+    </div>
+
+    <p style="font-size:0.72rem;color:var(--text-muted);margin-top:1.5rem">Disclosure: Some links on this page are affiliate links. We may earn a commission if you sign up for a product, at no extra cost to you. Our editorial opinions are independent. Oracle and Oracle Fusion Cloud are trademarks of Oracle Corporation. Rippling is a trademark of Rippling People Center, Inc. HCM Tables is not affiliated with or endorsed by either company.</p>
+  </div>
+
+  <footer class="footer">
+    <div style="max-width:760px;margin:0 auto">
+      <p>Data sourced from Oracle Cloud documentation. Not affiliated with Oracle Corporation.</p>
+      <p><a href="/">Search 14,950+ Oracle HCM Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="/oracle-hcm-consultants">Find a Consultant</a> &middot; <a href="https://docs.oracle.com/en/cloud/saas/" target="_blank" rel="noopener">Oracle Docs →</a></p>
+    </div>
+  </footer>
+
+<script src="/subscribe.js"></script>
+</body>
+</html>

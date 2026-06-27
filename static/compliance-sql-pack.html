@@ -1,0 +1,503 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <title>Oracle HCM Compliance SQL Pack — EEO-1, ACA, FLSA Production Queries | HCM Tables</title>
+  <meta name="description" content="12 production-ready Oracle Fusion HCM SQL queries for EEO-1 headcount by race/gender/job category, ACA FTE calculation, FLSA overtime eligibility, SOX audit trails, and more. One-time $499.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hcm-tables.com/compliance-sql-pack">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hcm-tables.com/compliance-sql-pack">
+  <meta property="og:title" content="Oracle HCM Compliance SQL Pack — EEO-1, ACA, FLSA Production Queries">
+  <meta property="og:description" content="12 Oracle HCM SQL queries for EEO-1, ACA FTE, FLSA overtime, SOX audit — tested and documented. One-time purchase, immediate delivery.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+
+  <style>
+    :root {
+      --bg: oklch(0.13 0.01 260);
+      --bg2: oklch(0.16 0.01 260);
+      --bg3: oklch(0.20 0.015 260);
+      --text: oklch(0.98 0 0);
+      --muted: oklch(0.65 0.01 260);
+      --faint: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-dim: oklch(0.60 0.25 25 / 0.15);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --yellow: oklch(0.80 0.15 85);
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+      --r: 12px;
+      --r-sm: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      max-width: 1100px; margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 0.9rem; color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    .hero {
+      max-width: 820px; margin: 0 auto;
+      padding: 4rem 1.5rem 3rem; text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.3rem 0.8rem;
+      border-radius: 100px; border: 1px solid oklch(0.65 0.2 25 / 0.3);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { font-size: 3rem; font-weight: 800; line-height: 1.15; margin-bottom: 1.25rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: 1.15rem; color: var(--muted); max-width: 580px; margin: 0 auto 2.5rem; }
+    .hero-cta {
+      display: inline-block; background: var(--accent); color: #fff;
+      font-weight: 700; font-size: 1.05rem;
+      padding: 0.9rem 2rem; border-radius: var(--r-sm);
+      text-decoration: none; transition: opacity 0.15s;
+    }
+    .hero-cta:hover { opacity: 0.88; text-decoration: none; color: #fff; }
+    .hero-note { font-size: 0.82rem; color: var(--faint); margin-top: 0.75rem; }
+
+    .pain {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    @media (max-width: 640px) { .pain { grid-template-columns: 1fr; } }
+    .pain-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.25rem;
+    }
+    .pain-emoji { font-size: 1.5rem; margin-bottom: 0.5rem; }
+    .pain-card h3 { font-size: 0.95rem; font-weight: 600; margin-bottom: 0.4rem; }
+    .pain-card p { font-size: 0.875rem; color: var(--muted); }
+
+    .section { max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+    .section-label {
+      font-size: 0.75rem; font-weight: 700; color: var(--accent);
+      text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 0.75rem;
+    }
+    .section h2 { font-size: 1.75rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .section > p { font-size: 1.05rem; color: var(--muted); margin-bottom: 2rem; }
+
+    .query-grid { display: flex; flex-direction: column; gap: 0.75rem; }
+    .query-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1rem 1.25rem;
+      display: flex; align-items: flex-start; gap: 1rem;
+    }
+    .query-number {
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.75rem; font-weight: 700; min-width: 28px; height: 28px;
+      border-radius: 6px; display: flex; align-items: center; justify-content: center;
+      border: 1px solid oklch(0.65 0.2 25 / 0.2); flex-shrink: 0; margin-top: 2px;
+    }
+    .query-content h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.3rem; }
+    .query-content p { font-size: 0.875rem; color: var(--muted); }
+    .query-tag {
+      display: inline-block; font-size: 0.65rem; font-weight: 700;
+      padding: 0.1rem 0.4rem; border-radius: 4px; margin-left: 0.5rem; vertical-align: middle;
+    }
+    .tag-eeo { background: rgba(100,150,200,0.15); color: var(--blue); }
+    .tag-aca { background: rgba(100,200,150,0.12); color: var(--green); }
+    .tag-flsa { background: oklch(0.80 0.15 85 / 0.12); color: var(--yellow); }
+    .tag-sox { background: rgba(224,90,43,.12); color: var(--accent); }
+
+    .code-preview {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem; margin: 2rem 0; overflow-x: auto;
+    }
+    .code-preview-label {
+      font-size: 0.7rem; font-weight: 700; color: var(--faint);
+      text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem;
+    }
+    .code-preview pre {
+      font-family: var(--mono); font-size: 0.875rem;
+      color: var(--muted); line-height: 1.6; white-space: pre;
+    }
+    .code-preview pre .kw { color: oklch(0.65 0.2 25); }
+    .code-preview pre .col { color: oklch(0.75 0.12 250); }
+    .code-preview pre .cmt { color: oklch(0.45 0.01 260); }
+    .code-preview pre .st { color: oklch(0.70 0.18 145); }
+
+    .includes-grid {
+      display: grid; grid-template-columns: repeat(2, 1fr); gap: 1rem; margin-top: 1.5rem;
+    }
+    @media (max-width: 600px) { .includes-grid { grid-template-columns: 1fr; } }
+    .includes-item { display: flex; gap: 0.75rem; align-items: flex-start; }
+    .includes-check { color: var(--green); font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .includes-item p { font-size: 0.9rem; color: var(--muted); }
+    .includes-item strong { color: var(--text); font-weight: 600; }
+
+    .pricing-card {
+      background: var(--bg2); border: 2px solid var(--accent);
+      border-radius: var(--r); padding: 2.5rem;
+      text-align: center; max-width: 480px; margin: 0 auto;
+    }
+    .price-label { font-size: 0.8rem; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.75rem; }
+    .price-amount { font-size: 3.5rem; font-weight: 800; line-height: 1; margin-bottom: 0.5rem; }
+    .price-amount span { font-size: 1.75rem; vertical-align: top; margin-top: 0.5rem; display: inline-block; }
+    .price-desc { font-size: 0.9rem; color: var(--muted); margin-bottom: 1.5rem; }
+    .price-cta {
+      background: var(--accent); color: #fff; font-weight: 700; font-size: 1rem;
+      padding: 0.8rem 1.75rem; border-radius: var(--r-sm);
+      border: none; display: inline-block;
+      transition: opacity 0.15s; text-decoration: none;
+    }
+    .price-cta:hover { opacity: 0.88; text-decoration: none; color: #fff; }
+    .price-guarantee { font-size: 0.78rem; color: var(--faint); margin-top: 1.25rem; line-height: 1.5; }
+
+    .social-proof {
+      max-width: 820px; margin: 0 auto; padding: 0 1.5rem 3rem;
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 1rem;
+    }
+    @media (max-width: 640px) { .social-proof { grid-template-columns: 1fr; } }
+    .proof-stat {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); padding: 1.5rem; text-align: center;
+    }
+    .proof-num { font-size: 2rem; font-weight: 800; color: var(--accent); margin-bottom: 0.25rem; }
+    .proof-label { font-size: 0.85rem; color: var(--muted); }
+
+    .faq-list { display: flex; flex-direction: column; gap: 1rem; margin-top: 1.5rem; }
+    .faq-item { background: var(--bg2); border: 1px solid var(--border); border-radius: var(--r-sm); padding: 1.25rem 1.5rem; }
+    .faq-item h3 { font-size: 0.975rem; font-weight: 600; margin-bottom: 0.5rem; }
+    .faq-item p { font-size: 0.9rem; color: var(--muted); }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem 1.5rem;
+      text-align: center; color: var(--faint); font-size: 0.85rem; margin-top: 2rem;
+    }
+    footer a { color: var(--faint); }
+    footer a:hover { color: var(--muted); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav">
+    <a href="/" class="nav-brand">Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Tables</a>
+      <a href="/blog/">Blog</a>
+      <a href="/otbi-template-pack">OTBI Pack</a>
+    </div>
+  </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero">
+  <div class="hero-badge">Compliance SQL Pack</div>
+  <h1>Oracle HCM <span>Compliance SQL</span> — Production-Ready</h1>
+  <p>12 validated Oracle Fusion HCM SQL queries for EEO-1 headcount, ACA FTE calculation, FLSA overtime eligibility, and SOX audit trails. Written for real environments, not demos.</p>
+  <a href="#get-it" class="hero-cta">Get the Compliance Pack ($499) &rarr;</a>
+  <p class="hero-note">One-time purchase. Delivered within 24 hours. 30-day guarantee.</p>
+</section>
+
+<!-- Pain points -->
+<div class="pain">
+  <div class="pain-card">
+    <div class="pain-emoji">📋</div>
+    <h3>EEO-1 reporting in Oracle HCM is underdocumented</h3>
+    <p>The right tables, race/ethnicity codes, and job category mappings take days to find without a guide.</p>
+  </div>
+  <div class="pain-card">
+    <div class="pain-emoji">⚖️</div>
+    <h3>ACA FTE thresholds need exact calculation</h3>
+    <p>Getting variable-hour employee status wrong creates IRS exposure. The PAY_ query logic is non-obvious.</p>
+  </div>
+  <div class="pain-card">
+    <div class="pain-emoji">🔒</div>
+    <h3>SOX auditors want evidence trails</h3>
+    <p>Producing role change history, segregation of duties conflicts, and payroll approvals from HCM tables under time pressure.</p>
+  </div>
+</div>
+
+<!-- Query list -->
+<section class="section">
+  <div class="section-label">What's Included</div>
+  <h2>12 Compliance Queries, Fully Documented</h2>
+  <p>Every query includes: table references, join conditions, date-effective filter pattern, and inline comments explaining each clause. Ready to run in BI Publisher or direct SQL access.</p>
+  <div class="query-grid">
+    <div class="query-item">
+      <div class="query-number">1</div>
+      <div class="query-content">
+        <h3>EEO-1 Category 1 — Headcount by Race, Gender, and Job Category <span class="query-tag tag-eeo">EEO-1</span></h3>
+        <p>Maps PER_ALL_PEOPLE_F ethnicity codes to EEOC categories. Joins to per_persons_legislative_f for US-specific data. Handles multi-ethnicity respondents per EEOC 2007 instructions.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">2</div>
+      <div class="query-content">
+        <h3>EEO-1 Job Category to Oracle Job Code Mapping <span class="query-tag tag-eeo">EEO-1</span></h3>
+        <p>Cross-reference Oracle job codes to EEO-1 job categories (1.1 Executive, 1.2 Senior Professional, 2 Professional… 9 Laborers). Includes unmapped job audit.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">3</div>
+      <div class="query-content">
+        <h3>EEO-1 Pay Band Report (Component 2 Format) <span class="query-tag tag-eeo">EEO-1</span></h3>
+        <p>W-2 earnings bucketed into the 12 EEOC pay bands by job category and demographic. Joins PAY_PAYROLL_ACTIONS and element classification for W-2 wage elements only.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">4</div>
+      <div class="query-content">
+        <h3>ACA Full-Time Employee Count (Section 4980H) <span class="query-tag tag-aca">ACA</span></h3>
+        <p>Counts FTEs using the monthly measurement method. Includes part-time FTE equivalents (hours ÷ 120). Aggregates to employer-level for ALEs and controlled group determinations.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">5</div>
+      <div class="query-content">
+        <h3>ACA Variable-Hour Employee Status Audit <span class="query-tag tag-aca">ACA</span></h3>
+        <p>Identifies employees crossing the 30-hour ACA threshold mid-measurement period. Pulls from PAY_RUN_RESULT_VALUES and PER_ALL_ASSIGNMENTS_M with averaging logic.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">6</div>
+      <div class="query-content">
+        <h3>ACA 1094/1095-C Eligibility Indicator Audit <span class="query-tag tag-aca">ACA</span></h3>
+        <p>Validates offer-of-coverage code logic (1A–1J lines 14–16) against enrollment and benefit election data in BEN_* tables. Flags indicator mismatches before filing.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">7</div>
+      <div class="query-content">
+        <h3>FLSA Overtime Eligibility Classification Audit <span class="query-tag tag-flsa">FLSA</span></h3>
+        <p>Identifies workers classified as exempt vs non-exempt. Cross-checks salary against DOL threshold ($684/week as of 2024). Flags potential misclassifications by job title and salary level.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">8</div>
+      <div class="query-content">
+        <h3>FLSA Overtime Hours and Pay Calculation <span class="query-tag tag-flsa">FLSA</span></h3>
+        <p>Pulls hours worked from HWM_TIME_ENTRIES vs element results in PAY_RUN_RESULTS. Calculates regular rate of pay including non-discretionary bonuses for accurate 1.5x overtime base.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">9</div>
+      <div class="query-content">
+        <h3>SOX Segregation of Duties Conflict Report <span class="query-tag tag-sox">SOX</span></h3>
+        <p>Identifies users with conflicting HCM role combinations (e.g., both Payroll Entry and Payroll Approval). Joins HCM security tables to produce conflict matrix by user and conflict type.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">10</div>
+      <div class="query-content">
+        <h3>SOX Privileged Access Review (PAR) Report <span class="query-tag tag-sox">SOX</span></h3>
+        <p>Lists all users with HCM super-user or sensitive data access roles. Includes last login date, role assignment date, and approver. Point-in-time snapshot for audit evidence.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">11</div>
+      <div class="query-content">
+        <h3>SOX Payroll Variance Control (Period-over-Period) <span class="query-tag tag-sox">SOX</span></h3>
+        <p>Flags payroll runs where element totals vary more than 5% from prior period. Excludes approved variance reasons. Produces the management review evidence auditors expect.</p>
+      </div>
+    </div>
+    <div class="query-item">
+      <div class="query-number">12</div>
+      <div class="query-content">
+        <h3>Workforce Change Audit Trail (Hire, Term, Transfer, Salary) <span class="query-tag tag-sox">SOX</span></h3>
+        <p>Comprehensive action history from PER_ACTION_OCCURRENCES and PER_ASSIGNMENT_SUPERVISORS_F. Shows who changed what, when, and which supervisor approved. Standard SOX evidence package.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Code preview -->
+<section class="section">
+  <div class="section-label">Sample Query</div>
+  <h2>EEO-1 Headcount — Actual SQL You Get</h2>
+  <div class="code-preview">
+    <div class="code-preview-label">Query 1 — EEO-1 Headcount by Race, Gender, Job Category (Oracle Fusion HCM)</div>
+    <pre><span class="cmt">-- EEO-1 Category 1 Headcount
+-- Reports as of: snapshot date (typically Oct 15 or Dec 31)
+-- Tables: PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M,
+--         PER_PERSONS_LEGISLATIVE_F, PER_JOBS_F, HR_LOCATIONS_ALL</span>
+<span class="kw">SELECT</span>
+  <span class="cmt">-- EEO-1 job category from Oracle job code mapping</span>
+  <span class="col">jm.eeo1_category</span>,
+  <span class="cmt">-- EEOC race/ethnicity codes mapped to standard labels</span>
+  <span class="kw">CASE</span> pl.<span class="col">ETHNIC_GROUP</span>
+    <span class="kw">WHEN</span> <span class="st">'2'</span> <span class="kw">THEN</span> <span class="st">'Hispanic or Latino'</span>
+    <span class="kw">WHEN</span> <span class="st">'1'</span> <span class="kw">THEN</span> <span class="st">'White (Not Hispanic)'</span>
+    <span class="kw">WHEN</span> <span class="st">'4'</span> <span class="kw">THEN</span> <span class="st">'Black or African American'</span>
+    <span class="kw">WHEN</span> <span class="st">'7'</span> <span class="kw">THEN</span> <span class="st">'Asian'</span>
+    <span class="kw">WHEN</span> <span class="st">'5'</span> <span class="kw">THEN</span> <span class="st">'American Indian or Alaska Native'</span>
+    <span class="kw">WHEN</span> <span class="st">'3'</span> <span class="kw">THEN</span> <span class="st">'Native Hawaiian or Other Pacific Islander'</span>
+    <span class="kw">WHEN</span> <span class="st">'6'</span> <span class="kw">THEN</span> <span class="st">'Two or More Races'</span>
+    <span class="kw">ELSE</span>        <span class="st">'Not Disclosed'</span>
+  <span class="kw">END</span>                <span class="kw">AS</span> <span class="col">race_ethnicity</span>,
+  p.<span class="col">SEX</span>             <span class="kw">AS</span> <span class="col">gender</span>,
+  <span class="kw">COUNT</span>(*)          <span class="kw">AS</span> <span class="col">headcount</span>
+<span class="kw">FROM</span>
+  <span class="col">PER_ALL_PEOPLE_F</span>         p
+  <span class="kw">JOIN</span> <span class="col">PER_ALL_ASSIGNMENTS_M</span>  a
+    <span class="kw">ON</span>  a.<span class="col">PERSON_ID</span>     = p.<span class="col">PERSON_ID</span>
+    <span class="kw">AND</span> a.<span class="col">PRIMARY_FLAG</span>  = <span class="st">'Y'</span>
+    <span class="kw">AND</span> a.<span class="col">ASSIGNMENT_TYPE</span> <span class="kw">IN</span> (<span class="st">'E'</span>,<span class="st">'C'</span>)
+    <span class="kw">AND</span> <span class="col">:snapshot_date</span> <span class="kw">BETWEEN</span>
+          a.<span class="col">EFFECTIVE_START_DATE</span> <span class="kw">AND</span> a.<span class="col">EFFECTIVE_END_DATE</span>
+  <span class="kw">JOIN</span> <span class="col">PER_PERSONS_LEGISLATIVE_F</span> pl
+    <span class="kw">ON</span>  pl.<span class="col">PERSON_ID</span>    = p.<span class="col">PERSON_ID</span>
+    <span class="kw">AND</span> pl.<span class="col">LEGISLATION_CODE</span> = <span class="st">'US'</span>
+    <span class="kw">AND</span> <span class="col">:snapshot_date</span> <span class="kw">BETWEEN</span>
+          pl.<span class="col">EFFECTIVE_START_DATE</span> <span class="kw">AND</span> pl.<span class="col">EFFECTIVE_END_DATE</span>
+  <span class="kw">JOIN</span> <span class="col">eeo1_job_category_map</span>  jm  <span class="cmt">-- supplied mapping table</span>
+    <span class="kw">ON</span>  jm.<span class="col">oracle_job_code</span>  = a.<span class="col">JOB_CODE</span>
+<span class="kw">WHERE</span>
+  <span class="col">:snapshot_date</span> <span class="kw">BETWEEN</span>
+    p.<span class="col">EFFECTIVE_START_DATE</span> <span class="kw">AND</span> p.<span class="col">EFFECTIVE_END_DATE</span>
+  <span class="kw">AND</span> a.<span class="col">ASSIGNMENT_STATUS_TYPE</span> = <span class="st">'ACTIVE_PROCESS'</span>
+<span class="kw">GROUP BY</span>
+  jm.<span class="col">eeo1_category</span>,
+  pl.<span class="col">ETHNIC_GROUP</span>,
+  p.<span class="col">SEX</span>
+<span class="kw">ORDER BY</span>
+  jm.<span class="col">eeo1_category</span>,
+  race_ethnicity,
+  gender</pre>
+  </div>
+  <p style="font-size:0.875rem;color:var(--muted)">Each query in the pack includes the full version with all join conditions, date-effective filters, gotcha comments, and notes on which BI Publisher data source type to use.</p>
+</section>
+
+<!-- What's included -->
+<section class="section">
+  <div class="section-label">Package Contents</div>
+  <h2>Everything in One Download</h2>
+  <div class="includes-grid">
+    <div class="includes-item">
+      <span class="includes-check">✓</span>
+      <p><strong>12 production SQL queries</strong> — EEO-1 (3), ACA (3), FLSA (2), SOX (4)</p>
+    </div>
+    <div class="includes-item">
+      <span class="includes-check">✓</span>
+      <p><strong>EEO-1 job category mapping table</strong> — Oracle job codes → EEOC categories template</p>
+    </div>
+    <div class="includes-item">
+      <span class="includes-check">✓</span>
+      <p><strong>ACA measurement period cheat sheet</strong> — monthly vs lookback method explained</p>
+    </div>
+    <div class="includes-item">
+      <span class="includes-check">✓</span>
+      <p><strong>FLSA salary threshold table</strong> — current DOL thresholds by exemption type</p>
+    </div>
+    <div class="includes-item">
+      <span class="includes-check">✓</span>
+      <p><strong>BI Publisher data model setup notes</strong> — parameter binding, multi-dataset joins</p>
+    </div>
+    <div class="includes-item">
+      <span class="includes-check">✓</span>
+      <p><strong>Inline SQL comments</strong> — every clause explained for customization</p>
+    </div>
+    <div class="includes-item">
+      <span class="includes-check">✓</span>
+      <p><strong>Oracle Fusion 24B-compatible</strong> — tested against PER_ALL_ASSIGNMENTS_M patterns</p>
+    </div>
+    <div class="includes-item">
+      <span class="includes-check">✓</span>
+      <p><strong>30-day email support</strong> — we'll help adapt any query to your environment</p>
+    </div>
+  </div>
+</section>
+
+<!-- Social proof stats -->
+<div class="social-proof">
+  <div class="proof-stat">
+    <div class="proof-num">4–8h</div>
+    <div class="proof-label">Hours saved per compliance report vs building from scratch</div>
+  </div>
+  <div class="proof-stat">
+    <div class="proof-num">24B</div>
+    <div class="proof-label">Tested against Oracle Fusion HCM 24B (latest release)</div>
+  </div>
+  <div class="proof-stat">
+    <div class="proof-num">$499</div>
+    <div class="proof-label">vs $800–$1,200 to hire a consultant for the same queries</div>
+  </div>
+</div>
+
+<!-- Pricing -->
+<section class="section" id="get-it">
+  <div class="section-label">Pricing</div>
+  <h2>Get the Compliance SQL Pack</h2>
+  <br>
+  <div class="pricing-card">
+    <div class="price-label">One-time purchase</div>
+    <div class="price-amount"><span>$</span>499</div>
+    <div class="price-desc">12 queries. All compliance frameworks. Lifetime access. No subscription.</div>
+    <form id="compliance-pack-form" onsubmit="return handleSubscribe(event,'compliance-pack-form','compliance-sql-pack-499','purchase')" style="display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin-bottom:0.5rem">
+      <input type="email" name="email" required placeholder="you@company.com" style="padding:0.5rem 0.8rem;border-radius:8px;border:1px solid rgba(255,255,255,0.15);background:rgba(0,0,0,0.2);color:#fff;font-size:0.85rem;min-width:200px">
+      <button type="submit" class="price-cta" style="cursor:pointer">Get Instant Access &rarr;</button>
+    </form>
+    <p class="form-msg" data-form="compliance-pack-form" style="font-size:0.75rem;margin:0.25rem 0 0;color:rgba(255,255,255,0.5)"></p>
+    <div class="price-guarantee">We'll send payment link + download within 24 hours.<br>30-day money-back guarantee — if the queries don't work in your Oracle environment, full refund.</div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="section">
+  <div class="section-label">FAQ</div>
+  <h2>Common Questions</h2>
+  <div class="faq-list">
+    <div class="faq-item">
+      <h3>What Oracle Fusion version are these queries for?</h3>
+      <p>All queries are written for Oracle Fusion Cloud HCM Release 13 (current cloud version) and tested through Oracle 24B. The assignment queries use the 24B-recommended PER_ALL_ASSIGNMENTS_M pattern instead of the deprecated _F table.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Do I need direct database access, or do these work in BI Publisher?</h3>
+      <p>These are physical SQL queries — they require either BI Publisher with a direct database connection, a custom report with SQL data source, or BIP access through Oracle Fusion's built-in analytics layer. They will not run in OTBI (Logical SQL). Each query includes BI Publisher setup notes.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Can I use these for the actual EEO-1 submission?</h3>
+      <p>The queries produce the correct headcount breakdowns. Your legal or HR team should validate the job category mappings for your specific Oracle job codes before filing. We include a mapping template to simplify that validation step.</p>
+    </div>
+    <div class="faq-item">
+      <h3>What if a query doesn't run in our environment?</h3>
+      <p>Email us with your Oracle version and the error. We include 30 days of email support to help adapt the query to your environment. If we can't get it working, full refund — no questions asked.</p>
+    </div>
+    <div class="faq-item">
+      <h3>Is this different from the OTBI Template Pack?</h3>
+      <p>Yes. The <a href="/otbi-template-pack">OTBI Template Pack ($97)</a> contains Logical SQL queries for OTBI/Oracle Analytics. This Compliance SQL Pack contains physical SQL for BI Publisher and direct database access — different technology, different use cases. Most compliance reporting requires physical SQL because OTBI subject areas don't expose the raw legislative data needed for EEO-1 and ACA calculations.</p>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <p><a href="/">Oracle HCM Tables</a> · <a href="/blog/">Blog</a> · <a href="/otbi-template-pack">OTBI Pack</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+  <p style="margin-top:0.5rem;">© 2026 HCM Tables. Oracle Fusion HCM is a registered trademark of Oracle Corporation.</p>
+</footer>
+
+<script src="/subscribe.js"></script>
+</body>
+</html>

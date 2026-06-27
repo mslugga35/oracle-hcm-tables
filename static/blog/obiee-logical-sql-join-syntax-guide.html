@@ -1,0 +1,672 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>OBIEE Logical SQL Join Syntax: Why LEFT JOIN Breaks and the Correct Patterns | HCM Tables</title>
+  <meta name="title" content="OBIEE Logical SQL Join Syntax: Why LEFT JOIN Breaks and the Correct Patterns | HCM Tables">
+  <meta name="description" content="Standard SQL LEFT JOIN syntax fails in OBIEE Logical SQL — the BI Server resolves joins through the RPD, not your query. Learn the correct implicit join pattern, outer join syntax, FILTER() workarounds, and 5 production Oracle HCM examples.">
+  <meta name="keywords" content="OBIEE logical SQL join syntax, OBIEE LEFT JOIN, OBIEE join pattern, OTBI join syntax, OBIEE outer join, OBIEE Logical SQL FROM clause, Oracle BI Server join, OBIEE comma join pattern, OTBI join columns, OBIEE subquery syntax">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/obiee-logical-sql-join-syntax-guide">
+
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/obiee-logical-sql-join-syntax-guide">
+  <meta property="og:title" content="OBIEE Logical SQL Join Syntax: Why LEFT JOIN Breaks and the Correct Patterns">
+  <meta property="og:description" content="Standard SQL LEFT JOIN fails in OBIEE Logical SQL. Learn the correct implicit join, outer join, and FILTER() patterns with 5 Oracle HCM examples.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/obiee-logical-sql-join-syntax-guide">
+  <meta property="twitter:title" content="OBIEE Logical SQL Join Syntax: Why LEFT JOIN Breaks and the Correct Patterns">
+  <meta property="twitter:description" content="Standard SQL LEFT JOIN fails in OBIEE. Learn the correct implicit join, outer join syntax, and FILTER() patterns for Oracle HCM reports.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "TechArticle",
+    "headline": "OBIEE Logical SQL Join Syntax: Why LEFT JOIN Breaks and the Correct Patterns",
+    "description": "Standard SQL LEFT JOIN syntax fails in OBIEE Logical SQL. Learn the correct implicit join pattern, outer join syntax, FILTER() workarounds, and 5 production Oracle HCM examples.",
+    "url": "https://hcm-tables.com/blog/obiee-logical-sql-join-syntax-guide",
+    "datePublished": "2026-06-27",
+    "dateModified": "2026-06-27",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {"@type": "Organization", "name": "HCM Tables", "url": "https://hcm-tables.com"},
+    "proficiencyLevel": "Expert",
+    "dependencies": "Oracle OBIEE, Oracle Analytics Cloud, Oracle Fusion HCM"
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OBIEE Logical SQL Join Syntax Guide","item":"https://hcm-tables.com/blog/obiee-logical-sql-join-syntax-guide"}
+  ]}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why does LEFT JOIN fail in OBIEE Logical SQL?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OBIEE Logical SQL does not use standard SQL join syntax. The BI Server resolves all physical joins through the RPD (repository) — you never write JOIN ... ON in Logical SQL. Instead, you select columns from multiple presentation tables in the same FROM clause (comma-separated) and the BI Server applies the join paths defined in your metadata layer automatically."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you write a join in OBIEE Logical SQL?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "In OBIEE Logical SQL, a join is implicit. You list multiple subject area tables in the FROM clause separated by commas: FROM \"Workers\", \"Assignments\". The BI Server uses the join path defined in the RPD to resolve how those tables relate. There is no ON clause — the join condition is defined in the physical layer metadata."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do you do a LEFT outer join in OBIEE Logical SQL?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OBIEE Logical SQL does not natively support LEFT JOIN syntax. The closest equivalent is using the FILTER() function to apply conditional aggregation — e.g., FILTER(COUNT(\"Grade\".\"Grade Name\") USING \"Grade\".\"Grade Name\" IS NOT NULL). For true outer join behavior, use BI Publisher with two separate SQL datasets joined at the BIP layer, or modify the logical join in the RPD to be an outer join."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is nQSError 14025 in OBIEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "nQSError 14025 — 'No fact table exists at the requested level of detail' — typically occurs when you request columns that exist in different logical tables without a valid join path between them in the RPD. Fix by ensuring both subject area columns share a conforming dimension, or use separate analyses and combine in a dashboard prompt or BIP dataset."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg: #0f1117;
+      --bg2: #141720;
+      --bg3: #1a1e2e;
+      --fg: #f8f9fa;
+      --fg2: #a0a8c0;
+      --fg3: #606880;
+      --bd: #2a2e42;
+      --ac: #e05a2b;
+      --ac2: rgba(224,90,43,.18);
+      --bl: #5b8dee;
+      --gn: #4caf82;
+      --yw: #d4b44a;
+      --rd: #e05a2b;
+      --fn: Inter,system-ui,sans-serif;
+      --fm: 'JetBrains Mono',monospace;
+      --r: 12px;
+      --rs: 8px;
+    }
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+    a{color:var(--bl);text-decoration:none;transition:color .15s}
+    a:hover{color:var(--ac);text-decoration:underline}
+
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+    .nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+    .nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}
+
+    .hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:860px;margin:0 auto}
+    .hero::before{content:'';position:absolute;top:-40%;left:50%;transform:translateX(-50%);width:100%;max-width:600px;height:350px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+    .tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+    .hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+    .meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+
+    .toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+    .toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+    .toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+    .toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+
+    .ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+    .ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+    .ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+    .ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+    .ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+    .ab strong{color:var(--fg);font-weight:600}
+    .ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+
+    .cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+    .cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}
+    .cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}
+    .cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}
+    .cl-e{background:rgba(224,90,43,.08);border-color:var(--rd)}
+    .cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}
+    .cl p{color:var(--fg2);margin:0;font-size:.95rem}
+    .cl strong{color:var(--fg)}
+
+    .tw{overflow-x:auto;margin:1.5rem 0;border-radius:var(--rs);border:1px solid var(--bd)}
+    .tw table{width:100%;border-collapse:collapse;font-size:.9rem}
+    .tw th{background:var(--bg3);color:var(--fg);font-weight:600;padding:.75rem 1rem;text-align:left;border-bottom:1px solid var(--bd)}
+    .tw td{padding:.7rem 1rem;color:var(--fg2);border-bottom:1px solid rgba(42,46,66,.5)}
+    .tw tr:last-child td{border-bottom:none}
+    .tw tr:hover td{background:rgba(255,255,255,.02)}
+
+    .cb{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--rs);overflow:hidden;margin:1.5rem 0}
+    .cb-hd{display:flex;align-items:center;justify-content:space-between;padding:.6rem 1rem;border-bottom:1px solid var(--bd);background:var(--bg3)}
+    .cb-label{font-size:.75rem;font-weight:600;color:var(--fg3);text-transform:uppercase;letter-spacing:.05em}
+    .cb pre{padding:1.25rem;font-family:var(--fm);font-size:.875rem;color:var(--fg2);line-height:1.6;overflow-x:auto;white-space:pre}
+    .cb .kw{color:var(--ac)}
+    .cb .fn{color:var(--bl)}
+    .cb .st{color:var(--gn)}
+    .cb .cm{color:var(--fg3)}
+    .cb .co{color:var(--yw)}
+
+    .compare{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+    @media(max-width:640px){.compare{grid-template-columns:1fr}}
+    .compare-panel{border-radius:var(--rs);overflow:hidden;border:1px solid var(--bd)}
+    .compare-hd{padding:.6rem 1rem;font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em}
+    .compare-hd.bad{background:rgba(224,90,43,.12);color:var(--rd)}
+    .compare-hd.good{background:rgba(76,175,130,.12);color:var(--gn)}
+    .compare-body{padding:1rem;background:var(--bg2)}
+    .compare-body pre{font-family:var(--fm);font-size:.82rem;color:var(--fg2);line-height:1.6;white-space:pre;overflow-x:auto}
+
+    .cta-box{background:linear-gradient(135deg,var(--bg2) 0%,rgba(224,90,43,.08) 100%);border:1px solid rgba(224,90,43,.25);border-radius:var(--r);padding:2rem;margin:3rem 0;text-align:center}
+    .cta-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.75rem;color:var(--fg)}
+    .cta-box p{color:var(--fg2);margin-bottom:1.5rem;font-size:.95rem}
+    .cta-btn{display:inline-block;background:var(--ac);color:#fff;font-weight:600;font-size:.9rem;padding:.65rem 1.5rem;border-radius:var(--rs);text-decoration:none;margin:.25rem}
+    .cta-btn:hover{opacity:.88;text-decoration:none;color:#fff}
+    .cta-btn-secondary{background:rgba(91,141,238,.12);color:var(--bl);border:1px solid rgba(91,141,238,.3)}
+    .cta-btn-secondary:hover{color:var(--bl)}
+
+    footer{text-align:center;padding:3rem 1.5rem;border-top:1px solid var(--bd);color:var(--fg3);font-size:.85rem}
+    footer a{color:var(--fg3)}.footer a:hover{color:var(--fg)}
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav">
+    <a href="/" class="nb">Oracle HCM Tables</a>
+    <div class="nl">
+      <a href="/">Tables</a>
+      <a href="/blog/">Blog</a>
+      <a href="/otbi-template-pack">OTBI Pack</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="tag">OBIEE / Logical SQL</span>
+  <h1>OBIEE Logical SQL Join Syntax: Why LEFT JOIN Breaks and the Correct Patterns</h1>
+  <div class="meta">
+    <span>Jun 27, 2026</span>
+    <span>·</span>
+    <span>16 min read</span>
+    <span>·</span>
+    <span>HCM Tables</span>
+  </div>
+</div>
+
+<div class="toc">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#why-left-join-fails">Why Standard LEFT JOIN Fails in OBIEE</a></li>
+    <li><a href="#how-joins-work">How the BI Server Resolves Joins</a></li>
+    <li><a href="#implicit-join">The Correct Implicit Join Pattern</a></li>
+    <li><a href="#outer-join">Simulating Outer Joins in Logical SQL</a></li>
+    <li><a href="#filter-function">The FILTER() Function Pattern</a></li>
+    <li><a href="#hcm-examples">5 Oracle HCM Join Examples</a></li>
+    <li><a href="#common-errors">Common Errors and Fixes</a></li>
+    <li><a href="#when-to-use-bip">When to Use BI Publisher Instead</a></li>
+    <li><a href="#faq">FAQ</a></li>
+  </ol>
+</div>
+
+<div class="ab">
+
+<h2 id="why-left-join-fails">Why Standard LEFT JOIN Fails in OBIEE</h2>
+
+<p>If you've come from standard SQL and tried to write a join in OBIEE Logical SQL, you've probably hit this immediately:</p>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">What You Tried (Fails)</span></div>
+  <pre><span class="cm">-- This is valid SQL — but it WILL NOT work in OBIEE Logical SQL</span>
+<span class="kw">SELECT</span>
+  w.<span class="co">"Worker Name"</span>,
+  a.<span class="co">"Grade Name"</span>
+<span class="kw">FROM</span>
+  <span class="st">"Workforce Management"."Workers"</span> w
+  <span class="kw">LEFT JOIN</span> <span class="st">"Workforce Management"."Assignments"</span> a
+    <span class="kw">ON</span> w.<span class="co">"Person Number"</span> = a.<span class="co">"Person Number"</span></pre>
+</div>
+
+<p>The BI Server rejects this with an error similar to:</p>
+
+<div class="cl cl-e">
+  <span class="cl-icon">✗</span>
+  <p><strong>nQSError: [nQSError: 26012]</strong> — Unrecognized token 'LEFT' at position X. OR: Syntax error near 'JOIN'.</p>
+</div>
+
+<p>This is not a bug. OBIEE Logical SQL is a <strong>semantic query language</strong>, not standard SQL. It was designed to query the Oracle BI metadata layer (the RPD / semantic model), not a physical database. The join conditions are defined in the RPD — not in your query. When you write Logical SQL, you are telling the BI Server <em>what</em> you want, and it decides <em>how</em> to join.</p>
+
+<h2 id="how-joins-work">How the BI Server Resolves Joins</h2>
+
+<p>Understanding this is the key to writing correct Logical SQL. The Oracle BI Server architecture has three layers:</p>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr>
+        <th>Layer</th>
+        <th>Purpose</th>
+        <th>Where Joins Live</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Physical Layer</strong></td>
+        <td>Actual database tables and connections</td>
+        <td>Physical join definitions with ON conditions</td>
+      </tr>
+      <tr>
+        <td><strong>Business Model (BMM)</strong></td>
+        <td>Logical tables, measures, and dimensions</td>
+        <td>Logical join paths and cardinality</td>
+      </tr>
+      <tr>
+        <td><strong>Presentation Layer</strong></td>
+        <td>Subject areas and folders users query</td>
+        <td>No joins — exposes columns from BMM</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<p>When you write a Logical SQL query, the BI Server:</p>
+<ol>
+  <li>Reads your column references (presentation layer)</li>
+  <li>Maps them to logical table columns (BMM layer)</li>
+  <li>Finds the join path between those logical tables</li>
+  <li>Generates the physical SQL with the correct <code>JOIN ... ON</code> clauses</li>
+  <li>Executes against the database and returns results</li>
+</ol>
+
+<p>You never see step 4. The join happens automatically. This is why <code>LEFT JOIN ... ON</code> in your Logical SQL is rejected — you're trying to define the join, but that's the BI Server's job.</p>
+
+<div class="cl cl-i">
+  <span class="cl-icon">💡</span>
+  <p><strong>Practical implication:</strong> If two columns from different presentation tables don't return meaningful results together, the issue is in the RPD join path — not in your query syntax. You can't fix it by rewriting the query.</p>
+</div>
+
+<h2 id="implicit-join">The Correct Implicit Join Pattern</h2>
+
+<p>In OBIEE Logical SQL, you join tables by listing them in the <code>FROM</code> clause separated by commas. That's it. The BI Server applies the join path from the RPD.</p>
+
+<div class="compare">
+  <div class="compare-panel">
+    <div class="compare-hd bad">Standard SQL (Fails in OBIEE)</div>
+    <div class="compare-body"><pre><span class="kw">SELECT</span>
+  w.<span class="co">"Worker Name"</span>,
+  a.<span class="co">"Grade Name"</span>,
+  a.<span class="co">"Assignment Status"</span>
+<span class="kw">FROM</span>
+  <span class="st">"Workers"</span> w
+  <span class="kw">LEFT JOIN</span> <span class="st">"Assignments"</span> a
+    <span class="kw">ON</span> w.<span class="co">"Person Number"</span>
+       = a.<span class="co">"Person Number"</span></pre></div>
+  </div>
+  <div class="compare-panel">
+    <div class="compare-hd good">OBIEE Logical SQL (Correct)</div>
+    <div class="compare-body"><pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="co">"Worker Name"</span>,
+  <span class="st">"Grade"</span>.<span class="co">"Grade Name"</span>,
+  <span class="st">"Assignment"</span>.<span class="co">"Assignment Status"</span>
+<span class="kw">FROM</span>
+  <span class="st">"Workforce Management"</span>
+<span class="kw">ORDER BY</span>
+  <span class="st">"Worker"</span>.<span class="co">"Worker Name"</span></pre></div>
+  </div>
+</div>
+
+<p>Notice: in Logical SQL you reference the <strong>subject area</strong> in the <code>FROM</code> clause (e.g., <code>"Workforce Management"</code>), not individual tables. The column references use the folder and column name path. The BI Server resolves the physical join between Worker, Grade, and Assignment through the RPD.</p>
+
+<div class="cl cl-w">
+  <span class="cl-icon">⚠️</span>
+  <p><strong>Comma join gotcha:</strong> If you list multiple subject area folders in FROM without a valid join path between them, you get a cartesian product — thousands of duplicated rows. See our guide on <a href="/blog/otbi-comma-join-explained">the OTBI comma join problem</a> for the full diagnosis.</p>
+</div>
+
+<h2 id="outer-join">Simulating Outer Joins in Logical SQL</h2>
+
+<p>This is the question that bites every Oracle HCM consultant: <em>"I need all workers, even those without a grade or position assigned — how do I LEFT JOIN in OBIEE?"</em></p>
+
+<p>The short answer: you don't control the join type in Logical SQL. Whether the join is inner or outer is determined by the BMM layer join definition. But there are three practical approaches:</p>
+
+<h3>Approach 1: Check the RPD Join Type (Best Fix)</h3>
+
+<p>If you need outer join behavior, the join in the Business Model layer should be defined as an outer join. In OBIEE Administration Tool (or OAC Semantic Modeler):</p>
+<ul>
+  <li>Open the join between the fact table and the optional dimension</li>
+  <li>Set cardinality to <code>1..N</code> on the fact side, <code>0..1</code> on the dimension side</li>
+  <li>The BI Server generates a <code>LEFT OUTER JOIN</code> in the physical SQL automatically</li>
+</ul>
+
+<p>This is the correct architectural fix. If you can't modify the RPD, use the workarounds below.</p>
+
+<h3>Approach 2: FILTER() for Conditional Aggregation</h3>
+
+<p>For measure columns, the <code>FILTER()</code> function is the Logical SQL equivalent of a conditional aggregate. It handles cases where you want to count or sum only when a dimension value exists:</p>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">FILTER() — Count Workers Without Grade</span></div>
+  <pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="co">"Department Name"</span>,
+  <span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="co">"Worker ID"</span>) <span class="kw">AS</span> <span class="st">"Total Workers"</span>,
+  <span class="fn">FILTER</span>(<span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="co">"Worker ID"</span>)
+         <span class="kw">USING</span> <span class="st">"Grade"</span>.<span class="co">"Grade Name"</span> <span class="kw">IS NOT NULL</span>)
+    <span class="kw">AS</span> <span class="st">"Workers with Grade"</span>,
+  <span class="fn">FILTER</span>(<span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="co">"Worker ID"</span>)
+         <span class="kw">USING</span> <span class="st">"Grade"</span>.<span class="co">"Grade Name"</span> <span class="kw">IS NULL</span>)
+    <span class="kw">AS</span> <span class="st">"Workers Without Grade"</span>
+<span class="kw">FROM</span> <span class="st">"Workforce Management"</span></pre>
+</div>
+
+<h3>Approach 3: BI Publisher Two-Dataset Merge</h3>
+
+<p>When you need a true outer join across subject areas or with data that doesn't join cleanly in the RPD, use BI Publisher with two separate OTBI queries as datasets. Join them in the data model on <code>PERSON_NUMBER</code> or <code>ASSIGNMENT_ID</code>. This gives you full SQL join control in the BIP layer.</p>
+
+<h2 id="filter-function">The FILTER() Function Pattern in Depth</h2>
+
+<p>The <code>FILTER()</code> function is the most powerful Logical SQL tool that most OTBI users miss. It wraps an aggregate function with a <code>USING</code> condition:</p>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">FILTER() Syntax</span></div>
+  <pre><span class="fn">FILTER</span>(<em>aggregate_expression</em> <span class="kw">USING</span> <em>filter_condition</em>)</pre>
+</div>
+
+<p>The <code>USING</code> clause is a Logical SQL filter expression — same syntax as a <code>WHERE</code> clause predicate but applied to a single measure. This lets you compute multiple conditional counts in a single query pass without subqueries:</p>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">Multi-Condition FILTER() — Headcount by Employment Category</span></div>
+  <pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="co">"Business Unit Name"</span>,
+  <span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="co">"Worker ID"</span>) <span class="kw">AS</span> <span class="st">"Total HC"</span>,
+  <span class="fn">FILTER</span>(<span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="co">"Worker ID"</span>)
+         <span class="kw">USING</span> <span class="st">"Worker"</span>.<span class="co">"Employment Category"</span> = <span class="st">'FULL_TIME'</span>)
+    <span class="kw">AS</span> <span class="st">"FT Headcount"</span>,
+  <span class="fn">FILTER</span>(<span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="co">"Worker ID"</span>)
+         <span class="kw">USING</span> <span class="st">"Worker"</span>.<span class="co">"Employment Category"</span> = <span class="st">'PART_TIME'</span>)
+    <span class="kw">AS</span> <span class="st">"PT Headcount"</span>,
+  <span class="fn">FILTER</span>(<span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="co">"Worker ID"</span>)
+         <span class="kw">USING</span> <span class="st">"Worker"</span>.<span class="co">"Assignment Status Type"</span> <span class="kw">IN</span>
+               (<span class="st">'ACTIVE_PROCESS'</span>, <span class="st">'ACTIVE_NO_PROCESS'</span>))
+    <span class="kw">AS</span> <span class="st">"Active HC"</span>
+<span class="kw">FROM</span> <span class="st">"Workforce Management"</span>
+<span class="kw">ORDER BY</span> <span class="st">"Worker"</span>.<span class="co">"Business Unit Name"</span></pre>
+</div>
+
+<div class="cl cl-t">
+  <span class="cl-icon">✅</span>
+  <p><strong>Performance note:</strong> A single query with multiple <code>FILTER()</code> expressions is more efficient than running three separate OTBI analyses and combining in a dashboard. The BI Server makes one database pass and computes all conditions simultaneously.</p>
+</div>
+
+<h2 id="hcm-examples">5 Oracle HCM Join Examples in Logical SQL</h2>
+
+<h3>Example 1: Workers and Their Primary Assignment Grade</h3>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">OTBI — Worker + Grade (implicit join via subject area)</span></div>
+  <pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="co">"Person Number"</span>,
+  <span class="st">"Worker"</span>.<span class="co">"Worker Name"</span>,
+  <span class="st">"Assignment"</span>.<span class="co">"Assignment Number"</span>,
+  <span class="st">"Grade"</span>.<span class="co">"Grade Name"</span>,
+  <span class="st">"Job"</span>.<span class="co">"Job Name"</span>
+<span class="kw">FROM</span> <span class="st">"Workforce Management"</span>
+<span class="kw">WHERE</span>
+  <span class="st">"Assignment"</span>.<span class="co">"Primary Assignment Flag"</span> = <span class="st">'Y'</span>
+  <span class="kw">AND</span> <span class="st">"Assignment"</span>.<span class="co">"Assignment Status Type"</span> = <span class="st">'ACTIVE_PROCESS'</span>
+<span class="kw">ORDER BY</span>
+  <span class="st">"Worker"</span>.<span class="co">"Worker Name"</span></pre>
+</div>
+
+<p>The join between Worker, Assignment, Grade, and Job is resolved by the RPD. You never write it.</p>
+
+<h3>Example 2: Department Headcount with Absence Count</h3>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">OTBI — Headcount + FILTER for absence count</span></div>
+  <pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="co">"Department Name"</span>,
+  <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> <span class="st">"Worker"</span>.<span class="co">"Person Number"</span>) <span class="kw">AS</span> <span class="st">"Headcount"</span>,
+  <span class="fn">FILTER</span>(
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> <span class="st">"Worker"</span>.<span class="co">"Person Number"</span>)
+    <span class="kw">USING</span> <span class="st">"Absence Entry"</span>.<span class="co">"Absence Status"</span> = <span class="st">'APPROVED'</span>
+  ) <span class="kw">AS</span> <span class="st">"Workers on Approved Absence"</span>
+<span class="kw">FROM</span> <span class="st">"Absence Management"</span>
+<span class="kw">WHERE</span>
+  <span class="st">"Absence Entry"</span>.<span class="co">"Absence Start Date"</span>
+    <span class="kw">BETWEEN</span> TIMESTAMPADD(SQL_TSI_MONTH, -1, CURRENT_DATE)
+        <span class="kw">AND</span> CURRENT_DATE
+<span class="kw">ORDER BY</span>
+  <span class="st">"Worker"</span>.<span class="co">"Department Name"</span></pre>
+</div>
+
+<h3>Example 3: Compensation with Grade Range Comparison</h3>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">OTBI — Salary vs grade midpoint using CASE</span></div>
+  <pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="co">"Worker Name"</span>,
+  <span class="st">"Assignment"</span>.<span class="co">"Grade Name"</span>,
+  <span class="st">"Salary"</span>.<span class="co">"Annual Salary"</span>,
+  <span class="st">"Grade Rate"</span>.<span class="co">"Grade Midpoint"</span>,
+  <span class="kw">CASE</span>
+    <span class="kw">WHEN</span> <span class="st">"Salary"</span>.<span class="co">"Annual Salary"</span>
+           &lt; <span class="st">"Grade Rate"</span>.<span class="co">"Grade Minimum"</span>
+      <span class="kw">THEN</span> <span class="st">'Below Range'</span>
+    <span class="kw">WHEN</span> <span class="st">"Salary"</span>.<span class="co">"Annual Salary"</span>
+           &gt; <span class="st">"Grade Rate"</span>.<span class="co">"Grade Maximum"</span>
+      <span class="kw">THEN</span> <span class="st">'Above Range'</span>
+    <span class="kw">ELSE</span> <span class="st">'In Range'</span>
+  <span class="kw">END</span> <span class="kw">AS</span> <span class="st">"Compa Status"</span>
+<span class="kw">FROM</span> <span class="st">"Compensation"</span>
+<span class="kw">WHERE</span>
+  <span class="st">"Assignment"</span>.<span class="co">"Primary Assignment Flag"</span> = <span class="st">'Y'</span>
+<span class="kw">ORDER BY</span>
+  <span class="st">"Compa Status"</span>, <span class="st">"Worker"</span>.<span class="co">"Worker Name"</span></pre>
+</div>
+
+<h3>Example 4: Turnover Report (Hire + Termination in One Query)</h3>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">OTBI — YTD hires vs terminations per department</span></div>
+  <pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="co">"Department Name"</span>,
+  <span class="fn">FILTER</span>(
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> <span class="st">"Worker"</span>.<span class="co">"Person Number"</span>)
+    <span class="kw">USING</span> <span class="st">"Worker"</span>.<span class="co">"Action Name"</span> = <span class="st">'Hire'</span>
+      <span class="kw">AND</span> <span class="st">"Worker"</span>.<span class="co">"Action Date"</span>
+            &gt;= TIMESTAMPADD(SQL_TSI_YEAR, -1, CURRENT_DATE)
+  ) <span class="kw">AS</span> <span class="st">"YTD Hires"</span>,
+  <span class="fn">FILTER</span>(
+    <span class="fn">COUNT</span>(<span class="kw">DISTINCT</span> <span class="st">"Worker"</span>.<span class="co">"Person Number"</span>)
+    <span class="kw">USING</span> <span class="st">"Worker"</span>.<span class="co">"Action Name"</span> = <span class="st">'Termination'</span>
+      <span class="kw">AND</span> <span class="st">"Worker"</span>.<span class="co">"Action Date"</span>
+            &gt;= TIMESTAMPADD(SQL_TSI_YEAR, -1, CURRENT_DATE)
+  ) <span class="kw">AS</span> <span class="st">"YTD Terminations"</span>
+<span class="kw">FROM</span> <span class="st">"Workforce Management"</span>
+<span class="kw">ORDER BY</span>
+  <span class="st">"Worker"</span>.<span class="co">"Department Name"</span></pre>
+</div>
+
+<h3>Example 5: Payroll Actuals vs Budget (Multi-Measure)</h3>
+
+<div class="cb">
+  <div class="cb-hd"><span class="cb-label">OTBI — Payroll actuals with FILTER on element type</span></div>
+  <pre><span class="kw">SELECT</span>
+  <span class="st">"Payroll"</span>.<span class="co">"Cost Center"</span>,
+  <span class="st">"Payroll"</span>.<span class="co">"Payroll Name"</span>,
+  <span class="fn">SUM</span>(<span class="st">"Payroll Results"</span>.<span class="co">"Result Value"</span>) <span class="kw">AS</span> <span class="st">"Total Payroll"</span>,
+  <span class="fn">FILTER</span>(
+    <span class="fn">SUM</span>(<span class="st">"Payroll Results"</span>.<span class="co">"Result Value"</span>)
+    <span class="kw">USING</span> <span class="st">"Element"</span>.<span class="co">"Classification Name"</span> = <span class="st">'Standard Earnings'</span>
+  ) <span class="kw">AS</span> <span class="st">"Regular Pay"</span>,
+  <span class="fn">FILTER</span>(
+    <span class="fn">SUM</span>(<span class="st">"Payroll Results"</span>.<span class="co">"Result Value"</span>)
+    <span class="kw">USING</span> <span class="st">"Element"</span>.<span class="co">"Classification Name"</span> = <span class="st">'Supplemental Earnings'</span>
+  ) <span class="kw">AS</span> <span class="st">"Supplemental Pay"</span>
+<span class="kw">FROM</span> <span class="st">"Payroll"</span>
+<span class="kw">WHERE</span>
+  <span class="st">"Payroll Run"</span>.<span class="co">"Period Status"</span> = <span class="st">'COMPLETE'</span>
+<span class="kw">ORDER BY</span>
+  <span class="st">"Payroll"</span>.<span class="co">"Cost Center"</span></pre>
+</div>
+
+<h2 id="common-errors">Common Errors and Fixes</h2>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr>
+        <th>Error</th>
+        <th>Cause</th>
+        <th>Fix</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>nQSError: 26012</code> — Unrecognized token 'LEFT'</td>
+        <td>Using standard SQL JOIN syntax in Logical SQL</td>
+        <td>Remove JOIN...ON. List columns from the subject area; the BI Server resolves joins via RPD.</td>
+      </tr>
+      <tr>
+        <td><code>nQSError: 14025</code> — No fact table at requested level</td>
+        <td>Columns from two unrelated subject areas with no join path in RPD</td>
+        <td>Use a single subject area that spans both, or use BIP with two datasets.</td>
+      </tr>
+      <tr>
+        <td>Cartesian product — row count explodes</td>
+        <td>Comma-separated subject area folders with no shared grain</td>
+        <td>Remove one folder reference; use FILTER() instead of separate columns.</td>
+      </tr>
+      <tr>
+        <td><code>nQSError: 27002</code> — Syntax error near comma</td>
+        <td>Comma-join attempt between incompatible presentation tables</td>
+        <td>Use a single subject area FROM clause. Joins between subject areas must be via BIP.</td>
+      </tr>
+      <tr>
+        <td>Results missing workers with no assignment</td>
+        <td>RPD join defined as inner join, excluding workers with no matching assignment row</td>
+        <td>Change the BMM join to outer join in RPD, or filter using FILTER(... USING column IS NULL).</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<h2 id="when-to-use-bip">When to Use BI Publisher Instead of OTBI</h2>
+
+<p>OBIEE Logical SQL is powerful, but it has a ceiling. Use BI Publisher (BIP) when:</p>
+
+<ul>
+  <li><strong>You need a true outer join</strong> across data that doesn't share an RPD join path</li>
+  <li><strong>You're joining across two OTBI subject areas</strong> that have no common dimension in the same subject area</li>
+  <li><strong>Your report requires a physical SQL feature</strong> OBIEE Logical SQL doesn't support (window functions, lateral joins, recursive CTEs)</li>
+  <li><strong>You need row-level calculations</strong> that reference other rows (ranking, running totals across dimensions)</li>
+</ul>
+
+<div class="tw">
+  <table>
+    <thead>
+      <tr>
+        <th>Scenario</th>
+        <th>Use OTBI?</th>
+        <th>Use BIP?</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>Standard headcount with grade and job</td>
+        <td>✅ Yes</td>
+        <td>Not needed</td>
+      </tr>
+      <tr>
+        <td>FILTER() conditional aggregation</td>
+        <td>✅ Yes</td>
+        <td>Not needed</td>
+      </tr>
+      <tr>
+        <td>Left outer join across two subject areas</td>
+        <td>❌ No</td>
+        <td>✅ Two datasets + link</td>
+      </tr>
+      <tr>
+        <td>ROW_NUMBER() or RANK() window functions</td>
+        <td>❌ Not supported</td>
+        <td>✅ Full physical SQL</td>
+      </tr>
+      <tr>
+        <td>Payroll actuals with element-type split</td>
+        <td>✅ With FILTER()</td>
+        <td>Either</td>
+      </tr>
+      <tr>
+        <td>Cross-module compliance report (HCM + Payroll + Benefits)</td>
+        <td>Limited</td>
+        <td>✅ Multiple datasets</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<div class="cl cl-i">
+  <span class="cl-icon">📖</span>
+  <p>See also: <a href="/blog/otbi-vs-bi-publisher-when-to-use-which">OTBI vs BI Publisher — When to Use Which</a> for a full decision guide with examples.</p>
+</div>
+
+<h2 id="faq">FAQ</h2>
+
+<h3>Can I use aliases in OBIEE Logical SQL FROM?</h3>
+<p>No. OBIEE Logical SQL <code>FROM</code> takes a subject area name in quotes, not table aliases. Column references use <code>"Folder"."Column"</code> path notation. You cannot assign table aliases with <code>AS</code> in the FROM clause.</p>
+
+<h3>Does OBIEE support JOIN at all?</h3>
+<p>OBIEE Logical SQL supports a limited <code>JOIN</code> syntax for multi-fact queries (where you explicitly join two fact sources), but it is rarely used and has significant restrictions. For most HCM reports, the implicit join through the subject area is correct and preferred.</p>
+
+<h3>Why does adding a column from a second folder cause extra rows?</h3>
+<p>If the two presentation folders resolve to logical tables with a one-to-many join, adding the "many" side column fans out the results. This is the comma-join issue — the BI Server is correctly applying the join, but the grain of your query changed. Add <code>COUNT(DISTINCT ...)</code> or aggregate, or remove the low-grain column.</p>
+
+<h3>Can I use subqueries in OBIEE Logical SQL?</h3>
+<p>Yes — inline views and scalar subqueries are supported with restrictions. See our guide on <a href="/blog/obiee-subquery-joins-otbi">OBIEE and OTBI Subquery Joins</a> for syntax, nQSError fixes, and production examples.</p>
+
+<div class="cta-box">
+  <h3>15 OTBI Query Templates for Oracle HCM</h3>
+  <p>Production-ready patterns for headcount, compensation, absence, recruiting, and payroll — each with the correct subject area, FILTER() usage, and date-effective join notes. Used by Oracle HCM consultants billing $150–$350/hr.</p>
+  <a href="/otbi-template-pack" class="cta-btn">Get the OTBI Template Pack ($97) &rarr;</a>
+  <a href="/compliance-sql-pack" class="cta-btn cta-btn-secondary">EEO-1, ACA &amp; FLSA SQL Pack ($499) &rarr;</a>
+</div>
+
+</div>
+
+<footer>
+  <p><a href="/">Oracle HCM Tables</a> &middot; <a href="/blog/">Blog</a> &middot; <a href="/privacy">Privacy</a> &middot; <a href="/terms">Terms</a></p>
+  <p style="margin-top:.5rem">&copy; 2026 HCM Tables. Oracle and Oracle Fusion Cloud are trademarks of Oracle Corporation. HCM Tables is not affiliated with Oracle.</p>
+</footer>
+
+</body>
+</html>

@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <title>OBIEE SQL Fixer — Paste Your Query, Get It Fixed | HCM Tables</title>
+  <meta name="description" content="Paste a broken OBIEE Logical SQL query and get the fixed version with an explanation. Handles nQSError 27002, nQSError 14025, comma join issues, FILTER() syntax, and date-effective patterns for Oracle HCM.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hcm-tables.com/obiee-sql-fixer">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://hcm-tables.com/obiee-sql-fixer">
+  <meta property="og:title" content="OBIEE SQL Fixer — Paste Your Query, Get It Fixed">
+  <meta property="og:description" content="AI-powered OBIEE Logical SQL debugger for Oracle HCM. Handles nQSError fixes, comma join problems, FILTER() syntax, and date-effective patterns.">
+  <meta property="og:site_name" content="HCM Tables">
+
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+
+  <style>
+    :root {
+      --bg: oklch(0.13 0.01 260);
+      --bg2: oklch(0.16 0.01 260);
+      --bg3: oklch(0.20 0.015 260);
+      --text: oklch(0.98 0 0);
+      --muted: oklch(0.65 0.01 260);
+      --faint: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-dim: oklch(0.60 0.25 25 / 0.15);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --yellow: oklch(0.80 0.15 85);
+      --mono: 'JetBrains Mono', ui-monospace, monospace;
+      --sans: 'Inter', system-ui, sans-serif;
+      --r: 12px;
+      --r-sm: 8px;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+    body { font-family: var(--sans); background: var(--bg); color: var(--text); line-height: 1.6; }
+    a { color: var(--blue); text-decoration: none; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1.25rem 1.5rem; border-bottom: 1px solid var(--border);
+      max-width: 1100px; margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; }
+    .nav-links a { font-size: 0.9rem; color: var(--muted); font-weight: 500; }
+    .nav-links a:hover { color: var(--text); text-decoration: none; }
+
+    .hero {
+      max-width: 760px; margin: 0 auto;
+      padding: 4rem 1.5rem 2rem; text-align: center;
+    }
+    .hero-badge {
+      display: inline-block;
+      background: var(--accent-dim); color: var(--accent);
+      font-size: 0.75rem; font-weight: 700; letter-spacing: 0.08em;
+      text-transform: uppercase; padding: 0.3rem 0.8rem;
+      border-radius: 100px; border: 1px solid oklch(0.65 0.2 25 / 0.3);
+      margin-bottom: 1.5rem;
+    }
+    .hero h1 { font-size: 2.75rem; font-weight: 800; line-height: 1.15; margin-bottom: 1rem; }
+    .hero h1 span { color: var(--accent); }
+    .hero p { font-size: 1.1rem; color: var(--muted); max-width: 560px; margin: 0 auto; }
+
+    /* Error badges */
+    .error-badges {
+      max-width: 760px; margin: 1.5rem auto 0; padding: 0 1.5rem;
+      display: flex; flex-wrap: wrap; gap: 0.5rem; justify-content: center;
+    }
+    .error-badge {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: 100px; padding: 0.2rem 0.75rem;
+      font-size: 0.78rem; font-weight: 600; color: var(--muted);
+      font-family: var(--mono);
+    }
+
+    /* Main tool card */
+    .tool-card {
+      max-width: 760px; margin: 3rem auto; padding: 0 1.5rem;
+    }
+    .tool-inner {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden;
+    }
+    .tool-header {
+      padding: 1rem 1.5rem; border-bottom: 1px solid var(--border);
+      display: flex; align-items: center; gap: 0.75rem;
+    }
+    .tool-dot { width: 10px; height: 10px; border-radius: 50%; }
+    .dot-r { background: #ff5f57; }
+    .dot-y { background: #febc2e; }
+    .dot-g { background: #28c840; }
+    .tool-title { font-size: 0.85rem; color: var(--muted); font-family: var(--mono); margin-left: auto; margin-right: auto; }
+
+    .tool-body { padding: 1.5rem; }
+    .tool-label { font-size: 0.75rem; font-weight: 700; color: var(--faint); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 0.5rem; }
+
+    textarea {
+      width: 100%; background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--r-sm); color: var(--text); font-family: var(--mono);
+      font-size: 0.85rem; padding: 1rem; resize: vertical; line-height: 1.6;
+      outline: none; transition: border-color 0.15s;
+    }
+    textarea:focus { border-color: var(--accent); }
+    textarea::placeholder { color: var(--faint); }
+
+    .tool-actions {
+      display: flex; gap: 0.75rem; margin-top: 1rem; align-items: center; flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--accent); color: #fff; font-weight: 700; font-size: 0.9rem;
+      padding: 0.65rem 1.5rem; border-radius: var(--r-sm);
+      border: none; cursor: pointer; transition: opacity 0.15s;
+    }
+    .btn-primary:hover { opacity: 0.88; }
+    .btn-primary:disabled { opacity: 0.4; cursor: not-allowed; }
+    .gate-note {
+      font-size: 0.8rem; color: var(--faint);
+    }
+    .gate-note a { color: var(--accent); font-weight: 600; }
+
+    .waitlist-section {
+      background: var(--bg3); border-top: 1px solid var(--border);
+      padding: 1.5rem; text-align: center;
+    }
+    .waitlist-section p { font-size: 0.9rem; color: var(--muted); margin-bottom: 1rem; }
+    .waitlist-form {
+      display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+    }
+    .waitlist-form input[type="email"] {
+      padding: 0.6rem 1rem; border-radius: var(--r-sm);
+      border: 1px solid var(--border); background: var(--bg2);
+      color: var(--text); font-size: 0.875rem; min-width: 220px;
+      outline: none; transition: border-color 0.15s;
+    }
+    .waitlist-form input[type="email"]:focus { border-color: var(--accent); }
+    .waitlist-btn {
+      background: var(--accent); color: #fff; font-weight: 700; font-size: 0.875rem;
+      padding: 0.6rem 1.25rem; border-radius: var(--r-sm);
+      border: none; cursor: pointer; transition: opacity 0.15s;
+    }
+    .waitlist-btn:hover { opacity: 0.88; }
+    #waitlist-success { display: none; color: var(--green); font-size: 0.9rem; font-weight: 600; }
+
+    /* What it fixes */
+    .fixes { max-width: 760px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+    .fixes h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.5rem; }
+    .fixes p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; }
+    .fix-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 0.75rem; }
+    @media (max-width: 580px) { .fix-grid { grid-template-columns: 1fr; } }
+    .fix-item {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1rem 1.25rem;
+      display: flex; gap: 0.75rem; align-items: flex-start;
+    }
+    .fix-icon { font-size: 1.1rem; flex-shrink: 0; margin-top: 1px; }
+    .fix-item h3 { font-size: 0.9rem; font-weight: 600; margin-bottom: 0.2rem; }
+    .fix-item p { font-size: 0.825rem; color: var(--muted); margin: 0; }
+
+    /* Example fixes */
+    .examples { max-width: 760px; margin: 0 auto; padding: 0 1.5rem 3rem; }
+    .examples h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 1.5rem; }
+    .example-card {
+      background: var(--bg2); border: 1px solid var(--border);
+      border-radius: var(--r); overflow: hidden; margin-bottom: 1rem;
+    }
+    .example-header {
+      padding: 0.75rem 1.25rem; border-bottom: 1px solid var(--border);
+      background: var(--bg3); font-size: 0.8rem; font-weight: 600;
+      color: var(--muted); display: flex; justify-content: space-between;
+    }
+    .ex-error { color: var(--accent); }
+    .ex-fixed { color: var(--green); }
+    .example-cols { display: grid; grid-template-columns: 1fr 1fr; }
+    @media (max-width: 580px) { .example-cols { grid-template-columns: 1fr; } }
+    .example-col { padding: 1rem; }
+    .example-col:first-child { border-right: 1px solid var(--border); }
+    .example-col pre {
+      font-family: var(--mono); font-size: 0.8rem; color: var(--muted);
+      line-height: 1.6; white-space: pre-wrap; word-break: break-all;
+    }
+    .example-col .kw { color: var(--accent); }
+    .example-col .fn { color: var(--blue); }
+    .example-col .st { color: var(--green); }
+    .example-col .cm { color: var(--faint); }
+
+    /* Pricing teaser */
+    .pricing-teaser {
+      max-width: 760px; margin: 0 auto; padding: 0 1.5rem 4rem;
+    }
+    .pricing-inner {
+      background: linear-gradient(135deg, var(--bg2) 0%, oklch(0.60 0.25 25 / 0.05) 100%);
+      border: 1px solid oklch(0.65 0.2 25 / 0.3);
+      border-radius: var(--r); padding: 2rem; text-align: center;
+    }
+    .pricing-inner h2 { font-size: 1.5rem; font-weight: 700; margin-bottom: 0.75rem; }
+    .pricing-inner p { color: var(--muted); font-size: 0.95rem; margin-bottom: 1.5rem; max-width: 480px; margin-left: auto; margin-right: auto; }
+    .pricing-options { display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap; }
+    .pricing-opt {
+      background: var(--bg3); border: 1px solid var(--border);
+      border-radius: var(--r-sm); padding: 1.25rem 1.5rem;
+      text-align: left; min-width: 200px;
+    }
+    .pricing-opt-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--faint); margin-bottom: 0.4rem; }
+    .pricing-opt-price { font-size: 1.75rem; font-weight: 800; margin-bottom: 0.25rem; }
+    .pricing-opt-price span { font-size: 1rem; }
+    .pricing-opt-desc { font-size: 0.8rem; color: var(--muted); margin-bottom: 1rem; }
+    .pricing-opt-btn {
+      display: block; text-align: center; background: var(--accent);
+      color: #fff; font-weight: 700; font-size: 0.85rem;
+      padding: 0.5rem 1rem; border-radius: var(--r-sm);
+      text-decoration: none; transition: opacity 0.15s;
+    }
+    .pricing-opt-btn:hover { opacity: 0.88; text-decoration: none; color: #fff; }
+    .pricing-opt-btn.secondary {
+      background: transparent; color: var(--blue);
+      border: 1px solid oklch(0.65 0.15 250 / 0.4);
+    }
+    .pricing-opt-btn.secondary:hover { color: var(--blue); background: oklch(0.65 0.15 250 / 0.08); }
+
+    footer {
+      border-top: 1px solid var(--border); padding: 2rem 1.5rem;
+      text-align: center; color: var(--faint); font-size: 0.85rem;
+    }
+    footer a { color: var(--faint); }
+  </style>
+</head>
+<body>
+
+<nav>
+  <div class="nav">
+    <a href="/" class="nav-brand">Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/">Tables</a>
+      <a href="/blog/">Blog</a>
+      <a href="/otbi-template-pack">OTBI Pack</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="hero-badge">Free Tool — Beta</div>
+  <h1>OBIEE <span>SQL Fixer</span></h1>
+  <p>Paste a broken OBIEE Logical SQL query. Get the fixed version with an explanation of what was wrong and why.</p>
+</div>
+
+<div class="error-badges">
+  <span class="error-badge">nQSError 27002</span>
+  <span class="error-badge">nQSError 14025</span>
+  <span class="error-badge">nQSError 10058</span>
+  <span class="error-badge">Comma Join</span>
+  <span class="error-badge">FILTER() syntax</span>
+  <span class="error-badge">Date-effective joins</span>
+  <span class="error-badge">Cartesian product</span>
+  <span class="error-badge">PER_ALL_ASSIGNMENTS_M</span>
+</div>
+
+<div class="tool-card">
+  <div class="tool-inner">
+    <div class="tool-header">
+      <div class="tool-dot dot-r"></div>
+      <div class="tool-dot dot-y"></div>
+      <div class="tool-dot dot-g"></div>
+      <span class="tool-title">OBIEE Logical SQL Fixer</span>
+    </div>
+    <div class="tool-body">
+      <div class="tool-label">Paste your broken query</div>
+      <textarea id="sql-input" rows="10" placeholder="SELECT&#10;  &quot;Worker&quot;.&quot;Worker Name&quot;,&#10;  &quot;Grade&quot;.&quot;Grade Name&quot;&#10;FROM&#10;  &quot;Workforce Management&quot;.&quot;Workers&quot; w&#10;  LEFT JOIN &quot;Workforce Management&quot;.&quot;Assignments&quot; a&#10;    ON w.&quot;Person Number&quot; = a.&quot;Person Number&quot;"></textarea>
+      <div class="tool-actions">
+        <button class="btn-primary" onclick="showGate()" id="fix-btn">Fix My Query &rarr;</button>
+        <span class="gate-note">Free fix · <a href="#pricing">$99/mo</a> to unlock full analysis + FILTER() rewrite</span>
+      </div>
+    </div>
+    <div class="waitlist-section" id="gate-section" style="display:none">
+      <p><strong>Join the waitlist</strong> — the OBIEE SQL Fixer launches in July 2026. Enter your email and you'll be first in when it goes live.</p>
+      <div class="waitlist-form">
+        <input type="email" id="waitlist-email" placeholder="you@company.com">
+        <button class="waitlist-btn" onclick="joinWaitlist()">Notify Me</button>
+      </div>
+      <div id="waitlist-success">Got it — we'll email you at launch.</div>
+    </div>
+  </div>
+</div>
+
+<!-- What it fixes -->
+<div class="fixes">
+  <h2>What the Fixer Handles</h2>
+  <p>Built specifically for Oracle HCM consultants writing OTBI and BI Publisher queries.</p>
+  <div class="fix-grid">
+    <div class="fix-item">
+      <span class="fix-icon">🔧</span>
+      <div>
+        <h3>nQSError 27002 — Syntax Error</h3>
+        <p>Finds the exact bad token, explains why it's invalid in Logical SQL, and rewrites the clause.</p>
+      </div>
+    </div>
+    <div class="fix-item">
+      <span class="fix-icon">🔧</span>
+      <div>
+        <h3>nQSError 14025 — No Fact Table</h3>
+        <p>Identifies the column causing the level-of-detail mismatch and suggests the correct grain or BIP workaround.</p>
+      </div>
+    </div>
+    <div class="fix-item">
+      <span class="fix-icon">🔧</span>
+      <div>
+        <h3>Comma Join → Cartesian Product</h3>
+        <p>Detects multi-folder FROM clauses with no shared dimension, rewrites with FILTER() or removes the offending column.</p>
+      </div>
+    </div>
+    <div class="fix-item">
+      <span class="fix-icon">🔧</span>
+      <div>
+        <h3>Date-Effective Join Patterns</h3>
+        <p>Adds EFFECTIVE_START_DATE / EFFECTIVE_END_DATE bounds for PER_ALL_ASSIGNMENTS_M, PER_ALL_PEOPLE_F, and other versioned tables.</p>
+      </div>
+    </div>
+    <div class="fix-item">
+      <span class="fix-icon">🔧</span>
+      <div>
+        <h3>FILTER() Syntax Correction</h3>
+        <p>Rewrites broken conditional aggregation into correct <code>FILTER(agg USING condition)</code> Logical SQL syntax.</p>
+      </div>
+    </div>
+    <div class="fix-item">
+      <span class="fix-icon">🔧</span>
+      <div>
+        <h3>LEFT JOIN → Logical SQL Pattern</h3>
+        <p>Converts standard SQL JOIN...ON syntax to the correct OBIEE implicit join pattern with subject area reference.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Examples -->
+<div class="examples">
+  <h2>Example Fixes</h2>
+  <div class="example-card">
+    <div class="example-header">
+      <span class="ex-error">Before — nQSError 26012: Unrecognized token 'LEFT'</span>
+      <span class="ex-fixed">After — Fixed</span>
+    </div>
+    <div class="example-cols">
+      <div class="example-col">
+        <pre><span class="kw">SELECT</span> w.<span class="st">"Worker Name"</span>,
+  a.<span class="st">"Grade Name"</span>
+<span class="kw">FROM</span>
+  <span class="st">"Workers"</span> w
+  <span class="kw">LEFT JOIN</span> <span class="st">"Assignments"</span> a
+    <span class="kw">ON</span> w.<span class="st">"Person Number"</span>
+       = a.<span class="st">"Person Number"</span></pre>
+      </div>
+      <div class="example-col">
+        <pre><span class="cm">-- Logical SQL: joins via subject area</span>
+<span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="st">"Worker Name"</span>,
+  <span class="st">"Grade"</span>.<span class="st">"Grade Name"</span>
+<span class="kw">FROM</span>
+  <span class="st">"Workforce Management"</span>
+<span class="kw">ORDER BY</span>
+  <span class="st">"Worker"</span>.<span class="st">"Worker Name"</span></pre>
+      </div>
+    </div>
+  </div>
+  <div class="example-card">
+    <div class="example-header">
+      <span class="ex-error">Before — inflated row count (comma join)</span>
+      <span class="ex-fixed">After — FILTER() rewrite</span>
+    </div>
+    <div class="example-cols">
+      <div class="example-col">
+        <pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="st">"Department"</span>,
+  <span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="st">"Person Number"</span>),
+  <span class="fn">COUNT</span>(<span class="st">"Absence"</span>.<span class="st">"Absence ID"</span>)
+<span class="kw">FROM</span>
+  <span class="st">"Workforce Management"</span>,
+  <span class="st">"Absence Management"</span></pre>
+      </div>
+      <div class="example-col">
+        <pre><span class="kw">SELECT</span>
+  <span class="st">"Worker"</span>.<span class="st">"Department"</span>,
+  <span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="st">"Person Number"</span>),
+  <span class="fn">FILTER</span>(
+    <span class="fn">COUNT</span>(<span class="st">"Worker"</span>.<span class="st">"Person Number"</span>)
+    <span class="kw">USING</span> <span class="st">"Absence Entry"</span>.<span class="st">"Status"</span>
+           = <span class="st">'APPROVED'</span>
+  )
+<span class="kw">FROM</span> <span class="st">"Absence Management"</span></pre>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Pricing -->
+<div class="pricing-teaser" id="pricing">
+  <div class="pricing-inner">
+    <h2>Full Access at Launch</h2>
+    <p>The fixer launches July 2026 with free and paid tiers. Join the waitlist above to get early access and the launch discount.</p>
+    <div class="pricing-options">
+      <div class="pricing-opt">
+        <div class="pricing-opt-label">Free</div>
+        <div class="pricing-opt-price">$<span>0</span></div>
+        <div class="pricing-opt-desc">Syntax fix + error type identification. 5 queries/day.</div>
+        <a href="#gate-section" class="pricing-opt-btn secondary" onclick="document.getElementById('gate-section').style.display='block';document.getElementById('gate-section').scrollIntoView({behavior:'smooth'})">Join Waitlist &rarr;</a>
+      </div>
+      <div class="pricing-opt" style="border-color:oklch(0.65 0.2 25 / 0.4)">
+        <div class="pricing-opt-label">Pro — at launch</div>
+        <div class="pricing-opt-price">$<span>99</span>/mo</div>
+        <div class="pricing-opt-desc">Full fix + FILTER() rewrite + date-effective pattern + explanation. Unlimited.</div>
+        <a href="#gate-section" class="pricing-opt-btn" onclick="document.getElementById('gate-section').style.display='block';document.getElementById('gate-section').scrollIntoView({behavior:'smooth'})">Get Early Access &rarr;</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  <p><a href="/">Oracle HCM Tables</a> · <a href="/blog/">Blog</a> · <a href="/otbi-template-pack">OTBI Pack</a> · <a href="/compliance-sql-pack">Compliance SQL</a> · <a href="/privacy">Privacy</a></p>
+  <p style="margin-top:0.5rem;">© 2026 HCM Tables. Oracle Fusion HCM is a registered trademark of Oracle Corporation.</p>
+</footer>
+
+<script>
+function showGate() {
+  var sql = document.getElementById('sql-input').value.trim();
+  if (!sql) return;
+  var gate = document.getElementById('gate-section');
+  gate.style.display = 'block';
+  gate.scrollIntoView({ behavior: 'smooth' });
+  if (typeof gtag !== 'undefined') { gtag('event', 'obiee_fixer_gate_shown'); }
+}
+
+function joinWaitlist() {
+  var email = document.getElementById('waitlist-email').value.trim();
+  if (!email || !email.includes('@')) return;
+  fetch('/api/subscribe', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify({ email: email, form: 'obiee-sql-fixer-waitlist' })
+  }).catch(() => {}).finally(() => {
+    document.querySelector('.waitlist-form').style.display = 'none';
+    document.getElementById('waitlist-success').style.display = 'block';
+    if (typeof gtag !== 'undefined') { gtag('event', 'obiee_fixer_waitlist_signup', { email: email }); }
+  });
+}
+</script>
+</body>
+</html>

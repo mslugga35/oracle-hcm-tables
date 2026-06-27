@@ -58,10 +58,15 @@
 | 39 | oracle-hcm-time-labor-tables-guide.html | HWM_ time and labor tables + SQL |
 | 40 | oracle-hcm-to-rippling-migration-guide.html | Oracle HCM to Rippling migration |
 | 41 | oracle-hcm-ai-assistant-setup.html | Claude/ChatGPT HCM assistant setup |
+| 42 | obiee-to-oracle-analytics-cloud-migration-guide.html | OBIEE to OAC migration — what breaks + 4-week checklist |
+| 43 | oracle-hcm-pre-migration-data-quality-checklist.html | 30 data quality SQL checks before migration |
+| 44 | obiee-logical-sql-join-syntax-guide.html | OBIEE LEFT JOIN syntax — why it fails + correct patterns |
 
 ## Product Pages
 - `static/oracle-hcm-consultants.html` — Consultant directory / lead gen (submit project → get quotes)
 - `static/otbi-template-pack.html` — OTBI Template Pack ($97 one-time, 15 templates, mailto checkout)
+- `static/compliance-sql-pack.html` — Compliance SQL Pack ($499 one-time, 12 queries: EEO-1/ACA/FLSA/SOX, email capture via subscribe.js)
+- `static/obiee-sql-fixer.html` — OBIEE SQL Fixer waitlist (free tool, launches Jul 2026, email capture; Pro tier $99/mo planned)
 - `static/data-quality-scanner.html` — Data Quality Scanner waitlist ($49/mo planned, 7 SQL checks, email capture via mailto)
 - `static/hr-help-desk.html` — HR Help Desk waitlist ($29/mo planned, AI Q&A for Oracle HCM, email capture via mailto)
 
