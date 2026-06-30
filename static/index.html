@@ -1205,6 +1205,122 @@
       color: var(--text-muted);
     }
 
+    /* JOIN Examples Section */
+    .join-examples-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .join-examples-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .join-example-card {
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      margin-bottom: 1rem;
+      overflow: hidden;
+    }
+
+    .join-example-header {
+      padding: 0.75rem 1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      cursor: pointer;
+      user-select: none;
+    }
+
+    .join-example-header:hover {
+      background: var(--bg-secondary);
+    }
+
+    .join-example-name {
+      font-weight: 600;
+      color: var(--text-primary);
+      font-size: 0.9rem;
+    }
+
+    .join-example-target {
+      font-family: var(--font-mono);
+      font-size: 0.75rem;
+      color: var(--blue);
+    }
+
+    .join-example-chevron {
+      color: var(--text-muted);
+      transition: transform 0.2s;
+      flex-shrink: 0;
+    }
+
+    .join-example-card.open .join-example-chevron {
+      transform: rotate(90deg);
+    }
+
+    .join-example-body {
+      display: none;
+      border-top: 1px solid var(--border);
+    }
+
+    .join-example-card.open .join-example-body {
+      display: block;
+    }
+
+    .join-example-desc {
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      line-height: 1.5;
+    }
+
+    .join-example-sql {
+      position: relative;
+      background: oklch(0.12 0.01 260);
+      padding: 1rem;
+      overflow-x: auto;
+    }
+
+    .join-example-sql pre {
+      margin: 0;
+      font-family: var(--font-mono);
+      font-size: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-primary);
+      white-space: pre;
+    }
+
+    .join-example-sql .copy-btn {
+      position: absolute;
+      top: 0.5rem;
+      right: 0.5rem;
+      padding: 0.3rem 0.6rem;
+      font-size: 0.7rem;
+      background: var(--bg-tertiary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      color: var(--text-muted);
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.15s;
+    }
+
+    .join-example-sql:hover .copy-btn {
+      opacity: 1;
+    }
+
+    .join-example-sql .copy-btn:hover {
+      color: var(--text-primary);
+      border-color: var(--accent);
+    }
+
     /* Join Path Finder */
     .join-finder {
       padding: 0 1.5rem 4rem;
@@ -1320,6 +1436,9 @@
       .join-inputs { flex-direction: column; }
       .join-arrow { transform: rotate(90deg); }
       .related-pill { font-size: 0.75rem; }
+      .join-example-sql pre { font-size: 0.7rem; }
+      .join-example-name { font-size: 0.85rem; }
+      .join-example-target { font-size: 0.7rem; }
     }
   </style>
 </head>
@@ -1641,6 +1760,39 @@
       '_EO': { label: 'Entity Object', color: 'var(--text-muted)', desc: 'Oracle internal use. Avoid direct access' }
     };
 
+    const JOIN_EXAMPLES = {
+      PER_ALL_PEOPLE_F: [
+        { title: 'Person → Assignments', target: 'PER_ALL_ASSIGNMENTS_M', desc: 'Get all active assignments for each person. The most common HCM join — links people to their jobs, departments, and orgs.', sql: "SELECT\n  ppf.person_id,\n  ppf.person_number,\n  paam.assignment_id,\n  paam.assignment_number,\n  paam.assignment_type,\n  paam.business_unit_id,\n  paam.department_id,\n  paam.job_id,\n  paam.grade_id,\n  paam.position_id\nFROM per_all_people_f ppf\nJOIN per_all_assignments_m paam\n  ON paam.person_id = ppf.person_id\n  AND TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.assignment_status_type = 'ACTIVE'\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_type IN ('E','C')\nWHERE TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date" },
+        { title: 'Person → Display Name', target: 'PER_PERSON_NAMES_F', desc: 'Get the formatted display name (GLOBAL name type) for each person. Always filter name_type and date-effectiveness.', sql: "SELECT\n  ppf.person_id,\n  ppf.person_number,\n  ppnf.full_name,\n  ppnf.first_name,\n  ppnf.last_name,\n  ppnf.display_name\nFROM per_all_people_f ppf\nJOIN per_person_names_f ppnf\n  ON ppnf.person_id = ppf.person_id\n  AND ppnf.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN ppnf.effective_start_date AND ppnf.effective_end_date\nWHERE TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date" },
+        { title: 'Person → Email Address', target: 'PER_EMAIL_ADDRESSES', desc: 'Get the primary work email for each person. Filter on email_type W1 (primary work).', sql: "SELECT\n  ppf.person_id,\n  ppf.person_number,\n  pea.email_address,\n  pea.email_type\nFROM per_all_people_f ppf\nJOIN per_email_addresses pea\n  ON pea.person_id = ppf.person_id\n  AND pea.email_type = 'W1'\n  AND TRUNC(SYSDATE) BETWEEN pea.date_from AND NVL(pea.date_to, TO_DATE('4712-12-31','YYYY-MM-DD'))\nWHERE TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date" },
+        { title: 'Person → Phone Number', target: 'PER_PHONES', desc: 'Get the primary work phone. Phone records use date_from/date_to instead of effective_start/end_date.', sql: "SELECT\n  ppf.person_id,\n  ppf.person_number,\n  pp.phone_number,\n  pp.phone_type,\n  pp.country_code_number\nFROM per_all_people_f ppf\nJOIN per_phones pp\n  ON pp.person_id = ppf.person_id\n  AND pp.phone_type = 'W1'\n  AND TRUNC(SYSDATE) BETWEEN pp.date_from AND NVL(pp.date_to, TO_DATE('4712-12-31','YYYY-MM-DD'))\nWHERE TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date" },
+        { title: 'Person → Work Relationship', target: 'PER_PERIODS_OF_SERVICE', desc: 'Check employment status (active, terminated, suspended). One person can have multiple work relationships across legal employers.', sql: "SELECT\n  ppf.person_id,\n  ppf.person_number,\n  ppos.period_of_service_id,\n  ppos.legal_entity_id,\n  ppos.date_start,\n  ppos.actual_termination_date,\n  ppos.period_type\nFROM per_all_people_f ppf\nJOIN per_periods_of_service ppos\n  ON ppos.person_id = ppf.person_id\n  AND TRUNC(SYSDATE) BETWEEN ppos.date_start\n    AND NVL(ppos.actual_termination_date, TO_DATE('4712-12-31','YYYY-MM-DD'))\nWHERE TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date" }
+      ],
+      PER_ALL_ASSIGNMENTS_M: [
+        { title: 'Assignment → Person with Name', target: 'PER_ALL_PEOPLE_F + PER_PERSON_NAMES_F', desc: 'The reverse of the most common join — start from assignments, get the person and their display name in one query.', sql: "SELECT\n  paam.assignment_number,\n  paam.assignment_type,\n  ppf.person_number,\n  ppnf.display_name,\n  ppnf.first_name,\n  ppnf.last_name\nFROM per_all_assignments_m paam\nJOIN per_all_people_f ppf\n  ON ppf.person_id = paam.person_id\n  AND TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date\nJOIN per_person_names_f ppnf\n  ON ppnf.person_id = ppf.person_id\n  AND ppnf.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN ppnf.effective_start_date AND ppnf.effective_end_date\nWHERE TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_status_type = 'ACTIVE'\n  AND paam.assignment_type IN ('E','C')" },
+        { title: 'Assignment → Department & Organization', target: 'HR_ALL_ORGANIZATION_UNITS_X', desc: 'Get the department name and organization hierarchy for each assignment. Uses the _X (translated) view for display names.', sql: "SELECT\n  paam.assignment_number,\n  paam.department_id,\n  dept.name AS department_name,\n  paam.organization_id,\n  org.name AS organization_name\nFROM per_all_assignments_m paam\nJOIN hr_all_organization_units_x dept\n  ON dept.organization_id = paam.department_id\n  AND dept.language = USERENV('LANG')\n  AND TRUNC(SYSDATE) BETWEEN dept.effective_start_date AND dept.effective_end_date\nLEFT JOIN hr_all_organization_units_x org\n  ON org.organization_id = paam.organization_id\n  AND org.language = USERENV('LANG')\n  AND TRUNC(SYSDATE) BETWEEN org.effective_start_date AND org.effective_end_date\nWHERE TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_status_type = 'ACTIVE'" },
+        { title: 'Assignment → Job & Grade', target: 'PER_JOBS_F_V + PER_GRADES_F_V', desc: 'Get the job title and grade for each assignment. Both tables are date-effective and use the _V (translated view) suffix.', sql: "SELECT\n  paam.assignment_number,\n  pjfv.name AS job_name,\n  pjfv.job_code,\n  pgfv.name AS grade_name,\n  pgfv.grade_code\nFROM per_all_assignments_m paam\nLEFT JOIN per_jobs_f_v pjfv\n  ON pjfv.job_id = paam.job_id\n  AND pjfv.language = USERENV('LANG')\n  AND TRUNC(SYSDATE) BETWEEN pjfv.effective_start_date AND pjfv.effective_end_date\nLEFT JOIN per_grades_f_v pgfv\n  ON pgfv.grade_id = paam.grade_id\n  AND pgfv.language = USERENV('LANG')\n  AND TRUNC(SYSDATE) BETWEEN pgfv.effective_start_date AND pgfv.effective_end_date\nWHERE TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_status_type = 'ACTIVE'" },
+        { title: 'Assignment → Position', target: 'HR_ALL_POSITIONS_F_VL', desc: 'Get position name and details. Not all assignments use positions — use LEFT JOIN. Position is optional in many implementations.', sql: "SELECT\n  paam.assignment_number,\n  paam.position_id,\n  hapfvl.name AS position_name,\n  hapfvl.position_code\nFROM per_all_assignments_m paam\nLEFT JOIN hr_all_positions_f_vl hapfvl\n  ON hapfvl.position_id = paam.position_id\n  AND TRUNC(SYSDATE) BETWEEN hapfvl.effective_start_date AND hapfvl.effective_end_date\nWHERE TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_status_type = 'ACTIVE'" },
+        { title: 'Assignment → Location', target: 'PER_LOCATION_DETAILS_F_VL', desc: 'Get the work location for each assignment. Location is stored on the assignment, not the person.', sql: "SELECT\n  paam.assignment_number,\n  paam.location_id,\n  pldfvl.location_name,\n  pldfvl.town_or_city,\n  pldfvl.region_1 AS state,\n  pldfvl.country\nFROM per_all_assignments_m paam\nLEFT JOIN per_location_details_f_vl pldfvl\n  ON pldfvl.location_id = paam.location_id\n  AND TRUNC(SYSDATE) BETWEEN pldfvl.effective_start_date AND pldfvl.effective_end_date\nWHERE TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_status_type = 'ACTIVE'" },
+        { title: 'Assignment → Manager (Supervisor)', target: 'PER_ASSIGNMENT_SUPERVISORS_F', desc: 'Get the direct manager for each assignment. The manager relationship is stored on PER_ASSIGNMENT_SUPERVISORS_F, not directly on the assignment.', sql: "SELECT\n  paam.assignment_number,\n  mgr_names.display_name AS manager_name,\n  mgr_asg.assignment_number AS manager_assignment\nFROM per_all_assignments_m paam\nJOIN per_assignment_supervisors_f pasf\n  ON pasf.assignment_id = paam.assignment_id\n  AND pasf.manager_type = 'LINE_MANAGER'\n  AND TRUNC(SYSDATE) BETWEEN pasf.effective_start_date AND pasf.effective_end_date\nJOIN per_all_people_f mgr\n  ON mgr.person_id = pasf.manager_id\n  AND TRUNC(SYSDATE) BETWEEN mgr.effective_start_date AND mgr.effective_end_date\nJOIN per_person_names_f mgr_names\n  ON mgr_names.person_id = mgr.person_id\n  AND mgr_names.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN mgr_names.effective_start_date AND mgr_names.effective_end_date\nLEFT JOIN per_all_assignments_m mgr_asg\n  ON mgr_asg.person_id = mgr.person_id\n  AND TRUNC(SYSDATE) BETWEEN mgr_asg.effective_start_date AND mgr_asg.effective_end_date\n  AND mgr_asg.effective_latest_change = 'Y'\n  AND mgr_asg.assignment_type IN ('E','C')\n  AND mgr_asg.primary_flag = 'Y'\nWHERE TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_status_type = 'ACTIVE'" }
+      ],
+      PER_PERSON_NAMES_F: [
+        { title: 'Names → Person & Assignment', target: 'PER_ALL_PEOPLE_F + PER_ALL_ASSIGNMENTS_M', desc: 'Common reporting join: get person names with their current assignment details.', sql: "SELECT\n  ppnf.display_name,\n  ppnf.first_name,\n  ppnf.last_name,\n  ppf.person_number,\n  paam.assignment_number,\n  paam.assignment_type\nFROM per_person_names_f ppnf\nJOIN per_all_people_f ppf\n  ON ppf.person_id = ppnf.person_id\n  AND TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date\nJOIN per_all_assignments_m paam\n  ON paam.person_id = ppf.person_id\n  AND TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_status_type = 'ACTIVE'\n  AND paam.assignment_type IN ('E','C')\nWHERE ppnf.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN ppnf.effective_start_date AND ppnf.effective_end_date" }
+      ],
+      PER_PERIODS_OF_SERVICE: [
+        { title: 'Work Relationship → Person & Assignment', target: 'PER_ALL_PEOPLE_F + PER_ALL_ASSIGNMENTS_M', desc: 'Start from work relationships to find people and assignments within a legal entity. Useful for termination reports.', sql: "SELECT\n  ppf.person_number,\n  ppnf.display_name,\n  ppos.period_type,\n  ppos.date_start,\n  ppos.actual_termination_date,\n  paam.assignment_number,\n  paam.assignment_status_type\nFROM per_periods_of_service ppos\nJOIN per_all_people_f ppf\n  ON ppf.person_id = ppos.person_id\n  AND TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date\nJOIN per_person_names_f ppnf\n  ON ppnf.person_id = ppf.person_id\n  AND ppnf.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN ppnf.effective_start_date AND ppnf.effective_end_date\nJOIN per_all_assignments_m paam\n  ON paam.person_id = ppf.person_id\n  AND paam.period_of_service_id = ppos.period_of_service_id\n  AND TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\nWHERE ppos.legal_entity_id = :p_legal_entity_id" }
+      ],
+      PER_ADDRESSES_F: [
+        { title: 'Address → Person with Name', target: 'PER_ALL_PEOPLE_F + PER_PERSON_NAMES_F', desc: 'Get mailing addresses with person details. Address uses address_type to distinguish home, mailing, etc.', sql: "SELECT\n  ppnf.display_name,\n  ppf.person_number,\n  paf.address_line_1,\n  paf.town_or_city,\n  paf.region_2 AS state,\n  paf.postal_code,\n  paf.country,\n  paf.address_type\nFROM per_addresses_f paf\nJOIN per_all_people_f ppf\n  ON ppf.person_id = paf.person_id\n  AND TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date\nJOIN per_person_names_f ppnf\n  ON ppnf.person_id = ppf.person_id\n  AND ppnf.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN ppnf.effective_start_date AND ppnf.effective_end_date\nWHERE paf.address_type = 'HOME'\n  AND TRUNC(SYSDATE) BETWEEN paf.effective_start_date AND paf.effective_end_date" }
+      ],
+      HR_ALL_ORGANIZATION_UNITS_X: [
+        { title: 'Organization → Active Employees', target: 'PER_ALL_ASSIGNMENTS_M + PER_PERSON_NAMES_F', desc: 'Count or list all active employees in an organization. The _X suffix means translated; filter on language.', sql: "SELECT\n  haoux.name AS organization_name,\n  ppnf.display_name,\n  paam.assignment_number\nFROM hr_all_organization_units_x haoux\nJOIN per_all_assignments_m paam\n  ON paam.organization_id = haoux.organization_id\n  AND TRUNC(SYSDATE) BETWEEN paam.effective_start_date AND paam.effective_end_date\n  AND paam.effective_latest_change = 'Y'\n  AND paam.assignment_status_type = 'ACTIVE'\n  AND paam.assignment_type IN ('E','C')\nJOIN per_all_people_f ppf\n  ON ppf.person_id = paam.person_id\n  AND TRUNC(SYSDATE) BETWEEN ppf.effective_start_date AND ppf.effective_end_date\nJOIN per_person_names_f ppnf\n  ON ppnf.person_id = ppf.person_id\n  AND ppnf.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN ppnf.effective_start_date AND ppnf.effective_end_date\nWHERE haoux.language = USERENV('LANG')\n  AND TRUNC(SYSDATE) BETWEEN haoux.effective_start_date AND haoux.effective_end_date" }
+      ],
+      PER_ASSIGNMENT_SUPERVISORS_F: [
+        { title: 'Supervisor → Employee & Manager Details', target: 'PER_ALL_ASSIGNMENTS_M + PER_PERSON_NAMES_F', desc: 'Get the full manager-to-employee relationship with names. Essential for org chart queries.', sql: "SELECT\n  emp_names.display_name AS employee_name,\n  emp_asg.assignment_number AS employee_assignment,\n  mgr_names.display_name AS manager_name,\n  pasf.manager_type\nFROM per_assignment_supervisors_f pasf\nJOIN per_all_assignments_m emp_asg\n  ON emp_asg.assignment_id = pasf.assignment_id\n  AND TRUNC(SYSDATE) BETWEEN emp_asg.effective_start_date AND emp_asg.effective_end_date\n  AND emp_asg.effective_latest_change = 'Y'\nJOIN per_person_names_f emp_names\n  ON emp_names.person_id = emp_asg.person_id\n  AND emp_names.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN emp_names.effective_start_date AND emp_names.effective_end_date\nJOIN per_all_people_f mgr\n  ON mgr.person_id = pasf.manager_id\n  AND TRUNC(SYSDATE) BETWEEN mgr.effective_start_date AND mgr.effective_end_date\nJOIN per_person_names_f mgr_names\n  ON mgr_names.person_id = mgr.person_id\n  AND mgr_names.name_type = 'GLOBAL'\n  AND TRUNC(SYSDATE) BETWEEN mgr_names.effective_start_date AND mgr_names.effective_end_date\nWHERE pasf.manager_type = 'LINE_MANAGER'\n  AND TRUNC(SYSDATE) BETWEEN pasf.effective_start_date AND pasf.effective_end_date" }
+      ]
+    };
+
     // === SECURITY HELPERS ===
     /** Escape string for safe HTML text content */
     function escapeHtml(str) {
@@ -1958,6 +2110,34 @@
           </div>
         ` : '';
 
+        const examples = JOIN_EXAMPLES[table.name] || [];
+        const joinExamplesHtml = examples.length > 0 ? `
+          <div class="join-examples-section">
+            <div class="join-examples-title">
+              <i data-lucide="git-merge" style="width:16px;height:16px"></i>
+              Common JOIN Examples (${examples.length})
+            </div>
+            ${examples.map((ex, i) => `
+              <div class="join-example-card" id="join-ex-${i}">
+                <div class="join-example-header" onclick="document.getElementById('join-ex-${i}').classList.toggle('open')">
+                  <div>
+                    <div class="join-example-name">${escapeHtml(ex.title)}</div>
+                    <div class="join-example-target">${escapeHtml(ex.target)}</div>
+                  </div>
+                  <span class="join-example-chevron">▶</span>
+                </div>
+                <div class="join-example-body">
+                  <div class="join-example-desc">${escapeHtml(ex.desc)}</div>
+                  <div class="join-example-sql">
+                    <button class="copy-btn" onclick="navigator.clipboard.writeText(this.parentElement.querySelector('pre').textContent);this.textContent='Copied!';setTimeout(()=>this.textContent='Copy',1500)">Copy</button>
+                    <pre>${escapeHtml(ex.sql)}</pre>
+                  </div>
+                </div>
+              </div>
+            `).join('')}
+          </div>
+        ` : '';
+
         content.innerHTML = `
           <div class="detail-header">
             <h2 class="detail-name">${escapeHtml(table.name)} ${suffixBadge}</h2>
@@ -1992,6 +2172,7 @@
             </table>
           </div>
           <p class="column-count">${(table.columns || []).length} columns</p>
+          ${joinExamplesHtml}
           ${relatedHtml}
         `;
         lucide.createIcons();
