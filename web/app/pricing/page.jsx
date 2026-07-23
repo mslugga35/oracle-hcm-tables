@@ -71,16 +71,16 @@ export default function PricingPage() {
       </div>
 
       {/* Pricing Content */}
-      <div className="max-w-2xl mx-auto px-4 py-16 text-center">
-        <h1 className="text-4xl md:text-5xl font-bold mb-4">
+      <div className="max-w-2xl mx-auto px-4 py-10 sm:py-16 text-center">
+        <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold mb-3 sm:mb-4">
           Pay What You Want
         </h1>
-        <p className="text-xl text-gray-400 mb-12">
+        <p className="text-base sm:text-xl text-gray-400 mb-8 sm:mb-12">
           Support this project and unlock unlimited access
         </p>
 
         {/* Main Card */}
-        <div className="bg-gray-900 border border-gray-800 rounded-lg p-8 mb-8">
+        <div className="bg-gray-900 border border-gray-800 rounded-lg p-5 sm:p-8 mb-6 sm:mb-8">
           <div className="mb-6">
             <p className="text-gray-400 mb-4">
               Oracle Cloud documentation can be hard to navigate. This tool makes it easy to find the tables and columns you need.
