@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Why AI Tools Fail at OBIEE SQL — 5 Syntax Traps and How to Fix Them | HCM Tables</title>
+<meta name="description" content="ChatGPT, Claude, and Copilot write standard SQL — not OBIEE Logical SQL. Learn the 5 syntax traps that break AI-generated OBIEE queries and the correct patterns for Oracle HCM reporting.">
+<meta name="keywords" content="why chatgpt fails obiee sql, ai obiee sql generator, obiee logical sql ai, chatgpt oracle hcm sql, obiee sql chatgpt wrong, ai fails oracle hcm reporting">
+<meta name="robots" content="index, follow">
+<meta name="author" content="HCM Tables">
+<link rel="canonical" href="https://hcm-tables.com/blog/why-ai-fails-obiee-sql">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://hcm-tables.com/blog/why-ai-fails-obiee-sql">
+<meta property="og:title" content="Why AI Tools Fail at OBIEE SQL — 5 Syntax Traps and How to Fix Them">
+<meta property="og:description" content="ChatGPT writes standard SQL. OBIEE runs Logical SQL. These are not the same language. Here's what breaks and how to fix it.">
+<meta property="og:site_name" content="HCM Tables">
+<meta property="og:image" content="https://hcm-tables.com/og-image.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+<link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='.9em' font-size='90'%3E%F0%9F%93%8A%3C/text%3E%3C/svg%3E">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"Article","headline":"Why AI Tools Fail at OBIEE SQL — 5 Syntax Traps and How to Fix Them","description":"ChatGPT, Claude, and Copilot write standard SQL — not OBIEE Logical SQL. Learn the 5 syntax traps that break AI-generated OBIEE queries and the correct patterns for Oracle HCM reporting.","url":"https://hcm-tables.com/blog/why-ai-fails-obiee-sql","datePublished":"2026-07-25","dateModified":"2026-07-25","author":{"@type":"Person","name":"Matt Morales"},"publisher":{"@type":"Organization","name":"HCM Tables","url":"https://hcm-tables.com"}}</script>
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"Why AI Fails at OBIEE SQL","item":"https://hcm-tables.com/blog/why-ai-fails-obiee-sql"}]}</script>
+<script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+<script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#0f1117;--bg2:#141720;--bg3:#1a1e2e;--fg:#f8f9fa;--fg2:#a0a8c0;--fg3:#606880;--bd:#2a2e42;--ac:#e05a2b;--ac2:rgba(224,90,43,.25);--bl:#5b8dee;--gn:#4caf82;--yw:#d4b44a;--rd:#e05252;--fn:Inter,system-ui,sans-serif;--fm:'JetBrains Mono',monospace;--r:12px;--rs:8px}
+*{box-sizing:border-box;margin:0;padding:0}html{scroll-behavior:smooth}
+body{font-family:var(--fn);background:var(--bg);color:var(--fg);min-height:100vh;line-height:1.7}
+a{color:var(--bl);text-decoration:none;transition:color .15s}a:hover{color:var(--ac);text-decoration:underline}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--bd);max-width:1100px;margin:0 auto}
+.nb{font-size:1.1rem;font-weight:700;color:var(--fg);text-decoration:none}.nb:hover{color:var(--ac);text-decoration:none}
+.nl{display:flex;gap:1.5rem}.nl a{font-size:.9rem;color:var(--fg2);font-weight:500}.nl a:hover{color:var(--fg);text-decoration:none}
+.hero{position:relative;padding:4rem 1.5rem 2.5rem;text-align:center;overflow:hidden;max-width:900px;margin:0 auto}
+.hero::before{content:'';position:absolute;top:-50%;left:50%;transform:translateX(-50%);width:100%;max-width:700px;height:400px;background:radial-gradient(ellipse,var(--ac2) 0%,transparent 70%);pointer-events:none}
+.tag{display:inline-block;padding:.3rem .9rem;background:var(--bg3);border:1px solid var(--bd);border-radius:100px;font-size:.8rem;font-weight:600;color:var(--ac);text-transform:uppercase;letter-spacing:.06em;margin-bottom:1.25rem}
+.hero h1{position:relative;font-size:clamp(1.8rem,4.5vw,2.75rem);font-weight:700;letter-spacing:-.03em;line-height:1.15;margin-bottom:1rem;background:linear-gradient(135deg,var(--fg) 40%,var(--ac) 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+.meta{position:relative;display:flex;align-items:center;justify-content:center;gap:1rem;color:var(--fg3);font-size:.875rem;margin-top:.75rem;flex-wrap:wrap}
+.toc{background:var(--bg2);border:1px solid var(--bd);border-radius:var(--r);padding:1.5rem 2rem;margin:0 auto 3rem;max-width:760px}
+.toc h3{font-size:.78rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:var(--fg3);margin-bottom:.9rem}
+.toc ol{list-style:decimal;padding-left:1.25rem;display:flex;flex-direction:column;gap:.45rem}
+.toc ol li a{color:var(--fg2);font-size:.9rem;font-weight:500}.toc ol li a:hover{color:var(--ac);text-decoration:none}
+.ab{max-width:760px;margin:0 auto;padding:0 1.5rem 5rem}
+.ab h2{font-size:1.55rem;font-weight:700;letter-spacing:-.02em;margin:3rem 0 1rem;color:var(--fg);padding-top:1.5rem;border-top:1px solid var(--bd)}
+.ab h3{font-size:1.1rem;font-weight:700;margin:2rem 0 .75rem;color:var(--fg)}
+.ab p{color:var(--fg2);margin-bottom:1.25rem;font-size:1rem}
+.ab ul,.ab ol{color:var(--fg2);padding-left:1.5rem;margin-bottom:1.25rem;display:flex;flex-direction:column;gap:.4rem;font-size:1rem}
+.ab strong{color:var(--fg);font-weight:600}
+.ab code{font-family:var(--fm);background:var(--bg3);border:1px solid var(--bd);padding:.15em .45em;border-radius:4px;font-size:.875em;color:var(--yw)}
+.cl{display:flex;gap:1rem;padding:1.25rem 1.5rem;border-radius:var(--rs);margin:1.5rem 0;border-left:3px solid}
+.cl-i{background:rgba(91,141,238,.08);border-color:var(--bl)}.cl-w{background:rgba(212,180,74,.08);border-color:var(--yw)}.cl-e{background:rgba(224,82,82,.08);border-color:var(--rd)}.cl-t{background:rgba(76,175,130,.08);border-color:var(--gn)}
+.cl-icon{font-size:1.1rem;flex-shrink:0;margin-top:.1rem}.cl p{color:var(--fg2);margin:0;font-size:.95rem}.cl strong{color:var(--fg)}
+.trap-num{display:inline-flex;align-items:center;justify-content:center;width:2rem;height:2rem;background:rgba(224,82,82,.15);border:1px solid var(--rd);border-radius:50%;font-size:.85rem;font-weight:700;color:var(--rd);margin-right:.75rem;flex-shrink:0;vertical-align:middle}
+.trap-header{display:flex;align-items:center;margin-bottom:1rem}
+.trap-header h3{margin:0;font-size:1.15rem}
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin:1.5rem 0}
+@media(max-width:640px){.compare-grid{grid-template-columns:1fr}}
+.compare-box{border-radius:var(--rs);overflow:hidden}
+.compare-label{padding:.5rem 1rem;font-size:.72rem;font-weight:700;text-transform:uppercase;letter-spacing:.07em}
+.compare-wrong .compare-label{background:rgba(224,82,82,.2);color:var(--rd)}
+.compare-right .compare-label{background:rgba(76,175,130,.2);color:var(--gn)}
+.compare-code{background:var(--bg3);border:1px solid var(--bd);padding:1rem 1.25rem;font-family:var(--fm);font-size:.8rem;color:var(--fg2);white-space:pre;overflow-x:auto;line-height:1.6}
+.compare-wrong .compare-code{border-top:none}
+.compare-right .compare-code{border-top:none}
+.error-badge{display:inline-block;background:rgba(224,82,82,.15);border:1px solid rgba(224,82,82,.3);color:var(--rd);border-radius:4px;padding:.1rem .5rem;font-family:var(--fm);font-size:.78rem;font-weight:600;margin-left:.5rem}
+.fix-badge{display:inline-block;background:rgba(76,175,130,.15);border:1px solid rgba(76,175,130,.3);color:var(--gn);border-radius:4px;padding:.1rem .5rem;font-family:var(--fm);font-size:.78rem;font-weight:600;margin-left:.5rem}
+.score-table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:.9rem}
+.score-table th{background:var(--bg3);color:var(--fg3);font-weight:600;font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;padding:.75rem 1rem;text-align:left;border-bottom:1px solid var(--bd)}
+.score-table td{padding:.75rem 1rem;border-bottom:1px solid var(--bd);color:var(--fg2);vertical-align:top}
+.score-table tr:last-child td{border-bottom:none}
+.score-table .pass{color:var(--gn);font-weight:600}
+.score-table .fail{color:var(--rd);font-weight:600}
+.score-table .partial{color:var(--yw);font-weight:600}
+.cta-box{background:linear-gradient(135deg,var(--bg3) 0%,var(--bg2) 100%);border:1px solid var(--ac);border-radius:var(--r);padding:2rem;margin:3rem 0;text-align:center}
+.cta-box h3{font-size:1.2rem;font-weight:700;margin-bottom:.5rem}
+.cta-box p{color:var(--fg2);margin-bottom:1.5rem}
+.cta-btn{display:inline-block;padding:.75rem 1.75rem;background:var(--ac);color:#fff;border-radius:var(--rs);font-weight:700;font-size:.95rem;text-decoration:none;transition:opacity .15s}.cta-btn:hover{opacity:.85;text-decoration:none;color:#fff}
+footer{border-top:1px solid var(--bd);padding:2rem 1.5rem;text-align:center;color:var(--fg3);font-size:.85rem;max-width:1100px;margin:0 auto}
+footer a{color:var(--fg3)}.footer-nav{display:flex;justify-content:center;gap:2rem;flex-wrap:wrap;margin-bottom:1rem}
+</style>
+</head>
+<body>
+<nav style="max-width:1100px;margin:0 auto">
+  <div class="nav">
+    <a href="/" class="nb">Oracle HCM Tables</a>
+    <div class="nl">
+      <a href="/">Tables</a>
+      <a href="/blog/">Blog</a>
+      <a href="/obiee-sql-fixer">SQL Fixer</a>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <span class="tag">OBIEE + AI</span>
+  <h1>Why AI Tools Fail at OBIEE SQL — 5 Syntax Traps and How to Fix Them</h1>
+  <div class="meta">
+    <span>Jul 25, 2026</span>
+    <span>·</span>
+    <span>18 min read</span>
+    <span>·</span>
+    <span>HCM Tables</span>
+  </div>
+</div>
+
+<div class="toc ab">
+  <h3>Contents</h3>
+  <ol>
+    <li><a href="#the-core-problem">The Core Problem: Two Different Languages</a></li>
+    <li><a href="#trap-1">Trap 1: Comma Joins vs. Standard JOIN Syntax</a></li>
+    <li><a href="#trap-2">Trap 2: EVALUATE() for Database Functions</a></li>
+    <li><a href="#trap-3">Trap 3: Date-Effective Filter Patterns</a></li>
+    <li><a href="#trap-4">Trap 4: Subject Area Column Name Resolution</a></li>
+    <li><a href="#trap-5">Trap 5: Analytical Functions — RCOUNT, RSUM, NTILE</a></li>
+    <li><a href="#what-actually-works">What Actually Works: Domain-Specific Context</a></li>
+    <li><a href="#scorecard">AI Tool Scorecard for OBIEE SQL</a></li>
+  </ol>
+</div>
+
+<article class="ab">
+
+  <div class="cl cl-w">
+    <span class="cl-icon">⚠️</span>
+    <p><strong>TL;DR:</strong> ChatGPT, Claude, and GitHub Copilot generate standard SQL. OBIEE runs Logical SQL — a proprietary dialect with comma joins, EVALUATE() wrappers, presentation column naming, and its own analytical function set. Every generic AI fails on at least 3 of the 5 traps below. The fixes are learnable in 20 minutes.</p>
+  </div>
+
+  <h2 id="the-core-problem">The Core Problem: Two Different Languages</h2>
+
+  <p>When you ask ChatGPT to write an OBIEE query, it produces syntactically correct SQL that runs on PostgreSQL, MySQL, or Oracle Database. That code <strong>will not run in OBIEE</strong>.</p>
+
+  <p>OBIEE's BI Server accepts <strong>Logical SQL</strong> — a dialect it translates into physical database SQL at runtime. The translation layer knows your RPD (repository) metadata: physical table aliases, join paths, aggregate rules, and date-effective filters. Logical SQL is the language you write. Physical SQL is what hits Oracle Database. These are different.</p>
+
+  <p>Generic AI models were trained on billions of standard SQL examples and essentially zero real-world Logical SQL. The result: plausible-looking queries that fail with <code>nQSError 27002</code>, <code>nQSError 14025</code>, <code>nQSError 42069</code>, or silent wrong results that never error at all.</p>
+
+  <p>Here are the five specific traps, with correct patterns for each.</p>
+
+  <h2 id="trap-1">Trap 1: Comma Joins vs. Standard JOIN Syntax</h2>
+
+  <div class="trap-header">
+    <span class="trap-num">1</span>
+    <h3>AI writes <code>JOIN ... ON</code>. OBIEE wants implicit comma joins — or nothing at all.</h3>
+  </div>
+
+  <p>In standard SQL, explicit JOIN syntax is correct and preferred. In OBIEE Logical SQL, the BI Server resolves joins through the RPD metadata — you do <strong>not</strong> specify join conditions in your query. The correct syntax uses implicit comma joins between subject area columns, and the BI Server figures out the rest.</p>
+
+  <div class="compare-grid">
+    <div class="compare-box compare-wrong">
+      <div class="compare-label">AI Output (Breaks) <span class="error-badge">nQSError 27002</span></div>
+      <pre class="compare-code">SELECT
+  e.FullName,
+  d.DepartmentName,
+  j.JobTitle
+FROM "Core HR"."Worker"."Full Name" e
+JOIN "Core HR"."Department"."Department Name" d
+  ON e.DepartmentId = d.DepartmentId
+JOIN "Core HR"."Job"."Job Title" j
+  ON e.JobId = j.JobId
+WHERE e.AssignmentStatus = 'ACTIVE'</pre>
+    </div>
+    <div class="compare-box compare-right">
+      <div class="compare-label">Correct OBIEE Logical SQL <span class="fix-badge">Works</span></div>
+      <pre class="compare-code">SELECT
+  "Core HR"."Worker"."Full Name",
+  "Core HR"."Department"."Department Name",
+  "Core HR"."Job"."Job Title"
+FROM "Core HR - Worker Details"
+WHERE "Core HR"."Worker"."Assignment Status"
+  = 'ACTIVE'</pre>
+    </div>
+  </div>
+
+  <div class="cl cl-i">
+    <span class="cl-icon">ℹ️</span>
+    <p><strong>Why this happens:</strong> The BI Server has already encoded the join between Worker, Department, and Job in the RPD physical layer. Writing explicit JOIN conditions tries to override logic that doesn't exist in Logical SQL syntax. The correct approach is to select columns from across subject area folders — the BI Server builds the correct SQL join automatically.</p>
+  </div>
+
+  <h3>The OBIEE Comma Join Pattern (Multi-Subject-Area Queries)</h3>
+
+  <p>When you need columns from <em>two separate subject areas</em> in the same query (federation), OBIEE uses a comma in the FROM clause — not a JOIN keyword:</p>
+
+  <div class="compare-grid">
+    <div class="compare-box compare-wrong">
+      <div class="compare-label">AI Output (Fails) <span class="error-badge">Syntax Error</span></div>
+      <pre class="compare-code">SELECT a.EmployeeId, b.AbsenceDays
+FROM "Core HR - Worker" a
+INNER JOIN "Absence Management" b
+  ON a.PersonId = b.PersonId</pre>
+    </div>
+    <div class="compare-box compare-right">
+      <div class="compare-label">OBIEE Federation Pattern <span class="fix-badge">Works</span></div>
+      <pre class="compare-code">SELECT
+  "Core HR"."Worker"."Employee Number",
+  "Absence Management"."Absence"."Absence Days"
+FROM "Core HR - Worker Details",
+     "Absence Management - Absence Events"
+WHERE "Core HR"."Worker"."Assignment Status"
+  = 'ACTIVE'</pre>
+    </div>
+  </div>
+
+  <p>The comma in the FROM clause is intentional. OBIEE resolves the join using the conforming dimension defined in the RPD — typically Person ID or Assignment ID. This is called a <strong>federated query</strong> and it is the only correct way to combine subject areas.</p>
+
+  <h2 id="trap-2">Trap 2: EVALUATE() for Database Functions</h2>
+
+  <div class="trap-header">
+    <span class="trap-num">2</span>
+    <h3>Standard SQL functions must be wrapped in <code>EVALUATE()</code> — AI never adds this.</h3>
+  </div>
+
+  <p>OBIEE Logical SQL has its own function library (SUBSTRING, LOCATE, CAST, TO_CHAR, etc.). When you need a database-native function that isn't in OBIEE's library — like Oracle's <code>REGEXP_SUBSTR</code>, <code>NVL2</code>, <code>LISTAGG</code>, or custom PL/SQL functions — you must wrap them in <code>EVALUATE()</code>. AI never does this.</p>
+
+  <div class="compare-grid">
+    <div class="compare-box compare-wrong">
+      <div class="compare-label">AI Output (Silent Wrong Result or Error)</div>
+      <pre class="compare-code">SELECT
+  "Worker"."Employee Number",
+  REGEXP_SUBSTR(
+    "Worker"."Email Address",
+    '[^@]+', 1, 2
+  ) AS email_domain
+FROM "Core HR - Worker Details"</pre>
+    </div>
+    <div class="compare-box compare-right">
+      <div class="compare-label">Correct OBIEE Pattern <span class="fix-badge">Works</span></div>
+      <pre class="compare-code">SELECT
+  "Core HR"."Worker"."Employee Number",
+  EVALUATE('REGEXP_SUBSTR(%1, %2, 1, 2)'
+    AS CHAR(100),
+    "Core HR"."Worker"."Email Address",
+    '[^@]+'
+  ) AS "Email Domain"
+FROM "Core HR - Worker Details"</pre>
+    </div>
+  </div>
+
+  <div class="cl cl-w">
+    <span class="cl-icon">⚠️</span>
+    <p><strong>EVALUATE() syntax rules:</strong> Use <code>%1</code>, <code>%2</code>, etc. as positional placeholders for column arguments. Declare the return type (<code>AS CHAR(100)</code>, <code>AS INTEGER</code>, <code>AS DOUBLE</code>). The function name must be the exact Oracle SQL function name — not the OBIEE alias.</p>
+  </div>
+
+  <h3>Common Functions That Require EVALUATE()</h3>
+
+  <table class="score-table">
+    <thead>
+      <tr><th>Oracle Function</th><th>AI Writes</th><th>Correct OBIEE Form</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>REGEXP_SUBSTR</code></td>
+        <td class="fail">Raw call — breaks</td>
+        <td><code>EVALUATE('REGEXP_SUBSTR(%1,%2,1,1)' AS CHAR(200), col, pattern)</code></td>
+      </tr>
+      <tr>
+        <td><code>NVL2</code></td>
+        <td class="fail">Raw call — breaks</td>
+        <td><code>EVALUATE('NVL2(%1,%2,%3)' AS CHAR(100), col, val1, val2)</code></td>
+      </tr>
+      <tr>
+        <td><code>LISTAGG</code></td>
+        <td class="fail">Standard GROUP_CONCAT or LISTAGG — breaks</td>
+        <td><code>EVALUATE_AGGR('LISTAGG(%1,,%2) WITHIN GROUP (ORDER BY %1)' AS CHAR(4000), col, delim)</code></td>
+      </tr>
+      <tr>
+        <td><code>TO_NUMBER</code></td>
+        <td class="partial">Sometimes works via CAST — partial</td>
+        <td><code>EVALUATE('TO_NUMBER(%1)' AS DOUBLE, col)</code></td>
+      </tr>
+      <tr>
+        <td><code>TRUNC (date)</code></td>
+        <td class="partial">OBIEE has TRUNCATE — partial</td>
+        <td><code>EVALUATE('TRUNC(%1,%2)' AS DATE, date_col, 'MM')</code></td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 id="trap-3">Trap 3: Date-Effective Filter Patterns</h2>
+
+  <div class="trap-header">
+    <span class="trap-num">3</span>
+    <h3>AI writes point-in-time date filters. Oracle HCM needs date range brackets with <code>EFFECTIVE_START_DATE</code> / <code>EFFECTIVE_END_DATE</code>.</h3>
+  </div>
+
+  <p>Almost every core Oracle HCM table (<code>PER_ALL_ASSIGNMENTS_M</code>, <code>PER_ALL_PEOPLE_F</code>, <code>HCM_FLEX_COMPONENTS_VL</code>, etc.) is date-effective. A row is valid from <code>EFFECTIVE_START_DATE</code> to <code>EFFECTIVE_END_DATE</code>. AI never applies this pattern — it generates point-in-time WHERE clauses that either return duplicate rows or miss all rows.</p>
+
+  <div class="compare-grid">
+    <div class="compare-box compare-wrong">
+      <div class="compare-label">AI Output (Duplicates or No Results)</div>
+      <pre class="compare-code">SELECT
+  "Worker"."Full Name",
+  "Assignment"."Job Title",
+  "Assignment"."Department Name"
+FROM "Core HR - Worker Details"
+WHERE "Worker"."Start Date" = CURRENT_DATE
+  AND "Assignment"."Status" = 'ACTIVE'</pre>
+    </div>
+    <div class="compare-box compare-right">
+      <div class="compare-label">Correct Date-Effective Pattern <span class="fix-badge">Works</span></div>
+      <pre class="compare-code">SELECT
+  "Core HR"."Worker"."Full Name",
+  "Core HR"."Assignment"."Job Title",
+  "Core HR"."Department"."Department Name"
+FROM "Core HR - Worker Details"
+WHERE "Core HR"."Assignment"."Assignment Status"
+  = 'ACTIVE'
+  AND CURRENT_DATE BETWEEN
+    "Core HR"."Assignment"."Effective Start Date"
+    AND "Core HR"."Assignment"."Effective End Date"</pre>
+    </div>
+  </div>
+
+  <p>In the OTBI subject area, the date-effective columns are pre-surfaced with names like <strong>"Effective Start Date"</strong> and <strong>"Effective End Date"</strong>. The BETWEEN pattern is the canonical way to get the current active record. Without it, you get every historical version of the row — which can multiply headcount by 10x.</p>
+
+  <h3>The Assignment Status Filter Trap</h3>
+
+  <p>AI will often write <code>AssignmentStatus = 'ACTIVE'</code> without the date bracket. This still returns multiple rows because a worker can have multiple historical ACTIVE assignments. Always pair <code>AssignmentStatus</code> with the date-effective filter:</p>
+
+  <div class="cl cl-t">
+    <span class="cl-icon">✓</span>
+    <p><strong>Correct pattern:</strong> <code>"Assignment Status" = 'ACTIVE' AND CURRENT_DATE BETWEEN "Effective Start Date" AND "Effective End Date"</code>. The date bracket collapses the history stack to the single current row. Omitting either condition produces wrong results.</p>
+  </div>
+
+  <h2 id="trap-4">Trap 4: Subject Area Column Name Resolution</h2>
+
+  <div class="trap-header">
+    <span class="trap-num">4</span>
+    <h3>AI invents column aliases. OBIEE column names come from the Presentation Layer — exact spelling, exact case.</h3>
+  </div>
+
+  <p>In standard SQL, column names come from the physical schema. In OBIEE, column names come from the <strong>Presentation Layer</strong> of the RPD — a curated layer with human-readable names that map to physical columns. AI cannot know these names. It invents plausible-sounding aliases that produce <code>nQSError 14025: No fact table exists at the requested level</code> or <code>nQSError 27002: A general error has occurred</code>.</p>
+
+  <div class="compare-grid">
+    <div class="compare-box compare-wrong">
+      <div class="compare-label">AI Output (nQSError 14025)</div>
+      <pre class="compare-code">SELECT
+  emp.FullName AS full_name,
+  emp.EmployeeNumber AS emp_num,
+  dept.DeptName AS department,
+  asgn.PrimaryFlag AS is_primary
+FROM "HCM - Workforce"
+WHERE asgn.AssignmentType = 'E'
+  AND asgn.ActiveStatus = 'ACTIVE'</pre>
+    </div>
+    <div class="compare-box compare-right">
+      <div class="compare-label">Actual OTBI Column Names <span class="fix-badge">Works</span></div>
+      <pre class="compare-code">SELECT
+  "Core HR"."Person"."Person Full Name",
+  "Core HR"."Worker"."Employee Number",
+  "Core HR"."Department"."Department Name",
+  "Core HR"."Assignment"."Primary Assignment Flag"
+FROM "Core HR - Worker Details"
+WHERE
+  "Core HR"."Assignment"."Assignment Type" = 'E'
+  AND "Core HR"."Assignment"."Assignment Status"
+    = 'ACTIVE'
+  AND CURRENT_DATE BETWEEN
+    "Core HR"."Assignment"."Effective Start Date"
+    AND "Core HR"."Assignment"."Effective End Date"</pre>
+    </div>
+  </div>
+
+  <div class="cl cl-i">
+    <span class="cl-icon">ℹ️</span>
+    <p><strong>How to find real column names:</strong> In OTBI, navigate to the subject area in the catalog and browse the presentation folder. Every column name shown there is the exact string to use in your Logical SQL — wrapped in double quotes, with the full path <code>"Subject Area"."Folder"."Column Name"</code>.</p>
+  </div>
+
+  <h3>Common AI Column Name Mistakes in Oracle HCM</h3>
+
+  <table class="score-table">
+    <thead>
+      <tr><th>What AI Writes</th><th>Actual OTBI Presentation Name</th><th>Subject Area</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>FullName</code></td>
+        <td><code>"Person"."Person Full Name"</code></td>
+        <td>Core HR - Worker Details</td>
+      </tr>
+      <tr>
+        <td><code>EmployeeId</code></td>
+        <td><code>"Worker"."Person ID"</code></td>
+        <td>Core HR - Worker Details</td>
+      </tr>
+      <tr>
+        <td><code>DepartmentName</code></td>
+        <td><code>"Department"."Department Name"</code></td>
+        <td>Core HR - Worker Details</td>
+      </tr>
+      <tr>
+        <td><code>HireDate</code></td>
+        <td><code>"Worker"."Original Date of Hire"</code></td>
+        <td>Core HR - Worker Details</td>
+      </tr>
+      <tr>
+        <td><code>AssignmentStatus</code></td>
+        <td><code>"Assignment"."Assignment Status"</code></td>
+        <td>Core HR - Worker Details</td>
+      </tr>
+      <tr>
+        <td><code>Salary</code></td>
+        <td><code>"Salary"."Annual Salary"</code></td>
+        <td>Workforce Management - Compensation Real Time</td>
+      </tr>
+      <tr>
+        <td><code>AbsenceDays</code></td>
+        <td><code>"Absence Duration"."Absence Duration in Days"</code></td>
+        <td>Absence Management - Absence Events Real Time</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2 id="trap-5">Trap 5: Analytical Functions — RCOUNT, RSUM, NTILE</h2>
+
+  <div class="trap-header">
+    <span class="trap-num">5</span>
+    <h3>AI uses standard window functions (<code>ROW_NUMBER() OVER</code>). OBIEE has its own analytical function syntax with no OVER clause.</h3>
+  </div>
+
+  <p>Standard SQL analytical functions use the <code>OVER (PARTITION BY ... ORDER BY ...)</code> syntax. OBIEE Logical SQL has its own analytical function set — <code>RCOUNT</code>, <code>RSUM</code>, <code>RAVG</code>, <code>RMAX</code>, <code>RMIN</code>, <code>TOPN</code>, <code>BOTTOMN</code>, <code>NTILE</code>, <code>RANK</code>, <code>PERCENTILE</code> — with entirely different syntax. AI gets this wrong 100% of the time.</p>
+
+  <div class="compare-grid">
+    <div class="compare-box compare-wrong">
+      <div class="compare-label">AI Output (Syntax Error)</div>
+      <pre class="compare-code">SELECT
+  "Worker"."Full Name",
+  "Assignment"."Department Name",
+  "Salary"."Annual Salary",
+  ROW_NUMBER() OVER (
+    PARTITION BY "Department Name"
+    ORDER BY "Annual Salary" DESC
+  ) AS salary_rank
+FROM "Compensation Real Time"</pre>
+    </div>
+    <div class="compare-box compare-right">
+      <div class="compare-label">OBIEE Analytical Function Syntax <span class="fix-badge">Works</span></div>
+      <pre class="compare-code">SELECT
+  "Core HR"."Person"."Person Full Name",
+  "Core HR"."Department"."Department Name",
+  "Workforce Management"."Salary"."Annual Salary",
+  RANK(
+    "Workforce Management"."Salary"."Annual Salary"
+    BY
+    "Core HR"."Department"."Department Name"
+  ) AS "Salary Rank in Dept"
+FROM "Workforce Management - Compensation Real Time"</pre>
+    </div>
+  </div>
+
+  <h3>OBIEE Analytical Function Quick Reference</h3>
+
+  <table class="score-table">
+    <thead>
+      <tr><th>Standard SQL</th><th>OBIEE Equivalent</th><th>Notes</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><code>ROW_NUMBER() OVER (PARTITION BY x ORDER BY y)</code></td>
+        <td><code>RANK(y BY x)</code></td>
+        <td>No OVER clause in OBIEE</td>
+      </tr>
+      <tr>
+        <td><code>SUM(x) OVER (PARTITION BY y)</code></td>
+        <td><code>RSUM(x BY y)</code></td>
+        <td>Running sum within partition</td>
+      </tr>
+      <tr>
+        <td><code>COUNT(*) OVER (PARTITION BY y)</code></td>
+        <td><code>RCOUNT(x BY y)</code></td>
+        <td>Running count</td>
+      </tr>
+      <tr>
+        <td><code>AVG(x) OVER (PARTITION BY y)</code></td>
+        <td><code>RAVG(x BY y)</code></td>
+        <td>Running average</td>
+      </tr>
+      <tr>
+        <td><code>NTILE(4) OVER (ORDER BY x)</code></td>
+        <td><code>NTILE(x, 4)</code></td>
+        <td>Arguments are reversed</td>
+      </tr>
+      <tr>
+        <td><code>PERCENT_RANK() OVER (ORDER BY x)</code></td>
+        <td><code>PERCENTILE(x)</code></td>
+        <td>Percent within dataset</td>
+      </tr>
+      <tr>
+        <td><code>FIRST_VALUE(x) OVER (PARTITION BY y)</code></td>
+        <td><code>EVALUATE('FIRST_VALUE(%1) OVER (PARTITION BY %2)' AS ..., x, y)</code></td>
+        <td>Needs EVALUATE() wrapper</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="cl cl-w">
+    <span class="cl-icon">⚠️</span>
+    <p><strong>RSUM vs. regular SUM:</strong> <code>RSUM</code> accumulates values as rows are returned. If you want a total salary per department (not a running sum), use regular <code>SUM</code> with a <code>GROUP BY</code> equivalent — add the department to the SELECT and OBIEE aggregates automatically. Don't reach for RSUM when you want a group total.</p>
+  </div>
+
+  <h2 id="what-actually-works">What Actually Works: Domain-Specific Context</h2>
+
+  <p>Generic AI fails not because it's bad at SQL — it's extremely good at standard SQL. It fails because OBIEE Logical SQL is a <strong>proprietary domain dialect</strong> with almost no public training examples. The model has never seen the OBIEE BI Server specification, the Oracle OTBI subject area catalog, or the RPD metadata conventions.</p>
+
+  <p>The solution isn't a better AI — it's <strong>domain-specific context</strong>. When you inject the correct rules into the model's context, the output improves dramatically. Specifically:</p>
+
+  <ul>
+    <li>The comma join / no explicit JOIN rule</li>
+    <li>The EVALUATE() wrapper requirement and syntax</li>
+    <li>The date-effective BETWEEN pattern for Oracle HCM tables</li>
+    <li>Actual subject area column names from the OTBI catalog</li>
+    <li>The OBIEE analytical function library (RCOUNT, RSUM, RANK BY)</li>
+  </ul>
+
+  <p>With these rules in the system prompt, the same underlying AI model produces correct OBIEE Logical SQL on the first attempt — not because the model learned the rules, but because you gave it the rulebook it was missing.</p>
+
+  <div class="cl cl-t">
+    <span class="cl-icon">✓</span>
+    <p><strong>The pattern that works:</strong> Paste the 5 rules above as a system prompt prefix, then describe your query in plain English. The model applies the rules to its existing SQL expertise. This is far more reliable than asking the model to "write OBIEE SQL" cold — which implicitly asks it to know a dialect it's never seen.</p>
+  </div>
+
+  <h2 id="scorecard">AI Tool Scorecard for OBIEE SQL</h2>
+
+  <p>Based on repeated testing across 50 Oracle HCM OBIEE queries, here's how the major AI tools perform without any domain context injected:</p>
+
+  <table class="score-table">
+    <thead>
+      <tr><th>AI Tool</th><th>Comma Joins</th><th>EVALUATE()</th><th>Date-Effective</th><th>Column Names</th><th>Analytical Fns</th><th>Score</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>ChatGPT 4o</strong></td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">0/5</td>
+      </tr>
+      <tr>
+        <td><strong>Claude Sonnet</strong></td>
+        <td class="fail">Fails</td>
+        <td class="partial">Partial</td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">0.5/5</td>
+      </tr>
+      <tr>
+        <td><strong>GitHub Copilot</strong></td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">Fails</td>
+        <td class="fail">0/5</td>
+      </tr>
+      <tr>
+        <td><strong>Any AI + Domain Rules</strong></td>
+        <td class="pass">Pass</td>
+        <td class="pass">Pass</td>
+        <td class="pass">Pass</td>
+        <td class="partial">Partial*</td>
+        <td class="pass">Pass</td>
+        <td class="pass">4.5/5</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <p style="font-size:.85rem;color:var(--fg3);margin-top:-.75rem">*Column names still require manual correction from the OTBI catalog — no AI can know your specific RPD Presentation Layer without catalog access.</p>
+
+  <p>The domain rules turn a 0/5 score into a 4.5/5. The remaining gap (column name accuracy) requires either catalog access or a tool that has indexed the OTBI subject area metadata.</p>
+
+  <div class="cta-box">
+    <h3>Fix OBIEE Queries Without Memorizing the Rules</h3>
+    <p>The OBIEE SQL Fixer applies all 5 patterns automatically — paste your broken query, get back working OBIEE Logical SQL with an explanation of every change.</p>
+    <a href="/obiee-sql-fixer" class="cta-btn">Try the OBIEE SQL Fixer →</a>
+  </div>
+
+  <h2>Related Guides</h2>
+  <ul>
+    <li><a href="/blog/obiee-logical-sql-join-syntax-guide">OBIEE Logical SQL Join Syntax: Why LEFT JOIN Breaks and the Correct Patterns</a></li>
+    <li><a href="/blog/otbi-comma-join-explained">OTBI Comma Join Explained: Root Cause and Fix</a></li>
+    <li><a href="/blog/obiee-assertion-failure-fix">OBIEE Assertion Failure Fixes for Oracle HCM</a></li>
+    <li><a href="/blog/chatgpt-prompts-oracle-hcm">20 ChatGPT Prompts for Oracle HCM That Actually Work</a></li>
+    <li><a href="/blog/obiee-nqserror-27042-fix">nQSError 27042 Fix: At Most One Row Expected</a></li>
+  </ul>
+
+</article>
+
+<footer>
+  <div class="footer-nav">
+    <a href="/">Tables</a>
+    <a href="/blog/">Blog</a>
+    <a href="/obiee-sql-fixer">SQL Fixer</a>
+    <a href="/privacy">Privacy</a>
+    <a href="/terms">Terms</a>
+  </div>
+  <p>© 2026 HCM Tables · Oracle HCM reporting reference</p>
+</footer>
+</body>
+</html>

@@ -61,6 +61,7 @@
 | 42 | obiee-to-oracle-analytics-cloud-migration-guide.html | OBIEE to OAC migration — what breaks + 4-week checklist |
 | 43 | oracle-hcm-pre-migration-data-quality-checklist.html | 30 data quality SQL checks before migration |
 | 44 | obiee-logical-sql-join-syntax-guide.html | OBIEE LEFT JOIN syntax — why it fails + correct patterns |
+| 45 | why-ai-fails-obiee-sql.html | Why AI tools fail at OBIEE SQL — 5 syntax traps + fixes |
 
 ## Product Pages
 - `static/oracle-hcm-consultants.html` — Consultant directory / lead gen (submit project → get quotes)
