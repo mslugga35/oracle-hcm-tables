@@ -1,0 +1,20 @@
+# Cloudflare Pages headers.
+#
+# The equivalent block in vercel.json has NEVER reached production: this site
+# is served by Cloudflare Pages (hcm-tables.com -> oracle-tables.pages.dev),
+# so Vercel config is inert. Verified 2026-07-30 — the live site sent no
+# Content-Security-Policy and no X-Frame-Options at all.
+#
+# Keep this in sync with vercel.json only if the site ever moves back; today
+# THIS file is the one that takes effect.
+#
+# script-src / connect-src include outgoing-oyster-428.convex.site because the
+# Harbor SEO snippet (harbor-seo.js) is embedded in every page and would be
+# blocked without it.
+
+/*
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: SAMEORIGIN
+  X-XSS-Protection: 1; mode=block
+  Referrer-Policy: strict-origin-when-cross-origin
+  Content-Security-Policy: default-src 'self'; script-src 'self' 'unsafe-inline' https://unpkg.com https://pagead2.googlesyndication.com https://www.googletagmanager.com https://www.google-analytics.com https://plausible.io https://js.stripe.com https://outgoing-oyster-428.convex.site; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com; img-src 'self' data: https:; connect-src 'self' https://plausible.io https://www.google-analytics.com https://pagead2.googlesyndication.com https://outgoing-oyster-428.convex.site; frame-src https://js.stripe.com https://pagead2.googlesyndication.com
