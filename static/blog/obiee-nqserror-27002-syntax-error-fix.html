@@ -1,0 +1,745 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <!-- Primary Meta Tags -->
+  <title>OBIEE nQSError 27002 — Syntax Error Fix | HCM Tables</title>
+  <meta name="title" content="OBIEE nQSError 27002 — Syntax Error Fix | HCM Tables">
+  <meta name="description" content="Fix OBIEE nQSError 27002 'Near... Syntax error' in OTBI and BI Publisher. Learn the difference between logical SQL and physical SQL with step-by-step examples for Oracle HCM.">
+  <meta name="keywords" content="OBIEE nQSError 27002, OBIEE syntax error, OTBI nQSError 27002, OBIEE logical SQL syntax, nQSError 27002 fix, OBIEE ANSI join syntax, Oracle BI syntax error, OTBI syntax fix">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/obiee-nqserror-27002-syntax-error-fix">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/obiee-nqserror-27002-syntax-error-fix">
+  <meta property="og:title" content="OBIEE nQSError 27002 — Syntax Error Fix">
+  <meta property="og:description" content="Fix nQSError 27002 syntax errors in OBIEE with logical SQL examples and common mistake patterns.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:alt" content="Oracle HCM Tables article">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/obiee-nqserror-27002-syntax-error-fix">
+  <meta property="twitter:title" content="OBIEE nQSError 27002 — Syntax Error Fix">
+  <meta property="twitter:description" content="Fix OBIEE syntax errors by understanding logical SQL vs physical SQL patterns.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OBIEE nQSError 27002 — Syntax Error: Quick Fix Guide",
+    "description": "Fix OBIEE nQSError 27002 'Near... Syntax error' in OTBI and BI Publisher. Learn the difference between logical SQL and physical SQL with step-by-step examples for Oracle HCM.",
+    "url": "https://hcm-tables.com/blog/obiee-nqserror-27002-syntax-error-fix",
+    "datePublished": "2026-03-25",
+    "dateModified": "2026-03-25",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/obiee-nqserror-27002-syntax-error-fix"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OBIEE nQSError 27002 — Syntax Error Fix","item":"https://hcm-tables.com/blog/obiee-nqserror-27002-syntax-error-fix"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does nQSError 27002 mean in OBIEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "nQSError 27002 is a syntax error that means 'Near <token>: Syntax error [at line X]'. It indicates the BI Server encountered an unexpected token while parsing your logical SQL. The 'token' shown is the word or character that triggered the error — usually where your syntax went wrong."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my physical SQL query work but fail in OBIEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OBIEE uses logical SQL, not physical SQL. Logical SQL is a simplified dialect that doesn't support all standard SQL features like subqueries without aliases, comma-separated FROM clauses, or certain SQL functions. Your physical SQL (Oracle database SQL) won't translate directly."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I convert physical SQL to logical SQL for OBIEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Key differences: 1) Use explicit JOINS instead of comma-separated tables, 2) Wrap subqueries in parentheses with aliases, 3) Reference columns through presentation folders (Subject_Area.Folder.Column), 4) Use only OBIEE-supported functions, 5) Quote all identifiers with double quotes."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What's the difference between ANSI joins and comma joins in OBIEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ANSI joins use the JOIN keyword (INNER JOIN, LEFT JOIN, etc.) and are supported by OBIEE. Comma joins (old-style: FROM table1, table2) are NOT supported in OBIEE logical SQL. Always use explicit ANSI join syntax."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .article-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .article-body h2 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-body h3 {
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-body p {
+      margin-bottom: 1.25rem;
+    }
+
+    .article-body ul, .article-body ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .success-box {
+      background: rgba(112, 168, 102, 0.1);
+      border-left: 4px solid var(--green);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .error-box {
+      background: rgba(200, 100, 100, 0.1);
+      border-left: 4px solid var(--red);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .tip-box {
+      background: rgba(100, 150, 200, 0.1);
+      border-left: 4px solid var(--blue);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    table th, table td {
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+    }
+
+    .cta-box {
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      margin-bottom: 1rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .cta-button:hover {
+      opacity: 0.9;
+      text-decoration: none;
+    }
+  
+    /* Affiliate card */
+    .affiliate-card {
+      background: linear-gradient(135deg, rgba(26,26,46,0.8) 0%, rgba(22,33,62,0.8) 100%);
+      border: 1px solid rgba(255, 77, 61, 0.25);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2.5rem 0 1.5rem;
+    }
+    .affiliate-card-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0.25rem 0 0.4rem;
+    }
+    .affiliate-card-header p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .affiliate-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(255, 77, 61, 0.12);
+      color: var(--accent);
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .affiliate-card-items { display: flex; flex-direction: column; gap: 0.6rem; }
+    .affiliate-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .affiliate-link:hover {
+      border-color: rgba(255, 77, 61, 0.35);
+      background: rgba(255, 77, 61, 0.04);
+    }
+    .affiliate-platform {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(255, 77, 61, 0.1);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .affiliate-title {
+      flex: 1;
+      font-size: 0.925rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .affiliate-cta {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  </style>
+  <script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/blog/">Blog</a> / OBIEE nQSError 27002
+    </div>
+
+    <article class="article-header">
+      <div class="article-tag">OBIEE / SQL</div>
+      <h1>OBIEE nQSError 27002 — Syntax Error: The Logical SQL vs Physical SQL Trap</h1>
+      <div class="article-meta">
+        <span>March 25, 2026</span>
+        <span>·</span>
+        <span>1,200 words</span>
+      </div>
+    
+      <!-- AFFILIATE CARD: Replace href values with your Udemy/Pluralsight Impact.com tracking links -->
+      <!-- Udemy affiliate signup: https://www.udemy.com/affiliate/ (Impact.com) -->
+      <!-- Pluralsight affiliate signup: https://www.pluralsight.com/partners/affiliate -->
+      <div class="affiliate-card">
+        <div class="affiliate-card-header">
+          <span class="affiliate-badge">Sponsored</span>
+          <h3>Advance Your Oracle HCM Career</h3>
+          <p>Structured courses trusted by HCM professionals worldwide.</p>
+        </div>
+        <div class="affiliate-card-items">
+          <a href="https://www.udemy.com/courses/search/?q=oracle+fusion+hcm&sort=highest-rated" target="_blank" rel="noopener sponsored" class="affiliate-link">
+            <span class="affiliate-platform">Udemy</span>
+            <span class="affiliate-title">Oracle Fusion HCM Cloud — Complete Training</span>
+            <span class="affiliate-cta">Browse Courses →</span>
+          </a>
+          <a href="https://www.pluralsight.com/search?q=oracle+hcm" target="_blank" rel="noopener sponsored" class="affiliate-link">
+            <span class="affiliate-platform">Pluralsight</span>
+            <span class="affiliate-title">Oracle HCM Cloud Learning Path</span>
+            <span class="affiliate-cta">Start Free Trial →</span>
+          </a>
+        </div>
+      </div>
+  </article>
+
+    <div class="article-body">
+      <p>You've written SQL that works perfectly in SQL*Plus. You paste it into your OTBI report and immediately hit this:</p>
+
+      <div class="error-box">
+        <strong>nQSError: 27002</strong><br/>
+        "Near <some_token>: Syntax error [at line X]"
+      </div>
+
+      <p>The frustrating part? Your SQL looks correct. It's valid Oracle syntax. So what's the problem?</p>
+
+      <p>The issue is that OBIEE uses <strong>logical SQL</strong>, not physical SQL. They look similar, but they're fundamentally different languages. Understanding this distinction will eliminate 90% of your nQSError 27002 errors.</p>
+
+      <h2>Logical SQL vs Physical SQL: The Core Difference</h2>
+
+      <p><strong>Physical SQL</strong> is what you write in SQL*Plus or SQL Developer — it queries the actual database tables directly.</p>
+
+      <p><strong>Logical SQL</strong> is what OBIEE uses — it queries through the presentation layer (subject areas and folders), not the physical tables.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Physical SQL (Oracle DB)</th>
+            <th>Logical SQL (OBIEE)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Join syntax</td>
+            <td>ANSI or comma joins</td>
+            <td>ANSI joins only</td>
+          </tr>
+          <tr>
+            <td>Subqueries</td>
+            <td>Supported everywhere</td>
+            <td>Must be aliased and parenthesized</td>
+          </tr>
+          <tr>
+            <td>Column references</td>
+            <td>table.column or alias.column</td>
+            <td>"Subject Area"."Folder"."Column"</td>
+          </tr>
+          <tr>
+            <td>Functions</td>
+            <td>All Oracle functions</td>
+            <td>OBIEE-supported functions only</td>
+          </tr>
+          <tr>
+            <td>Quoting</td>
+            <td>Optional, case-insensitive</td>
+            <td>Always double-quotes, case-sensitive</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <p>When OBIEE encounters physical SQL syntax, it tries to parse it as logical SQL, and that's where the syntax error occurs.</p>
+
+      <h2>The Most Common Cause: Comma Joins</h2>
+
+      <p>The #1 source of nQSError 27002 is trying to use comma-separated tables (old-style joins). This works in Oracle SQL but NOT in OBIEE:</p>
+
+      <div class="error-box">
+        <strong>❌ This will fail with nQSError 27002:</strong>
+      </div>
+
+      <div class="code-block">
+SELECT p.PERSON_ID, a.ASSIGNMENT_ID
+FROM "Employees".p, "Assignments".a
+WHERE p.PERSON_ID = a.PERSON_ID
+      </div>
+
+      <div class="success-box">
+        <strong>✅ This is the correct OBIEE syntax:</strong>
+      </div>
+
+      <div class="code-block">
+SELECT p.PERSON_ID, a.ASSIGNMENT_ID
+FROM "Employees" p
+INNER JOIN "Assignments" a ON p.PERSON_ID = a.PERSON_ID
+      </div>
+
+      <p>Always use explicit ANSI JOIN syntax in OBIEE. Never use comma-separated table lists.</p>
+
+      <h2>Second Most Common: Unsupported SQL Functions</h2>
+
+      <p>Some Oracle functions don't exist in OBIEE logical SQL. For example:</p>
+
+      <div class="error-box">
+        <strong>❌ Won't work in OBIEE:</strong>
+      </div>
+
+      <div class="code-block">
+SELECT ROWNUM as row_number
+FROM "Employees"
+WHERE ROWNUM &lt;= 10
+      </div>
+
+      <p>OBIEE doesn't support ROWNUM. Common unsupported functions include:</p>
+
+      <ul>
+        <li>ROWNUM</li>
+        <li>ROW_NUMBER() OVER (PARTITION BY ...)</li>
+        <li>CONNECT_BY</li>
+        <li>DBMS_ functions (DBMS_METADATA, DBMS_RANDOM, etc.)</li>
+        <li>Package functions</li>
+        <li>Recursive CTEs (WITH ... AS ...)</li>
+      </ul>
+
+      <div class="tip-box">
+        <strong>Workaround:</strong> Use OBIEE's built-in aggregation functions (SUM, COUNT, AVG, MIN, MAX) or create a database view and expose it through the OBIEE subject area.
+      </div>
+
+      <h2>Third Most Common: Subquery Syntax Issues</h2>
+
+      <p>Subqueries in OBIEE must be properly aliased and parenthesized:</p>
+
+      <div class="error-box">
+        <strong>❌ This fails:</strong>
+      </div>
+
+      <div class="code-block">
+SELECT * FROM (
+  SELECT PERSON_ID, NAME FROM "Employees"
+)
+      </div>
+
+      <div class="success-box">
+        <strong>✅ This works:</strong>
+      </div>
+
+      <div class="code-block">
+SELECT * FROM (
+  SELECT PERSON_ID, NAME FROM "Employees"
+) AS emp
+      </div>
+
+      <p>Always alias your subqueries with "AS alias_name". OBIEE requires this.</p>
+
+      <h2>How to Fix nQSError 27002: Step-by-Step</h2>
+
+      <h3>Step 1: Identify the Token in the Error Message</h3>
+
+      <p>The error shows which token caused the problem. Example:</p>
+
+      <div class="code-block">
+nQSError: 27002
+Near "," (comma): Syntax error [at line 2]
+      </div>
+
+      <p>The comma tells you it's a join syntax issue. Look for comma-separated tables.</p>
+
+      <h3>Step 2: Convert to ANSI JOIN Syntax</h3>
+
+      <p>Find any comma-separated tables and convert them to explicit JOINS:</p>
+
+      <div class="code-block">
+-- Before (physical SQL):
+SELECT * FROM table1 t1, table2 t2
+WHERE t1.id = t2.id
+
+-- After (logical SQL):
+SELECT * FROM table1 t1
+INNER JOIN table2 t2 ON t1.id = t2.id
+      </div>
+
+      <h3>Step 3: Check Column References</h3>
+
+      <p>Ensure all columns use the correct subject area and folder paths:</p>
+
+      <div class="code-block">
+-- Correct format:
+SELECT "Subject_Area"."Column_Name"
+FROM "Subject_Area"
+
+-- Or with folder nesting:
+SELECT "Subject_Area"."Folder"."Column_Name"
+FROM "Subject_Area"
+      </div>
+
+      <h3>Step 4: Replace Unsupported Functions</h3>
+
+      <p>If the error mentions a function, check if it's supported by OBIEE. Use OBIEE alternatives:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Unsupported</th>
+            <th>OBIEE Alternative</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>ROWNUM</td>
+            <td>ROW_NUMBER() or LIMIT clause (if supported)</td>
+          </tr>
+          <tr>
+            <td>CAST</td>
+            <td>Use OBIEE column casting in presentation layer</td>
+          </tr>
+          <tr>
+            <td>TO_CHAR with date formats</td>
+            <td>Use OBIEE date formatting functions</td>
+          </tr>
+          <tr>
+            <td>Package functions</td>
+            <td>Create a database view and expose it</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Real-World Example: Converting Physical to Logical SQL</h2>
+
+      <p><strong>Scenario:</strong> Pull all active employees hired in the last 90 days with their current salary.</p>
+
+      <div class="error-box">
+        <strong>❌ Physical SQL (Oracle — won't work in OBIEE):</strong>
+      </div>
+
+      <div class="code-block">
+SELECT p.PERSON_ID, p.FULL_NAME, s.SALARY_AMOUNT,
+       ROWNUM as row_num
+FROM per_all_people_f p, per_all_assignments_f a,
+     compensation_salary s
+WHERE p.PERSON_ID = a.PERSON_ID
+  AND a.ASSIGNMENT_ID = s.ASSIGNMENT_ID
+  AND p.CREATION_DATE >= TRUNC(SYSDATE) - 90
+  AND a.EFFECTIVE_LATEST_CHANGE = 'Y'
+  AND ROWNUM <= 100
+      </div>
+
+      <div class="success-box">
+        <strong>✅ Logical SQL (OBIEE — correct syntax):</strong>
+      </div>
+
+      <div class="code-block">
+SELECT
+  "Employees"."PERSON_ID",
+  "Employees"."FULL_NAME",
+  "Compensation"."SALARY_AMOUNT"
+FROM "Employees"
+INNER JOIN "Assignments"
+  ON "Employees"."PERSON_ID" = "Assignments"."PERSON_ID"
+INNER JOIN "Compensation"
+  ON "Assignments"."ASSIGNMENT_ID" = "Compensation"."ASSIGNMENT_ID"
+WHERE "Employees"."CREATION_DATE" >= CURRENT_DATE - 90
+  AND "Assignments"."EFFECTIVE_LATEST_CHANGE" = 'Y'
+      </div>
+
+      <p>Key changes:</p>
+
+      <ul>
+        <li>Removed comma joins, added explicit INNER JOINs</li>
+        <li>Removed ROWNUM (not supported)</li>
+        <li>Used double quotes and proper column paths</li>
+        <li>Replaced TRUNC(SYSDATE) with CURRENT_DATE</li>
+      </ul>
+
+      <h2>Prevention: Write OBIEE-First SQL from the Start</h2>
+
+      <ul>
+        <li><strong>Always use ANSI JOIN syntax</strong> — Never comma-separated tables</li>
+        <li><strong>Always quote identifiers</strong> — Use "Subject_Area"."Column"</li>
+        <li><strong>Always alias subqueries</strong> — (SELECT ...) AS alias</li>
+        <li><strong>Test in the OBIEE Answer Editor first</strong> — Before using in reports</li>
+        <li><strong>Check function support</strong> — Verify any non-standard function works in OBIEE</li>
+      </ul>
+
+      <div class="cta-box">
+        <h3>Need to Reference Oracle HCM Tables in Your Query?</h3>
+        <p>Search our database of 35,000+ Oracle Fusion Cloud tables. Find exact table names, column structures, and subject area mappings for your OTBI reports.</p>
+        <a href="/" class="cta-button">Search Oracle HCM Tables →</a>
+      </div>
+
+      <h2>Summary</h2>
+
+      <p>nQSError 27002 happens when you write physical SQL (Oracle syntax) instead of logical SQL (OBIEE syntax). The three main culprits are:</p>
+
+      <ol>
+        <li><strong>Comma joins</strong> — Use ANSI JOIN syntax</li>
+        <li><strong>Unsupported functions</strong> — Check OBIEE function support</li>
+        <li><strong>Unaliased subqueries</strong> — Always add "AS alias_name"</li>
+      </ol>
+
+      <p>Remember: OBIEE doesn't query the database directly; it queries the metadata layer. Write for the metadata layer, not the physical tables.</p>
+    </div>
+  </div>
+</body>
+</html>

@@ -1,0 +1,679 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <!-- Primary Meta Tags -->
+  <title>HDL Error: Worker Assignment Not Found — Root Cause &amp; Fix | HCM Tables</title>
+  <meta name="title" content="HDL Error: Worker Assignment Not Found — Root Cause &amp; Fix | HCM Tables">
+  <meta name="description" content="Fix the HDL 'Worker assignment not found' error in Oracle HCM Data Loader. Understand why assignment records fail validation and how to resolve PersonId, AssignmentNumber, and SourceSystemId mismatches.">
+  <meta name="keywords" content="HDL error Worker assignment not found, Oracle HCM Data Loader error, HDL assignment error, HDL PersonId not found, HDL WorkerAssignment validation error, Oracle HCM Data Loader troubleshooting, HDL WORKER_ASSIGNMENT error, Oracle HCM bulk load error">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/hdl-error-worker-assignment-not-found">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/hdl-error-worker-assignment-not-found">
+  <meta property="og:title" content="HDL Error: Worker Assignment Not Found — Root Cause &amp; Fix">
+  <meta property="og:description" content="Root cause and fix for the HDL 'Worker assignment not found' error in Oracle HCM Data Loader, covering PersonId, AssignmentNumber, and SourceSystemId mismatches.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:alt" content="Oracle HCM Tables article">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/hdl-error-worker-assignment-not-found">
+  <meta property="twitter:title" content="HDL Error: Worker Assignment Not Found — Root Cause &amp; Fix">
+  <meta property="twitter:description" content="Fix HDL Worker assignment not found errors with step-by-step root cause analysis and copy-paste SQL validation queries.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "HDL Error: Worker Assignment Not Found — Root Cause &amp; Fix",
+    "description": "Fix the HDL 'Worker assignment not found' error in Oracle HCM Data Loader. Understand why assignment records fail validation and how to resolve PersonId, AssignmentNumber, and SourceSystemId mismatches.",
+    "url": "https://hcm-tables.com/blog/hdl-error-worker-assignment-not-found",
+    "datePublished": "2026-03-28",
+    "dateModified": "2026-03-28",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/hdl-error-worker-assignment-not-found"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"HDL Error: Worker Assignment Not Found","item":"https://hcm-tables.com/blog/hdl-error-worker-assignment-not-found"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What causes the HDL 'Worker assignment not found' error?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "The HDL 'Worker assignment not found' error occurs when the Assignment record in your .dat file references a Worker (PersonId or SourceSystemId) that either doesn't exist in Oracle HCM, hasn't been committed yet in the same load, or whose identifier doesn't match the system of record. The most common causes are SourceSystemId mismatch, wrong PersonId, or loading assignments before the parent Worker record is committed."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I find the PersonId for a worker in Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Query PER_ALL_PEOPLE_F with: SELECT PERSON_ID, PERSON_NUMBER, FULL_NAME FROM PER_ALL_PEOPLE_F WHERE TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE AND PERSON_NUMBER = '&lt;your_number&gt;'. The PERSON_ID is the internal Oracle ID used by HDL."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I use SourceSystemId instead of PersonId in HDL?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Yes. If you loaded the Worker using a SourceSystemId and SourceSystemOwner in your original Worker .dat file, you can use those same values in the Assignment file instead of PersonId. The key is consistency — use the same system of record across both objects."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why does my HDL load fail even though the worker exists?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "If the worker exists but the assignment fails, check: (1) Are you using the correct identifier type (PersonId vs SourceSystemId)? (2) Is the EffectiveStartDate in your Assignment record within the worker's effective date range? (3) Is the LegalEntityId or BusinessUnitId valid? (4) Is ActionCode and ActionReasonCode a valid combination?"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .article-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .article-body h2 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-body h3 {
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-body p {
+      margin-bottom: 1.25rem;
+    }
+
+    .article-body ul, .article-body ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .success-box {
+      background: rgba(112, 168, 102, 0.1);
+      border-left: 4px solid var(--green);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .error-box {
+      background: rgba(200, 100, 100, 0.1);
+      border-left: 4px solid var(--red);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .tip-box {
+      background: rgba(100, 150, 200, 0.1);
+      border-left: 4px solid var(--blue);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    table th, table td {
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+    }
+
+    .cta-box {
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      margin-bottom: 1rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .cta-button:hover {
+      opacity: 0.9;
+      text-decoration: none;
+    }
+  
+    /* Affiliate card */
+    .affiliate-card {
+      background: linear-gradient(135deg, rgba(26,26,46,0.8) 0%, rgba(22,33,62,0.8) 100%);
+      border: 1px solid rgba(255, 77, 61, 0.25);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2.5rem 0 1.5rem;
+    }
+    .affiliate-card-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0.25rem 0 0.4rem;
+    }
+    .affiliate-card-header p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .affiliate-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(255, 77, 61, 0.12);
+      color: var(--accent);
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .affiliate-card-items { display: flex; flex-direction: column; gap: 0.6rem; }
+    .affiliate-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .affiliate-link:hover {
+      border-color: rgba(255, 77, 61, 0.35);
+      background: rgba(255, 77, 61, 0.04);
+    }
+    .affiliate-platform {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(255, 77, 61, 0.1);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .affiliate-title {
+      flex: 1;
+      font-size: 0.925rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .affiliate-cta {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  </style>
+  <script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/blog/">Blog</a> / HDL Error: Worker Assignment Not Found
+    </div>
+
+    <article class="article-header">
+      <div class="article-tag">HDL / Data Loader</div>
+      <h1>HDL Error: Worker Assignment Not Found — Root Cause &amp; Fix</h1>
+      <div class="article-meta">
+        <span>March 28, 2026</span>
+        <span>·</span>
+        <span>1,400 words</span>
+      </div>
+    
+      <!-- AFFILIATE CARD: Replace href values with your Udemy/Pluralsight Impact.com tracking links -->
+      <!-- Udemy affiliate signup: https://www.udemy.com/affiliate/ (Impact.com) -->
+      <!-- Pluralsight affiliate signup: https://www.pluralsight.com/partners/affiliate -->
+      <div class="affiliate-card">
+        <div class="affiliate-card-header">
+          <span class="affiliate-badge">Sponsored</span>
+          <h3>Advance Your Oracle HCM Career</h3>
+          <p>Structured courses trusted by HCM professionals worldwide.</p>
+        </div>
+        <div class="affiliate-card-items">
+          <a href="https://www.udemy.com/courses/search/?q=oracle+fusion+hcm&sort=highest-rated" target="_blank" rel="noopener sponsored" class="affiliate-link">
+            <span class="affiliate-platform">Udemy</span>
+            <span class="affiliate-title">Oracle Fusion HCM Cloud — Complete Training</span>
+            <span class="affiliate-cta">Browse Courses →</span>
+          </a>
+          <a href="https://www.pluralsight.com/search?q=oracle+hcm" target="_blank" rel="noopener sponsored" class="affiliate-link">
+            <span class="affiliate-platform">Pluralsight</span>
+            <span class="affiliate-title">Oracle HCM Cloud Learning Path</span>
+            <span class="affiliate-cta">Start Free Trial →</span>
+          </a>
+        </div>
+      </div>
+  </article>
+
+    <div class="article-body">
+      <p>You're loading assignment data through Oracle HCM Data Loader (HDL) and hit this error mid-run:</p>
+
+      <div class="error-box">
+        <strong>HDL Error:</strong> Worker assignment not found for the given identifier.<br/>
+        <em>Object: WorkerAssignment | Line: [N]</em>
+      </div>
+
+      <p>The process aborts, your assignment records don't commit, and now you need to figure out which of several possible root causes is actually the problem. This guide walks through every cause in priority order so you can fix it in one pass.</p>
+
+      <h2>How HDL Resolves Assignment Records</h2>
+
+      <p>When HDL processes a <code>WorkerAssignment</code> object, it needs to link the assignment to a parent Worker. It does this by looking up the worker via one of three identifier paths:</p>
+
+      <ol>
+        <li><strong>PersonId</strong> — Oracle's internal numeric ID for the person</li>
+        <li><strong>PersonNumber</strong> — The human-readable employee number</li>
+        <li><strong>SourceSystemId + SourceSystemOwner</strong> — Your external system's identifier (e.g., the ID from your HRIS)</li>
+      </ol>
+
+      <p>If none of these resolve to an existing, active worker record, you get "Worker assignment not found." The error message is the same regardless of which identifier failed — which is why it's so frustrating to debug.</p>
+
+      <h2>Root Cause #1: PersonId or PersonNumber Mismatch</h2>
+
+      <p>The most common cause. Your .dat file contains a PersonId or PersonNumber that doesn't exist in Oracle HCM, or was typed incorrectly.</p>
+
+      <p><strong>Validate with this SQL before loading:</strong></p>
+
+      <div class="code-block">
+-- Verify the worker exists and is active
+SELECT
+  PERSON_ID,
+  PERSON_NUMBER,
+  FULL_NAME,
+  EFFECTIVE_START_DATE,
+  EFFECTIVE_END_DATE
+FROM PER_ALL_PEOPLE_F
+WHERE PERSON_NUMBER = '&lt;your_person_number&gt;'
+  AND TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE;
+      </div>
+
+      <p>If this returns no rows, the worker either doesn't exist, isn't active as of today, or the person number is wrong. Check your source data.</p>
+
+      <div class="tip-box">
+        <strong>Tip:</strong> HDL is case-sensitive for PersonNumber. "EMP001" and "emp001" are different identifiers. Always match the exact casing from Oracle.
+      </div>
+
+      <h2>Root Cause #2: SourceSystemId Mismatch</h2>
+
+      <p>If you originally loaded workers using <code>SourceSystemId</code> and <code>SourceSystemOwner</code>, you must use the same values in your assignment .dat file. A common mistake is switching from SourceSystemId to PersonId between loads — HDL can't automatically cross-reference them.</p>
+
+      <p><strong>Verify the SourceSystemId mapping:</strong></p>
+
+      <div class="code-block">
+-- Check if SourceSystemId is mapped in HRC_SOURCE_SYSTEM_OWNER
+SELECT
+  SOURCE_SYSTEM_ID,
+  SOURCE_SYSTEM_OWNER,
+  OBJECT_TYPE,
+  OBJECT_ID
+FROM HRC_SOURCE_SYSTEM_OWNER
+WHERE SOURCE_SYSTEM_ID = '&lt;your_source_id&gt;'
+  AND SOURCE_SYSTEM_OWNER = '&lt;your_source_system&gt;'
+  AND OBJECT_TYPE = 'PERSON';
+      </div>
+
+      <p>If no row is returned, the SourceSystemId was never registered, or was registered under a different SourceSystemOwner. You'll need to either use the PersonId directly, or re-register the source mapping.</p>
+
+      <h2>Root Cause #3: Loading Order — Assignment Before Worker</h2>
+
+      <p>HDL processes objects within a single load file in sequence. If your Worker record and Assignment record are in the same HDL .zip file but your Assignment rows appear <em>before</em> the Worker rows in the file ordering, the assignment will fail validation because the parent worker hasn't been committed yet.</p>
+
+      <div class="error-box">
+        <strong>Common scenario:</strong> You have a single Worker.dat and WorkerAssignment.dat in the same zip. HDL processes them alphabetically. "Worker.dat" comes after "WorkerAssignment.dat" alphabetically — so assignments are processed first.
+      </div>
+
+      <div class="success-box">
+        <strong>Fix:</strong> Rename files to enforce order. Prefix with numbers:<br/>
+        <code>01_Worker.dat</code><br/>
+        <code>02_WorkerAssignment.dat</code>
+      </div>
+
+      <p>HDL processes .dat files in the order they appear in the zip. Numeric prefixes guarantee correct sequencing.</p>
+
+      <h2>Root Cause #4: EffectiveStartDate Outside Worker's Date Range</h2>
+
+      <p>Even if the PersonId is correct, if your assignment's <code>EffectiveStartDate</code> falls before the worker's earliest effective date or after their termination date, Oracle will reject the assignment as "not found" — because no valid worker record exists at that point in time.</p>
+
+      <div class="code-block">
+-- Check the worker's full date range
+SELECT
+  PERSON_ID,
+  FULL_NAME,
+  MIN(EFFECTIVE_START_DATE) AS EARLIEST_DATE,
+  MAX(EFFECTIVE_END_DATE) AS LATEST_DATE
+FROM PER_ALL_PEOPLE_F
+WHERE PERSON_NUMBER = '&lt;your_person_number&gt;'
+GROUP BY PERSON_ID, FULL_NAME;
+      </div>
+
+      <p>Your assignment's <code>EffectiveStartDate</code> must fall within this window. If the worker was terminated before your assignment date, you'll need to either correct the date or rehire the worker first.</p>
+
+      <h2>Root Cause #5: Wrong LegalEntityId or BusinessUnitId</h2>
+
+      <p>A less obvious cause: the <code>LegalEntityId</code> or <code>BusinessUnitId</code> in your assignment record doesn't exist or isn't active. Oracle validates these reference data IDs during assignment creation, and the error message is often misleading — it says "assignment not found" when the actual issue is an invalid org reference.</p>
+
+      <div class="code-block">
+-- Validate LegalEntityId
+SELECT
+  ORGANIZATION_ID,
+  NAME,
+  INTERNAL_EXTERNAL_FLAG
+FROM HR_ORGANIZATION_UNITS_F_TL
+WHERE ORGANIZATION_ID = &lt;your_legal_entity_id&gt;
+  AND TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE
+  AND LANGUAGE = 'US';
+      </div>
+
+      <h2>Diagnostic Checklist</h2>
+
+      <p>Work through this table in order. The first failed check is usually your root cause:</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Check</th>
+            <th>How to Verify</th>
+            <th>Fix</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>1</td>
+            <td>Worker exists in Oracle HCM</td>
+            <td>Query PER_ALL_PEOPLE_F by PersonNumber</td>
+            <td>Correct PersonNumber or load worker first</td>
+          </tr>
+          <tr>
+            <td>2</td>
+            <td>PersonId or SourceSystemId matches exactly</td>
+            <td>Query HRC_SOURCE_SYSTEM_OWNER</td>
+            <td>Use consistent identifier type across all .dat files</td>
+          </tr>
+          <tr>
+            <td>3</td>
+            <td>Load file ordering is correct</td>
+            <td>Inspect .zip file contents</td>
+            <td>Rename files with numeric prefixes (01_, 02_)</td>
+          </tr>
+          <tr>
+            <td>4</td>
+            <td>EffectiveStartDate within worker date range</td>
+            <td>Query MIN/MAX effective dates from PER_ALL_PEOPLE_F</td>
+            <td>Correct the assignment date or rehire the worker</td>
+          </tr>
+          <tr>
+            <td>5</td>
+            <td>LegalEntityId and BusinessUnitId are valid</td>
+            <td>Query HR_ORGANIZATION_UNITS_F_TL</td>
+            <td>Correct org IDs to match active Oracle references</td>
+          </tr>
+          <tr>
+            <td>6</td>
+            <td>ActionCode + ActionReasonCode combination is valid</td>
+            <td>Query HR_LOOKUPS for LOOKUP_TYPE = 'EMP_ACTION'</td>
+            <td>Use a valid ActionCode/ActionReasonCode pair for the assignment type</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Sample HDL WorkerAssignment .dat Structure</h2>
+
+      <p>Here's a minimal, correct WorkerAssignment .dat file that avoids the most common errors:</p>
+
+      <div class="code-block">
+METADATA|WorkerAssignment|SourceSystemOwner|SourceSystemId|PersonId|AssignmentNumber|EffectiveStartDate|EffectiveEndDate|AssignmentType|ActionCode|LegalEntityId|BusinessUnitId|GradeId|JobId|LocationId
+
+MERGE|WorkerAssignment|LEGACY_HRIS|ASSIGN-00001||E-10023|2024-01-01|4712-12-31|E|HIRE|300000001234567|300000001234568|300000001234569|300000001234570|300000001234571
+      </div>
+
+      <div class="tip-box">
+        <strong>Note:</strong> In this example, <code>PersonId</code> is left blank and <code>SourceSystemId</code> is used instead. Pick one identifier type and leave the other blank — don't try to supply both.
+      </div>
+
+      <h2>HDL Error Log Locations</h2>
+
+      <p>To find the exact error for a failed load:</p>
+
+      <ol>
+        <li>Go to <strong>HCM &gt; Data Exchange &gt; Import and Load Data</strong></li>
+        <li>Find your load in the list — click the load set name</li>
+        <li>Click <strong>View Error Report</strong> in the Actions menu</li>
+        <li>The error log will show the exact line number and error code for each failed record</li>
+      </ol>
+
+      <p>The detailed error report often includes the actual identifier Oracle tried to look up, which makes it much easier to spot the mismatch versus checking your .dat file manually.</p>
+
+      <div class="cta-box">
+        <h3>Need to Look Up Oracle HCM Table Structures?</h3>
+        <p>Search our database of 35,000+ Oracle Fusion Cloud tables. Find exact column names, data types, and relationships for PER_ALL_PEOPLE_F, PER_ALL_ASSIGNMENTS_M, and every HCM table in the schema.</p>
+        <a href="/" class="cta-button">Search Oracle HCM Tables →</a>
+      </div>
+
+      <h2>Summary</h2>
+
+      <p>The HDL "Worker assignment not found" error always traces back to one of six root causes, ranked by frequency:</p>
+
+      <ol>
+        <li><strong>Wrong PersonId or PersonNumber</strong> — validate against PER_ALL_PEOPLE_F</li>
+        <li><strong>SourceSystemId mismatch</strong> — verify via HRC_SOURCE_SYSTEM_OWNER</li>
+        <li><strong>Wrong file load order</strong> — rename files with numeric prefixes</li>
+        <li><strong>EffectiveStartDate out of range</strong> — check worker's date window</li>
+        <li><strong>Invalid LegalEntityId or BusinessUnitId</strong> — validate org IDs</li>
+        <li><strong>Invalid ActionCode combination</strong> — check HR_LOOKUPS</li>
+      </ol>
+
+      <p>Run the validation SQL queries before submitting a load, and you'll catch most of these errors before HDL ever processes the file.</p>
+    </div>
+  </div>
+</body>
+</html>

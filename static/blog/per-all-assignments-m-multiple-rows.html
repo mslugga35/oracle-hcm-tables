@@ -1,0 +1,710 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+
+  <!-- Primary Meta Tags -->
+  <title>PER_ALL_ASSIGNMENTS_M: Why Your Query Returns Multiple Rows Per Employee | HCM Tables</title>
+  <meta name="title" content="PER_ALL_ASSIGNMENTS_M: Why Your Query Returns Multiple Rows Per Employee | HCM Tables">
+  <meta name="description" content="Fix Oracle Fusion HCM PER_ALL_ASSIGNMENTS_M queries returning 10, 15, or 20 rows per employee. Understand effective-dated rows, assignment types, and the exact WHERE clause filters to get one current row per person.">
+  <meta name="keywords" content="PER_ALL_ASSIGNMENTS_M multiple rows, PER_ALL_ASSIGNMENTS_M effective date, Oracle HCM assignment table duplicate rows, PER_ALL_ASSIGNMENTS_M query, EFFECTIVE_LATEST_CHANGE filter, Oracle Fusion assignments query fix, PER_ALL_ASSIGNMENTS_M ASSIGNMENT_TYPE, Oracle HCM SQL too many rows">
+  <meta name="robots" content="index, follow">
+  <meta name="author" content="HCM Tables">
+  <link rel="canonical" href="https://hcm-tables.com/blog/per-all-assignments-m-multiple-rows">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/per-all-assignments-m-multiple-rows">
+  <meta property="og:title" content="PER_ALL_ASSIGNMENTS_M: Why Your Query Returns Multiple Rows Per Employee">
+  <meta property="og:description" content="Understand why PER_ALL_ASSIGNMENTS_M returns 15 rows per employee and learn the correct effective-date and assignment-type filters to get exactly one row.">
+  <meta property="og:site_name" content="HCM Tables">
+  <meta property="og:image" content="https://hcm-tables.com/og-image.png">
+  <meta property="og:image:alt" content="Oracle HCM Tables article">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+
+  <!-- Twitter -->
+  <meta property="twitter:card" content="summary_large_image">
+  <meta property="twitter:url" content="https://hcm-tables.com/blog/per-all-assignments-m-multiple-rows">
+  <meta property="twitter:title" content="PER_ALL_ASSIGNMENTS_M: Why Your Query Returns Multiple Rows Per Employee">
+  <meta property="twitter:description" content="Fix PER_ALL_ASSIGNMENTS_M duplicate rows with the correct effective-date and assignment-type WHERE clause filters.">
+  <meta name="twitter:image" content="https://hcm-tables.com/og-image.png">
+
+  <!-- Favicon -->
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>📊</text></svg>">
+
+  <!-- Schema.org Article -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "PER_ALL_ASSIGNMENTS_M: Why Your Query Returns Multiple Rows Per Employee",
+    "description": "Fix Oracle Fusion HCM PER_ALL_ASSIGNMENTS_M queries returning 10, 15, or 20 rows per employee. Understand effective-dated rows, assignment types, and the exact WHERE clause filters to get one current row per person.",
+    "url": "https://hcm-tables.com/blog/per-all-assignments-m-multiple-rows",
+    "datePublished": "2026-03-28",
+    "dateModified": "2026-03-28",
+    "author": {"@type": "Person", "name": "Matt Morales"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/per-all-assignments-m-multiple-rows"
+    }
+  }
+  </script>
+
+  <!-- Breadcrumb Schema -->
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"PER_ALL_ASSIGNMENTS_M Multiple Rows","item":"https://hcm-tables.com/blog/per-all-assignments-m-multiple-rows"}
+  ]}
+  </script>
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "Why does PER_ALL_ASSIGNMENTS_M return multiple rows per employee?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_ASSIGNMENTS_M stores the full effective-date history of every assignment. Each time an assignment is changed (salary review, grade change, location transfer, promotion), a new row is added with a new EFFECTIVE_START_DATE. One employee with 5 years of history could have 20+ rows in this table. You need EFFECTIVE_LATEST_CHANGE = 'Y' to get only the current record."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is EFFECTIVE_LATEST_CHANGE in PER_ALL_ASSIGNMENTS_M?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "EFFECTIVE_LATEST_CHANGE = 'Y' flags the most recent effective-dated row for each assignment. When an assignment has multiple date-effective rows, only the row with EFFECTIVE_LATEST_CHANGE = 'Y' represents the current state. This is Oracle's recommended filter for 'current assignment' queries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is ASSIGNMENT_TYPE in PER_ALL_ASSIGNMENTS_M and which value should I use?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "ASSIGNMENT_TYPE identifies the type of work relationship: 'E' = Employee, 'C' = Contingent Worker, 'N' = Non-Worker, 'B' = Benefit Relationship, 'P' = Pending Worker. For headcount reports, filter to ASSIGNMENT_TYPE = 'E'. Including all types is why many queries over-count."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between PER_ALL_ASSIGNMENTS_M and PER_ALL_ASSIGNMENTS_F?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_ASSIGNMENTS_M (the _M suffix = merged) combines both current and historical assignment data in a single table with EFFECTIVE_START_DATE and EFFECTIVE_END_DATE columns. PER_ALL_ASSIGNMENTS_F (the _F suffix = future or dated) is similar but has stricter effective-date enforcement. For most reporting, use PER_ALL_ASSIGNMENTS_M with EFFECTIVE_LATEST_CHANGE = 'Y'."
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- Plausible Analytics -->
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+
+  <!-- Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'G-NSN2JWG98H');
+  </script>
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --bg-primary: oklch(0.13 0.01 260);
+      --bg-secondary: oklch(0.16 0.01 260);
+      --bg-tertiary: oklch(0.20 0.015 260);
+      --text-primary: oklch(0.98 0 0);
+      --text-secondary: oklch(0.65 0.01 260);
+      --text-muted: oklch(0.50 0.01 260);
+      --border: oklch(0.25 0.01 260);
+      --accent: oklch(0.65 0.2 25);
+      --accent-glow: oklch(0.60 0.25 25 / 0.3);
+      --blue: oklch(0.65 0.15 250);
+      --green: oklch(0.70 0.18 145);
+      --purple: oklch(0.65 0.18 300);
+      --yellow: oklch(0.80 0.15 85);
+      --red: oklch(0.65 0.2 25);
+      --font-sans: 'Inter', system-ui, -apple-system, sans-serif;
+      --font-mono: 'JetBrains Mono', ui-monospace, monospace;
+      --radius: 12px;
+      --radius-sm: 8px;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    a { color: var(--blue); text-decoration: none; transition: color 0.15s; }
+    a:hover { color: var(--accent); text-decoration: underline; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.25rem 1.5rem;
+      border-bottom: 1px solid var(--border);
+      max-width: 1100px;
+      margin: 0 auto;
+    }
+    .nav-brand { font-size: 1.1rem; font-weight: 700; color: var(--text-primary); text-decoration: none; }
+    .nav-brand:hover { color: var(--accent); text-decoration: none; }
+    .nav-links { display: flex; gap: 1.5rem; align-items: center; }
+    .nav-links a { font-size: 0.9rem; color: var(--text-secondary); font-weight: 500; }
+    .nav-links a:hover { color: var(--text-primary); text-decoration: none; }
+
+    .article-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 3rem 1.5rem 4rem;
+    }
+
+    .breadcrumb {
+      font-size: 0.85rem;
+      color: var(--text-muted);
+      margin-bottom: 2rem;
+    }
+    .breadcrumb a { color: var(--text-muted); }
+    .breadcrumb a:hover { color: var(--blue); }
+
+    .article-header { margin-bottom: 3rem; }
+
+    .article-tag {
+      display: inline-block;
+      padding: 0.25rem 0.75rem;
+      background: var(--bg-tertiary);
+      border-radius: 100px;
+      font-size: 0.75rem;
+      font-weight: 600;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      margin-bottom: 1rem;
+    }
+
+    .article-header h1 {
+      font-size: 2.2rem;
+      line-height: 1.3;
+      margin-bottom: 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-meta {
+      display: flex;
+      gap: 1rem;
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      margin-bottom: 2rem;
+    }
+
+    .article-body {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-primary);
+    }
+
+    .article-body h2 {
+      font-size: 1.5rem;
+      margin: 2rem 0 1rem;
+      color: var(--text-primary);
+    }
+
+    .article-body h3 {
+      font-size: 1.25rem;
+      margin: 1.5rem 0 0.75rem;
+      color: var(--text-primary);
+    }
+
+    .article-body p {
+      margin-bottom: 1.25rem;
+    }
+
+    .article-body ul, .article-body ol {
+      margin-bottom: 1.25rem;
+      padding-left: 1.5rem;
+    }
+
+    .article-body li {
+      margin-bottom: 0.5rem;
+    }
+
+    .code-block {
+      background: var(--bg-secondary);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 1rem;
+      overflow-x: auto;
+      margin: 1.5rem 0;
+      font-family: var(--font-mono);
+      font-size: 0.9rem;
+      color: var(--text-secondary);
+      line-height: 1.5;
+    }
+
+    .success-box {
+      background: rgba(112, 168, 102, 0.1);
+      border-left: 4px solid var(--green);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .error-box {
+      background: rgba(200, 100, 100, 0.1);
+      border-left: 4px solid var(--red);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    .tip-box {
+      background: rgba(100, 150, 200, 0.1);
+      border-left: 4px solid var(--blue);
+      padding: 1rem;
+      margin: 1.5rem 0;
+      border-radius: var(--radius-sm);
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1.5rem 0;
+    }
+
+    table th, table td {
+      border: 1px solid var(--border);
+      padding: 0.75rem;
+      text-align: left;
+    }
+
+    table th {
+      background: var(--bg-secondary);
+      font-weight: 600;
+    }
+
+    .cta-box {
+      background: var(--accent-glow);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 2rem;
+      margin: 3rem 0;
+      text-align: center;
+    }
+
+    .cta-box h3 {
+      margin-bottom: 1rem;
+    }
+
+    .cta-button {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      padding: 0.75rem 1.5rem;
+      border-radius: var(--radius-sm);
+      text-decoration: none;
+      font-weight: 600;
+      transition: opacity 0.15s;
+    }
+
+    .cta-button:hover {
+      opacity: 0.9;
+      text-decoration: none;
+    }
+  
+    /* Affiliate card */
+    .affiliate-card {
+      background: linear-gradient(135deg, rgba(26,26,46,0.8) 0%, rgba(22,33,62,0.8) 100%);
+      border: 1px solid rgba(255, 77, 61, 0.25);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin: 2.5rem 0 1.5rem;
+    }
+    .affiliate-card-header h3 {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text-primary);
+      margin: 0.25rem 0 0.4rem;
+    }
+    .affiliate-card-header p {
+      font-size: 0.875rem;
+      color: var(--text-muted);
+      margin-bottom: 1rem;
+    }
+    .affiliate-badge {
+      display: inline-block;
+      font-size: 0.7rem;
+      background: rgba(255, 77, 61, 0.12);
+      color: var(--accent);
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      font-weight: 700;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      margin-bottom: 0.5rem;
+    }
+    .affiliate-card-items { display: flex; flex-direction: column; gap: 0.6rem; }
+    .affiliate-link {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.07);
+      border-radius: 8px;
+      padding: 0.8rem 1rem;
+      text-decoration: none;
+      transition: border-color 0.2s, background 0.2s;
+    }
+    .affiliate-link:hover {
+      border-color: rgba(255, 77, 61, 0.35);
+      background: rgba(255, 77, 61, 0.04);
+    }
+    .affiliate-platform {
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: var(--accent);
+      background: rgba(255, 77, 61, 0.1);
+      padding: 0.15rem 0.45rem;
+      border-radius: 4px;
+      white-space: nowrap;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
+    }
+    .affiliate-title {
+      flex: 1;
+      font-size: 0.925rem;
+      color: var(--text-primary);
+      font-weight: 500;
+    }
+    .affiliate-cta {
+      font-size: 0.8rem;
+      color: var(--accent);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+  </style>
+  <script data-harbor-site="nd73gmc88mp5bne64v5dtknkt183736w" src="https://outgoing-oyster-428.convex.site/api/harbor-seo.js?siteId=nd73gmc88mp5bne64v5dtknkt183736w" async></script>
+</head>
+<body>
+  <nav class="nav">
+    <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+    <div class="nav-links">
+      <a href="/blog/">Blog</a>
+    </div>
+  </nav>
+
+  <div class="article-container">
+    <div class="breadcrumb">
+      <a href="/">Home</a> / <a href="/blog/">Blog</a> / PER_ALL_ASSIGNMENTS_M Multiple Rows
+    </div>
+
+    <article class="article-header">
+      <div class="article-tag">Oracle HCM / SQL</div>
+      <h1>PER_ALL_ASSIGNMENTS_M: Why Your Query Returns 15 Rows Per Employee</h1>
+      <div class="article-meta">
+        <span>March 28, 2026</span>
+        <span>·</span>
+        <span>1,500 words</span>
+      </div>
+    
+      <!-- AFFILIATE CARD: Replace href values with your Udemy/Pluralsight Impact.com tracking links -->
+      <!-- Udemy affiliate signup: https://www.udemy.com/affiliate/ (Impact.com) -->
+      <!-- Pluralsight affiliate signup: https://www.pluralsight.com/partners/affiliate -->
+      <div class="affiliate-card">
+        <div class="affiliate-card-header">
+          <span class="affiliate-badge">Sponsored</span>
+          <h3>Advance Your Oracle HCM Career</h3>
+          <p>Structured courses trusted by HCM professionals worldwide.</p>
+        </div>
+        <div class="affiliate-card-items">
+          <a href="https://www.udemy.com/courses/search/?q=oracle+fusion+hcm&sort=highest-rated" target="_blank" rel="noopener sponsored" class="affiliate-link">
+            <span class="affiliate-platform">Udemy</span>
+            <span class="affiliate-title">Oracle Fusion HCM Cloud — Complete Training</span>
+            <span class="affiliate-cta">Browse Courses →</span>
+          </a>
+          <a href="https://www.pluralsight.com/search?q=oracle+hcm" target="_blank" rel="noopener sponsored" class="affiliate-link">
+            <span class="affiliate-platform">Pluralsight</span>
+            <span class="affiliate-title">Oracle HCM Cloud Learning Path</span>
+            <span class="affiliate-cta">Start Free Trial →</span>
+          </a>
+        </div>
+      </div>
+  </article>
+
+    <div class="article-body">
+      <p>You query <code>PER_ALL_ASSIGNMENTS_M</code> expecting one row per employee. Instead you get 12, 15, or 20 rows for a single person. Your headcount is off by an order of magnitude and you have no idea why.</p>
+
+      <p>This is one of the most common Oracle Fusion HCM SQL mistakes. The fix is straightforward once you understand how this table works — but Oracle's documentation doesn't explain it clearly.</p>
+
+      <h2>Why PER_ALL_ASSIGNMENTS_M Returns Multiple Rows</h2>
+
+      <p><code>PER_ALL_ASSIGNMENTS_M</code> stores the <strong>complete date-effective history</strong> of every assignment. Every time an assignment attribute changes — a pay grade update, a position transfer, a location change, a manager change — Oracle doesn't update the existing row. It <em>end-dates</em> the current row and creates a <em>new row</em> with the change.</p>
+
+      <p>For an employee who has been with the company 5 years and received annual pay reviews plus a promotion, you might see 10-15 rows in this table — all for the same person and the same assignment.</p>
+
+      <p>There are also multiple rows per person for a second reason: <strong>assignment types</strong>. Oracle stores different types of work relationships as separate assignment rows. An employee might have an employee assignment (type E), a benefit assignment (type B), and a pending assignment (type P) all in the same table.</p>
+
+      <h2>The Two Filters That Eliminate Duplicates</h2>
+
+      <h3>Filter 1: EFFECTIVE_LATEST_CHANGE = 'Y'</h3>
+
+      <p>This column flags the most recent effective-dated row for each assignment. It's Oracle's standard mechanism for answering "what is this assignment's current state?" Without this filter, you get every historical version.</p>
+
+      <div class="code-block">
+-- Without filter: returns all historical rows
+SELECT PERSON_ID, ASSIGNMENT_ID, GRADE_ID, EFFECTIVE_START_DATE
+FROM PER_ALL_ASSIGNMENTS_M
+WHERE PERSON_ID = 123456;
+-- Returns: 14 rows (all date-effective changes)
+
+-- With EFFECTIVE_LATEST_CHANGE filter: returns current row only
+SELECT PERSON_ID, ASSIGNMENT_ID, GRADE_ID, EFFECTIVE_START_DATE
+FROM PER_ALL_ASSIGNMENTS_M
+WHERE PERSON_ID = 123456
+  AND EFFECTIVE_LATEST_CHANGE = 'Y';
+-- Returns: 1-2 rows (current state per assignment type)
+      </div>
+
+      <h3>Filter 2: ASSIGNMENT_TYPE = 'E'</h3>
+
+      <p>Even with <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code>, you'll still get multiple rows if an employee has multiple assignment types. Filter to <code>ASSIGNMENT_TYPE = 'E'</code> to get only employee assignments.</p>
+
+      <table>
+        <thead>
+          <tr>
+            <th>ASSIGNMENT_TYPE</th>
+            <th>Meaning</th>
+            <th>Include in headcount?</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>E</td>
+            <td>Employee</td>
+            <td>Yes — primary assignment type</td>
+          </tr>
+          <tr>
+            <td>C</td>
+            <td>Contingent Worker</td>
+            <td>Yes — if counting contractors</td>
+          </tr>
+          <tr>
+            <td>N</td>
+            <td>Non-Worker</td>
+            <td>Usually no — third-party non-headcount</td>
+          </tr>
+          <tr>
+            <td>B</td>
+            <td>Benefit Relationship</td>
+            <td>No — benefits-only record, no work relationship</td>
+          </tr>
+          <tr>
+            <td>P</td>
+            <td>Pending Worker</td>
+            <td>No — pre-hire, not yet active</td>
+          </tr>
+          <tr>
+            <td>O</td>
+            <td>Offer</td>
+            <td>No — recruiting stage only</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>The Correct Headcount Query</h2>
+
+      <div class="success-box">
+        <strong>✅ One row per active employee — correct query:</strong>
+      </div>
+
+      <div class="code-block">
+SELECT
+  p.PERSON_NUMBER,
+  p.FULL_NAME,
+  a.ASSIGNMENT_NUMBER,
+  a.ASSIGNMENT_STATUS_TYPE,
+  a.GRADE_ID,
+  a.JOB_ID,
+  a.LOCATION_ID,
+  a.DEPARTMENT_ID,
+  a.MANAGER_ID,
+  a.EFFECTIVE_START_DATE
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_M a
+  ON p.PERSON_ID = a.PERSON_ID
+WHERE TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND a.EFFECTIVE_LATEST_CHANGE = 'Y'
+  AND a.ASSIGNMENT_TYPE = 'E'
+  AND a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN';
+      </div>
+
+      <p>This query returns exactly one row per active employee. Let's break down each filter:</p>
+
+      <ul>
+        <li><code>TRUNC(SYSDATE) BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE</code> — gets the current version of the person record</li>
+        <li><code>a.EFFECTIVE_LATEST_CHANGE = 'Y'</code> — gets only the most recent assignment row (eliminates date-effective history rows)</li>
+        <li><code>a.ASSIGNMENT_TYPE = 'E'</code> — employee assignments only (eliminates benefit, pending, non-worker rows)</li>
+        <li><code>a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN'</code> — active employees only (eliminates terminated, suspended, leave-of-absence)</li>
+      </ul>
+
+      <h2>Why Not Just Filter by Date Range?</h2>
+
+      <p>A common mistake is filtering by <code>TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE</code> on the assignment table instead of using <code>EFFECTIVE_LATEST_CHANGE</code>. This often works but has edge cases:</p>
+
+      <div class="error-box">
+        <strong>⚠️ Date-range filter — works most of the time but has edge cases:</strong>
+      </div>
+
+      <div class="code-block">
+-- This can still return multiple rows for employees with future-dated changes
+WHERE TRUNC(SYSDATE) BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE
+  AND a.ASSIGNMENT_TYPE = 'E'
+      </div>
+
+      <p>The problem: if an assignment change is entered with a future effective date (e.g., a promotion that starts next week), Oracle creates a new row with <code>EFFECTIVE_START_DATE</code> in the future. For that employee, two rows overlap today — the current assignment and the future-dated one. The date range filter will return both.</p>
+
+      <p><code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> handles this correctly by only flagging the most recently entered change, regardless of effective date.</p>
+
+      <div class="tip-box">
+        <strong>Best practice:</strong> Use <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> as your primary deduplication filter. Use date range as a secondary filter only if you need to report as-of a specific historical date.
+      </div>
+
+      <h2>As-Of Date Queries: Reporting on Past or Future State</h2>
+
+      <p>If you need to report on assignment data as of a specific date (not today), replace <code>EFFECTIVE_LATEST_CHANGE</code> with a date-range filter. This is the correct pattern for point-in-time reporting:</p>
+
+      <div class="code-block">
+-- Assignments as of a specific date (e.g., end of last quarter)
+SELECT
+  p.PERSON_NUMBER,
+  p.FULL_NAME,
+  a.ASSIGNMENT_NUMBER,
+  a.GRADE_ID,
+  a.DEPARTMENT_ID
+FROM PER_ALL_PEOPLE_F p
+JOIN PER_ALL_ASSIGNMENTS_M a
+  ON p.PERSON_ID = a.PERSON_ID
+WHERE DATE '2025-12-31' BETWEEN p.EFFECTIVE_START_DATE AND p.EFFECTIVE_END_DATE
+  AND DATE '2025-12-31' BETWEEN a.EFFECTIVE_START_DATE AND a.EFFECTIVE_END_DATE
+  AND a.ASSIGNMENT_TYPE = 'E'
+  AND a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN';
+      </div>
+
+      <p>For historical queries, date-range filtering is correct — <code>EFFECTIVE_LATEST_CHANGE</code> only applies to the current state.</p>
+
+      <h2>Key Columns Reference</h2>
+
+      <table>
+        <thead>
+          <tr>
+            <th>Column</th>
+            <th>Purpose</th>
+            <th>Common Filter Value</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>EFFECTIVE_LATEST_CHANGE</td>
+            <td>Flags the most recent date-effective row per assignment</td>
+            <td>'Y' for current state</td>
+          </tr>
+          <tr>
+            <td>ASSIGNMENT_TYPE</td>
+            <td>Type of work relationship</td>
+            <td>'E' for employee headcount</td>
+          </tr>
+          <tr>
+            <td>ASSIGNMENT_STATUS_TYPE</td>
+            <td>Active vs terminated vs suspended</td>
+            <td>'ACTIVE_ASSIGN' for active employees</td>
+          </tr>
+          <tr>
+            <td>EFFECTIVE_START_DATE</td>
+            <td>When this version of the assignment started</td>
+            <td>Use with EFFECTIVE_END_DATE for point-in-time</td>
+          </tr>
+          <tr>
+            <td>EFFECTIVE_END_DATE</td>
+            <td>When this version ends (4712-12-31 = no end date)</td>
+            <td>4712-12-31 = open-ended (current)</td>
+          </tr>
+          <tr>
+            <td>PRIMARY_FLAG</td>
+            <td>Marks the primary assignment when a worker has multiple</td>
+            <td>'Y' if you only want the primary assignment</td>
+          </tr>
+          <tr>
+            <td>PERSON_ID</td>
+            <td>FK to PER_ALL_PEOPLE_F</td>
+            <td>Join key</td>
+          </tr>
+          <tr>
+            <td>ASSIGNMENT_ID</td>
+            <td>Unique assignment identifier</td>
+            <td>Used for joining to other assignment tables</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2>Multiple Assignments Per Person</h2>
+
+      <p>Some organizations allow workers to hold multiple active assignments simultaneously (e.g., a part-time worker in two departments). In this case, even with <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> and <code>ASSIGNMENT_TYPE = 'E'</code>, you may still see two rows per person.</p>
+
+      <p>To get only the primary assignment:</p>
+
+      <div class="code-block">
+-- Add PRIMARY_FLAG to get exactly one row per worker
+WHERE a.EFFECTIVE_LATEST_CHANGE = 'Y'
+  AND a.ASSIGNMENT_TYPE = 'E'
+  AND a.ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN'
+  AND a.PRIMARY_FLAG = 'Y'
+      </div>
+
+      <p>Use <code>PRIMARY_FLAG = 'Y'</code> only if your organization uses primary assignment designation. If it's not populated, this filter will exclude valid employees.</p>
+
+      <div class="cta-box">
+        <h3>Explore the Full PER_ALL_ASSIGNMENTS_M Schema</h3>
+        <p>View all columns for PER_ALL_ASSIGNMENTS_M and every other Oracle Fusion HCM table. Find foreign key relationships, data types, and join paths between assignment, person, and payroll tables.</p>
+        <a href="/" class="cta-button">Search Oracle HCM Tables →</a>
+      </div>
+
+      <h2>Summary</h2>
+
+      <p><code>PER_ALL_ASSIGNMENTS_M</code> returns multiple rows per employee because:</p>
+
+      <ol>
+        <li><strong>Date-effective history</strong> — every change creates a new row. Fix: add <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code></li>
+        <li><strong>Multiple assignment types</strong> — employee, benefit, pending rows coexist. Fix: add <code>ASSIGNMENT_TYPE = 'E'</code></li>
+        <li><strong>Terminated/inactive assignments</strong> — still stored after termination. Fix: add <code>ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN'</code></li>
+        <li><strong>Multiple active assignments</strong> — workers in multiple roles. Fix: add <code>PRIMARY_FLAG = 'Y'</code> if needed</li>
+      </ol>
+
+      <p>The standard current-state headcount query combines all four: <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> + <code>ASSIGNMENT_TYPE = 'E'</code> + <code>ASSIGNMENT_STATUS_TYPE = 'ACTIVE_ASSIGN'</code>. Add <code>PRIMARY_FLAG = 'Y'</code> only if your implementation uses it.</p>
+    </div>
+  </div>
+</body>
+</html>
