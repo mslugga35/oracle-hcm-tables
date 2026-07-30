@@ -1,11 +1,58 @@
 # Oracle HCM Tables
-> Last verified: 2026-04-24
+> Last verified: 2026-07-30
 
 ## Project
 - **Repo:** `github.com/mslugga35/oracle-hcm-tables` (branch: `master`)
 - **Live:** https://hcm-tables.com
-- **Stack:** Vanilla HTML/CSS/JS SPA + Vercel static + serverless API
+- **Stack:** Vanilla HTML/CSS/JS SPA, static hosting
 - **Data:** 14,950 tables, 1.2M columns, 9.5MB compact column index
+
+## 🚨 DEPLOYMENT — read before touching anything user-facing
+
+**The live site is Cloudflare Pages. It is NOT Vercel, and it does NOT auto-deploy.**
+
+```
+hcm-tables.com  ──CNAME──▶  oracle-tables.pages.dev   (Cloudflare Pages project `oracle-tables`)
+```
+
+**Publish with:**
+```bash
+npx wrangler pages deploy static --project-name=oracle-tables --branch=main
+```
+Clear `CLOUDFLARE_API_TOKEN` first — it silently overrides `wrangler login`.
+
+**Verify afterwards:**
+```bash
+node scripts/check-deploy-freshness.mjs      # exit 1 = live does not match git
+```
+
+### Why this warning exists (2026-07-30)
+The site was found serving a build from **2026-05-30 — two months stale**, with
+16 blog posts never public. Nothing alerted, because nothing looked broken:
+
+- **Vercel is a decoy.** The repo is still Vercel-linked (`.vercel/`,
+  `vercel.json`) and Vercel auto-deploys from git on every push and **succeeds
+  every time** — to `oracle-hcm-tables.vercel.app`, which the domain does not
+  point at. Vercel itself lists the domain as *"Third Party"*. Green builds,
+  zero user-facing effect.
+- **Cloudflare Pages deploys are `ad_hoc`** — manual uploads, not connected to
+  git. Someone stopped running the command and no signal existed.
+
+A build-status check stays green through this. The only question that catches
+it is *"does production match the repo?"* — which is what
+`check-deploy-freshness.mjs` asks.
+
+### Second failure mode it catches
+Cloudflare Pages serves `index.html` as an **SPA fallback** for unknown paths.
+A missing blog post therefore returns **HTTP 200 with the homepage body** —
+invisible to any uptime check, and read by search engines as duplicate content
+rather than a clean 404. Seven posts were in this state.
+
+### Known gap
+`vercel.json` security headers (CSP, `X-Frame-Options`) **never reach
+production** — they are Vercel config on a Cloudflare-served site. The live
+site currently sends neither. Reinstate them at the Cloudflare layer
+(Transform Rules / `_headers`), not in `vercel.json`.
 
 ## SPA Features (static/index.html)
 - **Module browser:** 28 Oracle HCM module prefixes with table counts, filterable
