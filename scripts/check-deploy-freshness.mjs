@@ -88,7 +88,30 @@ if (extra.length && VERBOSE) {
   extra.forEach((s) => console.log(`   - ${s}`));
 }
 
-if (missing.length || fallback.length) {
+// The blog index is not the whole site. On 2026-07-31 a commit changed the SPA
+// (static/index.html) and this script still reported "live matches git",
+// because it only ever compared blog posts. Compare the homepage too.
+//
+// Compare NORMALISED content, not raw bytes: `git show` yields LF while
+// `git archive` (what actually gets deployed) writes CRLF, so the same file
+// measures 101,113 vs 103,654 bytes. Raw byte comparison would false-alarm on
+// every deploy.
+const norm = (s) => s.replace(/\r/g, '');
+let homeStale = false;
+try {
+  const gitHome = norm(readFileSync(join(root, 'static/index.html'), 'utf8'));
+  if (norm(home) !== gitHome) {
+    homeStale = true;
+    console.error(
+      `\n[DEPLOY] homepage differs from git — static/index.html is not deployed ` +
+      `(live ${norm(home).length} chars vs git ${gitHome.length}).`,
+    );
+  }
+} catch (err) {
+  console.error(`[DEPLOY] could not compare homepage: ${err.message}`);
+}
+
+if (missing.length || fallback.length || homeStale) {
   console.error(
     '\n[DEPLOY] STALE. Publish with:\n' +
     '   npx wrangler pages deploy static --project-name=oracle-tables --branch=main\n' +
