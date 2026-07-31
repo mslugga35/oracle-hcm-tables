@@ -1321,6 +1321,57 @@
       border-color: var(--accent);
     }
 
+    /* Common Gotchas Callout */
+    .gotchas-section {
+      margin-top: 2rem;
+      padding-top: 1.5rem;
+      border-top: 1px solid var(--border);
+    }
+
+    .gotchas-title {
+      font-size: 1rem;
+      font-weight: 600;
+      color: var(--yellow);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .gotchas-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0.75rem;
+    }
+
+    .gotcha-item {
+      background: oklch(0.18 0.03 85 / 0.15);
+      border: 1px solid oklch(0.50 0.10 85 / 0.3);
+      border-left: 3px solid var(--yellow);
+      border-radius: var(--radius-sm);
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      line-height: 1.6;
+      color: var(--text-secondary);
+    }
+
+    .gotcha-item strong {
+      color: var(--text-primary);
+      font-weight: 600;
+    }
+
+    .gotcha-item code {
+      font-family: var(--font-mono);
+      font-size: 0.78rem;
+      background: oklch(0.20 0.01 260);
+      padding: 0.15rem 0.4rem;
+      border-radius: 4px;
+      color: var(--green);
+    }
+
     /* Join Path Finder */
     .join-finder {
       padding: 0 1.5rem 4rem;
@@ -1793,6 +1844,69 @@
       ]
     };
 
+    const TABLE_GOTCHAS = {
+      PER_ALL_PEOPLE_F: [
+        'Always filter by date: <code>TRUNC(SYSDATE) BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE</code> — without this you get one row per historical change, not one per person.',
+        '<strong>This table does NOT contain names.</strong> Join to <code>PER_PERSON_NAMES_F</code> with <code>NAME_TYPE = \'GLOBAL\'</code> to get first/last/display name.',
+        '<code>PERSON_ID</code> is a surrogate key (NUMBER), not the employee number. Use <code>PERSON_NUMBER</code> for display or matching to external systems.',
+        'Contains all person types: employees, contingent workers, applicants, and contacts. Filter by <code>SYSTEM_PERSON_TYPE</code> if you only want employees.'
+      ],
+      PER_ALL_ASSIGNMENTS_M: [
+        'Always include <code>EFFECTIVE_LATEST_CHANGE = \'Y\'</code> — without it you get multiple rows per date range (one per attribute change), causing inflated counts.',
+        'Filter <code>ASSIGNMENT_STATUS_TYPE = \'ACTIVE\'</code> to exclude terminated/suspended assignments.',
+        '<code>ASSIGNMENT_TYPE</code> matters: <code>E</code> = employee, <code>C</code> = contingent worker, <code>O</code> = offer, <code>P</code> = pending worker. Most reports want <code>IN (\'E\',\'C\')</code>.',
+        '<strong>This is the 24B+ replacement for PER_ALL_ASSIGNMENTS_F.</strong> Use _M for all new development — _F is deprecated.',
+        'Department, job, grade, position, and location are on this table — not on the person table.'
+      ],
+      PER_ALL_ASSIGNMENTS_F: [
+        '<strong>DEPRECATED in Oracle Cloud 24B+.</strong> Use <code>PER_ALL_ASSIGNMENTS_M</code> instead for new development.',
+        'Unlike _M, this table has no <code>EFFECTIVE_LATEST_CHANGE</code> column. To get one row per assignment, use a <code>MAX(EFFECTIVE_START_DATE)</code> subquery.',
+        'If migrating from _F to _M: column names are the same, but _M has additional columns like <code>EFFECTIVE_LATEST_CHANGE</code> and <code>PRIMARY_ASSIGNMENT_FLAG</code>.'
+      ],
+      PER_PERSON_NAMES_F: [
+        '<strong>Must filter <code>NAME_TYPE = \'GLOBAL\'</code></strong> — without this you get duplicate rows for each locale-specific name type (US, GB, JP, etc.).',
+        '<code>DISPLAY_NAME</code> is Oracle-generated and may have different ordering than <code>FIRST_NAME</code> + <code>LAST_NAME</code> depending on legislation.',
+        'Date-effective: apply the standard <code>BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE</code> filter.',
+        'Commonly overlooked columns: <code>TITLE</code>, <code>SUFFIX</code>, <code>KNOWN_AS</code>, <code>PREVIOUS_LAST_NAME</code>.'
+      ],
+      HR_ALL_ORGANIZATION_UNITS: [
+        '<strong>Use the _X or _VL suffix versions</strong> for translated names that are date-effective. The base table NAME column is untranslated.',
+        '<code>CLASSIFICATION_CODE</code> distinguishes departments, legal entities, business units, divisions, etc. — don\'t assume all records are departments.',
+        'For multilingual deployments, always use <code>HR_ALL_ORGANIZATION_UNITS_X</code> with a <code>LANGUAGE</code> filter.',
+        'Not directly date-effective — hierarchy changes are tracked via <code>PER_ORG_TREE_NODE_V</code> or the tree flattened views.'
+      ],
+      PER_ADDRESSES_F: [
+        'Filter by <code>ADDRESS_TYPE</code> (<code>HOME</code>, <code>MAIL</code>, etc.) — without it you get multiple rows per person for each address type.',
+        'Address fields vary by country: <code>REGION_1</code>/<code>REGION_2</code>/<code>REGION_3</code> map to different things (state, province, prefecture) depending on <code>COUNTRY</code>.',
+        '<code>COUNTRY</code> uses ISO 3166-1 alpha-2 codes (<code>US</code>, <code>CA</code>, <code>GB</code>), not full country names.',
+        'Date-effective with <code>EFFECTIVE_START_DATE</code>/<code>EFFECTIVE_END_DATE</code> — address history is preserved.'
+      ],
+      PER_PERIODS_OF_SERVICE: [
+        'One person can have <strong>multiple</strong> periods of service — rehires and multiple legal employers each create a new row.',
+        '<code>ACTUAL_TERMINATION_DATE</code> is NULL for active employees. Use <code>NVL(ACTUAL_TERMINATION_DATE, TO_DATE(\'4712-12-31\',\'YYYY-MM-DD\'))</code> for date comparisons.',
+        '<code>PERIOD_TYPE</code>: <code>E</code> = employee, <code>C</code> = contingent worker — filter accordingly.',
+        '<code>DATE_START</code> is the hire/start date, not the application date or offer date.'
+      ],
+      CMP_SALARY: [
+        '<code>SALARY_AMOUNT</code> is in the payroll frequency — not necessarily annual. Check <code>ANNUAL_SALARY</code> for the annualized value.',
+        'Join to <code>CMP_SALARY_BASES</code> via <code>SALARY_BASIS_ID</code> to determine the pay frequency (annual, monthly, hourly).',
+        'Date-effective: multiple rows track salary changes over time. Filter for the current row.',
+        'This is base salary only — does not include bonuses, allowances, or other compensation components.'
+      ],
+      PAY_ELEMENT_ENTRIES_F: [
+        '<strong>Actual values are NOT on this table.</strong> Join to <code>PAY_ELEMENT_ENTRY_VALUES_F</code> via <code>ELEMENT_ENTRY_ID</code> for the amounts.',
+        'Multiple entries per assignment is normal — one row per element type (base pay, tax, deduction, etc.).',
+        'Join to <code>PAY_ELEMENT_TYPES_F</code> via <code>ELEMENT_TYPE_ID</code> to get the element name and classification.',
+        'Date-effective with <code>EFFECTIVE_START_DATE</code>/<code>EFFECTIVE_END_DATE</code> — element entries track changes over time.'
+      ],
+      PER_ABSENCE_ENTRIES: [
+        'This table stores <strong>absence requests</strong>, not actual absences — check <code>APPROVAL_STATUS_CD</code> to filter approved vs pending vs rejected.',
+        '<code>START_DATE</code>/<code>END_DATE</code> are the absence dates (not date-effective in the standard Oracle sense — this table is not date-tracked).',
+        '<code>ABSENCE_DURATION</code> is in the unit specified by the absence type — could be days or hours depending on configuration.',
+        'Join to <code>ANC_ABSENCE_TYPES_F_VL</code> via <code>ABSENCE_TYPE_ID</code> for the absence type name and category.'
+      ]
+    };
+
     // === SECURITY HELPERS ===
     /** Escape string for safe HTML text content */
     function escapeHtml(str) {
@@ -2110,6 +2224,19 @@
           </div>
         ` : '';
 
+        const gotchas = TABLE_GOTCHAS[table.name] || [];
+        const gotchasHtml = gotchas.length > 0 ? `
+          <div class="gotchas-section">
+            <div class="gotchas-title">
+              <i data-lucide="alert-triangle" style="width:16px;height:16px"></i>
+              Common Gotchas (${gotchas.length})
+            </div>
+            <ul class="gotchas-list">
+              ${gotchas.map(g => `<li class="gotcha-item">${g}</li>`).join('')}
+            </ul>
+          </div>
+        ` : '';
+
         const examples = JOIN_EXAMPLES[table.name] || [];
         const joinExamplesHtml = examples.length > 0 ? `
           <div class="join-examples-section">
@@ -2172,6 +2299,7 @@
             </table>
           </div>
           <p class="column-count">${(table.columns || []).length} columns</p>
+          ${gotchasHtml}
           ${joinExamplesHtml}
           ${relatedHtml}
         `;
