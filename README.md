@@ -22,14 +22,17 @@ oracle-hcm-tables/
 │       ├── stats.json         # {tables, views, columns, modules} counts
 │       ├── tables.json        # Table search index (~14MB) — [{name, type, module}]
 │       ├── columns.json       # Column search index (~9.5MB) — compact format (see below)
-│       ├── columns-full.json  # RAW column data (~331MB) — NOT deployed, gitignored
+│       └── (deployable JSON only — nothing over 25MB, see build-data/)
 │       └── tables/            # 14,950 individual table detail JSONs
 │           ├── PER_ALL_PEOPLE_F.json
 │           └── ...
 ├── api/                       # Vercel serverless functions
 │   └── search.js              # GET /api/search?q=QUERY — returns JSON
 ├── scraper.js                 # Scrapes docs.oracle.com → populates oracle_tables.db
-├── create-column-index.js     # Rebuilds columns.json from columns-full.json
+├── build-data/                # RAW build inputs (~445MB) — gitignored, NEVER in static/
+│   ├── columns-full.json      # ~331MB raw column data
+│   └── column-index.json      # ~114MB intermediate index
+├── create-column-index.js     # Rebuilds columns.json from build-data/columns-full.json
 ├── export-json.js             # Exports oracle_tables.db → static/data/ JSON files
 ├── generate-sitemap.js        # Rebuilds sitemap.xml
 ├── vercel.json                # Deployment config (SPA rewrites, caching, security headers)
@@ -137,3 +140,15 @@ Everything else goes to `index.html` which handles client-side routing.
 - [ ] User accounts
 - [ ] SQL examples for common queries
 - [ ] CSV/JSON export from table detail view
+
+## Deploying
+
+```
+npx wrangler pages deploy static --project-name=oracle-tables --branch main
+```
+
+Run it from the project root, and pass `--branch main` -- without it the deploy
+goes to a *preview* named after your current git branch and production never
+changes. Cloudflare Pages rejects any file over 25 MiB and wrangler does NOT
+honour .gitignore or .assetsignore, so nothing that large may sit under
+`static/` -- that is why the raw inputs live in `build-data/`.
