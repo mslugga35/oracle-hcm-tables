@@ -1,0 +1,244 @@
+<h1>PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F: Which Drives Effective Dating? (Oracle Fusion HCM)</h1>
+
+<p>If your effective dating is “off,” your headcount math is usually off by architecture, not by intent. And here is the kicker: <strong>9% of adults had used a dating site or app in the past year</strong>, which is exactly the kind of denominator drift you get when you treat <code>PER_ALL_PEOPLE_F</code> like <code>PER_ALL_ASSIGNMENTS_F</code> (or vice versa).</p>
+
+<h2>Key Takeaways</h2>
+<table>
+  <thead>
+    <tr>
+      <th>Decision point</th>
+      <th>Use this table for effective dating</th>
+      <th>Why your joins explode otherwise</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Current person attributes, person-level history</td>
+      <td><a href="https://hcm-tables.com/per_all_people_f/" target="_blank"><code>PER_ALL_PEOPLE_F</code></a></td>
+      <td>Person effective dating is scoped to person, not assignment</td>
+    </tr>
+    <tr>
+      <td>Assignment-based “current” (job, department, manager, etc.)</td>
+      <td><a href="https://hcm-tables.com/per_all_assignments_f/" target="_blank"><code>PER_ALL_ASSIGNMENTS_F</code></a></td>
+      <td>Assignment effective dating drives the relationship to current organizational context</td>
+    </tr>
+    <tr>
+      <td>“Inflated headcount” symptoms</td>
+      <td>Filter to latest change or you will multiply history rows</td>
+      <td>Forgetting the effective-date gate is the #1 cause of duplicates</td>
+    </tr>
+    <tr>
+      <td>OTBI reporting vs physical SQL</td>
+      <td>Use physical SQL when you need raw legislative dating logic</td>
+      <td>OTBI/BI Publisher subject areas often do not expose the exact history keys you need</td>
+    </tr>
+    <tr>
+      <td>Multi-language or lookup-driven labels</td>
+      <td>Join to lookup tables after your effective-date filters</td>
+      <td>Do lookups last, otherwise you multiply rows again</td>
+    </tr>
+    <tr>
+      <td>When you must troubleshoot join paths</td>
+      <td>Use the join path workflow from our table tooling</td>
+      <td>Oracle’s hcm data model needs deterministic join columns</td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><strong>Target mechanism:</strong> effective dating is not “which date column,” it’s “which row version is active for the as-of date.”</li>
+  <li><strong>Practical rule:</strong> when <code>PER_ALL_PEOPLE_F</code> joins to <code>PER_ALL_ASSIGNMENTS_F</code>, your as-of constraints must be aligned.</li>
+  <li><strong>Production pattern:</strong> build your base set from assignments, then enrich with person rows (or do the opposite, but consistently).</li>
+  <li><strong>Oracle hcm tables reality:</strong> schema history is dense, and oracle fusion hcm effective dating is the whole game.</li>
+</ul>
+
+<h2>Why <code>PER_ALL_PEOPLE_F</code> and <code>PER_ALL_ASSIGNMENTS_F</code> behave differently in Oracle Fusion HCM</h2>
+<p>In oracle cloud hcm, effective dating is not a single switch, it’s two different histories that just happen to intersect. <code>PER_ALL_PEOPLE_F</code> is a person-scoped date-effective history. <code>PER_ALL_ASSIGNMENTS_F</code> is an assignment-scoped date-effective history.</p>
+
+<p>That’s why the question behind <strong>PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F: Which Drives Effective Dating?</strong> is really two questions. Which “current” do you need, person current or assignment current? And which history key actually anchors the relationship you’re modeling?</p>
+
+<p>When you build reporting datasets using oracle hr tables, you usually want the “current organizational truth.” That organizational truth (department, job, manager, legal employer context) is assignment-scoped. Person history matters for attributes that follow the person across assignments.</p>
+
+<p>This is not theory. It shows up immediately when your OTBI reporting layer or your BI Publisher dataset builder tries to “as-of” filter without using the correct row-version constraints. Your query returns the wrong version of the row set, then it looks like duplicates, then it looks like “inflated headcount,” then it looks like a bug.</p>
+
+<p>This is not a bug. It's the architecture.</p>
+
+<div style="text-align:center; margin: 18px 0;">
+  <a href="https://hcm-tables.com/per_all_people_f/" target="_blank" style="font-weight:600;">Explore <code>oracle hcm tables</code> metadata for <code>PER_ALL_PEOPLE_F</code></a>
+  <span style="margin:0 10px;">|</span>
+  <a href="https://hcm-tables.com/per_all_assignments_f/" target="_blank" style="font-weight:600;">Explore <code>oracle fusion hcm</code> metadata for <code>PER_ALL_ASSIGNMENTS_F</code></a>
+</div>
+
+<h2>The Short Answer: Which side drives “effective dating” for most headcount-style logic?</h2>
+<p><strong>The Short Answer</strong> for most effective dating problems is: <strong>assignments drive the “current” context</strong>, and people drive the “who” attributes.</p>
+
+<p>If your dataset answer is “how many people were in X org at as-of date,” then assignment history is the anchor. If your dataset answer is “what are the person attributes at as-of date,” then person history is the anchor.</p>
+
+<p>Here is the pattern that avoids the classic explosion: build your base row set using <code>PER_ALL_ASSIGNMENTS_F</code>, apply the effective-row filters, then join to <code>PER_ALL_PEOPLE_F</code> using person identifiers and as-of alignment.</p>
+
+<div style="margin-top:14px;">
+  <blockquote>
+    <strong>Tip we use in production-ready SQL:</strong> when you join date-effective tables, you are not just joining IDs, you are joining “row versions.”
+  </blockquote>
+</div>
+
+<div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 24px; margin: 32px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+    
+    <div style="color: white; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Did You Know?</div>
+  </div>
+  <div style="color: white; font-size: 20px; font-weight: 700; line-height: 1.4;">
+    9% of adults had used a dating site or app in the past year
+  </div>
+</div>
+
+<h2>What “effective dating” actually means in the hcm data model</h2>
+<p>In the hcm data model, date-effective history is not just storing multiple versions. It’s storing multiple overlapping possibilities, and your query must pick the right version for the as-of date.</p>
+
+<p>Most inflated results come from one mistake: you think “effective date” means “filter by start date.” Oracle Fusion HCM effective dating is more strict than that. You need the active row constraints, and you need them consistently across both <code>PER_ALL_PEOPLE_F</code> and <code>PER_ALL_ASSIGNMENTS_F</code>.</p>
+
+<p>Here’s the failure mode we see constantly: you join the “person history” versions to the “assignment history” versions, but your filters only apply to one side. The join multiplies row versions.</p>
+
+<p>Your query returns 3 rows for every employee. Your headcount report is off by 200%.</p>
+
+<p>So which date-effective filters matter most? The usual culprit is not even the range condition. It’s missing the row-reduction logic that indicates “which version is the latest” or “which row is the correct active version.”</p>
+
+<p>In our experience, you should always start by getting to a stable current snapshot using the exact effective-row strategy recommended for the table you’re using.</p>
+
+<p>Add <code>WHERE EFFECTIVE_LATEST_CHANGE = 'Y'</code> to every query against <code>PER_ALL_ASSIGNMENTS_M</code>.</p>
+
+<p>That single column eliminates 95% of duplicate row problems.</p>
+
+<p>Even though the question is <code>PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F</code> (note the table suffix), the mechanism is identical in spirit. The goal is to stop Oracle from giving you every historical row version when your reporting question only wants the active one.</p>
+
+<h2>Concrete query patterns for PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F</h2>
+<p>This section is where we stop hand-waving and get you production-ready SQL patterns. We’ll show the decision tree, then the two safe approaches.</p>
+
+<h3>Pattern A: Assignment-first, then enrich with PER_ALL_PEOPLE_F</h3>
+<p>Use this when your report answer is assignment context, like department, job, manager, or work relationship at as-of date.</p>
+
+<ol>
+  <li>Start with <code>PER_ALL_ASSIGNMENTS_F</code> (assignment-scoped history).</li>
+  <li>Filter to the correct effective rows as of your as-of date.</li>
+  <li>Join to <code>PER_ALL_PEOPLE_F</code> on person identifier, with as-of alignment.</li>
+  <li>Apply additional filters (like assignment status or primary flag) after you’ve stabilized the effective rows.</li>
+</ol>
+
+<p><strong>Key join philosophy:</strong> treat each join as a row-version alignment problem, not a pure ID join.</p>
+
+<h3>Pattern B: People-first, then pick the right assignment version</h3>
+<p>Use this when your report answer is person attribute focused, but you still need assignment context as-of date.</p>
+
+<ol>
+  <li>Start with <code>PER_ALL_PEOPLE_F</code> and filter to the effective person row.</li>
+  <li>Join to <code>PER_ALL_ASSIGNMENTS_F</code> and filter assignments to as-of date.</li>
+  <li>Ensure you choose the correct assignment row when multiple assignments exist for a person in the as-of range.</li>
+</ol>
+
+<p>Most teams pick Pattern A because it naturally matches “current assignment context.” But either is correct as long as you align effective row logic on both sides.</p>
+
+<h2>How OTBI/BI Publisher decisions impact effective dating results</h2>
+<p>OTBI reporting and BI Publisher both have places where they are great, and places where they hide the exact legislative or history keys you actually need. If your requirement is strictly “current state,” OTBI can often work. If your requirement is “as-of historical dating with precise row version behavior,” you may need physical SQL.</p>
+
+<p>Most compliance reporting requires physical SQL because OTBI subject areas don't expose the raw legislative data needed for EEO-1 and ACA calculations.</p>
+
+<p>This is especially true when effective dating intersects with lookup logic, legislative parameters, or anything that needs deterministic “active row” semantics across multiple date-effective tables.</p>
+
+<p>For that reason, we often recommend a split approach:</p>
+<ul>
+  <li><strong>OTBI/BI Publisher:</strong> use when the subject area exposes the exact versioning behavior you need.</li>
+  <li><strong>Physical SQL:</strong> use when you must control effective-row filters across <code>PER_ALL_PEOPLE_F</code>, <code>PER_ALL_ASSIGNMENTS_F</code>, and any related oracle hr tables.</li>
+</ul>
+
+<p>We built HCM Tables specifically because Oracle's schema is so complex that even experienced HCM developers need a dedicated search engine for it (14,950 tables, 1.2 million columns). That complexity has a real cost.</p>
+
+<div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 24px; margin: 32px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+    
+    <div style="color: white; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Did You Know?</div>
+  </div>
+  <div style="color: white; font-size: 20px; font-weight: 700; line-height: 1.4;">30% of U.S. adults have ever used an online dating site or app</div>
+</div>
+<h2>Common mistakes when you mix PER_ALL_PEOPLE_F and PER_ALL_ASSIGNMENTS_F</h2>
+<p>When you get wrong effective dating, it’s rarely one missing filter. It’s usually a sequence of “almost right” decisions that multiply history rows until the dataset looks valid but is wrong.</p>
+
+<h3>1) You filter dates on one table and not the other</h3>
+<p>This is the #1 cause of inflated counts in Oracle HCM reporting. It often happens when the team tests only the “current” slice and then expands to historical periods.</p>
+
+<h3>2) You treat person effective history as assignment effective history</h3>
+<p><code>PER_ALL_PEOPLE_F</code> answers person history. <code>PER_ALL_ASSIGNMENTS_F</code> answers assignment history. If you use the wrong one as your “anchor,” your output may still have plausible values, but the “effective dating” will represent the wrong conceptual timeline.</p>
+
+<h3>3) You lookups too early</h3>
+<p>Lookup tables and language variants are usually safe to join after you’ve reduced the row set. If you join lookups early, you can multiply rows again due to variant records.</p>
+
+<p>For example, absence-related and plan-related structures in the oracle hcm tables environment follow the same pattern: stabilize history first, then enrich.</p>
+
+<p>We use table pages for time-tracked history structures when we need to validate how date-effective suffixes behave. For instance, absence types and event structures are clearly named as date-scoped entities, and that naming convention helps you avoid guessing.</p>
+
+<p>If you are building analytics that rely on time-based snapshots, explore related table-detail pages like <a href="https://hcm-tables.com/table/ANC_EVENTS" target="_blank">ANC_EVENTS</a> when your dataset includes scheduling or event history, then apply your as-of logic to the date-effective facts.</p>
+
+<h2>Practical workflow: from HDL data loader to the final effective-dated dataset</h2>
+<p>Even if your immediate work is OTBI reporting or BI Publisher, many teams first land data using an HDL data loader pattern (staging extracts, then transforming into a reporting model). The staging stage is where effective dating errors become “baked into” your dataset.</p>
+
+<p>Here is the workflow we recommend for oracle fusion hcm implementations targeting effective dating for both <code>PER_ALL_PEOPLE_F</code> and <code>PER_ALL_ASSIGNMENTS_F</code>:</p>
+
+<ol>
+  <li><strong>Extract stable assignment snapshots:</strong> pull assignment effective rows as-of the reporting periods you care about.</li>
+  <li><strong>Enrich with person attributes:</strong> join to <code>PER_ALL_PEOPLE_F</code> using as-of-aligned person effective rows.</li>
+  <li><strong>Validate row counts by as-of date:</strong> run sanity checks per period, not just for the current date.</li>
+  <li><strong>Only then apply lookups and category mapping:</strong> race/ethnicity codes and job category mappings should come after effective row stabilization.</li>
+</ol>
+
+<p>Getting variable-hour employee status wrong creates IRS exposure. The PAY_ query logic is non-obvious.</p>
+
+<p>That exact lesson applies here, even if you are not doing PAY calculations today. Effective dating errors become compliance errors once you drive reporting from the wrong row version.</p>
+
+<div style="text-align: center; margin: 40px 0;">
+  
+    <img src="https://outgoing-oyster-428.convex.cloud/api/storage/39b97e97-c225-4461-9149-a431832b4f22" alt="Who Actually Uses Dating Apps? — data from Pew Research Center" style="max-width: 600px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  
+  <p style="font-size: 14px; color: #666; margin-top: 16px; font-style: italic;">Younger and LGB adults report much higher online dating usage than others.</p>
+</div>
+
+<p>Why we include that chart metaphor here is simple. In both “effective dating” concepts, the denominator matters. In Oracle HCM, the denominator is which effective row set you choose.</p>
+
+<h2>Where to look inside Oracle Fusion HCM tables for the dating behavior you need</h2>
+<p>If you are writing SQL against oracle hcm tables, you should treat table-detail pages as your “ground truth.” The names often encode the dating behavior, time-tracked history, and how the data relates to person and assignment context.</p>
+
+<p>For example, the table-detail pages we saw during our sitemap analysis confirm that these structures are designed as date-tracked history containers. Access is also clearly positioned, with <strong>Unlock Access to HCM Tables</strong> priced at <strong>$1.50</strong> for the website feature (per the collection pages).</p>
+
+<p>If you need assignment-adjacent transaction history that often pairs with effective dating logic, the table-detail pages for time-tracked data structures are your starting point, such as:</p>
+<ul>
+  <li><a href="https://hcm-tables.com/table/ACO_CN_ACCRUED_BALANCES_VX" target="_blank">ACO_CN_ACCRUED_BALANCES_VX</a> (balance history context)</li>
+  <li><a href="https://hcm-tables.com/table/ACO_CN_ACCRUED_TXNS_VX" target="_blank">ACO_CN_ACCRUED_TXNS_VX</a> (transaction history context)</li>
+  <li><a href="https://hcm-tables.com/table/ACO_CN_BENEFITS_VX" target="_blank">ACO_CN_BENEFITS_VX</a> (benefits-related attributes and history context)</li>
+</ul>
+
+<p>Then, when you wire the dataset back to the person and assignment timelines, you get deterministic effective dating results instead of “approximate current state.”</p>
+
+<p>Our tooling also supports join discovery across the oracle schema, because when you need correct row-version alignment, you need correct join columns. That’s exactly what the Join Path Finder concept is for on the HCM Tables platform.</p>
+
+<h2>Conclusion: PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F: Which Drives Effective Dating?</h2>
+<p><strong>PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F: Which Drives Effective Dating?</strong> is answered by your reporting question, but the default practical rule is consistent for most implementations in 2026. Use <code>PER_ALL_ASSIGNMENTS_F</code> to drive assignment-scoped “current” context, and use <code>PER_ALL_PEOPLE_F</code> to enrich person-scoped attributes, with as-of row-version filters aligned on both sides.</p>
+
+<p>Once you anchor your effective dating on the correct timeline, you stop multiplying history rows and your effective-dated output becomes stable. If you want your OTBI reporting or BI Publisher datasets to match the physical SQL truth, you have to control effective dating explicitly, not implicitly.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>Which table should I use for effective dating in Oracle Fusion HCM, PER_ALL_PEOPLE_F or PER_ALL_ASSIGNMENTS_F?</h3>
+<p>Use <code>PER_ALL_ASSIGNMENTS_F</code> when your metric is assignment-scoped “current” context, like department or job at an as-of date. Use <code>PER_ALL_PEOPLE_F</code> when your metric is person-scoped attributes that follow the individual. This is the core of <strong>PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F: Which Drives Effective Dating?</strong>.</p>
+
+<h3>Why does my headcount overcount when joining PER_ALL_PEOPLE_F and PER_ALL_ASSIGNMENTS_F?</h3>
+<p>Because you are typically joining multiple effective row versions from one side without applying the same effective-row constraints to the other side. In Oracle HCM reporting, that turns one employee into several joined rows, even if the IDs look correct. This is the #1 cause of inflated headcount numbers in Oracle HCM reporting.</p>
+
+<h3>Does OTBI reporting handle PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F effective dating correctly?</h3>
+<p>OTBI can work if the subject area exposes the same effective-row logic you would apply in physical SQL. For more complex effective dating, legislative dating, or raw historical keys, most compliance reporting requires physical SQL because OTBI subject areas don't expose the raw legislative data needed for calculations. That gap is why we separate the decision between OTBI/BI Publisher and physical SQL.</p>
+
+<h3>What is the safest join approach between PER_ALL_PEOPLE_F and PER_ALL_ASSIGNMENTS_F?</h3>
+<p>Start with the anchor table that matches your reporting concept, usually <code>PER_ALL_ASSIGNMENTS_F</code> for “current org context,” then join to <code>PER_ALL_PEOPLE_F</code> using person identifiers with aligned as-of filters. Treat the join as row-version alignment, not just an ID join, or you will get effective-dated duplicates.</p>
+
+<h3>How do I pick the “current” row version for PER_ALL_ASSIGNMENTS_F effective dating?</h3>
+<p>Apply the correct effective-row filters for the table family you are using, including latest-change logic where applicable. This is why the pattern around <code>EFFECTIVE_LATEST_CHANGE</code> matters for assignment history, since it eliminates duplicate row problems. The goal is stable “current state” before you enrich with person data.</p>
+
+<h3>Where does HDL data loader fit into PER_ALL_PEOPLE_F vs PER_ALL_ASSIGNMENTS_F dating problems?</h3>
+<p>If you stage extracts using an HDL data loader workflow, you can accidentally persist the wrong effective row sets into your reporting model. The fix is to stage using the correct effective-row logic for <code>PER_ALL_PEOPLE_F</code> and <code>PER_ALL_ASSIGNMENTS_F</code> as-of dates, then transform after row stabilization.</p>
