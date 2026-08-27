@@ -96,7 +96,25 @@ if (extra.length && VERBOSE) {
 // `git archive` (what actually gets deployed) writes CRLF, so the same file
 // measures 101,113 vs 103,654 bytes. Raw byte comparison would false-alarm on
 // every deploy.
-const norm = (s) => s.replace(/\r/g, '');
+// Cloudflare's Email Obfuscation feature rewrites HTML in transit: every
+// `mailto:` href becomes `/cdn-cgi/l/email-protection#<hex>` and a decoder
+// script is injected. Neither exists in git, so on 2026-08-27 this check
+// reported the homepage stale (+303 chars) on a deploy that was demonstrably
+// live and correct. Left unfixed it fails on EVERY deploy — and a staleness
+// alarm that always fires is one nobody reads, which is the exact failure this
+// script exists to catch. Normalise the transform out of both sides.
+const stripCfEmail = (s) => s
+  .replace(/<script[^>]*\/cdn-cgi\/scripts\/[^<]*<\/script>/g, '')
+  // Quote-specific: the mailto body contains a literal apostrophe ("I'd"), so a
+  // combined [^"'] class stops early and silently fails to match.
+  .replace(/href="\/cdn-cgi\/l\/email-protection#[^"]*"/g, 'href="__EMAIL__"')
+  .replace(/href='\/cdn-cgi\/l\/email-protection#[^']*'/g, 'href="__EMAIL__"')
+  .replace(/href="mailto:[^"]*"/g, 'href="__EMAIL__"')
+  .replace(/href='mailto:[^']*'/g, 'href="__EMAIL__"')
+  .replace(/<a[^>]*class="__cf_email__"[^>]*>.*?<\/a>/gs, '__EMAIL__')
+  .replace(/\[email&#160;protected\]/g, '__EMAIL__');
+
+const norm = (s) => stripCfEmail(s.replace(/\r/g, ''));
 let homeStale = false;
 try {
   const gitHome = norm(readFileSync(join(root, 'static/index.html'), 'utf8'));
