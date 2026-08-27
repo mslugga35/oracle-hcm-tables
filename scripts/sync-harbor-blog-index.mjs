@@ -4,6 +4,16 @@
  * Scans static/blog/*.html, extracts metadata, generates
  * a unified index.html listing ALL blog posts (Harbor + manual).
  * Runs automatically before build.
+ *
+ * 🚨 ALWAYS run `generate-blog-schema.mjs` AFTER this script.
+ * This one rewrites static/blog/index.html wholesale, which strips the JSON-LD
+ * BlogPosting schema the other script injects. Vercel's buildCommand ran this
+ * alone until 2026-08-27 and served 0 BlogPosting entries vs 52 on the live
+ * Cloudflare Pages site — invisible, because the domain does not point at
+ * Vercel. vercel.json now chains both; keep them chained.
+ *
+ * NOTE: vercel.json rejects unknown top-level keys, so that explanation lives
+ * here rather than as a comment beside the buildCommand.
  */
 import { readFileSync, writeFileSync, readdirSync, existsSync } from 'fs'
 import { join, basename } from 'path'
