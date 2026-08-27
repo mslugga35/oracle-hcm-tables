@@ -118,6 +118,47 @@ ${cards}
 `
 }
 
+/**
+ * The blog index has always advertised
+ *   <link rel="alternate" type="application/rss+xml" href="/blog/rss.xml">
+ * but nothing ever generated that file. Cloudflare Pages serves index.html as
+ * an SPA fallback, so /blog/rss.xml returned HTTP 200 with the HOMEPAGE body —
+ * a feed reader got HTML claiming to be RSS, and no uptime check could see it.
+ * Generated here, from the same post list as the index, so the two cannot drift.
+ */
+const SITE = 'https://hcm-tables.com'
+
+const xmlEscape = (s) => String(s)
+  .replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;')
+  .replace(/"/g, '&quot;').replace(/'/g, '&apos;')
+
+function generateRss(posts) {
+  const dated = posts.filter(p => p.date)
+  const latest = dated.length ? new Date(dated[0].date + 'T00:00:00Z') : new Date(0)
+  const items = posts.map(p => `    <item>
+      <title>${xmlEscape(p.title)}</title>
+      <link>${SITE}/blog/${xmlEscape(p.slug)}</link>
+      <guid isPermaLink="true">${SITE}/blog/${xmlEscape(p.slug)}</guid>
+      <description>${xmlEscape(p.description)}</description>${
+        p.date ? `\n      <pubDate>${new Date(p.date + 'T00:00:00Z').toUTCString()}</pubDate>` : ''
+      }
+    </item>`).join('\n')
+
+  return `<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Oracle HCM Tables</title>
+    <link>${SITE}/blog</link>
+    <description>Oracle Fusion Cloud HCM table reference, SQL, OTBI and HDL guides.</description>
+    <language>en-us</language>
+    <lastBuildDate>${latest.toUTCString()}</lastBuildDate>
+    <atom:link href="${SITE}/blog/rss.xml" rel="self" type="application/rss+xml"/>
+${items}
+  </channel>
+</rss>
+`
+}
+
 function main() {
   if (!existsSync(BLOG_DIR)) { console.log('No static/blog/'); return }
   const files = readdirSync(BLOG_DIR).filter(f => f.endsWith('.html') && !IGNORE.has(f))
@@ -135,6 +176,8 @@ function main() {
   })
   writeFileSync(OUTPUT, generateIndex(posts))
   console.log(`\n📝 Generated index.html with ${posts.length} posts`)
+  writeFileSync(join(BLOG_DIR, 'rss.xml'), generateRss(posts))
+  console.log(`📡 Generated rss.xml with ${posts.length} posts`)
 }
 
 main()
