@@ -91,10 +91,23 @@ let xml = `<?xml version="1.0" encoding="UTF-8"?>
 
 // Add each blog post (use known publish date if available, else TODAY)
 xml += `  <!-- Blog posts -->\n`;
+// Hand-written posts canonicalise to a CLEAN url (/blog/slug); Harbor-published
+// ones canonicalise WITH the extension (/blog/slug.html). Emitting a clean url
+// for both made the sitemap disagree with the page's own canonical. Read the
+// canonical off each page instead of assuming a convention.
+function canonicalPath(slug) {
+  try {
+    const html = fs.readFileSync(path.join(blogDir, `${slug}.html`), 'utf-8');
+    const m = html.match(/<link rel="canonical" href="([^"]+)"/i);
+    if (m) return m[1].replace(SITE_URL, '');
+  } catch (e) { /* fall through */ }
+  return `/blog/${slug}`;
+}
+
 for (const slug of blogSlugs.sort()) {
   const lastmod = BLOG_PUBLISH_DATES[slug] || TODAY;
   xml += `  <url>
-    <loc>${SITE_URL}/blog/${slug}</loc>
+    <loc>${SITE_URL}${canonicalPath(slug)}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
