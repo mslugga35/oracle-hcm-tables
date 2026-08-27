@@ -2032,8 +2032,14 @@
       if (commonFKs.length === 0) {
         sqlEl.innerHTML = `<button class="copy-btn" onclick="copyJoinSQL()">Copy</button><span style="color:var(--text-muted)">-- No direct FK relationship found between ${escapeHtml(t1)} and ${escapeHtml(t2)}\n-- Try joining through an intermediate table like PER_ALL_ASSIGNMENTS_M</span>`;
       } else {
-        const alias1 = escapeHtml(t1.substring(0, 3).toLowerCase());
-        const alias2 = escapeHtml(t2.substring(0, 3).toLowerCase());
+        // Aliases must be unique. Oracle HCM tables overwhelmingly share a 3-char
+        // prefix (PER_, PAY_, ANC_), so a naive substring(0,3) produced
+        // "FROM PER_ALL_PEOPLE_F per JOIN PER_ALL_ASSIGNMENTS_M per" — invalid SQL
+        // for 70% of joinable pairs. Suffix a counter when they collide.
+        const base1 = t1.substring(0, 3).toLowerCase();
+        const base2 = t2.substring(0, 3).toLowerCase();
+        const alias1 = escapeHtml(base1 === base2 ? base1 + '1' : base1);
+        const alias2 = escapeHtml(base1 === base2 ? base2 + '2' : base2);
         const joinCond = commonFKs.map(fk => `  ${alias1}.${escapeHtml(fk)} = ${alias2}.${escapeHtml(fk)}`).join('\n  AND ');
         const dateFilt = (a) => `\nWHERE TRUNC(SYSDATE) BETWEEN ${a}.EFFECTIVE_START_DATE AND ${a}.EFFECTIVE_END_DATE`;
         const needsDate1 = t1.endsWith('_F') || t1.endsWith('_M');
@@ -2537,5 +2543,9 @@
 
     handleRoute();
   </script>
+
+  <!-- WebMCP: exposes site lookups as tools to an agent in the visitor's browser.
+       No-ops silently in browsers without document.modelContext. -->
+  <script src="webmcp.js"></script>
 </body>
 </html>
