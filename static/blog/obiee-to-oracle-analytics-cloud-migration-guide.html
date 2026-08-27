@@ -1,0 +1,435 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4971966903803570" crossorigin="anonymous"></script>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#ff4d3d">
+  <title>OBIEE to Oracle Analytics Cloud Migration Guide 2026 | HCM Tables</title>
+  <meta name="description" content="Complete OBIEE to Oracle Analytics Cloud (OAC) migration guide for Oracle HCM. Covers breaking SQL changes, EVALUATE() workarounds, presentation variable differences, and a 4-week migration timeline.">
+  <meta name="robots" content="index, follow">
+  <link rel="canonical" href="https://hcm-tables.com/blog/obiee-to-oracle-analytics-cloud-migration-guide">
+  <meta property="og:type" content="article">
+  <meta property="og:url" content="https://hcm-tables.com/blog/obiee-to-oracle-analytics-cloud-migration-guide">
+  <meta property="og:title" content="OBIEE to Oracle Analytics Cloud Migration Guide 2026">
+  <meta property="og:description" content="Complete guide to migrating OBIEE reports to Oracle Analytics Cloud. Breaking SQL changes, EVALUATE() fixes, presentation variables, and 4-week migration checklist.">
+  <meta property="og:site_name" content="HCM Tables">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OBIEE to Oracle Analytics Cloud Migration Guide 2026",
+    "description": "Complete OBIEE to Oracle Analytics Cloud migration guide for Oracle HCM environments.",
+    "url": "https://hcm-tables.com/blog/obiee-to-oracle-analytics-cloud-migration-guide",
+    "datePublished": "2026-06-20",
+    "dateModified": "2026-06-20",
+    "publisher": { "@type": "Organization", "name": "HCM Tables", "url": "https://hcm-tables.com" }
+  }
+  </script>
+  <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-NSN2JWG98H"></script>
+  <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','G-NSN2JWG98H');</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root{--bg:#111317;--bg2:#1a1d24;--bg3:#1e2128;--text:#fcfcfc;--muted:#9a9daa;--faint:#666;--border:#2a2d35;--accent:#ff4d3d;--blue:#4d9eff;--green:#4dca8c;--yellow:#f0b429;--red:#f55;--mono:'JetBrains Mono',monospace;--sans:'Inter',system-ui,sans-serif;--r:12px;--r-sm:8px}
+    *{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--sans);background:var(--bg);color:var(--text);line-height:1.7}
+    a{color:var(--blue);text-decoration:none}
+    a:hover{color:var(--accent);text-decoration:underline}
+    .nav{display:flex;align-items:center;justify-content:space-between;padding:1.25rem 1.5rem;border-bottom:1px solid var(--border);max-width:1100px;margin:0 auto}
+    .nav-brand{font-size:1.1rem;font-weight:700;color:var(--text);text-decoration:none}
+    .nav-links a{font-size:0.9rem;color:var(--muted);font-weight:500;margin-left:1.5rem}
+    .article-wrap{max-width:760px;margin:0 auto;padding:3rem 1.5rem 5rem}
+    .article-meta{font-size:0.85rem;color:var(--faint);margin-bottom:2rem;display:flex;gap:1rem;flex-wrap:wrap}
+    .article-meta span{display:flex;align-items:center;gap:0.3rem}
+    h1{font-size:clamp(1.75rem,4vw,2.5rem);font-weight:800;line-height:1.2;margin-bottom:1rem}
+    .article-lead{font-size:1.1rem;color:var(--muted);margin-bottom:2.5rem;line-height:1.7}
+    h2{font-size:1.4rem;font-weight:700;margin:2.5rem 0 0.75rem}
+    h3{font-size:1.1rem;font-weight:600;margin:2rem 0 0.5rem}
+    p{color:var(--muted);margin-bottom:1.1rem}
+    ul,ol{color:var(--muted);padding-left:1.5rem;margin-bottom:1.1rem;display:flex;flex-direction:column;gap:0.4rem}
+    li{font-size:0.95rem}
+    strong{color:var(--text);font-weight:600}
+    code{font-family:var(--mono);font-size:0.85em;background:var(--bg2);padding:0.15em 0.4em;border-radius:4px;color:#c9d1d9}
+    .code-block{background:var(--bg2);border:1px solid var(--border);border-radius:var(--r);padding:1.5rem;margin:1.5rem 0;overflow-x:auto}
+    .code-label{font-size:0.7rem;font-weight:700;color:var(--faint);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:0.75rem}
+    .code-block pre{font-family:var(--mono);font-size:0.875rem;color:var(--muted);line-height:1.6;white-space:pre-wrap}
+    .kw{color:#ff4d3d}.col{color:#4d9eff}.str{color:#4dca8c}.cmt{color:#555}
+    .callout{background:var(--bg2);border-left:3px solid var(--accent);border-radius:0 var(--r-sm) var(--r-sm) 0;padding:1.1rem 1.25rem;margin:1.5rem 0}
+    .callout-label{font-size:0.7rem;font-weight:800;color:var(--accent);text-transform:uppercase;letter-spacing:0.08em;margin-bottom:0.4rem}
+    .callout p{margin:0;font-size:0.9rem}
+    .callout.green{border-color:var(--green)}.callout.green .callout-label{color:var(--green)}
+    .callout.yellow{border-color:var(--yellow)}.callout.yellow .callout-label{color:var(--yellow)}
+    table{width:100%;border-collapse:collapse;margin:1.5rem 0;font-size:0.875rem}
+    th{background:var(--bg2);padding:0.75rem 1rem;text-align:left;font-weight:700;font-size:0.78rem;color:var(--muted);text-transform:uppercase;letter-spacing:0.05em;border-bottom:1px solid var(--border)}
+    td{padding:0.85rem 1rem;border-bottom:1px solid #1e2128;vertical-align:top;color:var(--muted)}
+    tr:last-child td{border-bottom:none}
+    td strong{color:var(--text)}
+    .tag{display:inline-block;font-size:0.7rem;font-weight:700;padding:0.15rem 0.4rem;border-radius:4px}
+    .tag-red{background:rgba(255,85,85,0.12);color:var(--red)}
+    .tag-green{background:rgba(77,202,140,0.12);color:var(--green)}
+    .tag-yellow{background:rgba(240,180,41,0.12);color:var(--yellow)}
+    .checklist{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.5rem;margin:1rem 0}
+    .checklist li{display:flex;gap:0.75rem;font-size:0.9rem;color:var(--muted);align-items:flex-start}
+    .checklist li span:first-child{color:var(--accent);flex-shrink:0;margin-top:2px}
+    .cta-inline{background:linear-gradient(135deg,var(--bg2) 0%,#1e2128 100%);border:1px solid #ff4d3d66;border-radius:var(--r);padding:2rem;margin:3rem 0;text-align:center}
+    .cta-inline h3{font-size:1.1rem;font-weight:700;margin-bottom:0.5rem}
+    .cta-inline p{font-size:0.9rem;margin-bottom:1.25rem}
+    .cta-btn{display:inline-block;background:var(--accent);color:#fff;font-weight:700;font-size:0.95rem;padding:0.8rem 1.75rem;border-radius:var(--r-sm);text-decoration:none;transition:opacity 0.15s}
+    .cta-btn:hover{opacity:0.88;text-decoration:none;color:#fff}
+    .related-posts{border-top:1px solid var(--border);padding-top:2rem;margin-top:3rem}
+    .related-posts h3{font-size:1rem;font-weight:700;margin-bottom:1rem;color:var(--text)}
+    .related-list{list-style:none;padding:0;display:flex;flex-direction:column;gap:0.5rem}
+    .related-list li a{font-size:0.9rem;color:var(--blue)}
+    footer{border-top:1px solid var(--border);padding:2rem 1.5rem;text-align:center;font-size:0.85rem;color:var(--faint)}
+    footer a{color:var(--faint)}
+    footer a:hover{color:var(--blue)}
+    @media(max-width:640px){.article-wrap{padding:2rem 1rem 4rem}}
+  </style>
+</head>
+<body>
+
+<nav class="nav">
+  <a href="/" class="nav-brand">📊 Oracle HCM Tables</a>
+  <div class="nav-links">
+    <a href="/blog/">Blog</a>
+    <a href="/">Tables</a>
+  </div>
+</nav>
+
+<div class="article-wrap">
+  <div class="article-meta">
+    <span>Jun 20, 2026</span>
+    <span>· 20 min read</span>
+    <span>· <a href="/blog/">Oracle HCM</a></span>
+  </div>
+
+  <h1>OBIEE to Oracle Analytics Cloud Migration Guide 2026</h1>
+
+  <p class="article-lead">Oracle Analytics Cloud is Oracle's cloud-native successor to OBIEE. If you're running Oracle Fusion HCM and still on OBIEE — on-premises 11g, 12c, or the legacy cloud version — Oracle has been pushing OAC migration for three years. This guide covers every breaking change, the Logical SQL syntax differences that silently corrupt report output, and a realistic four-week migration timeline for HCM-heavy environments.</p>
+
+  <div class="callout yellow">
+    <div class="callout-label">Who This Is For</div>
+    <p>OBIEE 11g, 12c, or Oracle BI Cloud Service administrators and developers migrating Oracle Fusion HCM reports to Oracle Analytics Cloud (OAC). OTBI-only shops (no custom OBIEE) can skip most of the SQL migration sections — your subject area reports mostly port cleanly.</p>
+  </div>
+
+  <h2>Why OAC Migration Is Happening Now</h2>
+
+  <p>Oracle has made no secret that OBIEE on-premises is in maintenance mode. New features — AI-augmented analytics, self-service workbooks, augmented data prep — are OAC-only. More practically: Oracle's standard support for OBIEE 12c ended in 2025, and Oracle BI Cloud Service (BICS) was discontinued. If you're on HCM Cloud and still running a separate OBIEE instance, you're also running infrastructure Oracle is actively sunsetting.</p>
+
+  <p>The more immediate pressure is the <strong>Oracle Analytics Cloud migration incentive program</strong>: Oracle has been offering discounted OAC licensing for OBIEE customers through 2026, but those programs require active migration projects. Organizations that delay are finding fewer incentive windows and longer internal approval cycles.</p>
+
+  <p>The result: migration projects that were "on the roadmap for next year" in 2024 are now in active planning in 2026.</p>
+
+  <h2>What's Actually Different: OAC vs OBIEE</h2>
+
+  <p>Most documentation frames OAC as "OBIEE in the cloud." That's true for the subject area and Logical SQL layer — the data model is the same. But there are enough surface-level differences to cause real breakage in existing reports.</p>
+
+  <table>
+    <thead>
+      <tr><th>Component</th><th>OBIEE</th><th>OAC</th><th>Migration Impact</th></tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><strong>Report format</strong></td>
+        <td>Dashboards + Classic Answers</td>
+        <td>Workbooks (primary) + Classic Dashboards (supported)</td>
+        <td><span class="tag tag-yellow">Medium</span> — Classic Dashboards still work; Workbooks are new paradigm</td>
+      </tr>
+      <tr>
+        <td><strong>Semantic Layer</strong></td>
+        <td>RPD (binary, Admin Tool)</td>
+        <td>Semantic Model (XML, OAC Modeler)</td>
+        <td><span class="tag tag-red">High</span> — migration tool available but custom RPD extensions need manual rebuild</td>
+      </tr>
+      <tr>
+        <td><strong>EVALUATE() function</strong></td>
+        <td>Passes native SQL to physical layer</td>
+        <td>Restricted in OAC SaaS — many calls blocked by Oracle security policy</td>
+        <td><span class="tag tag-red">High</span> — every EVALUATE() must be audited and often rewritten</td>
+      </tr>
+      <tr>
+        <td><strong>Logical SQL dialect</strong></td>
+        <td>Oracle BI EE Logical SQL</td>
+        <td>Same dialect — with OAC-specific function behavior differences</td>
+        <td><span class="tag tag-yellow">Medium</span> — 90% compatible, ~10% edge cases per environment</td>
+      </tr>
+      <tr>
+        <td><strong>Presentation variables</strong></td>
+        <td>@{varName}{default} syntax</td>
+        <td>Same syntax — but prompt binding in Workbooks differs from Classic Dashboards</td>
+        <td><span class="tag tag-yellow">Medium</span> — test each migrated dashboard prompt</td>
+      </tr>
+      <tr>
+        <td><strong>BIP integration</strong></td>
+        <td>BI Publisher linked via OBIEE connection pool</td>
+        <td>BIP works in OAC but connection config changes</td>
+        <td><span class="tag tag-yellow">Medium</span> — reconfigure data model connections</td>
+      </tr>
+      <tr>
+        <td><strong>Row limits</strong></td>
+        <td>Configurable</td>
+        <td>OAC SaaS enforces caps on certain operations</td>
+        <td><span class="tag tag-yellow">Medium</span> — audit large data exports</td>
+      </tr>
+      <tr>
+        <td><strong>OTBI reports (HCM)</strong></td>
+        <td>Subject area reports</td>
+        <td>Same subject areas — fully compatible</td>
+        <td><span class="tag tag-green">Low</span> — no changes needed for standard OTBI reports</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <h2>Breaking Change #1: EVALUATE() Is Blocked in OAC SaaS</h2>
+
+  <p>This is the change that causes the most migration failures. OBIEE's <code>EVALUATE()</code> function lets you pass database-native SQL directly to the physical query layer, bypassing OBIEE's Logical SQL processing. It was commonly used in Oracle HCM OBIEE environments for:</p>
+
+  <ul>
+    <li>Regular expression operations (<code>REGEXP_SUBSTR</code>, <code>REGEXP_REPLACE</code>)</li>
+    <li>Oracle-specific date functions not exposed in Logical SQL (<code>ADD_MONTHS</code>, <code>LAST_DAY</code>)</li>
+    <li>String manipulation beyond what OBIEE's built-in functions covered</li>
+    <li>Custom aggregation logic using <code>EVALUATE_AGGR()</code></li>
+  </ul>
+
+  <p>In OAC SaaS, Oracle's security model restricts arbitrary database code execution. Many <code>EVALUATE()</code> calls return an error or simply return NULL without warning — the report appears to run but the column is blank.</p>
+
+  <div class="callout">
+    <div class="callout-label">Risk Pattern</div>
+    <p>EVALUATE() failures are often silent. The report runs, returns rows, but the EVALUATE() column shows NULL or blank. In a headcount report, this might mean a "Cost Center" column is blank for all rows — which looks like a data issue, not a migration issue.</p>
+  </div>
+
+  <h3>How to Find All EVALUATE() Usage in Your Catalog</h3>
+
+  <p>Before migration, run this SQL against your Oracle BI Presentation Catalog metadata (or use Oracle's catalog migration utility to export XML and grep it):</p>
+
+  <div class="code-block">
+    <div class="code-label">Search OBIEE catalog XML for EVALUATE() usage</div>
+    <pre><span class="cmt">-- If you've exported catalog to XML files, search with:</span>
+<span class="cmt">-- grep -ri "EVALUATE(" /path/to/catalog/export/ --include="*.xml" -l</span>
+<span class="cmt">-- Or query the UsageTracking data if enabled:</span>
+
+<span class="kw">SELECT</span>
+  <span class="col">LOGICAL_SQL_QUERY</span>,
+  <span class="col">PRESENTATION_NAME</span>,
+  <span class="col">USER_NAME</span>,
+  <span class="col">START_TS</span>
+<span class="kw">FROM</span> S_NQ_ACCT
+<span class="kw">WHERE</span> <span class="col">LOGICAL_SQL_QUERY</span> <span class="kw">LIKE</span> <span class="str">'%EVALUATE(%'</span>
+   <span class="kw">OR</span> <span class="col">LOGICAL_SQL_QUERY</span> <span class="kw">LIKE</span> <span class="str">'%EVALUATE_AGGR(%'</span>
+<span class="kw">ORDER BY</span> <span class="col">START_TS</span> <span class="kw">DESC</span>;</pre>
+  </div>
+
+  <h3>Rewriting EVALUATE() for OAC</h3>
+
+  <p>Most EVALUATE() calls can be rewritten using OAC's supported Logical SQL functions. The key OAC-supported replacements:</p>
+
+  <div class="code-block">
+    <div class="code-label">Common EVALUATE() rewrites for OAC</div>
+    <pre><span class="cmt">-- BEFORE: EVALUATE() for REGEXP_SUBSTR (fails in OAC SaaS)</span>
+<span class="col">EVALUATE</span>(<span class="str">'REGEXP_SUBSTR(%1, %2, 1, 1)'</span>,
+  <span class="str">"Worker"."Email Address"</span>,
+  <span class="str">'[^@]+'</span>)
+
+<span class="cmt">-- AFTER: Pure Logical SQL (OAC supported)</span>
+<span class="col">SUBSTRING</span>(<span class="str">"Worker"."Email Address"</span>
+  <span class="kw">FROM</span> 1
+  <span class="kw">FOR</span> <span class="col">POSITION</span>(<span class="str">'@'</span> <span class="kw">IN</span> <span class="str">"Worker"."Email Address"</span>) - 1)
+
+<span class="cmt">-- BEFORE: EVALUATE() for ADD_MONTHS</span>
+<span class="col">EVALUATE</span>(<span class="str">'ADD_MONTHS(%1, %2)'</span>,
+  <span class="str">"Worker"."Date of Hire"</span>, 6)
+
+<span class="cmt">-- AFTER: TIMESTAMPADD in Logical SQL</span>
+<span class="col">TIMESTAMPADD</span>(<span class="kw">SQL_TSI_MONTH</span>, 6, <span class="str">"Worker"."Date of Hire"</span>)
+
+<span class="cmt">-- BEFORE: EVALUATE_AGGR() for custom aggregation</span>
+<span class="col">EVALUATE_AGGR</span>(<span class="str">'MEDIAN(%1)'</span>, <span class="str">"Compensation"."Annual Salary"</span>)
+
+<span class="cmt">-- AFTER: Use PERCENTILE_CONT in OAC (or MEDIAN if available)</span>
+<span class="col">PERCENTILE_CONT</span>(0.5) <span class="kw">WITHIN GROUP</span>
+  (<span class="kw">ORDER BY</span> <span class="str">"Compensation"."Annual Salary"</span>)</pre>
+  </div>
+
+  <h2>Breaking Change #2: Presentation Variable Behavior in Workbooks</h2>
+
+  <p>OBIEE Classic Dashboards use <code>@{varName}{default}</code> syntax for presentation variables, set via dashboard prompts. OAC Workbooks use a different prompt mechanism. If you're migrating to OAC Workbooks (not Classic Dashboards), the variable binding behavior changes:</p>
+
+  <ul>
+    <li><strong>Classic Dashboards in OAC:</strong> presentation variable syntax is unchanged — port directly</li>
+    <li><strong>OAC Workbooks:</strong> prompts work through Data Actions and Filters — not presentation variables in the traditional sense</li>
+    <li><strong>Mixed scenarios:</strong> if you're embedding Workbook content inside Classic Dashboards, variable scoping gets complex</li>
+  </ul>
+
+  <p>The safest migration path for HCM-heavy environments: migrate report SQL first to Classic Dashboards in OAC (1:1 compatibility), then progressively rebuild high-value reports as Workbooks for the new UX. Don't try to migrate to Workbooks in one pass.</p>
+
+  <h2>Breaking Change #3: BIP Data Model Connections</h2>
+
+  <p>If your OBIEE environment feeds BI Publisher (BIP) reports via OBIEE subject area data models, the connection configuration changes in OAC. Specifically:</p>
+
+  <ul>
+    <li>The OBIEE data source type in BIP becomes the OAC data source type</li>
+    <li>Connection pool references change from the OBIEE RPD to the OAC Semantic Model</li>
+    <li>BIP SOAP/REST API endpoints change (OBIEE uses <code>/xmlpserver/services</code>, OAC uses <code>/xmlpserver/services</code> but on a different host)</li>
+    <li>Any BIP reports calling OBIEE Logical SQL directly via the "Oracle BI EE" data source type need the data source updated to point to OAC</li>
+  </ul>
+
+  <div class="callout green">
+    <div class="callout-label">Good News for HCM BIP Reports</div>
+    <p>BIP reports in Oracle HCM Cloud that use HCM Data Model connections (connecting directly to the HCM schema via JDBC, not through OBIEE subject areas) are not affected by the OAC migration at all. Only BIP reports that explicitly use an "Oracle BI EE" data source pointing to your OBIEE instance need migration.</p>
+  </div>
+
+  <h2>What Doesn't Break: OTBI Reports</h2>
+
+  <p>If your Oracle HCM reporting stack uses primarily OTBI — Oracle Transactional Business Intelligence, the subject-area-based reporting tool built into HCM Cloud — you have almost no migration work to do. OTBI uses the same underlying Oracle Analytics Server that powers OAC. The subject areas are identical. The Logical SQL syntax is the same.</p>
+
+  <p>OTBI reports that use standard subject areas (Workforce Management - Worker Assignment Real Time, Payroll - Payroll Run Results Real Time, etc.) port to OAC without modification. The subject area join logic, column names, and filter syntax are unchanged.</p>
+
+  <p>The only OTBI edge case to test: any OTBI report that uses <code>FILTER()</code> function with a cross-subject-area measure. These are rare in standard HCM reporting, but worth auditing.</p>
+
+  <h2>Pre-Migration Data Quality: The Step Most Teams Skip</h2>
+
+  <p>Data quality issues that exist in your OBIEE environment don't disappear in OAC — they're often exposed more clearly. Assignment orphans, effective date gaps, and missing TL rows that OBIEE "tolerated" (by returning incomplete results silently) may cause OAC reports to error or return different row counts than your team expects.</p>
+
+  <p>Before starting any SQL migration work, run data validation queries against your Oracle HCM instance. At minimum, check:</p>
+
+  <ul>
+    <li>Assignment orphans (PER_ALL_ASSIGNMENTS_M rows with no parent PER_ALL_PEOPLE_F)</li>
+    <li>Effective date gaps in assignment history</li>
+    <li>Active employees with no payroll assignment</li>
+    <li>Missing _TL rows (blank display names in reports)</li>
+  </ul>
+
+  <p>Finding these before migration prevents a common failure pattern: migrated reports return different row counts than OBIEE, investigation takes two weeks, and the difference turns out to be pre-existing data quality issues rather than migration bugs.</p>
+
+  <h2>Four-Week Migration Checklist</h2>
+
+  <h3>Week 1: Inventory and Risk Classification</h3>
+  <ul class="checklist">
+    <li><span>□</span>Export OBIEE catalog to XML (via Catalog Manager or Oracle's migration utility)</li>
+    <li><span>□</span>Count total reports, dashboards, and prompts in scope</li>
+    <li><span>□</span>Run Usage Tracking query — identify reports not accessed in 6+ months (candidates for retirement)</li>
+    <li><span>□</span>Grep catalog for EVALUATE() and EVALUATE_AGGR() — classify each as rewritable vs. complex</li>
+    <li><span>□</span>Identify all BIP reports with Oracle BI EE data source type</li>
+    <li><span>□</span>Document all presentation variables and dashboard prompt dependencies</li>
+    <li><span>□</span>Run HCM data quality checks against live environment</li>
+    <li><span>□</span>Classify each report: HIGH risk (EVALUATE), MEDIUM risk (complex prompts), LOW risk (standard SQL)</li>
+  </ul>
+
+  <h3>Week 2: Migrate HIGH Risk Reports</h3>
+  <ul class="checklist">
+    <li><span>□</span>Rewrite all EVALUATE() calls to OAC-compatible Logical SQL (see examples above)</li>
+    <li><span>□</span>Test each rewrite against OBIEE output for row count and value match</li>
+    <li><span>□</span>Reconfigure BIP data model connections from OBIEE to OAC data source</li>
+    <li><span>□</span>Migrate HIGH risk reports to OAC Classic Dashboards first (not Workbooks)</li>
+    <li><span>□</span>Document any intentional output differences (e.g., NULL handling changes)</li>
+  </ul>
+
+  <h3>Week 3: Migrate Remaining Reports + UAT</h3>
+  <ul class="checklist">
+    <li><span>□</span>Migrate MEDIUM and LOW risk reports (standard SQL — mostly copy-paste)</li>
+    <li><span>□</span>Side-by-side output comparison: OBIEE vs OAC for every migrated report</li>
+    <li><span>□</span>Run UAT with report owners — 2 days minimum per major report cluster</li>
+    <li><span>□</span>Test all dashboard prompts and presentation variable bindings in OAC</li>
+    <li><span>□</span>Load test large reports against OAC row limits</li>
+    <li><span>□</span>Test direct data export reports (Excel/CSV download behavior may differ)</li>
+    <li><span>□</span>Fix and retest any UAT failures</li>
+  </ul>
+
+  <h3>Week 4: Cutover and Post-Go-Live</h3>
+  <ul class="checklist">
+    <li><span>□</span>Obtain UAT sign-off from business stakeholders</li>
+    <li><span>□</span>Update report bookmarks, links, and scheduled email delivery configurations</li>
+    <li><span>□</span>Switch OBIEE usage tracking off (or set to read-only) — not OAC yet</li>
+    <li><span>□</span>Cutover: redirect users to OAC; OBIEE instance stays up in read-only for 30 days</li>
+    <li><span>□</span>Monitor OAC logs for errors in first week</li>
+    <li><span>□</span>Decommission OBIEE instance after 30-day parallel run</li>
+  </ul>
+
+  <div class="callout">
+    <div class="callout-label">The 30-Day Parallel Run Rule</div>
+    <p>Keep OBIEE running in read-only mode for 30 days after OAC go-live. When users hit a discrepancy — and some always do — you need the OBIEE output available for comparison. Decommissioning OBIEE the day of cutover is the most common mistake in HCM reporting migrations.</p>
+  </div>
+
+  <h2>RPD to Semantic Model: The Complex Case</h2>
+
+  <p>If your OBIEE environment has a customized RPD — custom subject areas, custom joins, extended HCM metadata — the migration is more involved. Oracle provides an RPD migration tool that converts the binary RPD to OAC's XML-based Semantic Model, but custom extensions require manual validation.</p>
+
+  <p>Standard Oracle HCM-delivered RPD content (the HCM Analytics subject areas) migrates cleanly via the tool. Custom joins, custom dimensions, or extended fact tables added by your implementation team need manual review and testing in OAC Modeler.</p>
+
+  <p>For environments with heavy RPD customization, plan an additional 1–2 weeks for Semantic Model validation and custom content rebuild.</p>
+
+  <h2>OAC-Specific Optimizations Worth Doing During Migration</h2>
+
+  <p>Migration is the right time to address performance and design issues that accumulated over years of OBIEE development. A few worth doing while you're touching each report:</p>
+
+  <ul>
+    <li><strong>Retire unused reports:</strong> any report with zero Usage Tracking hits in 12 months is a candidate — confirm with owners before deleting</li>
+    <li><strong>Consolidate duplicate reports:</strong> OBIEE environments often have 3–5 versions of the same headcount report built by different teams at different times</li>
+    <li><strong>Add EFFECTIVE_LATEST_CHANGE filters:</strong> if your HCM reports are returning duplicate rows from <code>PER_ALL_ASSIGNMENTS_M</code>, add <code>EFFECTIVE_LATEST_CHANGE = 'Y'</code> — this fixes a chronic HCM reporting issue</li>
+    <li><strong>Convert OBIEE Dashboards to OAC Workbooks:</strong> for your 10–15 most used reports — Workbooks have better mobile and self-service UX</li>
+  </ul>
+
+  <div class="cta-inline">
+    <h3>Need Help With Your OAC Migration?</h3>
+    <p>We handle the full migration — catalog inventory, EVALUATE() rewrites, BIP reconfiguration, UAT support, and 30-day go-live coverage. Fixed price by report volume.</p>
+    <a href="/oac-migration-service" class="cta-btn">See Migration Service Pricing →</a>
+  </div>
+
+  <h2>Common Migration Mistakes</h2>
+
+  <h3>1. Migrating EVALUATE() without testing each rewrite</h3>
+  <p>The Logical SQL equivalents for EVALUATE() work for 80% of cases. The other 20% have subtle differences in NULL handling, type coercion, or aggregation behavior. Every EVALUATE() rewrite needs a side-by-side output comparison before sign-off.</p>
+
+  <h3>2. Skipping data quality validation before migration</h3>
+  <p>Pre-existing data issues in Core HR (orphaned assignments, date gaps, missing TL rows) surface as "new" report discrepancies after migration. Your team spends days debugging what turns out to be a data issue that existed before you touched anything. Run the checks first.</p>
+
+  <h3>3. Migrating to OAC Workbooks instead of Classic Dashboards first</h3>
+  <p>Workbooks are the future of OAC, but they have a different UX paradigm. Migrating to Classic Dashboards first gives you 1:1 functional parity and a stable baseline. Then progressively upgrade to Workbooks for your highest-traffic reports.</p>
+
+  <h3>4. Decommissioning OBIEE before the 30-day parallel run completes</h3>
+  <p>Users will find discrepancies. Some are bugs. Some are pre-existing data issues. Some are intentional behavior differences. You need OBIEE running to diagnose which is which. Keep it up for 30 days minimum post-cutover.</p>
+
+  <h3>5. Not auditing report usage before migration</h3>
+  <p>The average OBIEE catalog has 30–50% of reports that haven't been accessed in over a year. Migrating them consumes budget and introduces risk for zero benefit. Pull Usage Tracking data and get owner confirmation before migrating anything with low usage.</p>
+
+  <h2>Summary: What to Prioritize</h2>
+
+  <p>If you're starting a migration project today, the order of work matters:</p>
+
+  <ol>
+    <li><strong>Run data quality checks first</strong> — before any SQL migration. 30 parameterized queries, 24 hours, reveals every pre-existing issue that will look like a migration bug</li>
+    <li><strong>Audit EVALUATE() usage</strong> — this is your highest-risk SQL. Identify and plan rewrites before writing a line of code</li>
+    <li><strong>Classify and retire</strong> — pull Usage Tracking, retire the dead weight, reduce the migration scope</li>
+    <li><strong>Migrate to Classic Dashboards first</strong> — establish functional parity, then upgrade to Workbooks selectively</li>
+    <li><strong>Keep OBIEE running in parallel</strong> — 30 days minimum, then decommission</li>
+  </ol>
+
+  <div class="cta-inline">
+    <h3>Start With the Data Health Check</h3>
+    <p>30 SQL validation queries run against your live HCM environment before migration starts. Every data issue found now is one less migration bug to debug later. Flat $2,500, results in 24 hours.</p>
+    <a href="/hcm-data-health-check" class="cta-btn">See the Data Health Check →</a>
+  </div>
+
+  <div class="related-posts">
+    <h3>Related Articles</h3>
+    <ul class="related-list">
+      <li><a href="/blog/otbi-subquery-joins-otbi">OBIEE and OTBI Subquery Joins — Complete Guide</a></li>
+      <li><a href="/blog/obiee-federation-subject-area-conflicts">OBIEE Federation and Subject Area Conflicts</a></li>
+      <li><a href="/blog/obiee-assertion-failure-pcriteria">OBIEE Assertion Failure: pCriteria != 0 — Root Cause &amp; Fix</a></li>
+      <li><a href="/blog/otbi-vs-bi-publisher-when-to-use-which">OTBI vs BI Publisher: When to Use Which</a></li>
+      <li><a href="/blog/oracle-hcm-pre-migration-data-quality-checklist">30 Oracle HCM Data Quality Checks Before Your Next Migration</a></li>
+    </ul>
+  </div>
+</div>
+
+<footer>
+  <p><a href="/">Oracle HCM Tables</a> · <a href="/blog/">Blog</a> · <a href="/privacy">Privacy</a> · <a href="/terms">Terms</a></p>
+  <p style="margin-top:0.5rem;">© 2026 HCM Tables. Not affiliated with Oracle Corporation.</p>
+</footer>
+
+</body>
+</html>

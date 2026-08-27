@@ -621,6 +621,85 @@
       }
     }
   </style>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    "headline": "OBIEE Federation & Subject Area Conflicts: Causes, Fixes & Workarounds",
+    "description": "Complete guide to OBIEE federation errors and solutions for on-prem RPD and OTBI cloud alternatives.",
+    "url": "https://hcm-tables.com/blog/obiee-federation-subject-area-conflicts",
+    "dateModified": "2025-01-01",
+    "author": {"@type": "Organization", "name": "HCM Tables"},
+    "publisher": {
+      "@type": "Organization",
+      "name": "HCM Tables",
+      "url": "https://hcm-tables.com"
+    },
+    "mainEntityOfPage": {
+      "@type": "WebPage",
+      "@id": "https://hcm-tables.com/blog/obiee-federation-subject-area-conflicts"
+    }
+  }
+  </script>
+
+  <script type="application/ld+json">
+  {"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[
+    {"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com/"},
+    {"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},
+    {"@type":"ListItem","position":3,"name":"OBIEE Federation & Subject Area Conflicts","item":"https://hcm-tables.com/blog/obiee-federation-subject-area-conflicts"}
+  ]}
+  </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What causes OBIEE federation errors?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OBIEE federation errors occur when a report or dashboard attempts to combine data from multiple subject areas (logical SQL queries) that cannot be joined at the database level. Common causes include: subject areas that map to different physical database tables with no shared join keys, cross-database source conflicts in the RPD (Repository), and Cartesian products when joining fact tables without common dimension keys. In OTBI cloud, federation is further restricted — cross-subject area queries are not supported and return nQSError 27002 or 14025."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I fix nQSError 27002 in OBIEE?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "nQSError 27002 'Incorrectly specified SQL' typically indicates a syntax error or unsupported operation in OBIEE Logical SQL. To fix it: (1) check that your SQL uses OBIEE column reference syntax (\"Subject Area\".\"Folder\".\"Column\"), (2) verify that any JOIN or WHERE syntax is OBIEE-compatible (OBIEE does not support standard SQL JOIN keywords in Logical SQL), (3) remove any correlated subqueries or UNIONs if they are not supported in your OBIEE version, and (4) test the query in the OBIEE Analysis editor rather than the direct SQL interface."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can you combine multiple subject areas in OTBI cloud?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OTBI cloud (Oracle Transactional Business Intelligence on Oracle Cloud) does not support true cross-subject area federation. You can add multiple subject areas to one analysis, but OTBI executes independent queries and attempts to stitch results — this creates Cartesian products when there is no shared key. The recommended alternatives are: use BI Publisher with an OTBI data model that calls multiple queries and joins them in the data model, or use Oracle Analytics Cloud (OAC) which supports more flexible data blending."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is an OBIEE federated query?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "An OBIEE federated query combines data from multiple physical data sources or logical subject areas in a single report. In OBIEE on-premises (with RPD access), federation is configured in the Physical and Business Model layers by creating cross-source joins with database links or data federators. In OTBI cloud, federation is managed by Oracle and is largely restricted to within-module subject areas. Federation errors typically appear as nQSError 14025, 22024, or 27002."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What are the alternatives to OBIEE federation in Oracle Cloud?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Alternatives to OBIEE federation in Oracle Cloud include: (1) BI Publisher (BIP) with SQL data models that join multiple HCM tables directly using JDBC, bypassing OTBI's subject area restrictions, (2) Oracle Analytics Cloud (OAC) which supports data flows and blending across sources, (3) Oracle HCM Extracts for bulk data extraction followed by external reporting tools, and (4) the Oracle HCM REST APIs for building custom reports that combine data from multiple endpoints."
+        }
+      }
+    ]
+  }
+  </script>
+
 </head>
 <body>
   <!-- Navigation -->

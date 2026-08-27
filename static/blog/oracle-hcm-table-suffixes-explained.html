@@ -64,6 +64,56 @@
     {"@type":"ListItem","position":3,"name":"Oracle HCM Table Suffixes Explained (_F, _TL, _VL, _ALL)","item":"https://hcm-tables.com/blog/oracle-hcm-table-suffixes-explained"}
   ]}
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What does _F mean in Oracle HCM tables?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "_F tables in Oracle Fusion HCM are date-effective tables. They store history using EFFECTIVE_START_DATE and EFFECTIVE_END_DATE columns. For example, PER_ALL_PEOPLE_F is the date-effective version of the person table. You must always filter by date to avoid returning multiple rows per person — use SYSDATE or a specific effective date in your WHERE clause."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between _F and _B tables in Oracle Fusion HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "_F tables are the date-effective fact tables containing business data with EFFECTIVE_START_DATE and EFFECTIVE_END_DATE. _B tables are the base, non-date-effective tables that store data without date ranges. For reports, use _F tables when you need point-in-time accuracy; use _B tables when you need all rows regardless of effective dates."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does _TL mean in Oracle HCM tables?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "_TL tables are translation tables in Oracle Fusion HCM. They store language-specific text values (like names and descriptions) for multi-language deployments. For example, HCM_LOOKUPS_TL contains translated lookup code meanings. Always join to the _TL table on the base key plus LANGUAGE = USERENV('LANG') to get locale-specific display values."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What does _VL mean in Oracle Fusion HCM tables?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "_VL tables are view-layer tables that join the base (_B) table with the translation (_TL) table automatically. They return only the current user's language. Using _VL is simpler than manually joining _B and _TL — for example, HCM_LOOKUPS_VL returns translated meanings without a separate join."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "When should I use _ALL tables in Oracle HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "_ALL tables in Oracle HCM contain rows across all organizations or business groups, including those outside your current security context. Use _ALL tables when you need cross-organization reporting or when your query must bypass row-level security. For standard reports, use the non-_ALL version which automatically applies security filters."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Plausible Analytics -->
   <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
 
@@ -599,6 +649,12 @@ WHERE PERSON_ID = :person_id;</code></pre>
         <h3>Search Any Oracle Table</h3>
         <p>Look up columns, types, and schema for 35,000+ Oracle Fusion Cloud tables.</p>
         <a href="/" class="cta-btn">Search Tables</a>
+      </div>
+
+      <div style="margin: 1.5rem 0; padding: 1.5rem; background: oklch(0.16 0.01 260); border: 1px solid oklch(0.25 0.01 260); border-left: 3px solid oklch(0.65 0.2 25); border-radius: 8px;">
+        <h3 style="font-size:1rem; font-weight:700; margin-bottom:0.5rem;">Implementing Oracle HCM? Get Expert Help.</h3>
+        <p style="color:var(--text-secondary); font-size:0.9rem; margin-bottom:1rem;">Browse certified Oracle Fusion HCM consultants with deep knowledge of date-effective tables, _F vs _M structures, and OTBI reporting. Free project matching — tell us what you need and we'll connect you with the right specialist.</p>
+        <a href="/oracle-hcm-consultants" style="display:inline-block; background:oklch(0.65 0.2 25); color:white; padding:0.6rem 1.25rem; border-radius:6px; font-weight:600; font-size:0.9rem; text-decoration:none;">Find an Oracle HCM Consultant →</a>
       </div>
 
       <h2>Related Articles</h2>

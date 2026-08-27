@@ -64,6 +64,56 @@
     {"@type":"ListItem","position":3,"name":"Oracle Fusion HCM OTBI Subject Areas — Complete Guide with Decision Tree","item":"https://hcm-tables.com/blog/otbi-subject-area-guide"}
   ]}
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is a subject area in Oracle OTBI?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "A subject area in Oracle Transactional Business Intelligence (OTBI) is a pre-built logical data model that exposes specific business data for reporting without requiring SQL knowledge. Each subject area maps to specific Oracle HCM tables and business objects. Examples include 'Workforce Management - Worker Assignment Real Time' for headcount reports and 'Payroll - Payroll Run Results Real Time' for payroll analysis."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "How do I choose the right OTBI subject area?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Choose the OTBI subject area based on what business question you're answering: use 'Workforce Management - Worker Assignment Real Time' for headcount and assignment data, 'Payroll - Payroll Run Results Real Time' for payroll details, 'Workforce Management - Absence Real Time' for absence data, and 'Compensation - Total Compensation Real Time' for salary data. When a single subject area doesn't have all the fields you need, consider BI Publisher with direct SQL instead."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Can I join multiple subject areas in one OTBI report?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "OTBI does not support true cross-subject area joins in a single analysis. You can add multiple subject areas to one analysis (called a federated query), but OTBI executes them separately and combines results — this often causes Cartesian products or duplicate rows. The recommended approach for complex multi-domain reports is Oracle BI Publisher (BIP) with OTBI data models or direct SQL queries."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Why is my OTBI report showing duplicate rows?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Duplicate rows in OTBI reports are typically caused by: (1) using a subject area that returns multiple effective-dated rows without filtering by effective date, (2) combining multiple subject areas that create a Cartesian product, or (3) including a column from a fact table that has one-to-many relationships. To fix duplicates: add an effective date filter (AS OF date prompt), remove columns from secondary subject areas, or use aggregate functions (COUNT DISTINCT, SUM) instead of row-level data."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between Real Time and Historical OTBI subject areas?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "Real Time subject areas (marked 'Real Time' in the name) query live transactional data directly from Oracle HCM tables — no delay, but higher performance impact. Historical subject areas query pre-aggregated data from the Oracle HCM data warehouse — faster for large datasets and trend analysis, but data may be 24 hours old. For operational dashboards use Real Time; for trend analysis and large-volume reports use Historical subject areas."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Plausible Analytics -->
   <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
 

@@ -64,6 +64,56 @@
     {"@type":"ListItem","position":3,"name":"Top 50 Most Used Oracle Fusion HCM Tables (2026)","item":"https://hcm-tables.com/blog/top-50-oracle-fusion-hcm-tables"}
   ]}
   </script>
+
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": [
+      {
+        "@type": "Question",
+        "name": "What is the most important table in Oracle Fusion HCM?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_PEOPLE_F is the most important table in Oracle Fusion HCM. It is the foundational person table that stores all workers, employees, contingent workers, and contacts. Nearly every HCM report starts with this table. It is date-effective, so always filter with EFFECTIVE_START_DATE <= SYSDATE AND EFFECTIVE_END_DATE >= SYSDATE."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which Oracle HCM table stores employee assignment data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_ASSIGNMENTS_M is the current table for employee assignment data in Oracle Fusion HCM 24B and later. Earlier releases used PER_ALL_ASSIGNMENTS_F. The _M table supports multiple concurrent assignments and stores job, grade, position, department, and manager information. Filter by ASSIGNMENT_TYPE = 'E' for employees and ASSIGNMENT_STATUS_TYPE = 'ACTIVE' for active workers."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What is the difference between PER_ALL_PEOPLE_F and PER_PERSONS?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PER_ALL_PEOPLE_F is the legacy date-effective person table. PER_PERSONS is the newer Oracle Fusion Cloud person table introduced in more recent releases. Both contain person-level data including name, date of birth, and national identifiers. For new reports, check which table your Oracle Cloud release uses — PER_PERSONS is preferred in newer environments, while PER_ALL_PEOPLE_F remains widely used."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "What Oracle HCM table contains payroll run results?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "PAY_RUN_RESULTS stores the results of each payroll element processed in a payroll run. Join it with PAY_RUN_RESULT_VALUES to get individual input value amounts, and with PAY_PAYROLL_ACTIONS to get the payroll action context (period, payroll definition). For employee pay detail reports, join PAY_RUN_RESULTS → PAY_ASSIGNMENTS_F → PER_ALL_PEOPLE_F."
+        }
+      },
+      {
+        "@type": "Question",
+        "name": "Which table stores Oracle HCM position and job data?",
+        "acceptedAnswer": {
+          "@type": "Answer",
+          "text": "HR_ALL_POSITIONS_F stores position data (position name, FTE, headcount). PER_JOBS_F stores job data (job code, job family, job function). Both are date-effective. For assignment-based reporting, join PER_ALL_ASSIGNMENTS_M to HR_ALL_POSITIONS_F on POSITION_ID, and to PER_JOBS_F on JOB_ID."
+        }
+      }
+    ]
+  }
+  </script>
+
   <!-- Plausible Analytics -->
   <script defer data-domain="hcm-tables.com" src="https://plausible.io/js/script.js"></script>
 
@@ -914,6 +964,12 @@
         <p style="margin:0 0 0.5rem;font-size:0.8rem;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:0.05em">Evaluating Alternatives?</p>
         <p style="margin:0 0 0.75rem;font-size:0.9rem;line-height:1.55">Oracle HCM's 14,950-table schema is powerful but complex. If you're weighing a switch, see our <a href="/blog/oracle-hcm-alternatives" style="color:#60a5fa">full comparison of Oracle HCM alternatives</a> — including BambooHR, Rippling, UKG, and Workday.</p>
         <a href="/blog/oracle-hcm-alternatives" style="display:inline-block;padding:0.45rem 1rem;background:#2563eb;color:#fff;border-radius:5px;font-size:0.85rem;font-weight:600;text-decoration:none">See Oracle HCM Alternatives →</a>
+      </div>
+
+      <div style="margin-top:1.25rem;padding:1.25rem 1.5rem;background:var(--card-bg,#1a1d24);border:1px solid var(--border,#2a2d35);border-radius:8px">
+        <p style="margin:0 0 0.5rem;font-size:0.8rem;color:#888;font-weight:700;text-transform:uppercase;letter-spacing:0.05em">Need Oracle HCM Help?</p>
+        <p style="margin:0 0 0.75rem;font-size:0.9rem;line-height:1.55">Get matched with a vetted Oracle HCM consultant — reporting, OTBI, data migration, Fast Formula, and implementation support. Free project scoping, no commitment.</p>
+        <a href="/oracle-hcm-consultants" style="display:inline-block;padding:0.45rem 1rem;background:#7c3aed;color:#fff;border-radius:5px;font-size:0.85rem;font-weight:600;text-decoration:none">Find an Oracle HCM Consultant →</a>
       </div>
     </div>
   </article>
