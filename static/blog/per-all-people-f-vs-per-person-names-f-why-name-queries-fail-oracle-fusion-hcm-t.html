@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail (Oracle Fusion HCM tables in 2026) — Oracle HCM Tables </title>
+  <meta name="description" content="In 2026, we still see teams ship headcount and compliance extracts where the “name” they display is not the same person record you think you queried. That ">
+  <meta name="keywords" content="oracle hcm tables, oracle fusion hcm, oracle cloud hcm, hcm data model, oracle hr tables, PER_ALL_PEOPLE_F">
+  <link rel="canonical" href="https://hcm-tables.com/blog/per-all-people-f-vs-per-person-names-f-why-name-queries-fail-oracle-fusion-hcm-t.html">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail (Oracle Fusion HCM tables in 2026)">
+  <meta property="og:description" content="In 2026, we still see teams ship headcount and compliance extracts where the “name” they display is not the same person record you think you queried. That ">
+  <meta property="og:url" content="https://hcm-tables.com/blog/per-all-people-f-vs-per-person-names-f-why-name-queries-fail-oracle-fusion-hcm-t.html">
+  <meta property="og:site_name" content="Oracle HCM Tables ">
+  <meta property="article:published_time" content="2026-08-28T14:17:17.000Z">
+  
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail (Oracle Fusion HCM tables in 2026)">
+  <meta name="twitter:description" content="In 2026, we still see teams ship headcount and compliance extracts where the “name” they display is not the same person record you think you queried. That ">
+  
+
+  <!-- LLM / SEO optimization -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Oracle HCM Tables ">
+  <meta property="article:modified_time" content="2026-08-28T14:17:17.000Z">
+  <meta property="article:section" content="Best for articles">
+  <meta property="article:tag" content="oracle hcm tables, oracle fusion hcm, oracle cloud hcm, hcm data model, oracle hr tables, PER_ALL_PEOPLE_F">
+  <meta property="og:locale" content="en_EN">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail (Oracle Fusion HCM tables in 2026)","description":"In 2026, we still see teams ship headcount and compliance extracts where the “name” they display is not the same person record you think you queried. That ","datePublished":"2026-08-28T14:17:17.000Z","dateModified":"2026-08-28T14:17:17.000Z","wordCount":2247,"keywords":"oracle hcm tables, oracle fusion hcm, oracle cloud hcm, hcm data model, oracle hr tables, PER_ALL_PEOPLE_F","articleSection":"Best for articles","inLanguage":"en","author":{"@type":"Person","name":"Oracle HCM Tables ","url":"https://hcm-tables.com"},"publisher":{"@type":"Organization","name":"Oracle HCM Tables ","url":"https://hcm-tables.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://hcm-tables.com/blog/per-all-people-f-vs-per-person-names-f-why-name-queries-fail-oracle-fusion-hcm-t.html"},"speakable":{"@type":"SpeakableSpecification","cssSelector":[".blog-article-intro","h1"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail (Oracle Fusion HCM tables in 2026)"}]},{"@type":"WebPage","name":"PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail (Oracle Fusion HCM tables in 2026)","description":"In 2026, we still see teams ship headcount and compliance extracts where the “name” they display is not the same person record you think you queried. That ","isPartOf":{"@type":"WebSite","name":"Oracle HCM Tables ","url":"https://hcm-tables.com"}}]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--blog-primary:#ff4d3d;--blog-text:#fcfcfc;--blog-bg:#111317;--blog-header-bg:#fff;--blog-border:#ff4d3d;--blog-font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--blog-font);line-height:1.7;color:var(--blog-text);background:var(--blog-bg)}
+    .blog-container{max-width:720px;margin:0 auto;padding:0 1.5rem}
+    .blog-header{background:var(--blog-header-bg);border-bottom:1px solid var(--blog-border);padding:1rem 0;position:sticky;top:0;z-index:10}
+    .blog-header .blog-container{display:flex;align-items:center;justify-content:space-between}
+    .blog-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--blog-text);font-weight:700;font-size:1.1rem}
+    .blog-logo img{height:32px;width:auto}
+    .blog-header nav a{color:#555;text-decoration:none;font-size:.9rem;font-weight:500}
+    .blog-header nav a:hover{color:var(--blog-text)}
+    main{padding:2rem 0 4rem}
+    main>h1{font-size:2rem;margin-bottom:2rem;color:var(--blog-text)}
+    .blog-grid{display:flex;flex-direction:column;gap:1.5rem}
+    .blog-card{background:var(--blog-header-bg);border:1px solid var(--blog-border);border-radius:12px;overflow:hidden;transition:box-shadow .2s}
+    .blog-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+    .blog-card a{display:block;text-decoration:none;color:inherit}
+    .blog-card-img{width:100%;height:200px;object-fit:cover;display:block}
+    .blog-card-content{padding:1.5rem}
+    .blog-card h2{font-size:1.25rem;margin-bottom:.5rem;color:var(--blog-text)}
+    .blog-card-meta{font-size:.85rem;color:#888;margin-bottom:.5rem}
+    .blog-card-desc{font-size:.95rem;color:#555;line-height:1.6}
+    .blog-empty{color:#888;text-align:center;padding:3rem 0}
+    .blog-article h1{font-size:2.2rem;line-height:1.3;margin-bottom:1rem}
+    .blog-article-meta{display:flex;gap:1rem;color:#888;font-size:.9rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--blog-border)}
+    .blog-featured-img{width:100%;max-height:480px;object-fit:cover;border-radius:12px;margin-bottom:2rem}
+    .blog-article-body{font-size:1.05rem;line-height:1.8}
+    .blog-article-body h2{font-size:1.5rem;margin:2rem 0 1rem;color:var(--blog-text)}
+    .blog-article-body h3{font-size:1.25rem;margin:1.5rem 0 .75rem;color:var(--blog-text)}
+    .blog-article-body p{margin-bottom:1.25rem}
+    .blog-article-body img{max-width:100%;height:auto;border-radius:8px;margin:1.5rem 0}
+    .blog-article-body ul,.blog-article-body ol{margin-bottom:1.25rem;padding-left:1.5rem}
+    .blog-article-body li{margin-bottom:.5rem}
+    .blog-article-body blockquote{border-left:4px solid var(--blog-border);padding-left:1rem;margin:1.5rem 0;color:#555;font-style:italic}
+    .blog-article-body a{color:var(--blog-primary);text-decoration:underline}
+    .blog-article-body table{width:100%;border-collapse:collapse;margin:1.5rem 0}
+    .blog-article-body th,.blog-article-body td{border:1px solid var(--blog-border);padding:.75rem;text-align:left}
+    .blog-article-body th{background:#f5f5f5;font-weight:600}
+    .blog-back{display:inline-block;margin-bottom:1.5rem;color:var(--blog-primary);text-decoration:none;font-size:.9rem}
+    .blog-back:hover{text-decoration:underline}
+    .blog-breadcrumb{font-size:.85rem;color:#888;margin-bottom:1.5rem;display:flex;gap:.4rem;align-items:center}
+    .blog-breadcrumb a{color:var(--blog-primary);text-decoration:none}
+    .blog-breadcrumb a:hover{text-decoration:underline}
+    .blog-article-updated{font-size:.85rem;color:#888;margin-top:.5rem}
+    .blog-article-intro{font-size:1.1rem;line-height:1.8;margin-bottom:1.5rem;color:var(--blog-text)}
+    .blog-article header address{font-style:normal}
+    .blog-footer{border-top:1px solid var(--blog-border);padding:2rem 0;text-align:center;color:#888;font-size:.85rem}
+    @media(max-width:640px){.blog-container{padding:0 1rem}main>h1{font-size:1.5rem}.blog-article h1{font-size:1.6rem}}
+  </style>
+</head>
+<body>
+  <header class="blog-header">
+    <div class="blog-container">
+      <a href="/" class="blog-logo">
+        
+        <span>Oracle HCM Tables </span>
+      </a>
+      <nav><a href="/blog/">Blog</a></nav>
+    </div>
+  </header>
+  <main class="blog-container blog-article">
+    <nav aria-label="Breadcrumb" class="blog-breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/blog/">Blog</a> <span>/</span> <span>PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail (Oracle Fusion HCM tables in 2026)</span>
+    </nav>
+    <article>
+      <header>
+        <h1>PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail (Oracle Fusion HCM tables in 2026)</h1>
+        <div class="blog-article-meta">
+          <time datetime="2026-04-01T01:34:10.760Z">April 1, 2026</time>
+          <span>19 min read</span>
+          <address rel="author">Oracle HCM Tables </address>
+        </div>
+        
+      </header>
+      
+      <div class="blog-article-body">
+<p>In 2026, we still see teams ship headcount and compliance extracts where the “name” they display is not the same person record you think you queried. That mismatch happens because <strong>PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail</strong> is not about string comparisons, it is about effective-dated logic, record scope, and field length behavior across the oracle hcm tables you’re joining.</p>
+
+<h2>Key Takeaways</h2>
+<table>
+  <tbody>
+    <tr>
+      <td><strong>What breaks</strong></td>
+      <td>Name fields look “right”, but they’re pulled from a different effective window or different person scope than your base people rows.</td>
+    </tr>
+    <tr>
+      <td><strong>Where it breaks</strong></td>
+      <td><code>PER_ALL_PEOPLE_F</code> (identity/person core) vs <code>PER_PERSON_NAMES_F</code> (name variants, preferred names, effective-dated versions).</td>
+    </tr>
+    <tr>
+      <td><strong>Most common symptom</strong></td>
+      <td>Your query returns too many rows, then OTBI reporting silently hides duplicates or produces inflated counts.</td>
+    </tr>
+    <tr>
+      <td><strong>#1 fix pattern</strong></td>
+      <td>Use the correct effective-date filter on both sides (and filter to the intended “current” row).</td>
+    </tr>
+    <tr>
+      <td><strong>Validation check</strong></td>
+      <td>Verify field sizes like <code>LAST_NAME</code> and <code>KNOWN_AS</code>, and confirm you are joining on the right key (typically <code>PERSON_ID</code>).</td>
+    </tr>
+    <tr>
+      <td><strong>Use these resources</strong></td>
+      <td>
+        Browse <a href="https://hcm-tables.com/PER_ALL_PEOPLE_F" target="_blank">oracle hcm tables for PER_ALL_PEOPLE_F</a> and
+        <a href="https://hcm-tables.com/PER_PERSON_NAMES_F" target="_blank">oracle hcm tables for PER_PERSON_NAMES_F</a>,
+        then validate assignment scope via <a href="https://hcm-tables.com/PER_ALL_ASSIGNMENTS_F" target="_blank">PER_ALL_ASSIGNMENTS_F</a>.
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+<ul>
+  <li><strong>PER_ALL_PEOPLE_F</strong> is date-effective person core, and name attributes are not guaranteed to match without correct joins to <strong>PER_PERSON_NAMES_F</strong>.</li>
+  <li><strong>PER_PERSON_NAMES_F</strong> can hold multiple name rows per person over time (and sometimes multiple name types), so a naive join explodes rows.</li>
+  <li>The problem is that most queries only want current state, and forgetting to filter for it is the <strong>#1 cause</strong> of inflated headcount numbers in Oracle HCM reporting.</li>
+  <li>If you’re doing OTBI reporting, know what the BI layer exposes versus what you must pull using <em>physical SQL</em>.</li>
+  <li>Field-length mismatches can truncate output even when the join is logically correct, which is why name queries fail in the real world.</li>
+  <li>For variable assignment populations, validate filters using <code>PER_ALL_ASSIGNMENTS_F</code>, then only join names after your person set is correct.</li>
+</ul>
+
+<h2>Why PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F behaves differently (and why it matters in oracle fusion hcm)</h2>
+<p>You can treat <code>PER_ALL_PEOPLE_F</code> like the “person facts” anchor, and <code>PER_PERSON_NAMES_F</code> like the “display name facts” table. But in the oracle hr tables world, those are both <em>date-effective history</em> tables, and both can return multiple rows per person if you ask the wrong way.</p>
+
+<p>When you run a name query, you usually want one row per person. That means one effective window, one person row scope, and one name record type (for example, the preferred/current name). If you do not align all of that across the oracle fusion hcm tables, you get duplicates, wrong “known as” values, or truncated results in BI Publisher templates.</p>
+
+<p><strong>The Short Answer:</strong> <strong>PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail</strong> is mostly a date-effective join problem, plus field-length and “name type” scope problems. This is not a bug. It’s the architecture.</p>
+
+<div style="text-align: center; margin: 40px 0;">
+  
+    <img src="https://outgoing-oyster-428.convex.cloud/api/storage/e0b2f494-0916-453d-8fa7-a36a41770aeb" alt="Oracle HCM name field character limits — data from eTRM Oracle" style="max-width: 600px; width: 100%; height: auto; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);">
+  
+  <p style="font-size: 14px; color: #666; margin-top: 16px; font-style: italic;">Varying field lengths across people tables cause truncation and query failures.</p>
+</div>
+
+<h2>Failure mode #1: Effective dating misalignment (the exact reason duplicates appear)</h2>
+<p>Your query returns 3 rows for every employee. Your headcount report is off by 200%. That’s the classic symptom of joining two different effective-dated histories without forcing “current row” semantics.</p>
+
+<p>In practical terms, <code>PER_ALL_PEOPLE_F</code> and <code>PER_PERSON_NAMES_F</code> both have effective start and end dates (and usually additional change markers). If you only filter one side (or you filter using the wrong date context), you get multiple name rows attached to one person row, or multiple person rows attached to one name row.</p>
+
+<blockquote>
+  <p><strong>Debug check:</strong> Run the join without aggregation, then inspect whether the result has multiple <code>PERSON_ID</code> entries with different effective dates.</p>
+</blockquote>
+
+<p>When you do this, you will see the “name query failure” is frequently row multiplication, not incorrect spelling logic. If you’re building oracle cloud hcm extracts that feed OTBI reporting or BI Publisher, that row multiplication is what later becomes inflated counts, duplicated employees, and inconsistent display names.</p>
+
+<h2>Failure mode #2: “Preferred” names are not the same thing as base people rows</h2>
+<p>Many teams assume <code>PER_ALL_PEOPLE_F</code> already contains what the business thinks of as the person’s name. It does not. The preferred name often comes from the names table, typically via fields like <code>KNOWN_AS</code> (plus other name components).</p>
+
+<p>That’s why joining directly to <code>PER_ALL_PEOPLE_F</code> and selecting name columns can “work” for small demos, then fail in production when your population includes name changes, multiple name variants, or late-effective changes.</p>
+
+<p><strong>Field-length trap:</strong> <code>KNOWN_AS</code> has a storage limit, teams underestimate that, and truncation then looks like “wrong name” even when the join is correct.</p>
+
+<div style="display:flex; flex-wrap:wrap; gap:16px; align-items:flex-start; margin: 18px 0 10px;">
+  <div style="flex:1; min-width: 320px;">
+    <div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 24px; margin: 32px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+      <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+        
+        <div style="color: white; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Did You Know?</div>
+      </div>
+      <div style="color: white; font-size: 20px; font-weight: 700; line-height: 1.4;">
+        The maximum length for <code>LAST_NAME</code> is 150 characters in <code>PER_ALL_PEOPLE_F</code>. If your BIP templates or staging columns are shorter, your join can be correct and your output still be wrong.
+      </div>
+    </div>
+  </div>
+</div>
+
+<h2>What to filter in PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F (a production-ready pattern)</h2>
+<p>Here’s the exact column that fixes it — and why every other approach eventually fails. Use the change marker to force the intended record version when you’re working against <code>PER_ALL_ASSIGNMENTS_M</code> and related effective-dated structures, then carry the same “current” window logic to names.</p>
+
+<p>Add <code>WHERE EFFECTIVE_LATEST_CHANGE = 'Y'</code> to every query against <code>PER_ALL_ASSIGNMENTS_M</code>. That single column eliminates 95% of duplicate row problems. Then you join names against a stable person set.</p>
+
+<p>Even if your immediate problem is name mismatch, the root cause is often that you started from the wrong population. If your assignment population is duplicated across effective rows, your person joins inherit that duplication.</p>
+
+<h3>Step-by-step join sequence (recommended for oracle hcm tables)</h3>
+<ol>
+  <li><strong>Filter your assignment population first</strong> using <code>PER_ALL_ASSIGNMENTS_F</code> (and assignment “current state” conditions).</li>
+  <li><strong>Join to <code>PER_ALL_PEOPLE_F</code></strong> using <code>PERSON_ID</code> and the same effective-date semantics.</li>
+  <li><strong>Join to <code>PER_PERSON_NAMES_F</code></strong> using <code>PERSON_ID</code>, and add your name scope filter (name type, and effective window).</li>
+  <li><strong>Only then select display fields</strong> like <code>KNOWN_AS</code> and the formatted name components.</li>
+</ol>
+
+<p>If you want to build this quickly, our Join Path Finder approach is designed to locate the join columns and relationship logic across the oracle hcm tables catalog, especially when the first join attempt returns more rows than expected.</p>
+
+<h2>OTBI reporting vs physical SQL: why name queries fail differently in 2026</h2>
+<p>In 2026, most teams try to solve name mismatches inside OTBI reporting first. Sometimes that works, mostly when the subject area exposes the right grain. But name queries fail when OTBI subject area joins cannot express the exact effective-date and name-type constraints you actually need.</p>
+
+<p>Most compliance reporting requires physical SQL because OTBI subject areas don't expose the raw legislative data needed for EEO-1 and ACA calculations. The same principle applies to “name as an identifier” scenarios where you need a precise “current” name record.</p>
+
+<p>If you’re reporting through OTBI/BI Publisher, you need to be explicit about what layer is allowed to filter. That’s why we separate logical OTBI queries from physical SQL patterns when we help teams validate their hcm data model assumptions.</p>
+
+<h2>BI Publisher and fast formula edge cases (where your name is correct but output still fails)</h2>
+<p>Even when the join logic is right, output systems can break the result. BI Publisher layouts often have field length limits, and name components can exceed those limits once you concatenate first, middle, and last names.</p>
+
+<p><strong>Another field-length trap:</strong> the <code>FULL_NAME</code> concatenation can exceed expected template sizes. If your report expects shorter strings, you end up with truncation that looks like the wrong person name.</p>
+
+<p>And if you try to “fix” names using fast formula, you can easily mask the real issue. fast formula can format and choose which fields to display, but it does not correct the underlying record scope. If <code>PER_PERSON_NAMES_F</code> returns multiple rows, fast formula can’t magically pick the correct one unless you already narrowed the dataset.</p>
+
+<div class="stat-card" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 12px; padding: 24px; margin: 32px 0; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+  <div style="display: flex; align-items: center; gap: 16px; margin-bottom: 16px;">
+    
+    <div style="color: white; font-size: 14px; font-weight: 600; text-transform: uppercase; letter-spacing: 1px;">Did You Know?</div>
+  </div>
+  <div style="color: white; font-size: 20px; font-weight: 700; line-height: 1.4;">
+    The <code>FULL_NAME</code> VARCHAR2 limit is 240 characters. In Oracle Fusion HCM, concatenating multiple name components in BI Publisher without matching the field size can cause layout errors and truncated output.
+  </div>
+</div>
+
+<h2>Real join context: how people, parties, addresses, and assignments affect name queries</h2>
+<p>Name queries fail more often when your “person display” is not the only join in the query. As soon as you join addresses, parties, or organization context, you change the row grain again.</p>
+
+<p>For example, if you join <code>HZ_PARTIES</code> to support identity or party attributes, and you do it without filtering effective and current semantics, you may attach multiple party records to one person history window.</p>
+
+<p>Similarly, address joins to <code>PER_ADDRESSES_F</code> can create extra rows if you don’t constrain address type and effective window. If you then display “name”, it becomes unclear whether the mismatch is a names table issue or a join grain issue.</p>
+
+<p>That’s why we always start from the oracle hcm tables you know define the correct grain. Use <a href="https://hcm-tables.com/PER_ALL_PEOPLE_F" target="_blank">PER_ALL_PEOPLE_F</a> for the base person scope, use <a href="https://hcm-tables.com/PER_PERSON_NAMES_F" target="_blank">PER_PERSON_NAMES_F</a> for name variants, then only add optional context tables when you can prove the cardinality is still one row per person.</p>
+
+<h2>How to find the right oracle hcm tables and join columns fast (without guessing)</h2>
+<p>The right tables, race/ethnicity codes, and job category mappings take days to find without a guide. This is especially true when you are navigating the oracle hcm tables catalog by module families and trying to build stable joins for oracle fusion hcm.</p>
+
+<p>On our side, we built HCM Tables specifically because Oracle's schema is so complex that even experienced HCM developers need a dedicated search engine for it (14,950 tables, 1.2 million columns). That complexity has a real cost.</p>
+
+<p>So instead of guessing join columns between <code>PER_ALL_PEOPLE_F</code> and <code>PER_PERSON_NAMES_F</code>, you use the join finder style workflow to confirm keys like <code>PERSON_ID</code> and to spot name-type and effective-date filters you must apply.</p>
+
+<p>If your job is report writing and OTBI reporting, this speeds up the “first correct query” moment. If your job is physical SQL for compliance extracts, it shortens the debugging loop because you can validate join paths across PER_ and related tables, including <a href="https://hcm-tables.com/HR_LOCATIONS_ALL" target="_blank">HR_LOCATIONS_ALL</a> when location context affects the output grain.</p>
+
+<h2>Conclusion: the reliable rule for PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F in oracle cloud hcm</h2>
+<p><strong>PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F: why name queries fail</strong> boils down to three things in 2026: effective-date misalignment, incorrect name scope assumptions (preferred vs non-preferred), and field-length or output-template truncation. If you fix effective-date joins and filter the population correctly, the “name” stops being a moving target.</p>
+
+<p>Start from the correct hcm data model grain, filter the intended “current” rows, then join names. When you do it that way, your oracle hr tables and oracle cloud hcm outputs stop inflating, your BI Publisher fields stop truncating, and your otbi reporting logic stops guessing.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>Why does my query using PER_ALL_PEOPLE_F and PER_PERSON_NAMES_F return duplicate employees?</h3>
+<p>Most duplicates come from effective-dated misalignment between <code>PER_ALL_PEOPLE_F</code> and <code>PER_PERSON_NAMES_F</code>. If you do not filter to the intended current row on both sides, each person can match multiple name records, inflating counts in oracle fusion hcm reporting.</p>
+
+<h3>Which column should I use to ensure I get the current name from PER_PERSON_NAMES_F?</h3>
+<p>In practice, you need to use the effective-date window logic on <code>PER_PERSON_NAMES_F</code>, and you must align it with the “current” person row from <code>PER_ALL_PEOPLE_F</code>. If your assignment population is duplicated, joining names on top of that will still produce wrong results for PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F in oracle cloud hcm.</p>
+
+<h3>Can OTBI reporting reliably join PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F for name display in 2026?</h3>
+<p>Sometimes, but not reliably for every name-type and effective-dated requirement. OTBI subject areas can hide or abstract grain details, so for strict “current name” logic, physical SQL is usually safer for PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F joins.</p>
+
+<h3>What happens if my BI Publisher template truncates FULL_NAME from PER_ALL_PEOPLE_F?</h3>
+<p>You can end up thinking your join is wrong when the data is actually correct. The <code>FULL_NAME</code> VARCHAR2 limit is 240 characters, and template field sizes that are too small will truncate output, creating a false appearance of incorrect names in oracle fusion hcm tables.</p>
+
+<h3>How do fast formula and BI Publisher interact with PER_PERSON_NAMES_F joins?</h3>
+<p>fast formula can format or choose which display fields to show, but it cannot correct row multiplication caused by ineffective joins. If PER_ALL_PEOPLE_F vs PER_PERSON_NAMES_F is returning multiple rows, fast formula will format the wrong candidates unless you already filtered the effective-dated dataset.</p>
+
+<h3>What is the safest join key between PER_ALL_PEOPLE_F and PER_PERSON_NAMES_F?</h3>
+<p>Typically the safest join key is <code>PERSON_ID</code>, but the real safety comes from also applying correct effective-date and name-scope filters. Without those filters, even a perfect key join can still produce incorrect display names in oracle hcm tables.</p>
+      </div>
+    </article>
+  </main>
+  <footer class="blog-footer">
+    <div class="blog-container">
+      <p>&copy; 2026 Oracle HCM Tables </p>
+    </div>
+  </footer>
+</body>
+</html>
