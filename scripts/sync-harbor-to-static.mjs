@@ -42,15 +42,18 @@ const pending = readdirSync(SRC).filter(
   (f) => f.endsWith('.html') && !IGNORE.has(f) && !f.endsWith('.bak')
 );
 
-if (pending.length === 0) {
+if (CHECK) {
+  if (pending.length) {
+    console.error(`OUT OF SYNC: ${pending.length} Harbor article(s) still in public/blog:`);
+    pending.forEach((f) => console.error(`  ${f}`));
+    process.exit(1);
+  }
   console.log('static/blog is already in sync with Harbor.');
   process.exit(0);
 }
 
-if (CHECK) {
-  console.error(`OUT OF SYNC: ${pending.length} Harbor article(s) still in public/blog:`);
-  pending.forEach((f) => console.error(`  ${f}`));
-  process.exit(1);
+if (pending.length === 0) {
+  console.log('static/blog is already in sync with Harbor.');
 }
 
 for (const f of pending) {
@@ -73,8 +76,13 @@ const run = (script) => {
   console.log(`\n==> ${script}`);
   execFileSync(process.execPath, [join(root, 'scripts', script)], { stdio: 'inherit' });
 };
+// Reindex UNCONDITIONALLY. This used to sit behind an early `process.exit(0)`
+// taken whenever nothing needed moving - and publish.py writes STRAIGHT to
+// static/blog, so nothing ever needs moving and the index was never rebuilt.
+// Two Harbor articles were found on 2026-08-31 live but unlinked from /blog/,
+// reachable only by direct URL.
 run('sync-harbor-blog-index.mjs');
 run('generate-blog-schema.mjs');
 
-console.log(`\n${pending.length} Harbor article(s) are now in the deployed directory.`);
+console.log(`\n${pending.length} Harbor article(s) moved; blog index rebuilt.`);
 console.log('Deploy with: npx wrangler pages deploy static --project-name=oracle-tables --branch=main');
