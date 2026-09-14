@@ -20,6 +20,28 @@
 (function () {
   'use strict';
 
+  // --- origin trial ----------------------------------------------------------
+  // The registered token is THIRD-PARTY (isThirdParty:true). Chrome requires
+  // third-party tokens to be delivered from an external JavaScript file via a
+  // <script> element - "Third-party tokens don't work in a meta tag, inline
+  // script or HTTP header" - so injecting it here, from webmcp.js, is the only
+  // valid delivery path. A meta tag in index.html would be silently ignored.
+  // https://developer.chrome.com/docs/web-platform/third-party-origin-trials
+  //
+  // Injected BEFORE the API is probed: the feature only appears on the object
+  // once a valid token is registered, so probing first would always miss.
+  var OT_TOKEN = 'A9D4O2Tafo8Bl2oRScJ+nOazYV/NVDl4uPsBZLfvt7rP/Ug1VrNC01BsyCZD3mr+JDNRcOS34mN/xkzyOOS4HQ0AAAB1eyJvcmlnaW4iOiJodHRwczovL2hjbS10YWJsZXMuY29tOjQ0MyIsImZlYXR1cmUiOiJXZWJNQ1AiLCJleHBpcnkiOjE3OTQ4NzM2MDAsImlzU3ViZG9tYWluIjp0cnVlLCJpc1RoaXJkUGFydHkiOnRydWV9';
+
+  try {
+    var otMeta = document.createElement('meta');
+    otMeta.httpEquiv = 'origin-trial';
+    otMeta.content = OT_TOKEN;
+    (document.head || document.documentElement).appendChild(otMeta);
+  } catch (e) {
+    console.warn('[webmcp] origin-trial token injection failed:', e);
+  }
+
+
   var mc = (typeof document !== 'undefined' && document.modelContext) ||
            (typeof navigator !== 'undefined' && navigator.modelContext) ||
            null;
@@ -28,8 +50,13 @@
 
   // --- helpers ---------------------------------------------------------------
 
+  // Chrome's WebMCP contract: execute() resolves to a STRING, not an MCP
+  // {content:[...]} envelope. Returning the envelope shipped a wrong-shaped
+  // payload that the __webmcp.call() test harness silently unwrapped, so every
+  // local test passed while the browser would have received an object.
+  // See https://developer.chrome.com/docs/ai/webmcp/imperative-api
   function text(s) {
-    return { content: [{ type: 'text', text: String(s) }] };
+    return String(s);
   }
 
   /** Uppercase + normalise "interview date" -> "INTERVIEW_DATE", same as doSearch. */
@@ -323,7 +350,9 @@
       var tool = PUBLIC_TOOLS.filter(function (t) { return t.name === name; })[0];
       if (!tool) throw new Error('No such tool: ' + name);
       var out = await tool.execute(args || {});
-      return out.content.map(function (c) { return c.text; }).join('\n');
+      // execute() already resolves to a string - do not unwrap, or this
+      // harness will diverge from what the browser actually receives.
+      return out;
     }
   };
 
