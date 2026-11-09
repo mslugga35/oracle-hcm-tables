@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges — Oracle HCM Tables </title>
+  <meta name="description" content="PER_PERSONS and PER_ALL_PEOPLE_F can both appear in an Oracle Fusion HCM person query, but they represent different date-tracking behavior and row grain. C">
+  <meta name="keywords" content="oracle hcm tables, oracle fusion hcm, oracle cloud hcm, hcm data model, oracle hr tables, PER_ALL_PEOPLE_F">
+  <link rel="canonical" href="https://hcm-tables.com/blog/per-persons-and-per-all-people-f-where-person-data-diverges">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="article">
+  <meta property="og:title" content="PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges">
+  <meta property="og:description" content="PER_PERSONS and PER_ALL_PEOPLE_F can both appear in an Oracle Fusion HCM person query, but they represent different date-tracking behavior and row grain. C">
+  <meta property="og:url" content="https://hcm-tables.com/blog/per-persons-and-per-all-people-f-where-person-data-diverges">
+  <meta property="og:site_name" content="Oracle HCM Tables ">
+  <meta property="article:published_time" content="2026-11-09T12:12:42.000Z">
+  
+
+  <!-- Twitter -->
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges">
+  <meta name="twitter:description" content="PER_PERSONS and PER_ALL_PEOPLE_F can both appear in an Oracle Fusion HCM person query, but they represent different date-tracking behavior and row grain. C">
+  
+
+  <!-- LLM / SEO optimization -->
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large">
+  <meta name="author" content="Oracle HCM Tables ">
+  <meta property="article:modified_time" content="2026-11-09T12:12:42.000Z">
+  <meta property="article:section" content="Best for articles">
+  <meta property="article:tag" content="oracle hcm tables, oracle fusion hcm, oracle cloud hcm, hcm data model, oracle hr tables, PER_ALL_PEOPLE_F">
+  <meta property="og:locale" content="en_EN">
+
+  <script type="application/ld+json">{"@context":"https://schema.org","@graph":[{"@type":"Article","headline":"PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges","description":"PER_PERSONS and PER_ALL_PEOPLE_F can both appear in an Oracle Fusion HCM person query, but they represent different date-tracking behavior and row grain. C","datePublished":"2026-11-09T12:12:42.000Z","dateModified":"2026-11-09T12:12:42.000Z","wordCount":1646,"keywords":"oracle hcm tables, oracle fusion hcm, oracle cloud hcm, hcm data model, oracle hr tables, PER_ALL_PEOPLE_F","articleSection":"Best for articles","inLanguage":"en","author":{"@type":"Person","name":"Oracle HCM Tables ","url":"https://hcm-tables.com"},"publisher":{"@type":"Organization","name":"Oracle HCM Tables ","url":"https://hcm-tables.com"},"mainEntityOfPage":{"@type":"WebPage","@id":"https://hcm-tables.com/blog/per-persons-and-per-all-people-f-where-person-data-diverges"},"speakable":{"@type":"SpeakableSpecification","cssSelector":[".blog-article-intro","h1"]}},{"@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"Home","item":"https://hcm-tables.com"},{"@type":"ListItem","position":2,"name":"Blog","item":"https://hcm-tables.com/blog/"},{"@type":"ListItem","position":3,"name":"PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges"}]},{"@type":"WebPage","name":"PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges","description":"PER_PERSONS and PER_ALL_PEOPLE_F can both appear in an Oracle Fusion HCM person query, but they represent different date-tracking behavior and row grain. C","isPartOf":{"@type":"WebSite","name":"Oracle HCM Tables ","url":"https://hcm-tables.com"}}]}</script>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--blog-primary:#ff4d3d;--blog-text:#fcfcfc;--blog-bg:#111317;--blog-header-bg:#fff;--blog-border:#ff4d3d;--blog-font:'Inter',-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Oxygen,Ubuntu,sans-serif}
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    body{font-family:var(--blog-font);line-height:1.7;color:var(--blog-text);background:var(--blog-bg)}
+    .blog-container{max-width:720px;margin:0 auto;padding:0 1.5rem}
+    .blog-header{background:var(--blog-header-bg);border-bottom:1px solid var(--blog-border);padding:1rem 0;position:sticky;top:0;z-index:10}
+    .blog-header .blog-container{display:flex;align-items:center;justify-content:space-between}
+    .blog-logo{display:flex;align-items:center;gap:.5rem;text-decoration:none;color:var(--blog-text);font-weight:700;font-size:1.1rem}
+    .blog-logo img{height:32px;width:auto}
+    .blog-header nav a{color:#555;text-decoration:none;font-size:.9rem;font-weight:500}
+    .blog-header nav a:hover{color:var(--blog-text)}
+    main{padding:2rem 0 4rem}
+    main>h1{font-size:2rem;margin-bottom:2rem;color:var(--blog-text)}
+    .blog-grid{display:flex;flex-direction:column;gap:1.5rem}
+    .blog-card{background:var(--blog-header-bg);border:1px solid var(--blog-border);border-radius:12px;overflow:hidden;transition:box-shadow .2s}
+    .blog-card:hover{box-shadow:0 4px 12px rgba(0,0,0,.08)}
+    .blog-card a{display:block;text-decoration:none;color:inherit}
+    .blog-card-img{width:100%;height:200px;object-fit:cover;display:block}
+    .blog-card-content{padding:1.5rem}
+    .blog-card h2{font-size:1.25rem;margin-bottom:.5rem;color:var(--blog-text)}
+    .blog-card-meta{font-size:.85rem;color:#888;margin-bottom:.5rem}
+    .blog-card-desc{font-size:.95rem;color:#555;line-height:1.6}
+    .blog-empty{color:#888;text-align:center;padding:3rem 0}
+    .blog-article h1{font-size:2.2rem;line-height:1.3;margin-bottom:1rem}
+    .blog-article-meta{display:flex;gap:1rem;color:#888;font-size:.9rem;margin-bottom:2rem;padding-bottom:1rem;border-bottom:1px solid var(--blog-border)}
+    .blog-featured-img{width:100%;max-height:480px;object-fit:cover;border-radius:12px;margin-bottom:2rem}
+    .blog-article-body{font-size:1.05rem;line-height:1.8}
+    .blog-article-body h2{font-size:1.5rem;margin:2rem 0 1rem;color:var(--blog-text)}
+    .blog-article-body h3{font-size:1.25rem;margin:1.5rem 0 .75rem;color:var(--blog-text)}
+    .blog-article-body p{margin-bottom:1.25rem}
+    .blog-article-body img{max-width:100%;height:auto;border-radius:8px;margin:1.5rem 0}
+    .blog-article-body ul,.blog-article-body ol{margin-bottom:1.25rem;padding-left:1.5rem}
+    .blog-article-body li{margin-bottom:.5rem}
+    .blog-article-body blockquote{border-left:4px solid var(--blog-border);padding-left:1rem;margin:1.5rem 0;color:#555;font-style:italic}
+    .blog-article-body a{color:var(--blog-primary);text-decoration:underline}
+    .blog-article-body table{width:100%;border-collapse:collapse;margin:1.5rem 0}
+    .blog-article-body th,.blog-article-body td{border:1px solid var(--blog-border);padding:.75rem;text-align:left}
+    .blog-article-body th{background:#f5f5f5;font-weight:600}
+    .blog-back{display:inline-block;margin-bottom:1.5rem;color:var(--blog-primary);text-decoration:none;font-size:.9rem}
+    .blog-back:hover{text-decoration:underline}
+    .blog-breadcrumb{font-size:.85rem;color:#888;margin-bottom:1.5rem;display:flex;gap:.4rem;align-items:center}
+    .blog-breadcrumb a{color:var(--blog-primary);text-decoration:none}
+    .blog-breadcrumb a:hover{text-decoration:underline}
+    .blog-article-updated{font-size:.85rem;color:#888;margin-top:.5rem}
+    .blog-article-intro{font-size:1.1rem;line-height:1.8;margin-bottom:1.5rem;color:var(--blog-text)}
+    .blog-article header address{font-style:normal}
+    .blog-footer{border-top:1px solid var(--blog-border);padding:2rem 0;text-align:center;color:#888;font-size:.85rem}
+    @media(max-width:640px){.blog-container{padding:0 1rem}main>h1{font-size:1.5rem}.blog-article h1{font-size:1.6rem}}
+  </style>
+</head>
+<body>
+  <header class="blog-header">
+    <div class="blog-container">
+      <a href="/" class="blog-logo">
+        
+        <span>Oracle HCM Tables </span>
+      </a>
+      <nav><a href="/blog/">Blog</a></nav>
+    </div>
+  </header>
+  <main class="blog-container blog-article">
+    <nav aria-label="Breadcrumb" class="blog-breadcrumb">
+      <a href="/">Home</a> <span>/</span> <a href="/blog/">Blog</a> <span>/</span> <span>PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges</span>
+    </nav>
+    <article>
+      <header>
+        <h1>PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges</h1>
+        <div class="blog-article-meta">
+          <time datetime="2026-11-09T12:12:42.000Z">November 9, 2026</time>
+          <span>19 min read</span>
+          <address rel="author">Oracle HCM Tables </address>
+        </div>
+        
+      </header>
+      
+      <div class="blog-article-body">
+<p><code>PER_PERSONS</code> and <code>PER_ALL_PEOPLE_F</code> can both appear in an Oracle Fusion HCM person query, but they represent different date-tracking behavior and row grain. Choose the source according to the attribute and reporting date you need, or the same <code>PERSON_ID</code> can lead to misleading historical results and duplicate rows.</p>
+
+<h2>Key Takeaways</h2>
+
+<ul><li><code>PER_PERSONS</code> is the non-date-tracked person source; <code>PER_ALL_PEOPLE_F</code> represents person data in effective-dated rows.</li><li>Use <code>PERSON_ID</code> to relate person records. Treat <code>PERSON_NUMBER</code> as a business-facing identifier, not a substitute join key.</li><li>For a point-in-time report, filter every effective-dated table to the same deliberate as-of date.</li><li>Check the meaning and row grain of each attribute before choosing a source. Columns with similar names can have different storage or history behavior.</li><li>A person can match multiple name, assignment, or person-type rows. Define the intended output grain before joining.</li><li>Use <code>DISTINCT</code> only when it is part of a deliberate result rule, not to cover up an unexplained one-to-many join.</li></ul>
+
+<h2>How PER_PERSONS and PER_ALL_PEOPLE_F differ</h2>
+
+<p>Treat <code>PER_PERSONS</code> as the non-date-tracked person source and <code>PER_ALL_PEOPLE_F</code> as the date-effective person source. They are not interchangeable versions of the same table: one represents person-level identity data, while the other can represent that person across effective-date intervals.</p>
+
+<p><code>PERSON_ID</code> is the key to relating the person across these tables. The same person can have a single person-level identity row and multiple effective-dated rows, so a join on <code>PERSON_ID</code> alone does not guarantee one output row per person.</p>
+
+<p>Attributes exposed in both places can have different storage or history behavior. Decide which table supplies the requested attribute for the report’s as-of date, then verify its column definition and effective-dating semantics.</p>
+
+<p>When you need to inspect Oracle HCM table and column definitions, <a href="https://hcm-tables.com/table/HRT_PERSONS_D" target="_blank">Oracle Cloud Tables</a> provides a schema search interface across Oracle Fusion Cloud modules. Use that lookup to check the actual column definitions before committing to a source.</p>
+
+<table><thead><tr><th scope="col">Source</th><th scope="col">Date behavior</th><th scope="col">Use it for</th></tr></thead><tbody><tr><td><code>PER_PERSONS</code></td><td>Non-date-tracked</td><td>Person-level identity attributes whose meaning does not depend on an effective date</td></tr><tr><td><code>PER_ALL_PEOPLE_F</code></td><td>Date-effective</td><td>Person attributes evaluated for a reporting date, including the applicable effective interval</td></tr></tbody></table>
+
+<h2>Find the right source for each person attribute</h2>
+
+<p>Start with the field the report needs, not the table that looks familiar. Use <code>PERSON_ID</code> as the person-level join key; use <code>PERSON_NUMBER</code> as a business-facing identifier for display or reporting, not as a replacement for the key.</p>
+
+<p>For a point-in-time person report, retrieve the effective-dated attribute and its <code>EFFECTIVE_START_DATE</code> and <code>EFFECTIVE_END_DATE</code> from <code>PER_ALL_PEOPLE_F</code>. Those dates show which interval the selected row represents.</p>
+
+<p>For a non-date-tracked identity attribute, use <code>PER_PERSONS</code>. For <code>PERSON_NUMBER</code> or <code>BUSINESS_GROUP_ID</code>, compare the exposed column definitions and choose the source whose semantics fit the report; similarly named columns can have different meanings.</p>
+
+<table><thead><tr><th scope="col">Requested field or data</th><th scope="col">Source decision</th><th scope="col">What to verify</th></tr></thead><tbody><tr><td><code>PERSON_ID</code></td><td>Use it to relate person-level records.</td><td>Confirm the join preserves the intended row grain.</td></tr><tr><td><code>PERSON_NUMBER</code></td><td>Choose the exposed definition that fits its business use.</td><td>Check its meaning and scope; do not use it as the person join key.</td></tr><tr><td><code>BUSINESS_GROUP_ID</code></td><td>Choose the source whose definition matches the report.</td><td>Compare the exposed column definitions; they can describe different behavior.</td></tr><tr><td>Person attributes as of a date</td><td><code>PER_ALL_PEOPLE_F</code></td><td>Use its effective dates to identify the row for the requested interval.</td></tr><tr><td>Non-date-tracked identity attributes</td><td><code>PER_PERSONS</code></td><td>Confirm the requested attribute is defined there and does not require historical values.</td></tr></tbody></table>
+
+<p>If you cannot identify the right source from the attribute name, inspect the table and column definitions before building the report. The HCM data model separates person, name, assignment, and person-type data, so a familiar-sounding field can still belong to a different grain or history pattern.</p>
+
+<h2>Join person rows to names, assignments, and person types</h2>
+
+<p>Relate <code>PER_PERSONS</code> to <code>PER_ALL_PEOPLE_F</code> with <code>PERSON_ID</code>, then constrain the date-effective table when the report should show the person at one point in time. Apply a separate effective-date condition to <code>PER_PERSON_NAMES_F</code>; name rows have their own grain and can produce more than one match for a person.</p>
+
+<p>Join <code>PER_ALL_ASSIGNMENTS_F</code> only when the report needs assignment data. A person can have multiple assignments, so apply assignment-level conditions separately and decide whether the output should contain one row per person or one row per person-assignment.</p>
+
+<p>Use <code>PER_PERSON_TYPE_USAGES_F</code> when the report needs person-type usage. Person-type usage and assignment records are related data, not one-to-one person attributes.</p>
+
+<p>When the join columns are unclear, the Join Path Finder is a tool for finding join columns between two table names. It suits this step because it helps identify the relationship to validate before you add more tables to the query.</p>
+
+<p>This example returns a person-assignment result when matching assignments exist. It aligns each effective-dated join to the same bind date, while leaving assignment data optional.</p>
+
+<pre><code class="language-sql">SELECT
+    ppf.person_id,
+    ppf.person_number,
+    ppf.effective_start_date,
+    ppf.effective_end_date,
+    n.display_name,
+    a.assignment_id
+FROM per_persons p
+JOIN per_all_people_f ppf
+  ON ppf.person_id = p.person_id
+LEFT JOIN per_person_names_f n
+  ON n.person_id = ppf.person_id
+ AND :p_as_of_date BETWEEN n.effective_start_date
+                       AND n.effective_end_date
+LEFT JOIN per_all_assignments_f a
+  ON a.person_id = ppf.person_id
+ AND :p_as_of_date BETWEEN a.effective_start_date
+                       AND a.effective_end_date
+WHERE :p_as_of_date BETWEEN ppf.effective_start_date
+                         AND ppf.effective_end_date</code></pre>
+
+<p>The join conditions do not force one row per person. If more than one name or assignment row matches the date, the result can contain multiple rows; apply the report’s name or assignment selection rule when it needs a narrower grain.</p>
+
+<h2>Apply one as-of date consistently</h2>
+
+<p>Bind one reporting parameter, such as <code>:p_as_of_date</code>, and use it for every effective-dated table in the query. The standard interval test is <code>:p_as_of_date BETWEEN EFFECTIVE_START_DATE AND EFFECTIVE_END_DATE</code>.</p>
+
+<p>Apply the condition independently to <code>PER_ALL_PEOPLE_F</code>, <code>PER_PERSON_NAMES_F</code>, <code>PER_ALL_ASSIGNMENTS_F</code>, and any other date-effective table you join. Filtering only the person row can leave out-of-period name or assignment rows in the result.</p>
+
+<p>Define what “current” means by choosing the as-of date deliberately. A query run today does not automatically mean that future-dated rows belong in a current snapshot; the date parameter determines which effective interval qualifies.</p>
+
+<p>The same pattern works for historical and future snapshots. Bind the date for the desired snapshot and return rows whose effective intervals contain it, rather than relying on an unspecified current-row assumption.</p>
+
+<pre><code class="language-sql">WHERE :p_as_of_date BETWEEN ppf.effective_start_date
+                         AND ppf.effective_end_date</code></pre>
+
+<p>Keep the bind as a date value and apply the interval condition to each relevant table alias. That makes the reporting date explicit and keeps the predicates easy to audit.</p>
+
+<h2>Diagnose duplicate person rows by checking result grain</h2>
+
+<p>Your query returns multiple rows for one person. That may be valid, but first state the intended output grain: one row per person, one row per person-name, or one row per person-assignment.</p>
+
+<p>Then count the matching effective-dated rows in each joined table for the selected as-of date. A person can legitimately match multiple name, assignment, or person-type rows, and mismatched date predicates can multiply results even when every join uses <code>PERSON_ID</code>.</p>
+
+<p>If the report needs one row per person, define how to select or aggregate multirow related data. For example, specify the required name type or choose a deliberate assignment-selection rule, then implement that rule in the query.</p>
+
+<p><code>DISTINCT</code> is not a fix for an unclear join. It can hide repeated projected values while leaving the underlying one-to-many relationship unresolved, and it can discard meaningful differences between related rows.</p>
+
+<p>Keep person-level fields separate from assignment-level fields. An additional assignment row is not a second person; it is a separate assignment record at a different grain.</p>
+
+<h2>Choose the source and access path for the report</h2>
+
+<p>Use <code>PER_PERSONS</code> for non-date-tracked person identity data and <code>PER_ALL_PEOPLE_F</code> for person data evaluated at an effective date. Use both only when the report needs both types of information.</p>
+
+<p>Before adding a column, establish its table, grain, and date behavior. This prevents person attributes from being confused with name or assignment attributes, especially when the report combines several Oracle HCM tables.</p>
+
+<p>Table selection and reporting access are separate decisions. Build the logical query around the correct relationships, then use an access method supported and secured for the Fusion reporting context.</p>
+
+<p>For OTBI reporting, work with the subject area and logical query capabilities available to your reporting role. Use BI Publisher or another approved reporting route when the report requirements call for a different query approach; do not confuse knowledge of the physical table model with permission or support for direct database access.</p>
+
+<h2>Frequently Asked Questions</h2>
+
+<h3>What is the difference between PERSON_ID and PERSON_NUMBER?</h3>
+<p><code>PERSON_ID</code> is the key used to relate a person’s records in the HCM data model. <code>PERSON_NUMBER</code> is the business-facing identifier intended for operational use, display, or reporting.</p>
+
+<h3>How can a query retain a person when an optional assignment row does not match?</h3>
+<p>Use an outer join and put the assignment’s matching conditions in the join condition, not in a final <code>WHERE</code> clause that rejects null assignment rows. This allows the person row to remain in the result with null assignment columns.</p>
+
+<h3>What should a report do when no PER_ALL_PEOPLE_F row is effective on the requested as-of date?</h3>
+<p>Decide whether that person should be excluded or shown with missing effective-dated details, and make the report behavior explicit. Do not silently substitute a different interval, because that changes the meaning of the requested snapshot.</p>
+
+<h3>Can PER_PERSONS alone provide a person’s historical attribute values?</h3>
+<p>No, a non-date-tracked row does not provide a sequence of effective-dated historical versions by itself. For historical values, use a source that preserves the relevant history or a separately retained snapshot or audit record.</p>
+
+<h3>Why can a person appear more than once after joining PER_PERSON_NAMES_F?</h3>
+<p>Check the name context and effective-date conditions, then inspect the matching rows to identify which join condition needs refinement.</p>
+
+<h2>Conclusion</h2>
+
+<p><code>PER_PERSONS</code> and <code>PER_ALL_PEOPLE_F</code> serve different roles: one is non-date-tracked, while the other represents person data across effective dates. Choose the source by attribute and reporting date, join through <code>PERSON_ID</code>, and align date predicates across every effective-dated table.</p>
+
+<p>That is where PER_PERSONS and PER_ALL_PEOPLE_F: Where Person Data Diverges becomes a practical query decision. Define the result grain before joining, then investigate each one-to-many relationship instead of hiding it with <code>DISTINCT</code>.</p>
+      </div>
+    </article>
+  </main>
+  <footer class="blog-footer">
+    <div class="blog-container">
+      <p>&copy; 2026 Oracle HCM Tables </p>
+    </div>
+  </footer>
+</body>
+</html>
